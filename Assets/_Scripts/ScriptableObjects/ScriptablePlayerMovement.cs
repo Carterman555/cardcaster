@@ -6,5 +6,7 @@ using UnityEngine;
 public class ScriptablePlayerMovement : ScriptableObject {
 
     [field: SerializeField] public float Speed { get; private set; }
+    [field: SerializeField] public float DashSpeed { get; private set; }
+    [field: SerializeField] public float DashTime { get; private set; }
 
 }

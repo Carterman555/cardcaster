@@ -83,10 +83,10 @@ public static class Helpers {
         return Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero, Mathf.Infinity, 1 << layerMask).collider != null;
     }
 
-    public static float DirectionToDegrees(this Vector2 direction) {
+    public static Quaternion DirectionToRotation(this Vector2 direction) {
         float angleRadians = Mathf.Atan2(direction.y, direction.x);
         float angleDegrees = angleRadians * Mathf.Rad2Deg;
-        return angleDegrees;
+        return Quaternion.Euler(0, 0, angleDegrees);
     }
 
     public static Vector3 RotateDirection(Vector3 direction, float degrees) {

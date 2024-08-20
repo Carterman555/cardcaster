@@ -1,9 +1,38 @@
+using DG.Tweening;
+using System;
+using System.Collections;
 using UnityEngine;
 
 public class WeaponRotate : MonoBehaviour {
 
     [SerializeField] private float minRotation;
     [SerializeField] private float maxRotation;
+
+    private bool facingRight = true;
+    private bool inUpPos = true;
+    private bool swinging = false;
+
+    private float targetRotation;
+
+    [SerializeField] private float swingAcceleration;
+    private float swingMomentum;
+
+    private void OnEnable() {
+        PlayerMovement.OnChangedFacing += PlayerChangedFacing;
+        PlayerMeleeAttack.OnAttack += Swing;
+
+        inUpPos = true;
+    }
+    private void OnDisable() {
+        PlayerMovement.OnChangedFacing -= PlayerChangedFacing;
+        PlayerMeleeAttack.OnAttack -= Swing;
+    }
+
+    private void PlayerChangedFacing(bool facingRight) {
+        this.facingRight = facingRight;
+
+        inUpPos = true;
+    }
 
     private void Update() {
 
@@ -23,16 +52,53 @@ public class WeaponRotate : MonoBehaviour {
 
         // change the lerp points based on the way the player is facing so normalizedMouseAngle ranges from 0 to 1
         // depending on how high the mouse angle is. (1 = mouse above player, 0 = mouse below player)
-        bool mouseRightOfPlayer = mouseAngle < 180;
         float normalizedMouseAngle = 0;
-        if (mouseRightOfPlayer) {
+        if (facingRight) {
             normalizedMouseAngle = Mathf.InverseLerp(0f, 180f, mouseAngle); // between 0 and 1
         }
         else {
             normalizedMouseAngle = Mathf.InverseLerp(360f, 180f, mouseAngle); // between 0 and 1
         }
 
-        float weaponRotation = Mathf.Lerp(minRotation, maxRotation, normalizedMouseAngle);
-        transform.localRotation = Quaternion.Euler(0f, 0f, weaponRotation);
+        targetRotation = Mathf.Lerp(minRotation, maxRotation, normalizedMouseAngle);
+
+        if (!inUpPos) {
+            targetRotation -= 180;
+        }
+    }
+
+    [SerializeField] private float afterSwingRotation;
+    [SerializeField] private float afterSwingSpeed;
+    private float afterSwingTargetRotation;
+
+    private void FixedUpdate() {
+
+        if (!swinging) {
+            Quaternion targetQuaternion = Quaternion.Normalize(Quaternion.Euler(0f, 0f, targetRotation));
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetQuaternion, swingAcceleration * Time.fixedDeltaTime);
+        }
+        else {
+            Quaternion targetQuaternion = Quaternion.Normalize(Quaternion.Euler(0f, 0f, afterSwingTargetRotation));
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetQuaternion, swingAcceleration * Time.fixedDeltaTime);
+
+            float angleDistanceToTarget = Mathf.Abs(transform.rotation.eulerAngles.z - afterSwingTargetRotation);
+            if (angleDistanceToTarget < 1f) {
+                swinging = false;
+            }
+        }
+    }
+
+    private void Swing() {
+        swinging = true;
+        inUpPos = !inUpPos;
+
+        transform.Rotate(new Vector3(0f, 0f, 180f));
+
+        if (inUpPos) {
+            afterSwingTargetRotation = transform.rotation.eulerAngles.z + afterSwingRotation;
+        }
+        else {
+            afterSwingTargetRotation = transform.rotation.eulerAngles.z - afterSwingRotation;
+        }
     }
 }

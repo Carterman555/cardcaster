@@ -625,11 +625,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 888a6fa32d15c9642ba506d8fe46912c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minRotation: -20
-  maxRotation: 80
+  minRotation: -30
+  maxRotation: 100
   swingAcceleration: 5
   afterSwingRotation: 50
-  afterSwingSpeed: 10
+  afterSwingRotateDuration: 0
+  afterSwingRotateBackDuration: 0
 --- !u!1 &860838814
 GameObject:
   m_ObjectHideFlags: 0
@@ -891,7 +892,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 024da0d2335783446afde77f64c21d83, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSettings: {fileID: 11400000, guid: 4a1bea56bce1bd540883d6d78111c7c6, type: 2}
+  scriptablePlayer: {fileID: 11400000, guid: 5cdc6cfddf3bb7245a8b86b45d3ef25a, type: 2}
   moveInput: {fileID: -3855069917686034925, guid: 50afa068aa51bd149a1f3d07794c53d5, type: 3}
   dashAction: {fileID: 8946056656977092829, guid: 50afa068aa51bd149a1f3d07794c53d5, type: 3}
 --- !u!50 &1214084859
@@ -935,6 +936,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackInput: {fileID: -3307094415415247963, guid: 50afa068aa51bd149a1f3d07794c53d5, type: 3}
   slashPrefab: {fileID: 6955697948194271802, guid: 03c80cdf0baa14c4da859810941a4405, type: 3}
+  enemyLayerMask:
+    serializedVersion: 2
+    m_Bits: 128
+  scriptablePlayer: {fileID: 11400000, guid: 5cdc6cfddf3bb7245a8b86b45d3ef25a, type: 2}
 --- !u!1 &1261478499
 GameObject:
   m_ObjectHideFlags: 0

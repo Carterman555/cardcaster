@@ -7,7 +7,7 @@ public class PlayerMovement : StaticInstance<PlayerMovement> {
 
     public static event Action<bool> OnChangedFacing; // bool: facing right
 
-    [SerializeField] private ScriptablePlayerMovement moveSettings;
+    [SerializeField] private ScriptablePlayer scriptablePlayer;
     [SerializeField] private InputActionReference moveInput;
     [SerializeField] private InputActionReference dashAction;
 
@@ -40,14 +40,14 @@ public class PlayerMovement : StaticInstance<PlayerMovement> {
 
     private void FixedUpdate() {
         if (!isDashing) {
-            rb.velocity = moveDirection * moveSettings.Speed;
+            rb.velocity = moveDirection * scriptablePlayer.Stats.MoveSpeed;
         }
     }
 
     private IEnumerator Dash() {
         isDashing = true;
-        rb.velocity = lastMoveDirection.normalized * moveSettings.DashSpeed;
-        yield return new WaitForSeconds(moveSettings.DashTime);
+        rb.velocity = lastMoveDirection.normalized * scriptablePlayer.Stats.DashSpeed;
+        yield return new WaitForSeconds(scriptablePlayer.Stats.DashTime);
         isDashing = false;
     }
 

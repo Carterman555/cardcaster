@@ -1,7 +1,4 @@
-using JetBrains.Annotations;
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "PlayerData", menuName = "Unit/Player")]
@@ -20,6 +17,8 @@ public class Stats {
     public float Damage;
     public float AttackSpeed;
     public float KnockbackStrength;
+
+    public float AttackCooldown => 1 / AttackSpeed;
 }
 
 [Serializable]

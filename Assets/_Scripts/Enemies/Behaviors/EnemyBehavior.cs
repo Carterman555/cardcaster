@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ScriptableEnemyState : ScriptableObject {
+public class EnemyBehavior {
 
     protected Enemy enemy;
 
@@ -10,13 +10,9 @@ public class ScriptableEnemyState : ScriptableObject {
         this.enemy = enemy;
     }
 
-    public virtual void DoEnterLogic() { }
+    public virtual void FrameUpdateLogic() { }
 
-    public virtual void DoExitLogic() { }
-
-    public virtual void FrameUpdate() { }
-
-    public virtual void PhysicsUpdate() { }
+    public virtual void PhysicsUpdateLogic() { }
 
     public virtual void DoAnimationTriggerEventLogic(AnimationTriggerType triggerType) { }
 }

@@ -12,6 +12,7 @@ public class StatsManager : StaticInstance<StatsManager> {
     protected override void Awake() {
         base.Awake();
 
+        playerStats = scriptablePlayer.Stats;
         allPlayerStatsModifiers = PlayerStatsModifier.Zero;
     }
 

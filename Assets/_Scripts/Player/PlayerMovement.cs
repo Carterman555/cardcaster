@@ -6,8 +6,7 @@ using UnityEngine.InputSystem;
 public class PlayerMovement : StaticInstance<PlayerMovement> {
 
     public static event Action<bool> OnChangedFacing; // bool: facing right
-
-    [SerializeField] private ScriptablePlayer scriptablePlayer;
+    
     [SerializeField] private InputActionReference moveInput;
     [SerializeField] private InputActionReference dashAction;
 
@@ -15,6 +14,8 @@ public class PlayerMovement : StaticInstance<PlayerMovement> {
     private Vector2 moveDirection;
     private Vector2 lastMoveDirection;
     private bool isDashing;
+
+    private PlayerStats stats => StatsManager.Instance.GetPlayerStats();
 
     protected override void Awake() {
         base.Awake();
@@ -40,14 +41,14 @@ public class PlayerMovement : StaticInstance<PlayerMovement> {
 
     private void FixedUpdate() {
         if (!isDashing) {
-            rb.velocity = moveDirection * scriptablePlayer.Stats.MoveSpeed;
+            rb.velocity = moveDirection * stats.MoveSpeed;
         }
     }
 
     private IEnumerator Dash() {
         isDashing = true;
-        rb.velocity = lastMoveDirection.normalized * scriptablePlayer.Stats.DashSpeed;
-        yield return new WaitForSeconds(scriptablePlayer.Stats.DashTime);
+        rb.velocity = lastMoveDirection.normalized * stats.DashSpeed;
+        yield return new WaitForSeconds(stats.DashTime);
         isDashing = false;
     }
 

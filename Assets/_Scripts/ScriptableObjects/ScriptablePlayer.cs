@@ -28,32 +28,19 @@ public class PlayerStats : Stats {
 
     public float DashSpeed;
     public float DashTime;
-}
 
-[Serializable]
-public class StatsBoost {
-
-    public float DamagePercent;
-    public float ReloadSpeedPercent;
-    public float BulletSpeedPercent;
-    public int BulletCountIncrease;
-    public float HealthPercent;
-
-    public static StatsBoost operator +(StatsBoost a, StatsBoost b) {
-        return new StatsBoost {
-            DamagePercent = a.DamagePercent + b.DamagePercent,
-            ReloadSpeedPercent = a.ReloadSpeedPercent + b.ReloadSpeedPercent,
-            BulletSpeedPercent = a.BulletSpeedPercent + b.BulletSpeedPercent,
-            HealthPercent = a.HealthPercent + b.HealthPercent,
-            BulletCountIncrease = a.BulletCountIncrease + b.BulletCountIncrease,
-        };
+    public void ApplyModifier(PlayerStatsModifier modifier) {
+        MaxHealth *= PercentToMult(modifier.MaxHealthPercent);
+        KnockbackResistance *= PercentToMult(modifier.KnockbackResistancePercent);
+        MoveSpeed *= PercentToMult(modifier.MoveSpeedPercent);
+        Damage *= PercentToMult(modifier.DamageIncreasePercent);
+        AttackSpeed *= PercentToMult(modifier.AttackSpeedPercent);
+        KnockbackStrength *= PercentToMult(modifier.KnockbackStrengthPercent);
+        DashSpeed *= PercentToMult(modifier.DashDistancePercent);
     }
 
-    public static StatsBoost Zero = new StatsBoost {
-        DamagePercent = 0,
-        ReloadSpeedPercent = 0,
-        BulletSpeedPercent = 0,
-        BulletCountIncrease = 0,
-        HealthPercent = 0,
-    };
+    public float PercentToMult(float percent) {
+        float mult = 1 + (percent / 100);
+        return mult;
+    }
 }

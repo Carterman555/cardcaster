@@ -10,7 +10,7 @@ public class PlayerMeleeAttack : MonoBehaviour {
     [SerializeField] private Transform slashPrefab;
     [SerializeField] private LayerMask enemyLayerMask;
 
-    [SerializeField] private ScriptablePlayer scriptablePlayer;
+    private PlayerStats stats => StatsManager.Instance.GetPlayerStats();
 
     private void Update() {
         //if (attackInput.action.triggered) {
@@ -34,16 +34,16 @@ public class PlayerMeleeAttack : MonoBehaviour {
     }
 
     private void DamageEnemies(Vector2 toMouseDirection) {
-        Vector2 attackCenter = (Vector2)transform.position + (toMouseDirection * scriptablePlayer.Stats.SwordSize);
+        Vector2 attackCenter = (Vector2)transform.position + (toMouseDirection * stats.SwordSize);
 
-        Collider2D[] cols = Physics2D.OverlapCircleAll(attackCenter, scriptablePlayer.Stats.SwordSize, enemyLayerMask);
+        Collider2D[] cols = Physics2D.OverlapCircleAll(attackCenter, stats.SwordSize, enemyLayerMask);
         foreach (Collider2D col in cols) {
             //if (col.TryGetComponent(out Health health)) {
-            //    health.Damage(scriptablePlayer.Stats.Damage);
+            //    health.Damage(stats.Damage);
             //}
             //if (col.TryGetComponent(out Knockback knockback)) {
             //    Vector2 toEnemyDirection = col.transform.position - transform.position;
-            //    knockback.ApplyKnockback(toEnemyDirection, scriptablePlayer.Stats.KnockbackStrength);
+            //    knockback.ApplyKnockback(toEnemyDirection, stats.KnockbackStrength);
             //}
         }
     }

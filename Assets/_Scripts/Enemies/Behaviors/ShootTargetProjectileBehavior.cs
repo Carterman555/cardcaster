@@ -48,8 +48,6 @@ public class ShootTargetProjectileBehavior : EnemyBehavior {
         ITargetProjectile newProjectile = projectile.GetObject().Spawn(shootPosition, Containers.Instance.Enemies).GetComponent<ITargetProjectile>();
         newProjectile.Shoot(PlayerMovement.Instance.transform, damage);
 
-        Debug.Log("shoot projectile");
-
         amountLeftToShoot--;
 
         OnShoot?.Invoke();

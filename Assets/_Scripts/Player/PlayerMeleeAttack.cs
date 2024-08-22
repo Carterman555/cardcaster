@@ -38,9 +38,9 @@ public class PlayerMeleeAttack : MonoBehaviour {
 
         Collider2D[] cols = Physics2D.OverlapCircleAll(attackCenter, stats.SwordSize, enemyLayerMask);
         foreach (Collider2D col in cols) {
-            //if (col.TryGetComponent(out Health health)) {
-            //    health.Damage(stats.Damage);
-            //}
+            if (col.TryGetComponent(out Health health)) {
+                health.Damage(stats.Damage);
+            }
             //if (col.TryGetComponent(out Knockback knockback)) {
             //    Vector2 toEnemyDirection = col.transform.position - transform.position;
             //    knockback.ApplyKnockback(toEnemyDirection, stats.KnockbackStrength);

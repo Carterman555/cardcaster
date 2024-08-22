@@ -17,6 +17,9 @@ public class HeatSeekProjectile : MonoBehaviour, ITargetProjectile {
     public void Shoot(Transform target, float damage) {
         this.target = target;
         this.damage = damage;
+
+        Vector2 toTarget = target.position - transform.position;
+        transform.up = toTarget;
     }
 
     private void FixedUpdate() {
@@ -27,6 +30,18 @@ public class HeatSeekProjectile : MonoBehaviour, ITargetProjectile {
         // rotate
         Vector2 toTarget = target.position - transform.position;
         transform.up = Vector3.MoveTowards(transform.up, toTarget, rotationSpeed * Time.fixedDeltaTime);
+    }
+
+    [SerializeField] private LayerMask targetLayer;
+
+    private void OnTriggerEnter2D(Collider2D collision) {
+        if (targetLayer.ContainsLayer(collision.gameObject.layer)) {
+            if (collision.TryGetComponent(out Health health)) {
+                health.Damage(damage);
+            }
+
+            transform.ShrinkThenDestroy();
+        }
     }
 
 }

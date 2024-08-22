@@ -3,7 +3,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerMovement : StaticInstance<PlayerMovement> {
+public class PlayerMovement : StaticInstance<PlayerMovement>, IHasStats {
 
     public static event Action<bool> OnChangedFacing; // bool: facing right
     
@@ -16,6 +16,7 @@ public class PlayerMovement : StaticInstance<PlayerMovement> {
     private bool isDashing;
 
     private PlayerStats stats => StatsManager.Instance.GetPlayerStats();
+    public Stats GetStats() => stats;
 
     protected override void Awake() {
         base.Awake();

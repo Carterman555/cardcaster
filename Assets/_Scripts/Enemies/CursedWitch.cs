@@ -9,6 +9,7 @@ public class CursedWitch : Enemy {
     [SerializeField][Range(0f, 1f)] private float spawnEnemiesChance;
 
     [SerializeField] private Transform spawnPoint;
+    [SerializeField] private ArmSwing armSwing;
 
     [Header("Movement")]
     [SerializeField] private float chasePlayerRange = 4f;
@@ -47,11 +48,11 @@ public class CursedWitch : Enemy {
         enemyBehaviors.Add(moveFromPlayerBehavior);
 
         shootProjectileBehavior = new();
-        shootProjectileBehavior.Setup(projectile, spawnPoint.position, stats.AttackCooldown, stats.Damage);
+        shootProjectileBehavior.Setup(projectile, spawnPoint.localPosition, stats.AttackCooldown, stats.Damage);
         enemyBehaviors.Add(shootProjectileBehavior);
 
         spawnEnemyBehavior = new();
-        spawnEnemyBehavior.Setup(enemyToSpawn, spawnPoint.position, stats.AttackCooldown);
+        spawnEnemyBehavior.Setup(enemyToSpawn, spawnPoint.localPosition, stats.AttackCooldown);
         enemyBehaviors.Add(spawnEnemyBehavior);
 
         foreach (var enemyBehavior in enemyBehaviors) {
@@ -83,16 +84,19 @@ public class CursedWitch : Enemy {
             chasePlayerBehavior.Start();
             moveFromPlayerBehavior.Stop();
             currentMoveType = MoveType.Chase;
+            armSwing.StartRotation();
         }
         else if (closeToPlayer && currentMoveType != MoveType.Run) {
             chasePlayerBehavior.Stop();
             moveFromPlayerBehavior.Start();
             currentMoveType = MoveType.Run;
+            armSwing.StartRotation();
         }
         else if (!farFromPlayer && !closeToPlayer && currentMoveType != MoveType.Stationary) {
             chasePlayerBehavior.Stop();
             moveFromPlayerBehavior.Stop();
             currentMoveType = MoveType.Stationary;
+            armSwing.StopRotation();
         }
     }
 
@@ -103,8 +107,6 @@ public class CursedWitch : Enemy {
             if (betweenActionTimer > betweenActionDuration.Value) {
                 betweenActionTimer = 0;
                 betweenActionDuration.Randomize();
-
-                print("start action");
 
                 if (spawnEnemiesChance > Random.value) {
                     spawnEnemyBehavior.StartSpawning(enemySpawnAmount.Randomize());

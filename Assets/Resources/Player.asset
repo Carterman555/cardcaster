@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Player
   m_EditorClassIdentifier: 
   <Stats>k__BackingField:
-    MaxHealth: 0
+    MaxHealth: 10
     KnockbackResistance: 0
     MoveSpeed: 7
     Damage: 0

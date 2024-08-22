@@ -6,6 +6,8 @@ public class ChasePlayerBehavior : EnemyBehavior {
 
     private Rigidbody2D rb;
 
+    private bool stopped;
+
     public override void Initialize(Enemy enemy) {
         base.Initialize(enemy);
         
@@ -21,8 +23,19 @@ public class ChasePlayerBehavior : EnemyBehavior {
         moveSpeed = speed;
     }
 
+    public void Start() {
+        stopped = false;
+    }
+    public void Stop() {
+        stopped = true;
+
+        rb.velocity = Vector2.zero;
+    }
+
     public override void PhysicsUpdateLogic() {
-        Vector2 toPlayerDirection = (PlayerMovement.Instance.transform.position - enemy.transform.position).normalized;
-        rb.velocity = toPlayerDirection * moveSpeed;
+        if (!stopped) {
+            Vector2 toPlayerDirection = (PlayerMovement.Instance.transform.position - enemy.transform.position).normalized;
+            rb.velocity = toPlayerDirection * moveSpeed;
+        }
     }
 }

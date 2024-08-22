@@ -1,22 +1,25 @@
 using System;
 using UnityEngine;
 
-public class ShootProjectileBehavior : EnemyBehavior {
+public class ShootTargetProjectileBehavior : EnemyBehavior {
 
     public event Action OnShoot;
 
-    private Enemy enemyToSpawn;
-    private Vector2 localSpawnPosition;
+    private ITargetProjectile projectile;
+    private Vector2 localShootPosition;
 
     private float shootCooldown;
     private float shootTimer;
 
+    private float damage;
+
     private int amountLeftToShoot;
 
-    public void Setup(Enemy enemyToSpawn, Vector2 localSpawnPosition, float shootCooldown) {
-        this.enemyToSpawn = enemyToSpawn;
-        this.localSpawnPosition = localSpawnPosition;
+    public void Setup(ITargetProjectile projectile, Vector2 localShootPosition, float shootCooldown, float damage) {
+        this.projectile = projectile;
+        this.localShootPosition = localShootPosition;
         this.shootCooldown = shootCooldown;
+        this.damage = damage;
     }
 
     public void StartShooting(int amountToShoot) {
@@ -41,8 +44,11 @@ public class ShootProjectileBehavior : EnemyBehavior {
     }
 
     private void ShootProjectile() {
-        Vector2 spawnPosition = (Vector2)enemy.transform.position + localSpawnPosition;
-        Enemy spawnedEnemy = enemyToSpawn.Spawn(spawnPosition, Containers.Instance.Enemies);
+        Vector2 shootPosition = (Vector2)enemy.transform.position + localShootPosition;
+        ITargetProjectile newProjectile = projectile.GetObject().Spawn(shootPosition, Containers.Instance.Enemies).GetComponent<ITargetProjectile>();
+        newProjectile.Shoot(PlayerMovement.Instance.transform, damage);
+
+        Debug.Log("shoot projectile");
 
         amountLeftToShoot--;
 

@@ -18,5 +18,5 @@ public class ScriptableEnemy : ScriptableObject {
 [Serializable]
 public class EnemyStats : Stats {
     public float WalkSpeed;
-    public float AttackDistance;
+    public float AttackRange;
 }

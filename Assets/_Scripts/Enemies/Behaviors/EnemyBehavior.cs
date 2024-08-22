@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// I might just make this GameBehavior in the future and cards can use them also
 public class EnemyBehavior {
 
     protected Enemy enemy;

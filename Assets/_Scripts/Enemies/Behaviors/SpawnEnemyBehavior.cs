@@ -44,8 +44,6 @@ public class SpawnEnemyBehavior : EnemyBehavior {
         Vector2 spawnPosition = (Vector2)enemy.transform.position + localSpawnPosition;
         Enemy spawnedEnemy = enemyToSpawn.Spawn(spawnPosition, Containers.Instance.Enemies);
 
-        Debug.Log("spawn enemy");
-
         amountLeftToSpawn--;
 
         OnSpawnEnemy?.Invoke();

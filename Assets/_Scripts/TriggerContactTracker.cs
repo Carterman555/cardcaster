@@ -29,6 +29,10 @@ public class TriggerContactTracker : MonoBehaviour {
         return contacts.Count > 0;
     }
 
+    public void SetRange(float range) {
+        GetComponent<CircleCollider2D>().radius = range;
+    }
+
     private void Update() {
         RemoveDisabled();
     }

@@ -1,15 +1,22 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Enemy : MonoBehaviour {
+public class Enemy : MonoBehaviour, IHasStats {
 
     [SerializeField] protected ScriptableEnemy scriptableEnemy;
     protected EnemyStats stats => scriptableEnemy.Stats;
+    public Stats GetStats() {
+        return stats;
+    }
 
     [SerializeField] private TriggerContactTracker playerTracker;
     protected bool playerWithinRange => playerTracker.HasContact();
 
     protected List<EnemyBehavior> enemyBehaviors = new();
+
+    private void Start() {
+        playerTracker.SetRange(stats.AttackRange);
+    }
 
     protected virtual void Update() {
         foreach (EnemyBehavior behavior in enemyBehaviors) {
@@ -24,6 +31,8 @@ public class Enemy : MonoBehaviour {
     }
 
     protected virtual void AnimationTriggerEvent(AnimationTriggerType triggerType) { }
+
+    
 }
 
 public enum AnimationTriggerType {

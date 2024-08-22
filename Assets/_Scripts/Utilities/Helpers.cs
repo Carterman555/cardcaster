@@ -153,7 +153,7 @@ public static class Helpers {
         return (mask.value & (1 << layer)) != 0;
     }
 
-    public static Tween ShrinkThenDestroy(this Transform transform, float duration) {
+    public static Tween ShrinkThenDestroy(this Transform transform, float duration = 0.3f) {
         return transform.DOScale(Vector3.zero, duration).SetEase(Ease.InSine).OnComplete(() => {
             transform.DOKill();
             transform.gameObject.ReturnToPool();

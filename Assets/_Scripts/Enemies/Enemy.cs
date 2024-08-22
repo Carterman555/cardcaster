@@ -9,7 +9,7 @@ public class Enemy : MonoBehaviour {
     [SerializeField] private TriggerContactTracker playerTracker;
     protected bool playerWithinRange => playerTracker.HasContact();
 
-    protected List<EnemyBehavior> enemyBehaviors;
+    protected List<EnemyBehavior> enemyBehaviors = new();
 
     protected virtual void Update() {
         foreach (EnemyBehavior behavior in enemyBehaviors) {

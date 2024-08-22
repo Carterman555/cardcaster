@@ -10,19 +10,26 @@ public class CursedWitch : Enemy {
 
     [SerializeField] private Transform spawnPoint;
 
-
+    [Header("Movement")]
+    [SerializeField] private float chasePlayerRange = 4f;
     private ChasePlayerBehavior chasePlayerBehavior;
+
+    [SerializeField] private float moveFromPlayerRange = 3f;
     private MoveFromPlayerBehavior moveFromPlayerBehavior;
 
+    private MoveType currentMoveType;
+
     [Header("Shoot Projectile")]
-    private ShootProjectileBehavior shootProjectileBehavior;
     [SerializeField] private RandomInt projectileShootAmount;
+    [SerializeField] private HeatSeekProjectile projectile;
+    private ShootTargetProjectileBehavior shootProjectileBehavior;
+
 
     [Header("Spawn Enemy")]
-    private SpawnEnemyBehavior spawnEnemyBehavior;
     [SerializeField] private RandomInt enemySpawnAmount;
     [SerializeField] private Enemy enemyToSpawn;
-    
+    private SpawnEnemyBehavior spawnEnemyBehavior;
+
 
     private void OnEnable() {
         InitializeBehaviors();
@@ -40,7 +47,7 @@ public class CursedWitch : Enemy {
         enemyBehaviors.Add(moveFromPlayerBehavior);
 
         shootProjectileBehavior = new();
-        //shootProjectileBehavior.Setup(stats.MoveSpeed);
+        shootProjectileBehavior.Setup(projectile, spawnPoint.position, stats.AttackCooldown, stats.Damage);
         enemyBehaviors.Add(shootProjectileBehavior);
 
         spawnEnemyBehavior = new();
@@ -55,12 +62,49 @@ public class CursedWitch : Enemy {
     protected override void Update() {
         base.Update();
 
+        HandleMovement();
+
+        HandleAction();
+    }
+
+    /// <summary>
+    /// if far from player, chase
+    /// if close, move away
+    /// if midrange, stop
+    /// </summary>
+    private void HandleMovement() {
+
+        float distanceFromPlayer = Vector2.Distance(PlayerMovement.Instance.transform.position, transform.position);
+
+        bool farFromPlayer = distanceFromPlayer > chasePlayerRange;
+        bool closeToPlayer = distanceFromPlayer < moveFromPlayerRange;
+
+        if (farFromPlayer && currentMoveType != MoveType.Chase) {
+            chasePlayerBehavior.Start();
+            moveFromPlayerBehavior.Stop();
+            currentMoveType = MoveType.Chase;
+        }
+        else if (closeToPlayer && currentMoveType != MoveType.Run) {
+            chasePlayerBehavior.Stop();
+            moveFromPlayerBehavior.Start();
+            currentMoveType = MoveType.Run;
+        }
+        else if (!farFromPlayer && !closeToPlayer && currentMoveType != MoveType.Stationary) {
+            chasePlayerBehavior.Stop();
+            moveFromPlayerBehavior.Stop();
+            currentMoveType = MoveType.Stationary;
+        }
+    }
+
+    private void HandleAction() {
         bool performingAction = spawnEnemyBehavior.IsSpawningEnemies();
         if (!performingAction) {
             betweenActionTimer += Time.deltaTime;
             if (betweenActionTimer > betweenActionDuration.Value) {
                 betweenActionTimer = 0;
                 betweenActionDuration.Randomize();
+
+                print("start action");
 
                 if (spawnEnemiesChance > Random.value) {
                     spawnEnemyBehavior.StartSpawning(enemySpawnAmount.Randomize());
@@ -73,7 +117,7 @@ public class CursedWitch : Enemy {
         else {
             betweenActionTimer = 0;
         }
-
-        spawnEnemyBehavior.StartSpawning(enemySpawnAmount.Randomize());
     }
 }
+
+public enum MoveType { Chase, Run, Stationary }

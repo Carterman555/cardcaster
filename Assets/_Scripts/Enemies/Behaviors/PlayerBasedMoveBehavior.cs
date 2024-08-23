@@ -1,10 +1,6 @@
-using Unity.VisualScripting;
 using UnityEngine;
-using static UnityEngine.RuleTile.TilingRuleOutput;
 
 public class PlayerBasedMoveBehavior : EnemyBehavior {
-
-    private float moveSpeed;
 
     private Rigidbody2D rb;
 
@@ -32,10 +28,6 @@ public class PlayerBasedMoveBehavior : EnemyBehavior {
 
         ChasePlayer();
         facingRight = true;
-    }
-
-    public void SetSpeed(float speed) {
-        moveSpeed = speed;
     }
 
     public void Start() {
@@ -67,7 +59,7 @@ public class PlayerBasedMoveBehavior : EnemyBehavior {
                 moveDirection = -toPlayerDirection;
             }
 
-            rb.velocity = moveDirection * moveSpeed;
+            rb.velocity = moveDirection * enemy.GetStats().MoveSpeed;
         }
     }
 

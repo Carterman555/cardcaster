@@ -35,15 +35,14 @@ public class CursedWitch : Enemy {
 
     private void InitializeBehaviors() {
         moveBehavior = new();
-        moveBehavior.SetSpeed(stats.MoveSpeed);
         enemyBehaviors.Add(moveBehavior);
 
         shootProjectileBehavior = new();
-        shootProjectileBehavior.Setup(projectile, spawnPoint.localPosition, stats.AttackCooldown, stats.Damage);
+        shootProjectileBehavior.Setup(projectile, spawnPoint.localPosition);
         enemyBehaviors.Add(shootProjectileBehavior);
 
         spawnEnemyBehavior = new();
-        spawnEnemyBehavior.Setup(enemyToSpawn, spawnPoint.localPosition, stats.AttackCooldown);
+        spawnEnemyBehavior.Setup(enemyToSpawn, spawnPoint.localPosition);
         enemyBehaviors.Add(spawnEnemyBehavior);
 
         foreach (var enemyBehavior in enemyBehaviors) {

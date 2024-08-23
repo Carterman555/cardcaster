@@ -8,18 +8,13 @@ public class ShootTargetProjectileBehavior : EnemyBehavior {
     private ITargetProjectile projectile;
     private Vector2 localShootPosition;
 
-    private float shootCooldown;
     private float shootTimer;
-
-    private float damage;
 
     private int amountLeftToShoot;
 
-    public void Setup(ITargetProjectile projectile, Vector2 localShootPosition, float shootCooldown, float damage) {
+    public void Setup(ITargetProjectile projectile, Vector2 localShootPosition) {
         this.projectile = projectile;
         this.localShootPosition = localShootPosition;
-        this.shootCooldown = shootCooldown;
-        this.damage = damage;
     }
 
     public void StartShooting(int amountToShoot) {
@@ -36,7 +31,7 @@ public class ShootTargetProjectileBehavior : EnemyBehavior {
 
         if (IsShooting()) {
             shootTimer += Time.deltaTime;
-            if (shootTimer > shootCooldown) {
+            if (shootTimer > enemy.GetStats().AttackCooldown) {
                 ShootProjectile();
                 shootTimer = 0;
             }
@@ -46,7 +41,7 @@ public class ShootTargetProjectileBehavior : EnemyBehavior {
     private void ShootProjectile() {
         Vector2 shootPosition = (Vector2)enemy.transform.position + localShootPosition;
         ITargetProjectile newProjectile = projectile.GetObject().Spawn(shootPosition, Containers.Instance.Enemies).GetComponent<ITargetProjectile>();
-        newProjectile.Shoot(PlayerMovement.Instance.transform, damage);
+        newProjectile.Shoot(PlayerMovement.Instance.transform, enemy.GetStats().Damage);
 
         amountLeftToShoot--;
 
@@ -56,5 +51,4 @@ public class ShootTargetProjectileBehavior : EnemyBehavior {
     public bool IsShooting() {
         return amountLeftToShoot > 0;
     }
-
 }

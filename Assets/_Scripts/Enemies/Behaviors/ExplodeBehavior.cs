@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class ExplodeBehavior : EnemyBehavior {
 
-    public void Explode(LayerMask targetLayerMask, float explosionRadius, float damage) {
+    public void Explode(LayerMask targetLayerMask, float explosionRadius) {
 
         Collider2D[] cols = Physics2D.OverlapCircleAll(enemy.transform.position, explosionRadius, targetLayerMask);
 
         foreach (Collider2D col in cols) {
             if (col.TryGetComponent(out Health health)) {
-                health.Damage(damage);
+                health.Damage(enemy.GetStats().Damage);
             }
             //if (col.TryGetComponent(out Knockback knockback)) {
 

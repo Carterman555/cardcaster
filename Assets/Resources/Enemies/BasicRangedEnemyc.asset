@@ -10,17 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: df8d0c02ff44cd34db700f8d5c89336d, type: 3}
-  m_Name: CursedWitch
+  m_Name: BasicRangedEnemyc
   m_EditorClassIdentifier: 
-  <Name>k__BackingField: Cursed Witch
+  <Name>k__BackingField: BasicRangedEnemyc
   <Description>k__BackingField: description
-  <Prefab>k__BackingField: {fileID: 7886068666094598164, guid: a235f6097070a8a4fbd6d69de846b0f3, type: 3}
+  <Prefab>k__BackingField: {fileID: 8094934062911911454, guid: 41e9f9fce6403394283609a6f25a56f6, type: 3}
   <Stats>k__BackingField:
     MaxHealth: 10
-    KnockbackResistance: -1
-    MoveSpeed: 1.5
-    Damage: 3
-    AttackSpeed: 0.4
-    KnockbackStrength: -1
+    KnockbackResistance: 0
+    MoveSpeed: 2.5
+    Damage: 2
+    AttackSpeed: 0.5
+    KnockbackStrength: 2
     WalkSpeed: 0.5
-    AttackRange: 7
+    AttackRange: 9

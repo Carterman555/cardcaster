@@ -25,7 +25,6 @@ public class ExplodingRusher : Enemy {
 
     private void InitializeBehaviors() {
         moveBehavior = new();
-        moveBehavior.SetSpeed(stats.MoveSpeed);
         enemyBehaviors.Add(moveBehavior);
 
         explodeBehavior = new();
@@ -39,12 +38,13 @@ public class ExplodingRusher : Enemy {
     protected override void Update() {
         base.Update();
         if (playerWithinRange && !health.IsDead()) {
-            explodeBehavior.Explode(playerLayerMask, explosionRadius, stats.Damage);
+            explodeBehavior.Explode(playerLayerMask, explosionRadius);
             health.Die();
         }
     }
 
-    private void OnDisable() {
+    protected override void OnDisable() {
+        base.OnDisable();
         moveBehavior.Stop();
     }
 }

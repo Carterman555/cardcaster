@@ -5,6 +5,11 @@ using UnityEngine;
 public static class ObjectPoolManager {
     public static List<PooledObjectInfo> ObjectPoolList = new List<PooledObjectInfo>();
 
+    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
+    private static void Init() {
+        ObjectPoolList = new List<PooledObjectInfo>();
+    }
+
     public static GameObject Spawn(this GameObject objectToSpawn, Vector3 spawnPosition, Quaternion spawnRotation, Transform parent = null) {
         if (objectToSpawn == null) {
             Debug.LogError("objectToSpawn Is Null!");

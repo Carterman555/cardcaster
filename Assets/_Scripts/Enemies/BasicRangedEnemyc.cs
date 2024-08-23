@@ -2,15 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BasicMeleeEnemyc : Enemy {
+public class BasicRangedEnemyc : Enemy {
 
     private PlayerBasedMoveBehavior moveBehavior;
 
     [Header("Attack")]
-    [SerializeField] private SlashingWeapon weapon;
-    [SerializeField] private LayerMask targetLayerMask;
-    [SerializeField] private float slashSize;
-    private SlashAttackBehavior slashBehavior;
+    private StraightShootBehavior shootBehavior;
+    [SerializeField] private BasicProjectile projectile;
+    [SerializeField] private Transform shootPoint;
 
     protected override void OnEnable() {
         base.OnEnable();
@@ -23,9 +22,9 @@ public class BasicMeleeEnemyc : Enemy {
         moveBehavior = new();
         enemyBehaviors.Add(moveBehavior);
 
-        slashBehavior = new();
-        slashBehavior.Setup(weapon, targetLayerMask, slashSize);
-        enemyBehaviors.Add(slashBehavior);
+        shootBehavior = new();
+        shootBehavior.Setup(projectile, shootPoint.localPosition);
+        enemyBehaviors.Add(shootBehavior);
 
         foreach (var enemyBehavior in enemyBehaviors) {
             enemyBehavior.Initialize(this);
@@ -36,13 +35,13 @@ public class BasicMeleeEnemyc : Enemy {
         base.OnPlayerEnteredRange(player);
 
         moveBehavior.Stop();
-        slashBehavior.StartAttacking();
+        shootBehavior.StartShooting(player.transform);
     }
 
     protected override void OnPlayerExitedRange(GameObject player) {
         base.OnPlayerExitedRange(player);
 
         moveBehavior.Start();
-        slashBehavior.StopAttacking();
+        shootBehavior.StopShooting();
     }
 }

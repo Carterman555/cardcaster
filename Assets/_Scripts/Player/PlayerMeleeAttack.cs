@@ -26,7 +26,7 @@ public class PlayerMeleeAttack : MonoBehaviour, ICanAttack {
     }
 
     private void Attack() {
-        Vector2 toMouseDirection = (Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position).normalized;
+        Vector2 toMouseDirection = MouseTracker.Instance.ToMouseDirection(transform.position);
 
         CreateEffect(toMouseDirection);
         DamageEnemies(toMouseDirection);
@@ -52,6 +52,16 @@ public class PlayerMeleeAttack : MonoBehaviour, ICanAttack {
             //    Vector2 toEnemyDirection = col.transform.position - transform.position;
             //    knockback.ApplyKnockback(toEnemyDirection, stats.KnockbackStrength);
             //}
+        }
+    }
+
+    void OnDrawGizmos() {
+        if (Application.isPlaying) {
+            Gizmos.color = Color.red; // Choose a color for the circle
+
+            Vector2 toMouseDirection = MouseTracker.Instance.ToMouseDirection(transform.position);
+            Vector2 attackCenter = (Vector2)transform.position + (toMouseDirection * stats.SwordSize);
+            Gizmos.DrawWireSphere(attackCenter, stats.SwordSize);
         }
     }
 }

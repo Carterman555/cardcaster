@@ -14,7 +14,6 @@ namespace IslandDefender.Management {
 
         [SerializeField] private float damage = 1;
         [SerializeField] private float damageCooldown = 1f; // Damage interval in seconds
-        [SerializeField] private bool applyKnockback = true;
 
         private TriggerContactTracker tracker;
         private Dictionary<GameObject, Coroutine> activeCoroutines = new Dictionary<GameObject, Coroutine>();
@@ -80,10 +79,7 @@ namespace IslandDefender.Management {
                 }
 
                 if (target.TryGetComponent(out Health health)) {
-                    if (applyKnockback) {
-                        health.Damage(damage);
-                    }
-
+                    health.Damage(damage);
                     OnDamage?.Invoke();
                 }
                 //if (target.TryGetComponent(out Knockback knockback)) {

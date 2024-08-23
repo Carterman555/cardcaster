@@ -19,6 +19,6 @@ MonoBehaviour:
     Damage: 0
     AttackSpeed: 0
     KnockbackStrength: 0
-    SwordSize: 0
+    SwordSize: 1
     DashSpeed: 15
     DashTime: 0.3

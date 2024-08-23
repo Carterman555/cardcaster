@@ -1,7 +1,18 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Enemy : MonoBehaviour, IHasStats {
+public class Enemy : MonoBehaviour, IHasStats, IChangesFacing, ICanAttack {
+
+    public event Action<bool> OnChangedFacing;
+    public void InvokeChangedFacing(bool facing) {
+        OnChangedFacing?.Invoke(facing);
+    }
+
+    public event Action OnAttack;
+    public void InvokeAttack() {
+        OnAttack?.Invoke();
+    }
 
     [SerializeField] protected ScriptableEnemy scriptableEnemy;
     protected EnemyStats stats => scriptableEnemy.Stats;
@@ -9,10 +20,32 @@ public class Enemy : MonoBehaviour, IHasStats {
         return stats;
     }
 
+    protected List<EnemyBehavior> enemyBehaviors = new();
+
+    #region Player Tracker
+
     [SerializeField] private TriggerContactTracker playerTracker;
     protected bool playerWithinRange => playerTracker.HasContact();
 
-    protected List<EnemyBehavior> enemyBehaviors = new();
+    protected virtual void OnEnable() {
+        playerTracker.OnEnterContact += OnPlayerEnteredRange;
+        playerTracker.OnLeaveContact += OnPlayerExitedRange;
+    }
+
+    protected virtual void OnDisable() {
+        playerTracker.OnEnterContact -= OnPlayerEnteredRange;
+        playerTracker.OnLeaveContact -= OnPlayerExitedRange;
+    }
+
+    protected virtual void OnPlayerEnteredRange(GameObject player) {
+        
+    }
+
+    protected virtual void OnPlayerExitedRange(GameObject player) {
+
+    }
+
+    #endregion
 
     private void Start() {
         playerTracker.SetRange(stats.AttackRange);

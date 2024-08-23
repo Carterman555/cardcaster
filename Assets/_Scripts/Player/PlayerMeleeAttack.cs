@@ -2,15 +2,21 @@ using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerMeleeAttack : MonoBehaviour {
+public class PlayerMeleeAttack : MonoBehaviour, ICanAttack {
 
-    public static event Action OnAttack;
+    public event Action OnAttack;
 
     [SerializeField] private InputActionReference attackInput;
     [SerializeField] private Transform slashPrefab;
     [SerializeField] private LayerMask enemyLayerMask;
 
+    [SerializeField] private SlashingWeapon weapon;
+
     private PlayerStats stats => StatsManager.Instance.GetPlayerStats();
+
+    private void Start() {
+        weapon.SetTarget(MouseTracker.Instance.transform);
+    }
 
     private void Update() {
         //if (attackInput.action.triggered) {
@@ -24,6 +30,7 @@ public class PlayerMeleeAttack : MonoBehaviour {
 
         CreateEffect(toMouseDirection);
         DamageEnemies(toMouseDirection);
+        weapon.Swing();
 
         OnAttack?.Invoke();
     }

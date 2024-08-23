@@ -1,6 +1,9 @@
+using System;
 using UnityEngine;
 
 public class Health : MonoBehaviour {
+
+    public event Action OnDeath;
 
     private float maxHealth;
     private float health;
@@ -22,6 +25,11 @@ public class Health : MonoBehaviour {
     }
 
     public void Damage(float damage) {
+
+        if (dead) {
+            return;
+        }
+
         health -= damage;
 
         if (health <= 0) {
@@ -32,5 +40,7 @@ public class Health : MonoBehaviour {
     public void Die() {
         dead = true;
         transform.ShrinkThenDestroy();
+
+        OnDeath?.Invoke();
     }
 }

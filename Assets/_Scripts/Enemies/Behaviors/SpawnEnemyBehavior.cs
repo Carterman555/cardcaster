@@ -8,15 +8,13 @@ public class SpawnEnemyBehavior : EnemyBehavior {
     private Enemy enemyToSpawn;
     private Vector2 localSpawnPosition;
 
-    private float spawnCooldown;
     private float spawnTimer;
 
     private int amountLeftToSpawn;
 
-    public void Setup(Enemy enemyToSpawn, Vector2 localSpawnPosition, float spawnCooldown) {
+    public void Setup(Enemy enemyToSpawn, Vector2 localSpawnPosition) {
         this.enemyToSpawn = enemyToSpawn;
         this.localSpawnPosition = localSpawnPosition;
-        this.spawnCooldown = spawnCooldown;
     }
 
     public void StartSpawning(int amountToSpawn) {
@@ -33,7 +31,7 @@ public class SpawnEnemyBehavior : EnemyBehavior {
 
         if (IsSpawningEnemies()) {
             spawnTimer += Time.deltaTime;
-            if (spawnTimer > spawnCooldown) {
+            if (spawnTimer > enemy.GetStats().AttackCooldown) {
                 SpawnEnemy();
                 spawnTimer = 0;
             }

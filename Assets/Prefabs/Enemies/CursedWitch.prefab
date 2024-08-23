@@ -151,7 +151,7 @@ GameObject:
   - component: {fileID: 9080405165051825549}
   - component: {fileID: 7886068666094598164}
   - component: {fileID: 7360226348480421665}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: CursedWitch
   m_TagString: Untagged
   m_Icon: {fileID: 0}

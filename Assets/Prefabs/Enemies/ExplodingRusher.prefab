@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 5179837196631113428}
   - component: {fileID: 4415008410753666037}
   - component: {fileID: 4478472301281293897}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: ExplodingRusher
   m_TagString: Untagged
   m_Icon: {fileID: 0}

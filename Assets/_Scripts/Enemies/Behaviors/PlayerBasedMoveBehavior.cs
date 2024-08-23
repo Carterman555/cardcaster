@@ -23,7 +23,7 @@ public class PlayerBasedMoveBehavior : EnemyBehavior {
             rb = rigidbody2D;
         }
         else {
-            Debug.LogError("Object With Chase Player Behavior Does Not Have Rigidbody2D!");
+            Debug.LogError("Object With Player Based Move Behavior Does Not Have Rigidbody2D!");
         }
 
         ChasePlayer();

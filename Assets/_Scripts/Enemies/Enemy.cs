@@ -35,6 +35,10 @@ public class Enemy : MonoBehaviour, IHasStats, IChangesFacing, ICanAttack {
     protected virtual void OnDisable() {
         playerTracker.OnEnterContact -= OnPlayerEnteredRange;
         playerTracker.OnLeaveContact -= OnPlayerExitedRange;
+
+        foreach (EnemyBehavior behavior in enemyBehaviors) {
+            behavior.OnDisable();
+        }
     }
 
     protected virtual void OnPlayerEnteredRange(GameObject player) {

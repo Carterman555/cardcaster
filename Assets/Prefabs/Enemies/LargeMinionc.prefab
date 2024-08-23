@@ -27,7 +27,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.3, y: 0.3, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5599837513776852597}
@@ -235,7 +235,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.15
+  m_Radius: 0.5
 --- !u!114 &2937202764956577176
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -279,7 +279,7 @@ GameObject:
   - component: {fileID: 7687619733359668377}
   - component: {fileID: 3820537240612911258}
   m_Layer: 7
-  m_Name: SmallMinionc
+  m_Name: LargeMinionc
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -338,7 +338,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.15
+  m_Radius: 0.5
 --- !u!50 &6798181116195684557
 Rigidbody2D:
   serializedVersion: 4
@@ -378,12 +378,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7743b80192f9db743b02af29f6ff0e54, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scriptableEnemy: {fileID: 11400000, guid: 3cd631a20674cc24ca0da76c02764620, type: 2}
+  scriptableEnemy: {fileID: 11400000, guid: dfa83f16e97604842935ba03e3930a17, type: 2}
   playerTracker: {fileID: 7612229722187911782}
   mergeTracker: {fileID: 277569462130793913}
-  mergedEnemy: {fileID: 7687619733359668377, guid: b8c34501dfcb5614080a0c922663fd8b, type: 3}
-  toMergeDelay: 5
-  mergeTime: 5
+  mergedEnemy: {fileID: 7687619733359668377}
+  toMergeDelay: 999
+  mergeTime: 2
 --- !u!114 &3820537240612911258
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -463,7 +463,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 5
+  m_Radius: 0.1
 --- !u!114 &277569462130793913
 MonoBehaviour:
   m_ObjectHideFlags: 0

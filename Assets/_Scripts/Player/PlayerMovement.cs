@@ -3,9 +3,9 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerMovement : StaticInstance<PlayerMovement>, IHasStats {
+public class PlayerMovement : StaticInstance<PlayerMovement>, IHasStats, IChangesFacing {
 
-    public static event Action<bool> OnChangedFacing; // bool: facing right
+    public event Action<bool> OnChangedFacing; // bool: facing right
     
     [SerializeField] private InputActionReference moveInput;
     [SerializeField] private InputActionReference dashAction;

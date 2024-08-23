@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class ExplodingRusher : Enemy {
 
-    private ChasePlayerBehavior chasePlayerBehavior;
+    private PlayerBasedMoveBehavior moveBehavior;
     private ExplodeBehavior explodeBehavior;
     [SerializeField] private LayerMask playerLayerMask;
     [SerializeField] private float explosionRadius;
@@ -16,16 +16,17 @@ public class ExplodingRusher : Enemy {
         health = GetComponent<Health>();
     }
 
-    private void OnEnable() {
+    protected override void OnEnable() {
+        base.OnEnable();
         InitializeBehaviors();
 
-        chasePlayerBehavior.Start();
+        moveBehavior.Start();
     }
 
     private void InitializeBehaviors() {
-        chasePlayerBehavior = new();
-        chasePlayerBehavior.SetSpeed(stats.MoveSpeed);
-        enemyBehaviors.Add(chasePlayerBehavior);
+        moveBehavior = new();
+        moveBehavior.SetSpeed(stats.MoveSpeed);
+        enemyBehaviors.Add(moveBehavior);
 
         explodeBehavior = new();
         enemyBehaviors.Add(explodeBehavior);
@@ -44,6 +45,6 @@ public class ExplodingRusher : Enemy {
     }
 
     private void OnDisable() {
-        chasePlayerBehavior.Stop();
+        moveBehavior.Stop();
     }
 }

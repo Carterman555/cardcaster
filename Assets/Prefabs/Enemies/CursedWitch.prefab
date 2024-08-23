@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6792304057917116790}
-  - component: {fileID: 4029434922722342504}
+  - component: {fileID: 2688560317287362175}
   m_Layer: 0
   m_Name: Arm
   m_TagString: Untagged
@@ -33,20 +33,27 @@ Transform:
   - {fileID: 4217622663585572090}
   m_Father: {fileID: 2624572989166150188}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -50}
---- !u!114 &4029434922722342504
-MonoBehaviour:
+--- !u!95 &2688560317287362175
+Animator:
+  serializedVersion: 5
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2202788382429811200}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0780d455aa9041740a00920e5582d5d3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 2
-  degrees: 60
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 82b2e9c8f8916e94dad3b6ba6c721f3a, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &3643868287672600604
 GameObject:
   m_ObjectHideFlags: 0
@@ -261,7 +268,7 @@ MonoBehaviour:
     MaxValue: 5
   spawnEnemiesChance: 0.3
   spawnPoint: {fileID: 8413365939147470290}
-  armSwing: {fileID: 4029434922722342504}
+  anim: {fileID: 2688560317287362175}
   chasePlayerRange: 4
   moveFromPlayerRange: 3
   projectileShootAmount:

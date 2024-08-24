@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df8d0c02ff44cd34db700f8d5c89336d, type: 3}
+  m_Name: Minion
+  m_EditorClassIdentifier: 
+  <Name>k__BackingField: Minion
+  <Description>k__BackingField: 
+  <Prefab>k__BackingField: {fileID: 7687619733359668377, guid: 8abe4a6e9c042d140866e75a31b95fe1, type: 3}
+  <Stats>k__BackingField:
+    MaxHealth: 6
+    KnockbackResistance: 1
+    MoveSpeed: 2.5
+    Damage: 2
+    AttackSpeed: 1
+    KnockbackStrength: 1
+    WalkSpeed: 0.5
+    AttackRange: 3

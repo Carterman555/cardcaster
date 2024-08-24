@@ -14,11 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <Stats>k__BackingField:
     MaxHealth: 10
-    KnockbackResistance: 0
+    KnockbackResistance: 1
     MoveSpeed: 7
     Damage: 2
     AttackSpeed: 0
-    KnockbackStrength: 0
+    KnockbackStrength: 1
     SwordSize: 1
     DashSpeed: 15
     DashTime: 0.3

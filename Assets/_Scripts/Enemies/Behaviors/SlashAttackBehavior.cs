@@ -51,10 +51,10 @@ public class SlashAttackBehavior : EnemyBehavior {
             if (col.TryGetComponent(out Health health)) {
                 health.Damage(enemy.GetStats().Damage);
             }
-            //if (col.TryGetComponent(out Knockback knockback)) {
-            //    Vector2 toEnemyDirection = col.transform.position - transform.position;
-            //    knockback.ApplyKnockback(toEnemyDirection, stats.KnockbackStrength);
-            //}
+            if (col.TryGetComponent(out Knockback knockback)) {
+                Vector2 toEnemyDirection = col.transform.position - enemy.transform.position;
+                knockback.ApplyKnockback(toEnemyDirection, enemy.GetStats().KnockbackStrength);
+            }
         }
     }
 

@@ -11,8 +11,9 @@ public class PlayerMovement : StaticInstance<PlayerMovement>, IHasStats, IChange
     [SerializeField] private InputActionReference dashAction;
 
     private Rigidbody2D rb;
+    private Knockback knockback;
+
     private Vector2 moveDirection;
-    private Vector2 lastMoveDirection;
     private bool isDashing;
 
     private PlayerStats stats => StatsManager.Instance.GetPlayerStats();
@@ -21,6 +22,7 @@ public class PlayerMovement : StaticInstance<PlayerMovement>, IHasStats, IChange
     protected override void Awake() {
         base.Awake();
         rb = GetComponent<Rigidbody2D>();
+        knockback = GetComponent<Knockback>();
 
         facingRight = true;
     }
@@ -28,12 +30,8 @@ public class PlayerMovement : StaticInstance<PlayerMovement>, IHasStats, IChange
     private void Update() {
         moveDirection = moveInput.action.ReadValue<Vector2>();
 
-        if (moveDirection != Vector2.zero) {
-            lastMoveDirection = moveDirection;
-        }
-
         //if (dashAction.action.triggered && !isDashing) {
-        if (Input.GetMouseButtonDown(1) && !isDashing) {
+        if (Input.GetMouseButtonDown(1) && !isDashing && !knockback.IsApplyingKnockback()) {
             StartCoroutine(Dash());
         }
 
@@ -41,14 +39,14 @@ public class PlayerMovement : StaticInstance<PlayerMovement>, IHasStats, IChange
     }
 
     private void FixedUpdate() {
-        if (!isDashing) {
+        if (!isDashing && !knockback.IsApplyingKnockback()) {
             rb.velocity = moveDirection * stats.MoveSpeed;
         }
     }
 
     private IEnumerator Dash() {
         isDashing = true;
-        rb.velocity = lastMoveDirection.normalized * stats.DashSpeed;
+        rb.velocity = moveDirection.normalized * stats.DashSpeed;
         yield return new WaitForSeconds(stats.DashTime);
         isDashing = false;
     }

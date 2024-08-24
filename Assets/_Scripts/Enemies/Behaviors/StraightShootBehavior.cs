@@ -35,10 +35,9 @@ public class StraightShootBehavior : EnemyBehavior {
     private void Shoot() {
         Vector2 shootPosition = (Vector2)enemy.transform.position + localShootPosition;
         IStraightProjectile newProjectile = projectile.GetObject().Spawn(shootPosition, Containers.Instance.Projectiles).GetComponent<IStraightProjectile>();
-        newProjectile.GetObject().transform.localScale = projectile.GetObject().transform.localScale; // reset scale
 
         Vector2 toTarget = target.position - enemy.transform.position;
-        newProjectile.Shoot(toTarget, enemy.GetStats().Damage);
+        newProjectile.Shoot(toTarget, enemy.GetStats().Damage, enemy.GetStats().KnockbackStrength);
     }
 
     public void StartShooting(Transform target) {

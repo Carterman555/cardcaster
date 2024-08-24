@@ -151,6 +151,7 @@ GameObject:
   - component: {fileID: 9080405165051825549}
   - component: {fileID: 7886068666094598164}
   - component: {fileID: 7360226348480421665}
+  - component: {fileID: 6117595215225809696}
   m_Layer: 7
   m_Name: CursedWitch
   m_TagString: Untagged
@@ -268,7 +269,7 @@ MonoBehaviour:
     MaxValue: 5
   spawnEnemiesChance: 0.3
   spawnPoint: {fileID: 8413365939147470290}
-  anim: {fileID: 2688560317287362175}
+  wandAnim: {fileID: 2688560317287362175}
   chasePlayerRange: 4
   moveFromPlayerRange: 3
   projectileShootAmount:
@@ -278,7 +279,9 @@ MonoBehaviour:
   enemySpawnAmount:
     MinValue: 2
     MaxValue: 4
-  enemyToSpawn: {fileID: 4709630584986903041, guid: f1801af283d60624ba8dc510ec744453, type: 3}
+  enemyToSpawn: {fileID: 7687619733359668377, guid: 8abe4a6e9c042d140866e75a31b95fe1, type: 3}
+  wandPoint: {fileID: 2625665746626377929}
+  wandRecoil: {fileID: 4152973807885359225}
 --- !u!114 &7360226348480421665
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -291,6 +294,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b436399d89bfd245b88204bdbc8ed47, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &6117595215225809696
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3794401864424469850}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd29217e14438f4439a067c6fdd77708, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  knockbackFactor: 6
+  knockbackDeacceleration: 40
 --- !u!1 &4550844309725150714
 GameObject:
   m_ObjectHideFlags: 0
@@ -301,6 +318,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4217622663585572090}
   - component: {fileID: 8270820957364470232}
+  - component: {fileID: 2625665746626377929}
+  - component: {fileID: 4152973807885359225}
   m_Layer: 0
   m_Name: Wand
   m_TagString: Untagged
@@ -375,6 +394,31 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &2625665746626377929
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4550844309725150714}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 412d648824e80ed4abb15eada54eb0dc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &4152973807885359225
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4550844309725150714}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e13a3a241f5d1f44ba6c8799314b05d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  distance: 0.25
 --- !u!1 &6117569787345348340
 GameObject:
   m_ObjectHideFlags: 0

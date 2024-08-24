@@ -3,6 +3,7 @@ using UnityEngine;
 public class PlayerBasedMoveBehavior : EnemyBehavior {
 
     private Rigidbody2D rb;
+    private Knockback knockback;
 
     private bool stopped;
     private bool chasing;
@@ -24,6 +25,13 @@ public class PlayerBasedMoveBehavior : EnemyBehavior {
         }
         else {
             Debug.LogError("Object With Player Based Move Behavior Does Not Have Rigidbody2D!");
+        }
+
+        if (enemy.TryGetComponent(out Knockback knockback)) {
+            this.knockback = knockback;
+        }
+        else {
+            Debug.LogError("Object With Player Based Move Behavior Does Not Have Knockback!");
         }
 
         ChasePlayer();
@@ -51,7 +59,7 @@ public class PlayerBasedMoveBehavior : EnemyBehavior {
     }
 
     public override void PhysicsUpdateLogic() {
-        if (!stopped) {
+        if (!stopped && !knockback.IsApplyingKnockback()) {
             Vector2 toPlayerDirection = (PlayerMovement.Instance.transform.position - enemy.transform.position).normalized;
 
             Vector2 moveDirection = toPlayerDirection;

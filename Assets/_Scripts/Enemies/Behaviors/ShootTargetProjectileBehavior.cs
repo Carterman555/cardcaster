@@ -41,7 +41,7 @@ public class ShootTargetProjectileBehavior : EnemyBehavior {
     private void ShootProjectile() {
         Vector2 shootPosition = (Vector2)enemy.transform.position + localShootPosition;
         ITargetProjectile newProjectile = projectile.GetObject().Spawn(shootPosition, Containers.Instance.Enemies).GetComponent<ITargetProjectile>();
-        newProjectile.Shoot(PlayerMovement.Instance.transform, enemy.GetStats().Damage);
+        newProjectile.Shoot(PlayerMovement.Instance.transform, enemy.GetStats().Damage, enemy.GetStats().KnockbackStrength);
 
         amountLeftToShoot--;
 

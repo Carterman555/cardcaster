@@ -263,8 +263,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 969dcc150a2125044b825881c2eef962, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 1
-  damageCooldown: 1
 --- !u!1 &7434722633693098688
 GameObject:
   m_ObjectHideFlags: 0
@@ -278,6 +276,7 @@ GameObject:
   - component: {fileID: 6798181116195684557}
   - component: {fileID: 7687619733359668377}
   - component: {fileID: 3820537240612911258}
+  - component: {fileID: -8651748883448425746}
   m_Layer: 7
   m_Name: MediumMinionc
   m_TagString: Untagged
@@ -394,6 +393,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9b436399d89bfd245b88204bdbc8ed47, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &-8651748883448425746
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7434722633693098688}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd29217e14438f4439a067c6fdd77708, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &8405417952800180649

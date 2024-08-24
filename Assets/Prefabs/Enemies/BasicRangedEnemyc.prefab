@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 174481253933899696}
   - component: {fileID: 8094934062911911454}
   - component: {fileID: 5414848298468351723}
+  - component: {fileID: 8315334803078365507}
   m_Layer: 7
   m_Name: BasicRangedEnemyc
   m_TagString: Untagged
@@ -136,6 +137,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9b436399d89bfd245b88204bdbc8ed47, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &8315334803078365507
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 226976224992304211}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd29217e14438f4439a067c6fdd77708, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &4973828884281687063

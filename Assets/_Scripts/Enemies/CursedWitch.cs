@@ -9,7 +9,7 @@ public class CursedWitch : Enemy {
     [SerializeField][Range(0f, 1f)] private float spawnEnemiesChance;
 
     [SerializeField] private Transform spawnPoint;
-    [SerializeField] private Animator anim;
+    [SerializeField] private Animator wandAnim;
 
     [Header("Movement")]
     [SerializeField] private float chasePlayerRange = 4f;
@@ -31,6 +31,16 @@ public class CursedWitch : Enemy {
         InitializeBehaviors();
 
         betweenActionDuration.Randomize();
+
+        shootProjectileBehavior.OnShoot += WandShootAnim;
+        spawnEnemyBehavior.OnSpawnEnemy += WandShootAnim;
+    }
+
+    protected override void OnDisable() {
+        base.OnDisable();
+
+        shootProjectileBehavior.OnShoot -= WandShootAnim;
+        spawnEnemyBehavior.OnSpawnEnemy -= WandShootAnim;
     }
 
     private void InitializeBehaviors() {
@@ -56,6 +66,8 @@ public class CursedWitch : Enemy {
         HandleMovement();
 
         HandleAction();
+
+        UpdateWandAnim();
     }
 
     /// <summary>
@@ -73,25 +85,20 @@ public class CursedWitch : Enemy {
         if (farFromPlayer && (moveBehavior.IsStopped() || !moveBehavior.IsChasing())) {
             moveBehavior.Start();
             moveBehavior.ChasePlayer();
-
-            anim.SetBool("walking", true);
         }
         else if (closeToPlayer && (moveBehavior.IsStopped() || moveBehavior.IsChasing())) {
             moveBehavior.Start();
             moveBehavior.RunFromPlayer();
-
-            anim.SetBool("walking", true);
         }
         else if (!farFromPlayer && !closeToPlayer && !moveBehavior.IsStopped()) {
             moveBehavior.Stop();
-
-            anim.SetBool("walking", false);
         }
     }
 
+    private bool PerformingAction => spawnEnemyBehavior.IsSpawningEnemies() || shootProjectileBehavior.IsShooting();
+
     private void HandleAction() {
-        bool performingAction = spawnEnemyBehavior.IsSpawningEnemies();
-        if (!performingAction) {
+        if (!PerformingAction) {
             betweenActionTimer += Time.deltaTime;
             if (betweenActionTimer > betweenActionDuration.Value) {
                 betweenActionTimer = 0;
@@ -108,5 +115,19 @@ public class CursedWitch : Enemy {
         else {
             betweenActionTimer = 0;
         }
+    }
+
+    [SerializeField] private PointTowardsPlayer wandPoint;
+    [SerializeField] private Recoil wandRecoil;
+
+    private void UpdateWandAnim() {
+        bool swingArm = !moveBehavior.IsStopped() && !PerformingAction;
+        wandAnim.SetBool("swinging", swingArm);
+
+        wandPoint.enabled = PerformingAction;
+    }
+
+    private void WandShootAnim() {
+        wandRecoil.RecoilWeapon();
     }
 }

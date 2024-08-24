@@ -2,18 +2,16 @@ using IslandDefender;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
 
 
 namespace IslandDefender.Management {
 
     [RequireComponent(typeof(TriggerContactTracker))]
-    public class TouchDamage : MonoBehaviour {
+    public class UnitTouchDamage : MonoBehaviour {
 
         public event Action OnDamage;
-
-        [SerializeField] private float damage = 1;
-        [SerializeField] private float damageCooldown = 1f; // Damage interval in seconds
 
         private TriggerContactTracker tracker;
         private Dictionary<GameObject, Coroutine> activeCoroutines = new Dictionary<GameObject, Coroutine>();
@@ -21,9 +19,12 @@ namespace IslandDefender.Management {
         private Health health;
         private bool dead;
 
+        private IHasStats hasStats;
+
         private void Awake() {
             tracker = GetComponent<TriggerContactTracker>();
             health = GetComponentInParent<Health>();
+            hasStats = GetComponentInParent<IHasStats>();
         }
 
         private void OnEnable() {
@@ -79,14 +80,15 @@ namespace IslandDefender.Management {
                 }
 
                 if (target.TryGetComponent(out Health health)) {
-                    health.Damage(damage);
+                    health.Damage(hasStats.GetStats().Damage);
                     OnDamage?.Invoke();
                 }
-                //if (target.TryGetComponent(out Knockback knockback)) {
+                if (target.TryGetComponent(out Knockback knockback)) {
+                    Vector2 toTargetDirection = target.transform.position - transform.position;
+                    knockback.ApplyKnockback(toTargetDirection, hasStats.GetStats().KnockbackStrength);
+                }
 
-                //}
-
-                yield return new WaitForSeconds(damageCooldown);
+                yield return new WaitForSeconds(hasStats.GetStats().AttackCooldown);
             }
         }
     }

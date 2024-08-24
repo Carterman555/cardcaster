@@ -281,8 +281,8 @@ TextureImporter:
       name: room1_8
       rect:
         serializedVersion: 2
-        x: 0
-        y: 48
+        x: 96
+        y: 72
         width: 24
         height: 24
       alignment: 0
@@ -302,7 +302,7 @@ TextureImporter:
       name: room1_9
       rect:
         serializedVersion: 2
-        x: 24
+        x: 0
         y: 48
         width: 24
         height: 24
@@ -323,7 +323,7 @@ TextureImporter:
       name: room1_10
       rect:
         serializedVersion: 2
-        x: 48
+        x: 24
         y: 48
         width: 24
         height: 24
@@ -344,7 +344,7 @@ TextureImporter:
       name: room1_11
       rect:
         serializedVersion: 2
-        x: 72
+        x: 48
         y: 48
         width: 24
         height: 24
@@ -365,8 +365,8 @@ TextureImporter:
       name: room1_12
       rect:
         serializedVersion: 2
-        x: 0
-        y: 24
+        x: 72
+        y: 48
         width: 24
         height: 24
       alignment: 0
@@ -386,8 +386,8 @@ TextureImporter:
       name: room1_13
       rect:
         serializedVersion: 2
-        x: 24
-        y: 24
+        x: 96
+        y: 48
         width: 24
         height: 24
       alignment: 0
@@ -407,7 +407,7 @@ TextureImporter:
       name: room1_14
       rect:
         serializedVersion: 2
-        x: 48
+        x: 0
         y: 24
         width: 24
         height: 24
@@ -428,7 +428,7 @@ TextureImporter:
       name: room1_15
       rect:
         serializedVersion: 2
-        x: 72
+        x: 24
         y: 24
         width: 24
         height: 24
@@ -449,8 +449,8 @@ TextureImporter:
       name: room1_16
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
+        x: 48
+        y: 24
         width: 24
         height: 24
       alignment: 0
@@ -470,8 +470,8 @@ TextureImporter:
       name: room1_17
       rect:
         serializedVersion: 2
-        x: 24
-        y: 0
+        x: 72
+        y: 24
         width: 24
         height: 24
       alignment: 0
@@ -491,7 +491,7 @@ TextureImporter:
       name: room1_18
       rect:
         serializedVersion: 2
-        x: 48
+        x: 0
         y: 0
         width: 24
         height: 24
@@ -512,7 +512,7 @@ TextureImporter:
       name: room1_19
       rect:
         serializedVersion: 2
-        x: 72
+        x: 24
         y: 0
         width: 24
         height: 24
@@ -525,6 +525,48 @@ TextureImporter:
       bones: []
       spriteID: 0a542e94f46c6894ba78a0280f7a2c71
       internalID: -510366440
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: room1_20
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 0
+        width: 24
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d219ede2b5b8c53419f929bbd8d296d6
+      internalID: -354099022
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: room1_21
+      rect:
+        serializedVersion: 2
+        x: 72
+        y: 0
+        width: 24
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 223d2de9d1421f34087abd1871d07e74
+      internalID: -1783466584
       vertices: []
       indices: 
       edges: []
@@ -553,6 +595,8 @@ TextureImporter:
       room1_18: -2057604109
       room1_19: -510366440
       room1_2: 651806937
+      room1_20: -354099022
+      room1_21: -1783466584
       room1_3: -1259586564
       room1_4: -1089186097
       room1_5: -715348355

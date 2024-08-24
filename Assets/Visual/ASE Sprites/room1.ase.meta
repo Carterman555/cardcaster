@@ -130,7 +130,7 @@ ScriptedImporter:
       serializedVersion: 2
       x: 4
       y: 4
-      width: 96
+      width: 120
       height: 120
     spriteID: 472c65315fdf5d3408ed9012e45890a3
     spriteBone: []
@@ -141,46 +141,6 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 4, y: 4}
-  - name: room1_Frame_1
-    originalName: 
-    pivot: {x: 0.5, y: 0}
-    alignment: 9
-    border: {x: 0, y: 0, z: 0, w: 0}
-    rect:
-      serializedVersion: 2
-      x: 108
-      y: 4
-      width: 96
-      height: 120
-    spriteID: 58fe8e49be52ca744bdb2f4baa63101a
-    spriteBone: []
-    spriteOutline: []
-    vertices: []
-    spritePhysicsOutline: []
-    indices: 
-    edges: []
-    tessellationDetail: 0
-    uvTransform: {x: 108, y: 4}
-  - name: room1_Frame_2
-    originalName: 
-    pivot: {x: 0.5, y: 0}
-    alignment: 9
-    border: {x: 0, y: 0, z: 0, w: 0}
-    rect:
-      serializedVersion: 2
-      x: 4
-      y: 132
-      width: 96
-      height: 120
-    spriteID: 502dead1cf4e67e49b51c4be8d893716
-    spriteBone: []
-    spriteOutline: []
-    vertices: []
-    spritePhysicsOutline: []
-    indices: 
-    edges: []
-    tessellationDetail: 0
-    uvTransform: {x: 4, y: 132}
   spriteSheetImportData: []
   asepriteLayers:
   - layerIndex: 0
@@ -190,33 +150,15 @@ ScriptedImporter:
     layerType: 0
     blendMode: 0
     cells:
-    - name: room1_Frame_0
+    - name: room1
       frameIndex: 0
       additiveSortOrder: 0
       cellRect:
         x: 0
         y: 0
-        width: 96
+        width: 120
         height: 120
       spriteId: 472c65315fdf5d3408ed9012e45890a3
-    - name: room1_Frame_1
-      frameIndex: 1
-      additiveSortOrder: 0
-      cellRect:
-        x: 0
-        y: 0
-        width: 96
-        height: 120
-      spriteId: 58fe8e49be52ca744bdb2f4baa63101a
-    - name: room1_Frame_2
-      frameIndex: 2
-      additiveSortOrder: 0
-      cellRect:
-        x: 0
-        y: 0
-        width: 96
-        height: 120
-      spriteId: 502dead1cf4e67e49b51c4be8d893716
     linkedCells: []
     parentIndex: -1
   platformSettings:
@@ -259,4 +201,4 @@ ScriptedImporter:
   generatePhysicsShape: 0
   secondarySpriteTextures: []
   spritePackingTag: 
-  canvasSize: {x: 96, y: 120}
+  canvasSize: {x: 120, y: 120}

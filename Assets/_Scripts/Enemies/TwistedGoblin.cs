@@ -2,14 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BasicRangedEnemyc : Enemy {
+public class TwistedGoblin : Enemy {
 
     private PlayerBasedMoveBehavior moveBehavior;
 
     [Header("Attack")]
-    private StraightShootBehavior shootBehavior;
-    [SerializeField] private BasicProjectile projectile;
-    [SerializeField] private Transform shootPoint;
+    [SerializeField] private SlashingWeapon weapon;
+    [SerializeField] private LayerMask targetLayerMask;
+    [SerializeField] private float slashSize;
+    private SlashAttackBehavior slashBehavior;
 
     protected override void OnEnable() {
         base.OnEnable();
@@ -22,9 +23,9 @@ public class BasicRangedEnemyc : Enemy {
         moveBehavior = new();
         enemyBehaviors.Add(moveBehavior);
 
-        shootBehavior = new();
-        shootBehavior.Setup(projectile, shootPoint.localPosition);
-        enemyBehaviors.Add(shootBehavior);
+        slashBehavior = new();
+        slashBehavior.Setup(weapon, targetLayerMask, slashSize);
+        enemyBehaviors.Add(slashBehavior);
 
         foreach (var enemyBehavior in enemyBehaviors) {
             enemyBehavior.Initialize(this);
@@ -35,13 +36,13 @@ public class BasicRangedEnemyc : Enemy {
         base.OnPlayerEnteredRange(player);
 
         moveBehavior.Stop();
-        shootBehavior.StartShooting(player.transform);
+        slashBehavior.StartAttacking();
     }
 
     protected override void OnPlayerExitedRange(GameObject player) {
         base.OnPlayerExitedRange(player);
 
         moveBehavior.Start();
-        shootBehavior.StopShooting();
+        slashBehavior.StopAttacking();
     }
 }

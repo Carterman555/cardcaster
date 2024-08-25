@@ -532,7 +532,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0.498131, g: 0.51720166, b: 0.5471698, a: 0}
+  m_BackGroundColor: {r: 0.0627451, g: 0.078431375, b: 0.11764707, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -582,7 +582,7 @@ Transform:
   m_GameObject: {fileID: 519420028}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.5625945, y: -0.70286, z: -10}
+  m_LocalPosition: {x: 0, y: 0, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1437,7 +1437,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1606153966}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f453f694addf4275988fac205bc91968, type: 3}
   m_Name: 
@@ -1487,6 +1487,10 @@ PrefabInstance:
     - target: {fileID: 2779059601650462574, guid: a38cd3fe0a3c80f46a80583c4ebeca30, type: 3}
       propertyPath: m_Name
       value: Room1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2779059601650462574, guid: a38cd3fe0a3c80f46a80583c4ebeca30, type: 3}
+      propertyPath: m_Layer
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5378690074485086980, guid: a38cd3fe0a3c80f46a80583c4ebeca30, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1578,8 +1582,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   roomsPerLevel:
-    MinValue: 5
-    MaxValue: 5
+    MinValue: 10
+    MaxValue: 12
   doorwayTileReplacer: {fileID: 11400000, guid: e6cf803c01b1aec48baa73b56fea4a91, type: 2}
   horizontalHallwayPrefab: {fileID: 8927245960358128749, guid: a01138220e6da674eaf6cbc5a0844e1c, type: 3}
   verticalHallwayPrefab: {fileID: 8927245960358128749, guid: 8e2403430e5795c438c597e18fd4a800, type: 3}

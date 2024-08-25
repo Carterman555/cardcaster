@@ -8,18 +8,12 @@ public class Room : MonoBehaviour {
 
     public static event Action<int> OnAnyRoomChange; // int: new roomNum
 
-    [SerializeField] private TriggerContactTracker roomOverlapTracker;
-
     [SerializeField] private List<PossibleDoorway> possibleDoorways;
 
     [SerializeField] private Tilemap groundTilemap;
     [SerializeField] private Tilemap colliderTilemap;
 
     #region Get Methods
-
-    public bool IsOverlappingRoom() {
-        return roomOverlapTracker.HasContact();
-    }
 
     public List<PossibleDoorway> GetPossibleDoorways() {
         return possibleDoorways;

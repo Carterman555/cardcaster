@@ -6,7 +6,7 @@ public class RoomGenerator : MonoBehaviour {
 
     [SerializeField] private RandomInt roomsPerLevel;
 
-    [SerializeField] private DoorwayTileReplacer doorwayTileReplacer;
+    [SerializeField] private DoorwayTileDestroyer doorwayTileReplacer;
 
     [Header("Prefabs")]
     [SerializeField] private Transform horizontalHallwayPrefab;
@@ -24,6 +24,9 @@ public class RoomGenerator : MonoBehaviour {
         //choose a random number of rooms for levels
         roomsPerLevel.Randomize();
 
+        float overlapDetectDelay = 0f;
+        yield return new WaitForSeconds(overlapDetectDelay);
+
         int emergencyCounter = 0;
 
         List<Room> placedRooms = new();
@@ -34,8 +37,8 @@ public class RoomGenerator : MonoBehaviour {
         for (int roomsSpawned = 0; roomsSpawned < roomsPerLevel.Value; roomsSpawned++) {
 
             emergencyCounter++;
-            if (emergencyCounter > 50) {
-                print("Broke out emergency");
+            if (emergencyCounter > 500) {
+                Debug.LogError("Broke out emergency");
                 break;
             }
 
@@ -45,8 +48,8 @@ public class RoomGenerator : MonoBehaviour {
             while (!roomSpawned) {
 
                 emergencyCounter++;
-                if (emergencyCounter > 50) {
-                    print("Broke out emergency");
+                if (emergencyCounter > 500) {
+                    Debug.LogError("Broke out emergency");
                     break;
                 }
 
@@ -57,7 +60,23 @@ public class RoomGenerator : MonoBehaviour {
                 Room connectingRoom = GetRandomRoomWithDoorway(placedRooms);
                 PossibleDoorway connectingDoorway = connectingRoom.GetPossibleDoorways().RandomItem();
                 bool canConnect = newRoom.ConnectRoomToDoorway(connectingDoorway, out PossibleDoorway newDoorway);
+
+                //... wait a frame to give time to colliders, so CheckRoomOverlap will work. I also don't know if you are
+                //... able to instantiate and destroy an object in the same frame.
+                yield return null;
+
                 if (!canConnect) {
+                    Destroy(newRoom.gameObject);
+                    continue;
+                }
+
+                // set room num
+                int roomNum = roomsSpawned + 2;
+                newRoom.SetRoomNum(roomNum);
+
+                
+
+                if (CheckRoomOverlap(placedRooms, newRoom)) {
                     Destroy(newRoom.gameObject);
                     continue;
                 }
@@ -65,32 +84,20 @@ public class RoomGenerator : MonoBehaviour {
                 // so another room doesn't try to connect with the same doorway
                 connectingRoom.RemovePossibleDoorway(connectingDoorway);
 
-                // set room num
-                int roomNum = roomsSpawned + 2;
-                newRoom.SetRoomNum(roomNum);
-
-                // wait then check if the room overlaps with another room
-                float overlapDetectDelay = 0.1f;
-                yield return new WaitForSeconds(overlapDetectDelay);
-
-                if (newRoom.IsOverlappingRoom()) {
-                    Destroy(newRoom.gameObject);
-                    continue;
-                }
-
                 // spawn in the hallway to connect the rooms
                 SpawnHallway(connectingDoorway.GetSide(), connectingDoorway.transform.position);
-                doorwayTileReplacer.ReplaceTiles(connectingRoom.GetGroundTilemap(),
+                doorwayTileReplacer.DestroyTiles(connectingRoom.GetGroundTilemap(),
                     connectingRoom.GetColliderTilemap(),
                     connectingDoorway.GetSide(),
-                    connectingDoorway.transform.position);
+                    connectingDoorway.transform.localPosition);
 
-                doorwayTileReplacer.ReplaceTiles(newRoom.GetGroundTilemap(),
+                doorwayTileReplacer.DestroyTiles(newRoom.GetGroundTilemap(),
                     newRoom.GetColliderTilemap(),
                     newDoorway.GetSide(),
-                    newDoorway.transform.position);
+                    newDoorway.transform.localPosition);
 
                 roomSpawned = true;
+
             }
 
             placedRooms.Add(newRoom);
@@ -103,7 +110,7 @@ public class RoomGenerator : MonoBehaviour {
     private Room GetRandomRoomWithDoorway(List<Room> rooms) {
 
         int emergencyCounter = 0;
-        while (emergencyCounter < 50) {
+        while (emergencyCounter < 500) {
             emergencyCounter++;
 
             Room chosenRoom = rooms.RandomItem();
@@ -141,12 +148,12 @@ public class RoomGenerator : MonoBehaviour {
         Instantiate(hallwayPrefab, hallwayPos, Quaternion.identity, Containers.Instance.Rooms);
     }
 
-    //private bool CheckRoomOverlap(Room room) {
-    //    foreach (Room placedRoom in placedRooms) {
-    //        if (placedRoom.GetComponent<Collider2D>().bounds.Intersects(room.GetComponent<Collider2D>().bounds))
-    //            return true;
-    //    }
-    //    return false;
-    //}
+    private bool CheckRoomOverlap(List<Room> placedRooms, Room room) {
+        foreach (Room placedRoom in placedRooms) {
+            if (placedRoom.GetComponent<Collider2D>().bounds.Intersects(room.GetComponent<Collider2D>().bounds))
+                return true;
+        }
+        return false;
+    }
 
 }

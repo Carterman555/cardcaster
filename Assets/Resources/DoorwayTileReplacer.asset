@@ -12,19 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 478823c36b930374c81324fa2b6f32a6, type: 3}
   m_Name: DoorwayTileReplacer
   m_EditorClassIdentifier: 
-  topSideTileReplacements: []
-  bottomSideTileReplacements: []
-  leftSideTileReplacements: []
-  rightSideTileReplacements:
-  - Tile: {fileID: 11400000, guid: c0b9c880b796a0b45824721c80c87140, type: 2}
-    Collider: 1
-  - Tile: {fileID: 11400000, guid: 4e037845ca23e4e438d56100875622ab, type: 2}
-    Collider: 0
-  - Tile: {fileID: 11400000, guid: 65569be99b742a04c80942d313f1f635, type: 2}
-    Collider: 0
-  - Tile: {fileID: 11400000, guid: 0b99894be16d4e84c8ec0e119409cb2e, type: 2}
-    Collider: 0
-  - Tile: {fileID: 11400000, guid: 861d44137350f2f46ba12b6882c2c9c5, type: 2}
-    Collider: 1
-  - Tile: {fileID: 11400000, guid: 11ee72591177aaa4c8a3446d01c8d63c, type: 2}
-    Collider: 1
+  destroyTileInfo:
+  - DoorwaySide: 0
+    Offset: {x: -2, y: -2}
+    Size: {x: 4, y: 3}
+  - DoorwaySide: 1
+    Offset: {x: -2, y: -1}
+    Size: {x: 4, y: 1}
+  - DoorwaySide: 2
+    Offset: {x: -1, y: -2}
+    Size: {x: 1, y: 6}
+  - DoorwaySide: 3
+    Offset: {x: 0, y: -2}
+    Size: {x: 1, y: 6}

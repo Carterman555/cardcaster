@@ -582,7 +582,7 @@ Transform:
   m_GameObject: {fileID: 519420028}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -10}
+  m_LocalPosition: {x: -0.5625945, y: -0.70286, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1185,11 +1185,11 @@ CapsuleCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
-  m_Size: {x: 0.5, y: 1}
+  m_Size: {x: 0.8, y: 1}
   m_Direction: 0
 --- !u!114 &1214084863
 MonoBehaviour:
@@ -1549,7 +1549,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1794461942
 Transform:
   m_ObjectHideFlags: 0
@@ -1580,6 +1580,9 @@ MonoBehaviour:
   roomsPerLevel:
     MinValue: 5
     MaxValue: 5
+  doorwayTileReplacer: {fileID: 11400000, guid: e6cf803c01b1aec48baa73b56fea4a91, type: 2}
+  horizontalHallwayPrefab: {fileID: 8927245960358128749, guid: a01138220e6da674eaf6cbc5a0844e1c, type: 3}
+  verticalHallwayPrefab: {fileID: 8927245960358128749, guid: 8e2403430e5795c438c597e18fd4a800, type: 3}
   startingRoom: {fileID: 1894770955}
   roomPrefabs:
   - {fileID: 2394718490218990673, guid: a38cd3fe0a3c80f46a80583c4ebeca30, type: 3}

@@ -6,6 +6,12 @@ public class RoomGenerator : MonoBehaviour {
 
     [SerializeField] private RandomInt roomsPerLevel;
 
+    [SerializeField] private DoorwayTileReplacer doorwayTileReplacer;
+
+    [Header("Prefabs")]
+    [SerializeField] private Transform horizontalHallwayPrefab;
+    [SerializeField] private Transform verticalHallwayPrefab;
+
     [SerializeField] private Room startingRoom;
     [SerializeField] private Room[] roomPrefabs;
 
@@ -20,12 +26,12 @@ public class RoomGenerator : MonoBehaviour {
 
         int emergencyCounter = 0;
 
-        List<PossibleDoorway> allPossibleDoorwayPoints = new();
-        allPossibleDoorwayPoints.AddRange(startingRoom.GetPossibleDoorwayPoints());
+        List<Room> placedRooms = new();
+        placedRooms.Add(startingRoom);
 
-        int roomsSpawned = 0;
-        //while that number of rooms has not been spawned yet
-        while (roomsSpawned < roomsPerLevel.Value) {
+        startingRoom.SetRoomNum(1);
+
+        for (int roomsSpawned = 0; roomsSpawned < roomsPerLevel.Value; roomsSpawned++) {
 
             emergencyCounter++;
             if (emergencyCounter > 50) {
@@ -33,40 +39,114 @@ public class RoomGenerator : MonoBehaviour {
                 break;
             }
 
-            PossibleDoorway existingRoomDoorwayPoint;
-            Room newRoom;
-            while (true) {
-                // choose a random possible doorway in a random room
-                newRoom = Instantiate(roomPrefabs.RandomItem(), Containers.Instance.Rooms);
+            Room newRoom = null;
+            bool roomSpawned = false;
 
-                existingRoomDoorwayPoint = allPossibleDoorwayPoints.RandomItem();
-                newRoom.ConnectRoomToDoorway(existingRoomDoorwayPoint);
-
-                float overlapDetectDelay = 0.1f;
-                yield return new WaitForSeconds(overlapDetectDelay);
-
-                if (newRoom.IsOverlappingRoom()) {
-                    Destroy(newRoom.gameObject);
-                }
-                else {
-                    break;
-                }
+            while (!roomSpawned) {
 
                 emergencyCounter++;
                 if (emergencyCounter > 50) {
                     print("Broke out emergency");
                     break;
                 }
+
+                // spawn a new room
+                newRoom = Instantiate(roomPrefabs.RandomItem(), Containers.Instance.Rooms);
+
+                // connected the new room to a random possible doorway in a random room
+                Room connectingRoom = GetRandomRoomWithDoorway(placedRooms);
+                PossibleDoorway connectingDoorway = connectingRoom.GetPossibleDoorways().RandomItem();
+                bool canConnect = newRoom.ConnectRoomToDoorway(connectingDoorway, out PossibleDoorway newDoorway);
+                if (!canConnect) {
+                    Destroy(newRoom.gameObject);
+                    continue;
+                }
+
+                // so another room doesn't try to connect with the same doorway
+                connectingRoom.RemovePossibleDoorway(connectingDoorway);
+
+                // set room num
+                int roomNum = roomsSpawned + 2;
+                newRoom.SetRoomNum(roomNum);
+
+                // wait then check if the room overlaps with another room
+                float overlapDetectDelay = 0.1f;
+                yield return new WaitForSeconds(overlapDetectDelay);
+
+                if (newRoom.IsOverlappingRoom()) {
+                    Destroy(newRoom.gameObject);
+                    continue;
+                }
+
+                // spawn in the hallway to connect the rooms
+                SpawnHallway(connectingDoorway.GetSide(), connectingDoorway.transform.position);
+                doorwayTileReplacer.ReplaceTiles(connectingRoom.GetGroundTilemap(),
+                    connectingRoom.GetColliderTilemap(),
+                    connectingDoorway.GetSide(),
+                    connectingDoorway.transform.position);
+
+                doorwayTileReplacer.ReplaceTiles(newRoom.GetGroundTilemap(),
+                    newRoom.GetColliderTilemap(),
+                    newDoorway.GetSide(),
+                    newDoorway.transform.position);
+
+                roomSpawned = true;
             }
 
-            // add the new room's doorway points
-            allPossibleDoorwayPoints.AddRange(newRoom.GetPossibleDoorwayPoints());
-            allPossibleDoorwayPoints.Remove(existingRoomDoorwayPoint);
-            roomsSpawned++;
+            placedRooms.Add(newRoom);
         }
 
-        //generate shop, boss room entrance, and item chest each on random possible doorways
+        // generate shop, boss room entrance, and item chest each on random possible doorways
 
     }
+
+    private Room GetRandomRoomWithDoorway(List<Room> rooms) {
+
+        int emergencyCounter = 0;
+        while (emergencyCounter < 50) {
+            emergencyCounter++;
+
+            Room chosenRoom = rooms.RandomItem();
+            if (chosenRoom.GetPossibleDoorways().Count > 0) {
+                return chosenRoom;
+            }
+        }
+
+        Debug.LogError("Broke out emergency");
+
+        return null;
+    }
+
+    private void SpawnHallway(DoorwaySide doorwaySide, Vector2 doorwayPosition) {
+
+        Vector2 hallwayPos = Vector2.zero;
+        Transform hallwayPrefab = null;
+        if (doorwaySide == DoorwaySide.Top) {
+            hallwayPos = new Vector2(doorwayPosition.x, doorwayPosition.y + 4);
+            hallwayPrefab = verticalHallwayPrefab;
+        }
+        else if (doorwaySide == DoorwaySide.Bottom) {
+            hallwayPos = new Vector2(doorwayPosition.x, doorwayPosition.y - 4);
+            hallwayPrefab = verticalHallwayPrefab;
+        }
+        else if (doorwaySide == DoorwaySide.Left) {
+            hallwayPos = new Vector2(doorwayPosition.x - 4, doorwayPosition.y);
+            hallwayPrefab = horizontalHallwayPrefab;
+        }
+        else if (doorwaySide == DoorwaySide.Right) {
+            hallwayPos = new Vector2(doorwayPosition.x + 4, doorwayPosition.y);
+            hallwayPrefab = horizontalHallwayPrefab;
+        }
+
+        Instantiate(hallwayPrefab, hallwayPos, Quaternion.identity, Containers.Instance.Rooms);
+    }
+
+    //private bool CheckRoomOverlap(Room room) {
+    //    foreach (Room placedRoom in placedRooms) {
+    //        if (placedRoom.GetComponent<Collider2D>().bounds.Intersects(room.GetComponent<Collider2D>().bounds))
+    //            return true;
+    //    }
+    //    return false;
+    //}
 
 }

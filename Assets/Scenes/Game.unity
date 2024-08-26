@@ -557,7 +557,7 @@ Camera:
   far clip plane: 1000
   field of view: 34
   orthographic: 1
-  orthographic size: 5
+  orthographic size: 6
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -1400,7 +1400,7 @@ MonoBehaviour:
   m_Follow: {fileID: 1214084856}
   m_Lens:
     FieldOfView: 34
-    OrthographicSize: 5
+    OrthographicSize: 6
     NearClipPlane: 0.3
     FarClipPlane: 1000
     Dutch: 0
@@ -1532,6 +1532,26 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5606673773426205137, guid: a38cd3fe0a3c80f46a80583c4ebeca30, type: 3}
+      propertyPath: scriptableEnemy
+      value: 
+      objectReference: {fileID: 11400000, guid: 130afc106dca5024e9ef1e18926c8af8, type: 2}
+    - target: {fileID: 7827851928937305674, guid: a38cd3fe0a3c80f46a80583c4ebeca30, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8181193669241776965, guid: a38cd3fe0a3c80f46a80583c4ebeca30, type: 3}
+      propertyPath: m_SortingLayer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8181193669241776965, guid: a38cd3fe0a3c80f46a80583c4ebeca30, type: 3}
+      propertyPath: m_SortingOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8181193669241776965, guid: a38cd3fe0a3c80f46a80583c4ebeca30, type: 3}
+      propertyPath: m_SortingLayerID
+      value: -210121459
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1585,11 +1605,13 @@ MonoBehaviour:
     MinValue: 10
     MaxValue: 12
   doorwayTileReplacer: {fileID: 11400000, guid: e6cf803c01b1aec48baa73b56fea4a91, type: 2}
-  horizontalHallwayPrefab: {fileID: 8927245960358128749, guid: a01138220e6da674eaf6cbc5a0844e1c, type: 3}
+  horizontalHallwayPrefab: {fileID: 8927245960358128749, guid: aaf813fa1e4707847b1e6486a5b2e3d5, type: 3}
   verticalHallwayPrefab: {fileID: 8927245960358128749, guid: 8e2403430e5795c438c597e18fd4a800, type: 3}
   startingRoom: {fileID: 1894770955}
   roomPrefabs:
   - {fileID: 2394718490218990673, guid: a38cd3fe0a3c80f46a80583c4ebeca30, type: 3}
+  - {fileID: 2394718490218990673, guid: c93893fcf2111f4419d62138f6eeb450, type: 3}
+  - {fileID: 4567952786592543439, guid: 40b2a4ee98096e647b12052bd868489b, type: 3}
 --- !u!4 &1894770954 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5378690074485086980, guid: a38cd3fe0a3c80f46a80583c4ebeca30, type: 3}
@@ -1678,7 +1700,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -210121459
   m_SortingLayer: 3
-  m_SortingOrder: 1
+  m_SortingOrder: 0
   m_Sprite: {fileID: 13246602875518615, guid: 27ca7a4900c2c244abbcd8f39c8dda1a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0

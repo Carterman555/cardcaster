@@ -21,7 +21,7 @@ MonoBehaviour:
     Size: {x: 4, y: 1}
   - DoorwaySide: 2
     Offset: {x: -1, y: -2}
-    Size: {x: 1, y: 6}
+    Size: {x: 1, y: 5}
   - DoorwaySide: 3
     Offset: {x: 0, y: -2}
-    Size: {x: 1, y: 6}
+    Size: {x: 1, y: 5}

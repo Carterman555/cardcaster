@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 89046d6155b91414da8996dffd75f3b4
+guid: 50c4a499f7246d74a9a0604836d4c44a
 ScriptedImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -121,18 +121,18 @@ ScriptedImporter:
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
   animatedSpriteImportData:
-  - name: room2
+  - name: objects-tilemap
     originalName: 
-    pivot: {x: 0.5, y: 0}
+    pivot: {x: 0.52459013, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
       x: 4
       y: 4
-      width: 128
-      height: 128
-    spriteID: 2dd071bdc3d5eb847b3fd7ffbeaf2b6e
+      width: 61
+      height: 29
+    spriteID: 818217e2bfc8c54479e9f211d5d76dee
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -144,25 +144,25 @@ ScriptedImporter:
   spriteSheetImportData: []
   asepriteLayers:
   - layerIndex: 0
-    guid: -44476759
-    name: room2
+    guid: -1781840601
+    name: objects-tilemap
     layerFlags: 0
     layerType: 0
     blendMode: 0
     cells:
-    - name: room2
+    - name: objects-tilemap
       frameIndex: 0
       additiveSortOrder: 0
       cellRect:
         x: 0
         y: 0
-        width: 128
-        height: 128
-      spriteId: 2dd071bdc3d5eb847b3fd7ffbeaf2b6e
+        width: 61
+        height: 29
+      spriteId: 818217e2bfc8c54479e9f211d5d76dee
     linkedCells: []
     parentIndex: -1
   platformSettings: []
   generatePhysicsShape: 0
   secondarySpriteTextures: []
   spritePackingTag: 
-  canvasSize: {x: 128, y: 128}
+  canvasSize: {x: 64, y: 32}

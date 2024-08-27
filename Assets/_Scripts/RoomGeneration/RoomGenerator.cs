@@ -1,8 +1,11 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class RoomGenerator : StaticInstance<RoomGenerator> {
+
+    public static event Action OnCompleteGeneration;
 
     [SerializeField] private RandomInt roomsPerLevel;
 
@@ -106,7 +109,13 @@ public class RoomGenerator : StaticInstance<RoomGenerator> {
                     newDoorway.GetSide(),
                     newDoorway.transform.localPosition);
 
+
                 newRoom.CopyColliderToCameraConfiner(cameraConfiner);
+
+                // create enter and exit triggers
+                newRoom.CreateEnterAndExitTriggers(newDoorway);
+                connectingRoom.CreateEnterAndExitTriggers(connectingDoorway);
+
 
                 roomSpawned = true;
 
@@ -119,6 +128,8 @@ public class RoomGenerator : StaticInstance<RoomGenerator> {
 
 
         isGeneratingRooms = false;
+
+        OnCompleteGeneration?.Invoke();
     }
 
     private Room GetRandomRoomWithDoorway(List<Room> rooms) {
@@ -140,25 +151,22 @@ public class RoomGenerator : StaticInstance<RoomGenerator> {
 
     private void SpawnHallway(DoorwaySide doorwaySide, Vector2 doorwayPosition) {
 
-        Vector2 hallwayPos = Vector2.zero;
         Transform hallwayPrefab = null;
         if (doorwaySide == DoorwaySide.Top) {
-            hallwayPos = new Vector2(doorwayPosition.x, doorwayPosition.y + 4);
             hallwayPrefab = verticalHallwayPrefab;
         }
         else if (doorwaySide == DoorwaySide.Bottom) {
-            hallwayPos = new Vector2(doorwayPosition.x, doorwayPosition.y - 4);
             hallwayPrefab = verticalHallwayPrefab;
         }
         else if (doorwaySide == DoorwaySide.Left) {
-            hallwayPos = new Vector2(doorwayPosition.x - 4, doorwayPosition.y);
             hallwayPrefab = horizontalHallwayPrefab;
         }
         else if (doorwaySide == DoorwaySide.Right) {
-            hallwayPos = new Vector2(doorwayPosition.x + 4, doorwayPosition.y);
             hallwayPrefab = horizontalHallwayPrefab;
         }
 
+        float hallwayOffset = 4;
+        Vector2 hallwayPos = doorwayPosition + SideToDirection(doorwaySide) * hallwayOffset;
         Instantiate(hallwayPrefab, hallwayPos, Quaternion.identity, Containers.Instance.Rooms);
     }
 
@@ -168,6 +176,24 @@ public class RoomGenerator : StaticInstance<RoomGenerator> {
                 return true;
         }
         return false;
+    }
+
+    public Vector2 SideToDirection(DoorwaySide side) {
+        if (side == DoorwaySide.Top) {
+            return new Vector2(0, 1);
+        }
+        else if (side == DoorwaySide.Bottom) {
+            return new Vector2(0, -1);
+        }
+        else if (side == DoorwaySide.Left) {
+            return new Vector2(-1, 0);
+        }
+        else if (side == DoorwaySide.Right) {
+            return new Vector2(1, 0);
+        }
+        else {
+            return Vector2.zero;
+        }
     }
 
 }

@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 50c4a499f7246d74a9a0604836d4c44a
+guid: c21219b6b8de5a24da69984677267953
 ScriptedImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -121,18 +121,18 @@ ScriptedImporter:
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
   animatedSpriteImportData:
-  - name: objects-tilemap
+  - name: chair
     originalName: 
-    pivot: {x: 0.52459013, y: 0}
+    pivot: {x: 0.5, y: -0.15789473}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
       x: 4
       y: 4
-      width: 61
-      height: 29
-    spriteID: 818217e2bfc8c54479e9f211d5d76dee
+      width: 10
+      height: 19
+    spriteID: a0ff526a519e1cc48a62a245ffe5750f
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -144,25 +144,25 @@ ScriptedImporter:
   spriteSheetImportData: []
   asepriteLayers:
   - layerIndex: 0
-    guid: -1781840601
-    name: objects-tilemap
+    guid: -671816395
+    name: chair
     layerFlags: 0
     layerType: 0
     blendMode: 0
     cells:
-    - name: objects-tilemap
+    - name: chair
       frameIndex: 0
       additiveSortOrder: 0
       cellRect:
-        x: 0
-        y: 0
-        width: 61
-        height: 29
-      spriteId: 818217e2bfc8c54479e9f211d5d76dee
+        x: 3
+        y: 3
+        width: 10
+        height: 19
+      spriteId: a0ff526a519e1cc48a62a245ffe5750f
     linkedCells: []
     parentIndex: -1
   platformSettings: []
   generatePhysicsShape: 0
   secondarySpriteTextures: []
   spritePackingTag: 
-  canvasSize: {x: 64, y: 32}
+  canvasSize: {x: 16, y: 24}

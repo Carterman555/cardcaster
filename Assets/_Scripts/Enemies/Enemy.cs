@@ -1,8 +1,11 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class Enemy : MonoBehaviour, IHasStats, IChangesFacing, ICanAttack {
+
+    public static event Action OnEnemiesCleared;
 
     public event Action<bool> OnChangedFacing;
     public void InvokeChangedFacing(bool facing) {
@@ -22,34 +25,29 @@ public class Enemy : MonoBehaviour, IHasStats, IChangesFacing, ICanAttack {
 
     protected List<EnemyBehavior> enemyBehaviors = new();
 
-    #region Player Tracker
+    private Health health;
 
-    [SerializeField] private TriggerContactTracker playerTracker;
-    protected bool playerWithinRange => playerTracker.HasContact();
+    private void Awake() {
+        health = GetComponent<Health>();
+    }
 
     protected virtual void OnEnable() {
-        playerTracker.OnEnterContact += OnPlayerEnteredRange;
-        playerTracker.OnLeaveContact += OnPlayerExitedRange;
+        SubToPlayerTriggerEvents();
+
+        health.OnDeath += CheckIfEnemiesCleared;
     }
 
     protected virtual void OnDisable() {
-        playerTracker.OnEnterContact -= OnPlayerEnteredRange;
-        playerTracker.OnLeaveContact -= OnPlayerExitedRange;
+        UnsubFromPlayerTriggerEvents();
+
+        health.OnDeath -= CheckIfEnemiesCleared;
 
         foreach (EnemyBehavior behavior in enemyBehaviors) {
             behavior.OnDisable();
         }
     }
 
-    protected virtual void OnPlayerEnteredRange(GameObject player) {
-        
-    }
-
-    protected virtual void OnPlayerExitedRange(GameObject player) {
-
-    }
-
-    #endregion
+    
 
     private void Start() {
         playerTracker.SetRange(stats.AttackRange);
@@ -69,7 +67,39 @@ public class Enemy : MonoBehaviour, IHasStats, IChangesFacing, ICanAttack {
 
     protected virtual void AnimationTriggerEvent(AnimationTriggerType triggerType) { }
 
-    
+    private void CheckIfEnemiesCleared() {
+        bool anyAliveEnemies = Containers.Instance.Enemies.GetComponentsInChildren<Health>().Any(health => !health.IsDead());
+        if (!anyAliveEnemies) {
+            OnEnemiesCleared?.Invoke();
+        }
+    }
+
+    #region Player Tracker
+
+    [SerializeField] private TriggerContactTracker playerTracker;
+    protected bool playerWithinRange => playerTracker.HasContact();
+
+    private void SubToPlayerTriggerEvents() {
+        playerTracker.OnEnterContact += OnPlayerEnteredRange;
+        playerTracker.OnLeaveContact += OnPlayerExitedRange;
+    }
+    private void UnsubFromPlayerTriggerEvents() {
+        playerTracker.OnEnterContact -= OnPlayerEnteredRange;
+        playerTracker.OnLeaveContact -= OnPlayerExitedRange;
+    }
+
+
+
+    protected virtual void OnPlayerEnteredRange(GameObject player) {
+
+    }
+
+    protected virtual void OnPlayerExitedRange(GameObject player) {
+
+    }
+
+    #endregion
+
 }
 
 public enum AnimationTriggerType {

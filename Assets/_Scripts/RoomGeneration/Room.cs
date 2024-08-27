@@ -1,20 +1,33 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
 public class Room : MonoBehaviour {
 
-    public static event Action<Room> OnAnyRoomEnter_Room; // int: new roomNum
-    public static event Action<Room> OnAnyRoomExit_Room; // int: new roomNum
+    public static event Action<Room> OnAnyRoomEnter_Room;
+    public static event Action<Room> OnAnyRoomExit_Room;
+
+    private static int enteredRoomNum;
+
+    private int roomNum;
 
     [SerializeField] private List<PossibleDoorway> possibleDoorways;
+    [SerializeField] private List<PossibleDoorway> createdDoorways;
 
     [SerializeField] private Tilemap groundTilemap;
     [SerializeField] private Tilemap colliderTilemap;
 
     [SerializeField] private PolygonCollider2D cameraConfiner;
+
+    [SerializeField] private TriggerContactTracker enterTrigger;
+    [SerializeField] private TriggerContactTracker exitTrigger;
+    [SerializeField] private DoorBlocker doorBlockerPrefab;
+
+    [SerializeField] private bool noEnemies;
+    private bool roomCleared;
 
     #region Get Methods
 
@@ -30,21 +43,21 @@ public class Room : MonoBehaviour {
         return colliderTilemap;
     }
 
-    public PolygonCollider2D GetCameraConfiner() {
-        return cameraConfiner;
-    }
-
     public int GetRoomNum() {
         return roomNum;
+    }
+
+    public bool IsRoomCleared() {
+        return roomCleared;
     }
 
     #endregion
 
     public void RemovePossibleDoorway(PossibleDoorway possibleDoorway) {
         possibleDoorways.Remove(possibleDoorway);
+        createdDoorways.Add(possibleDoorway);
     }
 
-    private int roomNum;
     public void SetRoomNum(int roomNum) {
         this.roomNum = roomNum;
 
@@ -52,6 +65,20 @@ public class Room : MonoBehaviour {
         foreach (IHasRoomNum hasRoomNum in hasRoomNumChildren) {
             hasRoomNum.SetRoomNum(roomNum);
         }
+
+        // starting room
+        if (roomNum == 1) {
+            EnterRoom(gameObject);
+        }
+    }
+
+    private void OnEnable() {
+        enterTrigger.OnEnterContact += EnterRoom;
+
+        roomCleared = noEnemies;
+    }
+    private void OnDisable() {
+        exitTrigger.OnEnterContact -= ExitRoom;
     }
 
     #region Connect Room To Doorway
@@ -72,7 +99,10 @@ public class Room : MonoBehaviour {
 
         // Position the new room so the doorways align
         Vector2 offset = connectingRoomDoorway.transform.position - newDoorway.transform.position;
-        offset += GetHallwayOffset(connectingRoomDoorway.GetSide());
+
+        float hallwayLength = 8;
+        Vector2 hallwayOffset = RoomGenerator.Instance.SideToDirection(connectingRoomDoorway.GetSide()) * hallwayLength;
+        offset += hallwayOffset;
         transform.position += (Vector3)offset;
 
         return true;
@@ -96,69 +126,86 @@ public class Room : MonoBehaviour {
         }
     }
 
-    private Vector2 GetHallwayOffset(DoorwaySide currentSide) {
-
-        float hallwayLength = 8;
-        if (currentSide == DoorwaySide.Top) {
-            return new Vector2(0, hallwayLength);
-        }
-        else if (currentSide == DoorwaySide.Bottom) {
-            return new Vector2(0, -hallwayLength);
-        }
-        else if (currentSide == DoorwaySide.Left) {
-            return new Vector2(-hallwayLength, 0);
-        }
-        else if (currentSide == DoorwaySide.Right) {
-            return new Vector2(hallwayLength, 0);
-        }
-        else {
-            return Vector2.zero;
-        }
-    }
-
     #endregion
 
-    public void CopyColliderToCameraConfiner(GameObject cameraConfiner) {
-        PolygonCollider2D sourceCollider = GetComponent<PolygonCollider2D>();
-        if (sourceCollider == null) {
-            Debug.LogError("Source GameObject does not have a PolygonCollider2D");
-            return;
-        }
+    public void CopyColliderToCameraConfiner(GameObject cameraConfinerComposite) {
 
-        PolygonCollider2D targetCollider = cameraConfiner.AddComponent<PolygonCollider2D>();
+        PolygonCollider2D targetCollider = cameraConfinerComposite.AddComponent<PolygonCollider2D>();
 
         targetCollider.usedByComposite = true;
-        targetCollider.offset = sourceCollider.offset;
+        targetCollider.offset = cameraConfiner.offset;
 
-        targetCollider.pathCount = sourceCollider.pathCount;
-        for (int i = 0; i < sourceCollider.pathCount; i++) {
-            Vector2[] path = sourceCollider.GetPath(i);
+        targetCollider.pathCount = cameraConfiner.pathCount;
+        for (int i = 0; i < cameraConfiner.pathCount; i++) {
+            Vector2[] path = cameraConfiner.GetPath(i);
             targetCollider.SetPath(i, path);
         }
 
         // Adjust for different positions if needed
-        targetCollider.offset += (Vector2)(transform.position - cameraConfiner.transform.position);
+        targetCollider.offset += (Vector2)(cameraConfiner.transform.position - cameraConfinerComposite.transform.position);
     }
 
-    private void OnTriggerEnter2D(Collider2D collision) {
-        if (RoomGenerator.Instance.IsGeneratingRooms()) {
-            return;
-        }
+    public void CreateEnterAndExitTriggers(PossibleDoorway doorway) {
 
-        if (collision.gameObject.layer == GameLayers.PlayerLayer) {
-            OnAnyRoomEnter_Room?.Invoke(this);
-            print("Entered Room: " + name);
-        }
-    }
-    private void OnTriggerExit2D(Collider2D collision) {
-        if (RoomGenerator.Instance.IsGeneratingRooms()) {
-            return;
-        }
+        Vector2 colSize = new Vector2(3f, 3f);
+        float offsetValue = 1f + (colSize.x / 2f);
 
-        if (collision.gameObject.layer == GameLayers.PlayerLayer) {
-            OnAnyRoomExit_Room?.Invoke(this);
-            print("Exited Room: " + name);
-        }
+        Vector2 offset = RoomGenerator.Instance.SideToDirection(doorway.GetSide()) * offsetValue;
+
+        BoxCollider2D enterCol = enterTrigger.AddComponent<BoxCollider2D>();
+        enterCol.usedByComposite = true;
+        enterCol.size = colSize;
+        enterCol.offset = (Vector2)doorway.transform.localPosition - offset;
+
+        BoxCollider2D exitCol = exitTrigger.AddComponent<BoxCollider2D>();
+        exitCol.usedByComposite = true;
+        exitCol.size = colSize;
+        exitCol.offset = (Vector2)doorway.transform.localPosition + offset;
     }
 
+    private void EnterRoom(GameObject player) {
+
+        enteredRoomNum = roomNum;
+
+        if (!roomCleared) {
+            CreateDoorwayBlockers();
+        }
+
+        exitTrigger.OnEnterContact += ExitRoom;
+        Enemy.OnEnemiesCleared += SetRoomCleared;
+
+        enterTrigger.OnEnterContact -= EnterRoom;
+
+        OnAnyRoomEnter_Room?.Invoke(this);
+        print("Entered room: " + name);
+    }
+
+    private void ExitRoom(GameObject player) {
+        //if (enteredRoomNum != roomNum) {
+        //    return;
+        //}
+
+        enteredRoomNum = -1;
+
+        enterTrigger.OnEnterContact += EnterRoom;
+
+        exitTrigger.OnEnterContact -= ExitRoom;
+        Enemy.OnEnemiesCleared -= SetRoomCleared;
+
+        OnAnyRoomExit_Room?.Invoke(this);
+        print("Exited room: " + name);
+    }
+
+    private void CreateDoorwayBlockers() {
+        foreach (PossibleDoorway createdDoorway in createdDoorways) {
+            DoorBlocker newDoorBlocker = doorBlockerPrefab.Spawn(createdDoorway.transform.position, Containers.Instance.Rooms);
+
+            bool horizontal = createdDoorway.GetSide() == DoorwaySide.Top || createdDoorway.GetSide() == DoorwaySide.Bottom;
+            newDoorBlocker.Setup(horizontal);
+        }
+    }
+
+    private void SetRoomCleared() {
+        roomCleared = true;
+    }
 }

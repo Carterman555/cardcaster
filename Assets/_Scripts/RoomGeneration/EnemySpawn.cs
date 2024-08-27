@@ -20,7 +20,7 @@ public class EnemySpawn : MonoBehaviour, IHasRoomNum {
     }
 
     private void TrySpawnEnemy(Room enteredRoom) {
-        if (enteredRoom.GetRoomNum() == roomNum) {
+        if (enteredRoom.GetRoomNum() == roomNum && !enteredRoom.IsRoomCleared()) {
             StartCoroutine(SpawnEnemy());
         }
     }

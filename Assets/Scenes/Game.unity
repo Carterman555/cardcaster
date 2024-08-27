@@ -1454,7 +1454,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1606153966}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 92007e32ab8110f46a3af4fac276f26c, type: 3}
   m_Name: 
@@ -1498,6 +1498,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 389897624}
     m_Modifications:
+    - target: {fileID: 2394718490218990673, guid: a38cd3fe0a3c80f46a80583c4ebeca30, type: 3}
+      propertyPath: noEnemies
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2779059601650462574, guid: a38cd3fe0a3c80f46a80583c4ebeca30, type: 3}
       propertyPath: m_Name
       value: Room1

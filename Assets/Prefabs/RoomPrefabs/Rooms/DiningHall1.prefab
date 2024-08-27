@@ -7278,7 +7278,7 @@ GameObject:
   - component: {fileID: 5355974581539499075}
   - component: {fileID: 2394718490218990673}
   m_Layer: 0
-  m_Name: DiningRoom1
+  m_Name: DiningHall1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7365,6 +7365,7 @@ MonoBehaviour:
   - {fileID: 1477773187877963376}
   groundTilemap: {fileID: 8096819079777925670}
   colliderTilemap: {fileID: 9165105326778731556}
+  cameraConfiner: {fileID: 6718819322449431240}
 --- !u!1 &5034404179452976378
 GameObject:
   m_ObjectHideFlags: 0

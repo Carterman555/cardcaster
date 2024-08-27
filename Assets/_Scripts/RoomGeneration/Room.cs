@@ -6,12 +6,15 @@ using UnityEngine.Tilemaps;
 
 public class Room : MonoBehaviour {
 
-    public static event Action<int> OnAnyRoomChange; // int: new roomNum
+    public static event Action<Room> OnAnyRoomEnter_Room; // int: new roomNum
+    public static event Action<Room> OnAnyRoomExit_Room; // int: new roomNum
 
     [SerializeField] private List<PossibleDoorway> possibleDoorways;
 
     [SerializeField] private Tilemap groundTilemap;
     [SerializeField] private Tilemap colliderTilemap;
+
+    [SerializeField] private PolygonCollider2D cameraConfiner;
 
     #region Get Methods
 
@@ -25,6 +28,14 @@ public class Room : MonoBehaviour {
 
     public Tilemap GetColliderTilemap() {
         return colliderTilemap;
+    }
+
+    public PolygonCollider2D GetCameraConfiner() {
+        return cameraConfiner;
+    }
+
+    public int GetRoomNum() {
+        return roomNum;
     }
 
     #endregion
@@ -41,12 +52,9 @@ public class Room : MonoBehaviour {
         foreach (IHasRoomNum hasRoomNum in hasRoomNumChildren) {
             hasRoomNum.SetRoomNum(roomNum);
         }
-
-        // when starts, the starting room invokes room change event
-        if (roomNum == 1) {
-            OnAnyRoomChange?.Invoke(roomNum);
-        }
     }
+
+    #region Connect Room To Doorway
 
     public bool ConnectRoomToDoorway(PossibleDoorway connectingRoomDoorway, out PossibleDoorway newDoorway) {
 
@@ -105,6 +113,51 @@ public class Room : MonoBehaviour {
         }
         else {
             return Vector2.zero;
+        }
+    }
+
+    #endregion
+
+    public void CopyColliderToCameraConfiner(GameObject cameraConfiner) {
+        PolygonCollider2D sourceCollider = GetComponent<PolygonCollider2D>();
+        if (sourceCollider == null) {
+            Debug.LogError("Source GameObject does not have a PolygonCollider2D");
+            return;
+        }
+
+        PolygonCollider2D targetCollider = cameraConfiner.AddComponent<PolygonCollider2D>();
+
+        targetCollider.usedByComposite = true;
+        targetCollider.offset = sourceCollider.offset;
+
+        targetCollider.pathCount = sourceCollider.pathCount;
+        for (int i = 0; i < sourceCollider.pathCount; i++) {
+            Vector2[] path = sourceCollider.GetPath(i);
+            targetCollider.SetPath(i, path);
+        }
+
+        // Adjust for different positions if needed
+        targetCollider.offset += (Vector2)(transform.position - cameraConfiner.transform.position);
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision) {
+        if (RoomGenerator.Instance.IsGeneratingRooms()) {
+            return;
+        }
+
+        if (collision.gameObject.layer == GameLayers.PlayerLayer) {
+            OnAnyRoomEnter_Room?.Invoke(this);
+            print("Entered Room: " + name);
+        }
+    }
+    private void OnTriggerExit2D(Collider2D collision) {
+        if (RoomGenerator.Instance.IsGeneratingRooms()) {
+            return;
+        }
+
+        if (collision.gameObject.layer == GameLayers.PlayerLayer) {
+            OnAnyRoomExit_Room?.Invoke(this);
+            print("Exited Room: " + name);
         }
     }
 

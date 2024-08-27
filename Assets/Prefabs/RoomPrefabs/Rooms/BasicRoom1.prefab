@@ -3595,10 +3595,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5378690074485086980}
-  - component: {fileID: 5355974581539499075}
+  - component: {fileID: 9065240307444207881}
   - component: {fileID: 2394718490218990673}
   m_Layer: 0
-  m_Name: Room1
+  m_Name: BasicRoom1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3623,8 +3623,8 @@ Transform:
   - {fileID: 4264259642786969065}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!61 &5355974581539499075
-BoxCollider2D:
+--- !u!60 &9065240307444207881
+PolygonCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -3655,7 +3655,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -4.554858, y: -4.518386}
+  m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -3665,9 +3665,15 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 26.840143, y: 18.687834}
-  m_EdgeRadius: 0
+  m_Points:
+    m_Paths:
+    - - {x: -18, y: 5}
+      - {x: -18, y: -14}
+      - {x: -3, y: -14}
+      - {x: -3, y: -7}
+      - {x: 9, y: -7}
+      - {x: 9, y: 5}
+  m_UseDelaunayMesh: 0
 --- !u!114 &2394718490218990673
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3688,6 +3694,7 @@ MonoBehaviour:
   - {fileID: 6271498666640012807}
   groundTilemap: {fileID: 8096819079777925670}
   colliderTilemap: {fileID: 9165105326778731556}
+  cameraConfiner: {fileID: 6718819322449431240}
 --- !u!1 &5034404179452976378
 GameObject:
   m_ObjectHideFlags: 0
@@ -3800,10 +3807,12 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: -17.365377, y: 4.297099}
-      - {x: -17.299356, y: -13.34415}
-      - {x: 8.248577, y: -12.916088}
-      - {x: 8.358198, y: 4.2971673}
+    - - {x: -20, y: 7}
+      - {x: -20, y: -16}
+      - {x: -1, y: -16}
+      - {x: -1, y: -9}
+      - {x: 11, y: -9}
+      - {x: 11, y: 7}
   m_UseDelaunayMesh: 0
 --- !u!1 &7827851928937305674
 GameObject:

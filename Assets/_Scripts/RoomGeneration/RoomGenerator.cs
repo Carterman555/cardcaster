@@ -2,11 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RoomGenerator : MonoBehaviour {
+public class RoomGenerator : StaticInstance<RoomGenerator> {
 
     [SerializeField] private RandomInt roomsPerLevel;
 
     [SerializeField] private DoorwayTileDestroyer doorwayTileReplacer;
+    [SerializeField] private GameObject cameraConfiner;
 
     [Header("Prefabs")]
     [SerializeField] private Transform horizontalHallwayPrefab;
@@ -14,6 +15,17 @@ public class RoomGenerator : MonoBehaviour {
 
     [SerializeField] private Room startingRoom;
     [SerializeField] private Room[] roomPrefabs;
+
+    private bool isGeneratingRooms;
+
+    public bool IsGeneratingRooms() {
+        return isGeneratingRooms;
+    }
+
+    protected override void Awake() {
+        base.Awake();
+        isGeneratingRooms = true;
+    }
 
     private void Start() {
         StartCoroutine(GenerateRooms());
@@ -70,16 +82,14 @@ public class RoomGenerator : MonoBehaviour {
                     continue;
                 }
 
-                // set room num
-                int roomNum = roomsSpawned + 2;
-                newRoom.SetRoomNum(roomNum);
-
-                
-
                 if (CheckRoomOverlap(placedRooms, newRoom)) {
                     Destroy(newRoom.gameObject);
                     continue;
                 }
+
+                // set room num
+                int roomNum = roomsSpawned + 2;
+                newRoom.SetRoomNum(roomNum);
 
                 // so another room doesn't try to connect with the same doorway
                 connectingRoom.RemovePossibleDoorway(connectingDoorway);
@@ -96,6 +106,8 @@ public class RoomGenerator : MonoBehaviour {
                     newDoorway.GetSide(),
                     newDoorway.transform.localPosition);
 
+                newRoom.CopyColliderToCameraConfiner(cameraConfiner);
+
                 roomSpawned = true;
 
             }
@@ -105,6 +117,8 @@ public class RoomGenerator : MonoBehaviour {
 
         // generate shop, boss room entrance, and item chest each on random possible doorways
 
+
+        isGeneratingRooms = false;
     }
 
     private Room GetRandomRoomWithDoorway(List<Room> rooms) {

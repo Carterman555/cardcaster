@@ -13,14 +13,14 @@ public class EnemySpawn : MonoBehaviour, IHasRoomNum {
     }
 
     private void OnEnable() {
-        Room.OnAnyRoomChange += TrySpawnEnemy;
+        Room.OnAnyRoomEnter_Room += TrySpawnEnemy;
     }
     private void OnDisable() {
-        Room.OnAnyRoomChange -= TrySpawnEnemy;
+        Room.OnAnyRoomEnter_Room -= TrySpawnEnemy;
     }
 
-    private void TrySpawnEnemy(int enteredRoomNum) {
-        if (enteredRoomNum == roomNum) {
+    private void TrySpawnEnemy(Room enteredRoom) {
+        if (enteredRoom.GetRoomNum() == roomNum) {
             StartCoroutine(SpawnEnemy());
         }
     }

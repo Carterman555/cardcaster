@@ -123,7 +123,7 @@ ScriptedImporter:
   animatedSpriteImportData:
   - name: chair
     originalName: 
-    pivot: {x: 0.5, y: -0.15789473}
+    pivot: {x: 0.6, y: -0.15789473}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
@@ -154,7 +154,7 @@ ScriptedImporter:
       frameIndex: 0
       additiveSortOrder: 0
       cellRect:
-        x: 3
+        x: 2
         y: 3
         width: 10
         height: 19

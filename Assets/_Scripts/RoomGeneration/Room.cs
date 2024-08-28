@@ -177,7 +177,6 @@ public class Room : MonoBehaviour {
         enterTrigger.OnEnterContact -= EnterRoom;
 
         OnAnyRoomEnter_Room?.Invoke(this);
-        print("Entered room: " + name);
     }
 
     private void ExitRoom(GameObject player) {
@@ -193,7 +192,6 @@ public class Room : MonoBehaviour {
         Enemy.OnEnemiesCleared -= SetRoomCleared;
 
         OnAnyRoomExit_Room?.Invoke(this);
-        print("Exited room: " + name);
     }
 
     private void CreateDoorwayBlockers() {

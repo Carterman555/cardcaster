@@ -33,14 +33,10 @@ public class Enemy : MonoBehaviour, IHasStats, IChangesFacing, ICanAttack {
 
     protected virtual void OnEnable() {
         SubToPlayerTriggerEvents();
-
-        health.OnDeath += CheckIfEnemiesCleared;
     }
 
     protected virtual void OnDisable() {
         UnsubFromPlayerTriggerEvents();
-
-        health.OnDeath -= CheckIfEnemiesCleared;
 
         foreach (EnemyBehavior behavior in enemyBehaviors) {
             behavior.OnDisable();
@@ -51,6 +47,12 @@ public class Enemy : MonoBehaviour, IHasStats, IChangesFacing, ICanAttack {
 
     private void Start() {
         playerTracker.SetRange(stats.AttackRange);
+
+        health.OnDeath += CheckIfEnemiesCleared;
+    }
+
+    private void OnDestroy() {
+        health.OnDeath -= CheckIfEnemiesCleared;
     }
 
     protected virtual void Update() {
@@ -69,6 +71,7 @@ public class Enemy : MonoBehaviour, IHasStats, IChangesFacing, ICanAttack {
 
     private void CheckIfEnemiesCleared() {
         bool anyAliveEnemies = Containers.Instance.Enemies.GetComponentsInChildren<Health>().Any(health => !health.IsDead());
+        print("Check if enemies cleared: " + anyAliveEnemies);
         if (!anyAliveEnemies) {
             OnEnemiesCleared?.Invoke();
         }

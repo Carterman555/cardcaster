@@ -21,6 +21,7 @@ public class Health : MonoBehaviour {
     }
 
     private void OnEnable() {
+        dead = false;
         health = maxHealth;
     }
 
@@ -39,7 +40,9 @@ public class Health : MonoBehaviour {
 
     public void Die() {
         dead = true;
-        transform.ShrinkThenDestroy();
+        //transform.ShrinkThenDestroy();
+
+        gameObject.ReturnToPool();
 
         OnDeath?.Invoke();
     }

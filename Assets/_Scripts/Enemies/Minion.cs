@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class Minion : Enemy, IMergable {
 
-    private PlayerBasedMoveBehavior moveBehavior;
+    private ChasePlayerBehavior moveBehavior;
 
     private MergeBehavior mergeBehavior;
     [SerializeField] private TriggerContactTracker mergeTracker;

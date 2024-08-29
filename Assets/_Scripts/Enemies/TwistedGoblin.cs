@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class TwistedGoblin : Enemy {
 
-    private PlayerBasedMoveBehavior moveBehavior;
+    private ChasePlayerBehavior moveBehavior;
 
     [Header("Attack")]
     [SerializeField] private SlashingWeapon weapon;

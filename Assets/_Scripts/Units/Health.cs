@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public class Health : MonoBehaviour {
+public class Health : MonoBehaviour, IDamagable {
 
     public event Action OnDeath;
 

@@ -15,7 +15,7 @@ public class Room : MonoBehaviour {
     private int roomNum;
 
     [SerializeField] private List<PossibleDoorway> possibleDoorways;
-    [SerializeField] private List<PossibleDoorway> createdDoorways;
+    private List<PossibleDoorway> createdDoorways = new();
 
     [SerializeField] private Tilemap groundTilemap;
     [SerializeField] private Tilemap colliderTilemap;

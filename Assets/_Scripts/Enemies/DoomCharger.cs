@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class DoomCharger : Enemy {
 
-    private PlayerBasedMoveBehavior moveBehavior;
+    private ChasePlayerBehavior moveBehavior;
     private ExplodeBehavior explodeBehavior;
     [SerializeField] private LayerMask playerLayerMask;
     [SerializeField] private float explosionRadius;

@@ -70,9 +70,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd4febac426ce3f4d97f3c69ac9ffaa1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  openDoorLayer:
-    serializedVersion: 2
-    m_Bits: 64
   anim: {fileID: 4546013172033618105}
   leftPlayerTrigger: {fileID: 6313037486499826297}
   rightPlayerTrigger: {fileID: 3652979318137016490}
@@ -179,6 +176,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2746913239742521438}
   - component: {fileID: 5650117043450565145}
+  - component: {fileID: 6561613901972813268}
   m_Layer: 0
   m_Name: TopVisual
   m_TagString: Untagged
@@ -253,6 +251,22 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &6561613901972813268
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4376271407755315087}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9809bf1345abc5648af68b3a82653f08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_OverrideArea: 1
+  m_Area: 1
+  m_IgnoreFromBuild: 0
+  m_AffectedAgents: ffffffff
 --- !u!1 &5392259296813114519
 GameObject:
   m_ObjectHideFlags: 0
@@ -356,6 +370,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3397845165357978505}
   - component: {fileID: 6462772062962952586}
+  - component: {fileID: 3547268854545102227}
   m_Layer: 0
   m_Name: BottomVisual
   m_TagString: Untagged
@@ -430,3 +445,19 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &3547268854545102227
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6407763402163413313}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9809bf1345abc5648af68b3a82653f08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_OverrideArea: 1
+  m_Area: 1
+  m_IgnoreFromBuild: 0
+  m_AffectedAgents: ffffffff

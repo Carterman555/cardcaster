@@ -18,18 +18,24 @@ public class SpawnEnemyBehavior : EnemyBehavior {
     }
 
     public void StartSpawning(int amountToSpawn) {
+        Start();
         amountLeftToSpawn = amountToSpawn;
         spawnTimer = 0;
     }
 
-    public void StopSpawning() {
+    public override void Stop() {
+        base.Stop();
         amountLeftToSpawn = 0;
         spawnTimer = 0;
     }
 
     public override void FrameUpdateLogic() {
 
-        if (IsSpawningEnemies()) {
+        if (amountLeftToSpawn <= 0) {
+            Stop();
+        }
+
+        if (!IsStopped()) {
             spawnTimer += Time.deltaTime;
             if (spawnTimer > enemy.GetStats().AttackCooldown) {
                 SpawnEnemy();
@@ -45,9 +51,5 @@ public class SpawnEnemyBehavior : EnemyBehavior {
         amountLeftToSpawn--;
 
         OnSpawnEnemy?.Invoke();
-    }
-
-    public bool IsSpawningEnemies() {
-        return amountLeftToSpawn > 0;
     }
 }

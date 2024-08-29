@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.AI;
 
 public class CursedWitch : Enemy {
 
@@ -87,6 +88,11 @@ public class CursedWitch : Enemy {
         bool closeToPlayer = distanceFromPlayer < moveFromPlayerRange;
 
         if (farFromPlayer) {
+
+            if (chaseBehavior.IsAgentStopped()) {
+                chaseBehavior.StartAgent();
+            }
+
             if (chaseBehavior.IsStopped()) {
                 chaseBehavior.Start();
             }
@@ -96,6 +102,10 @@ public class CursedWitch : Enemy {
             }
         }
         else if (closeToPlayer) {
+            if (chaseBehavior.IsAgentStopped()) {
+                chaseBehavior.StartAgent();
+            }
+
             if (!chaseBehavior.IsStopped()) {
                 chaseBehavior.Stop();
             }
@@ -105,6 +115,10 @@ public class CursedWitch : Enemy {
             }
         }
         else if (!farFromPlayer && !closeToPlayer) {
+            if (!chaseBehavior.IsAgentStopped()) {
+                chaseBehavior.StopAgent();
+            }
+
             if (!chaseBehavior.IsStopped()) {
                 chaseBehavior.Stop();
             }
@@ -115,7 +129,7 @@ public class CursedWitch : Enemy {
         }
     }
 
-    private bool PerformingAction => spawnEnemyBehavior.IsSpawningEnemies() || shootProjectileBehavior.IsShooting();
+    private bool PerformingAction => !spawnEnemyBehavior.IsStopped() || !shootProjectileBehavior.IsStopped();
 
     private void HandleAction() {
         if (!PerformingAction) {

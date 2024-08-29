@@ -3,14 +3,19 @@ using UnityEngine.AI;
 
 public class FleePlayerBehavior : EnemyBehavior {
 
+    private ChangeFacingBehavior changeFacingBehavior;
+
     private NavMeshAgent agent;
     private Knockback knockback;
-
-    private bool facingRight;
 
     public override void Initialize(Enemy enemy) {
         base.Initialize(enemy);
 
+        // initialize behaviors
+        changeFacingBehavior = new();
+        changeFacingBehavior.Initialize(enemy);
+
+        // get components
         if (enemy.TryGetComponent(out NavMeshAgent agent)) {
             this.agent = agent;
             agent.updateRotation = false;
@@ -26,8 +31,6 @@ public class FleePlayerBehavior : EnemyBehavior {
         else {
             Debug.LogError("Object With FleePlayerBehavior Does Not Have Knockback!");
         }
-
-        facingRight = true;
     }
 
     public override void Start() {
@@ -39,34 +42,49 @@ public class FleePlayerBehavior : EnemyBehavior {
         agent.isStopped = true;
     }
 
-    public override void FrameUpdateLogic() {
-        FaceTowardsPlayer();
+    public void StopAgent() {
+        agent.isStopped = true;
+    }
+    public void StartAgent() {
+        agent.isStopped = false;
+    }
 
+    public override void FrameUpdateLogic() {
+        changeFacingBehavior.FaceTowardsPosition(PlayerMovement.Instance.transform.position.x);
         agent.speed = enemy.GetStats().MoveSpeed;
     }
 
     public override void PhysicsUpdateLogic() {
         if (!IsStopped() && !knockback.IsApplyingKnockback()) {
-            agent.SetDestination(PlayerMovement.Instance.transform.position);
+            TryEscapeFromPlayer();
         }
     }
 
-    private void FaceTowardsPlayer() {
-        float playerXPos = PlayerMovement.Instance.transform.position.x;
+    private void TryEscapeFromPlayer() {
+        Vector3 directionToPlayer = PlayerMovement.Instance.transform.position - enemy.transform.position;
+        Vector3 desiredEscapeDirection = -directionToPlayer.normalized;
 
-        bool mouseToRight = playerXPos > enemy.transform.position.x;
+        int maxAttempts = 10;
+        for (int i = 0; i < maxAttempts; i++) {
 
-        if (!facingRight && mouseToRight) {
-            enemy.transform.rotation = Quaternion.Euler(new Vector3(enemy.transform.rotation.eulerAngles.x, 0f, enemy.transform.rotation.eulerAngles.z));
-            facingRight = true;
-            enemy.InvokeChangedFacing(facingRight);
+            float runAwayDistance = 10f;
+
+            // Calculate potential escape position
+            Vector3 potentialEscapePosition = enemy.transform.position + desiredEscapeDirection * runAwayDistance;
+
+            // Check if the position is on the NavMesh
+            NavMeshHit hit;
+            if (NavMesh.SamplePosition(potentialEscapePosition, out hit, runAwayDistance, NavMesh.AllAreas)) {
+                // Valid position found, set it as the destination
+                agent.SetDestination(hit.position);
+                return;
+            }
+
+            // If we reach here, the position wasn't valid. Adjust the direction slightly and try again.
+            desiredEscapeDirection = Quaternion.Euler(0, Random.Range(-45f, 45f), 0) * desiredEscapeDirection;
         }
-        else if (facingRight && !mouseToRight) {
-            enemy.transform.rotation = Quaternion.Euler(new Vector3(enemy.transform.rotation.eulerAngles.x, 180f, enemy.transform.rotation.eulerAngles.z));
-            facingRight = false;
-            enemy.InvokeChangedFacing(facingRight);
-        }
+
+        // If we've exhausted all attempts, just don't move
+        Debug.LogWarning("Couldn't find a valid escape position");
     }
-
-
 }

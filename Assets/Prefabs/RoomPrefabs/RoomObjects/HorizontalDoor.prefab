@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8292823610394801280}
   - component: {fileID: 396868710188748419}
+  - component: {fileID: 718848831225093212}
   m_Layer: 0
   m_Name: RightVisual
   m_TagString: Untagged
@@ -84,6 +85,22 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &718848831225093212
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 350550503128548936}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9809bf1345abc5648af68b3a82653f08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_OverrideArea: 1
+  m_Area: 1
+  m_IgnoreFromBuild: 0
+  m_AffectedAgents: ffffffff
 --- !u!1 &528586590693594165
 GameObject:
   m_ObjectHideFlags: 0
@@ -340,9 +357,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ded512ddd29b0743af9f908675ee18f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  openDoorLayer:
-    serializedVersion: 2
-    m_Bits: 64
   anim: {fileID: 7144745214068041648}
   topPlayerTrigger: {fileID: 2838105197682980675}
   bottomPlayerTrigger: {fileID: 2394344739882196542}
@@ -356,6 +370,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8804372377578669911}
   - component: {fileID: 1321994017398682896}
+  - component: {fileID: 6149354362808229123}
   m_Layer: 0
   m_Name: LeftVisual
   m_TagString: Untagged
@@ -430,3 +445,19 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &6149354362808229123
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6956432663763312774}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9809bf1345abc5648af68b3a82653f08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_OverrideArea: 1
+  m_Area: 1
+  m_IgnoreFromBuild: 0
+  m_AffectedAgents: ffffffff

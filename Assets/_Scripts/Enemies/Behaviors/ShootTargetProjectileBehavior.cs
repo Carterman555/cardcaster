@@ -18,18 +18,24 @@ public class ShootTargetProjectileBehavior : EnemyBehavior {
     }
 
     public void StartShooting(int amountToShoot) {
+        Start();
         amountLeftToShoot = amountToShoot;
         shootTimer = 0;
     }
 
-    public void StopShooting() {
+    public override void Stop() {
+        base.Stop();
         amountLeftToShoot = 0;
         shootTimer = 0;
     }
 
     public override void FrameUpdateLogic() {
 
-        if (IsShooting()) {
+        if (amountLeftToShoot <= 0) {
+            Stop();
+        }
+
+        if (!IsStopped()) {
             shootTimer += Time.deltaTime;
             if (shootTimer > enemy.GetStats().AttackCooldown) {
                 ShootProjectile();
@@ -46,9 +52,5 @@ public class ShootTargetProjectileBehavior : EnemyBehavior {
         amountLeftToShoot--;
 
         OnShoot?.Invoke();
-    }
-
-    public bool IsShooting() {
-        return amountLeftToShoot > 0;
     }
 }

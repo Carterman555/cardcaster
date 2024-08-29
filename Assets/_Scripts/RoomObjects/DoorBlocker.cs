@@ -6,13 +6,20 @@ public class DoorBlocker : MonoBehaviour {
 
     [SerializeField] private Animator anim;
 
-    public void Setup(bool horizontal) {
+    public void Setup(DoorwaySide side) {
+
+        bool horizontal = side == DoorwaySide.Top || side == DoorwaySide.Bottom;
 
         if (horizontal) {
             //anim.SetTrigger("horizontalClose");
         }
         else {
             //anim.SetTrigger("verticalClose");
+        }
+
+        // remove after anim is setup (maybe)
+        if (side == DoorwaySide.Top) {
+            transform.position -= new Vector3(0, 2f);
         }
     }
 

@@ -36,8 +36,8 @@ public class BasicProjectile : MonoBehaviour, IStraightProjectile {
 
     private void OnTriggerEnter2D(Collider2D collision) {
         if (targetLayer.ContainsLayer(collision.gameObject.layer)) {
-            if (collision.TryGetComponent(out Health health)) {
-                health.Damage(damage);
+            if (collision.TryGetComponent(out IDamagable damagable)) {
+                damagable.Damage(damage);
             }
             if (collision.TryGetComponent(out Knockback knockback)) {
                 Vector2 toTargetDirection = collision.transform.position - transform.position;

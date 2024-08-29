@@ -79,8 +79,8 @@ namespace IslandDefender.Management {
                     }
                 }
 
-                if (target.TryGetComponent(out Health health)) {
-                    health.Damage(hasStats.GetStats().Damage);
+                if (target.TryGetComponent(out IDamagable damagable)) {
+                    damagable.Damage(hasStats.GetStats().Damage);
                     OnDamage?.Invoke();
                 }
                 if (target.TryGetComponent(out Knockback knockback)) {

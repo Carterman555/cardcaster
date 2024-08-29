@@ -7,6 +7,8 @@ public class EnemyBehavior {
 
     protected Enemy enemy;
 
+    private bool stopped;
+
     public virtual void Initialize(Enemy enemy) {
         this.enemy = enemy;
     }
@@ -18,4 +20,16 @@ public class EnemyBehavior {
     public virtual void DoAnimationTriggerEventLogic(AnimationTriggerType triggerType) { }
 
     public virtual void OnDisable() { }
+
+    public virtual void Start() {
+        stopped = false;
+    }
+
+    public virtual void Stop() {
+        stopped = true;
+    }
+
+    public bool IsStopped() {
+        return stopped;
+    }
 }

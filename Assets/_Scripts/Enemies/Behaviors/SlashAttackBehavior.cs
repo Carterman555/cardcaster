@@ -48,8 +48,8 @@ public class SlashAttackBehavior : EnemyBehavior {
 
         Collider2D[] cols = Physics2D.OverlapCircleAll(attackCenter, slashSize, targetLayerMask);
         foreach (Collider2D col in cols) {
-            if (col.TryGetComponent(out Health health)) {
-                health.Damage(enemy.GetStats().Damage);
+            if (col.TryGetComponent(out IDamagable damagable)) {
+                damagable.Damage(enemy.GetStats().Damage);
             }
             if (col.TryGetComponent(out Knockback knockback)) {
                 Vector2 toEnemyDirection = col.transform.position - enemy.transform.position;

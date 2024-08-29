@@ -8,7 +8,7 @@ public class PlayerMeleeAttack : MonoBehaviour, ICanAttack {
 
     [SerializeField] private InputActionReference attackInput;
     [SerializeField] private Transform slashPrefab;
-    [SerializeField] private LayerMask enemyLayerMask;
+    [SerializeField] private LayerMask targetLayerMask;
 
     [SerializeField] private SlashingWeapon weapon;
 
@@ -43,10 +43,10 @@ public class PlayerMeleeAttack : MonoBehaviour, ICanAttack {
     private void DamageEnemies(Vector2 toMouseDirection) {
         Vector2 attackCenter = (Vector2)transform.position + (toMouseDirection * stats.SwordSize);
 
-        Collider2D[] cols = Physics2D.OverlapCircleAll(attackCenter, stats.SwordSize, enemyLayerMask);
+        Collider2D[] cols = Physics2D.OverlapCircleAll(attackCenter, stats.SwordSize, targetLayerMask);
         foreach (Collider2D col in cols) {
-            if (col.TryGetComponent(out Health health)) {
-                health.Damage(stats.Damage);
+            if (col.TryGetComponent(out IDamagable damagable)) {
+                damagable.Damage(stats.Damage);
             }
             if (col.TryGetComponent(out Knockback knockback)) {
                 Vector2 toEnemyDirection = col.transform.position - transform.position;

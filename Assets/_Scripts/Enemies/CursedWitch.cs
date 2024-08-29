@@ -14,7 +14,8 @@ public class CursedWitch : Enemy {
     [Header("Movement")]
     [SerializeField] private float chasePlayerRange = 4f;
     [SerializeField] private float moveFromPlayerRange = 3f;
-    private PlayerBasedMoveBehavior moveBehavior;
+    private ChasePlayerBehavior chaseBehavior;
+    private FleePlayerBehavior fleeBehavior;
 
     [Header("Shoot Projectile")]
     [SerializeField] private RandomInt projectileShootAmount;
@@ -44,8 +45,11 @@ public class CursedWitch : Enemy {
     }
 
     private void InitializeBehaviors() {
-        moveBehavior = new();
-        enemyBehaviors.Add(moveBehavior);
+        chaseBehavior = new();
+        enemyBehaviors.Add(chaseBehavior);
+
+        fleeBehavior = new();
+        enemyBehaviors.Add(fleeBehavior);
 
         shootProjectileBehavior = new();
         shootProjectileBehavior.Setup(projectile, spawnPoint.localPosition);
@@ -82,16 +86,32 @@ public class CursedWitch : Enemy {
         bool farFromPlayer = distanceFromPlayer > chasePlayerRange;
         bool closeToPlayer = distanceFromPlayer < moveFromPlayerRange;
 
-        if (farFromPlayer && (moveBehavior.IsStopped() || !moveBehavior.IsChasing())) {
-            moveBehavior.Start();
-            moveBehavior.ChasePlayer();
+        if (farFromPlayer) {
+            if (chaseBehavior.IsStopped()) {
+                chaseBehavior.Start();
+            }
+
+            if (!fleeBehavior.IsStopped()) {
+                fleeBehavior.Stop();
+            }
         }
-        else if (closeToPlayer && (moveBehavior.IsStopped() || moveBehavior.IsChasing())) {
-            moveBehavior.Start();
-            moveBehavior.RunFromPlayer();
+        else if (closeToPlayer) {
+            if (!chaseBehavior.IsStopped()) {
+                chaseBehavior.Stop();
+            }
+
+            if (fleeBehavior.IsStopped()) {
+                fleeBehavior.Start();
+            }
         }
-        else if (!farFromPlayer && !closeToPlayer && !moveBehavior.IsStopped()) {
-            moveBehavior.Stop();
+        else if (!farFromPlayer && !closeToPlayer) {
+            if (!chaseBehavior.IsStopped()) {
+                chaseBehavior.Stop();
+            }
+
+            if (!fleeBehavior.IsStopped()) {
+                fleeBehavior.Stop();
+            }
         }
     }
 
@@ -121,7 +141,7 @@ public class CursedWitch : Enemy {
     [SerializeField] private Recoil wandRecoil;
 
     private void UpdateWandAnim() {
-        bool swingArm = !moveBehavior.IsStopped() && !PerformingAction;
+        bool swingArm = !chaseBehavior.IsStopped() && !PerformingAction;
         wandAnim.SetBool("swinging", swingArm);
 
         wandPoint.enabled = PerformingAction;

@@ -71,7 +71,6 @@ public class Enemy : MonoBehaviour, IHasStats, IChangesFacing, ICanAttack {
 
     private void CheckIfEnemiesCleared() {
         bool anyAliveEnemies = Containers.Instance.Enemies.GetComponentsInChildren<Health>().Any(health => !health.IsDead());
-        print("Check if enemies cleared: " + anyAliveEnemies);
         if (!anyAliveEnemies) {
             OnEnemiesCleared?.Invoke();
         }

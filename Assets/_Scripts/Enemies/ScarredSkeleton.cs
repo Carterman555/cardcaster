@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ScarredSkeleton : Enemy {
 
-    private PlayerBasedMoveBehavior moveBehavior;
+    private ChasePlayerBehavior moveBehavior;
 
     [Header("Attack")]
     private StraightShootBehavior shootBehavior;

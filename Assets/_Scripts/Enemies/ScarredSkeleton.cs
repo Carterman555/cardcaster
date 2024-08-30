@@ -42,6 +42,6 @@ public class ScarredSkeleton : Enemy {
         base.OnPlayerExitedRange(player);
 
         moveBehavior.Start();
-        shootBehavior.StopShooting();
+        shootBehavior.Stop();
     }
 }

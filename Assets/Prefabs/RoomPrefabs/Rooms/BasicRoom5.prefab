@@ -8,6 +8,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2394718490218990673, guid: 4723c0ded694bfb4b9bd66f2d1dae76b, type: 3}
+      propertyPath: possibleDoorways.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2394718490218990673, guid: 4723c0ded694bfb4b9bd66f2d1dae76b, type: 3}
+      propertyPath: possibleDoorways.Array.data[0]
+      value: 
+      objectReference: {fileID: 6767040271772688719}
+    - target: {fileID: 2394718490218990673, guid: 4723c0ded694bfb4b9bd66f2d1dae76b, type: 3}
+      propertyPath: possibleDoorways.Array.data[1]
+      value: 
+      objectReference: {fileID: 8671891550959234645}
     - target: {fileID: 2779059601650462574, guid: 4723c0ded694bfb4b9bd66f2d1dae76b, type: 3}
       propertyPath: m_Name
       value: BasicRoom5
@@ -8519,11 +8531,11 @@ PrefabInstance:
     - target: {fileID: 9165105326778731556, guid: 4723c0ded694bfb4b9bd66f2d1dae76b, type: 3}
       propertyPath: m_TileSpriteArray.Array.data[22].m_Data
       value: 
-      objectReference: {fileID: 756491811, guid: ba3eaadc0b2ccdf43b477a598dc06030, type: 3}
+      objectReference: {fileID: 0}
     - target: {fileID: 9165105326778731556, guid: 4723c0ded694bfb4b9bd66f2d1dae76b, type: 3}
       propertyPath: m_TileSpriteArray.Array.data[23].m_Data
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 756491811, guid: ba3eaadc0b2ccdf43b477a598dc06030, type: 3}
     - target: {fileID: 9165105326778731556, guid: 4723c0ded694bfb4b9bd66f2d1dae76b, type: 3}
       propertyPath: m_TileSpriteArray.Array.data[24].m_Data
       value: 
@@ -9254,11 +9266,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9165105326778731556, guid: 4723c0ded694bfb4b9bd66f2d1dae76b, type: 3}
       propertyPath: m_TileSpriteArray.Array.data[22].m_RefCount
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9165105326778731556, guid: 4723c0ded694bfb4b9bd66f2d1dae76b, type: 3}
       propertyPath: m_TileSpriteArray.Array.data[23].m_RefCount
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9165105326778731556, guid: 4723c0ded694bfb4b9bd66f2d1dae76b, type: 3}
       propertyPath: m_TileSpriteArray.Array.data[24].m_RefCount
@@ -9838,7 +9850,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9165105326778731556, guid: 4723c0ded694bfb4b9bd66f2d1dae76b, type: 3}
       propertyPath: m_Tiles.Array.data[0].second.m_TileSpriteIndex
-      value: 22
+      value: 23
       objectReference: {fileID: 0}
     - target: {fileID: 9165105326778731556, guid: 4723c0ded694bfb4b9bd66f2d1dae76b, type: 3}
       propertyPath: m_Tiles.Array.data[10].second.m_TileColorIndex
@@ -11279,6 +11291,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6cd1d98be2ae4124ca7a368c26428fef, type: 3}
+--- !u!114 &6767040271772688719 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 923886955818633893, guid: 6cd1d98be2ae4124ca7a368c26428fef, type: 3}
+  m_PrefabInstance: {fileID: 5853295284362800106}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f875943d14ee3aa4698fabb9306ef455, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &6810730106705417349 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1134775160186208111, guid: 6cd1d98be2ae4124ca7a368c26428fef, type: 3}
@@ -11345,6 +11368,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6cd1d98be2ae4124ca7a368c26428fef, type: 3}
+--- !u!114 &8671891550959234645 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 923886955818633893, guid: 6cd1d98be2ae4124ca7a368c26428fef, type: 3}
+  m_PrefabInstance: {fileID: 8397789579617051888}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f875943d14ee3aa4698fabb9306ef455, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &8878132944428391327 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1134775160186208111, guid: 6cd1d98be2ae4124ca7a368c26428fef, type: 3}

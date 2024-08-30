@@ -46,5 +46,9 @@ public class BasicProjectile : MonoBehaviour, IStraightProjectile {
 
             transform.ShrinkThenDestroy();
         }
+
+        if (collision.gameObject.layer == GameLayers.GroundLayer) {
+            transform.ShrinkThenDestroy();
+        }
     }
 }

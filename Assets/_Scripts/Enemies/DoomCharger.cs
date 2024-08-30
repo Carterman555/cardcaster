@@ -10,12 +10,6 @@ public class DoomCharger : Enemy {
     [SerializeField] private LayerMask playerLayerMask;
     [SerializeField] private float explosionRadius;
 
-    private Health health;
-
-    private void Awake() {
-        health = GetComponent<Health>();
-    }
-
     protected override void OnEnable() {
         base.OnEnable();
         InitializeBehaviors();

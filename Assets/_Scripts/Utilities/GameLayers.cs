@@ -7,5 +7,7 @@ public class GameLayers {
     public static int GroundLayer => 3;
     public static int PlayerLayer => 6;
     public static int EnemyLayer => 7;
+    public static int WallLayer => 8;
+    public static int RoomObjectLayer => 9;
 
 }

@@ -12,6 +12,8 @@ public class BasicProjectile : MonoBehaviour, IStraightProjectile {
 
     private Vector2 originalScale;
 
+    private bool hit;
+
     public GameObject GetObject() {
         return gameObject;
     }
@@ -26,15 +28,25 @@ public class BasicProjectile : MonoBehaviour, IStraightProjectile {
         this.knockbackStrength = knockbackStrength;
 
         transform.localScale = originalScale;
+
+        hit = false;
     }
 
-    private void Update() {
+    private void FixedUpdate() {
+        if (hit) {
+            return;
+        }
         transform.position += transform.up * moveSpeed * Time.fixedDeltaTime;
     }
 
     [SerializeField] private LayerMask targetLayer;
 
-    private void OnTriggerEnter2D(Collider2D collision) {
+    protected virtual void OnTriggerEnter2D(Collider2D collision) {
+
+        if (hit) {
+            return;
+        }
+
         if (targetLayer.ContainsLayer(collision.gameObject.layer)) {
             if (collision.TryGetComponent(out IDamagable damagable)) {
                 damagable.Damage(damage);
@@ -45,10 +57,12 @@ public class BasicProjectile : MonoBehaviour, IStraightProjectile {
             }
 
             transform.ShrinkThenDestroy();
+            hit = true;
         }
 
-        if (collision.gameObject.layer == GameLayers.GroundLayer) {
+        if (collision.gameObject.layer == GameLayers.WallLayer || collision.gameObject.layer == GameLayers.RoomObjectLayer) {
             transform.ShrinkThenDestroy();
+            hit = true;
         }
     }
 }

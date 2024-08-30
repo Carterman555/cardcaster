@@ -1591,29 +1591,9 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 389897624}
     m_Modifications:
-    - target: {fileID: 5606673773426205137, guid: a38cd3fe0a3c80f46a80583c4ebeca30, type: 3}
-      propertyPath: scriptableEnemy
-      value: 
-      objectReference: {fileID: 11400000, guid: 130afc106dca5024e9ef1e18926c8af8, type: 2}
-    - target: {fileID: 1917280521227873796, guid: ac412e64bbc0b6843a6f7ae3106f8d7a, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -12.39
-      objectReference: {fileID: 0}
-    - target: {fileID: 1917280521227873796, guid: ac412e64bbc0b6843a6f7ae3106f8d7a, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -0.62
-      objectReference: {fileID: 0}
-    - target: {fileID: 3084685571954290978, guid: ac412e64bbc0b6843a6f7ae3106f8d7a, type: 3}
-      propertyPath: noEnemies
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 3271175819456156189, guid: ac412e64bbc0b6843a6f7ae3106f8d7a, type: 3}
       propertyPath: m_Name
       value: BasicRoom1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3271175819456156189, guid: ac412e64bbc0b6843a6f7ae3106f8d7a, type: 3}
-      propertyPath: m_Layer
-      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4706346033755580023, guid: ac412e64bbc0b6843a6f7ae3106f8d7a, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1655,25 +1635,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7446318474552519481, guid: ac412e64bbc0b6843a6f7ae3106f8d7a, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8826438046864840246, guid: ac412e64bbc0b6843a6f7ae3106f8d7a, type: 3}
-      propertyPath: m_SortingLayer
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 8826438046864840246, guid: ac412e64bbc0b6843a6f7ae3106f8d7a, type: 3}
-      propertyPath: m_SortingOrder
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8826438046864840246, guid: ac412e64bbc0b6843a6f7ae3106f8d7a, type: 3}
-      propertyPath: m_SortingLayerID
-      value: -210121459
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects:
-    - {fileID: 3960862720514513029, guid: ac412e64bbc0b6843a6f7ae3106f8d7a, type: 3}
+    m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ac412e64bbc0b6843a6f7ae3106f8d7a, type: 3}
@@ -1687,6 +1650,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1794461942}
   - component: {fileID: 1794461943}
+  - component: {fileID: 1794461944}
   m_Layer: 0
   m_Name: RoomGenerator
   m_TagString: Untagged
@@ -1716,7 +1680,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1794461941}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9ae3efc859fc5ec44b9dabd3a2803717, type: 3}
   m_Name: 
@@ -1749,6 +1713,28 @@ MonoBehaviour:
   - {fileID: 3084685571954290978, guid: 2142e5d4ecd3c3249a545cb33bfe7dc0, type: 3}
   - {fileID: 3084685571954290978, guid: 3c2059076c2e7ca4f9489d83e1e2bd48, type: 3}
   - {fileID: 3084685571954290978, guid: 53858114661de8f45b67feac08720bc2, type: 3}
+--- !u!114 &1794461944
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1794461941}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ae3efc859fc5ec44b9dabd3a2803717, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  roomsPerLevel:
+    MinValue: 10
+    MaxValue: 12
+  doorwayTileReplacer: {fileID: 11400000, guid: e6cf803c01b1aec48baa73b56fea4a91, type: 2}
+  cameraConfiner: {fileID: 1926929208}
+  horizontalHallwayPrefab: {fileID: 8927245960358128749, guid: aaf813fa1e4707847b1e6486a5b2e3d5, type: 3}
+  verticalHallwayPrefab: {fileID: 8927245960358128749, guid: 8e2403430e5795c438c597e18fd4a800, type: 3}
+  startingRoom: {fileID: 1894770955}
+  roomPrefabs:
+  - {fileID: 3084685571954290978, guid: ac412e64bbc0b6843a6f7ae3106f8d7a, type: 3}
 --- !u!4 &1894770954 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4706346033755580023, guid: ac412e64bbc0b6843a6f7ae3106f8d7a, type: 3}

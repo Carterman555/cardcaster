@@ -17,7 +17,7 @@ MonoBehaviour:
     KnockbackResistance: 1
     MoveSpeed: 7
     Damage: 2
-    AttackSpeed: 0
+    AttackSpeed: 3
     KnockbackStrength: 1
     SwordSize: 1
     DashSpeed: 15

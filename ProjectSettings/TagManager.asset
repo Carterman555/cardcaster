@@ -15,7 +15,7 @@ TagManager:
   - Enemy
   - Wall
   - Room
-  - Object
+  - RoomObject
   - 
   - 
   - 

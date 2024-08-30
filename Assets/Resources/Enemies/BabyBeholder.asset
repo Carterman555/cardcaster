@@ -10,17 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: df8d0c02ff44cd34db700f8d5c89336d, type: 3}
-  m_Name: CursedWitch
+  m_Name: BabyBeholder
   m_EditorClassIdentifier: 
-  <Name>k__BackingField: Cursed Witch
+  <Name>k__BackingField: Baby Beholder
   <Description>k__BackingField: description
-  <Prefab>k__BackingField: {fileID: 7886068666094598164, guid: a235f6097070a8a4fbd6d69de846b0f3, type: 3}
+  <Prefab>k__BackingField: {fileID: 5982887022119629477, guid: f9f780d461aedbc4fa460cbcd29d5b48, type: 3}
   <Stats>k__BackingField:
-    MaxHealth: 10
-    KnockbackResistance: 0.7
-    MoveSpeed: 1.5
+    MaxHealth: 15
+    KnockbackResistance: 1
+    MoveSpeed: 2
     Damage: 2
-    AttackSpeed: 0.4
+    AttackSpeed: 0.6
     KnockbackStrength: 1
     WalkSpeed: 0.5
     AttackRange: 7

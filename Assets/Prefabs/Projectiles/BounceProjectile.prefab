@@ -12,9 +12,9 @@ GameObject:
   - component: {fileID: 6482346275787368926}
   - component: {fileID: 7906188696243600679}
   - component: {fileID: 3006919553162268956}
-  - component: {fileID: 879948595054314452}
+  - component: {fileID: 8078449229511148804}
   m_Layer: 0
-  m_Name: BasicProjectile
+  m_Name: BounceProjectile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -149,7 +149,7 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
---- !u!114 &879948595054314452
+--- !u!114 &8078449229511148804
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -158,10 +158,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 3719507589224047476}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 49b015e7e48c4f1468ef0371a3b34b87, type: 3}
+  m_Script: {fileID: 11500000, guid: b4f5ea2011503a84fa3c4f86689dfb23, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 6
   targetLayer:
     serializedVersion: 2
     m_Bits: 64
+  maxBounces: 2

@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting.FullSerializer;
 using UnityEngine;
 
 public class StraightShootBehavior : EnemyBehavior {
@@ -37,6 +38,7 @@ public class StraightShootBehavior : EnemyBehavior {
     public void StartShooting(Transform target) {
         Start();
         this.target = target;
+        Debug.Log(enemy.name + " set target: " + target.name);
     }
 
     protected virtual void Shoot() {

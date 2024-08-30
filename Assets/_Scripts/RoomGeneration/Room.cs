@@ -195,7 +195,6 @@ public class Room : MonoBehaviour {
     }
 
     private void CreateDoorwayBlockers() {
-        print("Create blockers: " + createdDoorways.Count);
         foreach (PossibleDoorway createdDoorway in createdDoorways) {
             DoorBlocker newDoorBlocker = doorBlockerPrefab.Spawn(createdDoorway.transform.position, Containers.Instance.Rooms);
             newDoorBlocker.Setup(createdDoorway.GetSide());

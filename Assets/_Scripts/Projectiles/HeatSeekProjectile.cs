@@ -12,6 +12,8 @@ public class HeatSeekProjectile : MonoBehaviour, ITargetProjectile {
 
     private Vector2 originalScale;
 
+    private bool hit;
+
     public GameObject GetObject() {
         return gameObject;
     }
@@ -29,6 +31,8 @@ public class HeatSeekProjectile : MonoBehaviour, ITargetProjectile {
 
         Vector2 toTarget = target.position - transform.position;
         transform.up = toTarget;
+
+        hit = false;
     }
 
     private void FixedUpdate() {
@@ -44,6 +48,11 @@ public class HeatSeekProjectile : MonoBehaviour, ITargetProjectile {
     [SerializeField] private LayerMask targetLayer;
 
     private void OnTriggerEnter2D(Collider2D collision) {
+
+        if (hit) {
+            return;
+        }
+
         if (targetLayer.ContainsLayer(collision.gameObject.layer)) {
             if (collision.TryGetComponent(out IDamagable damagable)) {
                 damagable.Damage(damage);
@@ -54,7 +63,12 @@ public class HeatSeekProjectile : MonoBehaviour, ITargetProjectile {
             }
 
             transform.ShrinkThenDestroy();
+            hit = true;
+        }
+
+        if (collision.gameObject.layer == GameLayers.WallLayer || collision.gameObject.layer == GameLayers.RoomObjectLayer) {
+            transform.ShrinkThenDestroy();
+            hit = true;
         }
     }
-
 }

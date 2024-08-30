@@ -589,7 +589,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   possibleDoorways: []
-  createdDoorways: []
   groundTilemap: {fileID: 8096819079777925670}
   colliderTilemap: {fileID: 9165105326778731556}
   cameraConfiner: {fileID: 6718819322449431240}
@@ -1022,7 +1021,7 @@ GameObject:
   - component: {fileID: 8181193669241776965}
   - component: {fileID: 2695803902233304376}
   - component: {fileID: 6734409234780944796}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: ColliderTilemap
   m_TagString: Untagged
   m_Icon: {fileID: 0}

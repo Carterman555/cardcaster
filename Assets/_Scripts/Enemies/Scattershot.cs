@@ -46,6 +46,7 @@ public class Scattershot : Enemy {
 
         shootBehavior = new();
         shootBehavior.Setup(projectile, shootPoint.localPosition, projectileCount.Randomize());
+        shootBehavior.Stop();
         enemyBehaviors.Add(shootBehavior);
 
         foreach (var enemyBehavior in enemyBehaviors) {

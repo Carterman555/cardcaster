@@ -12,6 +12,8 @@ public class PlayerMeleeAttack : MonoBehaviour, ICanAttack {
 
     [SerializeField] private SlashingWeapon weapon;
 
+    private float attackTimer;
+
     private PlayerStats stats => StatsManager.Instance.GetPlayerStats();
 
     private void Start() {
@@ -20,8 +22,11 @@ public class PlayerMeleeAttack : MonoBehaviour, ICanAttack {
 
     private void Update() {
         //if (attackInput.action.triggered) {
-        if (Input.GetMouseButtonDown(0)) {
+
+        attackTimer += Time.deltaTime;
+        if (Input.GetMouseButtonDown(0) && attackTimer > stats.AttackCooldown) {
             Attack();
+            attackTimer = 0f;
         }
     }
 

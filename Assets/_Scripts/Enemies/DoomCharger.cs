@@ -39,6 +39,5 @@ public class DoomCharger : Enemy {
 
     protected override void OnDisable() {
         base.OnDisable();
-        moveBehavior.Stop();
     }
 }

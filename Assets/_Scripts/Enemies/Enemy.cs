@@ -25,9 +25,9 @@ public class Enemy : MonoBehaviour, IHasStats, IChangesFacing, ICanAttack {
 
     protected List<EnemyBehavior> enemyBehaviors = new();
 
-    private Health health;
+    protected Health health;
 
-    private void Awake() {
+    protected virtual void Awake() {
         health = GetComponent<Health>();
     }
 
@@ -42,8 +42,6 @@ public class Enemy : MonoBehaviour, IHasStats, IChangesFacing, ICanAttack {
             behavior.OnDisable();
         }
     }
-
-    
 
     private void Start() {
         playerTracker.SetRange(stats.AttackRange);

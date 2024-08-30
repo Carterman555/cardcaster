@@ -1,16 +1,18 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class StraightShootBehavior : EnemyBehavior {
 
+    public event Action OnShoot;
+    public event Action<Vector2> OnShoot_Direction;
+
     private IStraightProjectile projectile;
     private Vector2 localShootPosition;
 
-    private Transform target;
+    protected Transform target;
     private float attackTimer;
-
-    private bool shooting;
 
     public void Setup(IStraightProjectile projectile, Vector2 localShootPosition) {
         this.projectile = projectile;
@@ -20,7 +22,7 @@ public class StraightShootBehavior : EnemyBehavior {
     public override void FrameUpdateLogic() {
         base.FrameUpdateLogic();
 
-        if (shooting) {
+        if (!IsStopped()) {
             attackTimer += Time.deltaTime;
             if (attackTimer > enemy.GetStats().AttackCooldown) {
                 Shoot();
@@ -32,22 +34,24 @@ public class StraightShootBehavior : EnemyBehavior {
         }
     }
 
-    private void Shoot() {
+    public void StartShooting(Transform target) {
+        Start();
+        this.target = target;
+    }
+
+    protected virtual void Shoot() {
         Vector2 shootPosition = (Vector2)enemy.transform.position + localShootPosition;
         IStraightProjectile newProjectile = projectile.GetObject().Spawn(shootPosition, Containers.Instance.Projectiles).GetComponent<IStraightProjectile>();
 
         Vector2 toTarget = target.position - enemy.transform.position;
-        newProjectile.Shoot(toTarget, enemy.GetStats().Damage, enemy.GetStats().KnockbackStrength);
+        newProjectile.Shoot(toTarget.normalized, enemy.GetStats().Damage, enemy.GetStats().KnockbackStrength);
+
+        InvokeShoot(toTarget.normalized);
     }
 
-    public void StartShooting(Transform target) {
-        shooting = true;
-
-        this.target = target;
+    // for child behaviors
+    protected void InvokeShoot(Vector2 direction) {
+        OnShoot?.Invoke();
+        OnShoot_Direction?.Invoke(direction);
     }
-
-    public void StopShooting() {
-        shooting = false;
-    }
-
 }

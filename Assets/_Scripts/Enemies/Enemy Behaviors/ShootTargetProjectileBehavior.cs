@@ -15,6 +15,8 @@ public class ShootTargetProjectileBehavior : EnemyBehavior {
     public void Setup(ITargetProjectile projectile, Vector2 localShootPosition) {
         this.projectile = projectile;
         this.localShootPosition = localShootPosition;
+
+        Stop();
     }
 
     public void StartShooting(int amountToShoot) {

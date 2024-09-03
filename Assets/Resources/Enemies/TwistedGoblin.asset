@@ -20,7 +20,7 @@ MonoBehaviour:
     KnockbackResistance: 1
     MoveSpeed: 2
     Damage: 2
-    AttackSpeed: 1
+    AttackSpeed: 2
     KnockbackStrength: 1
     WalkSpeed: 0.5
     AttackRange: 1.5

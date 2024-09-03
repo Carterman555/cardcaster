@@ -43,13 +43,13 @@ public class Enemy : MonoBehaviour, IHasStats, IChangesFacing, ICanAttack {
         }
     }
 
-    private void Start() {
+    protected virtual void Start() {
         playerTracker.SetRange(stats.AttackRange);
 
         health.OnDeath += CheckIfEnemiesCleared;
     }
 
-    private void OnDestroy() {
+    protected virtual void OnDestroy() {
         health.OnDeath -= CheckIfEnemiesCleared;
     }
 

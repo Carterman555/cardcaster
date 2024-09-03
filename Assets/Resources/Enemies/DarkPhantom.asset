@@ -10,17 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: df8d0c02ff44cd34db700f8d5c89336d, type: 3}
-  m_Name: Scattershot
+  m_Name: DarkPhantom
   m_EditorClassIdentifier: 
-  <Name>k__BackingField: Scattershot
+  <Name>k__BackingField: Dark Phantom
   <Description>k__BackingField: description
-  <Prefab>k__BackingField: {fileID: 5041207925765674513, guid: 46e31ab86a9e60a45b97baf331d01466, type: 3}
+  <Prefab>k__BackingField: {fileID: 3948411667742106126, guid: 52a837f734e7cbe48b720d059388dbb3, type: 3}
   <Stats>k__BackingField:
-    MaxHealth: 15
-    KnockbackResistance: 1
-    MoveSpeed: 2
+    MaxHealth: 10
+    KnockbackResistance: 0.75
+    MoveSpeed: 3
     Damage: 2
-    AttackSpeed: 0.25
+    AttackSpeed: 0.5
     KnockbackStrength: 1
     WalkSpeed: 0.5
     AttackRange: 4

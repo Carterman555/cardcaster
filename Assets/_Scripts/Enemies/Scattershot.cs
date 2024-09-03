@@ -4,13 +4,17 @@ using UnityEngine;
 
 public class Scattershot : Enemy {
 
+
     [Header("Weapon")]
     [SerializeField] private Transform shootPoint;
     [SerializeField] private Animator weaponAnim;
     [SerializeField] private PointTowardsPlayer weaponPoint;
     [SerializeField] private Recoil weaponRecoil;
 
-    private ChangeFacingBehavior changeFacingBehavior;
+    [Header("Movement")]
+    private FleePlayerBehavior fleePlayerBehavior;
+
+    //private ChangeFacingBehavior changeFacingBehavior;
 
     [Header("Shoot Projectile")]
     [SerializeField] private RandomInt projectileCount;
@@ -40,13 +44,13 @@ public class Scattershot : Enemy {
 
     private void InitializeBehaviors() {
 
-        changeFacingBehavior = new();
-        changeFacingBehavior.Initialize(this);
-        enemyBehaviors.Add(changeFacingBehavior);
+        fleePlayerBehavior = new();
+        fleePlayerBehavior.Initialize(this);
+        fleePlayerBehavior.Stop();
+        enemyBehaviors.Add(fleePlayerBehavior);
 
         shootBehavior = new();
         shootBehavior.Setup(projectile, shootPoint.localPosition, projectileCount.Randomize());
-        shootBehavior.Stop();
         enemyBehaviors.Add(shootBehavior);
 
         foreach (var enemyBehavior in enemyBehaviors) {
@@ -54,18 +58,19 @@ public class Scattershot : Enemy {
         }
     }
 
-    protected override void Update() {
-        base.Update();
-        changeFacingBehavior.FaceTowardsPosition(PlayerMovement.Instance.transform.position.x);
-    }
-
     protected override void OnPlayerEnteredRange(GameObject player) {
         base.OnPlayerEnteredRange(player);
-        shootBehavior.StartShooting(player.transform);
+
+        fleePlayerBehavior.Start();
+        fleePlayerBehavior.StartAgent();
+        shootBehavior.Stop();
     }
     protected override void OnPlayerExitedRange(GameObject player) {
         base.OnPlayerExitedRange(player);
-        shootBehavior.Stop();
+
+        fleePlayerBehavior.Stop();
+        fleePlayerBehavior.StopAgent();
+        shootBehavior.StartShooting(player.transform);
     }
 
     private void OnShoot(Vector2 direction) {

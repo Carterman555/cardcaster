@@ -49,6 +49,8 @@ public class RoomGenerator : StaticInstance<RoomGenerator> {
 
         startingRoom.SetRoomNum(1);
 
+        startingRoom.CopyColliderToCameraConfiner(cameraConfiner);
+
         for (int roomsSpawned = 0; roomsSpawned < roomsPerLevel.Value; roomsSpawned++) {
 
             emergencyCounter++;

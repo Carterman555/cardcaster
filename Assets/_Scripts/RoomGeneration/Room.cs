@@ -10,7 +10,8 @@ public class Room : MonoBehaviour {
     public static event Action<Room> OnAnyRoomEnter_Room;
     public static event Action<Room> OnAnyRoomExit_Room;
 
-    private static int enteredRoomNum;
+    private static Room currentRoom;
+    private static int currentRoomNum;
 
     private int roomNum;
 
@@ -30,6 +31,10 @@ public class Room : MonoBehaviour {
     private bool roomCleared;
 
     #region Get Methods
+
+    public static Room GetCurrentRoom() {
+        return currentRoom;
+    }
 
     public List<PossibleDoorway> GetPossibleDoorways() {
         return possibleDoorways;
@@ -165,7 +170,8 @@ public class Room : MonoBehaviour {
 
     private void EnterRoom(GameObject player) {
 
-        enteredRoomNum = roomNum;
+        currentRoomNum = roomNum;
+        currentRoom = this;
 
         if (!roomCleared) {
             CreateDoorwayBlockers();
@@ -184,7 +190,8 @@ public class Room : MonoBehaviour {
         //    return;
         //}
 
-        enteredRoomNum = -1;
+        currentRoomNum = -1;
+        currentRoom = null;
 
         enterTrigger.OnEnterContact += EnterRoom;
 

@@ -123,13 +123,13 @@ ScriptedImporter:
   animatedSpriteImportData:
   - name: cardforge
     originalName: 
-    pivot: {x: 0.5, y: -0.047619052}
+    pivot: {x: 0.5, y: -0.023809526}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 4
-      y: 4
+      x: 56
+      y: 55
       width: 44
       height: 42
     spriteID: 714551e803970e54ba51395085549588
@@ -140,7 +140,147 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
+    uvTransform: {x: 56, y: 55}
+  - name: cardforge_Frame_1
+    originalName: 
+    pivot: {x: 0.5, y: -0.023809526}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 56
+      y: 105
+      width: 44
+      height: 42
+    spriteID: 2651fd60a03c029438c2b1464ae95adc
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 56, y: 105}
+  - name: cardforge_Frame_2
+    originalName: 
+    pivot: {x: 0.5, y: -0.023809526}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 56
+      y: 155
+      width: 44
+      height: 42
+    spriteID: 6d3f9084b64b38841adbb928a513543c
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 56, y: 155}
+  - name: cardforge_Frame_3
+    originalName: 
+    pivot: {x: 0.5, y: -0.023255816}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 56
+      y: 4
+      width: 44
+      height: 43
+    spriteID: 86230cddfe58e02428747ce527da9578
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 56, y: 4}
+  - name: cardforge_Frame_4
+    originalName: 
+    pivot: {x: 0.5, y: -0.022222225}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 114
+      width: 44
+      height: 45
+    spriteID: 445266560dc4b19469e3ae79ff013891
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 114}
+  - name: cardforge_Frame_5
+    originalName: 
+    pivot: {x: 0.5, y: -0.021276597}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 4
+      width: 44
+      height: 47
+    spriteID: 04c9f4d41764d634db8b9bacc2e07467
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
     uvTransform: {x: 4, y: 4}
+  - name: cardforge_Frame_6
+    originalName: 
+    pivot: {x: 0.5, y: -0.022222225}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 167
+      width: 44
+      height: 45
+    spriteID: 6ec54f14fa3f07748a959f020d86819b
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 167}
+  - name: cardforge_Frame_7
+    originalName: 
+    pivot: {x: 0.5, y: -0.021276597}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 59
+      width: 44
+      height: 47
+    spriteID: da44b58c1ea56ec4d8685b9a75697e41
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 59}
   spriteSheetImportData: []
   asepriteLayers:
   - layerIndex: 0
@@ -150,15 +290,78 @@ ScriptedImporter:
     layerType: 0
     blendMode: 0
     cells:
-    - name: cardforge
+    - name: cardforge_Frame_0
       frameIndex: 0
       additiveSortOrder: 0
       cellRect:
         x: 2
-        y: 2
+        y: 1
         width: 44
         height: 42
       spriteId: 714551e803970e54ba51395085549588
+    - name: cardforge_Frame_1
+      frameIndex: 1
+      additiveSortOrder: 0
+      cellRect:
+        x: 2
+        y: 1
+        width: 44
+        height: 42
+      spriteId: 2651fd60a03c029438c2b1464ae95adc
+    - name: cardforge_Frame_2
+      frameIndex: 2
+      additiveSortOrder: 0
+      cellRect:
+        x: 2
+        y: 1
+        width: 44
+        height: 42
+      spriteId: 6d3f9084b64b38841adbb928a513543c
+    - name: cardforge_Frame_3
+      frameIndex: 3
+      additiveSortOrder: 0
+      cellRect:
+        x: 2
+        y: 1
+        width: 44
+        height: 43
+      spriteId: 86230cddfe58e02428747ce527da9578
+    - name: cardforge_Frame_4
+      frameIndex: 4
+      additiveSortOrder: 0
+      cellRect:
+        x: 2
+        y: 1
+        width: 44
+        height: 45
+      spriteId: 445266560dc4b19469e3ae79ff013891
+    - name: cardforge_Frame_5
+      frameIndex: 5
+      additiveSortOrder: 0
+      cellRect:
+        x: 2
+        y: 1
+        width: 44
+        height: 47
+      spriteId: 04c9f4d41764d634db8b9bacc2e07467
+    - name: cardforge_Frame_6
+      frameIndex: 6
+      additiveSortOrder: 0
+      cellRect:
+        x: 2
+        y: 1
+        width: 44
+        height: 45
+      spriteId: 6ec54f14fa3f07748a959f020d86819b
+    - name: cardforge_Frame_7
+      frameIndex: 7
+      additiveSortOrder: 0
+      cellRect:
+        x: 2
+        y: 1
+        width: 44
+        height: 47
+      spriteId: da44b58c1ea56ec4d8685b9a75697e41
     linkedCells: []
     parentIndex: -1
   platformSettings:

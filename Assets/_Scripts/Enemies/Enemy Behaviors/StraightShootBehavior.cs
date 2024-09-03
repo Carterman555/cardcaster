@@ -18,6 +18,8 @@ public class StraightShootBehavior : EnemyBehavior {
     public void Setup(IStraightProjectile projectile, Vector2 localShootPosition) {
         this.projectile = projectile;
         this.localShootPosition = localShootPosition;
+
+        Stop();
     }
 
     public override void FrameUpdateLogic() {
@@ -38,7 +40,9 @@ public class StraightShootBehavior : EnemyBehavior {
     public void StartShooting(Transform target) {
         Start();
         this.target = target;
-        Debug.Log(enemy.name + " set target: " + target.name);
+
+        // less delay the first time shooting
+        attackTimer = enemy.GetStats().AttackCooldown / 2f;
     }
 
     protected virtual void Shoot() {

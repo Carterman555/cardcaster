@@ -9,9 +9,12 @@ public class Minion : Enemy, IMergable {
 
     private MergeBehavior mergeBehavior;
     [SerializeField] private TriggerContactTracker mergeTracker;
-    [SerializeField] private Enemy mergedEnemy;
+    [SerializeField] private Enemy mergedEnemyPrefab;
     [SerializeField] private float toMergeDelay;
     [SerializeField] private float mergeTime;
+
+    [Header("Split On Death")]
+    [SerializeField] private Enemy splitEnemyPrefab;
 
     public GameObject GetObject() {
         return gameObject;
@@ -32,14 +35,20 @@ public class Minion : Enemy, IMergable {
         enemyBehaviors.Add(moveBehavior);
 
         mergeBehavior = new();
-        mergeBehavior.Setup(mergeTracker, mergedEnemy, toMergeDelay, mergeTime);
-        mergeBehavior.AllowMerging();
+        mergeBehavior.Setup(mergeTracker, mergedEnemyPrefab, toMergeDelay, mergeTime);
+
+        if (mergedEnemyPrefab != null) {
+            mergeBehavior.AllowMerging();
+        }
+
         enemyBehaviors.Add(mergeBehavior);
 
         foreach (var enemyBehavior in enemyBehaviors) {
             enemyBehavior.Initialize(this);
         }
     }
+
+    
 
     protected override void Update() {
         base.Update();
@@ -76,7 +85,9 @@ public class Minion : Enemy, IMergable {
     protected override void OnPlayerExitedRange(GameObject player) {
         base.OnPlayerExitedRange(player);
 
-        mergeBehavior.AllowMerging();
+        if (mergedEnemyPrefab != null) {
+            mergeBehavior.AllowMerging();
+        }
     }
 
     // if the enemy touches the merging partner, then start merging
@@ -94,4 +105,35 @@ public class Minion : Enemy, IMergable {
             mergablesTouching.Remove(mergable);
         }
     }
+
+    #region Split On Destroy
+
+    protected override void Start() {
+        base.Start();
+
+        health.OnDeath += SpawnTwoMinions;
+    }
+
+    protected override void OnDestroy() {
+        base.OnDestroy();
+
+        health.OnDeath -= SpawnTwoMinions;
+    }
+
+    private void SpawnTwoMinions() {
+
+        if (splitEnemyPrefab == null) {
+            return;
+        }
+
+        float offsetValue = 0.5f;
+
+        Vector3 firstOffset = new(-offsetValue, 0);
+        splitEnemyPrefab.Spawn(transform.position + firstOffset, Containers.Instance.Enemies);
+
+        Vector3 secondOffset = new(offsetValue, 0);
+        splitEnemyPrefab.Spawn(transform.position + secondOffset, Containers.Instance.Enemies);
+    }
+
+    #endregion
 }

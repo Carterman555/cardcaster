@@ -10,7 +10,7 @@ public class TwistedGoblin : Enemy {
     [SerializeField] private SlashingWeapon weapon;
     [SerializeField] private LayerMask targetLayerMask;
     [SerializeField] private float slashSize;
-    private SlashAttackBehavior slashBehavior;
+    private EnemySlashAttackBehavior slashBehavior;
 
     protected override void OnEnable() {
         base.OnEnable();
@@ -21,28 +21,29 @@ public class TwistedGoblin : Enemy {
 
     private void InitializeBehaviors() {
         moveBehavior = new();
-        enemyBehaviors.Add(moveBehavior);
-
         slashBehavior = new();
-        slashBehavior.Setup(weapon, targetLayerMask, slashSize);
+
+        enemyBehaviors.Add(moveBehavior);
         enemyBehaviors.Add(slashBehavior);
 
         foreach (var enemyBehavior in enemyBehaviors) {
             enemyBehavior.Initialize(this);
         }
+
+        slashBehavior.Setup(weapon, targetLayerMask, slashSize);
     }
 
     protected override void OnPlayerEnteredRange(GameObject player) {
         base.OnPlayerEnteredRange(player);
 
         moveBehavior.Stop();
-        slashBehavior.StartAttacking();
+        slashBehavior.Start();
     }
 
     protected override void OnPlayerExitedRange(GameObject player) {
         base.OnPlayerExitedRange(player);
 
         moveBehavior.Start();
-        slashBehavior.StopAttacking();
+        slashBehavior.Stop();
     }
 }

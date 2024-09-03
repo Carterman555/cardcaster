@@ -147,6 +147,10 @@ public class MergeBehavior : EnemyBehavior {
 
     public void Merge() {
 
+        if (mergedEnemyPrefab == null) {
+            return;
+        }
+
         // so only one stronger enemy is spawned
         if (isMergeLeader) {
 

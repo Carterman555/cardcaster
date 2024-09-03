@@ -12,7 +12,6 @@ public class PlayerMeleeAttack : MonoBehaviour, ICanAttack, IHasStats {
     [SerializeField] private LayerMask targetLayerMask;
 
     [SerializeField] private SlashingWeapon weapon;
-    private SlashAttackBehavior slashAttackBehavior;
 
     private float attackTimer;
 
@@ -21,9 +20,6 @@ public class PlayerMeleeAttack : MonoBehaviour, ICanAttack, IHasStats {
 
     private void Start() {
         weapon.SetTarget(MouseTracker.Instance.transform);
-        slashAttackBehavior = new();
-        slashAttackBehavior.Initialize(gameObject, this);
-        slashAttackBehavior.Setup(weapon, targetLayerMask);
     }
 
     private void Update() {
@@ -38,7 +34,12 @@ public class PlayerMeleeAttack : MonoBehaviour, ICanAttack, IHasStats {
 
     private void Attack() {
         Vector2 toMouseDirection = MouseTracker.Instance.ToMouseDirection(transform.position);
-        slashAttackBehavior.Swing(toMouseDirection, stats.SwordSize);
+
+        weapon.Swing();
+
+        // deal damage
+        Vector2 attackCenter = (Vector2)gameObject.transform.position + (toMouseDirection.normalized * stats.SwordSize);
+        CircleDamage.DealDamage(targetLayerMask, attackCenter, stats.SwordSize, stats.Damage, stats.KnockbackStrength);
         CreateEffect(toMouseDirection);
 
         OnAttack?.Invoke();

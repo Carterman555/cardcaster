@@ -22,6 +22,9 @@ public class Enemy : MonoBehaviour, IHasStats, IChangesFacing, ICanAttack {
     public Stats GetStats() {
         return stats;
     }
+    public EnemyStats GetEnemyStats() {
+        return stats;
+    }
 
     protected List<EnemyBehavior> enemyBehaviors = new();
 

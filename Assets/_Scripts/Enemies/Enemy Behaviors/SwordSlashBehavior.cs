@@ -1,18 +1,18 @@
 using UnityEngine;
 
-public class EnemySlashAttackBehavior : EnemyBehavior {
+public class SwordSlashBehavior : EnemyBehavior {
 
-    private SlashAttackBehavior slashAttackBehavior;
-
-    private float attackTimer;
+    private SlashingWeapon weapon;
+    private LayerMask targetLayerMask;
     private float slashSize;
 
+    private float attackTimer;
+
     public void Setup(SlashingWeapon weapon, LayerMask targetLayerMask, float slashSize) {
+        this.weapon = weapon;
+        this.targetLayerMask = targetLayerMask;
         this.slashSize = slashSize;
 
-        slashAttackBehavior = new();
-        slashAttackBehavior.Initialize(enemy.gameObject, enemy);
-        slashAttackBehavior.Setup(weapon, targetLayerMask);
         Stop();
 
         weapon.SetTarget(Object.FindObjectOfType<PlayerMeleeAttack>().transform);
@@ -25,8 +25,12 @@ public class EnemySlashAttackBehavior : EnemyBehavior {
             if (attackTimer > enemy.GetStats().AttackCooldown) {
                 attackTimer = 0;
 
+                weapon.Swing();
+
+                // deal damage
                 Vector2 toPlayer = PlayerMovement.Instance.transform.position - enemy.transform.position;
-                slashAttackBehavior.Swing(toPlayer, slashSize);
+                Vector2 attackCenter = (Vector2)enemy.transform.position + (toPlayer.normalized * slashSize);
+                CircleDamage.DealDamage(targetLayerMask, attackCenter, slashSize, enemy.GetStats().Damage, enemy.GetStats().KnockbackStrength);
 
                 enemy.InvokeAttack();
             }

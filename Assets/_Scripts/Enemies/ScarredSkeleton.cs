@@ -20,15 +20,16 @@ public class ScarredSkeleton : Enemy {
 
     private void InitializeBehaviors() {
         moveBehavior = new();
-        enemyBehaviors.Add(moveBehavior);
-
         shootBehavior = new();
-        shootBehavior.Setup(projectile, shootPoint.localPosition);
+
+        enemyBehaviors.Add(moveBehavior);
         enemyBehaviors.Add(shootBehavior);
 
         foreach (var enemyBehavior in enemyBehaviors) {
             enemyBehavior.Initialize(this);
         }
+
+        shootBehavior.Setup(projectile, shootPoint.localPosition);
     }
 
     protected override void OnPlayerEnteredRange(GameObject player) {

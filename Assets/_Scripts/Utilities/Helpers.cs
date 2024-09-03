@@ -89,6 +89,10 @@ public static class Helpers {
         return Quaternion.Euler(0, 0, angleDegrees);
     }
 
+    public static Vector2 RotationToDirection(this float degrees) {
+        return Quaternion.Euler(0, 0, degrees) * Vector2.up;
+    }
+
     public static Vector3 RotateDirection(Vector3 direction, float degrees) {
         return Quaternion.Euler(0, 0, degrees) * direction;
     }

@@ -25,16 +25,16 @@ public class DarkPhantom : Enemy {
 
     private void InitializeBehaviors() {
         moveBehavior = new();
-        enemyBehaviors.Add(moveBehavior);
-
         shootBehavior = new();
-        shootBehavior.Setup(projectile, shootPoint.localPosition);
-        shootBehavior.StartShooting(shootPoint);
+        enemyBehaviors.Add(moveBehavior);
         enemyBehaviors.Add(shootBehavior);
 
         foreach (var enemyBehavior in enemyBehaviors) {
             enemyBehavior.Initialize(this);
         }
+
+        shootBehavior.Setup(projectile, shootPoint.localPosition);
+        shootBehavior.StartShooting(PlayerMovement.Instance.transform);
 
         PolygonCollider2D teleportBounds = Room.GetCurrentRoom().GetComponent<PolygonCollider2D>();
         teleportBehavior = new();
@@ -57,13 +57,5 @@ public class DarkPhantom : Enemy {
         else {
             nearPlayerTeleportTimer = 0;
         }
-    }
-
-    protected override void OnPlayerEnteredRange(GameObject player) {
-        base.OnPlayerEnteredRange(player);
-    }
-
-    protected override void OnPlayerExitedRange(GameObject player) {
-        base.OnPlayerExitedRange(player);
     }
 }

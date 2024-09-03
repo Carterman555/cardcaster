@@ -7,7 +7,7 @@ public class EnemyBehavior {
 
     protected Enemy enemy;
 
-    private bool stopped;
+    private bool stopped = true;
 
     public virtual void Initialize(Enemy enemy) {
         this.enemy = enemy;

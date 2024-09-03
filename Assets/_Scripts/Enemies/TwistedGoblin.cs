@@ -10,7 +10,7 @@ public class TwistedGoblin : Enemy {
     [SerializeField] private SlashingWeapon weapon;
     [SerializeField] private LayerMask targetLayerMask;
     [SerializeField] private float slashSize;
-    private EnemySlashAttackBehavior slashBehavior;
+    private SwordSlashBehavior slashBehavior;
 
     protected override void OnEnable() {
         base.OnEnable();

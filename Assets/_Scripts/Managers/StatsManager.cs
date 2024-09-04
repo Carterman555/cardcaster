@@ -22,7 +22,7 @@ public class StatsManager : StaticInstance<StatsManager> {
     }
 
     public void RemovePlayerStatsModifier(PlayerStatsModifier modifier) {
-        allPlayerStatsModifiers += modifier;
+        allPlayerStatsModifiers -= modifier;
         UpdatePlayerStats();
     }
 

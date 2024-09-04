@@ -43,19 +43,14 @@ public class ChasePlayerBehavior : EnemyBehavior {
         agent.isStopped = true;
     }
 
-    public void StopAgent() {
-        agent.isStopped = true;
-    }
-    public void StartAgent() {
-        agent.isStopped = false;
-    }
-
-    public bool IsAgentStopped() {
-        return agent.isStopped;
-    }
-
     public override void FrameUpdateLogic() {
+        if (IsStopped()) {
+            return;
+        }
+
         changeFacingBehavior.FaceTowardsPosition(PlayerMovement.Instance.transform.position.x);
+
+        agent.isStopped = false;
         agent.speed = enemy.GetStats().MoveSpeed;
     }
 

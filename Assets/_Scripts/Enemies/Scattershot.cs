@@ -62,14 +62,12 @@ public class Scattershot : Enemy {
         base.OnPlayerEnteredRange(player);
 
         fleePlayerBehavior.Start();
-        fleePlayerBehavior.StartAgent();
         shootBehavior.Stop();
     }
     protected override void OnPlayerExitedRange(GameObject player) {
         base.OnPlayerExitedRange(player);
 
         fleePlayerBehavior.Stop();
-        fleePlayerBehavior.StopAgent();
         shootBehavior.StartShooting(player.transform);
     }
 

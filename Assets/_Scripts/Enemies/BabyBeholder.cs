@@ -49,13 +49,13 @@ public class BabyBeholder : Enemy {
         base.Update();
 
         if (lineSight.InSight(transform.position) && !playerInSight) {
-            chasePlayerBehavior.StopAgent();
+            chasePlayerBehavior.Stop();
             shootBehavior.StartShooting(PlayerMovement.Instance.transform);
 
             playerInSight = true;
         }
         else if (!lineSight.InSight(transform.position) && playerInSight) {
-            chasePlayerBehavior.StartAgent();
+            chasePlayerBehavior.Start();
             shootBehavior.Stop();
 
             playerInSight = false;

@@ -88,42 +88,20 @@ public class CursedWitch : Enemy {
         bool closeToPlayer = distanceFromPlayer < moveFromPlayerRange;
 
         if (farFromPlayer) {
-
-            if (chaseBehavior.IsAgentStopped()) {
-                chaseBehavior.StartAgent();
-            }
-
-            if (chaseBehavior.IsStopped()) {
-                chaseBehavior.Start();
-            }
-
-            if (!fleeBehavior.IsStopped()) {
+            if (chaseBehavior.IsStopped() || !fleeBehavior.IsStopped()) {
                 fleeBehavior.Stop();
+                chaseBehavior.Start();
             }
         }
         else if (closeToPlayer) {
-            if (chaseBehavior.IsAgentStopped()) {
-                chaseBehavior.StartAgent();
-            }
-
-            if (!chaseBehavior.IsStopped()) {
+            if (!chaseBehavior.IsStopped() || fleeBehavior.IsStopped()) {
                 chaseBehavior.Stop();
-            }
-
-            if (fleeBehavior.IsStopped()) {
                 fleeBehavior.Start();
             }
         }
         else if (!farFromPlayer && !closeToPlayer) {
-            if (!chaseBehavior.IsAgentStopped()) {
-                chaseBehavior.StopAgent();
-            }
-
-            if (!chaseBehavior.IsStopped()) {
+            if (!chaseBehavior.IsStopped() || !fleeBehavior.IsStopped()) {
                 chaseBehavior.Stop();
-            }
-
-            if (!fleeBehavior.IsStopped()) {
                 fleeBehavior.Stop();
             }
         }

@@ -44,5 +44,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75e6edf6a5d8dd2429a5ff1cfafbbe62, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scriptableEnemy: {fileID: 0}
-  delay: 0
+  possibleTags: 0
+  maxDifficulty: 1

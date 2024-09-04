@@ -3,7 +3,7 @@ using UnityEngine.UI;
 
 public class GameButton : MonoBehaviour {
 
-    private Button button;
+    protected Button button;
 
     private void Awake() {
         button = GetComponent<Button>();

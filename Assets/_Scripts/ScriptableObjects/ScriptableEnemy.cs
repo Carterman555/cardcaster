@@ -13,6 +13,7 @@ public class ScriptableEnemy : ScriptableObject {
     [field: SerializeField] public Enemy Prefab { get; private set; }
 
     [field: SerializeField] public EnemyStats Stats { get; private set; }
+    [field: SerializeField] public float Difficulty { get; private set; }
 
     [field: SerializeField] public EnemyTag Tags { get; private set; }
 }

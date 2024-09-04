@@ -1,14 +1,12 @@
 using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class EnemySpawn : MonoBehaviour, IHasRoomNum {
 
-    [SerializeField] private ScriptableEnemy scriptableEnemy;
-    [SerializeField] private float delay;
-
-    [SerializeField] private bool randomEnemy;
-    [SerializeField] private ScriptableEnemy[] scriptableEnemies;
-    [SerializeField, Range(0f, 1f)] private float chanceToSpawn;
+    [SerializeField] private EnemyTag possibleTags;
+    [SerializeField] private float maxDifficulty;
 
     private int roomNum;
 
@@ -25,20 +23,23 @@ public class EnemySpawn : MonoBehaviour, IHasRoomNum {
 
     private void TrySpawnEnemy(Room enteredRoom) {
         if (enteredRoom.GetRoomNum() == roomNum && !enteredRoom.IsRoomCleared()) {
-            StartCoroutine(SpawnEnemy());
+            SpawnEnemy();
         }
     }
 
-    private IEnumerator SpawnEnemy() {
-        yield return new WaitForSeconds(delay);
+    private void SpawnEnemy() {
 
-        if (Random.value < chanceToSpawn) {
-            if (randomEnemy) {
-                scriptableEnemies.RandomItem().Prefab.Spawn(transform.position, Containers.Instance.Enemies);
-            }
-            else {
-                scriptableEnemy.Prefab.Spawn(transform.position, Containers.Instance.Enemies);
-            }
+        List<ScriptableEnemy> allEnemies = ResourceSystem.Instance.GetAllEnemies();
+
+        // Filter enemies that match any of the possible tags
+        var matchingEnemies = allEnemies.Where(enemy => (enemy.Tags & possibleTags) != EnemyTag.None && enemy.Difficulty <= maxDifficulty).ToArray();
+
+        if (matchingEnemies.Length == 0) {
+            Debug.LogWarning("No enemies match the given tags.");
+            return;
         }
+
+        // Choose a random enemy from the matching ones to spawn
+        matchingEnemies.RandomItem().Prefab.Spawn(transform.position, Containers.Instance.Enemies);
     }
 }

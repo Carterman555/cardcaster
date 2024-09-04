@@ -43,6 +43,18 @@ public class PlayerStatsModifier {
         };
     }
 
+    public static PlayerStatsModifier operator -(PlayerStatsModifier a, PlayerStatsModifier b) {
+        return new PlayerStatsModifier {
+            MaxHealthPercent = a.MaxHealthPercent - b.MaxHealthPercent,
+            KnockbackResistancePercent = a.KnockbackResistancePercent - b.KnockbackResistancePercent,
+            MoveSpeedPercent = a.MoveSpeedPercent - b.MoveSpeedPercent,
+            DamageIncreasePercent = a.DamageIncreasePercent - b.DamageIncreasePercent,
+            AttackSpeedPercent = a.AttackSpeedPercent - b.AttackSpeedPercent,
+            KnockbackStrengthPercent = a.KnockbackStrengthPercent - b.KnockbackStrengthPercent,
+            DashDistancePercent = a.DashDistancePercent - b.DashDistancePercent,
+        };
+    }
+
     public static PlayerStatsModifier Zero = new PlayerStatsModifier {
         MaxHealthPercent = 0,
         KnockbackResistancePercent = 0,

@@ -9,8 +9,8 @@ using UnityEngine;
 /// </summary>
 public class ResourceSystem : StaticInstance<ResourceSystem>
 {
-    //public List<ScriptableAlly> Allies { get; private set; }
-    //private Dictionary<AllyType, ScriptableAlly> AlliesDict;
+    public List<ScriptableEnemy> Enemies { get; private set; }
+    public List<ScriptableCardBase> Cards { get; private set; }
 
     protected override void Awake() {
         base.Awake();
@@ -18,9 +18,10 @@ public class ResourceSystem : StaticInstance<ResourceSystem>
     }
 
     private void AssembleResources() {
-        //Allies = Resources.LoadAll<ScriptableAlly>("Allies").ToList();
-        //AlliesDict = Allies.ToDictionary(r => r.AllyType, r => r);
+        Enemies = Resources.LoadAll<ScriptableEnemy>("Enemies").ToList();
+        Cards = Resources.LoadAll<ScriptableCardBase>("Cards").ToList();
     }
 
-    //public ScriptableAlly GetAlly(AllyType t) => AlliesDict[t];
+    public List<ScriptableEnemy> GetAllEnemies() => Enemies;
+    public List<ScriptableCardBase> GetAllCards() => Cards;
 }   

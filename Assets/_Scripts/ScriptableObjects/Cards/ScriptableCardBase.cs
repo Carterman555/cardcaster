@@ -19,6 +19,8 @@ public abstract class ScriptableCardBase : ScriptableObject, ICollectable {
     [SerializeField] private Sprite sprite;
     public Sprite GetSprite() => sprite;
 
+    [field: SerializeField] public bool IsPossibleStartingCard { get; private set; }
+
     [SerializeField] protected float effectDuration;
 
     public abstract void Play();

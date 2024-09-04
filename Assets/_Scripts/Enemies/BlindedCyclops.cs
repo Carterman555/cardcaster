@@ -3,7 +3,7 @@ using UnityEngine;
 public class BlindedCyclops : Enemy {
 
     [Header("Shockwave")]
-    private ShockwaveBehavior shockwaveBehavior;
+    private CircleStraightShootBehavior shootBehavior;
     [SerializeField] private BasicProjectile shockwavePrefab;
     [SerializeField] private int shockwaveCount;
 
@@ -17,18 +17,18 @@ public class BlindedCyclops : Enemy {
     }
 
     private void InitializeBehaviors() {
-        shockwaveBehavior = new();
+        shootBehavior = new();
         circleSlashBehavior = new();
 
-        enemyBehaviors.Add(shockwaveBehavior);
+        enemyBehaviors.Add(shootBehavior);
         enemyBehaviors.Add(circleSlashBehavior);
 
         foreach (var enemyBehavior in enemyBehaviors) {
             enemyBehavior.Initialize(this);
         }
 
-        shockwaveBehavior.Setup(shockwavePrefab, shockwaveCount);
-        shockwaveBehavior.Start();
+        shootBehavior.Setup(shockwavePrefab, shockwaveCount);
+        shootBehavior.Start();
 
         circleSlashBehavior.Setup(playerLayer);
     }
@@ -36,14 +36,14 @@ public class BlindedCyclops : Enemy {
     protected override void OnPlayerEnteredRange(GameObject player) {
         base.OnPlayerEnteredRange(player);
 
-        shockwaveBehavior.Stop();
+        shootBehavior.Stop();
         circleSlashBehavior.Start();
     }
 
     protected override void OnPlayerExitedRange(GameObject player) {
         base.OnPlayerExitedRange(player);
 
-        shockwaveBehavior.Start();
+        shootBehavior.Start();
         circleSlashBehavior.Stop();
     }
 }

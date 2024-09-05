@@ -9,14 +9,14 @@ public class StraightShootBehavior : EnemyBehavior {
     public event Action OnShoot;
     public event Action<Vector2> OnShoot_Direction;
 
-    private IStraightProjectile projectile;
+    private StraightMovement projectilePrefab;
     private Vector2 localShootPosition;
 
     protected Transform target;
     private float attackTimer;
 
-    public void Setup(IStraightProjectile projectile, Vector2 localShootPosition) {
-        this.projectile = projectile;
+    public void Setup(StraightMovement projectilePrefab, Vector2 localShootPosition) {
+        this.projectilePrefab = projectilePrefab;
         this.localShootPosition = localShootPosition;
 
         Stop();
@@ -47,10 +47,11 @@ public class StraightShootBehavior : EnemyBehavior {
 
     protected virtual void Shoot() {
         Vector2 shootPosition = (Vector2)enemy.transform.position + localShootPosition;
-        IStraightProjectile newProjectile = projectile.GetObject().Spawn(shootPosition, Containers.Instance.Projectiles).GetComponent<IStraightProjectile>();
+        StraightMovement newProjectile = projectilePrefab.Spawn(shootPosition, Containers.Instance.Projectiles);
 
         Vector2 toTarget = target.position - enemy.transform.position;
-        newProjectile.Shoot(toTarget.normalized, enemy.GetStats().Damage, enemy.GetStats().KnockbackStrength);
+        newProjectile.Setup(toTarget.normalized);
+        newProjectile.GetComponent<DamageOnContact>().Setup(enemy.GetStats().Damage, enemy.GetStats().KnockbackStrength);
 
         InvokeShoot(toTarget.normalized);
     }

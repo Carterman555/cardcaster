@@ -148,7 +148,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scriptableEnemy: {fileID: 11400000, guid: 28ab70d53bb38f1438ba032fa2d10710, type: 2}
   playerTracker: {fileID: 6343162823804091555}
-  projectile: {fileID: 879948595054314452, guid: cf2d2cd74a5ecdc45a242c332585dec5, type: 3}
+  projectilePrefab: {fileID: -1897301476388012080, guid: cf2d2cd74a5ecdc45a242c332585dec5, type: 3}
   shootPoint: {fileID: 6318564174858887285}
   teleportDistanceFromPlayer: 4.5
   nearPlayerTeleportTime:

@@ -12,7 +12,9 @@ GameObject:
   - component: {fileID: 6482346275787368926}
   - component: {fileID: 7906188696243600679}
   - component: {fileID: 3006919553162268956}
-  - component: {fileID: 8078449229511148804}
+  - component: {fileID: -7132047762621498982}
+  - component: {fileID: 2262217748617954244}
+  - component: {fileID: -6477873027740009823}
   m_Layer: 0
   m_Name: BounceProjectile
   m_TagString: Untagged
@@ -149,7 +151,7 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
---- !u!114 &8078449229511148804
+--- !u!114 &-7132047762621498982
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -158,11 +160,38 @@ MonoBehaviour:
   m_GameObject: {fileID: 3719507589224047476}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b4f5ea2011503a84fa3c4f86689dfb23, type: 3}
+  m_Script: {fileID: 11500000, guid: 7328eb14b0d1e524cb2f66594d034334, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 6
+--- !u!114 &2262217748617954244
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3719507589224047476}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 813d6bacff4e7d74aba918b207221c48, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   targetLayer:
     serializedVersion: 2
     m_Bits: 64
+--- !u!114 &-6477873027740009823
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3719507589224047476}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 35d760a5bc481674c844fc521f584a74, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bounceLayer:
+    serializedVersion: 2
+    m_Bits: 1344
   maxBounces: 2

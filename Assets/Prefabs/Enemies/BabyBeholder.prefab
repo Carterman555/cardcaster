@@ -233,7 +233,7 @@ MonoBehaviour:
   scriptableEnemy: {fileID: 11400000, guid: aafd561a49975e04e8bdb25c998e7dfa, type: 2}
   playerTracker: {fileID: 4454261718351112059}
   shootPoint: {fileID: 2188268378269166961}
-  projectile: {fileID: 8078449229511148804, guid: f8b666e14b633bd44850cb095fa226f3, type: 3}
+  projectilePrefab: {fileID: -7132047762621498982, guid: f8b666e14b633bd44850cb095fa226f3, type: 3}
   sightLayerMask:
     serializedVersion: 2
     m_Bits: 1344

@@ -298,7 +298,7 @@ MonoBehaviour:
   projectileShootAmount:
     MinValue: 4
     MaxValue: 7
-  projectile: {fileID: 2713567180428785575, guid: 7f46bb984c203cb4fba79969330e4701, type: 3}
+  projectilePrefab: {fileID: 4005639262296437109, guid: 7f46bb984c203cb4fba79969330e4701, type: 3}
   enemySpawnAmount:
     MinValue: 2
     MaxValue: 4

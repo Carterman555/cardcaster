@@ -5,7 +5,7 @@ public class DarkPhantom : Enemy {
 
     [Header("Attack")]
     private StraightShootBehavior shootBehavior;
-    [SerializeField] private BasicProjectile projectile;
+    [SerializeField] private StraightMovement projectilePrefab;
     [SerializeField] private Transform shootPoint;
 
     [Header("Teleport")]
@@ -33,7 +33,7 @@ public class DarkPhantom : Enemy {
             enemyBehavior.Initialize(this);
         }
 
-        shootBehavior.Setup(projectile, shootPoint.localPosition);
+        shootBehavior.Setup(projectilePrefab, shootPoint.localPosition);
         shootBehavior.StartShooting(PlayerMovement.Instance.transform);
 
         PolygonCollider2D teleportBounds = Room.GetCurrentRoom().GetComponent<PolygonCollider2D>();

@@ -12,17 +12,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59f865b4c0fdf2c458fd206801abe05e, type: 3}
   m_Name: TestCard
   m_EditorClassIdentifier: 
-  cardName: 
-  description: 
-  cost: 0
+  cardName: Tester
+  description: test description
+  cost: 2
   rarity: 0
-  sprite: {fileID: 0}
-  <IsPossibleStartingCard>k__BackingField: 0
-  effectDuration: 0
+  sprite: {fileID: 722498528, guid: ef4feee8e04e5b74b87ba927eaec58db, type: 3}
+  <IsPossibleStartingCard>k__BackingField: 1
+  effectDuration: 1
   statsModifier:
     MaxHealthPercent: 0
     KnockbackResistancePercent: 0
-    MoveSpeedPercent: 0
+    MoveSpeedPercent: 100
     DamageIncreasePercent: 0
     AttackSpeedPercent: 0
     KnockbackStrengthPercent: 0

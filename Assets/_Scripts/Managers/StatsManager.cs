@@ -1,10 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class StatsManager : StaticInstance<StatsManager> {
 
     [SerializeField] private ScriptablePlayer scriptablePlayer;
+
     private PlayerStats playerStats;
 
     private PlayerStatsModifier allPlayerStatsModifiers;
@@ -12,7 +14,7 @@ public class StatsManager : StaticInstance<StatsManager> {
     protected override void Awake() {
         base.Awake();
 
-        playerStats = scriptablePlayer.Stats;
+        playerStats = Instantiate(scriptablePlayer).Stats;
         allPlayerStatsModifiers = PlayerStatsModifier.Zero;
     }
 
@@ -27,7 +29,7 @@ public class StatsManager : StaticInstance<StatsManager> {
     }
 
     private void UpdatePlayerStats() {
-        playerStats = scriptablePlayer.Stats;
+        playerStats = Instantiate(scriptablePlayer).Stats;
         playerStats.ApplyModifier(allPlayerStatsModifiers); 
     }
 

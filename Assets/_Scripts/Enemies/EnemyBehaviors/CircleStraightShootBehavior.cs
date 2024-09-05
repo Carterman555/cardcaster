@@ -2,12 +2,12 @@ using UnityEngine;
 
 public class CircleStraightShootBehavior : EnemyBehavior {
 
-    private IStraightProjectile projectilePrefab;
+    private StraightMovement projectilePrefab;
     private int projectileCount;
 
     private float attackTimer;
 
-    public void Setup(IStraightProjectile projectilePrefab, int projectileCount) {
+    public void Setup(StraightMovement projectilePrefab, int projectileCount) {
         this.projectilePrefab = projectilePrefab;
         this.projectileCount = projectileCount;
     }
@@ -43,10 +43,11 @@ public class CircleStraightShootBehavior : EnemyBehavior {
             float distanceFromCenter = 1f;
 
             Vector2 spawnPosition = (Vector2)enemy.transform.position + projectileDirection * distanceFromCenter;
-            GameObject projectileObject = projectilePrefab.GetObject()
+            StraightMovement projectile = projectilePrefab
                 .Spawn(spawnPosition, Containers.Instance.Projectiles);
-            projectileObject.GetComponent<IStraightProjectile>().Shoot(projectileDirection, enemy.GetStats().Damage, enemy.GetStats().KnockbackStrength);
-            projectileObject.transform.up = projectileDirection;
+            projectile.Setup(projectileDirection);
+            projectile.GetComponent<DamageOnContact>().Setup(enemy.GetStats().Damage, enemy.GetStats().KnockbackStrength);
+            projectile.transform.up = projectileDirection;
 
             angle += angleStep;
         }

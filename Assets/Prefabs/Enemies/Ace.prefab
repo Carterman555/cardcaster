@@ -149,7 +149,7 @@ MonoBehaviour:
   scriptableEnemy: {fileID: 11400000, guid: a037715e85e24ef41b1e9a811270b082, type: 2}
   playerTracker: {fileID: 6343162823804091555}
   moveRadius: 1.5
-  projectile: {fileID: 879948595054314452, guid: cf2d2cd74a5ecdc45a242c332585dec5, type: 3}
+  projectilePrefab: {fileID: -1897301476388012080, guid: cf2d2cd74a5ecdc45a242c332585dec5, type: 3}
   projectileCount: 20
 --- !u!114 &5414848298468351723
 MonoBehaviour:

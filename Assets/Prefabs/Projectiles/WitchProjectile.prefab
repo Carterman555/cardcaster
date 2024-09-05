@@ -10,7 +10,10 @@ GameObject:
   m_Component:
   - component: {fileID: 714963507779759896}
   - component: {fileID: -6891389137649566611}
-  - component: {fileID: 2713567180428785575}
+  - component: {fileID: 3316379488171478961}
+  - component: {fileID: 4005639262296437109}
+  - component: {fileID: -1570383927644268234}
+  - component: {fileID: 3342111309685746105}
   m_Layer: 0
   m_Name: WitchProjectile
   m_TagString: Untagged
@@ -69,7 +72,34 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
---- !u!114 &2713567180428785575
+--- !u!50 &3316379488171478961
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6339056861437020777}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
+--- !u!114 &4005639262296437109
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -78,14 +108,41 @@ MonoBehaviour:
   m_GameObject: {fileID: 6339056861437020777}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 919c1a64a2378694e86c63e3b5dfe8a1, type: 3}
+  m_Script: {fileID: 11500000, guid: eca8a6b9eb9a75145852569dea899a3a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 3
-  rotationSpeed: 6
+  rotationSpeed: 2
+--- !u!114 &-1570383927644268234
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6339056861437020777}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 813d6bacff4e7d74aba918b207221c48, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   targetLayer:
     serializedVersion: 2
     m_Bits: 64
+--- !u!114 &3342111309685746105
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6339056861437020777}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 88baa298a6f8f074481d9363de54eebe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 1344
 --- !u!1 &6837597791261253277
 GameObject:
   m_ObjectHideFlags: 0

@@ -18,7 +18,7 @@ public class Scattershot : Enemy {
 
     [Header("Shoot Projectile")]
     [SerializeField] private RandomInt projectileCount;
-    [SerializeField] private BasicProjectile projectile;
+    [SerializeField] private StraightMovement projectilePrefab;
     private ShootStraightSpreadBehavior shootBehavior;
 
     [Header("Recoil")]
@@ -50,7 +50,7 @@ public class Scattershot : Enemy {
         enemyBehaviors.Add(fleePlayerBehavior);
 
         shootBehavior = new();
-        shootBehavior.Setup(projectile, shootPoint.localPosition, projectileCount.Randomize());
+        shootBehavior.Setup(projectilePrefab, shootPoint.localPosition, projectileCount.Randomize());
         enemyBehaviors.Add(shootBehavior);
 
         foreach (var enemyBehavior in enemyBehaviors) {

@@ -9,8 +9,6 @@ public class CardsUIManager : StaticInstance<CardsUIManager> {
     [SerializeField] private CardButton cardButtonPrefab;
     private List<CardButton> cardButtons = new();
 
-    [SerializeField] private Image essenceFill;
-
     public void Setup() {
 
         List<ScriptableCardBase> cardsInHand = DeckManager.Instance.GetCardsInHand();
@@ -21,10 +19,6 @@ public class CardsUIManager : StaticInstance<CardsUIManager> {
 
             cardButtons.Add(cardButton);
         }
-    }
-
-    private void Update() {
-        essenceFill.fillAmount = DeckManager.Instance.GetEssenceFraction();
     }
 
     public void ReplaceCard(int index) {

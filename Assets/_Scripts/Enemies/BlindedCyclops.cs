@@ -4,7 +4,7 @@ public class BlindedCyclops : Enemy {
 
     [Header("Shockwave")]
     private CircleStraightShootBehavior shootBehavior;
-    [SerializeField] private BasicProjectile shockwavePrefab;
+    [SerializeField] private StraightMovement shockwavePrefab;
     [SerializeField] private int shockwaveCount;
 
     [Header("Slash")]

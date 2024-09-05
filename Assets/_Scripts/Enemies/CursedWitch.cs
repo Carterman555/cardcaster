@@ -20,7 +20,7 @@ public class CursedWitch : Enemy {
 
     [Header("Shoot Projectile")]
     [SerializeField] private RandomInt projectileShootAmount;
-    [SerializeField] private HeatSeekProjectile projectile;
+    [SerializeField] private HeatSeekMovement projectilePrefab;
     private ShootTargetProjectileBehavior shootProjectileBehavior;
 
     [Header("Spawn Enemy")]
@@ -53,7 +53,7 @@ public class CursedWitch : Enemy {
         enemyBehaviors.Add(fleeBehavior);
 
         shootProjectileBehavior = new();
-        shootProjectileBehavior.Setup(projectile, spawnPoint.localPosition);
+        shootProjectileBehavior.Setup(projectilePrefab, spawnPoint.localPosition);
         enemyBehaviors.Add(shootProjectileBehavior);
 
         spawnEnemyBehavior = new();

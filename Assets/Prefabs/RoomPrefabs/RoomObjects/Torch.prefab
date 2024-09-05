@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 91112430028619409}
   - component: {fileID: 6431716734061275690}
   - component: {fileID: 7018084041215859211}
+  - component: {fileID: 3178122192934362508}
   m_Layer: 10
   m_Name: Torch
   m_TagString: Untagged
@@ -106,3 +107,16 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &3178122192934362508
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3795107500430556011}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6997046787c9c4e4ea854fb3d50519d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  clipName: Idle

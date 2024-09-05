@@ -5,15 +5,15 @@ public class ShootTargetProjectileBehavior : EnemyBehavior {
 
     public event Action OnShoot;
 
-    private ITargetProjectile projectile;
+    private ITargetMovement projectilePrefab;
     private Vector2 localShootPosition;
 
     private float shootTimer;
 
     private int amountLeftToShoot;
 
-    public void Setup(ITargetProjectile projectile, Vector2 localShootPosition) {
-        this.projectile = projectile;
+    public void Setup(ITargetMovement projectilePrefab, Vector2 localShootPosition) {
+        this.projectilePrefab = projectilePrefab;
         this.localShootPosition = localShootPosition;
 
         Stop();
@@ -48,8 +48,10 @@ public class ShootTargetProjectileBehavior : EnemyBehavior {
 
     private void ShootProjectile() {
         Vector2 shootPosition = (Vector2)enemy.transform.position + localShootPosition;
-        ITargetProjectile newProjectile = projectile.GetObject().Spawn(shootPosition, Containers.Instance.Enemies).GetComponent<ITargetProjectile>();
-        newProjectile.Shoot(PlayerMovement.Instance.transform, enemy.GetStats().Damage, enemy.GetStats().KnockbackStrength);
+        GameObject newProjectileObject = projectilePrefab.GetObject().Spawn(shootPosition, Containers.Instance.Enemies);
+        ITargetMovement newProjectile = newProjectileObject.GetComponent<ITargetMovement>();
+        newProjectile.Setup(PlayerMovement.Instance.transform);
+        newProjectileObject.GetComponent<DamageOnContact>().Setup(enemy.GetStats().Damage, enemy.GetStats().KnockbackStrength);
 
         amountLeftToShoot--;
 

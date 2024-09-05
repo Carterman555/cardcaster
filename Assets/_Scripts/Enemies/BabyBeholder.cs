@@ -8,7 +8,7 @@ public class BabyBeholder : Enemy {
 
     [Header("Shoot Projectile")]
     [SerializeField] private Transform shootPoint;
-    [SerializeField] private BounceProjectile projectile;
+    [SerializeField] private StraightMovement projectilePrefab;
     private StraightShootBehavior shootBehavior;
 
     [Header("Sight")]
@@ -32,7 +32,7 @@ public class BabyBeholder : Enemy {
         enemyBehaviors.Add(chasePlayerBehavior);
 
         shootBehavior = new();
-        shootBehavior.Setup(projectile, shootPoint.localPosition);
+        shootBehavior.Setup(projectilePrefab, shootPoint.localPosition);
         enemyBehaviors.Add(shootBehavior);
 
         foreach (var enemyBehavior in enemyBehaviors) {

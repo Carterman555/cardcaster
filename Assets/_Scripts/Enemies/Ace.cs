@@ -10,7 +10,7 @@ public class Ace : Enemy {
 
     [Header("Attack")]
     private CircleStraightShootBehavior shootBehavior;
-    [SerializeField] private BasicProjectile projectile;
+    [SerializeField] private StraightMovement projectilePrefab;
     [SerializeField] private int projectileCount;
 
     protected override void OnEnable() {
@@ -32,7 +32,7 @@ public class Ace : Enemy {
         moveBehavior.Setup(moveRadius);
         moveBehavior.Start();
 
-        shootBehavior.Setup(projectile, projectileCount);
+        shootBehavior.Setup(projectilePrefab, projectileCount);
         shootBehavior.Start();
     }
 }

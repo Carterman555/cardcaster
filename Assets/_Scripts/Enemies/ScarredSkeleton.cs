@@ -8,7 +8,7 @@ public class ScarredSkeleton : Enemy {
 
     [Header("Attack")]
     private StraightShootBehavior shootBehavior;
-    [SerializeField] private BasicProjectile projectile;
+    [SerializeField] private StraightMovement projectilePrefab;
     [SerializeField] private Transform shootPoint;
 
     protected override void OnEnable() {
@@ -29,7 +29,7 @@ public class ScarredSkeleton : Enemy {
             enemyBehavior.Initialize(this);
         }
 
-        shootBehavior.Setup(projectile, shootPoint.localPosition);
+        shootBehavior.Setup(projectilePrefab, shootPoint.localPosition);
     }
 
     protected override void OnPlayerEnteredRange(GameObject player) {

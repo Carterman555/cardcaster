@@ -124,7 +124,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scriptableEnemy: {fileID: 11400000, guid: f902a967706560441ad66394e8b585c2, type: 2}
   playerTracker: {fileID: 6343162823804091555}
-  shockwavePrefab: {fileID: 1222528848434253163, guid: 5d4217c0350f5094e960fe01cc4084a0, type: 3}
+  shockwavePrefab: {fileID: 6752470997021300203, guid: 5d4217c0350f5094e960fe01cc4084a0, type: 3}
   shockwaveCount: 5
   playerLayer:
     serializedVersion: 2

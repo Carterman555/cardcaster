@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class DeckManager : Singleton<DeckManager> {
 
-    public static event Action<float> OnEssenceChanged_Fraction;
+    public static event Action<float> OnEssenceChanged_Amount;
 
     [SerializeField] private int startDeckSize;
     [SerializeField] private int handSize;
@@ -14,7 +14,7 @@ public class DeckManager : Singleton<DeckManager> {
     private List<ScriptableCardBase> cardsInDiscard = new();
     private List<ScriptableCardBase> cardsInHand = new();
 
-    [SerializeField] private float maxEssence;
+    [SerializeField] private int maxEssence;
     private float essence;
 
     #region Get Methods
@@ -43,17 +43,13 @@ public class DeckManager : Singleton<DeckManager> {
         return essence;
     }
 
-    public float GetEssenceFraction() {
-        return essence / maxEssence;
-    }
-
     #endregion
 
     public void IncreaseEssence() {
         float essenceIncrease = 1f;
         essence = Mathf.MoveTowards(essence, maxEssence, essenceIncrease);
 
-        OnEssenceChanged_Fraction?.Invoke(GetEssenceFraction());
+        OnEssenceChanged_Amount?.Invoke(essence);
     }
 
     private void Start() {
@@ -64,7 +60,7 @@ public class DeckManager : Singleton<DeckManager> {
 
         essence = maxEssence;
 
-        OnEssenceChanged_Fraction?.Invoke(GetEssenceFraction());
+        OnEssenceChanged_Amount?.Invoke(essence);
     }
 
     private void ChooseStartingDeck() {
@@ -83,13 +79,13 @@ public class DeckManager : Singleton<DeckManager> {
         cardsInHand = cardsInDeck.Take(handSize).ToList();
         cardsInDeck = cardsInDeck.Skip(handSize).ToList();
 
-        //CardsUIManager.Instance.Setup();
+        CardsUIManager.Instance.Setup();
     }
 
     public void UseCard(int indexInHand) {
 
         essence -= cardsInHand[indexInHand].GetCost();
-        OnEssenceChanged_Fraction?.Invoke(GetEssenceFraction());
+        OnEssenceChanged_Amount?.Invoke(essence);
 
         cardsInDiscard.Add(cardsInHand[indexInHand]);
 
@@ -120,7 +116,7 @@ public class DeckManager : Singleton<DeckManager> {
         cardsInHand[indexInHand] = cardsInDeck[0];
         cardsInDeck.RemoveAt(0);
 
-        //CardsUIManager.Instance.ReplaceCard(indexInHand);
+        CardsUIManager.Instance.ReplaceCard(indexInHand);
     }
 
     public void PrintAllCards(string startingText = "") {

@@ -4,13 +4,12 @@ using UnityEngine;
 
 public class ShootStraightSpreadBehavior : StraightShootBehavior {
 
-
-    private IStraightProjectile projectile;
+    private StraightMovement projectilePrefab;
     private Vector2 localShootPosition;
     private int bulletCount;
 
-    public void Setup(IStraightProjectile projectile, Vector2 localShootPosition, int bulletCount) {
-        this.projectile = projectile;
+    public void Setup(StraightMovement projectilePrefab, Vector2 localShootPosition, int bulletCount) {
+        this.projectilePrefab = projectilePrefab;
         this.localShootPosition = localShootPosition;
         this.bulletCount = bulletCount;
     }
@@ -20,13 +19,14 @@ public class ShootStraightSpreadBehavior : StraightShootBehavior {
         Vector2 toTarget = target.position - enemy.transform.position;
 
         for (int i = 0; i < bulletCount; i++) {
-            IStraightProjectile newProjectile = projectile.GetObject().Spawn(shootPosition, Containers.Instance.Projectiles).GetComponent<IStraightProjectile>();
+            StraightMovement newProjectile = projectilePrefab.Spawn(shootPosition, Containers.Instance.Projectiles);
 
             float angleBetweenBullets = 15f;
             float spreadAngle = (i - (bulletCount - 1) / 2f) * angleBetweenBullets;
             Vector2 currentBulletDirection = Quaternion.Euler(0, 0, spreadAngle) * toTarget.normalized;
 
-            newProjectile.Shoot(currentBulletDirection, enemy.GetStats().Damage, enemy.GetStats().KnockbackStrength);
+            newProjectile.Setup(currentBulletDirection);
+            newProjectile.GetComponent<DamageOnContact>().Setup(enemy.GetStats().Damage, enemy.GetStats().KnockbackStrength);
         }
 
         InvokeShoot(toTarget.normalized);

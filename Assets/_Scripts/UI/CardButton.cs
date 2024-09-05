@@ -2,13 +2,14 @@ using System.Collections;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CardButton : GameButton {
 
     [SerializeField] private TextMeshProUGUI titleText;
-    [SerializeField] private TextMeshProUGUI descriptionText;
-    [SerializeField] private TextMeshProUGUI costText;
     [SerializeField] private TextMeshProUGUI hotkeyText;
+
+    [SerializeField] private Image[] essenceImages;
 
     private ScriptableCardBase card;
     private int cardIndex;
@@ -41,8 +42,14 @@ public class CardButton : GameButton {
         this.card = card;
 
         titleText.text = card.GetName();
-        descriptionText.text = card.GetDescription();
-        costText.text = "Cost: " + card.GetCost().ToString();
         hotkeyText.text = (cardIndex + 1).ToString();
+
+
+        for (int i = 0; i < card.GetCost(); i++) {
+            essenceImages[i].enabled = true;
+        }
+        for (int i = card.GetCost(); i < essenceImages.Length; i++) {
+            essenceImages[i].enabled = false;
+        }
     }
 }

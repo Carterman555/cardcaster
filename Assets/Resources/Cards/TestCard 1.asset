@@ -17,6 +17,7 @@ MonoBehaviour:
   cost: 2
   rarity: 0
   sprite: {fileID: -1096088295, guid: ef4feee8e04e5b74b87ba927eaec58db, type: 3}
+  outlineSprite: {fileID: -4216976991980486173, guid: e331089692bab614da2a3d905d8da165, type: 3}
   <IsPossibleStartingCard>k__BackingField: 1
   effectDuration: 1
   statsModifier:

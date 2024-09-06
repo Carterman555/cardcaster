@@ -1,11 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class ScriptableCardBase : ScriptableObject, ICollectable {
+public abstract class ScriptableItem : ScriptableObject, ICollectable {
 
-    [SerializeField] private string cardName;
-    public string GetName() => cardName;
+    [SerializeField] private string itemName;
+    public string GetName() => itemName;
 
     [SerializeField] private string description;
     public string GetDescription() => description;
@@ -22,9 +20,6 @@ public abstract class ScriptableCardBase : ScriptableObject, ICollectable {
     [SerializeField] private Sprite outlineSprite;
     public Sprite GetOutlineSprite() => outlineSprite;
 
-    [field: SerializeField] public bool IsPossibleStartingCard { get; private set; }
-
-    [SerializeField] protected float effectDuration;
-
-    public abstract void Play();
+    public abstract void Activate();
+    public abstract void Deactivate();
 }

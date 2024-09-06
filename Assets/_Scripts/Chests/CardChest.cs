@@ -15,13 +15,9 @@ public class CardChest : MonoBehaviour {
     private bool canOpen;
     private bool opened;
 
-    private Animator anim;
+    [SerializeField] private Animator anim;
 
     private const int CARD_AMOUNT = 3;
-
-    private void Awake() {
-        anim = GetComponent<Animator>();
-    }
 
     private void Start() {
         ChooseUniqueRandomCards();
@@ -43,6 +39,7 @@ public class CardChest : MonoBehaviour {
     private void OnTriggerEnter2D(Collider2D collision) {
         if (!opened && collision.gameObject.layer == GameLayers.PlayerLayer) {
             // shine or outline - TODO
+            anim.SetBool("hovering", true);
 
             canOpen = true;
         }
@@ -51,6 +48,7 @@ public class CardChest : MonoBehaviour {
     private void OnTriggerExit2D(Collider2D collision) {
         if (!opened && collision.gameObject.layer == GameLayers.PlayerLayer) {
             // disable shine or outline - TODO
+            anim.SetBool("hovering", false);
 
             canOpen = false;
         }
@@ -59,24 +57,24 @@ public class CardChest : MonoBehaviour {
     private void Update() {
         if (canOpen) {
             if (interactAction.action.triggered) {
-                Open();
+                StartCoroutine(Open());
             }
         }
     }
 
-    private void Open() {
+    private IEnumerator Open() {
         opened = false;
         canOpen = false;
+
+        anim.SetTrigger("open");
+
+        float delay = 0.3f;
+        yield return new WaitForSeconds(delay);
 
         // show cards
         for (int cardIndex = 0; cardIndex < scriptableCards.Length; cardIndex++) {
             cards[cardIndex].Setup(this, scriptableCards[cardIndex], cardIndex);
         }
-
-        anim.SetTrigger("open");
-
-        // disable shine or outline - TODO
-
     }
 
     public IEnumerator SelectCard(int collectableIndex) {

@@ -25,7 +25,7 @@ Transform:
   m_GameObject: {fileID: 183836175417455271}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.5, z: 0}
+  m_LocalPosition: {x: 0, y: -0.47, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -44,6 +44,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3748136264576972865}
   - component: {fileID: 8716365102295414358}
+  - component: {fileID: 7857223334506551197}
   m_Layer: 0
   m_Name: Visual
   m_TagString: Untagged
@@ -107,7 +108,7 @@ SpriteRenderer:
   m_SortingLayerID: -210121459
   m_SortingLayer: 3
   m_SortingOrder: 0
-  m_Sprite: {fileID: -1536410867624552973, guid: 955556309f46a954c8012d24d777fa28, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 2e9eca545d4d1484f9e33910992ea327, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -118,6 +119,27 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!95 &7857223334506551197
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2356635947462685450}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: -8669873003359335004, guid: 955556309f46a954c8012d24d777fa28, type: 3}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &8696099311601879913
 GameObject:
   m_ObjectHideFlags: 0
@@ -128,7 +150,6 @@ GameObject:
   m_Component:
   - component: {fileID: 5435557155981603943}
   - component: {fileID: 3475693366517184030}
-  - component: {fileID: 1689162799174691992}
   - component: {fileID: 1536872082787145078}
   m_Layer: 0
   m_Name: CardChest
@@ -186,7 +207,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.008067608, y: 0.50826967}
+  m_Offset: {x: 0, y: -0.24331659}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -197,29 +218,8 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.5109589, y: 1.0161357}
+  m_Size: {x: 2.4323363, y: 1.9446511}
   m_EdgeRadius: 0
---- !u!95 &1689162799174691992
-Animator:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8696099311601879913}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 2dcb9e91f968a504e8e41786f5579679, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!114 &1536872082787145078
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -237,6 +237,7 @@ MonoBehaviour:
   - {fileID: 719241793831164899}
   - {fileID: 3401930131981464386}
   - {fileID: 3263118975993250123}
+  anim: {fileID: 7857223334506551197}
 --- !u!1001 &1078041670592965185
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -318,6 +319,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 4745401347879017545}
     m_Modifications:
+    - target: {fileID: 508550145687220642, guid: c50f166591c4ff74a99a976c4b3d1b7a, type: 3}
+      propertyPath: positionOffset.x
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 508550145687220642, guid: c50f166591c4ff74a99a976c4b3d1b7a, type: 3}
       propertyPath: positionOffset.y
       value: 2

@@ -39,15 +39,9 @@ public class ChestCollectable : MonoBehaviour {
         });
     }
 
-    private void Update() {
-
-        
-
-       
-    }
-
     private void OnMouseEnter() {
-        // shine or outline - TODO
+        // outline
+        spriteRenderer.sprite = collectable.GetOutlineSprite();
     }
 
     private void OnMouseOver() {
@@ -64,7 +58,8 @@ public class ChestCollectable : MonoBehaviour {
     }
 
     private void OnMouseExit() {
-        // disable shine or outline - TODO
+        // disable outline
+        spriteRenderer.sprite = collectable.GetSprite();
     }
 
     public void GoToPlayer() {

@@ -57,7 +57,7 @@ public class PopupCanvas : StaticInstance<PopupCanvas> {
         OnObjectActivated?.Invoke(name);
     }
 
-    public void DeactivateUIObject(string name, bool playAudio = true) {
+    public void DeactivateUIObject(string name, bool deactivate = true, bool playAudio = true) {
         // if the object is already deactive, return
         if (!activePopups[name]) return;
 
@@ -75,7 +75,9 @@ public class PopupCanvas : StaticInstance<PopupCanvas> {
 
         currentPopup.RectTransform.anchoredPosition = currentPopup.ShowPos;
         currentPopup.RectTransform.DOAnchorPos(currentPopup.HidePos, 0.3f).SetEase(Ease.InSine).SetUpdate(true).OnComplete(() => {
-            currentPopup.RectTransform.gameObject.SetActive(false);
+            if (deactivate) {
+                currentPopup.RectTransform.gameObject.SetActive(false);
+            }
 
             // set the dictionary to the object being deactive
             activePopups[name] = false;

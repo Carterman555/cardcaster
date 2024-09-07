@@ -6,20 +6,25 @@ public class DoorBlocker : MonoBehaviour {
 
     [SerializeField] private Animator anim;
 
+    [SerializeField] private Vector3 topOffset;
+    [SerializeField] private Vector3 bottomOffset;
+    [SerializeField] private Vector3 leftOffset;
+    [SerializeField] private Vector3 rightOffset;
+
     public void Setup(DoorwaySide side) {
-
-        bool horizontal = side == DoorwaySide.Top || side == DoorwaySide.Bottom;
-
-        if (horizontal) {
-            //anim.SetTrigger("horizontalClose");
-        }
-        else {
-            //anim.SetTrigger("verticalClose");
-        }
 
         // remove after anim is setup (maybe)
         if (side == DoorwaySide.Top) {
-            transform.position -= new Vector3(0, 2f);
+            transform.position += topOffset;
+        }
+        else if (side == DoorwaySide.Bottom) {
+            transform.position += bottomOffset;
+        }
+        else if (side == DoorwaySide.Left) {
+            transform.position += leftOffset;
+        }
+        else if (side == DoorwaySide.Right) {
+            transform.position += rightOffset;
         }
     }
 
@@ -31,8 +36,8 @@ public class DoorBlocker : MonoBehaviour {
     }
 
     private void Open() {
-        //anim.SetTrigger("Open");
-        ReturnToPool(); // remove after anim is setup
+        anim.SetTrigger("open");
+        //ReturnToPool(); // remove after anim is setup
     }
 
     // played by anim

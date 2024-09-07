@@ -5,12 +5,13 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using System.Collections;
 
-public class CardChest : MonoBehaviour {
+public class CollectableChest : MonoBehaviour {
 
     [SerializeField] private InputActionReference interactAction;
 
-    private ScriptableCardBase[] scriptableCards = new ScriptableCardBase[3];
-    [SerializeField] private ChestCollectable[] cards;
+    private ICollectable[] scriptableCollectables;
+    [SerializeField] private ChestCollectable[] collectables;
+    [SerializeField] private bool cardChest;
 
     private bool canOpen;
     private bool opened;
@@ -18,9 +19,16 @@ public class CardChest : MonoBehaviour {
     [SerializeField] private Animator anim;
 
     private const int CARD_AMOUNT = 3;
+    private const int ITEM_AMOUNT = 1;
 
     private void Start() {
-        ChooseUniqueRandomCards();
+
+        if (cardChest) {
+            ChooseUniqueRandomCards();
+        }
+        else {
+            ChooseUniqueRandomItems();
+        }
     }
 
     private void ChooseUniqueRandomCards() {
@@ -33,7 +41,20 @@ public class CardChest : MonoBehaviour {
         }
 
         // select [CARD_AMOUNT] unique random cards
-        scriptableCards = possibleCards.OrderBy(x => UnityEngine.Random.value).Distinct().Take(CARD_AMOUNT).ToArray();
+        scriptableCollectables = possibleCards.OrderBy(x => UnityEngine.Random.value).Distinct().Take(CARD_AMOUNT).ToArray();
+    }
+
+    private void ChooseUniqueRandomItems() {
+
+        List<ScriptableItemBase> possibleItems = ResourceSystem.Instance.GetAllItems();
+
+        // Check if we have enough items to choose from
+        if (possibleItems.Count < ITEM_AMOUNT) {
+            Debug.LogError("Not enough items to choose from.");
+        }
+
+        // select [ITEM_AMOUNT] unique random items
+        scriptableCollectables = possibleItems.OrderBy(x => UnityEngine.Random.value).Distinct().Take(ITEM_AMOUNT).ToArray();
     }
 
     private void OnTriggerEnter2D(Collider2D collision) {
@@ -71,20 +92,20 @@ public class CardChest : MonoBehaviour {
         float delay = 0.3f;
         yield return new WaitForSeconds(delay);
 
-        // show cards
-        for (int cardIndex = 0; cardIndex < scriptableCards.Length; cardIndex++) {
-            cards[cardIndex].Setup(this, scriptableCards[cardIndex], cardIndex);
+        // show collectables
+        for (int collectableIndex = 0; collectableIndex < scriptableCollectables.Length; collectableIndex++) {
+            collectables[collectableIndex].Setup(this, scriptableCollectables[collectableIndex], collectableIndex);
         }
     }
 
-    public IEnumerator SelectCard(int collectableIndex) {
+    public IEnumerator SelectCollectable(int selectedCollectableIndex) {
 
         float duration = 0.5f;
 
-        // hide other cards in chest
-        for (int cardIndex = 0; cardIndex < cards.Length; cardIndex++) {
-            if (cardIndex != collectableIndex) {
-                cards[cardIndex].ReturnToChest(duration);
+        // hide other collectables in chest
+        for (int collectableIndex = 0; collectableIndex < collectables.Length; collectableIndex++) {
+            if (collectableIndex != selectedCollectableIndex) {
+                collectables[collectableIndex].ReturnToChest(duration);
             }
         }
 

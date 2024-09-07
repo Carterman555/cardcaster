@@ -10,7 +10,7 @@ public class ChestCollectable : MonoBehaviour {
 
     [SerializeField] private Vector2 positionOffset;
 
-    private CardChest chest;
+    private CollectableChest chest;
     private ICollectable collectable;
     private int collectableIndex;
 
@@ -22,7 +22,7 @@ public class ChestCollectable : MonoBehaviour {
         spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
-    public void Setup(CardChest chest, ICollectable collectable, int collectableIndex) {
+    public void Setup(CollectableChest chest, ICollectable collectable, int collectableIndex) {
         this.chest = chest;
         this.collectable = collectable;
         this.collectableIndex = collectableIndex;
@@ -53,7 +53,7 @@ public class ChestCollectable : MonoBehaviour {
         //if (selectAction.action.triggered) {
         if (Input.GetMouseButtonDown(0)) {
             GoToPlayer();
-            StartCoroutine(chest.SelectCard(collectableIndex));
+            StartCoroutine(chest.SelectCollectable(collectableIndex));
         }
     }
 

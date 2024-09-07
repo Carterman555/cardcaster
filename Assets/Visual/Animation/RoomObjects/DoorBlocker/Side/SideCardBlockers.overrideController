@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!221 &22100000
+AnimatorOverrideController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: SideCardBlockers
+  m_Controller: {fileID: 9100000, guid: c865354019421094f859ee5b8e38d28b, type: 2}
+  m_Clips:
+  - m_OriginalClip: {fileID: 7400000, guid: c5e60e6f494134540adf4d8c65a26767, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 23f4012d341ff2c4ea1ce3c5b28a422d, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 40510d81440c2d74d8098aeaa5583255, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: bec2b9fe2e107a745b6516078d657105, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: a7d4ce2d1aa20a149a84e6619deef023, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: c8137073d948288419a50723bf0b6e5a, type: 2}

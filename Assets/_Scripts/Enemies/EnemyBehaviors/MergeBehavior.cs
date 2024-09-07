@@ -60,13 +60,13 @@ public class MergeBehavior : EnemyBehavior {
         isMergeLeader = false;
 
         mergeTracker.OnEnterContact += TryAddMergable;
-        mergeTracker.OnLeaveContact += TryRemoveMergable;
+        mergeTracker.OnExitContact += TryRemoveMergable;
     }
 
     public override void OnDisable() {
         base.OnDisable();
         mergeTracker.OnEnterContact -= TryAddMergable;
-        mergeTracker.OnLeaveContact -= TryRemoveMergable;
+        mergeTracker.OnExitContact -= TryRemoveMergable;
     }
 
     private void TryAddMergable(GameObject @object) {

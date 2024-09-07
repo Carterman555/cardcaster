@@ -108,7 +108,7 @@ SpriteRenderer:
   m_SortingLayerID: -210121459
   m_SortingLayer: 3
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 2e9eca545d4d1484f9e33910992ea327, type: 3}
+  m_Sprite: {fileID: -4632864088685052807, guid: 8f4366fba915651408189838e7a2b5de, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -129,7 +129,7 @@ Animator:
   m_GameObject: {fileID: 2356635947462685450}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: -8669873003359335004, guid: 955556309f46a954c8012d24d777fa28, type: 3}
+  m_Controller: {fileID: -1976628935457238627, guid: 8f4366fba915651408189838e7a2b5de, type: 3}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -233,10 +233,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   interactAction: {fileID: -6811146151478928456, guid: 50afa068aa51bd149a1f3d07794c53d5, type: 3}
-  cards:
+  collectables:
   - {fileID: 719241793831164899}
   - {fileID: 3401930131981464386}
   - {fileID: 3263118975993250123}
+  cardChest: 1
   anim: {fileID: 7857223334506551197}
 --- !u!1001 &1078041670592965185
 PrefabInstance:

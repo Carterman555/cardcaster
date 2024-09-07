@@ -27,7 +27,7 @@ public class GainCardButton : GameButton {
         DeckManager.Instance.GainCard(card);
         ChooseCardPanel.Instance.SetChoseCard();
 
-        PopupCanvas.Instance.DeactivateUIObject("ChooseCardPanel");
+        //PopupCanvas.Instance.DeactivateUIObject("ChooseCardPanel");
 
         Time.timeScale = 1;
     }

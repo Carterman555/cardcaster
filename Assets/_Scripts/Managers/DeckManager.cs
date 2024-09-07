@@ -115,8 +115,6 @@ public class DeckManager : Singleton<DeckManager> {
 
         cardsInHand[indexInHand] = cardsInDeck[0];
         cardsInDeck.RemoveAt(0);
-
-        CardsUIManager.Instance.ReplaceCard(indexInHand);
     }
 
     public void PrintAllCards(string startingText = "") {

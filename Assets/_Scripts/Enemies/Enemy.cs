@@ -84,11 +84,11 @@ public class Enemy : MonoBehaviour, IHasStats, IChangesFacing, ICanAttack {
 
     private void SubToPlayerTriggerEvents() {
         playerTracker.OnEnterContact += OnPlayerEnteredRange;
-        playerTracker.OnLeaveContact += OnPlayerExitedRange;
+        playerTracker.OnExitContact += OnPlayerExitedRange;
     }
     private void UnsubFromPlayerTriggerEvents() {
         playerTracker.OnEnterContact -= OnPlayerEnteredRange;
-        playerTracker.OnLeaveContact -= OnPlayerExitedRange;
+        playerTracker.OnExitContact -= OnPlayerExitedRange;
     }
 
 

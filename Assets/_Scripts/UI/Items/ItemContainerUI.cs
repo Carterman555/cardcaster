@@ -7,7 +7,7 @@ public class ItemContainerUI : MonoBehaviour {
 
     [SerializeField] private Image itemIconPrefab;
 
-    private Dictionary<ScriptableItem, Image> iconDict = new();
+    private Dictionary<ScriptableItemBase, Image> iconDict = new();
 
     private void OnEnable() {
         ItemManager.OnItemGained += AddItemToUI;
@@ -18,14 +18,14 @@ public class ItemContainerUI : MonoBehaviour {
         ItemManager.OnItemRemoved -= RemoveItemFromUI;
     }
 
-    private void AddItemToUI(ScriptableItem item) {
+    private void AddItemToUI(ScriptableItemBase item) {
         Image newItemIcon = itemIconPrefab.Spawn(transform);
         newItemIcon.sprite = item.GetSprite();
 
         iconDict.Add(item, newItemIcon);
     }
 
-    private void RemoveItemFromUI(ScriptableItem item) {
+    private void RemoveItemFromUI(ScriptableItemBase item) {
         iconDict[item].gameObject.ReturnToPool();
 
         iconDict.Remove(item);

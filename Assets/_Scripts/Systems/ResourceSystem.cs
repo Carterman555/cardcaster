@@ -11,6 +11,7 @@ public class ResourceSystem : StaticInstance<ResourceSystem>
 {
     public List<ScriptableEnemy> Enemies { get; private set; }
     public List<ScriptableCardBase> Cards { get; private set; }
+    public List<ScriptableItemBase> Items { get; private set; }
 
     protected override void Awake() {
         base.Awake();
@@ -20,8 +21,10 @@ public class ResourceSystem : StaticInstance<ResourceSystem>
     private void AssembleResources() {
         Enemies = Resources.LoadAll<ScriptableEnemy>("Enemies").ToList();
         Cards = Resources.LoadAll<ScriptableCardBase>("Cards").ToList();
+        Items = Resources.LoadAll<ScriptableItemBase>("Items").ToList();
     }
 
     public List<ScriptableEnemy> GetAllEnemies() => Enemies;
     public List<ScriptableCardBase> GetAllCards() => Cards;
+    public List<ScriptableItemBase> GetAllItems() => Items;
 }   

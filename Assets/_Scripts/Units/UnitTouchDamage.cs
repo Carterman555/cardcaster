@@ -29,7 +29,7 @@ namespace IslandDefender.Management {
 
         private void OnEnable() {
             tracker.OnEnterContact += HandleEnterContact;
-            tracker.OnLeaveContact += HandleLeaveContact;
+            tracker.OnExitContact += HandleLeaveContact;
 
             if (health != null) {
                 health.OnDeath += StopAllDamage;
@@ -41,7 +41,7 @@ namespace IslandDefender.Management {
 
         private void OnDisable() {
             tracker.OnEnterContact -= HandleEnterContact;
-            tracker.OnLeaveContact -= HandleLeaveContact;
+            tracker.OnExitContact -= HandleLeaveContact;
         }
 
         private void ResetValues() {

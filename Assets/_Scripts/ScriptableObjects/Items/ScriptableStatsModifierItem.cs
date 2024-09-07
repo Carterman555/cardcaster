@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "New Item", menuName = "Items/Stats Modifier")]
-public class ScriptableStatsModifierItem : ScriptableItem {
+public class ScriptableStatsModifierItem : ScriptableItemBase {
 
     [SerializeField] private PlayerStatsModifier statsModifier;
 

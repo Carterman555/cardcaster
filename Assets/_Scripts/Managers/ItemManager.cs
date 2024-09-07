@@ -5,12 +5,12 @@ using UnityEngine;
 
 public class ItemManager : StaticInstance<ItemManager> {
 
-    public static event Action<ScriptableItem> OnItemGained;
-    public static event Action<ScriptableItem> OnItemRemoved;
+    public static event Action<ScriptableItemBase> OnItemGained;
+    public static event Action<ScriptableItemBase> OnItemRemoved;
 
-    private List<ScriptableItem> items = new();
+    private List<ScriptableItemBase> items = new();
 
-    [SerializeField] private ScriptableItem testItemToAdd;
+    [SerializeField] private ScriptableItemBase testItemToAdd;
 
     [ContextMenu("Add test")]
     private void AddTestItem() {
@@ -22,16 +22,16 @@ public class ItemManager : StaticInstance<ItemManager> {
         RemoveItem(testItemToAdd);
     }
 
-    public void GainItem(ScriptableItem item) {
-        ScriptableItem itemInstance = Instantiate(item);
+    public void GainItem(ScriptableItemBase item) {
+        ScriptableItemBase itemInstance = Instantiate(item);
         itemInstance.Activate();
         items.Add(itemInstance);
 
         OnItemGained?.Invoke(itemInstance);
     }
 
-    public void RemoveItem(ScriptableItem item) {
-        ScriptableItem itemToRemove = items.FirstOrDefault(i => i.GetType().Equals(item.GetType()));
+    public void RemoveItem(ScriptableItemBase item) {
+        ScriptableItemBase itemToRemove = items.FirstOrDefault(i => i.GetType().Equals(item.GetType()));
 
         if (itemToRemove == null) {
             Debug.LogWarning("Tried To Remove Item The Player Doesn't Have!");

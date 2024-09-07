@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6288871576630736456}
   - component: {fileID: 5055683111594924977}
   - component: {fileID: 831057413492527037}
-  - component: {fileID: 1728248185104867184}
+  - component: {fileID: 8873967445959690858}
   m_Layer: 0
   m_Name: Visual
   m_TagString: Untagged
@@ -75,7 +75,7 @@ SpriteRenderer:
   m_SortingLayerID: -210121459
   m_SortingLayer: 3
   m_SortingOrder: 0
-  m_Sprite: {fileID: -6773773774682756182, guid: 57ba83bd0e38c3543b869c4ec8b66bb8, type: 3}
+  m_Sprite: {fileID: -9140618257473427575, guid: 4f95c3492280a4044809356c7cbf5c7d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -96,7 +96,7 @@ Animator:
   m_GameObject: {fileID: 5184002414725446664}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: c865354019421094f859ee5b8e38d28b, type: 2}
+  m_Controller: {fileID: 22100000, guid: 1e4fa03a81dfa6f45bac35dd3054d97e, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -107,7 +107,7 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &1728248185104867184
+--- !u!114 &8873967445959690858
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -129,12 +129,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8384902285812081182}
-  - component: {fileID: -6052487781366157757}
+  - component: {fileID: 8758908234928864224}
   - component: {fileID: 8145131354241157448}
   - component: {fileID: 8313895669592551187}
   - component: {fileID: -1756870482551871311}
   m_Layer: 10
-  m_Name: DoorBlocker
+  m_Name: SideDoorBlocker
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -156,7 +156,7 @@ Transform:
   - {fileID: 6288871576630736456}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!50 &-6052487781366157757
+--- !u!50 &8758908234928864224
 Rigidbody2D:
   serializedVersion: 4
   m_ObjectHideFlags: 0
@@ -215,7 +215,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0.3665346}
+  m_Offset: {x: 0, y: 0.0031722784}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -226,7 +226,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 2.026865, y: 1.1774495}
+  m_Size: {x: 0.32953632, y: 2.759145}
   m_EdgeRadius: 0
 --- !u!114 &8313895669592551187
 MonoBehaviour:
@@ -243,8 +243,8 @@ MonoBehaviour:
   anim: {fileID: 831057413492527037}
   topOffset: {x: 0, y: -0.05, z: 0}
   bottomOffset: {x: 0, y: -0.9, z: 0}
-  leftOffset: {x: 0, y: 0, z: 0}
-  rightOffset: {x: 0, y: 0, z: 0}
+  leftOffset: {x: -0.7, y: 0.38, z: 0}
+  rightOffset: {x: 0.7, y: 0.38, z: 0}
 --- !u!114 &-1756870482551871311
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public abstract class ScriptableItem : ScriptableObject, ICollectable {
+public abstract class ScriptableItemBase : ScriptableObject, ICollectable {
 
     [SerializeField] private string itemName;
     public string GetName() => itemName;

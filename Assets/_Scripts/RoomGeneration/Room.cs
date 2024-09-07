@@ -26,6 +26,7 @@ public class Room : MonoBehaviour {
     [SerializeField] private TriggerContactTracker enterTrigger;
     [SerializeField] private TriggerContactTracker exitTrigger;
     [SerializeField] private DoorBlocker doorBlockerPrefab;
+    [SerializeField] private DoorBlocker sideDoorBlockerPrefab;
 
     [SerializeField] private bool noEnemies;
     private bool roomCleared;
@@ -201,10 +202,23 @@ public class Room : MonoBehaviour {
         OnAnyRoomExit_Room?.Invoke(this);
     }
 
+    private void CloseDoors() {
+        foreach (PossibleDoorway createdDoorway in createdDoorways) {
+        }
+    }
+
     private void CreateDoorwayBlockers() {
         foreach (PossibleDoorway createdDoorway in createdDoorways) {
-            DoorBlocker newDoorBlocker = doorBlockerPrefab.Spawn(createdDoorway.transform.position, Containers.Instance.Rooms);
-            newDoorBlocker.Setup(createdDoorway.GetSide());
+            bool sideBlocker = createdDoorway.GetSide() == DoorwaySide.Left || createdDoorway.GetSide() == DoorwaySide.Right;
+
+            if (sideBlocker) {
+                DoorBlocker newDoorBlocker = sideDoorBlockerPrefab.Spawn(createdDoorway.transform.position, Containers.Instance.Rooms);
+                newDoorBlocker.Setup(createdDoorway.GetSide());
+            }
+            else {
+                DoorBlocker newDoorBlocker = doorBlockerPrefab.Spawn(createdDoorway.transform.position, Containers.Instance.Rooms);
+                newDoorBlocker.Setup(createdDoorway.GetSide());
+            }
         }
     }
 

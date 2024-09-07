@@ -1,3 +1,4 @@
+using MoreMountains.Feedbacks;
 using System.Collections;
 using TMPro;
 using Unity.VisualScripting;
@@ -11,12 +12,43 @@ public class CardButton : GameButton {
 
     [SerializeField] private Image[] essenceImages;
 
+    [SerializeField] private MMF_Player hoverPlayer;
+    [SerializeField] private MMF_Player toHandPlayer;
+    [SerializeField] private MMF_Player useCardPlayer;
+
     private ScriptableCardBase card;
     private int cardIndex;
 
-    public void Setup(ScriptableCardBase card, int cardIndex) {
+    protected override void OnEnable() {
+        base.OnEnable();
+    }
+
+    public void Setup(int cardIndex, Transform deckTransform, Vector3 destination) {
         this.cardIndex = cardIndex;
+
+        MMF_Position hoverMoveFeedback = hoverPlayer.GetFeedbackOfType<MMF_Position>("Move");
+        hoverMoveFeedback.InitialPosition = destination;
+        hoverMoveFeedback.DestinationPosition = new Vector3(destination.x, hoverMoveFeedback.DestinationPosition.y);
+
+        MMF_Position toHandFeedback = toHandPlayer.GetFeedbackOfType<MMF_Position>("Move To Hand");
+        toHandFeedback.InitialPositionTransform = deckTransform;
+        toHandFeedback.DestinationPosition = destination;
+
+        useCardPlayer.Events.OnComplete.AddListener(OnUsedCard);
+    }
+
+    private void OnDestroy() {
+        useCardPlayer.Events.OnComplete.RemoveListener(OnUsedCard);
+    }
+
+    public void OnUsedCard() {
+        CardsUIManager.Instance.ReplaceCard(cardIndex);
+    }
+
+    public void DrawCard(ScriptableCardBase card) {
         SetCard(card);
+
+        toHandPlayer.PlayFeedbacks();
     }
 
     private void Update() {
@@ -44,7 +76,6 @@ public class CardButton : GameButton {
         titleText.text = card.GetName();
         hotkeyText.text = (cardIndex + 1).ToString();
 
-
         for (int i = 0; i < card.GetCost(); i++) {
             essenceImages[i].enabled = true;
         }
@@ -52,4 +83,6 @@ public class CardButton : GameButton {
             essenceImages[i].enabled = false;
         }
     }
+
+
 }

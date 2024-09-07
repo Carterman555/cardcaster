@@ -1,10 +1,12 @@
-using System.Collections;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using static UnityEditor.Progress;
 
 public class ItemManager : StaticInstance<ItemManager> {
+
+    public static event Action<ScriptableItem> OnItemGained;
+    public static event Action<ScriptableItem> OnItemRemoved;
 
     private List<ScriptableItem> items = new();
 
@@ -24,6 +26,8 @@ public class ItemManager : StaticInstance<ItemManager> {
         ScriptableItem itemInstance = Instantiate(item);
         itemInstance.Activate();
         items.Add(itemInstance);
+
+        OnItemGained?.Invoke(itemInstance);
     }
 
     public void RemoveItem(ScriptableItem item) {
@@ -36,5 +40,7 @@ public class ItemManager : StaticInstance<ItemManager> {
 
         itemToRemove.Deactivate();
         items.Remove(itemToRemove);
+
+        OnItemRemoved?.Invoke(itemToRemove);
     }
 }

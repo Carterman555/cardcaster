@@ -16,6 +16,10 @@ public static class Helpers {
         foreach (Transform child in t) UnityEngine.Object.Destroy(child.gameObject);
     }
 
+    public static void ReturnChildrenToPool(this Transform t) {
+        foreach (Transform child in t) child.gameObject.ReturnToPool();
+    }
+
     public static void SetActiveChildren(this Transform t, bool active) {
         foreach (Transform child in t) child.gameObject.SetActive(active);
     }

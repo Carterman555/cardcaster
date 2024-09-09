@@ -5,7 +5,7 @@ public class GameButton : MonoBehaviour {
 
     protected Button button;
 
-    private void Awake() {
+    protected virtual void Awake() {
         button = GetComponent<Button>();
     }
 

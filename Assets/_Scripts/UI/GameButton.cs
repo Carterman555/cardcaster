@@ -10,15 +10,15 @@ public class GameButton : MonoBehaviour {
     }
 
     protected virtual void OnEnable() {
-        button.onClick.AddListener(OnClicked);
+        button.onClick.AddListener(OnClick);
     }
     protected virtual void OnDisable() {
-        button.onClick.RemoveListener(OnClicked);
+        button.onClick.RemoveListener(OnClick);
     }
 
     //[SerializeField] private bool playClickAudio = true;
 
-    protected virtual void OnClicked() {
+    protected virtual void OnClick() {
         //if (playClickAudio) {
         //    AudioSystem.Instance.PlaySound(AudioSystem.SoundClips.ButtonClick, 0f, 1f);
         //}

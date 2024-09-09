@@ -24,6 +24,8 @@ public abstract class ScriptableCardBase : ScriptableObject, ICollectable {
 
     [field: SerializeField] public bool IsPossibleStartingCard { get; private set; }
 
+    [field: SerializeField] public bool IsPositional { get; private set; }
+
     [SerializeField] protected float effectDuration;
 
     public abstract void Play();

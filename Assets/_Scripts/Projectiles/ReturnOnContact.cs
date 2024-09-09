@@ -9,6 +9,16 @@ public class ReturnOnContact : MonoBehaviour, IDelayedReturn {
 
     [SerializeField] private LayerMask layerMask;
 
+    private Vector2 originalScale;
+
+    private void Awake() {
+        originalScale = transform.localScale;
+    }
+
+    private void OnEnable() {
+        transform.localScale = originalScale;
+    }
+
     private void OnTriggerEnter2D(Collider2D collision) {
         if (layerMask.ContainsLayer(collision.gameObject.layer)) {
             transform.ShrinkThenDestroy();

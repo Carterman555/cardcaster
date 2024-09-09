@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using QFSW.QC;
 
 public class Enemy : MonoBehaviour, IHasStats, IChangesFacing, ICanAttack {
 
@@ -49,11 +50,11 @@ public class Enemy : MonoBehaviour, IHasStats, IChangesFacing, ICanAttack {
     protected virtual void Start() {
         playerTracker.SetRange(stats.AttackRange);
 
-        health.OnDeath += CheckIfEnemiesCleared;
+        health.OnDeath += OnDeath;
     }
 
     protected virtual void OnDestroy() {
-        health.OnDeath -= CheckIfEnemiesCleared;
+        health.OnDeath -= OnDeath;
     }
 
     protected virtual void Update() {
@@ -69,6 +70,12 @@ public class Enemy : MonoBehaviour, IHasStats, IChangesFacing, ICanAttack {
     }
 
     protected virtual void AnimationTriggerEvent(AnimationTriggerType triggerType) { }
+
+    private void OnDeath() {
+        CheckIfEnemiesCleared();
+
+        DeckManager.Instance.IncreaseEssence(1f);
+    }
 
     private void CheckIfEnemiesCleared() {
         bool anyAliveEnemies = Containers.Instance.Enemies.GetComponentsInChildren<Health>().Any(health => !health.IsDead());
@@ -103,6 +110,12 @@ public class Enemy : MonoBehaviour, IHasStats, IChangesFacing, ICanAttack {
 
     #endregion
 
+    // debugging
+    [Command("kill_all", MonoTargetType.All)]
+    [Command("kill", MonoTargetType.Argument)]
+    private void KillEnemy() {
+        health.Die();
+    }
 }
 
 public enum AnimationTriggerType {

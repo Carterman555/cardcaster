@@ -1,23 +1,26 @@
 using MoreMountains.Feedbacks;
 using MoreMountains.Tools;
-using System.Collections;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class CardButton : GameButton {
+public class CardButton : GameButton, IPointerDownHandler {
 
     [SerializeField] private TextMeshProUGUI titleText;
     [SerializeField] private TextMeshProUGUI hotkeyText;
 
     [SerializeField] private Image[] essenceImages;
 
+    [Header("Feedback Players")]
     [SerializeField] private MMF_Player hoverPlayer;
     [SerializeField] private MMF_Player toHandPlayer;
     [SerializeField] private MMF_Player useCardPlayer;
 
+    // follow mouse
     private MMFollowTarget followMouse;
+    private PlayFeedbackOnHover playFeedbackOnHover;
+    private bool mouseDownOnCard;
 
     private ScriptableCardBase card;
     private int cardIndex;
@@ -25,6 +28,7 @@ public class CardButton : GameButton {
     protected override void Awake() {
         base.Awake();
         followMouse = GetComponent<MMFollowTarget>();
+        playFeedbackOnHover = GetComponent<PlayFeedbackOnHover>();
     }
 
     private void Start() {
@@ -44,7 +48,7 @@ public class CardButton : GameButton {
 
         useCardPlayer.Events.OnComplete.AddListener(OnUsedCard);
 
-        followMouse.enabled = false;
+        StopFollowMouse();
     }
 
     private void OnDestroy() {
@@ -58,7 +62,7 @@ public class CardButton : GameButton {
     public void DrawCard(ScriptableCardBase card) {
         SetCard(card);
 
-        followMouse.enabled = false;
+        StopFollowMouse();
 
         toHandPlayer.PlayFeedbacks();
     }
@@ -67,20 +71,41 @@ public class CardButton : GameButton {
         bool canAfford = DeckManager.Instance.GetEssence() >= card.GetCost();
         button.interactable = canAfford;
 
+        // handle hotkeys
         if (Input.GetKeyDown(KeyCode.Alpha1) && cardIndex == 0 ||
             Input.GetKeyDown(KeyCode.Alpha2) && cardIndex == 1 ||
             Input.GetKeyDown(KeyCode.Alpha3) && cardIndex == 2) {
-            FollowMouse();
+
+            if (card.IsPositional) {
+                FollowMouse();
+            }
+            else {
+                hoverPlayer.PlayFeedbacks();
+            }
         }
         if (Input.GetKeyUp(KeyCode.Alpha1) && cardIndex == 0 ||
             Input.GetKeyUp(KeyCode.Alpha2) && cardIndex == 1 ||
             Input.GetKeyUp(KeyCode.Alpha3) && cardIndex == 2) {
-            OnClicked();
+            PlayCard();
+        }
+
+        // the reason for this instead of using on mouse click is because this:
+        //      the player can be dragging the card, then quickly mouse the mouse and release and it won't count a click
+        //      because the mouse is not on the card
+        if (mouseDownOnCard) {
+            if (Input.GetMouseButtonUp(0)) {
+                PlayCard();
+                mouseDownOnCard = false;
+            }
         }
     }
 
-    protected override void OnClicked() {
-        base.OnClicked();
+    public void OnPointerDown(PointerEventData eventData) {
+        FollowMouse();
+        mouseDownOnCard = true;
+    }
+
+    private void PlayCard() {
 
         card.Play();
         useCardPlayer.PlayFeedbacks();
@@ -104,10 +129,11 @@ public class CardButton : GameButton {
 
     public void FollowMouse() {
         followMouse.enabled = true;
+        playFeedbackOnHover.Disable();
     }
 
-    public void ReturnToHand() {
+    public void StopFollowMouse() {
         followMouse.enabled = false;
+        playFeedbackOnHover.Enable();
     }
-
 }

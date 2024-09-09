@@ -21,8 +21,8 @@ public class GainCardButton : GameButton {
         button.interactable = !ChooseCardPanel.Instance.ChoseCard();
     }
 
-    protected override void OnClicked() {
-        base.OnClicked();
+    protected override void OnClick() {
+        base.OnClick();
 
         DeckManager.Instance.GainCard(card);
         ChooseCardPanel.Instance.SetChoseCard();

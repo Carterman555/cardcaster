@@ -45,9 +45,8 @@ public class DeckManager : Singleton<DeckManager> {
 
     #endregion
 
-    public void IncreaseEssence() {
-        float essenceIncrease = 1f;
-        essence = Mathf.MoveTowards(essence, maxEssence, essenceIncrease);
+    public void IncreaseEssence(float amount) {
+        essence = Mathf.MoveTowards(essence, maxEssence, amount);
 
         OnEssenceChanged_Amount?.Invoke(essence);
     }

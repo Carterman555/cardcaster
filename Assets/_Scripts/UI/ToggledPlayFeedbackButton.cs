@@ -10,8 +10,8 @@ public class ToggledPlayFeedbackButton : GameButton {
 
     private bool inAdditiveState;
 
-    protected override void OnClicked() {
-        base.OnClicked();
+    protected override void OnClick() {
+        base.OnClick();
 
         if (additiveFeedbackPlayer.IsPlaying || subtractiveFeedbackPlayer.IsPlaying) {
             return;

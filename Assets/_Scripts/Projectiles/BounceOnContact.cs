@@ -16,13 +16,18 @@ public class BounceOnContact : MonoBehaviour, IDelayedReturn {
 
     private bool returning;
 
+    private Vector2 originalScale;
+
     private void Awake() {
         rb = GetComponent<Rigidbody2D>();
+        originalScale = transform.localScale;
+
     }
 
     private void OnEnable() {
         bounces = 0;
         returning = false;
+        transform.localScale = originalScale;
     }
 
     private void OnTriggerEnter2D(Collider2D collision) {

@@ -9,9 +9,18 @@ public class Health : MonoBehaviour, IDamagable {
     private float health;
 
     private bool dead;
+    private bool invincible;
 
     public bool IsDead() {
         return dead;
+    }
+
+    public bool IsInvincible() {
+        return invincible;
+    }
+
+    public void SetInvincible(bool invincible) {
+        this.invincible = invincible;
     }
 
     private void Awake() {
@@ -22,12 +31,13 @@ public class Health : MonoBehaviour, IDamagable {
 
     private void OnEnable() {
         dead = false;
+        invincible = false;
         health = maxHealth;
     }
 
     public void Damage(float damage) {
 
-        if (dead) {
+        if (dead || invincible) {
             return;
         }
 

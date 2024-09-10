@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61e45b320db7efd41aebea5446e9d391, type: 3}
+  m_Name: ShockwaveCard
+  m_EditorClassIdentifier: 
+  cardName: Shockwave
+  description: Creates a shockwave on hit
+  cost: 0
+  rarity: 0
+  sprite: {fileID: 0}
+  outlineSprite: {fileID: 0}
+  <IsPossibleStartingCard>k__BackingField: 0
+  <IsPositional>k__BackingField: 0
+  effectDuration: 9.9
+  enemyLayerMask:
+    serializedVersion: 2
+    m_Bits: 128
+  radius: 1
+  damage: 0.5
+  knockbackStrength: 1
+  shockwaveEffectPrefab: {fileID: 8407760821317871486, guid: 8305c279e31ee7c4bae31bcf2f403898, type: 3}

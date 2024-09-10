@@ -92,7 +92,7 @@ public static class ObjectPoolManager {
             return;
         }
         if (objectToReturn.name.Length < 8) {
-            Debug.LogWarning("Name" + objectToReturn.name + " is under 8 characters. Destroying instead");
+            //Debug.LogWarning("Name" + objectToReturn.name + " is under 8 characters. Destroying instead");
             Object.Destroy(objectToReturn);
             return;
         }
@@ -103,7 +103,7 @@ public static class ObjectPoolManager {
         PooledObjectInfo pool = ObjectPoolList.Find(p => p.LookupString == goName);
 
         if (pool == null) {
-            Debug.LogWarning("Trying to release an object that is not pooled: " + objectToReturn.name + ". Destroying instead");
+            //Debug.LogWarning("Trying to release an object that is not pooled: " + objectToReturn.name + ". Destroying instead");
             Object.Destroy(objectToReturn);
         }
         else {

@@ -18,9 +18,9 @@ MonoBehaviour:
   rarity: 0
   sprite: {fileID: 0}
   outlineSprite: {fileID: 0}
-  <IsPossibleStartingCard>k__BackingField: 1
+  <IsPossibleStartingCard>k__BackingField: 0
   <IsPositional>k__BackingField: 0
-  effectDuration: 5
+  effectDuration: 9.9
   statsModifier:
     MaxHealthPercent: 0
     KnockbackResistancePercent: 0

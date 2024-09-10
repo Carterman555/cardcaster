@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using static UnityEngine.EventSystems.EventTrigger;
@@ -6,6 +7,8 @@ using static UnityEngine.EventSystems.EventTrigger;
 public class PlayerMeleeAttack : MonoBehaviour, ICanAttack, IHasStats {
 
     public event Action OnAttack;
+    public static event Action<Vector2> OnAttack_Position;
+    public static event Action<Health[]> OnAttack_Targets;
 
     [SerializeField] private InputActionReference attackInput;
     [SerializeField] private Transform slashPrefab;
@@ -39,10 +42,12 @@ public class PlayerMeleeAttack : MonoBehaviour, ICanAttack, IHasStats {
 
         // deal damage
         Vector2 attackCenter = (Vector2)gameObject.transform.position + (toMouseDirection.normalized * stats.SwordSize);
-        CircleDamage.DealDamage(targetLayerMask, attackCenter, stats.SwordSize, stats.Damage, stats.KnockbackStrength);
+        Collider2D[] targetCols = CircleDamage.DealDamage(targetLayerMask, attackCenter, stats.SwordSize, stats.Damage, stats.KnockbackStrength);
         CreateEffect(toMouseDirection);
 
         OnAttack?.Invoke();
+        OnAttack_Position?.Invoke(attackCenter);
+        OnAttack_Targets?.Invoke(targetCols.Select(t => t.GetComponent<Health>()).ToArray());
     }
 
     private void CreateEffect(Vector2 toMouseDirection) {

@@ -555,4 +555,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   layerFilter:
     serializedVersion: 2
-    m_Bits: 1024
+    m_Bits: 512

@@ -28,5 +28,5 @@ public abstract class ScriptableCardBase : ScriptableObject, ICollectable {
 
     [SerializeField] protected float effectDuration;
 
-    public abstract void Play();
+    public abstract void Play(Vector2 position);
 }

@@ -8,7 +8,7 @@ public class ScriptableStatsModifierCard : ScriptableCardBase {
 
     [SerializeField] private PlayerStatsModifier statsModifier;
 
-    public override void Play() {
+    public override void Play(Vector2 position) {
         StatsManager.Instance.StartCoroutine(ApplyModifier());
     }
 

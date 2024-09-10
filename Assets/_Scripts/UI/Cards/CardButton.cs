@@ -107,7 +107,8 @@ public class CardButton : GameButton, IPointerDownHandler {
 
     private void PlayCard() {
 
-        card.Play();
+        Vector2 mouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        card.Play(mouseWorldPos);
         useCardPlayer.PlayFeedbacks();
 
         DeckManager.Instance.UseCard(cardIndex);

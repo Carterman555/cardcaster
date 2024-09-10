@@ -28,5 +28,14 @@ public abstract class ScriptableCardBase : ScriptableObject, ICollectable {
 
     [SerializeField] protected float effectDuration;
 
-    public abstract void Play(Vector2 position);
+    public virtual void Play(Vector2 position) {
+        StatsManager.Instance.StartCoroutine(StopAfterDuration());
+    }
+
+    private IEnumerator StopAfterDuration() {
+        yield return new WaitForSeconds(effectDuration);
+        Stop();
+    }
+
+    public virtual void Stop() { }
 }

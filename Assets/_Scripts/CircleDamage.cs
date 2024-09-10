@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CircleDamage {
 
-    public static void DealDamage(LayerMask targetLayerMask, Vector2 attackCenter, float attackRadius, float damage, float knockbackStrength) {
+    public static Collider2D[] DealDamage(LayerMask targetLayerMask, Vector2 attackCenter, float attackRadius, float damage, float knockbackStrength) {
         Collider2D[] cols = Physics2D.OverlapCircleAll(attackCenter, attackRadius, targetLayerMask);
         foreach (Collider2D col in cols) {
             if (col.TryGetComponent(out IDamagable damagable)) {
@@ -15,5 +15,6 @@ public class CircleDamage {
                 knockback.ApplyKnockback(toEnemyDirection, knockbackStrength);
             }
         }
+        return cols;
     }
 }

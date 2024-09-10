@@ -9,15 +9,14 @@ public class ScriptableStatsModifierCard : ScriptableCardBase {
     [SerializeField] private PlayerStatsModifier statsModifier;
 
     public override void Play(Vector2 position) {
-        StatsManager.Instance.StartCoroutine(ApplyModifier());
+        base.Play(position);
+        StatsManager.Instance.AddPlayerStatsModifier(statsModifier);
     }
 
-    private IEnumerator ApplyModifier() {
-        StatsManager.Instance.AddPlayerStatsModifier(statsModifier);
-        yield return new WaitForSeconds(effectDuration);
+    public override void Stop() {
+        base.Stop();
         StatsManager.Instance.RemovePlayerStatsModifier(statsModifier);
     }
-
 }
 
 [Serializable]

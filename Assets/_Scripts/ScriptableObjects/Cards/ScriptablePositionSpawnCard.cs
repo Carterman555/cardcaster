@@ -8,6 +8,8 @@ public class ScriptablePositionSpawnCard : ScriptableCardBase {
     [SerializeField] private GameObject objectToSpawn;
 
     public override void Play(Vector2 position) {
+        base.Play(position);
+
         GameObject newObject = objectToSpawn.Spawn(position, Containers.Instance.Projectiles);
     }
 }

@@ -286,7 +286,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   layerFilter:
     serializedVersion: 2
-    m_Bits: 1024
+    m_Bits: 512
 --- !u!1 &5330150036373410881
 GameObject:
   m_ObjectHideFlags: 0

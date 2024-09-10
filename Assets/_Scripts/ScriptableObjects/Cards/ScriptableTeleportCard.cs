@@ -12,6 +12,8 @@ public class ScriptableTeleportCard : ScriptableCardBase {
     public LayerMask obstacleLayer;
 
     public override void Play(Vector2 position) {
+        base.Play(position);
+
         if (IsPointValidForTeleport(position)) {
             TeleportPlayer(position);
         }

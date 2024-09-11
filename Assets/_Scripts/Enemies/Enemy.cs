@@ -4,7 +4,7 @@ using System.Linq;
 using UnityEngine;
 using QFSW.QC;
 
-public class Enemy : MonoBehaviour, IHasStats, IChangesFacing, ICanAttack {
+public class Enemy : MonoBehaviour, IHasStats, IChangesFacing, ICanAttack, IEffectable {
 
     public static event Action OnEnemiesCleared;
 
@@ -28,6 +28,22 @@ public class Enemy : MonoBehaviour, IHasStats, IChangesFacing, ICanAttack {
     }
 
     protected List<EnemyBehavior> enemyBehaviors = new();
+
+    private List<UnitEffectBase> effects = new();
+    public void AddEffect(UnitEffectBase effect) {
+        effects.Add(effect);
+    }
+    public void RemoveEffect(UnitEffectBase effect) {
+
+        UnitEffectBase effectToRemove = effects.FirstOrDefault(e => e.GetType().Equals(effect.GetType()));
+        if (effectToRemove == null) {
+            Debug.LogError("Does Not Have Effect Trying To Remove!");
+            return;
+        }
+
+        effects.Remove(effectToRemove);
+
+    }
 
     protected Health health;
 
@@ -60,6 +76,10 @@ public class Enemy : MonoBehaviour, IHasStats, IChangesFacing, ICanAttack {
     protected virtual void Update() {
         foreach (EnemyBehavior behavior in enemyBehaviors) {
             behavior.FrameUpdateLogic();
+        }
+
+        foreach (UnitEffectBase effect in effects) {
+            effect
         }
     }
 
@@ -116,6 +136,8 @@ public class Enemy : MonoBehaviour, IHasStats, IChangesFacing, ICanAttack {
     private void KillEnemy() {
         health.Die();
     }
+
+    
 }
 
 public enum AnimationTriggerType {

@@ -61,7 +61,10 @@ public class Scattershot : Enemy {
     protected override void OnPlayerEnteredRange(GameObject player) {
         base.OnPlayerEnteredRange(player);
 
-        fleePlayerBehavior.Start();
+        if (!MovementStopped) {
+            fleePlayerBehavior.Start();
+        }
+
         shootBehavior.Stop();
     }
     protected override void OnPlayerExitedRange(GameObject player) {
@@ -77,5 +80,11 @@ public class Scattershot : Enemy {
         rb.AddForce(recoilForce * -direction, ForceMode2D.Impulse);
 
         weaponRecoil.RecoilWeapon();
+    }
+
+    public override void OnRemoveStopMovementEffect() {
+        if (playerWithinRange) {
+            fleePlayerBehavior.Start();
+        }
     }
 }

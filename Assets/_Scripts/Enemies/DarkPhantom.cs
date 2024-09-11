@@ -45,6 +45,10 @@ public class DarkPhantom : Enemy {
     protected override void Update() {
         base.Update();
 
+        if (MovementStopped) {
+            return;
+        }
+
         if (playerWithinRange) {
             nearPlayerTeleportTimer += Time.deltaTime;
             if (nearPlayerTeleportTimer > nearPlayerTeleportTime.Value) {

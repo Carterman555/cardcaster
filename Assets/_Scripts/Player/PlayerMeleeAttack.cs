@@ -47,7 +47,13 @@ public class PlayerMeleeAttack : MonoBehaviour, ICanAttack, IHasStats {
 
         OnAttack?.Invoke();
         OnAttack_Position?.Invoke(attackCenter);
-        OnAttack_Targets?.Invoke(targetCols.Select(t => t.GetComponent<Health>()).ToArray());
+
+        Health[] targetHealths = targetCols.
+            Select(t => t.GetComponent<Health>()).
+            Where(health => !health.IsDead()).
+            ToArray();
+
+        OnAttack_Targets?.Invoke(targetHealths);
     }
 
     private void CreateEffect(Vector2 toMouseDirection) {

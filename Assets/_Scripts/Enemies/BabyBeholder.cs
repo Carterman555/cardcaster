@@ -61,4 +61,15 @@ public class BabyBeholder : Enemy {
             playerInSight = false;
         }
     }
+
+    public override void OnRemoveStopMovementEffect() {
+        base.OnRemoveStopMovementEffect();
+
+        if (!lineSight.InSight(transform.position)) {
+            chasePlayerBehavior.Start();
+            shootBehavior.Stop();
+
+            playerInSight = false;
+        }
+    }
 }

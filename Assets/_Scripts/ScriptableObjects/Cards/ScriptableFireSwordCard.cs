@@ -22,8 +22,7 @@ public class ScriptableFireSwordShockwave : ScriptableCardBase {
 
     private void InflictBurn(Health[] healths) {
         foreach (Health health in healths) {
-            InflictBurn burnComponent = health.AddComponent<InflictBurn>();
-            burnComponent.Setup(burnDuration);
+            health.GetComponent<Enemy>().AddEffect(new Burn(), true, burnDuration);
         }
     }
 }

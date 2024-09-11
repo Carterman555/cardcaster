@@ -2,7 +2,7 @@ using Unity.VisualScripting.FullSerializer;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class ChasePlayerBehavior : EnemyBehavior {
+public class ChasePlayerBehavior : EnemyBehavior, IMovementBehavior {
 
     private ChangeFacingBehavior changeFacingBehavior;
 

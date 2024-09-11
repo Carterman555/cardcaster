@@ -29,11 +29,20 @@ public class Enemy : MonoBehaviour, IHasStats, IChangesFacing, ICanAttack, IEffe
 
     protected List<EnemyBehavior> enemyBehaviors = new();
 
+    #region Effects
+
     private List<UnitEffectBase> effects = new();
-    public void AddEffect(UnitEffectBase effect) {
+
+    public virtual void AddEffect(UnitEffectBase effect, bool removeAfterDuration = false, float duration = 0) {
         effects.Add(effect);
+        effect.OnEffectAdded(this, removeAfterDuration, duration);
+
+        if (effect is StopMovement) {
+            OnAddStopMovementEffect();
+        }
     }
-    public void RemoveEffect(UnitEffectBase effect) {
+
+    public virtual void RemoveEffect(UnitEffectBase effect) {
 
         UnitEffectBase effectToRemove = effects.FirstOrDefault(e => e.GetType().Equals(effect.GetType()));
         if (effectToRemove == null) {
@@ -41,9 +50,37 @@ public class Enemy : MonoBehaviour, IHasStats, IChangesFacing, ICanAttack, IEffe
             return;
         }
 
+        effectToRemove.OnEffectRemoved();
         effects.Remove(effectToRemove);
 
+        if (effectToRemove is StopMovement && !MovementStopped) {
+            OnRemoveStopMovementEffect();
+        }
     }
+
+    public bool ContainsEffect(UnitEffectBase effect) {
+        return effects.Any(e => e.GetType().Equals(effect.GetType()));
+    }
+
+    public virtual void OnAddStopMovementEffect() {
+        foreach (EnemyBehavior behavior in enemyBehaviors) {
+            if (behavior is IMovementBehavior) {
+                behavior.Stop();
+            }
+        }
+    }
+
+    public virtual void OnRemoveStopMovementEffect() {
+        foreach (EnemyBehavior behavior in enemyBehaviors) {
+            if (behavior is IMovementBehavior) {
+                behavior.Start();
+            }
+        }
+    }
+
+    public bool MovementStopped => ContainsEffect(new StopMovement());
+
+    #endregion
 
     protected Health health;
 
@@ -78,8 +115,9 @@ public class Enemy : MonoBehaviour, IHasStats, IChangesFacing, ICanAttack, IEffe
             behavior.FrameUpdateLogic();
         }
 
-        foreach (UnitEffectBase effect in effects) {
-            effect
+        // not foreach because update logic may remove effect from effects list
+        for (int i = effects.Count - 1; i >= 0; i--) {
+            effects[i].UpdateLogic();
         }
     }
 

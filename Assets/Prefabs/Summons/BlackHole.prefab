@@ -631,6 +631,7 @@ MonoBehaviour:
   contactTracker: {fileID: 7164667738504528509}
   minForce: 1
   maxForce: 3
+  duration: 5
 --- !u!114 &7164667738504528509
 MonoBehaviour:
   m_ObjectHideFlags: 0

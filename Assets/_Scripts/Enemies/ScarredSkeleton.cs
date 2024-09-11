@@ -45,4 +45,10 @@ public class ScarredSkeleton : Enemy {
         moveBehavior.Start();
         shootBehavior.Stop();
     }
+
+    public override void OnRemoveStopMovementEffect() {
+        if (!playerWithinRange) {
+            moveBehavior.Start();
+        }
+    }
 }

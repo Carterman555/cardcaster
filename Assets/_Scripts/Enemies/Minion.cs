@@ -106,6 +106,14 @@ public class Minion : Enemy, IMergable {
         }
     }
 
+    public override void OnRemoveStopMovementEffect() {
+        base.OnRemoveStopMovementEffect();
+
+        if (!mergeBehavior.IsMovingToMerge() && !mergeBehavior.IsMerging()) {
+            moveBehavior.Start();
+        }
+    }
+
     #region Split On Destroy
 
     protected override void Start() {

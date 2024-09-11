@@ -35,14 +35,35 @@ public class StopMovement : UnitEffectBase {
         if (enemy.TryGetComponent(out Rigidbody2D rb)) {
             rb.velocity = Vector3.zero;
         }
-        if (enemy.TryGetComponent(out NavMeshAgent agent)) {
-            agent.isStopped = true;
-        }
     }
 
 }
 
 public class Burn : UnitEffectBase {
 
+    private Health health;
+
+    public override void OnEffectAdded(Enemy enemy, bool removeAfterDuration = false, float duration = 0) {
+        base.OnEffectAdded(enemy, removeAfterDuration, duration);
+
+        health = enemy.GetComponent<Health>();
+
+        //remove
+        enemy.GetComponentInChildren<SpriteRenderer>().color = Color.red;
+    }
+
+    public override void OnEffectRemoved() {
+        base.OnEffectRemoved();
+
+        //remove
+        enemy.GetComponentInChildren<SpriteRenderer>().color = Color.white;
+    }
+
+    public override void UpdateLogic() {
+        base.UpdateLogic();
+
+        float damagePerSecond = 0.5f;
+        health.Damage(damagePerSecond * Time.deltaTime);
+    }
 
 }

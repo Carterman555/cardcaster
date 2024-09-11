@@ -18,7 +18,7 @@ MonoBehaviour:
   rarity: 0
   sprite: {fileID: 0}
   outlineSprite: {fileID: 0}
-  <IsPossibleStartingCard>k__BackingField: 0
+  <IsPossibleStartingCard>k__BackingField: 1
   <IsPositional>k__BackingField: 0
   effectDuration: 9.9
   burnDuration: 3

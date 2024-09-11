@@ -162,9 +162,13 @@ public static class Helpers {
     }
 
     public static Tween ShrinkThenDestroy(this Transform transform, float duration = 0.3f) {
+
+        Vector3 originalScale = transform.localScale;
+
         return transform.DOScale(Vector3.zero, duration).SetEase(Ease.InSine).OnComplete(() => {
             transform.DOKill();
             transform.gameObject.ReturnToPool();
+            transform.localScale = originalScale;
         });
     }
 }

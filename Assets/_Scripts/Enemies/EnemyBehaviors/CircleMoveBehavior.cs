@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.AI;
 
-public class CircleMoveBehavior : EnemyBehavior {
+public class CircleMoveBehavior : EnemyBehavior, IMovementBehavior {
 
     private float moveRadius;
 

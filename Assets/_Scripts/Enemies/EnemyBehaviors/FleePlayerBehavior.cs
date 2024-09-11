@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.AI;
 
-public class FleePlayerBehavior : EnemyBehavior {
+public class FleePlayerBehavior : EnemyBehavior, IMovementBehavior {
 
     private ChangeFacingBehavior changeFacingBehavior;
 

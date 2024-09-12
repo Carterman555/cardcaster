@@ -1,9 +1,12 @@
 using System;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Health : MonoBehaviour, IDamagable {
 
     public event Action OnDeath;
+
+    [SerializeField] private UnityEvent damagedEventTrigger;
 
     private float maxHealth;
     private float health;
@@ -42,6 +45,8 @@ public class Health : MonoBehaviour, IDamagable {
         }
 
         health -= damage;
+
+        damagedEventTrigger?.Invoke();
 
         if (health <= 0) {
             Die();

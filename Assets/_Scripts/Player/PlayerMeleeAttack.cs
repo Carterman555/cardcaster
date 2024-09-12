@@ -1,8 +1,8 @@
+using MoreMountains.Feedbacks;
 using System;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using static UnityEngine.EventSystems.EventTrigger;
 
 public class PlayerMeleeAttack : MonoBehaviour, ICanAttack, IHasStats {
 
@@ -15,6 +15,10 @@ public class PlayerMeleeAttack : MonoBehaviour, ICanAttack, IHasStats {
     [SerializeField] private LayerMask targetLayerMask;
 
     [SerializeField] private SlashingWeapon weapon;
+
+    // effects
+    [SerializeField] private MMF_Player hitFeedbacks;
+    [SerializeField] private ParticleSystem attackParticles;
 
     private float attackTimer;
 
@@ -45,6 +49,16 @@ public class PlayerMeleeAttack : MonoBehaviour, ICanAttack, IHasStats {
         Collider2D[] targetCols = CircleDamage.DealDamage(targetLayerMask, attackCenter, stats.SwordSize, stats.Damage, stats.KnockbackStrength);
         CreateEffect(toMouseDirection);
 
+        // play feedbacks if hit something
+        if (targetCols.Length > 0) {
+            hitFeedbacks.PlayFeedbacks();
+        }
+
+        foreach (Collider2D col in targetCols) {
+            attackParticles.Spawn(col.transform.position, Containers.Instance.Effects);
+        }
+
+        // invoke events
         OnAttack?.Invoke();
         OnAttack_Position?.Invoke(attackCenter);
 

@@ -22,3 +22,4 @@ MonoBehaviour:
   <IsPositional>k__BackingField: 0
   effectDuration: 9.9
   burnDuration: 3
+  fireSwordPrefab: {fileID: 2645275329061133153, guid: 45a260c396e0c9f458116b2912fd1ccb, type: 3}

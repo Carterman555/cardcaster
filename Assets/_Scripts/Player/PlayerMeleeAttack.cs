@@ -2,24 +2,20 @@ using MoreMountains.Feedbacks;
 using System;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.InputSystem;
 
-public class PlayerMeleeAttack : MonoBehaviour, ICanAttack, IHasStats {
+public class PlayerMeleeAttack : StaticInstance<PlayerMeleeAttack>, ICanAttack, IHasStats {
 
     public event Action OnAttack;
     public static event Action<Vector2> OnAttack_Position;
     public static event Action<Health[]> OnAttack_Targets;
 
     [SerializeField] private InputActionReference attackInput;
-    [SerializeField] private Transform slashPrefab;
     [SerializeField] private LayerMask targetLayerMask;
 
     [SerializeField] private SlashingWeapon weapon;
-
-    // effects
-    [SerializeField] private MMF_Player hitFeedbacks;
-    [SerializeField] private ParticleSystem attackParticles;
-
+    
     private float attackTimer;
 
     private PlayerStats stats => StatsManager.Instance.GetPlayerStats();
@@ -47,16 +43,9 @@ public class PlayerMeleeAttack : MonoBehaviour, ICanAttack, IHasStats {
         // deal damage
         Vector2 attackCenter = (Vector2)gameObject.transform.position + (toMouseDirection.normalized * stats.SwordSize);
         Collider2D[] targetCols = CircleDamage.DealDamage(targetLayerMask, attackCenter, stats.SwordSize, stats.Damage, stats.KnockbackStrength);
-        CreateEffect(toMouseDirection);
 
-        // play feedbacks if hit something
-        if (targetCols.Length > 0) {
-            hitFeedbacks.PlayFeedbacks();
-        }
-
-        foreach (Collider2D col in targetCols) {
-            attackParticles.Spawn(col.transform.position, Containers.Instance.Effects);
-        }
+        PlayAttackFeedbacks(targetCols);
+        CreateSlashEffect(toMouseDirection);
 
         // invoke events
         OnAttack?.Invoke();
@@ -70,9 +59,38 @@ public class PlayerMeleeAttack : MonoBehaviour, ICanAttack, IHasStats {
         OnAttack_Targets?.Invoke(targetHealths);
     }
 
-    private void CreateEffect(Vector2 toMouseDirection) {
+
+    #region Effects and Feedbacks
+
+    [Header("Effects and Feedbacks")]
+    [SerializeField] private MMF_Player hitFeedbacks;
+    [SerializeField] private ParticleSystem attackParticles;
+    [SerializeField] private Transform slashPrefab;
+
+    private void PlayAttackFeedbacks(Collider2D[] targetCols) {
+
+        // play feedbacks if hit something
+        if (targetCols.Length > 0) {
+            hitFeedbacks.PlayFeedbacks();
+        }
+
+        foreach (Collider2D col in targetCols) {
+            attackParticles.Spawn(col.transform.position, Containers.Instance.Effects);
+        }
+    }
+
+    private void CreateSlashEffect(Vector2 toMouseDirection) {
         slashPrefab.Spawn(transform.position, toMouseDirection.DirectionToRotation(), Containers.Instance.Effects);
     }
+
+    [SerializeField] private SpriteRenderer swordVisual;
+
+    public SpriteRenderer GetSwordVisual() {
+        return swordVisual;
+    }
+
+    #endregion
+
 
     void OnDrawGizmos() {
         if (Application.isPlaying) {

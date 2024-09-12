@@ -8,16 +8,30 @@ public class ScriptableFireSwordShockwave : ScriptableCardBase {
 
     [SerializeField] private float burnDuration = 3f;
 
+    [SerializeField] private Transform fireSwordPrefab;
+    private Transform fireSword;
+
     public override void Play(Vector2 position) {
         base.Play(position);
 
         PlayerMeleeAttack.OnAttack_Targets += InflictBurn;
+
+        SpriteRenderer swordVisual = PlayerMeleeAttack.Instance.GetSwordVisual();
+        swordVisual.gameObject.SetActive(false);
+
+        fireSword = fireSwordPrefab.Spawn(swordVisual.transform.parent);
+        fireSword.localRotation = Quaternion.identity;
     }
 
     public override void Stop() {
         base.Stop();
 
         PlayerMeleeAttack.OnAttack_Targets -= InflictBurn;
+
+        SpriteRenderer swordVisual = PlayerMeleeAttack.Instance.GetSwordVisual();
+        swordVisual.gameObject.SetActive(true);
+
+        fireSword.gameObject.ReturnToPool();
     }
 
     private void InflictBurn(Health[] healths) {

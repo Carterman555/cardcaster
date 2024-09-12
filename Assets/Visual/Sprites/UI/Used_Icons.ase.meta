@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 447414146f18e7c4c991c7dff80d8f66
+guid: 7c2d45fb79acdf04e92c72a4d19f72ce
 ScriptedImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -32,7 +32,7 @@ ScriptedImporter:
     sRGBTexture: 1
     spriteMode: 2
     spriteExtrude: 1
-    spriteMeshType: 1
+    spriteMeshType: 0
     alignment: 0
     spritePivot: {x: 0.5, y: 0.5}
     spritePixelsToUnits: 16
@@ -71,33 +71,33 @@ ScriptedImporter:
     textureFormatSet: 0
     applyGammaDecoding: 0
   previousAsepriteImporterSettings:
-    fileImportMode: 1
+    fileImportMode: 0
     importHiddenLayers: 0
     layerImportMode: 1
     defaultPivotSpace: 0
     defaultPivotAlignment: 7
     customPivotPosition: {x: 0.5, y: 0.5}
-    mosaicPadding: 4
+    mosaicPadding: 0
     spritePadding: 0
     generateModelPrefab: 1
     generateAnimationClips: 1
     addSortingGroup: 1
     addShadowCasters: 0
   asepriteImporterSettings:
-    fileImportMode: 1
+    fileImportMode: 0
     importHiddenLayers: 0
     layerImportMode: 1
     defaultPivotSpace: 0
     defaultPivotAlignment: 7
     customPivotPosition: {x: 0.5, y: 0.5}
-    mosaicPadding: 4
+    mosaicPadding: 0
     spritePadding: 0
     generateModelPrefab: 1
     generateAnimationClips: 1
     addSortingGroup: 1
     addShadowCasters: 0
   importFileNodeState: 1
-  platformSettingsDirtyTick: 638611640949359781
+  platformSettingsDirtyTick: 638617444304999259
   textureAssetName: 
   singleSpriteImportData:
   - name: 
@@ -121,18 +121,18 @@ ScriptedImporter:
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
   animatedSpriteImportData:
-  - name: essence-6x6
+  - name: Used_Icons
     originalName: 
-    pivot: {x: 0.5, y: 0}
+    pivot: {x: 3.735294, y: -9.0196085}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
       x: 4
       y: 4
-      width: 6
-      height: 6
-    spriteID: 7ad6667f61ff8804eab798e96cff92cd
+      width: 34
+      height: 51
+    spriteID: 54324f08a2084c14684fd9b56f5bd9bc
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -144,28 +144,28 @@ ScriptedImporter:
   spriteSheetImportData: []
   asepriteLayers:
   - layerIndex: 0
-    guid: 1755269821
-    name: essence-6x6
+    guid: -1910137854
+    name: Used_Icons
     layerFlags: 0
     layerType: 0
     blendMode: 0
     cells:
-    - name: essence-6x6
+    - name: Used_Icons
       frameIndex: 0
       additiveSortOrder: 0
       cellRect:
-        x: 0
-        y: 0
-        width: 6
-        height: 6
-      spriteId: 7ad6667f61ff8804eab798e96cff92cd
+        x: 1
+        y: 460
+        width: 34
+        height: 51
+      spriteId: 54324f08a2084c14684fd9b56f5bd9bc
     linkedCells: []
     parentIndex: -1
   platformSettings:
   - name: DefaultTexturePlatform
     overridden: 0
     ignorePlatformSupport: 0
-    maxTextureSize: 32
+    maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 0
@@ -201,4 +201,4 @@ ScriptedImporter:
   generatePhysicsShape: 0
   secondarySpriteTextures: []
   spritePackingTag: 
-  canvasSize: {x: 6, y: 6}
+  canvasSize: {x: 256, y: 512}

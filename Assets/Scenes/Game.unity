@@ -1468,6 +1468,23 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 96c8f26ef8c7e2f41a30a5869a84f301, type: 3}
+--- !u!1 &451242386 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6662536027617550773, guid: 8d251aaecabb6b146a249bc056ae58e7, type: 3}
+  m_PrefabInstance: {fileID: 941741435}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &451242390
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 451242386}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c839f73f315077f4b822fae9fea0b106, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &468949920
 GameObject:
   m_ObjectHideFlags: 0
@@ -2793,7 +2810,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 6662536027617550773, guid: 8d251aaecabb6b146a249bc056ae58e7, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 451242390}
   m_SourcePrefab: {fileID: 100100000, guid: 8d251aaecabb6b146a249bc056ae58e7, type: 3}
 --- !u!1 &963057814
 GameObject:
@@ -3329,6 +3349,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveInput: {fileID: -3855069917686034925, guid: 50afa068aa51bd149a1f3d07794c53d5, type: 3}
   dashAction: {fileID: 8946056656977092829, guid: 50afa068aa51bd149a1f3d07794c53d5, type: 3}
+  attackStopDuration: 0.15
 --- !u!50 &1214084859
 Rigidbody2D:
   serializedVersion: 4
@@ -3369,13 +3390,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackInput: {fileID: -3307094415415247963, guid: 50afa068aa51bd149a1f3d07794c53d5, type: 3}
-  slashPrefab: {fileID: 6955697948194271802, guid: 03c80cdf0baa14c4da859810941a4405, type: 3}
   targetLayerMask:
     serializedVersion: 2
     m_Bits: 1152
   weapon: {fileID: 685561545}
   hitFeedbacks: {fileID: 1683459429}
   attackParticles: {fileID: 1709629989399924173, guid: 5ef67e035ca442147a4f694cd1554c59, type: 3}
+  slashPrefab: {fileID: 6955697948194271802, guid: 03c80cdf0baa14c4da859810941a4405, type: 3}
+  swordVisual: {fileID: 1924484220}
 --- !u!114 &1214084861
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3567,7 +3589,7 @@ Transform:
   m_GameObject: {fileID: 1261478499}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.175, y: 0.024, z: 0}
+  m_LocalPosition: {x: 0.42, y: 0.3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -7374,7 +7396,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -7395,12 +7417,12 @@ SpriteRenderer:
   m_SortingLayerID: -210121459
   m_SortingLayer: 3
   m_SortingOrder: 0
-  m_Sprite: {fileID: 13246602875518615, guid: 27ca7a4900c2c244abbcd8f39c8dda1a, type: 3}
+  m_Sprite: {fileID: 436878124, guid: bde6d022855f93745baad1d32c2ac2bc, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 1.125, y: 1.125}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -8476,6 +8498,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Systems
       objectReference: {fileID: 0}
+    - target: {fileID: 4919010719775850886, guid: 58f2feb7fcdece146b937d87594495b2, type: 3}
+      propertyPath: <UnitFireParticles>k__BackingField
+      value: 
+      objectReference: {fileID: 6797801485266107839, guid: 8cd9a897fb8df9b4284925b80be71758, type: 3}
     - target: {fileID: 9138537760632337751, guid: 58f2feb7fcdece146b937d87594495b2, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

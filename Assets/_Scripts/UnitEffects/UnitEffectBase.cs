@@ -1,3 +1,4 @@
+using Mono.CSharp;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -43,20 +44,20 @@ public class Burn : UnitEffectBase {
 
     private Health health;
 
+    private int particleId;
+
     public override void OnEffectAdded(Enemy enemy, bool removeAfterDuration = false, float duration = 0) {
         base.OnEffectAdded(enemy, removeAfterDuration, duration);
 
         health = enemy.GetComponent<Health>();
 
-        //remove
-        enemy.GetComponentInChildren<SpriteRenderer>().color = Color.red;
+        particleId = enemy.GetComponentInChildren<UnitEffectVisuals>().AddParticleEffect(AssetSystem.Instance.UnitFireParticles);
     }
 
     public override void OnEffectRemoved() {
         base.OnEffectRemoved();
 
-        //remove
-        enemy.GetComponentInChildren<SpriteRenderer>().color = Color.white;
+        enemy.GetComponentInChildren<UnitEffectVisuals>().RemoveParticleEffect(particleId);
     }
 
     public override void UpdateLogic() {

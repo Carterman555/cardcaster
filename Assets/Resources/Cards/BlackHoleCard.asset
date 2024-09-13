@@ -16,9 +16,8 @@ MonoBehaviour:
   description: 
   cost: 2
   rarity: 0
-  sprite: {fileID: 1312932664149851607, guid: a8a47aca9e1483f4ebbba999d588b2e3, type: 3}
-  outlineSprite: {fileID: 7608387356025836692, guid: a8a47aca9e1483f4ebbba999d588b2e3, type: 3}
-  <IsPossibleStartingCard>k__BackingField: 0
+  sprite: {fileID: 5907364553800571866, guid: a8a47aca9e1483f4ebbba999d588b2e3, type: 3}
+  <IsPossibleStartingCard>k__BackingField: 1
   <IsPositional>k__BackingField: 1
   effectDuration: 0
   objectToSpawn: {fileID: 4761673276867612884, guid: 1a00541d362654946a17d40ef06aadef, type: 3}

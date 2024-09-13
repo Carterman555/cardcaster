@@ -17,9 +17,6 @@ public abstract class ScriptableItemBase : ScriptableObject, ICollectable {
     [SerializeField] private Sprite sprite;
     public Sprite GetSprite() => sprite;
 
-    [SerializeField] private Sprite outlineSprite;
-    public Sprite GetOutlineSprite() => outlineSprite;
-
     public abstract void Activate();
     public abstract void Deactivate();
 }

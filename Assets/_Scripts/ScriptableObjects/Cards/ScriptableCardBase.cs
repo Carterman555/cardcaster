@@ -19,9 +19,6 @@ public abstract class ScriptableCardBase : ScriptableObject, ICollectable {
     [SerializeField] private Sprite sprite;
     public Sprite GetSprite() => sprite;
 
-    [SerializeField] private Sprite outlineSprite;
-    public Sprite GetOutlineSprite() => outlineSprite;
-
     [field: SerializeField] public bool IsPossibleStartingCard { get; private set; }
 
     [field: SerializeField] public bool IsPositional { get; private set; }

@@ -16,8 +16,7 @@ MonoBehaviour:
   description: Creates a shockwave on hit
   cost: 0
   rarity: 0
-  sprite: {fileID: 0}
-  outlineSprite: {fileID: 0}
+  sprite: {fileID: 4761049826753756937, guid: a8a47aca9e1483f4ebbba999d588b2e3, type: 3}
   <IsPossibleStartingCard>k__BackingField: 0
   <IsPositional>k__BackingField: 0
   effectDuration: 9.9
@@ -27,4 +26,4 @@ MonoBehaviour:
   radius: 1
   damage: 0.5
   knockbackStrength: 1
-  shockwaveEffectPrefab: {fileID: 8407760821317871486, guid: 8305c279e31ee7c4bae31bcf2f403898, type: 3}
+  shockwaveEffectPrefab: {fileID: 7654154077939337353, guid: 6b0bda39ed8ba824faf96be71532084b, type: 3}

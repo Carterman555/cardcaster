@@ -7,10 +7,8 @@ using UnityEngine.UI;
 
 public class CardButton : GameButton, IPointerDownHandler {
 
-    [SerializeField] private TextMeshProUGUI titleText;
+    [SerializeField] private CardImage cardImage;
     [SerializeField] private TextMeshProUGUI hotkeyText;
-
-    [SerializeField] private Image[] essenceImages;
 
     [Header("Feedback Players")]
     [SerializeField] private MMF_Player hoverPlayer;
@@ -48,7 +46,7 @@ public class CardButton : GameButton, IPointerDownHandler {
 
         useCardPlayer.Events.OnComplete.AddListener(OnUsedCard);
 
-        StopFollowMouse();
+        StopFollowingMouse();
     }
 
     private void OnDestroy() {
@@ -62,7 +60,7 @@ public class CardButton : GameButton, IPointerDownHandler {
     public void DrawCard(ScriptableCardBase card) {
         SetCard(card);
 
-        StopFollowMouse();
+        StopFollowingMouse();
 
         toHandPlayer.PlayFeedbacks();
     }
@@ -116,16 +114,7 @@ public class CardButton : GameButton, IPointerDownHandler {
 
     public void SetCard(ScriptableCardBase card) {
         this.card = card;
-
-        titleText.text = card.GetName();
-        hotkeyText.text = (cardIndex + 1).ToString();
-
-        for (int i = 0; i < card.GetCost(); i++) {
-            essenceImages[i].enabled = true;
-        }
-        for (int i = card.GetCost(); i < essenceImages.Length; i++) {
-            essenceImages[i].enabled = false;
-        }
+        cardImage.Setup(card);
     }
 
     public void FollowMouse() {
@@ -133,7 +122,7 @@ public class CardButton : GameButton, IPointerDownHandler {
         playFeedbackOnHover.Disable();
     }
 
-    public void StopFollowMouse() {
+    public void StopFollowingMouse() {
         followMouse.enabled = false;
         playFeedbackOnHover.Enable();
     }

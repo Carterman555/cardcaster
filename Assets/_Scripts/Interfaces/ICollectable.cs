@@ -12,7 +12,6 @@ public interface ICollectable {
     public int GetCost();
 
     public Sprite GetSprite();
-    public Sprite GetOutlineSprite();
 }
 
 public enum Rarity {

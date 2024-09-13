@@ -6,7 +6,6 @@ using UnityEngine;
 public class CardTrasher : MonoBehaviour {
 
     [SerializeField] private TriggerContactTracker playerTracker;
-    [SerializeField] private MMF_Player openAllCardsPlayer;
 
     private void OnEnable() {
         playerTracker.OnEnterContact += OpenTrashUI;
@@ -16,6 +15,6 @@ public class CardTrasher : MonoBehaviour {
     }
 
     private void OpenTrashUI(GameObject player) {
-        openAllCardsPlayer.PlayFeedbacks();
+        PopupPlayer.Open("AllCards");
     }
 }

@@ -649,7 +649,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 255.56}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &252866136
 MonoBehaviour:
@@ -906,6 +906,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 316220181}
+  - component: {fileID: 316220183}
   - component: {fileID: 316220182}
   m_Layer: 0
   m_Name: AllCardsPopup
@@ -1123,7 +1124,7 @@ MonoBehaviour:
         DebugActive: 0
         AnimatePositionTarget: {fileID: 685335445}
         Mode: 0
-        Space: 0
+        Space: 1
         RandomizeRemap: 0
         AnimatePositionDuration: 0.3
         AnimatePositionTween:
@@ -2036,6 +2037,19 @@ MonoBehaviour:
             m_RotationOrder: 4
           Initialized: 0
         TimescaleLerpDurationOnReset: 0.3
+--- !u!114 &316220183
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 316220180}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 21b00e1b958b6c74bb1d17a9c3be8a0f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  popupName: AllCards
 --- !u!4 &321440817 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6123748960421078426, guid: 40b2a4ee98096e647b12052bd868489b, type: 3}
@@ -3162,7 +3176,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &685335446
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3235,12 +3249,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aba855e48c7aae446a057e6f0454a99a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cardImagePrefab: {fileID: -5029209581449810682, guid: 41fd9c5da03600041b2e95f3db6b7df0, type: 3}
+  trashCardPrefab: {fileID: 3891952056240966491, guid: 86c4a20d80a8a444190248d79a7ede15, type: 3}
   deckCardsContainer: {fileID: 255210158}
   discardCardsContainer: {fileID: 785647741}
   handCardsContainer: {fileID: 793294030}
   verticalLayoutGroup: {fileID: 252866136}
-  popupPlayer: {fileID: 316220182}
 --- !u!1 &685561543
 GameObject:
   m_ObjectHideFlags: 0
@@ -3320,10 +3333,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 252866135}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 35, y: -145.28}
-  m_SizeDelta: {x: 200, y: 50.28}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 200, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &755649928
 MonoBehaviour:
@@ -3719,10 +3732,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 252866135}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 35, y: -35}
-  m_SizeDelta: {x: 200, y: 50.28}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 200, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &866831684
 MonoBehaviour:
@@ -5022,8 +5035,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 685335449}
-        m_TargetAssemblyTypeName: AllCardsPanel, Assembly-CSharp
+      - m_Target: {fileID: 316220183}
+        m_TargetAssemblyTypeName: PopupPlayer, Assembly-CSharp
         m_MethodName: Close
         m_Mode: 1
         m_Arguments:
@@ -5236,9 +5249,9 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 252866135}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 47.5, y: -255.56}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 25, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1510904144
@@ -6023,8 +6036,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 685335449}
-        m_TargetAssemblyTypeName: AllCardsPanel, Assembly-CSharp
+      - m_Target: {fileID: 316220183}
+        m_TargetAssemblyTypeName: PopupPlayer, Assembly-CSharp
         m_MethodName: Open
         m_Mode: 1
         m_Arguments:

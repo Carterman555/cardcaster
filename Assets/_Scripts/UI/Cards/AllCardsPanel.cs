@@ -4,9 +4,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class AllCardsPanel : StaticInstance<AllCardsPanel> {
+public class AllCardsPanel : MonoBehaviour {
 
-    [SerializeField] private CardImage cardImagePrefab;
+    [SerializeField] private TrashCardButton trashCardPrefab;
 
     [SerializeField] private Transform deckCardsContainer;
     [SerializeField] private Transform discardCardsContainer;
@@ -14,30 +14,19 @@ public class AllCardsPanel : StaticInstance<AllCardsPanel> {
 
     [SerializeField] private VerticalLayoutGroup verticalLayoutGroup;
 
-    [SerializeField] private MMF_Player popupPlayer;
-
-    public void Open() {
-        popupPlayer.SetDirectionBottomToTop();
-        popupPlayer.PlayFeedbacks();
-    }
-    public void Close() {
-        popupPlayer.SetDirectionTopToBottom();
-        popupPlayer.PlayFeedbacks();
-    }
-
-
     // played by popup feedback
     public void UpdateCards() {
-        SetCardsInContainer(deckCardsContainer, DeckManager.Instance.GetCardsInDeck());
-        SetCardsInContainer(discardCardsContainer, DeckManager.Instance.GetCardsInDiscard());
-        SetCardsInContainer(handCardsContainer, DeckManager.Instance.GetCardsInHand());
+        SetCardsInContainer(deckCardsContainer, DeckManager.Instance.GetCardsInDeck(), CardLocation.Deck);
+        SetCardsInContainer(discardCardsContainer, DeckManager.Instance.GetCardsInDiscard(), CardLocation.Discard);
+        SetCardsInContainer(handCardsContainer, DeckManager.Instance.GetCardsInHand(), CardLocation.Hand);
     }
 
-    private void SetCardsInContainer(Transform container, List<ScriptableCardBase> cards) {
+    private void SetCardsInContainer(Transform container, List<ScriptableCardBase> cards, CardLocation cardLocation) {
         container.ReturnChildrenToPool();
-        foreach (ScriptableCardBase card in cards) {
-            CardImage newCardImage = cardImagePrefab.Spawn(container);
-            newCardImage.Setup(card);
+        for (int cardIndex = 0; cardIndex < cards.Count; cardIndex++) {
+            ScriptableCardBase card = cards[cardIndex];
+            TrashCardButton newCard = trashCardPrefab.Spawn(container);
+            newCard.Setup(card, cardLocation, cardIndex);
         }
     }
 }

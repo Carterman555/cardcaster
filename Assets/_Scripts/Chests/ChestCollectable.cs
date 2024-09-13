@@ -10,6 +10,9 @@ public class ChestCollectable : MonoBehaviour {
 
     [SerializeField] private Vector2 positionOffset;
 
+    private Material originalMaterial;
+    [SerializeField] private Material outlineMaterial;
+
     private CollectableChest chest;
     private ICollectable collectable;
     private int collectableIndex;
@@ -28,6 +31,7 @@ public class ChestCollectable : MonoBehaviour {
         this.collectableIndex = collectableIndex;
 
         spriteRenderer.sprite = collectable.GetSprite();
+        originalMaterial = spriteRenderer.material;
 
         transform.position = chest.transform.position;
         transform.localScale = Vector2.zero;
@@ -41,7 +45,7 @@ public class ChestCollectable : MonoBehaviour {
 
     private void OnMouseEnter() {
         // outline
-        spriteRenderer.sprite = collectable.GetOutlineSprite();
+        spriteRenderer.material = outlineMaterial;
     }
 
     private void OnMouseOver() {
@@ -59,7 +63,7 @@ public class ChestCollectable : MonoBehaviour {
 
     private void OnMouseExit() {
         // disable outline
-        spriteRenderer.sprite = collectable.GetSprite();
+        spriteRenderer.material = originalMaterial;
     }
 
     public void GoToPlayer() {

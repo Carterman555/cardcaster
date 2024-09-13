@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,6 +6,9 @@ using UnityEngine;
 public class DamageOnContact : MonoBehaviour {
 
     [SerializeField] private LayerMask targetLayer;
+
+    [SerializeField] private bool hasHitEffect;
+    [SerializeField] private ParticleSystem hitEffect;
 
     private IDelayedReturn[] delayedReturns;
 
@@ -37,6 +41,10 @@ public class DamageOnContact : MonoBehaviour {
             if (collision.TryGetComponent(out Knockback knockback)) {
                 Vector2 toTargetDirection = collision.transform.position - transform.position;
                 knockback.ApplyKnockback(toTargetDirection, knockbackStrength);
+            }
+
+            if (hasHitEffect) {
+                hitEffect.Spawn(collision.ClosestPoint(transform.position), Containers.Instance.Effects);
             }
 
             PreventDamage();

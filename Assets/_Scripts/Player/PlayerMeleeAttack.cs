@@ -15,7 +15,7 @@ public class PlayerMeleeAttack : StaticInstance<PlayerMeleeAttack>, ICanAttack, 
     [SerializeField] private LayerMask targetLayerMask;
 
     [SerializeField] private SlashingWeapon weapon;
-    
+
     private float attackTimer;
 
     private PlayerStats stats => StatsManager.Instance.GetPlayerStats();
@@ -51,10 +51,11 @@ public class PlayerMeleeAttack : StaticInstance<PlayerMeleeAttack>, ICanAttack, 
         OnAttack?.Invoke();
         OnAttack_Position?.Invoke(attackCenter);
 
-        Health[] targetHealths = targetCols.
-            Select(t => t.GetComponent<Health>()).
-            Where(health => !health.IsDead()).
-            ToArray();
+        // turn the targetCol array into health array
+        Health[] targetHealths = targetCols
+            ?.Select(t => t.GetComponent<Health>())
+            .Where(health => health != null && !health.IsDead())
+            .ToArray() ?? Array.Empty<Health>();
 
         OnAttack_Targets?.Invoke(targetHealths);
     }
@@ -102,5 +103,5 @@ public class PlayerMeleeAttack : StaticInstance<PlayerMeleeAttack>, ICanAttack, 
         }
     }
 
-    
+
 }

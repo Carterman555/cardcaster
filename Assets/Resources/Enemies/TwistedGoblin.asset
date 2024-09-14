@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <Name>k__BackingField: Twisted Goblin
   <Description>k__BackingField: description
-  <Prefab>k__BackingField: {fileID: 5488357141094318319, guid: 8d251aaecabb6b146a249bc056ae58e7, type: 3}
+  <Prefab>k__BackingField: {fileID: -1547448208438695654, guid: 82d6be02c3ce468419b8a25b6681e6c0, type: 3}
   <Stats>k__BackingField:
     MaxHealth: 10
     KnockbackResistance: 1

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <Name>k__BackingField: Scarred Skeleton
   <Description>k__BackingField: description
-  <Prefab>k__BackingField: {fileID: 8094934062911911454, guid: 41e9f9fce6403394283609a6f25a56f6, type: 3}
+  <Prefab>k__BackingField: {fileID: 4604046560423200391, guid: 0b6b028fe217995438f8633228c54b6c, type: 3}
   <Stats>k__BackingField:
     MaxHealth: 10
     KnockbackResistance: 1

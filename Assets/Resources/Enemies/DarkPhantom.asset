@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <Name>k__BackingField: Dark Phantom
   <Description>k__BackingField: description
-  <Prefab>k__BackingField: {fileID: 3948411667742106126, guid: 52a837f734e7cbe48b720d059388dbb3, type: 3}
+  <Prefab>k__BackingField: {fileID: 7410705020280012705, guid: 7b60ee6f1d66eda4fa6ef51e3b2db2ef, type: 3}
   <Stats>k__BackingField:
     MaxHealth: 10
     KnockbackResistance: 0.75

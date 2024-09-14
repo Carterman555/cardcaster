@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <Name>k__BackingField: Mega Minion
   <Description>k__BackingField: 
-  <Prefab>k__BackingField: {fileID: 7687619733359668377, guid: 17a1fafcc1bd5074aae1bb108ac3c338, type: 3}
+  <Prefab>k__BackingField: {fileID: 8097353256034800680, guid: 4ed6cf5108a7ca342afcfa3920a81a01, type: 3}
   <Stats>k__BackingField:
     MaxHealth: 12
     KnockbackResistance: 1

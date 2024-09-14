@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <Name>k__BackingField: Baby Beholder
   <Description>k__BackingField: description
-  <Prefab>k__BackingField: {fileID: 5982887022119629477, guid: f9f780d461aedbc4fa460cbcd29d5b48, type: 3}
+  <Prefab>k__BackingField: {fileID: 4327151167930552897, guid: ad9c8b6a934316a4d9ccf35265dc643c, type: 3}
   <Stats>k__BackingField:
     MaxHealth: 15
     KnockbackResistance: 1

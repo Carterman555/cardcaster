@@ -12,12 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6693380093ee7449b1b8f43b6e8907a, type: 3}
   m_Name: Movespeeditem
   m_EditorClassIdentifier: 
-  itemName: 
-  description: 
+  itemName: Move Faster!!!!
+  description: asdf;lkjaskldfhaskldfj
   cost: 0
   rarity: 0
-  sprite: {fileID: 21300000, guid: 07103c52b3aaeca4da8a83361edd059f, type: 3}
-  outlineSprite: {fileID: 0}
+  sprite: {fileID: 1312932664149851607, guid: a8a47aca9e1483f4ebbba999d588b2e3, type: 3}
   statsModifier:
     MaxHealthPercent: 0
     KnockbackResistancePercent: 0

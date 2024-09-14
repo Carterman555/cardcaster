@@ -5,9 +5,9 @@ using UnityEngine.UI;
 
 public class ItemContainerUI : MonoBehaviour {
 
-    [SerializeField] private Image itemIconPrefab;
+    [SerializeField] private ItemIcon itemIconPrefab;
 
-    private Dictionary<ScriptableItemBase, Image> iconDict = new();
+    private Dictionary<ScriptableItemBase, ItemIcon> iconDict = new();
 
     private void OnEnable() {
         ItemManager.OnItemGained += AddItemToUI;
@@ -19,8 +19,8 @@ public class ItemContainerUI : MonoBehaviour {
     }
 
     private void AddItemToUI(ScriptableItemBase item) {
-        Image newItemIcon = itemIconPrefab.Spawn(transform);
-        newItemIcon.sprite = item.GetSprite();
+        ItemIcon newItemIcon = itemIconPrefab.Spawn(transform);
+        newItemIcon.Setup(item);
 
         iconDict.Add(item, newItemIcon);
     }

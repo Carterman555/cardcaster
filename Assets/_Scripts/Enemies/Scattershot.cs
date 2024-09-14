@@ -82,6 +82,10 @@ public class Scattershot : Enemy {
         weaponRecoil.RecoilWeapon();
     }
 
+    protected override void Update() {
+        base.Update();
+    }
+
     public override void OnRemoveStopMovementEffect() {
         if (playerWithinRange) {
             fleePlayerBehavior.Start();

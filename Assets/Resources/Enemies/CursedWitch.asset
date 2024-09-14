@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <Name>k__BackingField: Cursed Witch
   <Description>k__BackingField: description
-  <Prefab>k__BackingField: {fileID: 7886068666094598164, guid: a235f6097070a8a4fbd6d69de846b0f3, type: 3}
+  <Prefab>k__BackingField: {fileID: 3370988504613916164, guid: ae7cb55634d3120488ed1f950c5d754f, type: 3}
   <Stats>k__BackingField:
     MaxHealth: 10
     KnockbackResistance: 0.7

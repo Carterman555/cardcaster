@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <Name>k__BackingField: Doom Charger
   <Description>k__BackingField: description
-  <Prefab>k__BackingField: {fileID: 4415008410753666037, guid: 88a1ca2d51a1f6544a4a7ed21fa19820, type: 3}
+  <Prefab>k__BackingField: {fileID: 4753426084051237669, guid: 6893b4506a2a26b4fa91ea2c0fb59a30, type: 3}
   <Stats>k__BackingField:
     MaxHealth: 5
     KnockbackResistance: 1

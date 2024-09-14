@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <Name>k__BackingField: Ace
   <Description>k__BackingField: description
-  <Prefab>k__BackingField: {fileID: -926533077685991036, guid: dd1c82fbbf336b249896270f225188a7, type: 3}
+  <Prefab>k__BackingField: {fileID: 5313810286917564646, guid: 7690d64c9054ae647877396674b6acf9, type: 3}
   <Stats>k__BackingField:
     MaxHealth: 15
     KnockbackResistance: 1.5

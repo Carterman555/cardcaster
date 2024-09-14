@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <Name>k__BackingField: Scattershot
   <Description>k__BackingField: description
-  <Prefab>k__BackingField: {fileID: 5041207925765674513, guid: 46e31ab86a9e60a45b97baf331d01466, type: 3}
+  <Prefab>k__BackingField: {fileID: -1887296061131451581, guid: f7f24b1acbe22ae4a9107a6daf0527c9, type: 3}
   <Stats>k__BackingField:
     MaxHealth: 15
     KnockbackResistance: 1

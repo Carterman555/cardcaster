@@ -15,6 +15,6 @@ public class CardTrasher : MonoBehaviour {
     }
 
     private void OpenTrashUI(GameObject player) {
-        PopupPlayer.Open("AllCards");
+        FeedbackPlayer.Play("OpenAllCardsPanel");
     }
 }

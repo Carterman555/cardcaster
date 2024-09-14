@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <Name>k__BackingField: Blinded Cyclops
   <Description>k__BackingField: description
-  <Prefab>k__BackingField: {fileID: 187800795814068590, guid: 07b2f04fdecb2b44baf58cb4e0321af9, type: 3}
+  <Prefab>k__BackingField: {fileID: 2103299957507080273, guid: 0fe51e2a08d609e4683c8cce0fd5279e, type: 3}
   <Stats>k__BackingField:
     MaxHealth: 40
     KnockbackResistance: 3

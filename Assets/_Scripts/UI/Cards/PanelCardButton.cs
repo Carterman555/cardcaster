@@ -52,6 +52,6 @@ public class PanelCardButton : GameButton {
             yield return null;
         }
 
-        PopupPlayer.Close("AllCards");
+        FeedbackPlayer.PlayInReverse("OpenAllCardsPanel");
     }
 }

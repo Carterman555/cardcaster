@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class AllCardsPanel : MonoBehaviour {
 
-    [SerializeField] private TrashCardButton trashCardPrefab;
+    [SerializeField] private PanelCardButton trashCardPrefab;
 
     [SerializeField] private Transform deckCardsContainer;
     [SerializeField] private Transform discardCardsContainer;
@@ -25,7 +25,7 @@ public class AllCardsPanel : MonoBehaviour {
         container.ReturnChildrenToPool();
         for (int cardIndex = 0; cardIndex < cards.Count; cardIndex++) {
             ScriptableCardBase card = cards[cardIndex];
-            TrashCardButton newCard = trashCardPrefab.Spawn(container);
+            PanelCardButton newCard = trashCardPrefab.Spawn(container);
             newCard.Setup(card, cardLocation, cardIndex);
         }
     }

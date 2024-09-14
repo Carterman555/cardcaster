@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class TrashCardButton : GameButton {
+public class PanelCardButton : GameButton {
 
     [SerializeField] private CardImage cardImage;
     [SerializeField] private MMF_Player burnCardFeedbacks;
@@ -24,6 +24,8 @@ public class TrashCardButton : GameButton {
         this.cardLocation = cardLocation;
         this.cardIndex = cardIndex;
 
+        burnCardFeedbacks.RestoreInitialValues();
+
         burnMaterialInstance = new Material(burnMaterial);
         for (int i = 0; i < burnImages.Length; i++) {
             Image image = burnImages[i];
@@ -35,13 +37,13 @@ public class TrashCardButton : GameButton {
     protected override void OnClick() {
         base.OnClick();
 
-        DeckManager.Instance.TrashCard(cardLocation, cardIndex);
-
-        burnCardFeedbacks.PlayFeedbacks();
-        StartCoroutine(TrashCardBurn());
+        Vector2 offset = new Vector2(0f, 85f);
+        TrashButton.Instance.Show((Vector2)transform.position + offset, this, cardLocation, cardIndex);
     }
 
-    private IEnumerator TrashCardBurn() {
+    public IEnumerator TrashCardBurn() {
+
+        burnCardFeedbacks.PlayFeedbacks();
 
         float fadeAmount = -0.1f;
         while (fadeAmount < 1f) {
@@ -50,6 +52,6 @@ public class TrashCardButton : GameButton {
             yield return null;
         }
 
-        gameObject.ReturnToPool();
+        PopupPlayer.Close("AllCards");
     }
 }

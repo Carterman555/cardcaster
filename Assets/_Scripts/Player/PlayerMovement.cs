@@ -15,6 +15,8 @@ public class PlayerMovement : StaticInstance<PlayerMovement>, IHasStats, IChange
     private PlayerStats stats => StatsManager.Instance.GetPlayerStats();
     public Stats GetStats() => stats;
 
+    [SerializeField] private Animator anim;
+
     protected override void Awake() {
         base.Awake();
         rb = GetComponent<Rigidbody2D>();
@@ -23,10 +25,15 @@ public class PlayerMovement : StaticInstance<PlayerMovement>, IHasStats, IChange
 
         facingRight = true;
         stoppedFromAttack = false;
+
+        anim.SetFloat("Horizontal", 1);
+        anim.SetFloat("Vertical", 0);
     }
 
     private void Update() {
         HandleStoppedFromAttack();
+
+        anim.SetBool("Move", rb.velocity.magnitude > 0);
 
         if (stoppedFromAttack) {
             return;

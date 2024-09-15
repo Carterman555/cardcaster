@@ -21,6 +21,8 @@ public class PlayerMeleeAttack : StaticInstance<PlayerMeleeAttack>, IAttacker, I
     private PlayerStats stats => StatsManager.Instance.GetPlayerStats();
     public Stats GetStats() => stats;
 
+    [SerializeField] private Animator anim;
+
     private void Start() {
         weapon.SetTarget(MouseTracker.Instance.transform);
     }
@@ -70,6 +72,8 @@ public class PlayerMeleeAttack : StaticInstance<PlayerMeleeAttack>, IAttacker, I
 
     private void PlayAttackFeedbacks(Collider2D[] targetCols) {
 
+        anim.SetTrigger("AttackTrigger");
+
         // play feedbacks if hit something
         if (targetCols.Length > 0) {
             hitFeedbacks.PlayFeedbacks();
@@ -82,6 +86,7 @@ public class PlayerMeleeAttack : StaticInstance<PlayerMeleeAttack>, IAttacker, I
 
     private void CreateSlashEffect(Vector2 toMouseDirection) {
         slashPrefab.Spawn(transform.position, toMouseDirection.DirectionToRotation(), Containers.Instance.Effects);
+
     }
 
     [SerializeField] private SpriteRenderer swordVisual;

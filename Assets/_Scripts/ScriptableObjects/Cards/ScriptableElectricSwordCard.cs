@@ -8,6 +8,7 @@ public class ScriptableElectricSwordCard : ScriptableCardBase {
 
     // static for abilities that take on electric effect
     public static int ElectricUnitAmount { get; private set; } = 3;
+    public static float ElectricDamage { get; private set; } = 0.5f;
 
     [SerializeField] private Transform electricSwordPrefab;
     private Transform electricSword;

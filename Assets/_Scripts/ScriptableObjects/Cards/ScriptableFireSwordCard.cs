@@ -4,9 +4,10 @@ using Unity.VisualScripting;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "FireSwordCard", menuName = "Cards/Fire Sword Card")]
-public class ScriptableFireSwordShockwave : ScriptableCardBase {
+public class ScriptableFireSwordCard : ScriptableCardBase {
 
-    [SerializeField] private float burnDuration = 3f;
+    // static for abilities that take on fire effect
+    public static float BurnDuration { get; private set; } = 3f;
 
     [SerializeField] private Transform fireSwordPrefab;
     private Transform fireSword;
@@ -36,7 +37,7 @@ public class ScriptableFireSwordShockwave : ScriptableCardBase {
 
     private void InflictBurn(Health[] healths) {
         foreach (Health health in healths) {
-            health.GetComponent<Enemy>().AddEffect(new Burn(), true, burnDuration);
+            health.GetComponent<Enemy>().AddEffect(new Burn(), true, BurnDuration);
         }
     }
 }

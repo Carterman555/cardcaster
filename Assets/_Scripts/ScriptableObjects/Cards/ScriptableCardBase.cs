@@ -4,6 +4,9 @@ using UnityEngine;
 
 public abstract class ScriptableCardBase : ScriptableObject, ICollectable {
 
+    [SerializeField] private CardType cardType;
+    public CardType CardType => cardType;
+
     [SerializeField] private string cardName;
     public string GetName() => cardName;
 
@@ -27,6 +30,8 @@ public abstract class ScriptableCardBase : ScriptableObject, ICollectable {
 
     public virtual void Play(Vector2 position) {
         StatsManager.Instance.StartCoroutine(StopAfterDuration());
+
+        AbilityManager.Instance.AddActiveCard(CardType);
     }
 
     private IEnumerator StopAfterDuration() {
@@ -34,5 +39,30 @@ public abstract class ScriptableCardBase : ScriptableObject, ICollectable {
         Stop();
     }
 
-    public virtual void Stop() { }
+    public virtual void Stop() {
+        AbilityManager.Instance.RemoveActiveCard(CardType);
+    }
+}
+
+public enum CardType {
+    MoveSpeedIncrease,
+    BlackHole,
+    OrbitingBlackHole,
+    DaggerShoot,
+    Ghost,
+    Teleport,
+    Shockwave,
+    SwingSword,
+    LaunchCard,
+    DeflectBullets,
+    BoomerangSword,
+    FrostBlast,
+    Explosion,
+    ShootSwordHologram,
+    FireSword,
+    ElectricSword,
+    MassiveSword,
+    IncreaseSummonDamage,
+    BiggerSword,
+    IncreaseAreaEffects
 }

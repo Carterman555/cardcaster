@@ -3,7 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DamageOnContact : MonoBehaviour {
+public class DamageOnContact : MonoBehaviour, ITargetAttacker {
+
+    public event Action OnAttack;
+    public event Action<GameObject> OnDamage_Target;
 
     [SerializeField] private LayerMask targetLayer;
 
@@ -37,6 +40,8 @@ public class DamageOnContact : MonoBehaviour {
         if (targetLayer.ContainsLayer(collision.gameObject.layer)) {
             if (collision.TryGetComponent(out IDamagable damagable)) {
                 damagable.Damage(damage);
+
+                OnDamage_Target?.Invoke(collision.gameObject);
             }
             if (collision.TryGetComponent(out Knockback knockback)) {
                 Vector2 toTargetDirection = collision.transform.position - transform.position;
@@ -48,6 +53,8 @@ public class DamageOnContact : MonoBehaviour {
             }
 
             PreventDamage();
+
+            OnAttack?.Invoke();
         }
     }
 

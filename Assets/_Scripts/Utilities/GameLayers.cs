@@ -10,4 +10,6 @@ public class GameLayers {
     public static int WallLayer => 8;
     public static int RoomObjectLayer => 10;
 
+    public static LayerMask EnemyLayerMask => 1 << EnemyLayer;
+
 }

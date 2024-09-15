@@ -9,16 +9,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ffdc26f1d9a5979409f6325b860fac79, type: 3}
-  m_Name: FireSwordCard
+  m_Script: {fileID: 11500000, guid: 517dbfb05cadb04499b26d3e28c891a2, type: 3}
+  m_Name: ElectricSwordCard
   m_EditorClassIdentifier: 
-  cardType: 14
-  cardName: Fire Sword
+  cardType: 0
+  cardName: 
   description: 
   cost: 0
   rarity: 0
-  sprite: {fileID: -6248683744165436545, guid: a8a47aca9e1483f4ebbba999d588b2e3, type: 3}
-  <IsPossibleStartingCard>k__BackingField: 0
+  sprite: {fileID: 0}
+  <IsPossibleStartingCard>k__BackingField: 1
   <IsPositional>k__BackingField: 0
   effectDuration: 9.9
-  fireSwordPrefab: {fileID: 2645275329061133153, guid: 45a260c396e0c9f458116b2912fd1ccb, type: 3}
+  electricSwordPrefab: {fileID: 2645275329061133153, guid: 4e3c5d0a4ada92a46a8478a4b8878082, type: 3}

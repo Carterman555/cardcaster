@@ -25,15 +25,12 @@ public class PlayerMovement : StaticInstance<PlayerMovement>, IHasStats, IChange
 
         facingRight = true;
         stoppedFromAttack = false;
-
-        anim.SetFloat("Horizontal", 1);
-        anim.SetFloat("Vertical", 0);
     }
 
     private void Update() {
         HandleStoppedFromAttack();
 
-        anim.SetBool("Move", rb.velocity.magnitude > 0);
+        anim.SetBool("move", rb.velocity.magnitude > 0);
 
         if (stoppedFromAttack) {
             return;

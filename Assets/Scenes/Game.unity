@@ -2986,6 +2986,50 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 40b2a4ee98096e647b12052bd868489b, type: 3}
+--- !u!1 &509041525
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 509041526}
+  - component: {fileID: 509041527}
+  m_Layer: 0
+  m_Name: AbilityManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &509041526
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 509041525}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1213286439}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &509041527
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 509041525}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a8430b4248f27c24a8d479526e4407c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -4035,6 +4079,63 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   feedbackName: ShowItemInfo
+--- !u!1001 &635208248
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4966965114630648378, guid: 82d6be02c3ce468419b8a25b6681e6c0, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4966965114630648378, guid: 82d6be02c3ce468419b8a25b6681e6c0, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 4.28
+      objectReference: {fileID: 0}
+    - target: {fileID: 4966965114630648378, guid: 82d6be02c3ce468419b8a25b6681e6c0, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4966965114630648378, guid: 82d6be02c3ce468419b8a25b6681e6c0, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4966965114630648378, guid: 82d6be02c3ce468419b8a25b6681e6c0, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4966965114630648378, guid: 82d6be02c3ce468419b8a25b6681e6c0, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4966965114630648378, guid: 82d6be02c3ce468419b8a25b6681e6c0, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4966965114630648378, guid: 82d6be02c3ce468419b8a25b6681e6c0, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4966965114630648378, guid: 82d6be02c3ce468419b8a25b6681e6c0, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4966965114630648378, guid: 82d6be02c3ce468419b8a25b6681e6c0, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8294837421443421423, guid: 82d6be02c3ce468419b8a25b6681e6c0, type: 3}
+      propertyPath: m_Name
+      value: TwistedGoblin
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 82d6be02c3ce468419b8a25b6681e6c0, type: 3}
 --- !u!1 &644522582
 GameObject:
   m_ObjectHideFlags: 0
@@ -4955,6 +5056,63 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1001 &1029911367
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4966965114630648378, guid: 82d6be02c3ce468419b8a25b6681e6c0, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -2.34
+      objectReference: {fileID: 0}
+    - target: {fileID: 4966965114630648378, guid: 82d6be02c3ce468419b8a25b6681e6c0, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 6.74
+      objectReference: {fileID: 0}
+    - target: {fileID: 4966965114630648378, guid: 82d6be02c3ce468419b8a25b6681e6c0, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4966965114630648378, guid: 82d6be02c3ce468419b8a25b6681e6c0, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4966965114630648378, guid: 82d6be02c3ce468419b8a25b6681e6c0, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4966965114630648378, guid: 82d6be02c3ce468419b8a25b6681e6c0, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4966965114630648378, guid: 82d6be02c3ce468419b8a25b6681e6c0, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4966965114630648378, guid: 82d6be02c3ce468419b8a25b6681e6c0, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4966965114630648378, guid: 82d6be02c3ce468419b8a25b6681e6c0, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4966965114630648378, guid: 82d6be02c3ce468419b8a25b6681e6c0, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8294837421443421423, guid: 82d6be02c3ce468419b8a25b6681e6c0, type: 3}
+      propertyPath: m_Name
+      value: TwistedGoblin_2
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 82d6be02c3ce468419b8a25b6681e6c0, type: 3}
 --- !u!1 &1035299599
 GameObject:
   m_ObjectHideFlags: 0
@@ -5395,6 +5553,7 @@ Transform:
   - {fileID: 1114060933}
   - {fileID: 322594291}
   - {fileID: 443771586}
+  - {fileID: 509041526}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1214084855
@@ -6280,6 +6439,63 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2313b726f616354fbfa895ceb092805, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1001 &1513312367
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4966965114630648378, guid: 82d6be02c3ce468419b8a25b6681e6c0, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.13
+      objectReference: {fileID: 0}
+    - target: {fileID: 4966965114630648378, guid: 82d6be02c3ce468419b8a25b6681e6c0, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 7.35
+      objectReference: {fileID: 0}
+    - target: {fileID: 4966965114630648378, guid: 82d6be02c3ce468419b8a25b6681e6c0, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4966965114630648378, guid: 82d6be02c3ce468419b8a25b6681e6c0, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4966965114630648378, guid: 82d6be02c3ce468419b8a25b6681e6c0, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4966965114630648378, guid: 82d6be02c3ce468419b8a25b6681e6c0, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4966965114630648378, guid: 82d6be02c3ce468419b8a25b6681e6c0, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4966965114630648378, guid: 82d6be02c3ce468419b8a25b6681e6c0, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4966965114630648378, guid: 82d6be02c3ce468419b8a25b6681e6c0, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4966965114630648378, guid: 82d6be02c3ce468419b8a25b6681e6c0, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8294837421443421423, guid: 82d6be02c3ce468419b8a25b6681e6c0, type: 3}
+      propertyPath: m_Name
+      value: TwistedGoblin_3
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 82d6be02c3ce468419b8a25b6681e6c0, type: 3}
 --- !u!1001 &1543931917
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8833,6 +9049,63 @@ MonoBehaviour:
   startingRoom: {fileID: 321440818}
   roomPrefabs:
   - {fileID: 3084685571954290978, guid: ac412e64bbc0b6843a6f7ae3106f8d7a, type: 3}
+--- !u!1001 &1804947382
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4966965114630648378, guid: 82d6be02c3ce468419b8a25b6681e6c0, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 2.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4966965114630648378, guid: 82d6be02c3ce468419b8a25b6681e6c0, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 6.26
+      objectReference: {fileID: 0}
+    - target: {fileID: 4966965114630648378, guid: 82d6be02c3ce468419b8a25b6681e6c0, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4966965114630648378, guid: 82d6be02c3ce468419b8a25b6681e6c0, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4966965114630648378, guid: 82d6be02c3ce468419b8a25b6681e6c0, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4966965114630648378, guid: 82d6be02c3ce468419b8a25b6681e6c0, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4966965114630648378, guid: 82d6be02c3ce468419b8a25b6681e6c0, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4966965114630648378, guid: 82d6be02c3ce468419b8a25b6681e6c0, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4966965114630648378, guid: 82d6be02c3ce468419b8a25b6681e6c0, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4966965114630648378, guid: 82d6be02c3ce468419b8a25b6681e6c0, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8294837421443421423, guid: 82d6be02c3ce468419b8a25b6681e6c0, type: 3}
+      propertyPath: m_Name
+      value: TwistedGoblin_1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 82d6be02c3ce468419b8a25b6681e6c0, type: 3}
 --- !u!114 &1814983925 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2600157859336777174, guid: 96c8f26ef8c7e2f41a30a5869a84f301, type: 3}
@@ -9005,7 +9278,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1924484219
 Transform:
   m_ObjectHideFlags: 0
@@ -9803,6 +10076,14 @@ PrefabInstance:
       propertyPath: <UnitFireParticles>k__BackingField
       value: 
       objectReference: {fileID: 6797801485266107839, guid: 8cd9a897fb8df9b4284925b80be71758, type: 3}
+    - target: {fileID: 4919010719775850886, guid: 58f2feb7fcdece146b937d87594495b2, type: 3}
+      propertyPath: <AbilityFireParticles>k__BackingField
+      value: 
+      objectReference: {fileID: 531279357377690003, guid: 306b383da7286bd47a9e53896f7d1f36, type: 3}
+    - target: {fileID: 4919010719775850886, guid: 58f2feb7fcdece146b937d87594495b2, type: 3}
+      propertyPath: <UnitElectricityParticles>k__BackingField
+      value: 
+      objectReference: {fileID: 961277298218184562, guid: 374816dbd62895740b2babd3d85ec87a, type: 3}
     - target: {fileID: 9138537760632337751, guid: 58f2feb7fcdece146b937d87594495b2, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -9861,3 +10142,7 @@ SceneRoots:
   - {fileID: 882422893}
   - {fileID: 468949921}
   - {fileID: 7583622701996679771}
+  - {fileID: 635208248}
+  - {fileID: 1804947382}
+  - {fileID: 1029911367}
+  - {fileID: 1513312367}

@@ -4,7 +4,7 @@ using System.Linq;
 using UnityEngine;
 using QFSW.QC;
 
-public class Enemy : MonoBehaviour, IHasStats, IChangesFacing, ICanAttack, IEffectable {
+public class Enemy : MonoBehaviour, IHasStats, IChangesFacing, IAttacker, IEffectable {
 
     public static event Action OnEnemiesCleared;
 

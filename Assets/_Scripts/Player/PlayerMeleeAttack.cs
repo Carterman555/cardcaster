@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
 
-public class PlayerMeleeAttack : StaticInstance<PlayerMeleeAttack>, ICanAttack, IHasStats {
+public class PlayerMeleeAttack : StaticInstance<PlayerMeleeAttack>, IAttacker, IHasStats {
 
     public event Action OnAttack;
     public static event Action<Vector2> OnAttack_Position;

@@ -21,7 +21,8 @@ public class PlayerMeleeAttack : StaticInstance<PlayerMeleeAttack>, IAttacker, I
     private PlayerStats stats => StatsManager.Instance.GetPlayerStats();
     public Stats GetStats() => stats;
 
-    [SerializeField] private Animator anim;
+    [SerializeField] private SpriteRenderer hand;
+
 
     private void Start() {
         weapon.SetTarget(MouseTracker.Instance.transform);
@@ -34,6 +35,14 @@ public class PlayerMeleeAttack : StaticInstance<PlayerMeleeAttack>, IAttacker, I
         if (Input.GetMouseButtonDown(0) && attackTimer > stats.AttackCooldown) {
             Attack();
             attackTimer = 0f;
+        }
+
+        // hide hand behind player head
+        if (weapon.InUpPos()) {
+            hand.sortingOrder = 0;
+        }
+        else {
+            hand.sortingOrder = 1;
         }
     }
 
@@ -71,8 +80,6 @@ public class PlayerMeleeAttack : StaticInstance<PlayerMeleeAttack>, IAttacker, I
     [SerializeField] private Transform slashPrefab;
 
     private void PlayAttackFeedbacks(Collider2D[] targetCols) {
-
-        anim.SetTrigger("AttackTrigger");
 
         // play feedbacks if hit something
         if (targetCols.Length > 0) {

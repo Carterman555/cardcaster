@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: bde6d022855f93745baad1d32c2ac2bc
+guid: 28bb58094add51a4f996db5ce1e7fce8
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -110,169 +110,127 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Sword
+      name: player-move_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 494
-        width: 18
-        height: 18
+        y: 0
+        width: 32
+        height: 32
       alignment: 9
-      pivot: {x: 0.2, y: 0.2}
+      pivot: {x: 0.7, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2b99a49691f51b84bbba6c77077c0316
-      internalID: 436878124
+      spriteID: 3474c10788399e2419d373959618428b
+      internalID: 1228290403
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Fire_Sword
+      name: player-move_1
       rect:
         serializedVersion: 2
-        x: 18
-        y: 494
-        width: 18
-        height: 18
+        x: 32
+        y: 0
+        width: 32
+        height: 32
       alignment: 9
-      pivot: {x: 0.2, y: 0.2}
+      pivot: {x: 0.7, y: 0.49999997}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 57f6b1ab38ca8684e91837174b536872
-      internalID: 886075248
+      spriteID: d7b0f1f71afb29a429619d9c92e680b6
+      internalID: 1432013611
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Gear
+      name: player-move_2
       rect:
         serializedVersion: 2
-        x: 0
-        y: 458
-        width: 18
-        height: 18
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        x: 64
+        y: 0
+        width: 32
+        height: 32
+      alignment: 9
+      pivot: {x: 0.7, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c338bbe6105268948a718cf6e25f1a50
-      internalID: -538684637
+      spriteID: 3e17f95bdf586744b96d85fa3bd6f953
+      internalID: 829629734
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Dagger
+      name: player-move_3
       rect:
         serializedVersion: 2
-        x: 36
-        y: 494
-        width: 18
-        height: 18
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        x: 96
+        y: 0
+        width: 32
+        height: 32
+      alignment: 9
+      pivot: {x: 0.7, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 65790fc8a7c35464091c48ee7656be11
-      internalID: 1937880595
+      spriteID: b6530d5418cba1c4ea39c382c595bd10
+      internalID: -10964860
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Used_Icons_0
+      name: player-move_4
       rect:
         serializedVersion: 2
-        x: 54
-        y: 494
-        width: 18
-        height: 18
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        x: 128
+        y: 0
+        width: 32
+        height: 32
+      alignment: 9
+      pivot: {x: 0.7, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 539068e35db78d240b7ef5656cc2cd8e
-      internalID: 1902318866
+      spriteID: d5111f91fe508d3438f3a25d92f49bbd
+      internalID: -1012169968
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Used_Icons_1
+      name: player-move_5
       rect:
         serializedVersion: 2
-        x: 72
-        y: 494
-        width: 18
-        height: 18
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        x: 160
+        y: 0
+        width: 32
+        height: 32
+      alignment: 9
+      pivot: {x: 0.7, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 59912090420e2864f82a23c545d04d88
-      internalID: -743878670
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: close-ui
-      rect:
-        serializedVersion: 2
-        x: 90
-        y: 494
-        width: 18
-        height: 18
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: d7aa1a2640180c240ae3674104ce8abd
-      internalID: -1183330171
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: collapse-arrow
-      rect:
-        serializedVersion: 2
-        x: 108
-        y: 494
-        width: 18
-        height: 18
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: c3f61a3b58d997f48b07ae20f6292a60
-      internalID: -1476148090
+      spriteID: e329357393546fd46bdf56757ab509ce
+      internalID: -920129978
       vertices: []
       indices: 
       edges: []
@@ -288,14 +246,12 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Dagger: 1937880595
-      Fire_Sword: 886075248
-      Gear: -538684637
-      Sword: 436878124
-      Used_Icons_0: 1902318866
-      Used_Icons_1: -743878670
-      close-ui: -1183330171
-      collapse-arrow: -1476148090
+      player-move_0: 1228290403
+      player-move_1: 1432013611
+      player-move_2: 829629734
+      player-move_3: -10964860
+      player-move_4: -1012169968
+      player-move_5: -920129978
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

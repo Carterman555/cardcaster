@@ -16,6 +16,10 @@ public class SlashingWeapon : MonoBehaviour {
 
     private IChangesFacing changesFacing;
 
+    public bool InUpPos() {
+        return inUpPos;
+    }
+
     private void Awake() {
         changesFacing = GetComponentInParent<IChangesFacing>();
     }

@@ -13,9 +13,11 @@ public class EnemyAnimator : MonoBehaviour {
 
     private void OnEnable() {
         enemy.OnAttack += AttackAnim;
+        enemy.OnSpecialAttack += SpecialAttackAnim;
     }
     private void OnDisable() {
         enemy.OnAttack -= AttackAnim;
+        enemy.OnSpecialAttack -= SpecialAttackAnim;
     }
 
     private void Update() {
@@ -25,7 +27,11 @@ public class EnemyAnimator : MonoBehaviour {
     private void AttackAnim() {
         anim.SetTrigger("attack");
     }
-    
+
+    private void SpecialAttackAnim() {
+        anim.SetTrigger("specialAttack");
+    }
+
     // played by anim
     private void AnimationTriggerEvent(AnimationTriggerType triggerType) {
         enemy.AnimationTriggerEvent(triggerType);
@@ -35,11 +41,12 @@ public class EnemyAnimator : MonoBehaviour {
 public enum AnimationTriggerType {
     Die,
     Damaged,
-    MeleeAttack,
-    MeleeAttack2,
-    MeleeAttack3,
-    RangedAttack,
-    RangedAttack2,
-    RangedAttack3,
+    ShootTargetProjectile,
     SpawnEnemy,
+    CircleStraightShoot,
+    CircleSlash,
+    Explode,
+    ShootStraight,
+    ShootStraightSpread,
+    MeleeAttack,
 }

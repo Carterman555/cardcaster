@@ -123,6 +123,34 @@ PrefabInstance:
       propertyPath: m_LocalScale.y
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5243637420451758526, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
+      propertyPath: m_Height
+      value: 1.72
+      objectReference: {fileID: 0}
+    - target: {fileID: 5243637420451758526, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
+      propertyPath: m_Radius
+      value: 0.41
+      objectReference: {fileID: 0}
+    - target: {fileID: 5243637420451758526, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
+      propertyPath: m_BaseOffset
+      value: 1.02
+      objectReference: {fileID: 0}
+    - target: {fileID: 8584576305029821836, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
+      propertyPath: m_Size.x
+      value: 0.80684876
+      objectReference: {fileID: 0}
+    - target: {fileID: 8584576305029821836, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
+      propertyPath: m_Size.y
+      value: 1.7222166
+      objectReference: {fileID: 0}
+    - target: {fileID: 8584576305029821836, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
+      propertyPath: m_Offset.x
+      value: 0.012596726
+      objectReference: {fileID: 0}
+    - target: {fileID: 8584576305029821836, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
+      propertyPath: m_Offset.y
+      value: -0.17635536
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: -2736141077457755013, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
     m_RemovedGameObjects: []

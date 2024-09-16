@@ -4,7 +4,7 @@ using System.Linq;
 using UnityEngine;
 using QFSW.QC;
 
-public class Enemy : MonoBehaviour, IHasStats, IChangesFacing, IAttacker, IEffectable {
+public class Enemy : MonoBehaviour, IHasStats, IChangesFacing, ISpecialAttacker, IEffectable {
 
     #region Events
 
@@ -18,6 +18,11 @@ public class Enemy : MonoBehaviour, IHasStats, IChangesFacing, IAttacker, IEffec
     public event Action OnAttack;
     public void InvokeAttack() {
         OnAttack?.Invoke();
+    }
+
+    public event Action OnSpecialAttack;
+    public void InvokeSpecialAttack() {
+        OnSpecialAttack?.Invoke();
     }
 
     #endregion

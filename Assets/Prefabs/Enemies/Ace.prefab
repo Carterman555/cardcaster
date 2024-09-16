@@ -42,7 +42,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3807084815282453126, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 4.19
       objectReference: {fileID: 0}
     - target: {fileID: 3807084815282453126, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
       propertyPath: m_LocalPosition.z
@@ -79,6 +79,34 @@ PrefabInstance:
     - target: {fileID: 3831935200979323441, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
       propertyPath: m_LocalScale.x
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5243637420451758526, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
+      propertyPath: m_Height
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5243637420451758526, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
+      propertyPath: m_Radius
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5243637420451758526, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
+      propertyPath: m_BaseOffset
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8584576305029821836, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
+      propertyPath: m_Size.x
+      value: 0.7330303
+      objectReference: {fileID: 0}
+    - target: {fileID: 8584576305029821836, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
+      propertyPath: m_Size.y
+      value: 1.7573221
+      objectReference: {fileID: 0}
+    - target: {fileID: 8584576305029821836, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
+      propertyPath: m_Offset.x
+      value: 0.024517655
+      objectReference: {fileID: 0}
+    - target: {fileID: 8584576305029821836, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
+      propertyPath: m_Offset.y
+      value: -0.111691356
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: -2736141077457755013, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
@@ -119,6 +147,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scriptableEnemy: {fileID: 11400000, guid: a037715e85e24ef41b1e9a811270b082, type: 2}
   playerTracker: {fileID: 4392500090413742484}
-  moveRadius: 1.5
+  moveRadius: 2
   projectilePrefab: {fileID: -1897301476388012080, guid: cf2d2cd74a5ecdc45a242c332585dec5, type: 3}
   projectileCount: 20

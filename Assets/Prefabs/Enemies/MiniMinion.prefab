@@ -191,6 +191,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: MiniMinion
       objectReference: {fileID: 0}
+    - target: {fileID: 621019451974682374, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 22100000, guid: ed785643ab2a4e545b5722208daf1171, type: 2}
+    - target: {fileID: 1436166056584189237, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
+      propertyPath: enemy
+      value: 
+      objectReference: {fileID: -4002794726442658036}
     - target: {fileID: 2595042869523141569, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
       propertyPath: m_Size.x
       value: 1
@@ -200,24 +208,28 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2595042869523141569, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 28996516, guid: 2e76b69e2c1262d4e9dd8dec2900db47, type: 3}
+    - target: {fileID: 2595042869523141569, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
       propertyPath: m_Color.b
-      value: 0.8207547
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2595042869523141569, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
       propertyPath: m_Color.g
-      value: 0.24390352
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2595042869523141569, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
       propertyPath: m_Color.r
-      value: 0.6732879
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3807084815282453126, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 1.413
       objectReference: {fileID: 0}
     - target: {fileID: 3807084815282453126, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 1.571
       objectReference: {fileID: 0}
     - target: {fileID: 3807084815282453126, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
       propertyPath: m_LocalPosition.z
@@ -253,11 +265,39 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3831935200979323441, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3831935200979323441, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.5
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5243637420451758526, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
+      propertyPath: m_Height
+      value: 0.67
+      objectReference: {fileID: 0}
+    - target: {fileID: 5243637420451758526, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
+      propertyPath: m_Radius
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5243637420451758526, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
+      propertyPath: m_BaseOffset
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8584576305029821836, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
+      propertyPath: m_Size.x
+      value: 0.5790082
+      objectReference: {fileID: 0}
+    - target: {fileID: 8584576305029821836, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
+      propertyPath: m_Size.y
+      value: 0.64215696
+      objectReference: {fileID: 0}
+    - target: {fileID: 8584576305029821836, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
+      propertyPath: m_Offset.x
+      value: -0.0052624345
+      objectReference: {fileID: 0}
+    - target: {fileID: 8584576305029821836, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
+      propertyPath: m_Offset.y
+      value: 0.0631488
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: -2736141077457755013, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
@@ -310,7 +350,7 @@ MonoBehaviour:
   scriptableEnemy: {fileID: 11400000, guid: 3cd631a20674cc24ca0da76c02764620, type: 2}
   playerTracker: {fileID: 4392500090413742484}
   mergeTracker: {fileID: 7505947039494954821}
-  mergedEnemyPrefab: {fileID: 7687619733359668377, guid: b8c34501dfcb5614080a0c922663fd8b, type: 3}
+  mergedEnemyPrefab: {fileID: 706037645464121241, guid: ed03a3c53afc1fa4daa55b69fef0ab3a, type: 3}
   toMergeDelay: 5
   mergeTime: 5
   splitEnemyPrefab: {fileID: 0}

@@ -28,7 +28,8 @@ public class StraightShootBehavior : EnemyBehavior {
         if (!IsStopped()) {
             attackTimer += Time.deltaTime;
             if (attackTimer > enemy.GetStats().AttackCooldown) {
-                Shoot();
+                enemy.InvokeAttack();
+
                 attackTimer = 0;
             }
         }
@@ -60,6 +61,13 @@ public class StraightShootBehavior : EnemyBehavior {
     protected void InvokeShoot(Vector2 direction) {
         OnShoot?.Invoke();
         OnShoot_Direction?.Invoke(direction);
-        enemy.InvokeAttack();
+    }
+
+    public override void DoAnimationTriggerEventLogic(AnimationTriggerType triggerType) {
+        base.DoAnimationTriggerEventLogic(triggerType);
+
+        if (triggerType == AnimationTriggerType.ShootStraight) {
+            Shoot();
+        }
     }
 }

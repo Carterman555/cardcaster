@@ -6,12 +6,12 @@ AnimatorOverrideController:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Player
+  m_Name: DoomCharger
   m_Controller: {fileID: 9100000, guid: fc0de8701d1974f4ca85f1caa7126be4, type: 2}
   m_Clips:
   - m_OriginalClip: {fileID: 7400000, guid: 762f5b2ce297b6940a7f5e9bea6263f3, type: 2}
-    m_OverrideClip: {fileID: 7400000, guid: 762f5b2ce297b6940a7f5e9bea6263f3, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: c35d67c148d858d4995a5b17436fccf8, type: 2}
   - m_OriginalClip: {fileID: 7400000, guid: 79792f503a9babc47baa6d1042744451, type: 2}
-    m_OverrideClip: {fileID: 7400000, guid: 79792f503a9babc47baa6d1042744451, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 2bb3c40f9bfdbe14b95e3dfe9861f6b8, type: 2}
   - m_OriginalClip: {fileID: 7400000, guid: 92f1eece27abb5e49b84de953503366b, type: 2}
-    m_OverrideClip: {fileID: 7400000, guid: 92f1eece27abb5e49b84de953503366b, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: f3cd279c95ddc234baa14d30cc75ff0e, type: 2}

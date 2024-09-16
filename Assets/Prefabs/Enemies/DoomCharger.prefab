@@ -12,6 +12,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: DoomCharger
       objectReference: {fileID: 0}
+    - target: {fileID: 1436166056584189237, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
+      propertyPath: enemy
+      value: 
+      objectReference: {fileID: 4753426084051237669}
     - target: {fileID: 2595042869523141569, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
       propertyPath: m_Size.x
       value: 1
@@ -23,26 +27,26 @@ PrefabInstance:
     - target: {fileID: 2595042869523141569, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
+      objectReference: {fileID: -1918489950, guid: c3374bd8d7862554d8aa513b70a2c657, type: 3}
     - target: {fileID: 2595042869523141569, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
       propertyPath: m_Color.b
-      value: 0.4022784
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2595042869523141569, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
       propertyPath: m_Color.g
-      value: 0.4022784
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2595042869523141569, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
       propertyPath: m_Color.r
-      value: 0.754717
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3807084815282453126, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -0.8545058
       objectReference: {fileID: 0}
     - target: {fileID: 3807084815282453126, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 4.5919614
       objectReference: {fileID: 0}
     - target: {fileID: 3807084815282453126, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
       propertyPath: m_LocalPosition.z
@@ -78,6 +82,26 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3831935200979323441, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
       propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8584576305029821836, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
+      propertyPath: m_Size.x
+      value: 0.5673533
+      objectReference: {fileID: 0}
+    - target: {fileID: 8584576305029821836, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
+      propertyPath: m_Size.y
+      value: 0.61332226
+      objectReference: {fileID: 0}
+    - target: {fileID: 8584576305029821836, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
+      propertyPath: m_Offset.x
+      value: 0.035152584
+      objectReference: {fileID: 0}
+    - target: {fileID: 8584576305029821836, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
+      propertyPath: m_Offset.y
+      value: -0.11492157
+      objectReference: {fileID: 0}
+    - target: {fileID: 8584576305029821836, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
+      propertyPath: m_IsTrigger
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents:

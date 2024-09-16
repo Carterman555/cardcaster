@@ -51,5 +51,7 @@ public class CircleStraightShootBehavior : EnemyBehavior {
 
             angle += angleStep;
         }
+
+        enemy.InvokeAttack();
     }
 }

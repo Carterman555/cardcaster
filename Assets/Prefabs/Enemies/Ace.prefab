@@ -12,17 +12,29 @@ PrefabInstance:
       propertyPath: m_Name
       value: Ace
       objectReference: {fileID: 0}
+    - target: {fileID: 621019451974682374, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 22100000, guid: 485ce9345af989840841252776623803, type: 2}
+    - target: {fileID: 1436166056584189237, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
+      propertyPath: enemy
+      value: 
+      objectReference: {fileID: 5313810286917564646}
+    - target: {fileID: 2595042869523141569, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 693619952, guid: b4c2ec817935a9d4a84e4b91a15256e3, type: 3}
     - target: {fileID: 2595042869523141569, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
       propertyPath: m_Color.b
-      value: 0.8018868
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2595042869523141569, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
       propertyPath: m_Color.g
-      value: 0.42707404
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2595042869523141569, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
       propertyPath: m_Color.r
-      value: 0.31394622
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3807084815282453126, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
       propertyPath: m_LocalPosition.x
@@ -63,6 +75,10 @@ PrefabInstance:
     - target: {fileID: 3807084815282453126, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3831935200979323441, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: -2736141077457755013, guid: d26e40392c042dc4d8c237ede2183746, type: 3}

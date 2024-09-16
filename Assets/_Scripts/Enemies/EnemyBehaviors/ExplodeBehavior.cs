@@ -12,11 +12,12 @@ public class ExplodeBehavior : EnemyBehavior {
             if (col.TryGetComponent(out IDamagable damagable)) {
                 damagable.Damage(enemy.GetStats().Damage);
             }
-            //if (col.TryGetComponent(out Knockback knockback)) {
-
-            //}
+            if (col.TryGetComponent(out Knockback knockback)) {
+                Vector2 toColDirection = col.transform.position - enemy.transform.position;
+                knockback.ApplyKnockback(toColDirection, enemy.GetStats().KnockbackStrength);
+            }
         }
 
+        enemy.InvokeAttack();
     }
-
 }

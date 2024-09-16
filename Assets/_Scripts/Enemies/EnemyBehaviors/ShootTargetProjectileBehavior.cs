@@ -6,15 +6,19 @@ public class ShootTargetProjectileBehavior : EnemyBehavior {
     public event Action OnShoot;
 
     private ITargetMovement projectilePrefab;
-    private Vector2 localShootPosition;
+    private Transform shootPoint;
 
     private float shootTimer;
-
     private int amountLeftToShoot;
 
-    public void Setup(ITargetMovement projectilePrefab, Vector2 localShootPosition) {
+    // because one anim can be responible for multiple triggers (cursed witch could either be attacking
+    // so spawning enemy
+    private bool waitingForAnimToShoot; 
+
+    public void Setup(ITargetMovement projectilePrefab, Transform localShootPosition) {
         this.projectilePrefab = projectilePrefab;
-        this.localShootPosition = localShootPosition;
+        this.shootPoint = localShootPosition;
+        waitingForAnimToShoot = false;
 
         Stop();
     }
@@ -40,21 +44,34 @@ public class ShootTargetProjectileBehavior : EnemyBehavior {
         if (!IsStopped()) {
             shootTimer += Time.deltaTime;
             if (shootTimer > enemy.GetStats().AttackCooldown) {
-                ShootProjectile();
+                enemy.InvokeAttack();
                 shootTimer = 0;
+
+                waitingForAnimToShoot = true;
             }
         }
     }
 
     private void ShootProjectile() {
-        Vector2 shootPosition = (Vector2)enemy.transform.position + localShootPosition;
-        GameObject newProjectileObject = projectilePrefab.GetObject().Spawn(shootPosition, Containers.Instance.Enemies);
+        GameObject newProjectileObject = projectilePrefab.GetObject().Spawn(shootPoint.position, Containers.Instance.Enemies);
         ITargetMovement newProjectile = newProjectileObject.GetComponent<ITargetMovement>();
         newProjectile.Setup(PlayerMovement.Instance.transform);
         newProjectileObject.GetComponent<DamageOnContact>().Setup(enemy.GetStats().Damage, enemy.GetStats().KnockbackStrength);
 
         amountLeftToShoot--;
+        waitingForAnimToShoot = false;
 
         OnShoot?.Invoke();
+    }
+
+    public override void DoAnimationTriggerEventLogic(AnimationTriggerType triggerType) {
+        base.DoAnimationTriggerEventLogic(triggerType);
+
+        if (triggerType == AnimationTriggerType.RangedAttack && waitingForAnimToShoot) {
+            ShootProjectile();
+        }
+        else if (triggerType == AnimationTriggerType.Die || triggerType == AnimationTriggerType.Damaged) {
+            waitingForAnimToShoot = false;
+        }
     }
 }

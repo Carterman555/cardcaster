@@ -56,9 +56,10 @@ public class StraightShootBehavior : EnemyBehavior {
         InvokeShoot(toTarget.normalized);
     }
 
-    // for child behaviors
+    // for child behaviors to play
     protected void InvokeShoot(Vector2 direction) {
         OnShoot?.Invoke();
         OnShoot_Direction?.Invoke(direction);
+        enemy.InvokeAttack();
     }
 }

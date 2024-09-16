@@ -6,15 +6,20 @@ public class SpawnEnemyBehavior : EnemyBehavior {
     public event Action OnSpawnEnemy;
 
     private Enemy enemyToSpawn;
-    private Vector2 localSpawnPosition;
+    private Transform spawnPoint;
 
     private float spawnTimer;
 
     private int amountLeftToSpawn;
 
-    public void Setup(Enemy enemyToSpawn, Vector2 localSpawnPosition) {
+    // because one anim can be responible for multiple triggers (cursed witch could either be attacking
+    // so spawning enemy
+    private bool waitingForAnim;
+
+    public void Setup(Enemy enemyToSpawn, Transform spawnPoint) {
         this.enemyToSpawn = enemyToSpawn;
-        this.localSpawnPosition = localSpawnPosition;
+        this.spawnPoint = spawnPoint;
+        waitingForAnim = false;
     }
 
     public void StartSpawning(int amountToSpawn) {
@@ -38,18 +43,30 @@ public class SpawnEnemyBehavior : EnemyBehavior {
         if (!IsStopped()) {
             spawnTimer += Time.deltaTime;
             if (spawnTimer > enemy.GetStats().AttackCooldown) {
-                SpawnEnemy();
+                enemy.InvokeAttack();
                 spawnTimer = 0;
+                waitingForAnim = true;
             }
         }
     }
 
     private void SpawnEnemy() {
-        Vector2 spawnPosition = (Vector2)enemy.transform.position + localSpawnPosition;
-        Enemy spawnedEnemy = enemyToSpawn.Spawn(spawnPosition, Containers.Instance.Enemies);
+        Enemy spawnedEnemy = enemyToSpawn.Spawn(spawnPoint.position, Containers.Instance.Enemies);
 
         amountLeftToSpawn--;
+        waitingForAnim = false;
 
         OnSpawnEnemy?.Invoke();
+    }
+
+    public override void DoAnimationTriggerEventLogic(AnimationTriggerType triggerType) {
+        base.DoAnimationTriggerEventLogic(triggerType);
+
+        if (triggerType == AnimationTriggerType.SpawnEnemy && waitingForAnim) {
+            SpawnEnemy();
+        }
+        else if (triggerType == AnimationTriggerType.Die || triggerType == AnimationTriggerType.Damaged) {
+            waitingForAnim = false;
+        }
     }
 }

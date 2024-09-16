@@ -30,5 +30,6 @@ public class ShootStraightSpreadBehavior : StraightShootBehavior {
         }
 
         InvokeShoot(toTarget.normalized);
+        enemy.InvokeAttack();
     }
 }

@@ -6,6 +6,8 @@ using QFSW.QC;
 
 public class Enemy : MonoBehaviour, IHasStats, IChangesFacing, IAttacker, IEffectable {
 
+    #region Events
+
     public static event Action OnEnemiesCleared;
 
     public event Action<bool> OnChangedFacing;
@@ -18,6 +20,10 @@ public class Enemy : MonoBehaviour, IHasStats, IChangesFacing, IAttacker, IEffec
         OnAttack?.Invoke();
     }
 
+    #endregion
+
+    #region Stats
+
     [SerializeField] protected ScriptableEnemy scriptableEnemy;
     protected EnemyStats stats => scriptableEnemy.Stats;
     public Stats GetStats() {
@@ -27,7 +33,7 @@ public class Enemy : MonoBehaviour, IHasStats, IChangesFacing, IAttacker, IEffec
         return stats;
     }
 
-    protected List<EnemyBehavior> enemyBehaviors = new();
+    #endregion
 
     #region Effects
 
@@ -82,11 +88,9 @@ public class Enemy : MonoBehaviour, IHasStats, IChangesFacing, IAttacker, IEffec
 
     #endregion
 
-    protected Health health;
+    #region Handle Behaviors
 
-    protected virtual void Awake() {
-        health = GetComponent<Health>();
-    }
+    protected List<EnemyBehavior> enemyBehaviors = new();
 
     protected virtual void OnEnable() {
         SubToPlayerTriggerEvents();
@@ -110,6 +114,16 @@ public class Enemy : MonoBehaviour, IHasStats, IChangesFacing, IAttacker, IEffec
         health.OnDeath -= OnDeath;
     }
 
+    public bool IsMoving() {
+        foreach (EnemyBehavior behavior in enemyBehaviors.Where(b => b is IMovementBehavior)) {
+            if (!behavior.IsStopped()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+
     protected virtual void Update() {
         foreach (EnemyBehavior behavior in enemyBehaviors) {
             behavior.FrameUpdateLogic();
@@ -127,7 +141,19 @@ public class Enemy : MonoBehaviour, IHasStats, IChangesFacing, IAttacker, IEffec
         }
     }
 
-    protected virtual void AnimationTriggerEvent(AnimationTriggerType triggerType) { }
+    public void AnimationTriggerEvent(AnimationTriggerType triggerType) {
+        foreach (EnemyBehavior behavior in enemyBehaviors) {
+            behavior.DoAnimationTriggerEventLogic(triggerType);
+        }
+    }
+
+    #endregion
+
+    protected Health health;
+
+    protected virtual void Awake() {
+        health = GetComponent<Health>();
+    }
 
     private void OnDeath() {
         CheckIfEnemiesCleared();
@@ -176,11 +202,4 @@ public class Enemy : MonoBehaviour, IHasStats, IChangesFacing, IAttacker, IEffec
     }
 
     
-}
-
-public enum AnimationTriggerType {
-    Die,
-    MeleeAttack,
-    RangedAttack,
-    Pickup,
 }

@@ -10,7 +10,6 @@ public class CursedWitch : Enemy {
     [SerializeField][Range(0f, 1f)] private float spawnEnemiesChance;
 
     [SerializeField] private Transform spawnPoint;
-    [SerializeField] private Animator wandAnim;
 
     [Header("Movement")]
     [SerializeField] private float chasePlayerRange = 4f;
@@ -33,16 +32,6 @@ public class CursedWitch : Enemy {
         InitializeBehaviors();
 
         betweenActionDuration.Randomize();
-
-        shootProjectileBehavior.OnShoot += WandShootAnim;
-        spawnEnemyBehavior.OnSpawnEnemy += WandShootAnim;
-    }
-
-    protected override void OnDisable() {
-        base.OnDisable();
-
-        shootProjectileBehavior.OnShoot -= WandShootAnim;
-        spawnEnemyBehavior.OnSpawnEnemy -= WandShootAnim;
     }
 
     private void InitializeBehaviors() {
@@ -53,11 +42,11 @@ public class CursedWitch : Enemy {
         enemyBehaviors.Add(fleeBehavior);
 
         shootProjectileBehavior = new();
-        shootProjectileBehavior.Setup(projectilePrefab, spawnPoint.localPosition);
+        shootProjectileBehavior.Setup(projectilePrefab, spawnPoint);
         enemyBehaviors.Add(shootProjectileBehavior);
 
         spawnEnemyBehavior = new();
-        spawnEnemyBehavior.Setup(enemyToSpawn, spawnPoint.localPosition);
+        spawnEnemyBehavior.Setup(enemyToSpawn, spawnPoint);
         enemyBehaviors.Add(spawnEnemyBehavior);
 
         foreach (var enemyBehavior in enemyBehaviors) {
@@ -71,8 +60,6 @@ public class CursedWitch : Enemy {
         HandleMovement();
 
         HandleAction();
-
-        UpdateWandAnim();
     }
 
     /// <summary>
@@ -127,19 +114,5 @@ public class CursedWitch : Enemy {
         else {
             betweenActionTimer = 0;
         }
-    }
-
-    [SerializeField] private PointTowardsPlayer wandPoint;
-    [SerializeField] private Recoil wandRecoil;
-
-    private void UpdateWandAnim() {
-        bool swingArm = !chaseBehavior.IsStopped() && !PerformingAction;
-        wandAnim.SetBool("swinging", swingArm);
-
-        wandPoint.enabled = PerformingAction;
-    }
-
-    private void WandShootAnim() {
-        wandRecoil.RecoilWeapon();
     }
 }

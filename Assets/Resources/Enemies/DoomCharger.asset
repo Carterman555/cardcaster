@@ -23,6 +23,6 @@ MonoBehaviour:
     AttackSpeed: 0
     KnockbackStrength: 1
     WalkSpeed: 2
-    AttackRange: 1
+    AttackRange: 0.25
   <Difficulty>k__BackingField: 1
   <Tags>k__BackingField: 1

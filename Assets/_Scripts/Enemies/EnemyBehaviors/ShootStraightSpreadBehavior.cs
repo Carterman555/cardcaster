@@ -30,6 +30,11 @@ public class ShootStraightSpreadBehavior : StraightShootBehavior {
         }
 
         InvokeShoot(toTarget.normalized);
-        enemy.InvokeAttack();
+    }
+
+    public override void DoAnimationTriggerEventLogic(AnimationTriggerType triggerType) {
+        if (triggerType == AnimationTriggerType.ShootStraightSpread) {
+            Shoot();
+        }
     }
 }

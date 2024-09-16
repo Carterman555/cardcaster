@@ -7,10 +7,8 @@ public class TwistedGoblin : Enemy {
     private ChasePlayerBehavior moveBehavior;
 
     [Header("Attack")]
-    [SerializeField] private SlashingWeapon weapon;
-    [SerializeField] private LayerMask targetLayerMask;
-    [SerializeField] private float slashSize;
-    private SwordSlashBehavior slashBehavior;
+    [SerializeField] private Transform centerPoint;
+    private CircleSlashBehavior slashBehavior;
 
     protected override void OnEnable() {
         base.OnEnable();
@@ -30,7 +28,7 @@ public class TwistedGoblin : Enemy {
             enemyBehavior.Initialize(this);
         }
 
-        slashBehavior.Setup(weapon, targetLayerMask, slashSize);
+        slashBehavior.Setup(centerPoint);
     }
 
     protected override void OnPlayerEnteredRange(GameObject player) {

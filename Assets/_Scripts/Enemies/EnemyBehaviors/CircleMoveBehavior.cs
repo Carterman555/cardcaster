@@ -1,3 +1,5 @@
+using DG.Tweening;
+using MoreMountains.Tools;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -9,10 +11,15 @@ public class CircleMoveBehavior : EnemyBehavior, IMovementBehavior {
     private Vector2 center;
     private NavMeshAgent agent;
 
+    private ChangeFacingBehavior changeFacingBehavior;
+
     public override void Initialize(Enemy enemy) {
         base.Initialize(enemy);
 
         center = enemy.transform.position;
+
+        changeFacingBehavior = new();
+        changeFacingBehavior.Initialize(enemy);
 
         if (enemy.TryGetComponent(out NavMeshAgent agent)) {
             this.agent = agent;
@@ -27,6 +34,7 @@ public class CircleMoveBehavior : EnemyBehavior, IMovementBehavior {
     public void Setup(float radius) {
         moveRadius = radius;
         angle = 0f;
+        facingRight = true;
     }
 
     public override void FrameUpdateLogic() {
@@ -36,6 +44,7 @@ public class CircleMoveBehavior : EnemyBehavior, IMovementBehavior {
             return;
         }
 
+
         agent.speed = enemy.GetStats().MoveSpeed;
 
         float mult = 1 / moveRadius;
@@ -44,6 +53,24 @@ public class CircleMoveBehavior : EnemyBehavior, IMovementBehavior {
         float y = center.y + moveRadius * Mathf.Sin(angle);
         Vector3 nextPosition = new Vector3(x, y);
         agent.SetDestination(nextPosition);
+
+        bool faceRight = nextPosition.x > enemy.transform.position.x;
+        HandleDirectionFacing(faceRight);
+    }
+
+    private bool facingRight;
+
+    private void HandleDirectionFacing(bool faceRight) {
+        if (!facingRight && faceRight) {
+            enemy.transform.rotation = Quaternion.Euler(new Vector3(enemy.transform.rotation.eulerAngles.x, 0f, enemy.transform.rotation.eulerAngles.z));
+            facingRight = true;
+            enemy.InvokeChangedFacing(facingRight);
+        }
+        else if (facingRight && !faceRight) {
+            enemy.transform.rotation = Quaternion.Euler(new Vector3(enemy.transform.rotation.eulerAngles.x, 180f, enemy.transform.rotation.eulerAngles.z));
+            facingRight = false;
+            enemy.InvokeChangedFacing(facingRight);
+        }
     }
 
     public override void Start() {

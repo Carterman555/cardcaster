@@ -9,7 +9,7 @@ public class BlindedCyclops : Enemy {
 
     [Header("Slash")]
     private CircleSlashBehavior circleSlashBehavior;
-    [SerializeField] private LayerMask playerLayer;
+    [SerializeField] private Transform centerPoint;
 
     protected override void OnEnable() {
         base.OnEnable();
@@ -27,10 +27,10 @@ public class BlindedCyclops : Enemy {
             enemyBehavior.Initialize(this);
         }
 
-        shootBehavior.Setup(shockwavePrefab, shockwaveCount);
+        shootBehavior.Setup(shockwavePrefab, shockwaveCount, true);
         shootBehavior.Start();
 
-        circleSlashBehavior.Setup(playerLayer);
+        circleSlashBehavior.Setup(centerPoint);
     }
 
     protected override void OnPlayerEnteredRange(GameObject player) {

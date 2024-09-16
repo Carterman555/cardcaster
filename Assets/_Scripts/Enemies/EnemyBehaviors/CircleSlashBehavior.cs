@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class CircleSlashBehavior : EnemyBehavior {
 
-    private LayerMask playerLayer;
+    private Transform centerPoint;
 
     private float attackTimer;
 
-    public void Setup(LayerMask playerLayer) {
-        this.playerLayer = playerLayer;
+    public void Setup(Transform centerPoint) {
+        this.centerPoint = centerPoint;
     }
 
     public override void FrameUpdateLogic() {
@@ -22,16 +22,24 @@ public class CircleSlashBehavior : EnemyBehavior {
 
         attackTimer += Time.deltaTime;
         if (attackTimer > enemy.GetStats().AttackCooldown) {
-            Attack();
+            enemy.InvokeAttack();
             attackTimer = 0f;
         }
     }
 
     private void Attack() {
-        CircleDamage.DealDamage(playerLayer,
-            enemy.transform.position,
+        CircleDamage.DealDamage(GameLayers.PlayerLayerMask,
+            centerPoint.position,
             enemy.GetEnemyStats().AttackRange,
             enemy.GetStats().Damage,
             enemy.GetStats().KnockbackStrength);
+    }
+
+    public override void DoAnimationTriggerEventLogic(AnimationTriggerType triggerType) {
+        base.DoAnimationTriggerEventLogic(triggerType);
+
+        if (triggerType == AnimationTriggerType.CircleSlash) {
+            Attack();
+        }
     }
 }

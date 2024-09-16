@@ -4,12 +4,14 @@ public class CircleStraightShootBehavior : EnemyBehavior {
 
     private StraightMovement projectilePrefab;
     private int projectileCount;
+    private bool specialAttack;
 
     private float attackTimer;
 
-    public void Setup(StraightMovement projectilePrefab, int projectileCount) {
+    public void Setup(StraightMovement projectilePrefab, int projectileCount, bool specialAttack) {
         this.projectilePrefab = projectilePrefab;
         this.projectileCount = projectileCount;
+        this.specialAttack = specialAttack;
     }
 
     public override void FrameUpdateLogic() {
@@ -25,7 +27,13 @@ public class CircleStraightShootBehavior : EnemyBehavior {
         float attackCooldownMult = 2f;
         float cooldown = enemy.GetStats().AttackCooldown * attackCooldownMult;
         if (attackTimer > cooldown) {
-            CircleShoot();
+
+            if (specialAttack) {
+                enemy.InvokeSpecialAttack();
+            }
+            else {
+                enemy.InvokeAttack();
+            }
 
             attackTimer = 0;
         }
@@ -51,7 +59,13 @@ public class CircleStraightShootBehavior : EnemyBehavior {
 
             angle += angleStep;
         }
+    }
 
-        enemy.InvokeAttack();
+    public override void DoAnimationTriggerEventLogic(AnimationTriggerType triggerType) {
+        base.DoAnimationTriggerEventLogic(triggerType);
+
+        if (triggerType == AnimationTriggerType.CircleStraightShoot) {
+            CircleShoot();
+        }
     }
 }

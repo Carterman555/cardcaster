@@ -4,17 +4,10 @@ using UnityEngine;
 
 public class Scattershot : Enemy {
 
-
-    [Header("Weapon")]
     [SerializeField] private Transform shootPoint;
-    [SerializeField] private Animator weaponAnim;
-    [SerializeField] private PointTowardsPlayer weaponPoint;
-    [SerializeField] private Recoil weaponRecoil;
 
     [Header("Movement")]
     private FleePlayerBehavior fleePlayerBehavior;
-
-    //private ChangeFacingBehavior changeFacingBehavior;
 
     [Header("Shoot Projectile")]
     [SerializeField] private RandomInt projectileCount;
@@ -78,8 +71,6 @@ public class Scattershot : Enemy {
 
         // add recoil force to the opposite direction shot
         rb.AddForce(recoilForce * -direction, ForceMode2D.Impulse);
-
-        weaponRecoil.RecoilWeapon();
     }
 
     protected override void Update() {

@@ -11,14 +11,9 @@ public class ShootTargetProjectileBehavior : EnemyBehavior {
     private float shootTimer;
     private int amountLeftToShoot;
 
-    // because one anim can be responible for multiple triggers (cursed witch could either be attacking
-    // so spawning enemy
-    private bool waitingForAnimToShoot; 
-
     public void Setup(ITargetMovement projectilePrefab, Transform localShootPosition) {
         this.projectilePrefab = projectilePrefab;
         this.shootPoint = localShootPosition;
-        waitingForAnimToShoot = false;
 
         Stop();
     }
@@ -46,8 +41,6 @@ public class ShootTargetProjectileBehavior : EnemyBehavior {
             if (shootTimer > enemy.GetStats().AttackCooldown) {
                 enemy.InvokeAttack();
                 shootTimer = 0;
-
-                waitingForAnimToShoot = true;
             }
         }
     }
@@ -59,7 +52,6 @@ public class ShootTargetProjectileBehavior : EnemyBehavior {
         newProjectileObject.GetComponent<DamageOnContact>().Setup(enemy.GetStats().Damage, enemy.GetStats().KnockbackStrength);
 
         amountLeftToShoot--;
-        waitingForAnimToShoot = false;
 
         OnShoot?.Invoke();
     }
@@ -67,11 +59,8 @@ public class ShootTargetProjectileBehavior : EnemyBehavior {
     public override void DoAnimationTriggerEventLogic(AnimationTriggerType triggerType) {
         base.DoAnimationTriggerEventLogic(triggerType);
 
-        if (triggerType == AnimationTriggerType.RangedAttack && waitingForAnimToShoot) {
+        if (triggerType == AnimationTriggerType.ShootTargetProjectile) {
             ShootProjectile();
-        }
-        else if (triggerType == AnimationTriggerType.Die || triggerType == AnimationTriggerType.Damaged) {
-            waitingForAnimToShoot = false;
         }
     }
 }

@@ -12,14 +12,9 @@ public class SpawnEnemyBehavior : EnemyBehavior {
 
     private int amountLeftToSpawn;
 
-    // because one anim can be responible for multiple triggers (cursed witch could either be attacking
-    // so spawning enemy
-    private bool waitingForAnim;
-
     public void Setup(Enemy enemyToSpawn, Transform spawnPoint) {
         this.enemyToSpawn = enemyToSpawn;
         this.spawnPoint = spawnPoint;
-        waitingForAnim = false;
     }
 
     public void StartSpawning(int amountToSpawn) {
@@ -43,9 +38,8 @@ public class SpawnEnemyBehavior : EnemyBehavior {
         if (!IsStopped()) {
             spawnTimer += Time.deltaTime;
             if (spawnTimer > enemy.GetStats().AttackCooldown) {
-                enemy.InvokeAttack();
+                enemy.InvokeSpecialAttack();
                 spawnTimer = 0;
-                waitingForAnim = true;
             }
         }
     }
@@ -54,7 +48,6 @@ public class SpawnEnemyBehavior : EnemyBehavior {
         Enemy spawnedEnemy = enemyToSpawn.Spawn(spawnPoint.position, Containers.Instance.Enemies);
 
         amountLeftToSpawn--;
-        waitingForAnim = false;
 
         OnSpawnEnemy?.Invoke();
     }
@@ -62,11 +55,8 @@ public class SpawnEnemyBehavior : EnemyBehavior {
     public override void DoAnimationTriggerEventLogic(AnimationTriggerType triggerType) {
         base.DoAnimationTriggerEventLogic(triggerType);
 
-        if (triggerType == AnimationTriggerType.SpawnEnemy && waitingForAnim) {
+        if (triggerType == AnimationTriggerType.SpawnEnemy) {
             SpawnEnemy();
-        }
-        else if (triggerType == AnimationTriggerType.Die || triggerType == AnimationTriggerType.Damaged) {
-            waitingForAnim = false;
         }
     }
 }

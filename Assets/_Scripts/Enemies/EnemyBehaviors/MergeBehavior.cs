@@ -161,6 +161,6 @@ public class MergeBehavior : EnemyBehavior {
             mergedEnemyPrefab.Spawn(mergedEnemyPos, Containers.Instance.Enemies);
         }
 
-        enemy.GetComponent<Health>().Die();
+        enemy.gameObject.ReturnToPool();
     }
 }

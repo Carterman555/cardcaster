@@ -44,11 +44,12 @@ public class ChasePlayerBehavior : EnemyBehavior, IMovementBehavior {
     }
 
     public override void FrameUpdateLogic() {
+
+        changeFacingBehavior.FaceTowardsPosition(PlayerMovement.Instance.transform.position.x);
+
         if (IsStopped()) {
             return;
         }
-
-        changeFacingBehavior.FaceTowardsPosition(PlayerMovement.Instance.transform.position.x);
 
         agent.isStopped = false;
         agent.speed = enemy.GetStats().MoveSpeed;

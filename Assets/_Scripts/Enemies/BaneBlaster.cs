@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,6 +10,7 @@ public class BaneBlaster : Enemy {
     [Header("Shoot Projectile")]
     [SerializeField] private Transform shootPoint;
     [SerializeField] private StraightMovement projectilePrefab;
+    [SerializeField] private Animator blasterAnim;
     private StraightShootBehavior shootBehavior;
 
     [Header("Sight")]
@@ -23,6 +25,14 @@ public class BaneBlaster : Enemy {
         base.OnEnable();
         InitializeBehaviors();
         InitializeSensors();
+
+        shootBehavior.OnShootAnim += PlayShootAnimation;
+    }
+
+    protected override void OnDisable() {
+        base.OnDisable();
+
+        shootBehavior.OnShootAnim -= PlayShootAnimation;
     }
 
     private void InitializeBehaviors() {
@@ -65,5 +75,9 @@ public class BaneBlaster : Enemy {
 
             playerInSight = false;
         }
+    }
+
+    private void PlayShootAnimation() {
+        blasterAnim.SetTrigger("shoot");
     }
 }

@@ -5,46 +5,51 @@ public class CircleStraightShootBehavior : EnemyBehavior {
     private StraightMovement projectilePrefab;
     private int projectileCount;
     private bool specialAttack;
+    private float attackCooldownMult;
+    private TimedActionBehavior timedActionBehavior;
 
-    private float attackTimer;
-
-    public CircleStraightShootBehavior(Enemy enemy, StraightMovement projectilePrefab, int projectileCount, bool specialAttack) : base(enemy) {
+    public CircleStraightShootBehavior(Enemy enemy, StraightMovement projectilePrefab, int projectileCount, bool specialAttack = false, float attackCooldownMult = 1f) : base(enemy) {
         this.projectilePrefab = projectilePrefab;
         this.projectileCount = projectileCount;
         this.specialAttack = specialAttack;
+        this.attackCooldownMult = attackCooldownMult;
+
+        timedActionBehavior = new TimedActionBehavior(
+            enemy.GetStats().AttackCooldown * attackCooldownMult,
+            () => {
+                if (specialAttack) {
+                    enemy.InvokeSpecialAttack();
+                }
+                else {
+                    enemy.InvokeAttack();
+                }
+            }
+        );
+
+        Stop();
+    }
+
+    public override void Start() {
+        base.Start();
+        timedActionBehavior.Start();
+    }
+
+    public override void Stop() {
+        base.Stop();
+        timedActionBehavior.Stop();
     }
 
     public override void FrameUpdateLogic() {
         base.FrameUpdateLogic();
-
-        if (IsStopped()) {
-            attackTimer = 0;
-            return;
-        }
-
-        attackTimer += Time.deltaTime;
-
-        float attackCooldownMult = 2f;
-        float cooldown = enemy.GetStats().AttackCooldown * attackCooldownMult;
-        if (attackTimer > cooldown) {
-
-            if (specialAttack) {
-                enemy.InvokeSpecialAttack();
-            }
-            else {
-                enemy.InvokeAttack();
-            }
-
-            attackTimer = 0;
+        if (!IsStopped()) {
+            timedActionBehavior.UpdateLogic();
         }
     }
 
     private void CircleShoot() {
-
         // Calculate the angle between each shockwave
         float angleStep = 360f / projectileCount;
         float angle = 0f;
-
         for (int i = 0; i < projectileCount; i++) {
             Vector2 projectileDirection = angle.RotationToDirection();
 
@@ -63,7 +68,6 @@ public class CircleStraightShootBehavior : EnemyBehavior {
 
     public override void DoAnimationTriggerEventLogic(AnimationTriggerType triggerType) {
         base.DoAnimationTriggerEventLogic(triggerType);
-
         if (triggerType == AnimationTriggerType.CircleStraightShoot) {
             CircleShoot();
         }

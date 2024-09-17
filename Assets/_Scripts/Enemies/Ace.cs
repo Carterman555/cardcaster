@@ -23,7 +23,7 @@ public class Ace : Enemy {
         enemyBehaviors.Add(moveBehavior);
         moveBehavior.Start();
 
-        shootBehavior = new(this, projectilePrefab, projectileCount, false);
+        shootBehavior = new(this, projectilePrefab, projectileCount);
         enemyBehaviors.Add(shootBehavior);
         shootBehavior.Start();
     }

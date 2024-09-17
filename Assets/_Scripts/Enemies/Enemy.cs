@@ -8,8 +8,6 @@ public class Enemy : MonoBehaviour, IHasStats, IChangesFacing, ISpecialAttacker,
 
     #region Events
 
-    public static event Action OnEnemiesCleared;
-
     public event Action<bool> OnChangedFacing;
     public void InvokeChangedFacing(bool facing) {
         OnChangedFacing?.Invoke(facing);
@@ -26,6 +24,24 @@ public class Enemy : MonoBehaviour, IHasStats, IChangesFacing, ISpecialAttacker,
     }
 
     #endregion
+
+    protected Health health;
+
+    protected virtual void Awake() {
+        health = GetComponent<Health>();
+    }
+
+    protected virtual void OnEnable() {
+        SubToPlayerTriggerEvents();
+    }
+
+    protected virtual void OnDisable() {
+        UnsubFromPlayerTriggerEvents();
+
+        foreach (EnemyBehavior behavior in enemyBehaviors) {
+            behavior.OnDisable();
+        }
+    }
 
     #region Stats
 
@@ -97,26 +113,8 @@ public class Enemy : MonoBehaviour, IHasStats, IChangesFacing, ISpecialAttacker,
 
     protected List<EnemyBehavior> enemyBehaviors = new();
 
-    protected virtual void OnEnable() {
-        SubToPlayerTriggerEvents();
-    }
-
-    protected virtual void OnDisable() {
-        UnsubFromPlayerTriggerEvents();
-
-        foreach (EnemyBehavior behavior in enemyBehaviors) {
-            behavior.OnDisable();
-        }
-    }
-
     protected virtual void Start() {
         playerTracker.SetRange(stats.AttackRange);
-
-        health.OnDeath += OnDeath;
-    }
-
-    protected virtual void OnDestroy() {
-        health.OnDeath -= OnDeath;
     }
 
     public bool IsMoving() {
@@ -154,25 +152,6 @@ public class Enemy : MonoBehaviour, IHasStats, IChangesFacing, ISpecialAttacker,
 
     #endregion
 
-    protected Health health;
-
-    protected virtual void Awake() {
-        health = GetComponent<Health>();
-    }
-
-    private void OnDeath() {
-        CheckIfEnemiesCleared();
-
-        DeckManager.Instance.IncreaseEssence(1f);
-    }
-
-    private void CheckIfEnemiesCleared() {
-        bool anyAliveEnemies = Containers.Instance.Enemies.GetComponentsInChildren<Health>().Any(health => !health.IsDead());
-        if (!anyAliveEnemies) {
-            OnEnemiesCleared?.Invoke();
-        }
-    }
-
     #region Player Tracker
 
     [SerializeField] private TriggerContactTracker playerTracker;
@@ -186,8 +165,6 @@ public class Enemy : MonoBehaviour, IHasStats, IChangesFacing, ISpecialAttacker,
         playerTracker.OnEnterContact -= OnPlayerEnteredRange;
         playerTracker.OnExitContact -= OnPlayerExitedRange;
     }
-
-
 
     protected virtual void OnPlayerEnteredRange(GameObject player) {
 
@@ -205,6 +182,4 @@ public class Enemy : MonoBehaviour, IHasStats, IChangesFacing, ISpecialAttacker,
     private void KillEnemy() {
         health.Die();
     }
-
-    
 }

@@ -29,10 +29,10 @@ public class DoorBlocker : MonoBehaviour {
     }
 
     private void OnEnable() {
-        Enemy.OnEnemiesCleared += Open;
+        CheckRoomCleared.OnEnemiesCleared += Open;
     }
     private void OnDisable() {
-        Enemy.OnEnemiesCleared -= Open;
+        CheckRoomCleared.OnEnemiesCleared -= Open;
     }
 
     private void Open() {

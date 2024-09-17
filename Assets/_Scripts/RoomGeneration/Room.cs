@@ -179,7 +179,7 @@ public class Room : MonoBehaviour {
         }
 
         exitTrigger.OnEnterContact += ExitRoom;
-        Enemy.OnEnemiesCleared += SetRoomCleared;
+        CheckRoomCleared.OnEnemiesCleared += SetRoomCleared;
 
         enterTrigger.OnEnterContact -= EnterRoom;
 
@@ -197,7 +197,7 @@ public class Room : MonoBehaviour {
         enterTrigger.OnEnterContact += EnterRoom;
 
         exitTrigger.OnEnterContact -= ExitRoom;
-        Enemy.OnEnemiesCleared -= SetRoomCleared;
+        CheckRoomCleared.OnEnemiesCleared -= SetRoomCleared;
 
         OnAnyRoomExit_Room?.Invoke(this);
     }

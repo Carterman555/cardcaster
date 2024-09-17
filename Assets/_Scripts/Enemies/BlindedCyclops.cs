@@ -17,7 +17,8 @@ public class BlindedCyclops : Enemy {
     }
 
     private void InitializeBehaviors() {
-        shootBehavior = new(this, shockwavePrefab, shockwaveCount, true);
+        float attackCooldownMult = 2f;
+        shootBehavior = new(this, shockwavePrefab, shockwaveCount, true, attackCooldownMult);
         enemyBehaviors.Add(shootBehavior);
         shootBehavior.Start();
 

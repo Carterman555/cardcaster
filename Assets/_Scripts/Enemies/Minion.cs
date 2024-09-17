@@ -115,9 +115,7 @@ public class Minion : Enemy, IMergable {
         health.OnDeath += SpawnTwoMinions;
     }
 
-    protected override void OnDestroy() {
-        base.OnDestroy();
-
+    private void OnDestroy() {
         health.OnDeath -= SpawnTwoMinions;
     }
 

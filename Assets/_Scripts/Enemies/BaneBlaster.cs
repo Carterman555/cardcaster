@@ -30,7 +30,7 @@ public class BaneBlaster : Enemy {
         chasePlayerBehavior = new(this);
         enemyBehaviors.Add(chasePlayerBehavior);
 
-        shootBehavior = new(this, projectilePrefab, shootPoint.localPosition);
+        shootBehavior = new(this, projectilePrefab, shootPoint);
         enemyBehaviors.Add(shootBehavior);
     }
 

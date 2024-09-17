@@ -4,23 +4,18 @@ using UnityEngine;
 
 public class ShootStraightSpreadBehavior : StraightShootBehavior {
 
-    private StraightMovement projectilePrefab;
-    private Vector2 localShootPosition;
     private int bulletCount;
 
-    public ShootStraightSpreadBehavior(Enemy enemy, StraightMovement projectilePrefab, Vector2 localShootPosition, int bulletCount) :
-        base(enemy, projectilePrefab, localShootPosition) {
-        this.projectilePrefab = projectilePrefab;
-        this.localShootPosition = localShootPosition;
+    public ShootStraightSpreadBehavior(Enemy enemy, StraightMovement projectilePrefab, Transform shootPoint, int bulletCount) :
+        base(enemy, projectilePrefab, shootPoint) {
         this.bulletCount = bulletCount;
     }
 
-    protected override void Shoot() {
-        Vector2 shootPosition = (Vector2)enemy.transform.position + localShootPosition;
+    protected override void CreateProjectile() {
         Vector2 toTarget = target.position - enemy.transform.position;
 
         for (int i = 0; i < bulletCount; i++) {
-            StraightMovement newProjectile = projectilePrefab.Spawn(shootPosition, Containers.Instance.Projectiles);
+            StraightMovement newProjectile = projectilePrefab.Spawn(shootPoint.position, Containers.Instance.Projectiles);
 
             float angleBetweenBullets = 15f;
             float spreadAngle = (i - (bulletCount - 1) / 2f) * angleBetweenBullets;
@@ -35,7 +30,7 @@ public class ShootStraightSpreadBehavior : StraightShootBehavior {
 
     public override void DoAnimationTriggerEventLogic(AnimationTriggerType triggerType) {
         if (triggerType == AnimationTriggerType.ShootStraightSpread) {
-            Shoot();
+            CreateProjectile();
         }
     }
 }

@@ -75,13 +75,17 @@ PrefabInstance:
       propertyPath: m_Color.r
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2595042869523141569, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
     - target: {fileID: 3807084815282453126, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.24458876
+      value: -0.7324716
       objectReference: {fileID: 0}
     - target: {fileID: 3807084815282453126, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 3.2954926
+      value: 3.9308085
       objectReference: {fileID: 0}
     - target: {fileID: 3807084815282453126, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
       propertyPath: m_LocalPosition.z
@@ -134,6 +138,30 @@ PrefabInstance:
     - target: {fileID: 5243637420451758526, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
       propertyPath: m_BaseOffset
       value: 1.02
+      objectReference: {fileID: 0}
+    - target: {fileID: 5414848298468351723, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
+      propertyPath: deathParticles
+      value: 
+      objectReference: {fileID: 198793636792726744, guid: 7325c4ae2260d9f46b182ff4f48ee9f2, type: 3}
+    - target: {fileID: 5414848298468351723, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
+      propertyPath: hasDeathParticles
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5414848298468351723, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
+      propertyPath: deathParticlesColor.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5414848298468351723, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
+      propertyPath: deathParticlesColor.b
+      value: 0.5754717
+      objectReference: {fileID: 0}
+    - target: {fileID: 5414848298468351723, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
+      propertyPath: deathParticlesColor.g
+      value: 0.53829503
+      objectReference: {fileID: 0}
+    - target: {fileID: 5414848298468351723, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
+      propertyPath: deathParticlesColor.r
+      value: 0.48046458
       objectReference: {fileID: 0}
     - target: {fileID: 8584576305029821836, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
       propertyPath: m_Size.x
@@ -201,7 +229,7 @@ MonoBehaviour:
   betweenActionDuration:
     MinValue: 3
     MaxValue: 5
-  spawnEnemiesChance: 0.3
+  spawnEnemiesChance: 1
   spawnPoint: {fileID: 4789020986000077722}
   chasePlayerRange: 4
   moveFromPlayerRange: 3

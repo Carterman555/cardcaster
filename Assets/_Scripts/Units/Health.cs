@@ -63,17 +63,11 @@ public class Health : MonoBehaviour, IDamagable {
         dead = true;
 
         if (hasDeathParticles) {
-            CreateParticles(deathParticles, deathParticlesColor);
+            deathParticles.CreateColoredParticles(transform.position, deathParticlesColor);
         }
 
         OnDeath?.Invoke();
 
         gameObject.ReturnToPool();
-    }
-
-    private void CreateParticles(ParticleSystem particleSystem, Color color) {
-        ParticleSystem particles = particleSystem.Spawn(transform.position, Containers.Instance.Effects);
-        var main = particles.main;
-        main.startColor = color;
     }
 }

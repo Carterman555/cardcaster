@@ -39,7 +39,7 @@ public class Scattershot : Enemy {
         fleePlayerBehavior = new(this);
         enemyBehaviors.Add(fleePlayerBehavior);
 
-        shootBehavior = new(this, projectilePrefab, shootPoint.localPosition, projectileCount.Randomize());
+        shootBehavior = new(this, projectilePrefab, shootPoint, projectileCount.Randomize());
         enemyBehaviors.Add(shootBehavior);
     }
 

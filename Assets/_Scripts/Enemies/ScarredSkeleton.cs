@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,19 +11,28 @@ public class ScarredSkeleton : Enemy {
     private StraightShootBehavior shootBehavior;
     [SerializeField] private StraightMovement projectilePrefab;
     [SerializeField] private Transform shootPoint;
+    [SerializeField] private Animator anim;
 
     protected override void OnEnable() {
         base.OnEnable();
         InitializeBehaviors();
 
         moveBehavior.Start();
+
+        shootBehavior.OnShootAnim += BowShootAnim;
+    }
+
+    protected override void OnDisable() {
+        base.OnDisable();
+
+        shootBehavior.OnShootAnim += BowShootAnim;
     }
 
     private void InitializeBehaviors() {
         moveBehavior = new(this);
         enemyBehaviors.Add(moveBehavior);
 
-        shootBehavior = new(this, projectilePrefab, shootPoint.localPosition);
+        shootBehavior = new(this, projectilePrefab, shootPoint);
         enemyBehaviors.Add(shootBehavior);
     }
 
@@ -44,5 +54,9 @@ public class ScarredSkeleton : Enemy {
         if (!playerWithinRange) {
             moveBehavior.Start();
         }
+    }
+
+    private void BowShootAnim() {
+        anim.SetTrigger("shoot");
     }
 }

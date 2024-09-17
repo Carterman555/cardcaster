@@ -2,21 +2,21 @@ using System;
 using UnityEngine;
 
 public class StraightShootBehavior : EnemyBehavior {
-    public event Action OnShoot;
+    public event Action OnShootAnim;
     public event Action<Vector2> OnShoot_Direction;
 
-    private StraightMovement projectilePrefab;
-    private Vector2 localShootPosition;
+    protected StraightMovement projectilePrefab;
+    protected Transform shootPoint;
     protected Transform target;
     private TimedActionBehavior timedActionBehavior;
 
-    public StraightShootBehavior(Enemy enemy, StraightMovement projectilePrefab, Vector2 localShootPosition) : base(enemy) {
+    public StraightShootBehavior(Enemy enemy, StraightMovement projectilePrefab, Transform shootPoint) : base(enemy) {
         this.projectilePrefab = projectilePrefab;
-        this.localShootPosition = localShootPosition;
+        this.shootPoint = shootPoint;
 
         timedActionBehavior = new TimedActionBehavior(
             enemy.GetStats().AttackCooldown,
-            () => enemy.InvokeAttack()
+            () => ShootAnimation()
         );
 
         Stop();
@@ -38,9 +38,13 @@ public class StraightShootBehavior : EnemyBehavior {
         timedActionBehavior.SetActionCooldown(enemy.GetStats().AttackCooldown / 2f);
     }
 
-    protected virtual void Shoot() {
-        Vector2 shootPosition = (Vector2)enemy.transform.position + localShootPosition;
-        StraightMovement newProjectile = projectilePrefab.Spawn(shootPosition, Containers.Instance.Projectiles);
+    private void ShootAnimation() {
+        enemy.InvokeAttack();
+        OnShootAnim?.Invoke();
+    }
+
+    protected virtual void CreateProjectile() {
+        StraightMovement newProjectile = projectilePrefab.Spawn(shootPoint.position, Containers.Instance.Projectiles);
 
         Vector2 toTarget = target.position - enemy.transform.position;
         newProjectile.Setup(toTarget.normalized);
@@ -50,7 +54,6 @@ public class StraightShootBehavior : EnemyBehavior {
     }
 
     protected void InvokeShoot(Vector2 direction) {
-        OnShoot?.Invoke();
         OnShoot_Direction?.Invoke(direction);
     }
 
@@ -58,7 +61,7 @@ public class StraightShootBehavior : EnemyBehavior {
         base.DoAnimationTriggerEventLogic(triggerType);
 
         if (triggerType == AnimationTriggerType.ShootStraight) {
-            Shoot();
+            CreateProjectile();
         }
     }
 }

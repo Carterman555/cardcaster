@@ -24,28 +24,22 @@ public class ProjectileEffects : MonoBehaviour {
             attacker.OnAttack += CreateHitTargetParticles;
         }
         if (hasSpawnParticles) {
-            CreateParticles(spawnParticles, spawnParticlesColor);
+            spawnParticles.CreateColoredParticles(transform.position, spawnParticlesColor);
         }
     }
 
     private void CreateHitTargetParticles() {
         if (hasHitParticles) {
-            CreateParticles(hitTargetParticles, hitTargetParticlesColor);
+            hitTargetParticles.CreateColoredParticles(transform.position, hitTargetParticlesColor);
         }
     }
 
     private void OnDisable() {
         if (hasDestroyParticles) {
-            CreateParticles(destroyParticles, destroyParticlesColor);
+            destroyParticles.CreateColoredParticles(transform.position, destroyParticlesColor);
         }
         if (hasHitParticles && TryGetComponent(out IAttacker attacker)) {
             attacker.OnAttack -= CreateHitTargetParticles;
         }
-    }
-
-    private void CreateParticles(ParticleSystem particleSystem, Color color) {
-        ParticleSystem particles = particleSystem.Spawn(transform.position, Containers.Instance.Effects);
-        var main = particles.main;
-        main.startColor = color;
     }
 }

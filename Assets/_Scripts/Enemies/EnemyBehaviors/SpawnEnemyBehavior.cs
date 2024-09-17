@@ -12,7 +12,7 @@ public class SpawnEnemyBehavior : EnemyBehavior {
 
     private int amountLeftToSpawn;
 
-    public void Setup(Enemy enemyToSpawn, Transform spawnPoint) {
+    public SpawnEnemyBehavior(Enemy enemy, Enemy enemyToSpawn, Transform spawnPoint) : base(enemy) {
         this.enemyToSpawn = enemyToSpawn;
         this.spawnPoint = spawnPoint;
     }

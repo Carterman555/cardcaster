@@ -17,20 +17,12 @@ public class BlindedCyclops : Enemy {
     }
 
     private void InitializeBehaviors() {
-        shootBehavior = new();
-        circleSlashBehavior = new();
-
+        shootBehavior = new(this, shockwavePrefab, shockwaveCount, true);
         enemyBehaviors.Add(shootBehavior);
-        enemyBehaviors.Add(circleSlashBehavior);
-
-        foreach (var enemyBehavior in enemyBehaviors) {
-            enemyBehavior.Initialize(this);
-        }
-
-        shootBehavior.Setup(shockwavePrefab, shockwaveCount, true);
         shootBehavior.Start();
 
-        circleSlashBehavior.Setup(centerPoint);
+        circleSlashBehavior = new(this, centerPoint);
+        enemyBehaviors.Add(circleSlashBehavior);
     }
 
     protected override void OnPlayerEnteredRange(GameObject player) {

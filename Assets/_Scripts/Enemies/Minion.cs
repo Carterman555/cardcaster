@@ -31,21 +31,14 @@ public class Minion : Enemy, IMergable {
     }
 
     private void InitializeBehaviors() {
-        moveBehavior = new();
+        moveBehavior = new(this);
         enemyBehaviors.Add(moveBehavior);
 
-        mergeBehavior = new();
-        mergeBehavior.Setup(mergeTracker, mergedEnemyPrefab, toMergeDelay, mergeTime);
-
+        mergeBehavior = new(this, mergeTracker, mergedEnemyPrefab, toMergeDelay, mergeTime);
         if (mergedEnemyPrefab != null) {
             mergeBehavior.AllowMerging();
         }
-
         enemyBehaviors.Add(mergeBehavior);
-
-        foreach (var enemyBehavior in enemyBehaviors) {
-            enemyBehavior.Initialize(this);
-        }
     }
 
     

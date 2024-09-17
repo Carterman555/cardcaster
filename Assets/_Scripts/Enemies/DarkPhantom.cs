@@ -24,22 +24,15 @@ public class DarkPhantom : Enemy {
     }
 
     private void InitializeBehaviors() {
-        moveBehavior = new();
-        shootBehavior = new();
+        moveBehavior = new(this);
         enemyBehaviors.Add(moveBehavior);
+
+        shootBehavior = new(this, projectilePrefab, shootPoint.localPosition);
         enemyBehaviors.Add(shootBehavior);
-
-        foreach (var enemyBehavior in enemyBehaviors) {
-            enemyBehavior.Initialize(this);
-        }
-
-        shootBehavior.Setup(projectilePrefab, shootPoint.localPosition);
         shootBehavior.StartShooting(PlayerMovement.Instance.transform);
 
         PolygonCollider2D teleportBounds = Room.GetCurrentRoom().GetComponent<PolygonCollider2D>();
-        teleportBehavior = new();
-        teleportBehavior.Initialize(gameObject, this);
-        teleportBehavior.Setup(teleportBounds);
+        teleportBehavior = new(gameObject, this, teleportBounds);
     }
 
     protected override void Update() {

@@ -22,6 +22,28 @@ public class MergeBehavior : EnemyBehavior {
 
     private Rigidbody2D rb;
 
+    public MergeBehavior(Enemy enemy, TriggerContactTracker mergeTracker, Enemy mergedEnemyPrefab, float toMergeDelay, float mergeTime) : base(enemy) {
+
+        this.mergeTracker = mergeTracker;
+        this.mergedEnemyPrefab = mergedEnemyPrefab;
+        this.toMergeDelay = toMergeDelay;
+        this.mergeTime = mergeTime;
+
+        mergeTimer = 0;
+        mergeStage = MergeStage.MergingNotAllowed;
+        isMergeLeader = false;
+
+        mergeTracker.OnEnterContact += TryAddMergable;
+        mergeTracker.OnExitContact += TryRemoveMergable;
+
+        if (enemy.TryGetComponent(out Rigidbody2D rigidbody2D)) {
+            rb = rigidbody2D;
+        }
+        else {
+            Debug.LogError("Object With Merge Behavior Does Not Have Rigidbody2D!");
+        }
+    }
+
     public bool IsReadyToMerge() {
         return mergeStage == MergeStage.ReadyToMerging;
     }
@@ -36,31 +58,6 @@ public class MergeBehavior : EnemyBehavior {
 
     public IMergable GetMergingPartner() {
         return mergingPartner;
-    }
-
-    public override void Initialize(Enemy enemy) {
-        base.Initialize(enemy);
-
-        if (enemy.TryGetComponent(out Rigidbody2D rigidbody2D)) {
-            rb = rigidbody2D;
-        }
-        else {
-            Debug.LogError("Object With Merge Behavior Does Not Have Rigidbody2D!");
-        }
-    }
-
-    public void Setup(TriggerContactTracker mergeTracker, Enemy mergedEnemyPrefab, float toMergeDelay, float mergeTime) {
-        this.mergeTracker = mergeTracker;
-        this.mergedEnemyPrefab = mergedEnemyPrefab;
-        this.toMergeDelay = toMergeDelay;
-        this.mergeTime = mergeTime;
-
-        mergeTimer = 0;
-        mergeStage = MergeStage.MergingNotAllowed;
-        isMergeLeader = false;
-
-        mergeTracker.OnEnterContact += TryAddMergable;
-        mergeTracker.OnExitContact += TryRemoveMergable;
     }
 
     public override void OnDisable() {

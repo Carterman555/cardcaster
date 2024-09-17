@@ -6,8 +6,7 @@ public class ChangeFacingBehavior : EnemyBehavior {
 
     private bool facingRight;
 
-    public override void Initialize(Enemy enemy) {
-        base.Initialize(enemy);
+    public ChangeFacingBehavior(Enemy enemy) : base(enemy) {
         facingRight = true;
     }
 

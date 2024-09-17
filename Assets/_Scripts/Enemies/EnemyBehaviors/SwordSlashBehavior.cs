@@ -8,7 +8,7 @@ public class SwordSlashBehavior : EnemyBehavior {
 
     private float attackTimer;
 
-    public void Setup(SlashingWeapon weapon, LayerMask targetLayerMask, float slashSize) {
+    protected SwordSlashBehavior(Enemy enemy, SlashingWeapon weapon, LayerMask targetLayerMask, float slashSize) : base(enemy) {
         this.weapon = weapon;
         this.targetLayerMask = targetLayerMask;
         this.slashSize = slashSize;

@@ -18,17 +18,11 @@ public class TwistedGoblin : Enemy {
     }
 
     private void InitializeBehaviors() {
-        moveBehavior = new();
-        slashBehavior = new();
-
+        moveBehavior = new(this);
         enemyBehaviors.Add(moveBehavior);
+
+        slashBehavior = new(this, centerPoint);
         enemyBehaviors.Add(slashBehavior);
-
-        foreach (var enemyBehavior in enemyBehaviors) {
-            enemyBehavior.Initialize(this);
-        }
-
-        slashBehavior.Setup(centerPoint);
     }
 
     protected override void OnPlayerEnteredRange(GameObject player) {

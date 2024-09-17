@@ -97,7 +97,7 @@ public static class Helpers {
         return Quaternion.Euler(0, 0, degrees) * Vector2.up;
     }
 
-    public static Vector3 RotateDirection(Vector3 direction, float degrees) {
+    public static Vector2 RotateDirection(this Vector2 direction, float degrees) {
         return Quaternion.Euler(0, 0, degrees) * direction;
     }
 

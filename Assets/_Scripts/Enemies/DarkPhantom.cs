@@ -27,7 +27,7 @@ public class DarkPhantom : Enemy {
         moveBehavior = new(this);
         enemyBehaviors.Add(moveBehavior);
 
-        shootBehavior = new(this, projectilePrefab, shootPoint.localPosition);
+        shootBehavior = new(this, projectilePrefab, shootPoint);
         enemyBehaviors.Add(shootBehavior);
         shootBehavior.StartShooting(PlayerMovement.Instance.transform);
 

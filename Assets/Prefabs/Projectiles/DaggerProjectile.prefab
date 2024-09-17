@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 4402073686196120068}
   - component: {fileID: 6748218270176076363}
   - component: {fileID: 6611510374888311966}
-  - component: {fileID: 7044992217884879370}
+  - component: {fileID: -1492015336368975259}
   m_Layer: 0
   m_Name: DaggerProjectile
   m_TagString: Untagged
@@ -139,8 +139,6 @@ MonoBehaviour:
   targetLayer:
     serializedVersion: 2
     m_Bits: 128
-  hasHitEffect: 1
-  hitEffect: {fileID: 1709629989399924173, guid: 22a723bf7c529e44d9f1f2994fffe609, type: 3}
 --- !u!114 &6748218270176076363
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -169,7 +167,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   delay: 10
---- !u!114 &7044992217884879370
+--- !u!114 &-1492015336368975259
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -178,10 +176,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 111582696327244863}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5d5dd6e5aa1f1cb4da3163f0398e9af5, type: 3}
+  m_Script: {fileID: 11500000, guid: 51e9f83a908ce9040a62212f1977ecf7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  particlesPrefab: {fileID: 1709629989399924173, guid: 22a723bf7c529e44d9f1f2994fffe609, type: 3}
+  hasSpawnParticles: 1
+  spawnParticles: {fileID: 1709629989399924173, guid: 22a723bf7c529e44d9f1f2994fffe609, type: 3}
+  spawnParticlesColor: {r: 0, g: 0, b: 0, a: 1}
+  hasHitParticles: 0
+  hitTargetParticles: {fileID: 0}
+  hitTargetParticlesColor: {r: 0, g: 0, b: 0, a: 0}
+  hasDestroyParticles: 0
+  destroyParticles: {fileID: 0}
+  destroyParticlesColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!1 &8226154268037064845
 GameObject:
   m_ObjectHideFlags: 0

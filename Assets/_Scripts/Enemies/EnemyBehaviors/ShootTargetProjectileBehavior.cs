@@ -11,13 +11,13 @@ public class ShootTargetProjectileBehavior : EnemyBehavior {
     private float shootTimer;
     private int amountLeftToShoot;
 
-    public void Setup(ITargetMovement projectilePrefab, Transform localShootPosition) {
+    public ShootTargetProjectileBehavior(Enemy enemy, ITargetMovement projectilePrefab, Transform localShootPosition) : base(enemy) {
         this.projectilePrefab = projectilePrefab;
         this.shootPoint = localShootPosition;
 
         Stop();
     }
-
+        
     public void StartShooting(int amountToShoot) {
         Start();
         amountLeftToShoot = amountToShoot;

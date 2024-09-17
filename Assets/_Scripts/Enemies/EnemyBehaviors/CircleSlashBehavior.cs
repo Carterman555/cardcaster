@@ -8,7 +8,7 @@ public class CircleSlashBehavior : EnemyBehavior {
 
     private float attackTimer;
 
-    public void Setup(Transform centerPoint) {
+    public CircleSlashBehavior(Enemy enemy, Transform centerPoint) : base(enemy) {
         this.centerPoint = centerPoint;
     }
 

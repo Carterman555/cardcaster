@@ -19,20 +19,12 @@ public class Ace : Enemy {
     }
 
     private void InitializeBehaviors() {
-        moveBehavior = new();
-        shootBehavior = new();
-
+        moveBehavior = new(this, moveRadius);
         enemyBehaviors.Add(moveBehavior);
-        enemyBehaviors.Add(shootBehavior);
-
-        foreach (var enemyBehavior in enemyBehaviors) {
-            enemyBehavior.Initialize(this);
-        }
-
-        moveBehavior.Setup(moveRadius);
         moveBehavior.Start();
 
-        shootBehavior.Setup(projectilePrefab, projectileCount, false);
+        shootBehavior = new(this, projectilePrefab, projectileCount, false);
+        enemyBehaviors.Add(shootBehavior);
         shootBehavior.Start();
     }
 }

@@ -8,12 +8,9 @@ public class FleePlayerBehavior : EnemyBehavior, IMovementBehavior {
     private NavMeshAgent agent;
     private Knockback knockback;
 
-    public override void Initialize(Enemy enemy) {
-        base.Initialize(enemy);
-
+    public FleePlayerBehavior(Enemy enemy) : base(enemy) {
         // initialize behaviors
-        changeFacingBehavior = new();
-        changeFacingBehavior.Initialize(enemy);
+        changeFacingBehavior = new(enemy);
 
         // get components
         if (enemy.TryGetComponent(out NavMeshAgent agent)) {
@@ -31,6 +28,8 @@ public class FleePlayerBehavior : EnemyBehavior, IMovementBehavior {
         else {
             Debug.LogError("Object With FleePlayerBehavior Does Not Have Knockback!");
         }
+
+        Stop();
     }
 
     public override void Start() {

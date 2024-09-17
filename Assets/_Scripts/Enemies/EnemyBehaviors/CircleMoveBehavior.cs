@@ -13,13 +13,10 @@ public class CircleMoveBehavior : EnemyBehavior, IMovementBehavior {
 
     private ChangeFacingBehavior changeFacingBehavior;
 
-    public override void Initialize(Enemy enemy) {
-        base.Initialize(enemy);
-
+    public CircleMoveBehavior(Enemy enemy, float radius) : base(enemy) {
         center = enemy.transform.position;
 
-        changeFacingBehavior = new();
-        changeFacingBehavior.Initialize(enemy);
+        changeFacingBehavior = new(enemy);
 
         if (enemy.TryGetComponent(out NavMeshAgent agent)) {
             this.agent = agent;
@@ -29,9 +26,7 @@ public class CircleMoveBehavior : EnemyBehavior, IMovementBehavior {
         else {
             Debug.LogError("Object With CircleMoveBehavior Does Not Have NavMeshAgent!");
         }
-    }
 
-    public void Setup(float radius) {
         moveRadius = radius;
         angle = 0f;
         facingRight = true;
@@ -43,7 +38,6 @@ public class CircleMoveBehavior : EnemyBehavior, IMovementBehavior {
         if (IsStopped()) {
             return;
         }
-
 
         agent.speed = enemy.GetStats().MoveSpeed;
 
@@ -59,6 +53,8 @@ public class CircleMoveBehavior : EnemyBehavior, IMovementBehavior {
     }
 
     private bool facingRight;
+
+    
 
     private void HandleDirectionFacing(bool faceRight) {
         if (!facingRight && faceRight) {

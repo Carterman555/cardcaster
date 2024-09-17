@@ -9,12 +9,10 @@ public class ChasePlayerBehavior : EnemyBehavior, IMovementBehavior {
     private NavMeshAgent agent;
     private Knockback knockback;
 
-    public override void Initialize(Enemy enemy) {
-        base.Initialize(enemy);
+    public ChasePlayerBehavior(Enemy enemy) : base(enemy) {
 
         // initialize behaviors
-        changeFacingBehavior = new();
-        changeFacingBehavior.Initialize(enemy);
+        changeFacingBehavior = new(enemy);
 
         // get components
         if (enemy.TryGetComponent(out NavMeshAgent agent)) {

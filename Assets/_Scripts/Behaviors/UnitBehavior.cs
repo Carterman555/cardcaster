@@ -8,7 +8,7 @@ public class UnitBehavior {
 
     //private bool stopped;
 
-    public virtual void Initialize(GameObject gameObject, IHasStats hasStats) {
+    protected UnitBehavior(GameObject gameObject, IHasStats hasStats) {
         this.gameObject = gameObject;
         this.hasStats = hasStats;
     }

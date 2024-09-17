@@ -35,23 +35,17 @@ public class CursedWitch : Enemy {
     }
 
     private void InitializeBehaviors() {
-        chaseBehavior = new();
+        chaseBehavior = new(this);
         enemyBehaviors.Add(chaseBehavior);
 
-        fleeBehavior = new();
+        fleeBehavior = new(this);
         enemyBehaviors.Add(fleeBehavior);
 
-        shootProjectileBehavior = new();
-        shootProjectileBehavior.Setup(projectilePrefab, spawnPoint);
+        shootProjectileBehavior = new(this, projectilePrefab, spawnPoint);
         enemyBehaviors.Add(shootProjectileBehavior);
 
-        spawnEnemyBehavior = new();
-        spawnEnemyBehavior.Setup(enemyToSpawn, spawnPoint);
+        spawnEnemyBehavior = new(this, enemyToSpawn, spawnPoint);
         enemyBehaviors.Add(spawnEnemyBehavior);
-
-        foreach (var enemyBehavior in enemyBehaviors) {
-            enemyBehavior.Initialize(this);
-        }
     }
 
     protected override void Update() {

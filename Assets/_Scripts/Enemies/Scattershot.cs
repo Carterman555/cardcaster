@@ -36,19 +36,11 @@ public class Scattershot : Enemy {
     }
 
     private void InitializeBehaviors() {
-
-        fleePlayerBehavior = new();
-        fleePlayerBehavior.Initialize(this);
-        fleePlayerBehavior.Stop();
+        fleePlayerBehavior = new(this);
         enemyBehaviors.Add(fleePlayerBehavior);
 
-        shootBehavior = new();
-        shootBehavior.Setup(projectilePrefab, shootPoint.localPosition, projectileCount.Randomize());
+        shootBehavior = new(this, projectilePrefab, shootPoint.localPosition, projectileCount.Randomize());
         enemyBehaviors.Add(shootBehavior);
-
-        foreach (var enemyBehavior in enemyBehaviors) {
-            enemyBehavior.Initialize(this);
-        }
     }
 
     protected override void OnPlayerEnteredRange(GameObject player) {

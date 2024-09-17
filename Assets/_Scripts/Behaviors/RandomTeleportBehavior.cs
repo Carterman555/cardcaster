@@ -4,7 +4,7 @@ public class RandomTeleportBehavior : UnitBehavior {
 
     private PolygonCollider2D teleportBounds;
 
-    public void Setup(PolygonCollider2D teleportBounds) {
+    public RandomTeleportBehavior(GameObject gameObject, IHasStats hasStats, PolygonCollider2D teleportBounds) : base(gameObject, hasStats) {
         this.teleportBounds = teleportBounds;
     }
 

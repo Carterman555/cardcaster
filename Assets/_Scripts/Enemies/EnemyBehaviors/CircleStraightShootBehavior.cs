@@ -8,7 +8,7 @@ public class CircleStraightShootBehavior : EnemyBehavior {
 
     private float attackTimer;
 
-    public void Setup(StraightMovement projectilePrefab, int projectileCount, bool specialAttack) {
+    public CircleStraightShootBehavior(Enemy enemy, StraightMovement projectilePrefab, int projectileCount, bool specialAttack) : base(enemy) {
         this.projectilePrefab = projectilePrefab;
         this.projectileCount = projectileCount;
         this.specialAttack = specialAttack;

@@ -8,7 +8,8 @@ public class ShootStraightSpreadBehavior : StraightShootBehavior {
     private Vector2 localShootPosition;
     private int bulletCount;
 
-    public void Setup(StraightMovement projectilePrefab, Vector2 localShootPosition, int bulletCount) {
+    public ShootStraightSpreadBehavior(Enemy enemy, StraightMovement projectilePrefab, Vector2 localShootPosition, int bulletCount) :
+        base(enemy, projectilePrefab, localShootPosition) {
         this.projectilePrefab = projectilePrefab;
         this.localShootPosition = localShootPosition;
         this.bulletCount = bulletCount;

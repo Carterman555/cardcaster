@@ -18,15 +18,11 @@ public class DoomCharger : Enemy {
     }
 
     private void InitializeBehaviors() {
-        moveBehavior = new();
+        moveBehavior = new(this);
         enemyBehaviors.Add(moveBehavior);
 
-        explodeBehavior = new();
+        explodeBehavior = new(this);
         enemyBehaviors.Add(explodeBehavior);
-
-        foreach (var enemyBehavior in enemyBehaviors) {
-            enemyBehavior.Initialize(this);
-        }
     }
 
     protected override void Update() {

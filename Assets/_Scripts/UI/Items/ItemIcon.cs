@@ -5,8 +5,6 @@ using UnityEngine.UI;
 
 public class ItemIcon : GameButton {
 
-    private static bool panelOpen;
-
     [SerializeField] private Image image;
 
     private ScriptableItemBase item;
@@ -20,16 +18,10 @@ public class ItemIcon : GameButton {
     protected override void OnClick() {
         base.OnClick();
 
-        //panelOpen = true;
-
         if (!ItemInfoPanel.Instance.gameObject.activeSelf) {
             FeedbackPlayer.Play("ShowItemInfo");
         }
 
         ItemInfoPanel.Instance.SetItem(item);
-    }
-
-    public void SetPanelClosed() {
-        panelOpen = false;
     }
 }

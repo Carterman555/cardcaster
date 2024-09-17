@@ -15,7 +15,7 @@ public class StraightShootBehavior : EnemyBehavior {
     protected Transform target;
     private float attackTimer;
 
-    public void Setup(StraightMovement projectilePrefab, Vector2 localShootPosition) {
+    public StraightShootBehavior(Enemy enemy, StraightMovement projectilePrefab, Vector2 localShootPosition) : base(enemy) {
         this.projectilePrefab = projectilePrefab;
         this.localShootPosition = localShootPosition;
 

@@ -27,17 +27,11 @@ public class BabyBeholder : Enemy {
 
     private void InitializeBehaviors() {
 
-        chasePlayerBehavior = new();
-        chasePlayerBehavior.Initialize(this);
+        chasePlayerBehavior = new(this);
         enemyBehaviors.Add(chasePlayerBehavior);
 
-        shootBehavior = new();
-        shootBehavior.Setup(projectilePrefab, shootPoint.localPosition);
+        shootBehavior = new(this, projectilePrefab, shootPoint.localPosition);
         enemyBehaviors.Add(shootBehavior);
-
-        foreach (var enemyBehavior in enemyBehaviors) {
-            enemyBehavior.Initialize(this);
-        }
     }
 
     private void InitializeSensors() {

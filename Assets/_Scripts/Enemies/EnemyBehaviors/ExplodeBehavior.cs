@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class ExplodeBehavior : EnemyBehavior {
 
+    public ExplodeBehavior(Enemy enemy) : base(enemy) {
+    }
+
     public void Explode(LayerMask targetLayerMask, float explosionRadius) {
 
         Collider2D[] cols = Physics2D.OverlapCircleAll(enemy.transform.position, explosionRadius, targetLayerMask);

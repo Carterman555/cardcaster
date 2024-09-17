@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: df8d0c02ff44cd34db700f8d5c89336d, type: 3}
-  m_Name: BabyBeholder
+  m_Name: BaneBlaster
   m_EditorClassIdentifier: 
-  <Name>k__BackingField: Baby Beholder
+  <Name>k__BackingField: Bane Blaster
   <Description>k__BackingField: description
   <Prefab>k__BackingField: {fileID: 4327151167930552897, guid: ad9c8b6a934316a4d9ccf35265dc643c, type: 3}
   <Stats>k__BackingField:

@@ -5,6 +5,7 @@ using UnityEngine;
 public class UnitEffectVisuals : MonoBehaviour {
 
     private SpriteRenderer visual;
+    private Material originalMaterial;
 
     private int currentParticleId = 0;
 
@@ -12,6 +13,11 @@ public class UnitEffectVisuals : MonoBehaviour {
 
     private void Awake() {
         visual = GetComponent<SpriteRenderer>();
+        originalMaterial = visual.material;
+    }
+
+    private void OnEnable() {
+        visual.material = originalMaterial;
     }
 
     public int AddParticleEffect(ParticleSystem particleEffectPrefab) {

@@ -77,11 +77,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3807084815282453126, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.18914294
+      value: 0.24458876
       objectReference: {fileID: 0}
     - target: {fileID: 3807084815282453126, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 6.5506225
+      value: 3.2954926
       objectReference: {fileID: 0}
     - target: {fileID: 3807084815282453126, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
       propertyPath: m_LocalPosition.z
@@ -212,4 +212,4 @@ MonoBehaviour:
   enemySpawnAmount:
     MinValue: 2
     MaxValue: 4
-  enemyToSpawn: {fileID: 7687619733359668377, guid: 8abe4a6e9c042d140866e75a31b95fe1, type: 3}
+  enemyToSpawn: {fileID: -4002794726442658036, guid: 3036b955ca9649d4fbe1dcae34658259, type: 3}

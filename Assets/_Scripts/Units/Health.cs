@@ -14,6 +14,12 @@ public class Health : MonoBehaviour, IDamagable {
     private bool dead;
     private bool invincible;
 
+    [SerializeField] private bool hasDeathParticles;
+    [ConditionalHide("hasDeathParticles")]
+    [SerializeField] private ParticleSystem deathParticles;
+    [ConditionalHide("hasDeathParticles")]
+    [SerializeField] private Color deathParticlesColor;
+
     public bool IsDead() {
         return dead;
     }
@@ -55,10 +61,19 @@ public class Health : MonoBehaviour, IDamagable {
 
     public void Die() {
         dead = true;
-        //transform.ShrinkThenDestroy();
 
-        gameObject.ReturnToPool();
+        if (hasDeathParticles) {
+            CreateParticles(deathParticles, deathParticlesColor);
+        }
 
         OnDeath?.Invoke();
+
+        gameObject.ReturnToPool();
+    }
+
+    private void CreateParticles(ParticleSystem particleSystem, Color color) {
+        ParticleSystem particles = particleSystem.Spawn(transform.position, Containers.Instance.Effects);
+        var main = particles.main;
+        main.startColor = color;
     }
 }

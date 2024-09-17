@@ -277,6 +277,69 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: magic-projectile1
+      rect:
+        serializedVersion: 2
+        x: 126
+        y: 494
+        width: 18
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 32238a40a6c577448bdf270d3c576733
+      internalID: 2020966142
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: magic-projectile2
+      rect:
+        serializedVersion: 2
+        x: 144
+        y: 494
+        width: 18
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 95d8a1aaa49245d41a5f21584a8adf86
+      internalID: -1630129890
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: magic-projectile3
+      rect:
+        serializedVersion: 2
+        x: 162
+        y: 494
+        width: 18
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3df9daa11d4057c45ada20694f0524fb
+      internalID: -1045381893
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -296,6 +359,9 @@ TextureImporter:
       Used_Icons_1: -743878670
       close-ui: -1183330171
       collapse-arrow: -1476148090
+      magic-projectile1: 2020966142
+      magic-projectile2: -1630129890
+      magic-projectile3: -1045381893
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

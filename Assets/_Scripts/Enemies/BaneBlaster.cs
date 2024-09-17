@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BabyBeholder : Enemy {
+public class BaneBlaster : Enemy {
 
     private ChasePlayerBehavior chasePlayerBehavior;
 

@@ -21,7 +21,7 @@ public class ReturnOnContact : MonoBehaviour, IDelayedReturn {
 
     private void OnTriggerEnter2D(Collider2D collision) {
         if (layerMask.ContainsLayer(collision.gameObject.layer)) {
-            transform.ShrinkThenDestroy();
+            gameObject.ReturnToPool();
             OnStartReturn?.Invoke();
         }
     }

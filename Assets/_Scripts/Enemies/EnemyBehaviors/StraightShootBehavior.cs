@@ -1,23 +1,23 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting.FullSerializer;
 using UnityEngine;
 
 public class StraightShootBehavior : EnemyBehavior {
-
     public event Action OnShoot;
     public event Action<Vector2> OnShoot_Direction;
 
     private StraightMovement projectilePrefab;
     private Vector2 localShootPosition;
-
     protected Transform target;
-    private float attackTimer;
+    private TimedActionBehavior timedActionBehavior;
 
     public StraightShootBehavior(Enemy enemy, StraightMovement projectilePrefab, Vector2 localShootPosition) : base(enemy) {
         this.projectilePrefab = projectilePrefab;
         this.localShootPosition = localShootPosition;
+
+        timedActionBehavior = new TimedActionBehavior(
+            enemy.GetStats().AttackCooldown,
+            () => enemy.InvokeAttack()
+        );
 
         Stop();
     }
@@ -26,24 +26,16 @@ public class StraightShootBehavior : EnemyBehavior {
         base.FrameUpdateLogic();
 
         if (!IsStopped()) {
-            attackTimer += Time.deltaTime;
-            if (attackTimer > enemy.GetStats().AttackCooldown) {
-                enemy.InvokeAttack();
-
-                attackTimer = 0;
-            }
-        }
-        else {
-            attackTimer = 0;
+            timedActionBehavior.UpdateLogic();
         }
     }
 
     public void StartShooting(Transform target) {
         Start();
         this.target = target;
-
+        timedActionBehavior.Start();
         // less delay the first time shooting
-        attackTimer = enemy.GetStats().AttackCooldown / 2f;
+        timedActionBehavior.SetActionCooldown(enemy.GetStats().AttackCooldown / 2f);
     }
 
     protected virtual void Shoot() {
@@ -57,7 +49,6 @@ public class StraightShootBehavior : EnemyBehavior {
         InvokeShoot(toTarget.normalized);
     }
 
-    // for child behaviors to play
     protected void InvokeShoot(Vector2 direction) {
         OnShoot?.Invoke();
         OnShoot_Direction?.Invoke(direction);

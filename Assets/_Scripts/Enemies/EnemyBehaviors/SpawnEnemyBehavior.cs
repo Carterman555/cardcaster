@@ -2,53 +2,43 @@ using System;
 using UnityEngine;
 
 public class SpawnEnemyBehavior : EnemyBehavior {
-
     public event Action OnSpawnEnemy;
 
     private Enemy enemyToSpawn;
     private Transform spawnPoint;
-
-    private float spawnTimer;
-
-    private int amountLeftToSpawn;
+    private TimedActionBehavior timedActionBehavior;
 
     public SpawnEnemyBehavior(Enemy enemy, Enemy enemyToSpawn, Transform spawnPoint) : base(enemy) {
         this.enemyToSpawn = enemyToSpawn;
         this.spawnPoint = spawnPoint;
+
+        timedActionBehavior = new TimedActionBehavior(
+            enemy.GetStats().AttackCooldown,
+            () => enemy.InvokeSpecialAttack()
+        );
     }
 
     public void StartSpawning(int amountToSpawn) {
         Start();
-        amountLeftToSpawn = amountToSpawn;
-        spawnTimer = 0;
+        timedActionBehavior.Start(amountToSpawn);
     }
 
     public override void Stop() {
         base.Stop();
-        amountLeftToSpawn = 0;
-        spawnTimer = 0;
+        timedActionBehavior.Stop();
     }
 
     public override void FrameUpdateLogic() {
-
-        if (amountLeftToSpawn <= 0) {
-            Stop();
-        }
-
         if (!IsStopped()) {
-            spawnTimer += Time.deltaTime;
-            if (spawnTimer > enemy.GetStats().AttackCooldown) {
-                enemy.InvokeSpecialAttack();
-                spawnTimer = 0;
+            timedActionBehavior.UpdateLogic();
+            if (timedActionBehavior.IsFinished()) {
+                Stop();
             }
         }
     }
 
     private void SpawnEnemy() {
         Enemy spawnedEnemy = enemyToSpawn.Spawn(spawnPoint.position, Containers.Instance.Enemies);
-
-        amountLeftToSpawn--;
-
         OnSpawnEnemy?.Invoke();
     }
 

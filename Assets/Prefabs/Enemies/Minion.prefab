@@ -1,101 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &3262423955320220527
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 6336677792031330547}
-  - component: {fileID: 7840977951164152897}
-  - component: {fileID: 7700198916714261118}
-  - component: {fileID: 7196544728168748611}
-  m_Layer: 0
-  m_Name: TouchDamage
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &6336677792031330547
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3262423955320220527}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 5775655431456473009}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!58 &7840977951164152897
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3262423955320220527}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ForceSendLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ForceReceiveLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ContactCaptureLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_CallbackLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  serializedVersion: 2
-  m_Radius: 0.25
---- !u!114 &7700198916714261118
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3262423955320220527}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 83180820e87499c44a09cbfa34602608, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  layerFilter:
-    serializedVersion: 2
-    m_Bits: 64
---- !u!114 &7196544728168748611
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3262423955320220527}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 969dcc150a2125044b825881c2eef962, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &4893267481698982637
 GameObject:
   m_ObjectHideFlags: 0
@@ -306,9 +210,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 3807084815282453126, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
       insertIndex: -1
       addedObject: {fileID: 9131407242097180156}
-    - targetCorrespondingSourceObject: {fileID: 3807084815282453126, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 6336677792031330547}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 226976224992304211, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
       insertIndex: 4
@@ -349,8 +250,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scriptableEnemy: {fileID: 11400000, guid: dfa83f16e97604842935ba03e3930a17, type: 2}
   playerTracker: {fileID: 4392500090413742484}
+  attackCenter: {fileID: 5775655431456473009}
   mergeTracker: {fileID: 6867254884801608614}
   mergedEnemyPrefab: {fileID: 8097353256034800680, guid: 4ed6cf5108a7ca342afcfa3920a81a01, type: 3}
   toMergeDelay: 5
   mergeTime: 5
+  mergeIndicatorPrefab: {fileID: 5335884612671568315, guid: 0cea3d958ee00324ba546eabd7be985a, type: 3}
   splitEnemyPrefab: {fileID: -4002794726442658036, guid: 3036b955ca9649d4fbe1dcae34658259, type: 3}

@@ -1,7 +1,10 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class MergeBehavior : EnemyBehavior {
+
+    public event Action OnLeaderMerged;
 
     private TriggerContactTracker mergeTracker;
     private List<IMergable> nearbyMergables = new();
@@ -54,6 +57,20 @@ public class MergeBehavior : EnemyBehavior {
 
     public bool IsMerging() {
         return mergeStage == MergeStage.Merging;
+    }
+
+    public bool IsMergeLeader() {
+        return isMergeLeader;
+    }
+
+    public float GetMergeProgress() {
+
+        if (!IsMerging()) {
+            Debug.LogWarning("Trying to get progress of merging when not merging!");
+            return 0f;
+        }
+
+        return mergeTimer / mergeTime;
     }
 
     public IMergable GetMergingPartner() {
@@ -156,8 +173,11 @@ public class MergeBehavior : EnemyBehavior {
             //... the merged enemy pos is between the two merging enemies
             Vector2 mergedEnemyPos = (enemy.transform.position + mergingPartner.GetObject().transform.position) / 2;
             mergedEnemyPrefab.Spawn(mergedEnemyPos, Containers.Instance.Enemies);
+
+            OnLeaderMerged?.Invoke();
         }
 
-        enemy.gameObject.ReturnToPool();
+        enemy.GetComponent<Health>().Die();
+        //enemy.gameObject.ReturnToPool();
     }
 }

@@ -11,8 +11,8 @@ public class BlindedCyclops : Enemy {
     private CircleSlashBehavior circleSlashBehavior;
     [SerializeField] private Transform centerPoint;
 
-    protected override void OnEnable() {
-        base.OnEnable();
+    protected override void Awake() {
+        base.Awake();
         InitializeBehaviors();
     }
 

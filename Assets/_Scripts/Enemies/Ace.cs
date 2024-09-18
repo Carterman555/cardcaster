@@ -13,8 +13,8 @@ public class Ace : Enemy {
     [SerializeField] private StraightMovement projectilePrefab;
     [SerializeField] private int projectileCount;
 
-    protected override void OnEnable() {
-        base.OnEnable();
+    protected override void Awake() {
+        base.Awake();
         InitializeBehaviors();
     }
 

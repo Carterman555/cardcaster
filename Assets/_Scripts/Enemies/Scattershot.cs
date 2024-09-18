@@ -21,11 +21,12 @@ public class Scattershot : Enemy {
     protected override void Awake() {
         base.Awake();
         rb = GetComponent<Rigidbody2D>();
+
+        InitializeBehaviors();
     }
 
     protected override void OnEnable() {
         base.OnEnable();
-        InitializeBehaviors();
 
         shootBehavior.OnShoot_Direction += OnShoot;
     }

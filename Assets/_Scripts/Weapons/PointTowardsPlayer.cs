@@ -14,6 +14,14 @@ public class PointTowardsPlayer : MonoBehaviour {
 
     void Update() {
         Vector2 toPlayer = PlayerMovement.Instance.transform.position - transform.position;
-        transform.up = toPlayer.RotateDirection(angleOffset);
+        float toPlayerAngle = toPlayer.DirectionToRotation().eulerAngles.z;
+
+        // mirror on left side
+        bool onLeftSide = toPlayerAngle > 90 && toPlayerAngle < 270;
+        if (onLeftSide) {
+            toPlayerAngle = 180 - toPlayerAngle;
+        }
+
+        transform.rotation = Quaternion.Euler(transform.eulerAngles.x, transform.eulerAngles.y, toPlayerAngle + angleOffset);
     }
 }

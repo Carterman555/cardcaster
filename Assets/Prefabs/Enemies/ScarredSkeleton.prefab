@@ -217,7 +217,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 412d648824e80ed4abb15eada54eb0dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  angleOffset: 90
+  angleOffset: 0
 --- !u!95 &6415638475352910460
 Animator:
   serializedVersion: 5
@@ -477,11 +477,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3807084815282453126, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.7394197
+      value: -0.4938602
       objectReference: {fileID: 0}
     - target: {fileID: 3807084815282453126, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 3.5468917
+      value: 4.7649646
       objectReference: {fileID: 0}
     - target: {fileID: 3807084815282453126, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
       propertyPath: m_LocalPosition.z

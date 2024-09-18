@@ -34,7 +34,19 @@ public class ProjectileEffects : MonoBehaviour {
         }
     }
 
+    private bool isQuitting = false;
+
+    private void OnApplicationQuit() {
+        isQuitting = true;
+    }
+
     private void OnDisable() {
+
+        // don't create particles if the application is quitting
+        if (isQuitting) {
+            return;
+        }
+
         if (hasDestroyParticles) {
             destroyParticles.CreateColoredParticles(transform.position, destroyParticlesColor);
         }

@@ -27,10 +27,13 @@ public class CursedWitch : Enemy {
     [SerializeField] private Enemy enemyToSpawn;
     private SpawnEnemyBehavior spawnEnemyBehavior;
 
+    protected override void Awake() {
+        base.Awake();
+        InitializeBehaviors();
+    }
+
     protected override void OnEnable() {
         base.OnEnable();
-        InitializeBehaviors();
-
         betweenActionDuration.Randomize();
     }
 

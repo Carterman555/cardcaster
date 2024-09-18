@@ -24,8 +24,8 @@ public class Minion : Enemy, IMergable {
         return mergeBehavior;
     }
 
-    protected override void OnEnable() {
-        base.OnEnable();
+    protected override void Awake() {
+        base.Awake();
 
         InitializeBehaviors();
     }
@@ -40,8 +40,6 @@ public class Minion : Enemy, IMergable {
         }
         enemyBehaviors.Add(mergeBehavior);
     }
-
-    
 
     protected override void Update() {
         base.Update();

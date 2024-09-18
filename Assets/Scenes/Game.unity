@@ -6404,63 +6404,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2313b726f616354fbfa895ceb092805, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1001 &1522466427
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 5775655431456473009, guid: ad9c8b6a934316a4d9ccf35265dc643c, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0.82
-      objectReference: {fileID: 0}
-    - target: {fileID: 5775655431456473009, guid: ad9c8b6a934316a4d9ccf35265dc643c, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 4.179
-      objectReference: {fileID: 0}
-    - target: {fileID: 5775655431456473009, guid: ad9c8b6a934316a4d9ccf35265dc643c, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5775655431456473009, guid: ad9c8b6a934316a4d9ccf35265dc643c, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5775655431456473009, guid: ad9c8b6a934316a4d9ccf35265dc643c, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5775655431456473009, guid: ad9c8b6a934316a4d9ccf35265dc643c, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5775655431456473009, guid: ad9c8b6a934316a4d9ccf35265dc643c, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5775655431456473009, guid: ad9c8b6a934316a4d9ccf35265dc643c, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5775655431456473009, guid: ad9c8b6a934316a4d9ccf35265dc643c, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5775655431456473009, guid: ad9c8b6a934316a4d9ccf35265dc643c, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7481704768261658980, guid: ad9c8b6a934316a4d9ccf35265dc643c, type: 3}
-      propertyPath: m_Name
-      value: BaneBlaster
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: ad9c8b6a934316a4d9ccf35265dc643c, type: 3}
 --- !u!1001 &1543931917
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10083,4 +10026,3 @@ SceneRoots:
   - {fileID: 882422893}
   - {fileID: 468949921}
   - {fileID: 7583622701996679771}
-  - {fileID: 1522466427}

@@ -7,13 +7,18 @@ public class DoomCharger : Enemy {
 
     private ChasePlayerBehavior moveBehavior;
     private ExplodeBehavior explodeBehavior;
-    [SerializeField] private LayerMask playerLayerMask;
     [SerializeField] private float explosionRadius;
+
+    [Header("Visual")]
+    [SerializeField] private ParticleSystem explosionParticlesPrefab;
+
+    protected override void Awake() {
+        base.Awake();
+        InitializeBehaviors();
+    }
 
     protected override void OnEnable() {
         base.OnEnable();
-        InitializeBehaviors();
-
         moveBehavior.Start();
     }
 
@@ -28,8 +33,11 @@ public class DoomCharger : Enemy {
     protected override void Update() {
         base.Update();
         if (playerWithinRange && !health.IsDead()) {
-            explodeBehavior.Explode(playerLayerMask, explosionRadius);
-            health.Die();
+            explodeBehavior.Explode(GameLayers.PlayerLayerMask, explosionRadius);
+
+            explosionParticlesPrefab.Spawn(transform.position, Containers.Instance.Effects);
+
+            gameObject.ReturnToPool();
         }
     }
 

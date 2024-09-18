@@ -10,9 +10,14 @@ public class TwistedGoblin : Enemy {
     [SerializeField] private Transform centerPoint;
     private CircleSlashBehavior slashBehavior;
 
+    protected override void Awake() {
+        base.Awake();
+
+        InitializeBehaviors();
+    }
+
     protected override void OnEnable() {
         base.OnEnable();
-        InitializeBehaviors();
 
         moveBehavior.Start();
     }

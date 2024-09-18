@@ -13,9 +13,14 @@ public class ScarredSkeleton : Enemy {
     [SerializeField] private Transform shootPoint;
     [SerializeField] private Animator anim;
 
+    protected override void Awake() {
+        base.Awake();
+
+        InitializeBehaviors();
+    }
+
     protected override void OnEnable() {
         base.OnEnable();
-        InitializeBehaviors();
 
         moveBehavior.Start();
 

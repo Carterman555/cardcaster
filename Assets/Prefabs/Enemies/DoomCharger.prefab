@@ -143,7 +143,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scriptableEnemy: {fileID: 11400000, guid: abca1f878073ca54f9e2e60c297ac778, type: 2}
   playerTracker: {fileID: 4392500090413742484}
-  playerLayerMask:
-    serializedVersion: 2
-    m_Bits: 64
   explosionRadius: 3
+  explosionParticlesPrefab: {fileID: 6065135645941821456, guid: 5f3b7b52a057dae4a8769678b76618b4, type: 3}

@@ -1,3 +1,6 @@
+using DG.Tweening;
+using System;
+using System.Collections;
 using UnityEngine;
 
 public class DarkPhantom : Enemy {
@@ -14,13 +17,33 @@ public class DarkPhantom : Enemy {
     [SerializeField] private RandomFloat nearPlayerTeleportTime;
     private float nearPlayerTeleportTimer;
 
+    [SerializeField] private SpriteRenderer visual;
+    private float originalFade;
+
+    protected override void Awake() {
+        base.Awake();
+
+        InitializeBehaviors();
+
+        originalFade = visual.color.a;
+    }
+
     protected override void OnEnable() {
         base.OnEnable();
-        InitializeBehaviors();
 
         moveBehavior.Start();
 
         nearPlayerTeleportTime.Randomize();
+
+        visual.Fade(originalFade);
+
+        shootBehavior.OnShootAnim += StopMoving;
+    }
+
+    protected override void OnDisable() {
+        base.OnDisable();
+
+        shootBehavior.OnShootAnim -= StopMoving;
     }
 
     private void InitializeBehaviors() {
@@ -48,11 +71,36 @@ public class DarkPhantom : Enemy {
                 nearPlayerTeleportTimer = 0;
                 nearPlayerTeleportTime.Randomize();
 
-                teleportBehavior.Teleport(PlayerMovement.Instance.transform.position, teleportDistanceFromPlayer);
+                Teleport();
             }
         }
         else {
             nearPlayerTeleportTimer = 0;
         }
+    }
+
+    private void Teleport() {
+
+        float duration = 0.3f;
+        visual.DOFade(0, duration).SetEase(Ease.InSine).OnComplete(() => {
+            teleportBehavior.Teleport(PlayerMovement.Instance.transform.position, teleportDistanceFromPlayer);
+
+            visual.DOFade(originalFade, duration).SetEase(Ease.InSine);
+        });
+
+    }
+
+    // stop moving when shooting
+    private void StopMoving() => StartCoroutine(StopMovingCor());
+    private IEnumerator StopMovingCor() {
+
+        print("stop");
+
+        moveBehavior.Stop();
+
+        float stopDuration = 0.4f;
+        yield return new WaitForSeconds(stopDuration);
+
+        moveBehavior.Start();
     }
 }

@@ -21,11 +21,15 @@ public class BaneBlaster : Enemy {
     private bool playerInSight;
 
     #region Initialization
-    protected override void OnEnable() {
-        base.OnEnable();
+
+    protected override void Awake() {
+        base.Awake();
         InitializeBehaviors();
         InitializeSensors();
+    }
 
+    protected override void OnEnable() {
+        base.OnEnable();
         shootBehavior.OnShootAnim += PlayShootAnimation;
     }
 

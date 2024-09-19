@@ -18,7 +18,7 @@ MonoBehaviour:
   cost: 0
   rarity: 0
   sprite: {fileID: 0}
-  <IsPossibleStartingCard>k__BackingField: 1
+  <IsPossibleStartingCard>k__BackingField: 0
   <IsPositional>k__BackingField: 0
   effectDuration: 9.9
   electricSwordPrefab: {fileID: 2645275329061133153, guid: 4e3c5d0a4ada92a46a8478a4b8878082, type: 3}

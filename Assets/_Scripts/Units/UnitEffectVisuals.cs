@@ -24,7 +24,8 @@ public class UnitEffectVisuals : MonoBehaviour {
         ParticleSystem particles = particleEffectPrefab.Spawn(transform);
 
         float spriteSize = visual.bounds.size.y;
-        particles.transform.localScale = Vector3.one * spriteSize;
+        float spriteSizeMult = 0.1f;
+        particles.transform.localScale = Vector3.one * spriteSize * spriteSizeMult;
 
         currentParticleId++;
         particleSystemIds.Add(currentParticleId, particles);

@@ -27,7 +27,7 @@ Transform:
   m_GameObject: {fileID: 6232416469060277083}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.08, y: 0.45, z: 0}
+  m_LocalPosition: {x: -0.08, y: 0.19, z: 0}
   m_LocalScale: {x: 1, y: 1.1267605, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -222,7 +222,7 @@ ParticleSystem:
     startColor:
       serializedVersion: 2
       minMaxState: 2
-      minColor: {r: 1, g: 0.45958886, b: 0.07075471, a: 0.1764706}
+      minColor: {r: 1, g: 0.45958886, b: 0.07075471, a: 0.043137256}
       maxColor: {r: 1, g: 0.6140652, b: 0.36320752, a: 0.03529412}
       maxGradient:
         serializedVersion: 2
@@ -1318,8 +1318,8 @@ ParticleSystem:
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 0}
-        key1: {r: 1, g: 1, b: 1, a: 1}
-        key2: {r: 0, g: 0, b: 0, a: 1}
+        key1: {r: 1, g: 1, b: 1, a: 0.58431375}
+        key2: {r: 0, g: 0, b: 0, a: 0.6392157}
         key3: {r: 0, g: 0, b: 0, a: 0}
         key4: {r: 0, g: 0, b: 0, a: 0}
         key5: {r: 0, g: 0, b: 0, a: 0}
@@ -1337,22 +1337,22 @@ ParticleSystem:
         atime1: 9252
         atime2: 53970
         atime3: 65535
-        atime4: 0
+        atime4: 65535
         atime5: 0
         atime6: 0
         atime7: 0
         m_Mode: 0
-        m_ColorSpace: -1
+        m_ColorSpace: 0
         m_NumColorKeys: 2
         m_NumAlphaKeys: 4
       minGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 0}
-        key1: {r: 1, g: 1, b: 1, a: 1}
+        key1: {r: 1, g: 1, b: 1, a: 0.6392157}
         key2: {r: 0, g: 0, b: 0, a: 0.31939453}
-        key3: {r: 0, g: 0, b: 0, a: 1}
+        key3: {r: 0, g: 0, b: 0, a: 0.8627451}
         key4: {r: 0, g: 0, b: 0, a: 0.4117647}
-        key5: {r: 0, g: 0, b: 0, a: 1}
+        key5: {r: 0, g: 0, b: 0, a: 0.58431375}
         key6: {r: 0, g: 0, b: 0, a: 0}
         key7: {r: 0, g: 0, b: 0, a: 0}
         ctime0: 0
@@ -1372,7 +1372,7 @@ ParticleSystem:
         atime6: 65535
         atime7: 0
         m_Mode: 0
-        m_ColorSpace: -1
+        m_ColorSpace: 0
         m_NumColorKeys: 2
         m_NumAlphaKeys: 7
   UVModule:
@@ -4816,8 +4816,8 @@ ParticleSystemRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: -210121459
-  m_SortingLayer: 3
+  m_SortingLayerID: 1360671085
+  m_SortingLayer: 5
   m_SortingOrder: 0
   m_RenderMode: 0
   m_MeshDistribution: 0
@@ -4878,7 +4878,7 @@ Transform:
   m_GameObject: {fileID: 6847446951515788484}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.66, z: 0}
+  m_LocalPosition: {x: 0, y: -0.9199998, z: 0}
   m_LocalScale: {x: 1, y: 1.1267605, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -9676,8 +9676,8 @@ ParticleSystemRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: -210121459
-  m_SortingLayer: 3
+  m_SortingLayerID: -1146611487
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_RenderMode: 0
   m_MeshDistribution: 0
@@ -9785,8 +9785,8 @@ ParticleSystemRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: -210121459
-  m_SortingLayer: 3
+  m_SortingLayerID: -1146611487
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_RenderMode: 0
   m_MeshDistribution: 0
@@ -10457,7 +10457,7 @@ ParticleSystem:
     boxThickness: {x: 0, y: 0, z: 0}
     radiusThickness: 1
     donutRadius: 0.2
-    m_Position: {x: 0, y: 0, z: 0}
+    m_Position: {x: 0, y: -0.5, z: 0}
     m_Rotation: {x: -90, y: 0, z: 0}
     m_Scale: {x: 1, y: 1, z: 1}
     placementMode: 0

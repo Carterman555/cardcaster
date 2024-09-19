@@ -1,3 +1,4 @@
+using DG.Tweening;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -13,6 +14,11 @@ public class ScriptableTeleportCard : ScriptableCardBase {
 
     public override void Play(Vector2 position) {
         base.Play(position);
+
+        float duration = 0.5f;
+        PlayerVisual.Instance.SetFadeEffect
+        PlayerVisual.Instance.DOFade(1f, duration);
+        CreateVisualClone(PlayerMovement.Instance.transform.position);
 
         if (IsPointValidForTeleport(position)) {
             TeleportPlayer(position);
@@ -58,5 +64,21 @@ public class ScriptableTeleportCard : ScriptableCardBase {
 
     private void TeleportPlayer(Vector2 position) {
         PlayerMovement.Instance.transform.position = position;
+    }
+
+    [SerializeField] private SpriteRenderer visualClonePrefab;
+
+    private void CreateVisualClone(Vector3 clonePosition) {
+        SpriteRenderer visualClone = visualClonePrefab.Spawn(clonePosition, Containers.Instance.Effects);
+
+        //... face the same way as the player
+        visualClone.transform.eulerAngles = PlayerMovement.Instance.transform.eulerAngles;
+
+        // fade out
+        visualClone.Fade(1f);
+        float duration = 0.5f;
+        visualClone.DOFade(0f, duration).OnComplete(() => {
+            visualClone.gameObject.ReturnToPool();
+        });
     }
 }

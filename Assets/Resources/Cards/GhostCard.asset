@@ -12,14 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e0de0735ea689db45995e1811b1313c4, type: 3}
   m_Name: GhostCard
   m_EditorClassIdentifier: 
+  cardType: 0
   cardName: Ghost
   description: 
   cost: 0
   rarity: 0
   sprite: {fileID: 1312932664149851607, guid: a8a47aca9e1483f4ebbba999d588b2e3, type: 3}
-  <IsPossibleStartingCard>k__BackingField: 0
+  <IsPossibleStartingCard>k__BackingField: 1
   <IsPositional>k__BackingField: 0
-  effectDuration: 9.9
+  effectDuration: 3
   statsModifier:
     MaxHealthPercent: 0
     KnockbackResistancePercent: 0

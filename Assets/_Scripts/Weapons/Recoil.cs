@@ -6,6 +6,7 @@ using UnityEngine;
 public class Recoil : MonoBehaviour {
 
     [SerializeField] private float distance;
+    [SerializeField] private float recoilAngleOffset;
 
     private Tween tween;
 
@@ -16,11 +17,20 @@ public class Recoil : MonoBehaviour {
         Vector2 originalPos = transform.localPosition;
 
         float recoilDuration = 0.1f;
-        Vector3 recoilDirection = transform.localRotation * -Vector2.up;
+        float recoilAngle = recoilAngleOffset;
+        Vector3 recoilDirection = recoilAngle.RotationToDirection().normalized;
         tween = transform.DOLocalMove(transform.localPosition + recoilDirection * distance, recoilDuration).SetEase(Ease.OutSine).OnComplete(() => {
             float returnDuration = 0.5f;
             tween = transform.DOLocalMove(originalPos, returnDuration).SetEase(Ease.InOutSine);
         });
+    }
+
+    private void OnDrawGizmos() {
+
+        float recoilAngle = recoilAngleOffset;
+        Vector3 recoilDirection = recoilAngle.RotationToDirection().normalized;
+        recoilDirection = recoilDirection * distance;
+        Gizmos.DrawLine(transform.position, transform.position + recoilDirection);
     }
 
 }

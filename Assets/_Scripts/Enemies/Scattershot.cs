@@ -7,12 +7,16 @@ public class Scattershot : Enemy {
     [SerializeField] private Transform shootPoint;
 
     [Header("Movement")]
+    private ChangeFacingBehavior changeFacingBehavior;
     private FleePlayerBehavior fleePlayerBehavior;
 
     [Header("Shoot Projectile")]
     [SerializeField] private RandomInt projectileCount;
     [SerializeField] private StraightMovement projectilePrefab;
     private ShootStraightSpreadBehavior shootBehavior;
+
+    [Header("Gun")]
+    [SerializeField] private Recoil recoil;
 
     [Header("Recoil")]
     [SerializeField] private float recoilForce;
@@ -37,6 +41,9 @@ public class Scattershot : Enemy {
     }
 
     private void InitializeBehaviors() {
+        changeFacingBehavior = new(this);
+        enemyBehaviors.Add(changeFacingBehavior);
+
         fleePlayerBehavior = new(this);
         enemyBehaviors.Add(fleePlayerBehavior);
 
@@ -62,12 +69,16 @@ public class Scattershot : Enemy {
 
     private void OnShoot(Vector2 direction) {
 
-        // add recoil force to the opposite direction shot
+        //... add recoil force to the opposite direction shot
         rb.AddForce(recoilForce * -direction, ForceMode2D.Impulse);
+
+        recoil.RecoilWeapon();
     }
 
     protected override void Update() {
         base.Update();
+
+        changeFacingBehavior.FaceTowardsPosition(PlayerMovement.Instance.transform.position.x);
     }
 
     public override void OnRemoveStopMovementEffect() {

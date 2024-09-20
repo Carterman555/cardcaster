@@ -79,14 +79,10 @@ namespace IslandDefender.Management {
                     }
                 }
 
-                if (target.TryGetComponent(out IDamagable damagable)) {
-                    damagable.Damage(hasStats.GetStats().Damage);
-                    OnDamage?.Invoke();
-                }
-                if (target.TryGetComponent(out Knockback knockback)) {
-                    Vector2 toTargetDirection = target.transform.position - transform.position;
-                    knockback.ApplyKnockback(toTargetDirection, hasStats.GetStats().KnockbackStrength);
-                }
+                DamageDealer.TryDealDamage(target,
+                    transform.position,
+                    hasStats.GetStats().Damage,
+                    hasStats.GetStats().KnockbackStrength);
 
                 yield return new WaitForSeconds(hasStats.GetStats().AttackCooldown);
             }

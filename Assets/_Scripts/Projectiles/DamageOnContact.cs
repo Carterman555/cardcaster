@@ -35,14 +35,15 @@ public class DamageOnContact : MonoBehaviour, ITargetAttacker {
         }
 
         if (targetLayer.ContainsLayer(collision.gameObject.layer)) {
-            if (collision.TryGetComponent(out IDamagable damagable)) {
-                damagable.Damage(damage);
 
+            bool dealtDamage = DamageDealer.TryDealDamage(
+                collision.gameObject,
+                transform.position,
+                damage,
+                knockbackStrength);
+
+            if (dealtDamage) {
                 OnDamage_Target?.Invoke(collision.gameObject);
-            }
-            if (collision.TryGetComponent(out Knockback knockback)) {
-                Vector2 toTargetDirection = collision.transform.position - transform.position;
-                knockback.ApplyKnockback(toTargetDirection, knockbackStrength);
             }
 
             PreventDamage();

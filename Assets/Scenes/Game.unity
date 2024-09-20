@@ -5666,7 +5666,6 @@ MonoBehaviour:
   hitFeedbacks: {fileID: 1683459429}
   attackParticles: {fileID: 1709629989399924173, guid: 5ef67e035ca442147a4f694cd1554c59, type: 3}
   slashPrefab: {fileID: 6955697948194271802, guid: 03c80cdf0baa14c4da859810941a4405, type: 3}
-  swordVisual: {fileID: 584443657}
 --- !u!114 &1214084861
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9978,6 +9977,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3553269437776827935, guid: 58f2feb7fcdece146b937d87594495b2, type: 3}
+      propertyPath: playerSword
+      value: 
+      objectReference: {fileID: 1770509231}
+    - target: {fileID: 3553269437776827935, guid: 58f2feb7fcdece146b937d87594495b2, type: 3}
+      propertyPath: playerSwordVisual
+      value: 
+      objectReference: {fileID: 584443657}
     - target: {fileID: 3553269437776827935, guid: 58f2feb7fcdece146b937d87594495b2, type: 3}
       propertyPath: playerWeaponParent
       value: 

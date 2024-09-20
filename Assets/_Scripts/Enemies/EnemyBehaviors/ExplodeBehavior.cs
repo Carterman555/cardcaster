@@ -12,13 +12,10 @@ public class ExplodeBehavior : EnemyBehavior {
         Collider2D[] cols = Physics2D.OverlapCircleAll(enemy.transform.position, explosionRadius, targetLayerMask);
 
         foreach (Collider2D col in cols) {
-            if (col.TryGetComponent(out IDamagable damagable)) {
-                damagable.Damage(enemy.GetStats().Damage);
-            }
-            if (col.TryGetComponent(out Knockback knockback)) {
-                Vector2 toColDirection = col.transform.position - enemy.transform.position;
-                knockback.ApplyKnockback(toColDirection, enemy.GetStats().KnockbackStrength);
-            }
+            DamageDealer.TryDealDamage(col.gameObject,
+                enemy.transform.position,
+                enemy.GetStats().Damage,
+                enemy.GetStats().KnockbackStrength);
         }
 
         enemy.InvokeAttack();

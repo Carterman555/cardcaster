@@ -120,6 +120,8 @@ public class CardButton : GameButton, IPointerDownHandler {
     public void FollowMouse() {
         followMouse.enabled = true;
         playFeedbackOnHover.Disable();
+
+        card.OnStartDraggingCard();
     }
 
     public void StopFollowingMouse() {

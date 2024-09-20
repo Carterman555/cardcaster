@@ -30,7 +30,7 @@ public class SwordSlashBehavior : EnemyBehavior {
                 // deal damage
                 Vector2 toPlayer = PlayerMovement.Instance.transform.position - enemy.transform.position;
                 Vector2 attackCenter = (Vector2)enemy.transform.position + (toPlayer.normalized * slashSize);
-                CircleDamage.DealDamage(targetLayerMask, attackCenter, slashSize, enemy.GetStats().Damage, enemy.GetStats().KnockbackStrength);
+                DamageDealer.DealCircleDamage(targetLayerMask, attackCenter, slashSize, enemy.GetStats().Damage, enemy.GetStats().KnockbackStrength);
 
                 enemy.InvokeAttack();
             }

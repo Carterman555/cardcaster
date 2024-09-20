@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: -1570383927644268234}
   - component: {fileID: 3342111309685746105}
   - component: {fileID: -3435810240837499298}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: WitchProjectile
   m_TagString: Untagged
   m_Icon: {fileID: 0}

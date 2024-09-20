@@ -32,6 +32,8 @@ public class Scattershot : Enemy {
     protected override void OnEnable() {
         base.OnEnable();
 
+        shootBehavior.StartShooting(PlayerMovement.Instance.transform);
+
         shootBehavior.OnShoot_Direction += OnShoot;
     }
     protected override void OnDisable() {

@@ -18,7 +18,7 @@ MonoBehaviour:
   cost: 0
   rarity: 0
   sprite: {fileID: 1312932664149851607, guid: a8a47aca9e1483f4ebbba999d588b2e3, type: 3}
-  <IsPossibleStartingCard>k__BackingField: 1
+  <IsPossibleStartingCard>k__BackingField: 0
   <IsPositional>k__BackingField: 0
   effectDuration: 3
   statsModifier:

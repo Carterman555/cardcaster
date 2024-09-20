@@ -26,7 +26,7 @@ public class ScriptableHitShockwave : ScriptableCardBase {
     }
 
     private void CreateShockwave(Vector2 position) {
-        CircleDamage.DealDamage(enemyLayerMask, position, radius, damage, knockbackStrength);
+        DamageDealer.DealCircleDamage(enemyLayerMask, position, radius, damage, knockbackStrength);
 
         ParticleSystem effect = shockwaveEffectPrefab.Spawn(position, Containers.Instance.Effects);
         effect.Play();

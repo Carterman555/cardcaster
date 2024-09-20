@@ -5,38 +5,42 @@ using DG.Tweening;
 public class PlayerVisual : StaticInstance<PlayerVisual> {
 
     private SpriteRenderer[] playerSprites;
-    private Dictionary<string, float> fadeEffects = new Dictionary<string, float>();
+
+    private int currentOverrideStrength;
 
     protected override void Awake() {
         base.Awake();
         playerSprites = PlayerMovement.Instance.GetComponentsInChildren<SpriteRenderer>();
     }
 
-    public void SetFadeEffect(string effectName, float fadeAmount, float duration = 0f) {
-        fadeEffects[effectName] = fadeAmount;
-        UpdatePlayerFade(duration);
-    }
+    public void SetFadeEffect(int overrideStrength, float fadeAmount, float duration = 0f) {
 
-    public void RemoveFadeEffect(string effectName, float duration = 0f) {
-        fadeEffects.Remove(effectName);
-        UpdatePlayerFade(duration);
-    }
-
-    private void UpdatePlayerFade(float duration) {
-        float lowestFadeAmount = 1f;
-        foreach (float fadeAmount in fadeEffects.Values) {
-            if (fadeAmount < lowestFadeAmount) {
-                lowestFadeAmount = fadeAmount;
-            }
+        if (overrideStrength < currentOverrideStrength) {
+            return;
         }
+
+        currentOverrideStrength = overrideStrength;
 
         foreach (SpriteRenderer playerSprite in playerSprites) {
             if (duration > 0) {
-                playerSprite.DOFade(lowestFadeAmount, duration);
+                playerSprite.DOFade(fadeAmount, duration);
             }
             else {
-                playerSprite.Fade(lowestFadeAmount);
+                playerSprite.Fade(fadeAmount);
             }
         }
+    }
+
+    public void RemoveFadeEffect(int overrideStrength, float duration = 0f) {
+
+        if (overrideStrength < currentOverrideStrength) {
+            return;
+        }
+
+        foreach (SpriteRenderer playerSprite in playerSprites) {
+            playerSprite.Fade(1f);
+        }
+
+        currentOverrideStrength = 0;
     }
 }

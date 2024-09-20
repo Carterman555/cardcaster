@@ -15,7 +15,7 @@ public class ScriptableGhostCard : ScriptableStatsModifierCard {
         // ghost visuals
         float fadeAmount = 0.5f;
         float duration = 0.5f;
-        PlayerVisual.Instance.DOFade(fadeAmount, duration, true);
+        PlayerVisual.Instance.SetFadeEffect(1, fadeAmount, duration);
         PlayerMeleeAttack.Instance.GetSwordVisual().enabled = false;
 
         //... set invincible
@@ -34,7 +34,7 @@ public class ScriptableGhostCard : ScriptableStatsModifierCard {
         // revert ghost visuals
         float fadeAmount = 1f;
         float duration = 0.5f;
-        PlayerVisual.Instance.DOFade(fadeAmount, duration, true);
+        PlayerVisual.Instance.SetFadeEffect(1, fadeAmount, duration);
         PlayerMeleeAttack.Instance.GetSwordVisual().enabled = true;
 
         //... set not invincible

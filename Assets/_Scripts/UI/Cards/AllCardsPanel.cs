@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class AllCardsPanel : MonoBehaviour {
+public class AllCardsPanel : StaticInstance<AllCardsPanel> {
 
     [SerializeField] private PanelCardButton trashCardPrefab;
 
@@ -13,6 +13,8 @@ public class AllCardsPanel : MonoBehaviour {
     [SerializeField] private Transform handCardsContainer;
 
     [SerializeField] private VerticalLayoutGroup verticalLayoutGroup;
+
+    private List<PanelCardButton> cardButtons = new();
 
     // played by popup feedback
     public void UpdateCards() {
@@ -27,6 +29,14 @@ public class AllCardsPanel : MonoBehaviour {
             ScriptableCardBase card = cards[cardIndex];
             PanelCardButton newCard = trashCardPrefab.Spawn(container);
             newCard.Setup(card, cardLocation, cardIndex);
+
+            cardButtons.Add(newCard);
+        }
+    }
+
+    public void SetCardToTrash(bool canTrash) {
+        foreach (var card in cardButtons) {
+            card.GetComponent<Button>().interactable = canTrash;
         }
     }
 }

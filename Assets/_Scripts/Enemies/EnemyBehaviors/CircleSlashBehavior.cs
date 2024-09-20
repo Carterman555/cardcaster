@@ -33,7 +33,7 @@ public class CircleSlashBehavior : EnemyBehavior {
     }
 
     private void Attack() {
-        CircleDamage.DealDamage(
+        DamageDealer.DealCircleDamage(
             GameLayers.PlayerLayerMask,
             centerPoint.position,
             enemy.GetEnemyStats().AttackRange,

@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 645d040cb764ee340aef91313bcafd61, type: 3}
+  m_Name: SwordSwingCard
+  m_EditorClassIdentifier: 
+  cardType: 7
+  cardName: Swing Sword
+  description: 
+  cost: 0
+  rarity: 0
+  sprite: {fileID: 7608387356025836692, guid: a8a47aca9e1483f4ebbba999d588b2e3, type: 3}
+  <IsPossibleStartingCard>k__BackingField: 1
+  <IsPositional>k__BackingField: 0
+  effectDuration: 9.9
+  swingSpeed: 1000

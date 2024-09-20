@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 2262217748617954244}
   - component: {fileID: -6477873027740009823}
   - component: {fileID: -5820090814659444734}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: BounceProjectile
   m_TagString: Untagged
   m_Icon: {fileID: 0}

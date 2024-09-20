@@ -53,7 +53,7 @@ public class PlayerMeleeAttack : StaticInstance<PlayerMeleeAttack>, IAttacker, I
 
         // deal damage
         Vector2 attackCenter = (Vector2)gameObject.transform.position + (toMouseDirection.normalized * stats.SwordSize);
-        Collider2D[] targetCols = CircleDamage.DealDamage(targetLayerMask, attackCenter, stats.SwordSize, stats.Damage, stats.KnockbackStrength);
+        Collider2D[] targetCols = DamageDealer.DealCircleDamage(targetLayerMask, attackCenter, stats.SwordSize, stats.Damage, stats.KnockbackStrength);
 
         PlayAttackFeedbacks(targetCols);
         CreateSlashEffect(toMouseDirection);
@@ -68,6 +68,20 @@ public class PlayerMeleeAttack : StaticInstance<PlayerMeleeAttack>, IAttacker, I
             .Where(health => health != null && !health.IsDead())
             .ToArray() ?? Array.Empty<Health>();
 
+        OnAttack_Targets?.Invoke(targetHealths);
+    }
+
+    public void ExternalAttack(GameObject target, Vector2 attackCenter, float damageMult = 1f, float knockbackStrengthMult = 1f) {
+
+        float damage = stats.Damage * damageMult;
+        float knockbackStrength = stats.KnockbackStrength * knockbackStrengthMult;
+        DamageDealer.DealDamage(target, transform.position, damage, knockbackStrength);
+
+        // invoke events
+        OnAttack?.Invoke();
+        OnAttack_Position?.Invoke(attackCenter);
+
+        Health[] targetHealths = new Health[] { target.GetComponent<Health>() };
         OnAttack_Targets?.Invoke(targetHealths);
     }
 

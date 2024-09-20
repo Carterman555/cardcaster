@@ -108,6 +108,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerTracker: {fileID: 3698229785430942989}
+  spriteRenderer: {fileID: 4638059093303010787}
+  putOutFire: {fileID: 1902318866, guid: bde6d022855f93745baad1d32c2ac2bc, type: 3}
 --- !u!1 &8990063016616871222
 GameObject:
   m_ObjectHideFlags: 0

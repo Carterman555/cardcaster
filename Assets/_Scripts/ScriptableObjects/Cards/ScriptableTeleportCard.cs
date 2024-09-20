@@ -16,8 +16,8 @@ public class ScriptableTeleportCard : ScriptableCardBase {
         base.Play(position);
 
         float duration = 0.5f;
-        PlayerVisual.Instance.SetFadeEffect
-        PlayerVisual.Instance.DOFade(1f, duration);
+        PlayerVisual.Instance.SetFadeEffect(0, 0f);
+        PlayerVisual.Instance.SetFadeEffect(0, 1f, duration);
         CreateVisualClone(PlayerMovement.Instance.transform.position);
 
         if (IsPointValidForTeleport(position)) {

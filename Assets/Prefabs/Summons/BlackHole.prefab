@@ -632,6 +632,7 @@ MonoBehaviour:
   minForce: 1
   maxForce: 3
   duration: 5
+  suckSpeed: 3
 --- !u!114 &7164667738504528509
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -646,7 +647,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   layerFilter:
     serializedVersion: 2
-    m_Bits: 128
+    m_Bits: 2176
 --- !u!58 &3235746791609645634
 CircleCollider2D:
   m_ObjectHideFlags: 0

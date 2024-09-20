@@ -11,6 +11,7 @@ public class BlackHole : MonoBehaviour {
     [SerializeField] private float minForce;
     [SerializeField] private float maxForce;
     [SerializeField] private float duration;
+    [SerializeField] private float suckSpeed;
 
     private float durationTimer;
 
@@ -88,7 +89,7 @@ public class BlackHole : MonoBehaviour {
                 agent.velocity = agent.desiredVelocity + suckVelocity;
             }
             else if (objectInRange.TryGetComponent(out Rigidbody2D rb)) {
-                rb.velocity = suckVelocity;
+                rb.velocity = Vector2.MoveTowards(rb.velocity, suckVelocity, suckSpeed * Time.fixedDeltaTime);
             }
         }
     }

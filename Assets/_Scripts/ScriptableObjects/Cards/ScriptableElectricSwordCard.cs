@@ -18,7 +18,7 @@ public class ScriptableElectricSwordCard : ScriptableCardBase {
 
         PlayerMeleeAttack.OnAttack_Targets += CreateElectricity;
 
-        SpriteRenderer swordVisual = PlayerMeleeAttack.Instance.GetSwordVisual();
+        SpriteRenderer swordVisual = ReferenceSystem.Instance.PlayerSwordVisual;
         swordVisual.gameObject.SetActive(false);
 
         electricSword = electricSwordPrefab.Spawn(swordVisual.transform.parent);
@@ -30,7 +30,7 @@ public class ScriptableElectricSwordCard : ScriptableCardBase {
 
         PlayerMeleeAttack.OnAttack_Targets -= CreateElectricity;
 
-        SpriteRenderer swordVisual = PlayerMeleeAttack.Instance.GetSwordVisual();
+        SpriteRenderer swordVisual = ReferenceSystem.Instance.PlayerSwordVisual;
         swordVisual.gameObject.SetActive(true);
 
         electricSword.gameObject.ReturnToPool();

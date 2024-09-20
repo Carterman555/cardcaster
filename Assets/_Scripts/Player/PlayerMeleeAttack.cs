@@ -23,7 +23,6 @@ public class PlayerMeleeAttack : StaticInstance<PlayerMeleeAttack>, IAttacker, I
 
     [SerializeField] private SpriteRenderer hand;
 
-
     private void Start() {
         weapon.SetTarget(MouseTracker.Instance.transform);
     }
@@ -75,7 +74,7 @@ public class PlayerMeleeAttack : StaticInstance<PlayerMeleeAttack>, IAttacker, I
 
         float damage = stats.Damage * damageMult;
         float knockbackStrength = stats.KnockbackStrength * knockbackStrengthMult;
-        DamageDealer.DealDamage(target, transform.position, damage, knockbackStrength);
+        DamageDealer.TryDealDamage(target, transform.position, damage, knockbackStrength);
 
         // invoke events
         OnAttack?.Invoke();
@@ -108,12 +107,6 @@ public class PlayerMeleeAttack : StaticInstance<PlayerMeleeAttack>, IAttacker, I
     private void CreateSlashEffect(Vector2 toMouseDirection) {
         slashPrefab.Spawn(transform.position, toMouseDirection.DirectionToRotation(), Containers.Instance.Effects);
 
-    }
-
-    [SerializeField] private SpriteRenderer swordVisual;
-
-    public SpriteRenderer GetSwordVisual() {
-        return swordVisual;
     }
 
     #endregion

@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61e45b320db7efd41aebea5446e9d391, type: 3}
   m_Name: ShockwaveCard
   m_EditorClassIdentifier: 
+  cardType: 0
   cardName: Shockwave
   description: Creates a shockwave on hit
   cost: 0

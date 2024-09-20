@@ -18,7 +18,9 @@ MonoBehaviour:
   cost: 0
   rarity: 0
   sprite: {fileID: 7608387356025836692, guid: a8a47aca9e1483f4ebbba999d588b2e3, type: 3}
-  <IsPossibleStartingCard>k__BackingField: 1
+  <IsPossibleStartingCard>k__BackingField: 0
   <IsPositional>k__BackingField: 0
   effectDuration: 9.9
   swingSpeed: 1000
+  playerTouchDamagePrefab: {fileID: 6934243973706104934, guid: 8f7f3a14b56d08b49adfce4774b17f00, type: 3}
+  swingSwordEffectsPrefab: {fileID: 6374651499721630456, guid: 3fb6c8d220ffaa74d9b087f68296c1b9, type: 3}

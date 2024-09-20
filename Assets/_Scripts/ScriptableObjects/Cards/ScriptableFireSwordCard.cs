@@ -17,7 +17,7 @@ public class ScriptableFireSwordCard : ScriptableCardBase {
 
         PlayerMeleeAttack.OnAttack_Targets += InflictBurn;
 
-        SpriteRenderer swordVisual = PlayerMeleeAttack.Instance.GetSwordVisual();
+        SpriteRenderer swordVisual = ReferenceSystem.Instance.PlayerSwordVisual;
         swordVisual.gameObject.SetActive(false);
 
         fireSword = fireSwordPrefab.Spawn(swordVisual.transform.parent);
@@ -29,7 +29,7 @@ public class ScriptableFireSwordCard : ScriptableCardBase {
 
         PlayerMeleeAttack.OnAttack_Targets -= InflictBurn;
 
-        SpriteRenderer swordVisual = PlayerMeleeAttack.Instance.GetSwordVisual();
+        SpriteRenderer swordVisual = ReferenceSystem.Instance.PlayerSwordVisual;
         swordVisual.gameObject.SetActive(true);
 
         fireSword.gameObject.ReturnToPool();

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.IO.LowLevel.Unsafe;
 using UnityEngine;
 
 public abstract class ScriptableCardBase : ScriptableObject, ICollectable {
@@ -28,8 +29,28 @@ public abstract class ScriptableCardBase : ScriptableObject, ICollectable {
 
     [SerializeField] protected float effectDuration;
 
+
+    private Coroutine draggingCardCoroutine;
+
+    public virtual void OnStartDraggingCard() {
+        draggingCardCoroutine = AbilityManager.Instance.StartCoroutine(DraggingCard());
+    }
+
+    private IEnumerator DraggingCard() {
+        while (true) {
+            yield return null;
+            DraggingUpdate();
+        }
+    }
+
+    protected virtual void DraggingUpdate() {
+
+    }
+
     public virtual void Play(Vector2 position) {
-        StatsManager.Instance.StartCoroutine(StopAfterDuration());
+
+        AbilityManager.Instance.StopCoroutine(draggingCardCoroutine);
+        AbilityManager.Instance.StartCoroutine(StopAfterDuration());
 
         AbilityManager.Instance.AddActiveCard(CardType);
     }

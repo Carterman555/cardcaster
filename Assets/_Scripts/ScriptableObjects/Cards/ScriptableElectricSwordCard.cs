@@ -10,8 +10,11 @@ public class ScriptableElectricSwordCard : ScriptableCardBase {
     public static int ElectricUnitAmount { get; private set; } = 3;
     public static float ElectricDamage { get; private set; } = 0.5f;
 
-    [SerializeField] private Transform electricSwordPrefab;
-    private Transform electricSword;
+    [SerializeField] private Material electricSwordMaterial;
+    [SerializeField] private Material normalSwordMaterial;
+
+    [SerializeField] private TransformWithSwordSize electricEffectsPrefab;
+    private TransformWithSwordSize electricEffects;
 
     public override void Play(Vector2 position) {
         base.Play(position);
@@ -19,10 +22,14 @@ public class ScriptableElectricSwordCard : ScriptableCardBase {
         PlayerMeleeAttack.OnAttack_Targets += CreateElectricity;
 
         SpriteRenderer swordVisual = ReferenceSystem.Instance.PlayerSwordVisual;
-        swordVisual.gameObject.SetActive(false);
+        swordVisual.material = electricSwordMaterial;
 
-        electricSword = electricSwordPrefab.Spawn(swordVisual.transform.parent);
-        electricSword.localRotation = Quaternion.identity;
+        // create effects and increase size based on sword size
+        electricEffects = electricEffectsPrefab.Spawn(swordVisual.transform);
+        float swordSize = StatsManager.Instance.GetPlayerStats().SwordSize;
+
+        Vector3 offset = new Vector3(0.31f, 0.27f);
+        electricEffects.SetOriginalLocalPos(offset);
     }
 
     public override void Stop() {
@@ -31,9 +38,9 @@ public class ScriptableElectricSwordCard : ScriptableCardBase {
         PlayerMeleeAttack.OnAttack_Targets -= CreateElectricity;
 
         SpriteRenderer swordVisual = ReferenceSystem.Instance.PlayerSwordVisual;
-        swordVisual.gameObject.SetActive(true);
+        swordVisual.material = normalSwordMaterial;
 
-        electricSword.gameObject.ReturnToPool();
+        electricEffects.gameObject.ReturnToPool();
     }
 
     private void CreateElectricity(Health[] healths) {

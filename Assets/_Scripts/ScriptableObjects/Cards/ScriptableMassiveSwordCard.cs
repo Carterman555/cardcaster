@@ -8,8 +8,8 @@ using UnityEngine;
 public class ScriptableMassiveSwordCard : ScriptableStatsModifierCard {
 
     [Header("Visual")]
-    [SerializeField] private SpriteRenderer bigSwordVisualPrefab;
-    private SpriteRenderer bigSwordVisual;
+    [SerializeField] private Sprite bigSwordSprite;
+    [SerializeField] private Sprite normalSwordSprite;
 
     public override void Play(Vector2 position) {
         base.Play(position);
@@ -30,58 +30,30 @@ public class ScriptableMassiveSwordCard : ScriptableStatsModifierCard {
     private void GrowSword() {
 
         SpriteRenderer swordVisual = ReferenceSystem.Instance.PlayerSwordVisual;
+        swordVisual.sprite = bigSwordSprite;
 
         float transitionDuration = 0.5f;
-
-        bigSwordVisual = bigSwordVisualPrefab.Spawn(swordVisual.transform.position, swordVisual.transform.rotation, ReferenceSystem.Instance.PlayerSword);
-        ReferenceSystem.Instance.SetPlayerSwordVisual(bigSwordVisual);
 
         float sizeMult = PlayerStats.PercentToMult(GetPlayerStatsModifier().SwordSizePercent);
         Vector2 bigSwordStartingSize = Vector2.one * (1f/sizeMult);
 
-        // grow big sword
-        bigSwordVisual.transform.localScale = bigSwordStartingSize;
-        bigSwordVisual.transform.DOScale(1f, transitionDuration);
-
-        // fade in big sword
-        bigSwordVisual.Fade(0f);
-        bigSwordVisual.DOFade(1f, transitionDuration * 0.5f);
-
-        // grow and fade out original sword for half the transition
-        swordVisual.transform.DOScale(sizeMult * 0.5f, transitionDuration * 0.5f);
-        swordVisual.DOFade(0f, transitionDuration * 0.5f).OnComplete(() => {
-
-            // reset visual and disable
-            swordVisual.gameObject.SetActive(false);
-            swordVisual.transform.localScale = Vector3.one;
-            swordVisual.Fade(1f);
-        });
+        // grow sword
+        swordVisual.transform.localScale = bigSwordStartingSize;
+        swordVisual.transform.DOScale(1f, transitionDuration);
     }
 
     private void ShrinkSword() {
         SpriteRenderer swordVisual = ReferenceSystem.Instance.PlayerSwordVisual;
-        ReferenceSystem.Instance.SetPlayerSwordVisual(swordVisual);
 
         float transitionDuration = 0.5f;
 
         float sizeMult = PlayerStats.PercentToMult(GetPlayerStatsModifier().SwordSizePercent);
-        Vector2 bigSwordEndingSize = Vector2.one * (2f / sizeMult);
+        Vector2 bigSwordEndingSize = Vector2.one * (1f / sizeMult);
 
-        // shrink big sword for half the transition
-        bigSwordVisual.transform.DOScale(bigSwordEndingSize, transitionDuration * 0.5f);
-
-        // fade out big sword for half the transition
-        bigSwordVisual.DOFade(0f, transitionDuration * 0.5f).OnComplete(() => {
-            bigSwordVisual.gameObject.ReturnToPool();
+        // shrink sword, then switch back to orignal sword
+        swordVisual.transform.DOScale(bigSwordEndingSize, transitionDuration).OnComplete(() => {
+            swordVisual.sprite = normalSwordSprite;
+            swordVisual.transform.localScale = Vector3.one;
         });
-
-        // shrink and fade in original sword
-        swordVisual.gameObject.SetActive(true);
-
-        swordVisual.transform.localScale = Vector2.one * sizeMult;
-        swordVisual.transform.DOScale(1f, transitionDuration);
-
-        swordVisual.Fade(0f);
-        swordVisual.DOFade(1f, transitionDuration);
     }
 }

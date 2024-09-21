@@ -17,7 +17,7 @@ MonoBehaviour:
   cost: 0
   rarity: 0
   sprite: {fileID: 0}
-  <IsPossibleStartingCard>k__BackingField: 0
+  <IsPossibleStartingCard>k__BackingField: 1
   <IsPositional>k__BackingField: 0
   effectDuration: 6
   statsModifier:
@@ -29,4 +29,5 @@ MonoBehaviour:
     KnockbackStrengthPercent: 100
     SwordSizePercent: 300
     DashDistancePercent: 0
-  bigSwordVisualPrefab: {fileID: 1661840916529002381, guid: d841694376177e5448fcb7178a01323c, type: 3}
+  bigSwordSprite: {fileID: 21300000, guid: b2149264fa5b3c34aa0bd7ace452b311, type: 3}
+  normalSwordSprite: {fileID: 436878124, guid: bde6d022855f93745baad1d32c2ac2bc, type: 3}

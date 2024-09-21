@@ -12,11 +12,8 @@ public class ScriptableFireSwordCard : ScriptableCardBase {
     [SerializeField] private Material fireSwordMaterial;
     [SerializeField] private Material normalSwordMaterial;
 
-    [SerializeField] private Sprite fireSwordSprite;
-    [SerializeField] private Sprite normalSwordSprite;
-
-    [SerializeField] private Transform fireEffectsPrefab;
-    private Transform fireEffects;
+    [SerializeField] private TransformWithSwordSize fireEffectsPrefab;
+    private TransformWithSwordSize fireEffects;
 
     public override void Play(Vector2 position) {
         base.Play(position);
@@ -24,13 +21,14 @@ public class ScriptableFireSwordCard : ScriptableCardBase {
         PlayerMeleeAttack.OnAttack_Targets += InflictBurn;
 
         SpriteRenderer swordVisual = ReferenceSystem.Instance.PlayerSwordVisual;
-        swordVisual.sprite = fireSwordSprite;
         swordVisual.material = fireSwordMaterial;
 
+        // create effects and increase size based on sword size
         fireEffects = fireEffectsPrefab.Spawn(swordVisual.transform);
+        float swordSize = StatsManager.Instance.GetPlayerStats().SwordSize;
 
-        Vector3 offset = new Vector3(0.31f, 0.27f, 0);
-        fireEffects.localPosition += offset;
+        Vector3 offset = new Vector3(0.31f, 0.27f);
+        fireEffects.SetOriginalLocalPos(offset);
     }
 
     public override void Stop() {
@@ -39,7 +37,6 @@ public class ScriptableFireSwordCard : ScriptableCardBase {
         PlayerMeleeAttack.OnAttack_Targets -= InflictBurn;
 
         SpriteRenderer swordVisual = ReferenceSystem.Instance.PlayerSwordVisual;
-        swordVisual.sprite = normalSwordSprite;
         swordVisual.material = normalSwordMaterial;
 
         fireEffects.gameObject.ReturnToPool();

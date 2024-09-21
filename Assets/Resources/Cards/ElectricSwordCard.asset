@@ -13,12 +13,13 @@ MonoBehaviour:
   m_Name: ElectricSwordCard
   m_EditorClassIdentifier: 
   cardType: 0
-  cardName: 
   description: 
   cost: 0
   rarity: 0
-  sprite: {fileID: 0}
+  sprite: {fileID: 436878124, guid: bde6d022855f93745baad1d32c2ac2bc, type: 3}
   <IsPossibleStartingCard>k__BackingField: 0
   <IsPositional>k__BackingField: 0
   effectDuration: 9.9
-  electricSwordPrefab: {fileID: 2645275329061133153, guid: 4e3c5d0a4ada92a46a8478a4b8878082, type: 3}
+  electricSwordMaterial: {fileID: 2100000, guid: 5a955b810ff65f141bf2043d68f2f4c1, type: 2}
+  normalSwordMaterial: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  electricEffectsPrefab: {fileID: -8521989726466691329, guid: b874ccd8b52f72f4493baabb12bb65a1, type: 3}

@@ -17,11 +17,9 @@ MonoBehaviour:
   cost: 0
   rarity: 0
   sprite: {fileID: -6248683744165436545, guid: a8a47aca9e1483f4ebbba999d588b2e3, type: 3}
-  <IsPossibleStartingCard>k__BackingField: 0
+  <IsPossibleStartingCard>k__BackingField: 1
   <IsPositional>k__BackingField: 0
   effectDuration: 9.9
   fireSwordMaterial: {fileID: 2100000, guid: e5438459380dcdb4e9b2d8d5cca7a9f7, type: 2}
   normalSwordMaterial: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
-  fireSwordSprite: {fileID: 886075248, guid: bde6d022855f93745baad1d32c2ac2bc, type: 3}
-  normalSwordSprite: {fileID: 436878124, guid: bde6d022855f93745baad1d32c2ac2bc, type: 3}
-  fireEffectsPrefab: {fileID: 4243861564421153875, guid: dbe1d16aa200f314bb53f5084f979c5b, type: 3}
+  fireEffectsPrefab: {fileID: 4422035545809862014, guid: dbe1d16aa200f314bb53f5084f979c5b, type: 3}

@@ -35,10 +35,11 @@ public class PlayerStats : Stats {
         Damage *= PercentToMult(modifier.DamageIncreasePercent);
         AttackSpeed *= PercentToMult(modifier.AttackSpeedPercent);
         KnockbackStrength *= PercentToMult(modifier.KnockbackStrengthPercent);
+        SwordSize *= PercentToMult(modifier.SwordSizePercent);
         DashSpeed *= PercentToMult(modifier.DashDistancePercent);
     }
 
-    public float PercentToMult(float percent) {
+    public static float PercentToMult(float percent) {
         float mult = 1 + (percent / 100);
         return mult;
     }

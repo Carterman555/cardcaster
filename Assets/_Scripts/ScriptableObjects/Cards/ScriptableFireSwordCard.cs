@@ -9,8 +9,14 @@ public class ScriptableFireSwordCard : ScriptableCardBase {
     // static for abilities that take on fire effect
     public static float BurnDuration { get; private set; } = 3f;
 
-    [SerializeField] private Transform fireSwordPrefab;
-    private Transform fireSword;
+    [SerializeField] private Material fireSwordMaterial;
+    [SerializeField] private Material normalSwordMaterial;
+
+    [SerializeField] private Sprite fireSwordSprite;
+    [SerializeField] private Sprite normalSwordSprite;
+
+    [SerializeField] private Transform fireEffectsPrefab;
+    private Transform fireEffects;
 
     public override void Play(Vector2 position) {
         base.Play(position);
@@ -18,10 +24,13 @@ public class ScriptableFireSwordCard : ScriptableCardBase {
         PlayerMeleeAttack.OnAttack_Targets += InflictBurn;
 
         SpriteRenderer swordVisual = ReferenceSystem.Instance.PlayerSwordVisual;
-        swordVisual.gameObject.SetActive(false);
+        swordVisual.sprite = fireSwordSprite;
+        swordVisual.material = fireSwordMaterial;
 
-        fireSword = fireSwordPrefab.Spawn(swordVisual.transform.parent);
-        fireSword.localRotation = Quaternion.identity;
+        fireEffects = fireEffectsPrefab.Spawn(swordVisual.transform);
+
+        Vector3 offset = new Vector3(0.31f, 0.27f, 0);
+        fireEffects.localPosition += offset;
     }
 
     public override void Stop() {
@@ -30,9 +39,10 @@ public class ScriptableFireSwordCard : ScriptableCardBase {
         PlayerMeleeAttack.OnAttack_Targets -= InflictBurn;
 
         SpriteRenderer swordVisual = ReferenceSystem.Instance.PlayerSwordVisual;
-        swordVisual.gameObject.SetActive(true);
+        swordVisual.sprite = normalSwordSprite;
+        swordVisual.material = normalSwordMaterial;
 
-        fireSword.gameObject.ReturnToPool();
+        fireEffects.gameObject.ReturnToPool();
     }
 
     private void InflictBurn(Health[] healths) {

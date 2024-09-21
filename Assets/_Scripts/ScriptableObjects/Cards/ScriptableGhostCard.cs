@@ -21,8 +21,9 @@ public class ScriptableGhostCard : ScriptableStatsModifierCard {
         //... set invincible
         PlayerMovement.Instance.GetComponent<Health>().SetInvincible(true);
 
-        //... make it move through objects
+        //... make it move through objects and enemies
         Physics2D.IgnoreLayerCollision(GameLayers.PlayerLayer, GameLayers.RoomObjectLayer, true);
+        Physics2D.IgnoreLayerCollision(GameLayers.PlayerLayer, GameLayers.EnemyLayer, true);
     }
 
     public override void Stop() {
@@ -40,8 +41,9 @@ public class ScriptableGhostCard : ScriptableStatsModifierCard {
         //... set not invincible
         PlayerMovement.Instance.GetComponent<Health>().SetInvincible(false);
 
-        //... prevent from moving through objects
+        //... prevent from moving through objects and enemies
         Physics2D.IgnoreLayerCollision(GameLayers.PlayerLayer, GameLayers.RoomObjectLayer, false);
+        Physics2D.IgnoreLayerCollision(GameLayers.PlayerLayer, GameLayers.EnemyLayer, false);
     }
 
 

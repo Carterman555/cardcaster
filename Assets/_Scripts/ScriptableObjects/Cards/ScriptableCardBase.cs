@@ -8,8 +8,7 @@ public abstract class ScriptableCardBase : ScriptableObject, ICollectable {
     [SerializeField] private CardType cardType;
     public CardType CardType => cardType;
 
-    [SerializeField] private string cardName;
-    public string GetName() => cardName;
+    public string GetName() => cardType.ToPrettyString();
 
     [SerializeField] private string description;
     public string GetDescription() => description;
@@ -32,24 +31,27 @@ public abstract class ScriptableCardBase : ScriptableObject, ICollectable {
 
     private Coroutine draggingCardCoroutine;
 
-    public virtual void OnStartDraggingCard() {
-        draggingCardCoroutine = AbilityManager.Instance.StartCoroutine(DraggingCard());
+    public virtual void OnStartDraggingCard(Transform cardTransform) {
+        draggingCardCoroutine = AbilityManager.Instance.StartCoroutine(DraggingCard(cardTransform));
     }
 
-    private IEnumerator DraggingCard() {
+    private IEnumerator DraggingCard(Transform cardTransform) {
         while (true) {
             yield return null;
-            DraggingUpdate();
+            DraggingUpdate(Camera.main.ScreenToWorldPoint(cardTransform.position));
         }
     }
 
-    protected virtual void DraggingUpdate() {
+    protected virtual void DraggingUpdate(Vector2 cardposition) {
 
     }
 
     public virtual void Play(Vector2 position) {
 
-        AbilityManager.Instance.StopCoroutine(draggingCardCoroutine);
+        if (draggingCardCoroutine != null) {
+            AbilityManager.Instance.StopCoroutine(draggingCardCoroutine);
+        }
+
         AbilityManager.Instance.StartCoroutine(StopAfterDuration());
 
         AbilityManager.Instance.AddActiveCard(CardType);

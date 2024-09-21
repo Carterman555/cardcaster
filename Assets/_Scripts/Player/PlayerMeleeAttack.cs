@@ -21,6 +21,12 @@ public class PlayerMeleeAttack : StaticInstance<PlayerMeleeAttack>, IAttacker, I
     private PlayerStats stats => StatsManager.Instance.GetPlayerStats();
     public Stats GetStats() => stats;
 
+    private float GetAttackRadius() {
+        float radiusMult = 0.65f;
+        float radiusAdd = 0.35f;
+        return stats.SwordSize * radiusMult + radiusAdd;
+    }
+
     [SerializeField] private SpriteRenderer hand;
 
     private void Start() {
@@ -51,8 +57,8 @@ public class PlayerMeleeAttack : StaticInstance<PlayerMeleeAttack>, IAttacker, I
         weapon.Swing();
 
         // deal damage
-        Vector2 attackCenter = (Vector2)gameObject.transform.position + (toMouseDirection.normalized * stats.SwordSize);
-        Collider2D[] targetCols = DamageDealer.DealCircleDamage(targetLayerMask, attackCenter, stats.SwordSize, stats.Damage, stats.KnockbackStrength);
+        Vector2 attackCenter = (Vector2)gameObject.transform.position + (toMouseDirection.normalized * GetAttackRadius());
+        Collider2D[] targetCols = DamageDealer.DealCircleDamage(targetLayerMask, attackCenter, GetAttackRadius(), stats.Damage, stats.KnockbackStrength);
 
         PlayAttackFeedbacks(targetCols);
         CreateSlashEffect(toMouseDirection);
@@ -117,8 +123,8 @@ public class PlayerMeleeAttack : StaticInstance<PlayerMeleeAttack>, IAttacker, I
             Gizmos.color = Color.red; // Choose a color for the circle
 
             Vector2 toMouseDirection = MouseTracker.Instance.ToMouseDirection(transform.position);
-            Vector2 attackCenter = (Vector2)transform.position + (toMouseDirection * stats.SwordSize);
-            Gizmos.DrawWireSphere(attackCenter, stats.SwordSize);
+            Vector2 attackCenter = (Vector2)transform.position + (toMouseDirection * GetAttackRadius());
+            Gizmos.DrawWireSphere(attackCenter, GetAttackRadius());
         }
     }
 

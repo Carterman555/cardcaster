@@ -7,6 +7,9 @@ using UnityEngine;
 public class ScriptableStatsModifierCard : ScriptableCardBase {
 
     [SerializeField] private PlayerStatsModifier statsModifier;
+    protected PlayerStatsModifier GetPlayerStatsModifier() {
+        return statsModifier;
+    }
 
     public override void Play(Vector2 position) {
         base.Play(position);
@@ -28,6 +31,7 @@ public class PlayerStatsModifier {
     public int DamageIncreasePercent;
     public float AttackSpeedPercent;
     public float KnockbackStrengthPercent;
+    public float SwordSizePercent;
     public float DashDistancePercent;
 
     public static PlayerStatsModifier operator +(PlayerStatsModifier a, PlayerStatsModifier b) {
@@ -38,6 +42,7 @@ public class PlayerStatsModifier {
             DamageIncreasePercent = a.DamageIncreasePercent + b.DamageIncreasePercent,
             AttackSpeedPercent = a.AttackSpeedPercent + b.AttackSpeedPercent,
             KnockbackStrengthPercent = a.KnockbackStrengthPercent + b.KnockbackStrengthPercent,
+            SwordSizePercent = a.SwordSizePercent + b.SwordSizePercent,
             DashDistancePercent = a.DashDistancePercent + b.DashDistancePercent,
         };
     }
@@ -50,6 +55,7 @@ public class PlayerStatsModifier {
             DamageIncreasePercent = a.DamageIncreasePercent - b.DamageIncreasePercent,
             AttackSpeedPercent = a.AttackSpeedPercent - b.AttackSpeedPercent,
             KnockbackStrengthPercent = a.KnockbackStrengthPercent - b.KnockbackStrengthPercent,
+            SwordSizePercent = a.SwordSizePercent - b.SwordSizePercent,
             DashDistancePercent = a.DashDistancePercent - b.DashDistancePercent,
         };
     }
@@ -61,6 +67,7 @@ public class PlayerStatsModifier {
         DamageIncreasePercent = 0,
         AttackSpeedPercent = 0,
         KnockbackStrengthPercent = 0,
+        SwordSizePercent = 0,
         DashDistancePercent = 0
     };
 }

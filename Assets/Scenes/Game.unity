@@ -766,7 +766,7 @@ GameObject:
   - component: {fileID: 247086535}
   - component: {fileID: 247086536}
   - component: {fileID: 247086537}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Visual
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3379,8 +3379,8 @@ GameObject:
   m_Component:
   - component: {fileID: 584443656}
   - component: {fileID: 584443657}
-  m_Layer: 6
-  m_Name: Visual
+  m_Layer: 0
+  m_Name: NormalSwordVisual
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3453,6 +3453,67 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1001 &612583353
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4966965114630648378, guid: 82d6be02c3ce468419b8a25b6681e6c0, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -1.3690522
+      objectReference: {fileID: 0}
+    - target: {fileID: 4966965114630648378, guid: 82d6be02c3ce468419b8a25b6681e6c0, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 7.149767
+      objectReference: {fileID: 0}
+    - target: {fileID: 4966965114630648378, guid: 82d6be02c3ce468419b8a25b6681e6c0, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4966965114630648378, guid: 82d6be02c3ce468419b8a25b6681e6c0, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4966965114630648378, guid: 82d6be02c3ce468419b8a25b6681e6c0, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4966965114630648378, guid: 82d6be02c3ce468419b8a25b6681e6c0, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4966965114630648378, guid: 82d6be02c3ce468419b8a25b6681e6c0, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4966965114630648378, guid: 82d6be02c3ce468419b8a25b6681e6c0, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4966965114630648378, guid: 82d6be02c3ce468419b8a25b6681e6c0, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4966965114630648378, guid: 82d6be02c3ce468419b8a25b6681e6c0, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8294837421443421423, guid: 82d6be02c3ce468419b8a25b6681e6c0, type: 3}
+      propertyPath: m_Name
+      value: TwistedGoblin
+      objectReference: {fileID: 0}
+    - target: {fileID: 8294837421443421423, guid: 82d6be02c3ce468419b8a25b6681e6c0, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 82d6be02c3ce468419b8a25b6681e6c0, type: 3}
 --- !u!1 &619394800
 GameObject:
   m_ObjectHideFlags: 0
@@ -4441,7 +4502,7 @@ GameObject:
   m_Component:
   - component: {fileID: 685561544}
   - component: {fileID: 685561545}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: WeaponParent
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4478,37 +4539,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   swingAcceleration: 5
   afterSwingRotation: 80
---- !u!1 &742156069
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 742156070}
-  m_Layer: 0
-  m_Name: LaunchEffects
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &742156070
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 742156069}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &755649926
 GameObject:
   m_ObjectHideFlags: 0
@@ -7527,6 +7557,67 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1619295392}
   m_CullTransparentMesh: 1
+--- !u!1001 &1630130039
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4966965114630648378, guid: 82d6be02c3ce468419b8a25b6681e6c0, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 1.1065803
+      objectReference: {fileID: 0}
+    - target: {fileID: 4966965114630648378, guid: 82d6be02c3ce468419b8a25b6681e6c0, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 6.153823
+      objectReference: {fileID: 0}
+    - target: {fileID: 4966965114630648378, guid: 82d6be02c3ce468419b8a25b6681e6c0, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4966965114630648378, guid: 82d6be02c3ce468419b8a25b6681e6c0, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4966965114630648378, guid: 82d6be02c3ce468419b8a25b6681e6c0, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4966965114630648378, guid: 82d6be02c3ce468419b8a25b6681e6c0, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4966965114630648378, guid: 82d6be02c3ce468419b8a25b6681e6c0, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4966965114630648378, guid: 82d6be02c3ce468419b8a25b6681e6c0, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4966965114630648378, guid: 82d6be02c3ce468419b8a25b6681e6c0, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4966965114630648378, guid: 82d6be02c3ce468419b8a25b6681e6c0, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8294837421443421423, guid: 82d6be02c3ce468419b8a25b6681e6c0, type: 3}
+      propertyPath: m_Name
+      value: TwistedGoblin_1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8294837421443421423, guid: 82d6be02c3ce468419b8a25b6681e6c0, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 82d6be02c3ce468419b8a25b6681e6c0, type: 3}
 --- !u!1 &1635037925
 GameObject:
   m_ObjectHideFlags: 0
@@ -7568,7 +7659,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1683459428}
   - component: {fileID: 1683459429}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: HitFeedbacks
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7900,7 +7991,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1770509231}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Sword
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9921,7 +10012,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2062877375}
   - component: {fileID: 2062877376}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Hand
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10020,6 +10111,10 @@ PrefabInstance:
       propertyPath: playerWeaponParent
       value: 
       objectReference: {fileID: 685561544}
+    - target: {fileID: 3553269437776827935, guid: 58f2feb7fcdece146b937d87594495b2, type: 3}
+      propertyPath: normalPlayerSwordVisual
+      value: 
+      objectReference: {fileID: 584443657}
     - target: {fileID: 4220445805472058552, guid: 58f2feb7fcdece146b937d87594495b2, type: 3}
       propertyPath: m_Name
       value: Systems
@@ -10082,4 +10177,5 @@ SceneRoots:
   - {fileID: 882422893}
   - {fileID: 468949921}
   - {fileID: 7583622701996679771}
-  - {fileID: 742156070}
+  - {fileID: 612583353}
+  - {fileID: 1630130039}

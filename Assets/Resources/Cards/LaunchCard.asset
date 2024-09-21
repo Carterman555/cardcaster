@@ -13,12 +13,11 @@ MonoBehaviour:
   m_Name: LaunchCard
   m_EditorClassIdentifier: 
   cardType: 8
-  cardName: Launch Card
   description: 
   cost: 0
   rarity: 0
   sprite: {fileID: 0}
-  <IsPossibleStartingCard>k__BackingField: 1
+  <IsPossibleStartingCard>k__BackingField: 0
   <IsPositional>k__BackingField: 1
   effectDuration: 0
   raycastStep: 0.1

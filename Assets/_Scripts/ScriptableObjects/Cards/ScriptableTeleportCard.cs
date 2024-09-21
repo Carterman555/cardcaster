@@ -1,6 +1,7 @@
 using DG.Tweening;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 /// <summary>
 /// this needs to check if the position the player is trying to teleport to is in the room and not in a collider.
@@ -12,8 +13,25 @@ public class ScriptableTeleportCard : ScriptableCardBase {
     public float raycastStep = 0.1f;
     public LayerMask obstacleLayer;
 
+    [SerializeField] private Transform teleportPosVisualPrefab;
+    private Transform teleportPosVisual;
+
+    public override void OnStartDraggingCard(Transform cardTransform) {
+        base.OnStartDraggingCard(cardTransform);
+
+        teleportPosVisual = teleportPosVisualPrefab.Spawn(Containers.Instance.Effects);
+    }
+
+    protected override void DraggingUpdate(Vector2 cardposition) {
+        base.DraggingUpdate(cardposition);
+
+        teleportPosVisual.position = RaycastToFindPosition(cardposition);
+    }
+
     public override void Play(Vector2 position) {
         base.Play(position);
+
+        teleportPosVisual.gameObject.ReturnToPool();
 
         float duration = 0.5f;
         PlayerVisual.Instance.SetFadeEffect(0, 0f);

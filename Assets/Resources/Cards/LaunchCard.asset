@@ -27,3 +27,8 @@ MonoBehaviour:
     m_Bits: 256
   pathWidth: 3
   pathVisualPrefab: {fileID: 417377677680702974, guid: 5cbec3dce7a1dcf44bb2758c66637e18, type: 3}
+  damageDealerPrefab: {fileID: 6934243973706104934, guid: e05e5091ba1891941947862d91f96eb7, type: 3}
+  wallTriggerPrefab: {fileID: 7161472512564696427, guid: 1c58ce2bbac713a4f9265ceffc8ec132, type: 3}
+  damageMult: 1.5
+  launchSpeed: 20
+  launchEffectsPrefab: {fileID: 8999108393401452439, guid: f8130339e07081844a1a1df4b6dd1477, type: 3}

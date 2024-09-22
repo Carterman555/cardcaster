@@ -80,7 +80,7 @@ public class ChestCollectable : MonoBehaviour {
     }
 
     private void GainCollectable() {
-        if (collectable is ScriptableCardBase scriptableCard) {
+        if (collectable is ScriptableCardBaseOld scriptableCard) {
             DeckManager.Instance.GainCard(scriptableCard);
         }
     }

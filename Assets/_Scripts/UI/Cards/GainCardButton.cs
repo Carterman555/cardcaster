@@ -7,9 +7,9 @@ public class GainCardButton : GameButton {
     [SerializeField] private TextMeshProUGUI descriptionText;
     [SerializeField] private TextMeshProUGUI costText;
 
-    private ScriptableCardBase card;
+    private ScriptableCardBaseOld card;
 
-    public void Setup(ScriptableCardBase card) {
+    public void Setup(ScriptableCardBaseOld card) {
         this.card = card;
 
         titleText.text = card.GetName();

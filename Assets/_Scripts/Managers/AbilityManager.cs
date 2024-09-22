@@ -1,26 +1,18 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class AbilityManager : StaticInstance<AbilityManager> {
 
-    private List<CardType> activeCards = new List<CardType>();
+    private List<ScriptableModifierCardBase> activeModifiers = new List<ScriptableModifierCardBase>();
 
-    public void AddActiveCard(CardType cardType) {
-        activeCards.Add(cardType);
+    public void AddModifier(ScriptableModifierCardBase modifier) {
+        activeModifiers.Add(modifier);
     }
 
-    public void RemoveActiveCard(CardType cardType) {
-
-        if (!activeCards.Contains(cardType)){
-            Debug.LogWarning("Trying To Remove Active Card That Is Not In List!");
+    public void ApplyModifiers(ScriptableAbilityCardBase card) {
+        foreach (var modifier in activeModifiers) {
+            modifier.ApplyModifier(card);
         }
-
-        activeCards.Remove(cardType);
-    }
-
-
-    public bool IsCardActive(CardType cardType) {
-        return activeCards.Contains(cardType);
+        activeModifiers.Clear();
     }
 }

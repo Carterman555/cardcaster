@@ -10,29 +10,29 @@ public class DeckManager : Singleton<DeckManager> {
     [SerializeField] private int startDeckSize;
     [SerializeField] private int handSize;
 
-    private List<ScriptableCardBase> cardsInDeck = new();
-    private List<ScriptableCardBase> cardsInDiscard = new();
-    private List<ScriptableCardBase> cardsInHand = new();
+    private List<ScriptableCardBaseOld> cardsInDeck = new();
+    private List<ScriptableCardBaseOld> cardsInDiscard = new();
+    private List<ScriptableCardBaseOld> cardsInHand = new();
 
     [SerializeField] private int maxEssence;
     private float essence;
 
     #region Get Methods
 
-    public List<ScriptableCardBase> GetCardsInDeck() {
+    public List<ScriptableCardBaseOld> GetCardsInDeck() {
         return cardsInDeck;
     }
 
-    public List<ScriptableCardBase> GetCardsInDiscard() {
+    public List<ScriptableCardBaseOld> GetCardsInDiscard() {
         return cardsInDiscard;
     }
 
-    public List<ScriptableCardBase> GetCardsInHand() {
+    public List<ScriptableCardBaseOld> GetCardsInHand() {
         return cardsInHand;
     }
 
-    public List<ScriptableCardBase> GetAllCards() {
-        List<ScriptableCardBase> allCards = new();
+    public List<ScriptableCardBaseOld> GetAllCards() {
+        List<ScriptableCardBaseOld> allCards = new();
         allCards.AddRange(cardsInDeck);
         allCards.AddRange(cardsInDiscard);
         allCards.AddRange(cardsInHand);
@@ -64,8 +64,8 @@ public class DeckManager : Singleton<DeckManager> {
 
     private void ChooseStartingDeck() {
         for (int i = 0; i < startDeckSize; i++) {
-            ScriptableCardBase[] possibleStartingCards = ResourceSystem.Instance.GetAllCards().Where(card => card.IsPossibleStartingCard).ToArray();
-            ScriptableCardBase chosenCard = possibleStartingCards.RandomItem();
+            ScriptableCardBaseOld[] possibleStartingCards = ResourceSystem.Instance.GetAllCards().Where(card => card.IsPossibleStartingCard).ToArray();
+            ScriptableCardBaseOld chosenCard = possibleStartingCards.RandomItem();
             cardsInDeck.Add(Instantiate(chosenCard));
         }
     }
@@ -91,7 +91,7 @@ public class DeckManager : Singleton<DeckManager> {
         DrawCard(indexInHand);
     }
 
-    public void GainCard(ScriptableCardBase card) {
+    public void GainCard(ScriptableCardBaseOld card) {
         cardsInDiscard.Add(card);
     }
 
@@ -120,7 +120,7 @@ public class DeckManager : Singleton<DeckManager> {
         PrintCardsList(GetAllCards(), startingText);
     }
 
-    private void PrintCardsList(List<ScriptableCardBase> cards, string startingText = "") {
+    private void PrintCardsList(List<ScriptableCardBaseOld> cards, string startingText = "") {
         string whole = startingText;
         foreach (var card in cards) {
             whole += card.GetName() + ", ";

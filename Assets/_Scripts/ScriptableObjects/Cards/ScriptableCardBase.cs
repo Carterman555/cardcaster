@@ -1,10 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.IO.LowLevel.Unsafe;
 using UnityEngine;
 
 public abstract class ScriptableCardBase : ScriptableObject, ICollectable {
-
     [SerializeField] private CardType cardType;
     public CardType CardType => cardType;
 
@@ -24,46 +22,8 @@ public abstract class ScriptableCardBase : ScriptableObject, ICollectable {
 
     [field: SerializeField] public bool IsPossibleStartingCard { get; private set; }
 
-    [field: SerializeField] public bool IsPositional { get; private set; }
-
-    [SerializeField] protected float effectDuration;
-
-
-    private Coroutine draggingCardCoroutine;
-
-    public virtual void OnStartDraggingCard(Transform cardTransform) {
-        draggingCardCoroutine = AbilityManager.Instance.StartCoroutine(DraggingCard(cardTransform));
-    }
-
-    private IEnumerator DraggingCard(Transform cardTransform) {
-        while (true) {
-            yield return null;
-            DraggingUpdate(Camera.main.ScreenToWorldPoint(cardTransform.position));
-        }
-    }
-
-    protected virtual void DraggingUpdate(Vector2 cardposition) {
-
-    }
-
     public virtual void Play(Vector2 position) {
 
-        if (draggingCardCoroutine != null) {
-            AbilityManager.Instance.StopCoroutine(draggingCardCoroutine);
-        }
-
-        AbilityManager.Instance.StartCoroutine(StopAfterDuration());
-
-        AbilityManager.Instance.AddActiveCard(CardType);
-    }
-
-    private IEnumerator StopAfterDuration() {
-        yield return new WaitForSeconds(effectDuration);
-        Stop();
-    }
-
-    public virtual void Stop() {
-        AbilityManager.Instance.RemoveActiveCard(CardType);
     }
 }
 

@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "DaggerShootCard", menuName = "Cards/Dagger Shoot Card")]
-public class ScriptableDaggerShootCard : ScriptableAbilityCardBase {
+[CreateAssetMenu(fileName = "DaggerShootCard", menuName = "Cards/Dagger Shoot Card Old")]
+public class ScriptableDaggerShootCardOld : ScriptableCardBaseOld {
 
     [SerializeField] private StraightMovement daggerPrefab;
     [SerializeField] private float spawnOffsetValue;

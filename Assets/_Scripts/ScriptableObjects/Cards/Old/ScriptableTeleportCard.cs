@@ -9,7 +9,7 @@ using UnityEngine.UIElements;
 /// there is an open spot to teleport. Then teleport there
 /// </summary>
 [CreateAssetMenu(fileName = "New Card", menuName = "Cards/Teleport Card")]
-public class ScriptableTeleportCard : ScriptableCardBase {
+public class ScriptableTeleportCard : ScriptableCardBaseOld {
     public float raycastStep = 0.1f;
     public LayerMask obstacleLayer;
 

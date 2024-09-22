@@ -33,7 +33,7 @@ public class CollectableChest : MonoBehaviour {
 
     private void ChooseUniqueRandomCards() {
 
-        List<ScriptableCardBase> possibleCards = ResourceSystem.Instance.GetAllCards();
+        List<ScriptableCardBaseOld> possibleCards = ResourceSystem.Instance.GetAllCards();
 
         // Check if we have enough cards to choose from
         if (possibleCards.Count < CARD_AMOUNT) {

@@ -4,7 +4,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "ElectricSwordCard", menuName = "Cards/Electric Sword Card")]
-public class ScriptableElectricSwordCard : ScriptableCardBase {
+public class ScriptableElectricSwordCard : ScriptableCardBaseOld {
 
     // static for abilities that take on electric effect
     public static int ElectricUnitAmount { get; private set; } = 3;

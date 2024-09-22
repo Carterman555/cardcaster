@@ -11,7 +11,7 @@ using UnityEngine;
 /// there is an open spot to teleport. Then teleport there
 /// </summary>
 [CreateAssetMenu(fileName = "LaunchCard", menuName = "Cards/Launch Card")]
-public class ScriptableLaunchCard : ScriptableCardBaseOld {
+public class ScriptableLaunchCard : ScriptableCardBase {
     public float raycastStep = 0.1f;
     public LayerMask obstacleLayer;
 

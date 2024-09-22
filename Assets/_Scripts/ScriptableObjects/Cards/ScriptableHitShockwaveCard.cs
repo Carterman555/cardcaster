@@ -4,7 +4,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "New Card", menuName = "Cards/Shockwave Card")]
-public class ScriptableHitShockwave : ScriptableCardBaseOld {
+public class ScriptableHitShockwave : ScriptableCardBase {
 
     [SerializeField] private LayerMask enemyLayerMask;
     [SerializeField] private float radius = 0.75f;

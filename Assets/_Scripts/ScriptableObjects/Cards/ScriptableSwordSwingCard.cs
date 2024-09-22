@@ -5,7 +5,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "SwordSwingCard", menuName = "Cards/Sword Swing Card")]
-public class ScriptableSwordSwingCard : ScriptableCardBaseOld {
+public class ScriptableSwordSwingCard : ScriptableCardBase {
 
     [SerializeField] private float swingSpeed = 1000f;
     private MMAutoRotate autoRotate;

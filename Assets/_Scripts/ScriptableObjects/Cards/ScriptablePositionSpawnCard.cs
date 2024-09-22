@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "New Card", menuName = "Cards/Position Spawn")]
-public class ScriptablePositionSpawnCard : ScriptableCardBaseOld {
+public class ScriptablePositionSpawnCard : ScriptableCardBase {
 
     [SerializeField] private GameObject objectToSpawn;
 

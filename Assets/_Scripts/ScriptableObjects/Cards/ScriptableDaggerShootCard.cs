@@ -4,7 +4,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "DaggerShootCard", menuName = "Cards/Dagger Shoot Card")]
-public class ScriptableDaggerShootCard : ScriptableAbilityCardBase {
+public class ScriptableDaggerShootCard : ScriptableCardBase {
 
     [SerializeField] private StraightMovement daggerPrefab;
     [SerializeField] private float spawnOffsetValue;
@@ -48,7 +48,7 @@ public class ScriptableDaggerShootCard : ScriptableAbilityCardBase {
 
     private void TryApplyEffects(DamageOnContact damageOnContact) {
 
-        if (AbilityManagerOld.Instance.IsCardActive(CardType.FireSword)) {
+        if (AbilityManager.Instance.IsCardActive(CardType.FireSword)) {
             FireEffect fireEffect = damageOnContact.AddComponent<FireEffect>();
             fireEffect.SetBurnDuration(effectDuration);
         }

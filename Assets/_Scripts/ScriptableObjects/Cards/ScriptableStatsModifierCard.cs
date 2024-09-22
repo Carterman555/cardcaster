@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "New Card", menuName = "Cards/Stats Modifier")]
-public class ScriptableStatsModifierCard : ScriptableCardBaseOld {
+public class ScriptableStatsModifierCard : ScriptableCardBase {
 
     [SerializeField] private PlayerStatsModifier statsModifier;
     protected PlayerStatsModifier GetPlayerStatsModifier() {

@@ -23,10 +23,10 @@ public class AllCardsPanel : StaticInstance<AllCardsPanel> {
         SetCardsInContainer(handCardsContainer, DeckManager.Instance.GetCardsInHand(), CardLocation.Hand);
     }
 
-    private void SetCardsInContainer(Transform container, List<ScriptableCardBaseOld> cards, CardLocation cardLocation) {
+    private void SetCardsInContainer(Transform container, List<ScriptableCardBase> cards, CardLocation cardLocation) {
         container.ReturnChildrenToPool();
         for (int cardIndex = 0; cardIndex < cards.Count; cardIndex++) {
-            ScriptableCardBaseOld card = cards[cardIndex];
+            ScriptableCardBase card = cards[cardIndex];
             PanelCardButton newCard = trashCardPrefab.Spawn(container);
             newCard.Setup(card, cardLocation, cardIndex);
 

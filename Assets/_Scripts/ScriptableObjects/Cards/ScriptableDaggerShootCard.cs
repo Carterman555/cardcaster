@@ -1,7 +1,9 @@
+using Mono.CSharp;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.VFX;
 
 [CreateAssetMenu(fileName = "DaggerShootCard", menuName = "Cards/Dagger Shoot Card")]
 public class ScriptableDaggerShootCard : ScriptableAbilityCardBase {
@@ -9,8 +11,8 @@ public class ScriptableDaggerShootCard : ScriptableAbilityCardBase {
     [SerializeField] private StraightMovement daggerPrefab;
     [SerializeField] private float spawnOffsetValue;
 
-    private GameObject effectPrefab;
-    private Transform visualEffect;
+    private List<GameObject> abilityEffectPrefabs = new();
+    private List<Transform> visualEffects = new();
 
     private Coroutine shootCoroutine;
 
@@ -25,8 +27,6 @@ public class ScriptableDaggerShootCard : ScriptableAbilityCardBase {
 
         DeckManager.Instance.StopCoroutine(shootCoroutine);
     }
-
-    
 
     private IEnumerator ShootDaggers() {
         while (true) {
@@ -43,30 +43,31 @@ public class ScriptableDaggerShootCard : ScriptableAbilityCardBase {
             straightMovement.GetComponent<DamageOnContact>().Setup(Stats.Damage, Stats.KnockbackStrength);
 
             // apply effect
-            TryApplyEffects(straightMovement);
+            ApplyEffects(straightMovement);
         }
     }
 
     #region Effects
 
-    public override void AddEffect(GameObject effectPrefab) {
-        base.AddEffect(effectPrefab);
-        this.effectPrefab = effectPrefab;
+    public override void AddEffect(GameObject abilityEffectPrefab) {
+        base.AddEffect(abilityEffectPrefab);
+        abilityEffectPrefabs.Add(abilityEffectPrefab);
     }
 
     public override void TryApplyVisualEffect(Transform visualEffect) {
         base.TryApplyVisualEffect(visualEffect);
-        this.visualEffect = visualEffect;
+        visualEffects.Add(visualEffect);
     }
 
     // applies the effects set by the modifier
-    private void TryApplyEffects(StraightMovement straightMovement) {
+    private void ApplyEffects(StraightMovement straightMovement) {
 
-        if (visualEffect != null) {
+        foreach (var visualEffect in visualEffects) {
             visualEffect.Spawn(straightMovement.transform);
         }
-        if (effectPrefab != null) {
-            var effect = Instantiate(effectPrefab, straightMovement.transform).GetComponent<IAbilityEffect>();
+
+        foreach (var abilityEffectPrefab in abilityEffectPrefabs) {
+            abilityEffectPrefab.Spawn(straightMovement.transform);
         }
     }
 

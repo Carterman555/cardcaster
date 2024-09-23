@@ -7,14 +7,10 @@ public class FireEffectOnDamage : MonoBehaviour, IAbilityEffect {
 
     private ITargetAttacker[] attackers;
 
-    private float burnDuration = ScriptableFireSwordCard.BurnDuration;
-
-    public void SetBurnDuration(float burnDuration) {
-        burnDuration = this.burnDuration;
-    }
+    [SerializeField] private float burnDuration;
 
     private void OnEnable() {
-        attackers = gameObject.GetComponents<ITargetAttacker>();
+        attackers = transform.parent.GetComponents<ITargetAttacker>();
 
         foreach (ITargetAttacker attacker in attackers) {
             attacker.OnDamage_Target += InflictBurn;
@@ -28,14 +24,11 @@ public class FireEffectOnDamage : MonoBehaviour, IAbilityEffect {
         foreach (ITargetAttacker attacker in attackers) {
             attacker.OnDamage_Target -= InflictBurn;
         }
-
-        Destroy(this);
     }
 
     private void InflictBurn(GameObject target) {
         if (target.TryGetComponent(out IEffectable effectable)) {
-            float burnDuration = 1.5f;
-            effectable.AddEffect(new Burn(), true, burnDuration);
+            target.AddComponent<Enemy>
         }
     }
 }

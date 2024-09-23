@@ -55,6 +55,17 @@ public static class ObjectPoolManager {
         return spawnedObject;
     }
 
+    public static GameObject Spawn(this GameObject objectToSpawn, Transform parent = null) {
+        if (objectToSpawn == null) {
+            Debug.LogError("behaviourToSpawn Is Null!");
+            return null;
+        }
+
+        GameObject spawnedObject = Spawn(objectToSpawn, Vector3.zero, Quaternion.identity, parent);
+        spawnedObject.transform.localPosition = Vector3.zero;
+        return spawnedObject;
+    }
+
     public static T Spawn<T>(this T behaviourToSpawn, Vector3 spawnPosition, Quaternion spawnRotation, Transform parent = null) where T : Component {
         if (behaviourToSpawn == null) {
             Debug.LogError("behaviourToSpawn Is Null!");

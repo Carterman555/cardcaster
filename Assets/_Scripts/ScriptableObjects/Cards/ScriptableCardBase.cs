@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public abstract class ScriptableCardBase : ScriptableObject, ICollectable {
+
+    [Header("Basic Info")]
     [SerializeField] private CardType cardType;
     public CardType CardType => cardType;
 
@@ -20,7 +22,9 @@ public abstract class ScriptableCardBase : ScriptableObject, ICollectable {
     [SerializeField] private Sprite sprite;
     public Sprite GetSprite() => sprite;
 
-    [field: SerializeField] public bool IsPossibleStartingCard { get; private set; }
+    [Header("Advanced Info")]
+    [SerializeField] private bool isPossibleStartingCard;
+    public bool IsPossibleStartingCard => isPossibleStartingCard;
 
     public virtual void Play(Vector2 position) {
 

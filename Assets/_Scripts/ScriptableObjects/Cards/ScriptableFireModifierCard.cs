@@ -5,13 +5,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "FireModifierCard", menuName = "Cards/Modifiers/Fire")]
 public class ScriptableFireModifierCard : ScriptableModifierCardBase {
 
-    protected override void ApplyToAbility() {
-        base.ApplyToAbility();
-    }
-
-    protected override void ApplyVisualEffect(Transform targetForVisual) {
-        base.ApplyVisualEffect(targetForVisual);
-
-
+    public override void ApplyToAbility(ScriptableAbilityCardBase card) {
+        base.ApplyToAbility(card);
     }
 }

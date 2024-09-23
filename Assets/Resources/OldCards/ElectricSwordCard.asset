@@ -12,12 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 517dbfb05cadb04499b26d3e28c891a2, type: 3}
   m_Name: ElectricSwordCard
   m_EditorClassIdentifier: 
-  cardType: 0
+  cardType: 15
   description: 
   cost: 0
   rarity: 0
   sprite: {fileID: 436878124, guid: bde6d022855f93745baad1d32c2ac2bc, type: 3}
-  <IsPossibleStartingCard>k__BackingField: 0
+  <IsPossibleStartingCard>k__BackingField: 1
   <IsPositional>k__BackingField: 0
   effectDuration: 9.9
   electricSwordMaterial: {fileID: 2100000, guid: 5a955b810ff65f141bf2043d68f2f4c1, type: 2}

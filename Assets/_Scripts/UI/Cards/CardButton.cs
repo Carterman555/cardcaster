@@ -20,7 +20,7 @@ public class CardButton : GameButton, IPointerDownHandler {
     private PlayFeedbackOnHover playFeedbackOnHover;
     private bool mouseDownOnCard;
 
-    private ScriptableCardBaseOld card;
+    private ScriptableCardBase card;
     private int cardIndex;
 
     protected override void Awake() {
@@ -57,7 +57,7 @@ public class CardButton : GameButton, IPointerDownHandler {
         CardsUIManager.Instance.ReplaceCard(cardIndex);
     }
 
-    public void DrawCard(ScriptableCardBaseOld card) {
+    public void DrawCard(ScriptableCardBase card) {
         SetCard(card);
 
         StopFollowingMouse();
@@ -74,7 +74,7 @@ public class CardButton : GameButton, IPointerDownHandler {
             Input.GetKeyDown(KeyCode.Alpha2) && cardIndex == 1 ||
             Input.GetKeyDown(KeyCode.Alpha3) && cardIndex == 2) {
 
-            if (card.IsPositional) {
+            if (card is ScriptableAbilityCardBase abilityCard && abilityCard.IsPositional) {
                 FollowMouse();
             }
             else {
@@ -112,7 +112,7 @@ public class CardButton : GameButton, IPointerDownHandler {
         DeckManager.Instance.UseCard(cardIndex);
     }
 
-    public void SetCard(ScriptableCardBaseOld card) {
+    public void SetCard(ScriptableCardBase card) {
         this.card = card;
         cardImage.Setup(card);
     }
@@ -121,7 +121,9 @@ public class CardButton : GameButton, IPointerDownHandler {
         followMouse.enabled = true;
         playFeedbackOnHover.Disable();
 
-        card.OnStartDraggingCard(transform);
+        if (card is ScriptableAbilityCardBase abilityCard) {
+            abilityCard.OnStartDraggingCard(transform);
+        }
     }
 
     public void StopFollowingMouse() {

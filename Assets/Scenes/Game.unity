@@ -3479,11 +3479,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e25f7fbb72fe1c45ba49d9ae04deb6d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  baseSwordRenderer: {fileID: 0}
-  effectsParent: {fileID: 0}
-  currentSizeMultiplier: 1
-  currentElementalMaterial: {fileID: 0}
-  activeEffects: []
 --- !u!1001 &612583353
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6994,6 +6989,63 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9ed2a051c32b4fe47a5e4fb95c20b03f, type: 3}
+--- !u!1001 &1543987944
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4966965114630648378, guid: 82d6be02c3ce468419b8a25b6681e6c0, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.50142
+      objectReference: {fileID: 0}
+    - target: {fileID: 4966965114630648378, guid: 82d6be02c3ce468419b8a25b6681e6c0, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 4.1017127
+      objectReference: {fileID: 0}
+    - target: {fileID: 4966965114630648378, guid: 82d6be02c3ce468419b8a25b6681e6c0, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4966965114630648378, guid: 82d6be02c3ce468419b8a25b6681e6c0, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4966965114630648378, guid: 82d6be02c3ce468419b8a25b6681e6c0, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4966965114630648378, guid: 82d6be02c3ce468419b8a25b6681e6c0, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4966965114630648378, guid: 82d6be02c3ce468419b8a25b6681e6c0, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4966965114630648378, guid: 82d6be02c3ce468419b8a25b6681e6c0, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4966965114630648378, guid: 82d6be02c3ce468419b8a25b6681e6c0, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4966965114630648378, guid: 82d6be02c3ce468419b8a25b6681e6c0, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8294837421443421423, guid: 82d6be02c3ce468419b8a25b6681e6c0, type: 3}
+      propertyPath: m_Name
+      value: TwistedGoblin_2
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 82d6be02c3ce468419b8a25b6681e6c0, type: 3}
 --- !u!1 &1599748273
 GameObject:
   m_ObjectHideFlags: 0
@@ -9113,14 +9165,14 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1794461941}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9ae3efc859fc5ec44b9dabd3a2803717, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   roomsPerLevel:
-    MinValue: 0
-    MaxValue: 0
+    MinValue: 10
+    MaxValue: 12
   doorwayTileReplacer: {fileID: 11400000, guid: e6cf803c01b1aec48baa73b56fea4a91, type: 2}
   cameraConfiner: {fileID: 1926929208}
   horizontalHallwayPrefab: {fileID: 8927245960358128749, guid: aaf813fa1e4707847b1e6486a5b2e3d5, type: 3}
@@ -9153,7 +9205,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1794461941}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9ae3efc859fc5ec44b9dabd3a2803717, type: 3}
   m_Name: 
@@ -10210,3 +10262,4 @@ SceneRoots:
   - {fileID: 7583622701996679771}
   - {fileID: 612583353}
   - {fileID: 1630130039}
+  - {fileID: 1543987944}

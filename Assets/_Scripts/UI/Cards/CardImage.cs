@@ -9,7 +9,7 @@ public class CardImage : MonoBehaviour {
     [SerializeField] private TextMeshProUGUI titleText;
     [SerializeField] private TextMeshProUGUI descriptionText;
 
-    public void Setup(ScriptableCardBaseOld card) {
+    public void Setup(ScriptableCardBase card) {
         iconImage.sprite = card.GetSprite();
         SetupCostImages(card.GetCost());
         titleText.text = card.GetName();

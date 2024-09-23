@@ -14,12 +14,12 @@ public class CardsUIManager : StaticInstance<CardsUIManager> {
 
     public void Setup() {
 
-        List<ScriptableCardBaseOld> cardsInHand = DeckManager.Instance.GetCardsInHand();
+        List<ScriptableCardBase> cardsInHand = DeckManager.Instance.GetCardsInHand();
 
         float cardXPos = -((cardsInHand.Count - 1) * cardSpacing * 0.5f);
 
         for (int i = 0; i < cardsInHand.Count; i++) {
-            ScriptableCardBaseOld card = cardsInHand[i];
+            ScriptableCardBase card = cardsInHand[i];
             CardButton cardButton = cardButtonPrefab.Spawn(transform);
             cardButton.Setup(i, deckButtonTransform, new Vector3(cardXPos, cardYPos));
             cardButton.DrawCard(card);
@@ -31,7 +31,7 @@ public class CardsUIManager : StaticInstance<CardsUIManager> {
     }
 
     public void ReplaceCard(int index) {
-        List<ScriptableCardBaseOld> cardsInHand = DeckManager.Instance.GetCardsInHand();
+        List<ScriptableCardBase> cardsInHand = DeckManager.Instance.GetCardsInHand();
 
         cardButtons[index].DrawCard(cardsInHand[index]);
     }

@@ -18,7 +18,7 @@ public class PanelCardButton : GameButton {
     private CardLocation cardLocation;
     private int cardIndex;
 
-    public void Setup(ScriptableCardBaseOld card, CardLocation cardLocation, int cardIndex) {
+    public void Setup(ScriptableCardBase card, CardLocation cardLocation, int cardIndex) {
         cardImage.Setup(card);
 
         this.cardLocation = cardLocation;

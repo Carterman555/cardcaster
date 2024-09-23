@@ -8,7 +8,7 @@ public class ChooseCardPanel : StaticInstance<ChooseCardPanel> {
 
     private bool choseCard = false;
 
-    public void Setup(ScriptableCardBaseOld[] cards) {
+    public void Setup(ScriptableCardBase[] cards) {
 
         chooseText.text = "Choose a Card!";
 

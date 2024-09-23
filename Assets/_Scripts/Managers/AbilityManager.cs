@@ -11,7 +11,9 @@ public class AbilityManager : StaticInstance<AbilityManager> {
 
     public void ApplyModifiers(ScriptableAbilityCardBase card) {
         foreach (var modifier in activeModifiers) {
-            modifier.ApplyModifier(card);
+            if (card.IsModifiable && card.IsCompatible(modifier)) {
+                modifier.ApplyToAbility(card);
+            }
         }
         activeModifiers.Clear();
     }

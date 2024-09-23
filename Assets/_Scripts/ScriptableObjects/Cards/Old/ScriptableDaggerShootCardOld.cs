@@ -49,7 +49,7 @@ public class ScriptableDaggerShootCardOld : ScriptableCardBaseOld {
     private void TryApplyEffects(DamageOnContact damageOnContact) {
 
         if (AbilityManagerOld.Instance.IsCardActive(CardType.FireSword)) {
-            FireEffect fireEffect = damageOnContact.AddComponent<FireEffect>();
+            FireEffectOnDamage fireEffect = damageOnContact.AddComponent<FireEffectOnDamage>();
             fireEffect.SetBurnDuration(effectDuration);
         }
 

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class FireEffect : MonoBehaviour {
+public class FireEffectOnDamage : MonoBehaviour, IAbilityEffect {
 
     private ITargetAttacker[] attackers;
 

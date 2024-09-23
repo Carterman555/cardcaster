@@ -9,10 +9,8 @@ public class ScriptableDaggerShootCard : ScriptableAbilityCardBase {
     [SerializeField] private StraightMovement daggerPrefab;
     [SerializeField] private float spawnOffsetValue;
 
-    [Header("Stats")]
-    [SerializeField] private float shootCooldown;
-    [SerializeField] private float damage;
-    [SerializeField] private float knockbackStrength;
+    private GameObject effectPrefab;
+    private Transform visualEffect;
 
     private Coroutine shootCoroutine;
 
@@ -28,9 +26,11 @@ public class ScriptableDaggerShootCard : ScriptableAbilityCardBase {
         DeckManager.Instance.StopCoroutine(shootCoroutine);
     }
 
+    
+
     private IEnumerator ShootDaggers() {
         while (true) {
-            yield return new WaitForSeconds(shootCooldown);
+            yield return new WaitForSeconds(Stats.Cooldown);
 
             // get direction to shoot (towards mouse
             Vector2 toMouseDirection = (MouseTracker.Instance.transform.position - PlayerMovement.Instance.transform.position).normalized;
@@ -39,26 +39,36 @@ public class ScriptableDaggerShootCard : ScriptableAbilityCardBase {
 
             // spawn and setup dagger
             StraightMovement straightMovement = daggerPrefab.Spawn(spawnPos, Containers.Instance.Projectiles);
-            straightMovement.Setup(toMouseDirection);
-            straightMovement.GetComponent<DamageOnContact>().Setup(damage, knockbackStrength);
+            straightMovement.Setup(toMouseDirection, Stats.ProjectileSpeed);
+            straightMovement.GetComponent<DamageOnContact>().Setup(Stats.Damage, Stats.KnockbackStrength);
 
-            TryApplyEffects(straightMovement.GetComponent<DamageOnContact>());
+            // apply effect
+            TryApplyEffects(straightMovement);
         }
     }
 
-    private void TryApplyEffects(DamageOnContact damageOnContact) {
+    #region Effects
 
-        if (AbilityManagerOld.Instance.IsCardActive(CardType.FireSword)) {
-            FireEffect fireEffect = damageOnContact.AddComponent<FireEffect>();
-            fireEffect.SetBurnDuration(effectDuration);
-        }
-
+    public override void AddEffect(GameObject effectPrefab) {
+        base.AddEffect(effectPrefab);
+        this.effectPrefab = effectPrefab;
     }
 
-    private void InflictBurn(GameObject target) {
-        if (target.TryGetComponent(out IEffectable effectable)) {
-            float burnDuration = 1.5f;
-            effectable.AddEffect(new Burn(), true, burnDuration);
+    public override void TryApplyVisualEffect(Transform visualEffect) {
+        base.TryApplyVisualEffect(visualEffect);
+        this.visualEffect = visualEffect;
+    }
+
+    // applies the effects set by the modifier
+    private void TryApplyEffects(StraightMovement straightMovement) {
+
+        if (visualEffect != null) {
+            visualEffect.Spawn(straightMovement.transform);
+        }
+        if (effectPrefab != null) {
+            var effect = Instantiate(effectPrefab, straightMovement.transform).GetComponent<IAbilityEffect>();
         }
     }
+
+    #endregion
 }

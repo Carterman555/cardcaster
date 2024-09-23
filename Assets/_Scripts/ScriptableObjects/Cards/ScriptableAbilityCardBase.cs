@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public abstract class ScriptableAbilityCardBase : ScriptableCardBase {
@@ -8,13 +9,14 @@ public abstract class ScriptableAbilityCardBase : ScriptableCardBase {
     [SerializeField] private AbilityAttribute abilityAttributes;
     public AbilityAttribute AbilityAttributes => abilityAttributes;
 
+    [SerializeField] private AbilityStats abilityStats;
+    public AbilityStats Stats => abilityStats;
+
     [field: SerializeField] public bool IsPositional { get; private set; }
     [field: SerializeField] public bool IsModifiable { get; private set; } = true;
 
-    [SerializeField] protected float effectDuration;
-
     public bool IsCompatible(ScriptableModifierCardBase modifier) {
-        return (abilityAttributes & modifier.AbilityAttributesToModify) != 0;
+        return (abilityAttributes & modifier.AbilityAttributes) != 0;
     }
 
     private Coroutine draggingCardCoroutine;
@@ -47,11 +49,17 @@ public abstract class ScriptableAbilityCardBase : ScriptableCardBase {
     }
 
     private IEnumerator StopAfterDuration() {
-        yield return new WaitForSeconds(effectDuration);
+        yield return new WaitForSeconds(abilityStats.Duration);
         Stop();
     }
 
     public virtual void Stop() {
+    }
+
+    public virtual void AddEffect(GameObject effectPrefab) {
+    }
+
+    public virtual void TryApplyVisualEffect(Transform visualEffect) {
     }
 }
 
@@ -62,4 +70,45 @@ public enum AbilityAttribute {
     HasArea = 1 << 1,
     HasDuration = 1 << 2,
     IsProjectile = 1 << 3,
+    HasCooldown = 1 << 4,
+}
+
+[Serializable]
+public class AbilityStats {
+    [ConditionalHideFlag("abilityAttributes", AbilityAttribute.DealsDamage)]
+    public float Damage;
+
+    [ConditionalHideFlag("abilityAttributes", AbilityAttribute.DealsDamage)]
+    public float KnockbackStrength;
+
+    [ConditionalHideFlag("abilityAttributes", AbilityAttribute.HasArea)]
+    public float AreaSize;
+
+    [ConditionalHideFlag("abilityAttributes", AbilityAttribute.HasDuration)]
+    public float Duration;
+
+    [ConditionalHideFlag("abilityAttributes", AbilityAttribute.IsProjectile)]
+    public float ProjectileSpeed;
+
+    [ConditionalHideFlag("abilityAttributes", AbilityAttribute.HasCooldown)]
+    public float Cooldown;
+
+    public void ApplyModifier(AbilityStats statsModifier, AbilityAttribute abilityAttributesToModify) {
+        if (abilityAttributesToModify.HasFlag(AbilityAttribute.DealsDamage)) {
+            Damage += statsModifier.Damage;
+            KnockbackStrength += statsModifier.KnockbackStrength;
+        }
+        if (abilityAttributesToModify.HasFlag(AbilityAttribute.HasArea)) {
+            AreaSize += statsModifier.AreaSize;
+        }
+        if (abilityAttributesToModify.HasFlag(AbilityAttribute.HasDuration)) {
+            Duration += statsModifier.Duration;
+        }
+        if (abilityAttributesToModify.HasFlag(AbilityAttribute.IsProjectile)) {
+            ProjectileSpeed += statsModifier.ProjectileSpeed;
+        }
+        if (abilityAttributesToModify.HasFlag(AbilityAttribute.HasCooldown)) {
+            Cooldown += statsModifier.Cooldown;
+        }
+    }
 }

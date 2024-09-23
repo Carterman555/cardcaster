@@ -11,8 +11,6 @@ namespace IslandDefender.Management {
     [RequireComponent(typeof(TriggerContactTracker))]
     public class UnitTouchDamage : MonoBehaviour {
 
-        public event Action OnDamage;
-
         private TriggerContactTracker tracker;
         private Dictionary<GameObject, Coroutine> activeCoroutines = new Dictionary<GameObject, Coroutine>();
 

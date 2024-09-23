@@ -12,13 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61e45b320db7efd41aebea5446e9d391, type: 3}
   m_Name: ShockwaveCard
   m_EditorClassIdentifier: 
-  cardType: 0
-  cardName: Shockwave
+  cardType: 6
   description: Creates a shockwave on hit
   cost: 0
   rarity: 0
   sprite: {fileID: 4761049826753756937, guid: a8a47aca9e1483f4ebbba999d588b2e3, type: 3}
-  <IsPossibleStartingCard>k__BackingField: 0
+  <IsPossibleStartingCard>k__BackingField: 1
   <IsPositional>k__BackingField: 0
   effectDuration: 9.9
   enemyLayerMask:

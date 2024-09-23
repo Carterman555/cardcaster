@@ -70,14 +70,16 @@ public class BaneBlaster : Enemy {
         }
     }
 
-    public override void OnRemoveStopMovementEffect() {
-        base.OnRemoveStopMovementEffect();
+    public override void OnAddEffect(UnitEffect unitEffect) {
+        base.OnAddEffect(unitEffect);
 
-        if (!lineSight.InSight(transform.position)) {
-            chasePlayerBehavior.Start();
-            shootBehavior.Stop();
+        if (unitEffect is StopMovement) {
+            if (!lineSight.InSight(transform.position)) {
+                chasePlayerBehavior.Start();
+                shootBehavior.Stop();
 
-            playerInSight = false;
+                playerInSight = false;
+            }
         }
     }
 

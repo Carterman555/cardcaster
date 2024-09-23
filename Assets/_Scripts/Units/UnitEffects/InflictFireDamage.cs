@@ -1,33 +1,30 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
-public class InflictFireDamage : MonoBehaviour, IEffect {
+public class InflictFireDamage : UnitEffect {
     private Health health;
 
     private int particleId;
 
-    private void Setup(Enemy enemy, bool removeAfterDuration = false, float duration = 0) {
+    public override System.Guid Setup(bool removeAfterDuration = false, float duration = 0) {
+        System.Guid id = base.Setup(removeAfterDuration, duration);
 
-        health = enemy.GetComponent<Health>();
+        health = GetComponent<Health>();
+        particleId = GetComponentInChildren<UnitEffectVisuals>().AddParticleEffect(AssetSystem.Instance.UnitFireParticles);
 
-        particleId = enemy.GetComponentInChildren<UnitEffectVisuals>().AddParticleEffect(AssetSystem.Instance.UnitFireParticles);
+        return id;
     }
 
-    //public override void OnEffectRemoved() {
-    //    base.OnEffectRemoved();
+    private void OnDestroy() {
+        GetComponentInChildren<UnitEffectVisuals>().RemoveParticleEffect(particleId);
+    }
 
-    //    enemy.GetComponentInChildren<UnitEffectVisuals>().RemoveParticleEffect(particleId);
-    //}
+    protected override void Update() {
+        base.Update();
 
-    //public override void UpdateLogic() {
-    //    base.UpdateLogic();
-
-    //    float damagePerSecond = 0.5f;
-    //    health.Damage(damagePerSecond * Time.deltaTime);
-    //}
-
-    public void Apply(GameObject target) {
-        //throw new System.NotImplementedException();
+        float damagePerSecond = 0.5f;
+        health.Damage(damagePerSecond * Time.deltaTime);
     }
 }

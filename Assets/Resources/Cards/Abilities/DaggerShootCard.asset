@@ -17,7 +17,7 @@ MonoBehaviour:
   cost: 0
   rarity: 0
   sprite: {fileID: 0}
-  <IsPossibleStartingCard>k__BackingField: 1
+  isPossibleStartingCard: 1
   abilityAttributes: 29
   abilityStats:
     Damage: 0.25

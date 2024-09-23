@@ -44,7 +44,7 @@ public class ScriptableFireSwordCard : ScriptableCardBaseOld {
 
     private void InflictBurn(Health[] healths) {
         foreach (Health health in healths) {
-            health.GetComponent<Enemy>().AddEffect(new Burn(), true, BurnDuration);
+            //health.GetComponent<Enemy>().AddEffect(new Burn(), true, BurnDuration);
         }
     }
 }

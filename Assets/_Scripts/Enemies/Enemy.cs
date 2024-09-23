@@ -56,59 +56,6 @@ public class Enemy : MonoBehaviour, IHasStats, IChangesFacing, ISpecialAttacker,
 
     #endregion
 
-    #region Effects
-
-    private List<UnitEffectBase> effects = new();
-
-    public virtual void AddEffect(UnitEffectBase effect, bool removeAfterDuration = false, float duration = 0) {
-        effects.Add(effect);
-        effect.OnEffectAdded(this, removeAfterDuration, duration);
-
-        if (effect is StopMovement) {
-            OnAddStopMovementEffect();
-        }
-    }
-
-    public virtual void RemoveEffect(UnitEffectBase effect) {
-
-        UnitEffectBase effectToRemove = effects.FirstOrDefault(e => e.GetType().Equals(effect.GetType()));
-        if (effectToRemove == null) {
-            Debug.LogError("Does Not Have Effect Trying To Remove!");
-            return;
-        }
-
-        effectToRemove.OnEffectRemoved();
-        effects.Remove(effectToRemove);
-
-        if (effectToRemove is StopMovement && !MovementStopped) {
-            OnRemoveStopMovementEffect();
-        }
-    }
-
-    public bool ContainsEffect(UnitEffectBase effect) {
-        return effects.Any(e => e.GetType().Equals(effect.GetType()));
-    }
-
-    public virtual void OnAddStopMovementEffect() {
-        foreach (EnemyBehavior behavior in enemyBehaviors) {
-            if (behavior is IMovementBehavior) {
-                behavior.Stop();
-            }
-        }
-    }
-
-    public virtual void OnRemoveStopMovementEffect() {
-        foreach (EnemyBehavior behavior in enemyBehaviors) {
-            if (behavior is IMovementBehavior) {
-                behavior.Start();
-            }
-        }
-    }
-
-    public bool MovementStopped => ContainsEffect(new StopMovement());
-
-    #endregion
-
     #region Handle Behaviors
 
     protected List<EnemyBehavior> enemyBehaviors = new();
@@ -131,17 +78,16 @@ public class Enemy : MonoBehaviour, IHasStats, IChangesFacing, ISpecialAttacker,
         foreach (EnemyBehavior behavior in enemyBehaviors) {
             behavior.FrameUpdateLogic();
         }
-
-        // not foreach because update logic may remove effect from effects list
-        for (int i = effects.Count - 1; i >= 0; i--) {
-            effects[i].UpdateLogic();
-        }
     }
 
     protected virtual void FixedUpdate() {
         foreach (EnemyBehavior behavior in enemyBehaviors) {
             behavior.PhysicsUpdateLogic();
         }
+    }
+
+    public virtual void OnAddEffect(UnitEffect unitEffect) {
+
     }
 
     public void AnimationTriggerEvent(AnimationTriggerType triggerType) {
@@ -182,4 +128,6 @@ public class Enemy : MonoBehaviour, IHasStats, IChangesFacing, ISpecialAttacker,
     private void KillEnemy() {
         health.Die();
     }
+
+    
 }

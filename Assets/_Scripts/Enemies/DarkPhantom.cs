@@ -61,7 +61,7 @@ public class DarkPhantom : Enemy {
     protected override void Update() {
         base.Update();
 
-        if (MovementStopped) {
+        if (TryGetComponent(out StopMovement stopMovement)) {
             return;
         }
 

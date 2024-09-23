@@ -125,7 +125,7 @@ public class MergeBehavior : EnemyBehavior {
             }
         }
         else if (mergeStage == MergeStage.MovingToMerge) {
-            if (!enemy.MovementStopped) {
+            if (!enemy.TryGetComponent(out StopMovement stopMovement)) {
                 Vector2 toMergingPartner = mergingPartner.GetObject().transform.position - enemy.transform.position;
                 rb.velocity = toMergingPartner * enemy.GetStats().MoveSpeed;
             }

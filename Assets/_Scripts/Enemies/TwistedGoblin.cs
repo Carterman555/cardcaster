@@ -40,16 +40,20 @@ public class TwistedGoblin : Enemy {
     protected override void OnPlayerExitedRange(GameObject player) {
         base.OnPlayerExitedRange(player);
 
-        if (!MovementStopped) {
+        if (!TryGetComponent(out StopMovement stopMovement)) {
             moveBehavior.Start();
         }
 
         slashBehavior.Stop();
     }
 
-    public override void OnRemoveStopMovementEffect() {
-        if (!playerWithinRange) {
-            moveBehavior.Start();
+    public override void OnAddEffect(UnitEffect unitEffect) {
+        base.OnAddEffect(unitEffect);
+
+        if (unitEffect is StopMovement) {
+            if (!playerWithinRange) {
+                moveBehavior.Start();
+            }
         }
     }
 }

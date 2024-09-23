@@ -22,6 +22,8 @@ public class BlackHole : MonoBehaviour {
 
     private bool dying;
 
+    private System.Guid stopMovementId;
+
     private void Awake() {
         suckRadius = GetComponent<CircleCollider2D>().radius;
     }
@@ -46,7 +48,7 @@ public class BlackHole : MonoBehaviour {
             durationTimer = 0;
 
             if (effectableTouching != null) {
-                effectableTouching.GetComponent<IEffectable>().RemoveEffect(new StopMovement());
+                UnitEffect.RemoveEffect(stopMovementId);
                 stoppedMovement = false;
                 effectableTouching = null;
             }
@@ -100,7 +102,8 @@ public class BlackHole : MonoBehaviour {
 
             if (!stoppedMovement) {
                 stoppedMovement = true;
-                effectable.AddEffect(new StopMovement());
+                StopMovement stopMovement = objectTouching.AddComponent<StopMovement>();
+                stopMovementId = stopMovement.Setup();
             }
         }
     }
@@ -115,7 +118,7 @@ public class BlackHole : MonoBehaviour {
         float distance = Vector2.Distance(effectableTouching.transform.position, transform.position);
         bool touchingBlackHole = distance < distanceThreshold;
         if (!effectableTouching) {
-            effectableTouching.GetComponent<IEffectable>().RemoveEffect(new StopMovement());
+            UnitEffect.RemoveEffect(stopMovementId);
             stoppedMovement = false;
             effectableTouching = null;
         }

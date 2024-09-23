@@ -127,11 +127,13 @@ public class Minion : Enemy, IMergable {
         }
     }
 
-    public override void OnRemoveStopMovementEffect() {
-        base.OnRemoveStopMovementEffect();
+    public override void OnAddEffect(UnitEffect unitEffect) {
+        base.OnAddEffect(unitEffect);
 
-        if (!mergeBehavior.IsMovingToMerge() && !mergeBehavior.IsMerging()) {
-            moveBehavior.Start();
+        if (unitEffect is StopMovement) {
+            if (!mergeBehavior.IsMovingToMerge() && !mergeBehavior.IsMerging()) {
+                moveBehavior.Start();
+            }
         }
     }
 

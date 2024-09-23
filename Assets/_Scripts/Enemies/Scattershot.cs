@@ -56,7 +56,7 @@ public class Scattershot : Enemy {
     protected override void OnPlayerEnteredRange(GameObject player) {
         base.OnPlayerEnteredRange(player);
 
-        if (!MovementStopped) {
+        if (!TryGetComponent(out StopMovement stopMovement)) {
             fleePlayerBehavior.Start();
         }
 
@@ -83,9 +83,13 @@ public class Scattershot : Enemy {
         changeFacingBehavior.FaceTowardsPosition(PlayerMovement.Instance.transform.position.x);
     }
 
-    public override void OnRemoveStopMovementEffect() {
-        if (playerWithinRange) {
-            fleePlayerBehavior.Start();
+    public override void OnAddEffect(UnitEffect unitEffect) {
+        base.OnAddEffect(unitEffect);
+
+        if (unitEffect is StopMovement) {
+            if (playerWithinRange) {
+                fleePlayerBehavior.Start();
+            }
         }
     }
 }

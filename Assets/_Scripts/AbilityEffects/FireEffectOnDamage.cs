@@ -28,7 +28,7 @@ public class FireEffectOnDamage : MonoBehaviour, IAbilityEffect {
 
     private void InflictBurn(GameObject target) {
         if (target.TryGetComponent(out IEffectable effectable)) {
-            target.AddComponent<Enemy>
+            target.AddComponent<InflictFireDamage>();
         }
     }
 }

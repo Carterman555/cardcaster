@@ -17,7 +17,7 @@ MonoBehaviour:
   cost: 0
   rarity: 0
   sprite: {fileID: 0}
-  <IsPossibleStartingCard>k__BackingField: 1
+  isPossibleStartingCard: 1
   abilityAttributes: 1
   abilityStatsModifier:
     Damage: 0
@@ -28,5 +28,5 @@ MonoBehaviour:
     Cooldown: 0
   hasVisualEffect: 1
   visualEffect: {fileID: 8370268336996075618, guid: 306b383da7286bd47a9e53896f7d1f36, type: 3}
-  appliesEffect: 0
-  effectPrefab: {fileID: 0}
+  appliesEffect: 1
+  effectPrefab: {fileID: 4023930347696903506, guid: f279c88f7a7a49a4bb5fd72a5bd3469c, type: 3}

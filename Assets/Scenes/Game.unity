@@ -624,6 +624,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 894979328}
     m_Modifications:
+    - target: {fileID: 2569520954402926106, guid: 306b383da7286bd47a9e53896f7d1f36, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7943844969049836941, guid: 306b383da7286bd47a9e53896f7d1f36, type: 3}
       propertyPath: m_Name
       value: FireAbilityEffect
@@ -5250,26 +5254,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 344222760}
     m_Modifications:
-    - target: {fileID: 531279357377690003, guid: 306b383da7286bd47a9e53896f7d1f36, type: 3}
-      propertyPath: ShapeModule.type
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 531279357377690003, guid: 306b383da7286bd47a9e53896f7d1f36, type: 3}
-      propertyPath: ShapeModule.m_Sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: b2149264fa5b3c34aa0bd7ace452b311, type: 3}
-    - target: {fileID: 531279357377690003, guid: 306b383da7286bd47a9e53896f7d1f36, type: 3}
-      propertyPath: ShapeModule.placementMode
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 531279357377690003, guid: 306b383da7286bd47a9e53896f7d1f36, type: 3}
-      propertyPath: ShapeModule.radiusThickness
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2569520954402926106, guid: 306b383da7286bd47a9e53896f7d1f36, type: 3}
-      propertyPath: samplingResolution
-      value: 32
-      objectReference: {fileID: 0}
     - target: {fileID: 7943844969049836941, guid: 306b383da7286bd47a9e53896f7d1f36, type: 3}
       propertyPath: m_Name
       value: FireAbilityEffect
@@ -5288,19 +5272,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8370268336996075618, guid: 306b383da7286bd47a9e53896f7d1f36, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.7660445
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8370268336996075618, guid: 306b383da7286bd47a9e53896f7d1f36, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8370268336996075618, guid: 306b383da7286bd47a9e53896f7d1f36, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8370268336996075618, guid: 306b383da7286bd47a9e53896f7d1f36, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.6427876
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8370268336996075618, guid: 306b383da7286bd47a9e53896f7d1f36, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x

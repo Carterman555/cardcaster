@@ -10,8 +10,13 @@ public class AbilityManager : StaticInstance<AbilityManager> {
     }
 
     public void ApplyModifiers(ScriptableAbilityCardBase card) {
+
+        if (!card.IsModifiable) {
+            return;
+        }
+
         foreach (var modifier in activeModifiers) {
-            if (card.IsModifiable && card.IsCompatible(modifier)) {
+            if (card.IsCompatible(modifier)) {
                 modifier.ApplyToAbility(card);
             }
         }

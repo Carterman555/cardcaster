@@ -14,23 +14,17 @@ public class BlackHole : MonoBehaviour {
     [SerializeField] private float suckSpeed;
 
     private float durationTimer;
-
     private float suckRadius;
-
-    private GameObject effectableTouching;
-    private bool stoppedMovement;
-
     private bool dying;
 
-    private System.Guid stopMovementId;
+    private StopMovement stopMovementEffect;
 
     private void Awake() {
         suckRadius = GetComponent<CircleCollider2D>().radius;
     }
 
     private void OnEnable() {
-        effectableTouching = null;
-        stoppedMovement = false;
+        stopMovementEffect = null;
         durationTimer = 0;
         dying = false;
     }
@@ -47,10 +41,9 @@ public class BlackHole : MonoBehaviour {
         if (durationTimer > duration) {
             durationTimer = 0;
 
-            if (effectableTouching != null) {
-                UnitEffect.RemoveEffect(stopMovementId);
-                stoppedMovement = false;
-                effectableTouching = null;
+            if (stopMovementEffect != null) {
+                Destroy(stopMovementEffect);
+                stopMovementEffect = null;
             }
 
             dying = true;
@@ -80,7 +73,7 @@ public class BlackHole : MonoBehaviour {
             if (touchingBlackHole) {
                 suckingForce = 0;
 
-                if (effectableTouching == null) {
+                if (stopMovementEffect == null) {
                     TryStopMovementOfTouching(objectInRange);
                 }
             }
@@ -98,29 +91,25 @@ public class BlackHole : MonoBehaviour {
 
     private void TryStopMovementOfTouching(GameObject objectTouching) {
         if (objectTouching.TryGetComponent(out IEffectable effectable)) {
-            effectableTouching = objectTouching;
-
-            if (!stoppedMovement) {
-                stoppedMovement = true;
-                StopMovement stopMovement = objectTouching.AddComponent<StopMovement>();
-                stopMovementId = stopMovement.Setup();
+            if (stopMovementEffect == null) {
+                stopMovementEffect = objectTouching.AddComponent<StopMovement>();
+                stopMovementEffect.Setup();
             }
         }
     }
 
     private void CheckTouchingEffectable() {
 
-        if (effectableTouching == null) {
+        if (stopMovementEffect == null) {
             return;
         }
 
         float distanceThreshold = 0.05f;
-        float distance = Vector2.Distance(effectableTouching.transform.position, transform.position);
+        float distance = Vector2.Distance(stopMovementEffect.transform.position, transform.position);
         bool touchingBlackHole = distance < distanceThreshold;
-        if (!effectableTouching) {
-            UnitEffect.RemoveEffect(stopMovementId);
-            stoppedMovement = false;
-            effectableTouching = null;
+        if (!touchingBlackHole) {
+            Destroy(stopMovementEffect);
+            stopMovementEffect = null;
         }
     }
 }

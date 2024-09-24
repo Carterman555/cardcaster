@@ -1,76 +1,128 @@
-using System.Linq;
 using UnityEngine;
+using System.Collections.Generic;
+using System;
+using System.Linq;
 
-[RequireComponent(typeof(ParticleSystem))]
 public class ParticleShapeMatcher : MonoBehaviour {
 
-    [SerializeField] private int samplingResolution = 32;
-    [SerializeField] private float particleSize = 0.1f;
+    private ParticleSystem[] particles;
 
-    private ParticleSystem particles;
-    private ParticleSystem.MainModule mainModule;
-    private ParticleSystem.ShapeModule shapeModule;
-
-    private SpriteRenderer spriteRenderer;
-    private Texture2D shapeTexture;
+    private float[] defaultEmissionRates;
 
     private void Awake() {
-        particles = GetComponent<ParticleSystem>();
-        mainModule = particles.main;
-        shapeModule = particles.shape;
-    }
+        particles = GetComponentsInChildren<ParticleSystem>();
 
-    private void OnEnable() {
-        spriteRenderer = GetBiggestRenderer();
-
-        if (spriteRenderer == null) {
-            Debug.LogError("Could not find sprite!");
-            return;
+        defaultEmissionRates = new float[particles.Length];
+        for (int i = 0; i < particles.Length; i++) {
+            var emissionModule = particles[i].emission;
+            defaultEmissionRates[i] = emissionModule.rateOverTime.constant;
         }
-        UpdateParticleShape();
+        
     }
 
-    void UpdateParticleShape() {
-        Sprite sprite = spriteRenderer.sprite;
-        Texture2D spriteTexture = sprite.texture;
+    void OnEnable() {
 
-        // Create a new texture for the particle system shape
-        shapeTexture = new Texture2D(samplingResolution, samplingResolution, TextureFormat.Alpha8, false);
+        SpriteRenderer[] spriteRenderers = transform.parent.GetComponentsInChildren<SpriteRenderer>();
+        Sprite biggestSprite = GetBiggestSprite(spriteRenderers);
 
-        // Sample the sprite texture
-        for (int y = 0; y < samplingResolution; y++) {
-            for (int x = 0; x < samplingResolution; x++) {
-                float u = (float)x / (samplingResolution - 1);
-                float v = (float)y / (samplingResolution - 1);
+        for (int i = 0; i < particles.Length; i++) {
 
-                // Convert UV to sprite texture coordinates
-                Vector2 pixelPos = new Vector2(
-                    Mathf.Lerp(sprite.textureRect.x, sprite.textureRect.xMax, u),
-                    Mathf.Lerp(sprite.textureRect.y, sprite.textureRect.yMax, v)
-                );
+            // Assign the mesh to the MeshFilter component
+            var shapeModule = particles[i].shape;
+            shapeModule.shapeType = ParticleSystemShapeType.Mesh;
+            shapeModule.mesh = GetMeshFromSprite(biggestSprite);
 
-                // Sample the sprite texture
-                Color pixelColor = spriteTexture.GetPixelBilinear(pixelPos.x / spriteTexture.width, pixelPos.y / spriteTexture.height);
+            // change emission rate based on sprite size
+            var emissionModule = particles[i].emission;
+            emissionModule.rateOverTime = defaultEmissionRates[i] * biggestSprite.bounds.size.magnitude;
+        }
+        
+    }
+   
+    private Sprite GetBiggestSprite(SpriteRenderer[] spriteRenderers) {
+        return spriteRenderers.OrderBy(spriteRenderer => spriteRenderer.sprite.bounds.size).FirstOrDefault().sprite;
+    }
 
-                // Set the alpha value in the shape texture
-                shapeTexture.SetPixel(x, y, new Color(1, 1, 1, pixelColor.a));
+    private Mesh GetMeshFromSprite(Sprite sprite) {
+
+        // Create a new mesh
+        Mesh mesh = new Mesh();
+
+        // Get the sprite's texture
+        Texture2D texture = sprite.texture;
+
+        // Get pixel data from the sprite
+        Color[] pixels = texture.GetPixels((int)sprite.textureRect.x, (int)sprite.textureRect.y, (int)sprite.textureRect.width, (int)sprite.textureRect.height);
+
+        // Create lists to store mesh data
+        List<Vector3> vertices = new List<Vector3>();
+        List<int> triangles = new List<int>();
+        List<Vector2> uvs = new List<Vector2>();
+
+        int width = (int)sprite.textureRect.width;
+        int height = (int)sprite.textureRect.height;
+
+        // Get the pivot in texture space (in pixels)
+        Vector2 pivot = sprite.pivot; // The pivot is in pixels, based on the sprite's texture
+        float pixelSize = 1 / sprite.pixelsPerUnit; // The size of each pixel in world units
+
+        // Convert the pivot to world space offset
+        Vector2 pivotOffset = new Vector2(pivot.x / sprite.pixelsPerUnit, pivot.y / sprite.pixelsPerUnit);
+
+        // Loop through each pixel in the texture
+        for (int y = 0; y < height; y++) {
+            for (int x = 0; x < width; x++) {
+                // Get the color of the current pixel
+                Color pixelColor = pixels[x + y * width];
+
+                // Only add opaque (non-transparent) pixels to the mesh
+                if (pixelColor.a > 0f) // Check the alpha value to exclude transparent pixels
+                {
+                    // Create four vertices for this "pixel" (since we want to create a quad per pixel)
+                    Vector3 bottomLeft = new Vector3(x * pixelSize, y * pixelSize, 0) - (Vector3)pivotOffset;
+                    Vector3 bottomRight = new Vector3((x + 1) * pixelSize, y * pixelSize, 0) - (Vector3)pivotOffset;
+                    Vector3 topLeft = new Vector3(x * pixelSize, (y + 1) * pixelSize, 0) - (Vector3)pivotOffset;
+                    Vector3 topRight = new Vector3((x + 1) * pixelSize, (y + 1) * pixelSize, 0) - (Vector3)pivotOffset;
+
+                    // Add vertices
+                    int vertexIndex = vertices.Count;
+                    vertices.Add(bottomLeft);
+                    vertices.Add(bottomRight);
+                    vertices.Add(topLeft);
+                    vertices.Add(topRight);
+
+                    // Add triangles (two triangles for each quad)
+                    triangles.Add(vertexIndex);       // Bottom-left triangle
+                    triangles.Add(vertexIndex + 2);   // Top-left
+                    triangles.Add(vertexIndex + 1);   // Bottom-right
+
+                    triangles.Add(vertexIndex + 1);   // Bottom-right triangle
+                    triangles.Add(vertexIndex + 2);   // Top-left
+                    triangles.Add(vertexIndex + 3);   // Top-right
+
+                    // Add UVs (normalized texture coordinates)
+                    Vector2 uvBottomLeft = new Vector2((float)x / width, (float)y / height);
+                    Vector2 uvBottomRight = new Vector2((float)(x + 1) / width, (float)y / height);
+                    Vector2 uvTopLeft = new Vector2((float)x / width, (float)(y + 1) / height);
+                    Vector2 uvTopRight = new Vector2((float)(x + 1) / width, (float)(y + 1) / height);
+
+                    uvs.Add(uvBottomLeft);
+                    uvs.Add(uvBottomRight);
+                    uvs.Add(uvTopLeft);
+                    uvs.Add(uvTopRight);
+                }
             }
         }
 
-        shapeTexture.Apply();
+        // Assign the lists to the mesh
+        mesh.vertices = vertices.ToArray();
+        mesh.triangles = triangles.ToArray();
+        mesh.uv = uvs.ToArray();
 
-        // Apply the texture to the particle system shape
-        shapeModule.texture = shapeTexture;
-        shapeModule.textureClipChannel = ParticleSystemShapeTextureChannel.Alpha;
+        // Recalculate mesh properties for optimization
+        mesh.RecalculateBounds();
+        mesh.RecalculateNormals();
 
-        // Adjust particle system properties
-        shapeModule.scale = spriteRenderer.bounds.size;
-        //mainModule.startSize = particleSize;
-    }
-
-    private SpriteRenderer GetBiggestRenderer() {
-        SpriteRenderer[] renderers = transform.parent.GetComponentsInChildren<SpriteRenderer>();
-        SpriteRenderer biggestRenderer = renderers.OrderByDescending(r => r.bounds.size.magnitude).FirstOrDefault();
-        return biggestRenderer;
+        return mesh;
     }
 }

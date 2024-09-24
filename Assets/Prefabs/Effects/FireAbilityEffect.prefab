@@ -4807,8 +4807,8 @@ ParticleSystemRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: -210121459
-  m_SortingLayer: 3
+  m_SortingLayerID: 1360671085
+  m_SortingLayer: 5
   m_SortingOrder: 0
   m_RenderMode: 0
   m_MeshDistribution: 0
@@ -4853,7 +4853,7 @@ GameObject:
   - component: {fileID: 8370268336996075618}
   - component: {fileID: 7700912769001757359}
   - component: {fileID: 531279357377690003}
-  - component: {fileID: 2569520954402926106}
+  - component: {fileID: 8571460499215798008}
   - component: {fileID: -3083223762585461350}
   m_Layer: 0
   m_Name: FireAbilityEffect
@@ -4919,8 +4919,8 @@ ParticleSystemRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: -210121459
-  m_SortingLayer: 3
+  m_SortingLayerID: 1360671085
+  m_SortingLayer: 5
   m_SortingOrder: 0
   m_RenderMode: 0
   m_MeshDistribution: 0
@@ -5144,7 +5144,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 0.3962264, g: 0.15424938, b: 0.054200795, a: 1}
-      maxColor: {r: 1, g: 0.5214751, b: 0, a: 0}
+      maxColor: {r: 1, g: 0.5214751, b: 0, a: 0.02745098}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 0.36739028, b: 0, a: 1}
@@ -5809,7 +5809,7 @@ ParticleSystem:
     rateOverTime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 50
+      scalar: 30
       minScalar: 10
       maxCurve:
         serializedVersion: 2
@@ -9725,7 +9725,7 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     vectorLabel1_3: W
---- !u!114 &2569520954402926106
+--- !u!114 &8571460499215798008
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -9734,11 +9734,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 7943844969049836941}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 09d11d71a0a50e5489399ff91a562784, type: 3}
+  m_Script: {fileID: 11500000, guid: 918ca2415709bf3458b19a7b29ef8645, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  samplingResolution: 16
-  particleSize: 0.1
 --- !u!114 &-3083223762585461350
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14567,8 +14565,8 @@ ParticleSystemRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: -210121459
-  m_SortingLayer: 3
+  m_SortingLayerID: 1360671085
+  m_SortingLayer: 5
   m_SortingOrder: 0
   m_RenderMode: 0
   m_MeshDistribution: 0

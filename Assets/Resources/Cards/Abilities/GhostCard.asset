@@ -9,23 +9,31 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ddceab62dd8231248bd8d7581dfc91e1, type: 3}
-  m_Name: ElectricModifierCard
+  m_Script: {fileID: 11500000, guid: e0de0735ea689db45995e1811b1313c4, type: 3}
+  m_Name: GhostCard
   m_EditorClassIdentifier: 
-  cardType: 13
+  cardType: 2
   description: 
   cost: 0
   rarity: 0
   sprite: {fileID: 0}
   isPossibleStartingCard: 0
-  abilityAttributes: 1
-  abilityStatsModifierPercentage:
+  abilityAttributes: 4
+  abilityStats:
     Damage: 0
     KnockbackStrength: 0
     AreaSize: 0
-    Duration: 0
+    Duration: 6.9
     ProjectileSpeed: 0
     Cooldown: 0
-  canStackWithSelf: 0
-  appliesEffect: 1
-  effectPrefab: {fileID: 4023930347696903506, guid: b12e6fd55c3595a4984787a9e88d2d84, type: 3}
+  <IsPositional>k__BackingField: 0
+  <IsModifiable>k__BackingField: 0
+  statsModifier:
+    MaxHealthPercent: 0
+    KnockbackResistancePercent: 0
+    MoveSpeedPercent: 50
+    DamageIncreasePercent: 0
+    AttackSpeedPercent: 0
+    KnockbackStrengthPercent: 0
+    SwordSizePercent: 0
+    DashDistancePercent: 0

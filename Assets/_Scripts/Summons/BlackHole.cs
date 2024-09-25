@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -5,7 +6,10 @@ using UnityEditor.Rendering;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class BlackHole : MonoBehaviour {
+public class BlackHole : MonoBehaviour, IAbilityStatsSetup, ITargetAttacker {
+
+    public event Action OnAttack;
+    public event Action<GameObject> OnDamage_Target;
 
     [SerializeField] private TriggerContactTracker contactTracker;
     [SerializeField] private float minForce;
@@ -20,9 +24,9 @@ public class BlackHole : MonoBehaviour {
 
     private StopMovement stopMovementEffect;
 
-    private void Awake() {
-        suckRadius = GetComponent<CircleCollider2D>().radius;
-    }
+    [Header("Visual")]
+    [SerializeField] private ParticleSystem particles;
+    [SerializeField] private ParticleSystemForceField particleField;
 
     private void OnEnable() {
         stopMovementEffect = null;
@@ -32,6 +36,20 @@ public class BlackHole : MonoBehaviour {
     public void SetAbilityStats(AbilityStats stats) {
         damage = stats.Damage;
         duration = stats.Duration;
+        suckRadius = stats.AreaSize;
+
+        GetComponent<CircleCollider2D>().radius = stats.AreaSize;
+
+        // size visual based on area size
+        var main = particles.main;
+        main.startLifetime = new ParticleSystem.MinMaxCurve(1, 0.3f * suckRadius);
+
+        var emission = particles.emission;
+        emission.rateOverTime = suckRadius * 10f;
+
+        var shape = particles.shape;
+        shape.radius = suckRadius;
+        particleField.endRange = suckRadius + 1;
     }
 
     private void Update() {
@@ -62,33 +80,42 @@ public class BlackHole : MonoBehaviour {
         }
 
         foreach (GameObject objectInRange in contactTracker.GetContacts()) {
+            SuckEnemy(objectInRange);
 
-            Vector2 toBlackHole = transform.position - objectInRange.transform.position;
-
-            float distance = toBlackHole.magnitude;
-
-            float forceFactor = Mathf.Clamp(1 - (distance / suckRadius), 0, 1);
-            float suckingForce = Mathf.Lerp(minForce, maxForce, forceFactor);
-
-            // don't suck if very close to black hole to avoid jittering
-            float distanceThreshold = 0.05f;
-            bool touchingBlackHole = distance < distanceThreshold;
-            if (touchingBlackHole) {
-                suckingForce = 0;
-
-                if (stopMovementEffect == null) {
-                    TryStopMovementOfTouching(objectInRange);
-                }
+            bool dealtDamage = DamageDealer.TryDealDamage(objectInRange, transform.position, damage * Time.fixedDeltaTime, 0);
+            if (dealtDamage) {
+                OnDamage_Target?.Invoke(objectInRange);
             }
+            OnAttack?.Invoke();
+        }
+    }
 
-            Vector3 suckVelocity = toBlackHole.normalized * suckingForce;
+    private void SuckEnemy(GameObject objectInRange) {
+        Vector2 toBlackHole = transform.position - objectInRange.transform.position;
 
-            if (objectInRange.TryGetComponent(out NavMeshAgent agent)) {
-                agent.velocity = agent.desiredVelocity + suckVelocity;
+        float distance = toBlackHole.magnitude;
+
+        float forceFactor = Mathf.Clamp(1 - (distance / suckRadius), 0, 1);
+        float suckingForce = Mathf.Lerp(minForce, maxForce, forceFactor);
+
+        // don't suck if very close to black hole to avoid jittering
+        float distanceThreshold = 0.05f;
+        bool touchingBlackHole = distance < distanceThreshold;
+        if (touchingBlackHole) {
+            suckingForce = 0;
+
+            if (stopMovementEffect == null) {
+                TryStopMovementOfTouching(objectInRange);
             }
-            else if (objectInRange.TryGetComponent(out Rigidbody2D rb)) {
-                rb.velocity = Vector2.MoveTowards(rb.velocity, suckVelocity, suckSpeed * Time.fixedDeltaTime);
-            }
+        }
+
+        Vector3 suckVelocity = toBlackHole.normalized * suckingForce;
+
+        if (objectInRange.TryGetComponent(out NavMeshAgent agent)) {
+            agent.velocity = agent.desiredVelocity + suckVelocity;
+        }
+        else if (objectInRange.TryGetComponent(out Rigidbody2D rb)) {
+            rb.velocity = Vector2.MoveTowards(rb.velocity, suckVelocity, suckSpeed * Time.fixedDeltaTime);
         }
     }
 

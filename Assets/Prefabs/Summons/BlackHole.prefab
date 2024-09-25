@@ -605,7 +605,7 @@ SpriteRenderer:
   m_SortingLayerID: -742048995
   m_SortingLayer: 4
   m_SortingOrder: 0
-  m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
+  m_Sprite: {fileID: 5324263924718413467, guid: 59975ce93a119e945a78bb5f5587ae1d, type: 3}
   m_Color: {r: 0.11320752, g: 0.11320752, b: 0.11320752, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -631,8 +631,9 @@ MonoBehaviour:
   contactTracker: {fileID: 7164667738504528509}
   minForce: 1
   maxForce: 3
-  duration: 5
   suckSpeed: 3
+  particles: {fileID: 8841411784643663690}
+  particleField: {fileID: 2906743570936462765}
 --- !u!114 &7164667738504528509
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -682,7 +683,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 4.94
+  m_Radius: 5
 --- !u!1 &6080014323652463523
 GameObject:
   m_ObjectHideFlags: 0
@@ -1434,7 +1435,7 @@ ParticleSystem:
     sphericalDirectionAmount: 0
     randomPositionAmount: 0
     radius:
-      value: 4
+      value: 5
       mode: 0
       spread: 0
       speed:

@@ -26,7 +26,14 @@ public static class EffectsHelper {
         Texture2D texture = sprite.texture;
 
         // Get pixel data from the sprite
-        Color[] pixels = texture.GetPixels((int)sprite.textureRect.x, (int)sprite.textureRect.y, (int)sprite.textureRect.width, (int)sprite.textureRect.height);
+        Color[] pixels = new Color[0];
+        try {
+            pixels = texture.GetPixels((int)sprite.textureRect.x, (int)sprite.textureRect.y, (int)sprite.textureRect.width, (int)sprite.textureRect.height);
+        }
+        catch {
+            Debug.LogError("Need to allow Read/Write on " + sprite.name);
+            return null;
+        }
 
         // Create lists to store mesh data
         List<Vector3> vertices = new List<Vector3>();
@@ -102,6 +109,12 @@ public static class EffectsHelper {
 
     public static SpriteRenderer GetBiggestRenderer(this Transform transform) {
         SpriteRenderer[] spriteRenderers = transform.GetComponentsInChildren<SpriteRenderer>();
-        return spriteRenderers.OrderBy(spriteRenderer => spriteRenderer.sprite.bounds.size).FirstOrDefault();
+        
+        if (spriteRenderers.Length == 0) {
+            Debug.LogError("Couldn't find any sprite renderers!");
+            return null;
+        }
+
+        return spriteRenderers.OrderByDescending(spriteRenderer => spriteRenderer.sprite.bounds.size.magnitude).FirstOrDefault();
     }
 }

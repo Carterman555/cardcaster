@@ -7,6 +7,8 @@ public class ScriptablePositionSpawnCard : ScriptableAbilityCardBase {
 
     [SerializeField] private GameObject objectToSpawn;
 
+    private List<GameObject> abilityEffectPrefabs = new();
+
     public override void Play(Vector2 position) {
         base.Play(position);
 
@@ -14,6 +16,20 @@ public class ScriptablePositionSpawnCard : ScriptableAbilityCardBase {
 
         if (newObject.TryGetComponent(out IAbilityStatsSetup abilityStatsSetup)) {
             abilityStatsSetup.SetAbilityStats(Stats);
+        }
+
+        ApplyEffects(newObject);
+    }
+
+    public override void AddEffect(GameObject effectPrefab) {
+        base.AddEffect(effectPrefab);
+        abilityEffectPrefabs.Add(effectPrefab);
+    }
+
+    // applies the effects set by the modifier
+    private void ApplyEffects(GameObject spawnedObject) {
+        foreach (var abilityEffectPrefab in abilityEffectPrefabs) {
+            abilityEffectPrefab.Spawn(spawnedObject.transform);
         }
     }
 }

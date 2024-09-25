@@ -17,9 +17,17 @@ MonoBehaviour:
   cost: 0
   rarity: 0
   sprite: {fileID: -968252477216581633, guid: a8a47aca9e1483f4ebbba999d588b2e3, type: 3}
-  <IsPossibleStartingCard>k__BackingField: 1
+  isPossibleStartingCard: 0
+  abilityAttributes: 0
+  abilityStats:
+    Damage: 0
+    KnockbackStrength: 0
+    AreaSize: 0
+    Duration: 0
+    ProjectileSpeed: 0
+    Cooldown: 0
   <IsPositional>k__BackingField: 1
-  effectDuration: 0
+  <IsModifiable>k__BackingField: 0
   raycastStep: 0.1
   obstacleLayer:
     serializedVersion: 2

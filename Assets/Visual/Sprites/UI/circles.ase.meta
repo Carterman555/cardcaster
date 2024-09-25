@@ -23,7 +23,7 @@ ScriptedImporter:
     normalMapFilter: 0
     flipGreenChannel: 0
     swizzle: 50462976
-    isReadable: 0
+    isReadable: 1
     streamingMipmaps: 0
     streamingMipmapsPriority: 0
     vTOnly: 0
@@ -97,7 +97,7 @@ ScriptedImporter:
     addSortingGroup: 1
     addShadowCasters: 0
   importFileNodeState: 1
-  platformSettingsDirtyTick: 638622639201628794
+  platformSettingsDirtyTick: 638628567225485479
   textureAssetName: 
   singleSpriteImportData:
   - name: 
@@ -130,8 +130,8 @@ ScriptedImporter:
       serializedVersion: 2
       x: 4
       y: 4
-      width: 10
-      height: 10
+      width: 16
+      height: 16
     spriteID: b8cdad2d94c2805478f5166a2244d47c
     spriteBone: []
     spriteOutline: []
@@ -143,15 +143,15 @@ ScriptedImporter:
     uvTransform: {x: 4, y: 4}
   - name: circles_Frame_1
     originalName: 
-    pivot: {x: 0.5, y: -0.125}
+    pivot: {x: 0.5, y: -0.3}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
       x: 4
-      y: 22
-      width: 8
-      height: 8
+      y: 28
+      width: 10
+      height: 10
     spriteID: f683b4e34af45b0489cbc2d20b37a77f
     spriteBone: []
     spriteOutline: []
@@ -160,7 +160,27 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 4, y: 22}
+    uvTransform: {x: 4, y: 28}
+  - name: circles_Frame_2
+    originalName: 
+    pivot: {x: 0.5, y: -0.5}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 46
+      width: 8
+      height: 8
+    spriteID: 580fcf9cefcbc1a4a9ea948df2e72be0
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 46}
   spriteSheetImportData: []
   asepriteLayers:
   - layerIndex: 0
@@ -176,18 +196,27 @@ ScriptedImporter:
       cellRect:
         x: 0
         y: 0
-        width: 10
-        height: 10
+        width: 16
+        height: 16
       spriteId: b8cdad2d94c2805478f5166a2244d47c
     - name: circles_Frame_1
       frameIndex: 1
       additiveSortOrder: 0
       cellRect:
-        x: 1
-        y: 1
+        x: 3
+        y: 3
+        width: 10
+        height: 10
+      spriteId: f683b4e34af45b0489cbc2d20b37a77f
+    - name: circles_Frame_2
+      frameIndex: 2
+      additiveSortOrder: 0
+      cellRect:
+        x: 4
+        y: 4
         width: 8
         height: 8
-      spriteId: f683b4e34af45b0489cbc2d20b37a77f
+      spriteId: 580fcf9cefcbc1a4a9ea948df2e72be0
     linkedCells: []
     parentIndex: -1
   platformSettings:
@@ -230,4 +259,4 @@ ScriptedImporter:
   generatePhysicsShape: 0
   secondarySpriteTextures: []
   spritePackingTag: 
-  canvasSize: {x: 10, y: 10}
+  canvasSize: {x: 16, y: 16}

@@ -32,24 +32,23 @@ public abstract class ScriptableCardBase : ScriptableObject, ICollectable {
 }
 
 public enum CardType {
-    MoveSpeedIncrease,
     BlackHole,
-    OrbitingBlackHole,
     DaggerShoot,
     Ghost,
     Teleport,
     Shockwave,
     SwingSword,
     LaunchCard,
-    DeflectBullets,
     BoomerangSword,
-    FrostBlast,
+    Blast,
     Explosion,
     ShootSwordHologram,
-    FireSword,
-    ElectricSword,
     MassiveSword,
-    IncreaseSummonDamage,
-    BiggerSword,
-    IncreaseAreaEffects
+    Fire,
+    Electricify,
+    DamageUpDurationDown,
+    IncreaseAreaSize,
+    BouncyProjectiles,
+    Magnecitify,
+    MissingHealthDamageIncrease,
 }

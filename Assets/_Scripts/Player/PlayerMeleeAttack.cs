@@ -5,11 +5,13 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
 
-public class PlayerMeleeAttack : StaticInstance<PlayerMeleeAttack>, IAttacker, IHasStats {
+public class PlayerMeleeAttack : StaticInstance<PlayerMeleeAttack>, ITargetAttacker, IHasStats {
 
-    public event Action OnAttack;
     public static event Action<Vector2> OnAttack_Position;
     public static event Action<Health[]> OnAttack_Targets;
+
+    public event Action OnAttack;
+    public event Action<GameObject> OnDamage_Target;
 
     [SerializeField] private InputActionReference attackInput;
     [SerializeField] private LayerMask targetLayerMask;
@@ -74,6 +76,10 @@ public class PlayerMeleeAttack : StaticInstance<PlayerMeleeAttack>, IAttacker, I
             .ToArray() ?? Array.Empty<Health>();
 
         OnAttack_Targets?.Invoke(targetHealths);
+
+        foreach (Health health in targetHealths) {
+            OnDamage_Target?.Invoke(health.gameObject);
+        }
     }
 
     public void ExternalAttack(GameObject target, Vector2 attackCenter, float damageMult = 1f, float knockbackStrengthMult = 1f) {
@@ -88,6 +94,8 @@ public class PlayerMeleeAttack : StaticInstance<PlayerMeleeAttack>, IAttacker, I
 
         Health[] targetHealths = new Health[] { target.GetComponent<Health>() };
         OnAttack_Targets?.Invoke(targetHealths);
+
+        OnDamage_Target?.Invoke(target);
     }
 
 

@@ -1,8 +1,12 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerTouchDamage : MonoBehaviour {
+public class PlayerTouchDamage : MonoBehaviour, ITargetAttacker {
+
+    public event Action<GameObject> OnDamage_Target;
+    public event Action OnAttack;
 
     private float damageMult = 1;
 
@@ -13,6 +17,9 @@ public class PlayerTouchDamage : MonoBehaviour {
     private void OnTriggerEnter2D(Collider2D collision) {
         if (collision.TryGetComponent(out IDamagable damagable)) {
             PlayerMeleeAttack.Instance.ExternalAttack(collision.gameObject, collision.transform.position, damageMult);
+
+            OnAttack?.Invoke();
+            OnDamage_Target?.Invoke(collision.gameObject);
         }
     }
 }

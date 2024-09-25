@@ -12,18 +12,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef84e9e24d1d4e94488281e532532049, type: 3}
   m_Name: DaggerShootCard
   m_EditorClassIdentifier: 
-  cardType: 0
+  cardType: 1
   description: 
   cost: 0
   rarity: 0
   sprite: {fileID: 0}
-  isPossibleStartingCard: 1
+  isPossibleStartingCard: 0
   abilityAttributes: 29
   abilityStats:
     Damage: 0.25
     KnockbackStrength: 0.25
     AreaSize: 0
-    Duration: 9.9
+    Duration: 5
     ProjectileSpeed: 16
     Cooldown: 0.5
   <IsPositional>k__BackingField: 0

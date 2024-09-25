@@ -27,6 +27,8 @@ public class FireEffectOnDamage : MonoBehaviour, IAbilityEffect {
         foreach (ITargetAttacker attacker in attackers) {
             attacker.OnDamage_Target -= InflictBurn;
         }
+
+        fireAbilityParticles.gameObject.ReturnToPool();
     }
 
     private void InflictBurn(GameObject target) {

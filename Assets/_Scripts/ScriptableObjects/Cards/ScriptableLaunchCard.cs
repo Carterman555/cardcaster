@@ -1,6 +1,7 @@
 using DG.Tweening;
 using Mono.CSharp;
 using System;
+using System.Collections.Generic;
 using System.Drawing;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -11,12 +12,11 @@ using UnityEngine;
 /// there is an open spot to teleport. Then teleport there
 /// </summary>
 [CreateAssetMenu(fileName = "LaunchCard", menuName = "Cards/Launch Card")]
-public class ScriptableLaunchCard : ScriptableCardBaseOld {
+public class ScriptableLaunchCard : ScriptableAbilityCardBase {
     public float raycastStep = 0.1f;
     public LayerMask obstacleLayer;
 
     [Header("Path Visual")]
-    [SerializeField] private float pathWidth = 3;
     [SerializeField] private Transform pathVisualPrefab;
     private Transform pathVisual;
 
@@ -27,18 +27,19 @@ public class ScriptableLaunchCard : ScriptableCardBaseOld {
     [SerializeField] private TriggerContactTracker wallTriggerPrefab;
     private TriggerContactTracker wallTrigger;
 
-    [SerializeField] private float damageMult;
     [SerializeField] private float launchSpeed;
     private Tween launchTween;
 
-    [Header("Effects")]
+    private List<GameObject> abilityEffects = new();
+
+    [Header("Visuals")]
     [SerializeField] private ParticleSystem launchEffectsPrefab;
     private ParticleSystem launchEffects;
 
     public override void OnStartDraggingCard(Transform cardTransform) {
         base.OnStartDraggingCard(cardTransform);
 
-        pathVisual = pathVisualPrefab.Spawn(PlayerMovement.Instance.transform.position, PlayerVisual.Instance.transform);
+        pathVisual = pathVisualPrefab.Spawn(PlayerMovement.Instance.transform.position, PlayerMovement.Instance.transform);
     }
 
     protected override void DraggingUpdate(Vector2 cardposition) {
@@ -50,6 +51,8 @@ public class ScriptableLaunchCard : ScriptableCardBaseOld {
         pathVisual.up = toMouseDirection;
 
         // scale path towards end of room
+        float pathWidth = Stats.AreaSize * 2f;
+
         float checkDistance = 100f;
         RaycastHit2D hit = Physics2D.BoxCast(pathVisual.position, new Vector2(pathWidth, 1f), pathVisual.eulerAngles.z, toMouseDirection, checkDistance, obstacleLayer);
 
@@ -62,9 +65,12 @@ public class ScriptableLaunchCard : ScriptableCardBaseOld {
     }
 
     public override void Play(Vector2 position) {
-        base.Play(position);
 
+        //... disable the path visual before base.play because base.play adds visual effects
+        //... that will try to parent to path visual
         pathVisual.gameObject.ReturnToPool();
+
+        base.Play(position);
 
         Transform playerTransform = PlayerMovement.Instance.transform;
 
@@ -79,7 +85,8 @@ public class ScriptableLaunchCard : ScriptableCardBaseOld {
 
         // make deal damage
         damageDealer = damageDealerPrefab.Spawn(playerTransform.position, playerTransform);
-        damageDealer.SetDamageMult(damageMult);
+        damageDealer.SetDamageMult(Stats.Damage);
+        damageDealer.GetComponent<CircleCollider2D>().radius = Stats.AreaSize;
 
         //... make player move through objects
         Physics2D.IgnoreLayerCollision(GameLayers.PlayerLayer, GameLayers.RoomObjectLayer, true);
@@ -87,6 +94,7 @@ public class ScriptableLaunchCard : ScriptableCardBaseOld {
 
         // make it stop when hit wall
         wallTrigger = wallTriggerPrefab.Spawn(playerTransform.position, playerTransform);
+        wallTrigger.GetComponent<CircleCollider2D>().radius = Stats.AreaSize;
         wallTrigger.OnEnterContact += StopLaunch;
 
         // move sword to point forward
@@ -119,12 +127,26 @@ public class ScriptableLaunchCard : ScriptableCardBaseOld {
         //... stop dealing damage
         damageDealer.gameObject.ReturnToPool();
 
+        wallTrigger.gameObject.ReturnToPool();
+
         // move sword back to normal pos
         ReferenceSystem.Instance.PlayerWeaponParent.GetComponent<SlashingWeapon>().enabled = true;
 
         //... make not invincible
         PlayerMeleeAttack.Instance.GetComponent<Health>().SetInvincible(false);
 
+        // take off effects
+        foreach (GameObject abilityEffect in abilityEffects) {
+            abilityEffect.ReturnToPool();
+        }
+        abilityEffects.Clear();
+
         launchEffects.gameObject.ReturnToPool();
+    }
+
+    public override void AddEffect(GameObject effectPrefab) {
+        base.AddEffect(effectPrefab);
+        GameObject effect = effectPrefab.Spawn(PlayerMovement.Instance.transform);
+        abilityEffects.Add(effect);
     }
 }

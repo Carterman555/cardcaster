@@ -17,17 +17,23 @@ MonoBehaviour:
   cost: 0
   rarity: 0
   sprite: {fileID: 5025783311628219500, guid: a8a47aca9e1483f4ebbba999d588b2e3, type: 3}
-  <IsPossibleStartingCard>k__BackingField: 1
+  isPossibleStartingCard: 1
+  abilityAttributes: 3
+  abilityStats:
+    Damage: 1.5
+    KnockbackStrength: 1
+    AreaSize: 1.5
+    Duration: 0
+    ProjectileSpeed: 0
+    Cooldown: 0
   <IsPositional>k__BackingField: 1
-  effectDuration: 0
+  <IsModifiable>k__BackingField: 1
   raycastStep: 0.1
   obstacleLayer:
     serializedVersion: 2
     m_Bits: 256
-  pathWidth: 3
   pathVisualPrefab: {fileID: 417377677680702974, guid: 5cbec3dce7a1dcf44bb2758c66637e18, type: 3}
   damageDealerPrefab: {fileID: 6934243973706104934, guid: e05e5091ba1891941947862d91f96eb7, type: 3}
   wallTriggerPrefab: {fileID: 7161472512564696427, guid: 1c58ce2bbac713a4f9265ceffc8ec132, type: 3}
-  damageMult: 1.5
   launchSpeed: 20
   launchEffectsPrefab: {fileID: 8999108393401452439, guid: f8130339e07081844a1a1df4b6dd1477, type: 3}

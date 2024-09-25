@@ -12,7 +12,6 @@ public class ScriptableDaggerShootCard : ScriptableAbilityCardBase {
     [SerializeField] private float spawnOffsetValue;
 
     private List<GameObject> abilityEffectPrefabs = new();
-    private List<Transform> visualEffects = new();
 
     private Coroutine shootCoroutine;
 
@@ -54,17 +53,8 @@ public class ScriptableDaggerShootCard : ScriptableAbilityCardBase {
         abilityEffectPrefabs.Add(abilityEffectPrefab);
     }
 
-    public override void TryApplyVisualEffect(Transform visualEffect) {
-        base.TryApplyVisualEffect(visualEffect);
-        visualEffects.Add(visualEffect);
-    }
-
     // applies the effects set by the modifier
     private void ApplyEffects(StraightMovement straightMovement) {
-
-        foreach (var visualEffect in visualEffects) {
-            visualEffect.Spawn(straightMovement.transform);
-        }
 
         foreach (var abilityEffectPrefab in abilityEffectPrefabs) {
             abilityEffectPrefab.Spawn(straightMovement.transform);

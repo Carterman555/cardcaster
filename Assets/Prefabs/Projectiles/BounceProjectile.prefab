@@ -194,7 +194,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bounceLayer:
     serializedVersion: 2
-    m_Bits: 1344
+    m_Bits: 1856
   maxBounces: 2
 --- !u!114 &-5820090814659444734
 MonoBehaviour:

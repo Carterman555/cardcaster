@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -41,11 +42,11 @@ public abstract class ScriptableAbilityCardBase : ScriptableCardBase {
             AbilityManager.Instance.StopCoroutine(draggingCardCoroutine);
         }
 
-        AbilityManager.Instance.StartCoroutine(StopAfterDuration());
-
         if (IsModifiable) {
             AbilityManager.Instance.ApplyModifiers(this);
         }
+
+        AbilityManager.Instance.StartCoroutine(StopAfterDuration());
     }
 
     private IEnumerator StopAfterDuration() {
@@ -57,9 +58,6 @@ public abstract class ScriptableAbilityCardBase : ScriptableCardBase {
     }
 
     public virtual void AddEffect(GameObject effectPrefab) {
-    }
-
-    public virtual void TryApplyVisualEffect(Transform visualEffect) {
     }
 }
 
@@ -93,22 +91,22 @@ public class AbilityStats {
     [ConditionalHideFlag("abilityAttributes", AbilityAttribute.HasCooldown)]
     public float Cooldown;
 
-    public void ApplyModifier(AbilityStats statsModifier, AbilityAttribute abilityAttributesToModify) {
+    public void ApplyModifier(AbilityStats statsModifierPercentage, AbilityAttribute abilityAttributesToModify) {
         if (abilityAttributesToModify.HasFlag(AbilityAttribute.DealsDamage)) {
-            Damage += statsModifier.Damage;
-            KnockbackStrength += statsModifier.KnockbackStrength;
+            Damage *= statsModifierPercentage.Damage.PercentToMult();
+            KnockbackStrength *= statsModifierPercentage.KnockbackStrength.PercentToMult();
         }
         if (abilityAttributesToModify.HasFlag(AbilityAttribute.HasArea)) {
-            AreaSize += statsModifier.AreaSize;
+            AreaSize *= statsModifierPercentage.AreaSize.PercentToMult();
         }
         if (abilityAttributesToModify.HasFlag(AbilityAttribute.HasDuration)) {
-            Duration += statsModifier.Duration;
+            Duration *= statsModifierPercentage.Duration.PercentToMult();
         }
         if (abilityAttributesToModify.HasFlag(AbilityAttribute.IsProjectile)) {
-            ProjectileSpeed += statsModifier.ProjectileSpeed;
+            ProjectileSpeed *= statsModifierPercentage.ProjectileSpeed.PercentToMult();
         }
         if (abilityAttributesToModify.HasFlag(AbilityAttribute.HasCooldown)) {
-            Cooldown += statsModifier.Cooldown;
+            Cooldown *= statsModifierPercentage.Cooldown.PercentToMult();
         }
     }
 }

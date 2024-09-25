@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ddceab62dd8231248bd8d7581dfc91e1, type: 3}
-  m_Name: FireModifierCard
+  m_Name: ElectricModifierCard
   m_EditorClassIdentifier: 
-  cardType: 14
+  cardType: 15
   description: 
   cost: 0
   rarity: 0

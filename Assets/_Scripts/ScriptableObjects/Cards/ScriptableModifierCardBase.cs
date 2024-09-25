@@ -3,16 +3,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class ScriptableModifierCardBase : ScriptableCardBase {
+[CreateAssetMenu(fileName = "ModifierCard", menuName = "Cards/Modifiers/Base")]
+public class ScriptableModifierCardBase : ScriptableCardBase {
 
     [SerializeField] private AbilityAttribute abilityAttributes;
     public AbilityAttribute AbilityAttributes => abilityAttributes;
 
-    [SerializeField] private AbilityStats abilityStatsModifier;
-    public AbilityStats StatsModifier => abilityStatsModifier;
+    [SerializeField] private AbilityStats abilityStatsModifierPercentage;
+    public AbilityStats StatsModifier => abilityStatsModifierPercentage;
 
-    [SerializeField] private bool hasVisualEffect;
-    [ConditionalHide("hasVisualEffect")][SerializeField] private Transform visualEffect;
+    [SerializeField] private bool canStackWithSelf;
+    public bool CanStackWithSelf => canStackWithSelf;
 
     [SerializeField] private bool appliesEffect;
     [ConditionalHide("appliesEffect")][SerializeField] private GameObject effectPrefab;
@@ -29,10 +30,6 @@ public abstract class ScriptableModifierCardBase : ScriptableCardBase {
         //... the attributes that both the ability card and modifier card share
         AbilityAttribute abilityAttributesToModify = card.AbilityAttributes & abilityAttributes;
         card.Stats.ApplyModifier(StatsModifier, abilityAttributesToModify);
-
-        if (hasVisualEffect) {
-            card.TryApplyVisualEffect(visualEffect);
-        }
 
         if (appliesEffect) {
             card.AddEffect(effectPrefab);

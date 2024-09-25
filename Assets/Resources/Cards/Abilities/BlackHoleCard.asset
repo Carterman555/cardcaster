@@ -9,24 +9,23 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ddceab62dd8231248bd8d7581dfc91e1, type: 3}
-  m_Name: FireModifierCard
+  m_Script: {fileID: 11500000, guid: a630f00fc7f3c7640b58e955c5a1002e, type: 3}
+  m_Name: BlackHoleCard
   m_EditorClassIdentifier: 
-  cardType: 14
+  cardType: 0
   description: 
   cost: 0
   rarity: 0
   sprite: {fileID: 0}
-  isPossibleStartingCard: 1
-  abilityAttributes: 1
-  abilityStatsModifier:
+  isPossibleStartingCard: 0
+  abilityAttributes: 0
+  abilityStats:
     Damage: 0
     KnockbackStrength: 0
     AreaSize: 0
     Duration: 0
     ProjectileSpeed: 0
     Cooldown: 0
-  hasVisualEffect: 1
-  visualEffect: {fileID: 8370268336996075618, guid: 306b383da7286bd47a9e53896f7d1f36, type: 3}
-  appliesEffect: 1
-  effectPrefab: {fileID: 4023930347696903506, guid: f279c88f7a7a49a4bb5fd72a5bd3469c, type: 3}
+  <IsPositional>k__BackingField: 0
+  <IsModifiable>k__BackingField: 1
+  objectToSpawn: {fileID: 0}

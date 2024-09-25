@@ -11,9 +11,10 @@ GameObject:
   - component: {fileID: 379875258679583440}
   - component: {fileID: 4052245819753178280}
   - component: {fileID: 2262407751249573953}
-  - component: {fileID: -8521989726466691329}
+  - component: {fileID: 2023627524197027199}
+  - component: {fileID: 7379941552765254099}
   m_Layer: 0
-  m_Name: ElectricSwordEffects
+  m_Name: ElectricAbilityEffect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -27,7 +28,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2023045539026278558}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -768,7 +769,7 @@ ParticleSystem:
     m_TextureBilinearFiltering: 0
     randomDirectionAmount: 1
     sphericalDirectionAmount: 1
-    randomPositionAmount: 1
+    randomPositionAmount: 0
     radius:
       value: 0.0001
       mode: 0
@@ -889,7 +890,7 @@ ParticleSystem:
     rateOverTime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 80
+      scalar: 7
       minScalar: 10
       maxCurve:
         serializedVersion: 2
@@ -2708,8 +2709,8 @@ ParticleSystem:
     strength:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 8
-      minScalar: 4
+      scalar: 6
+      minScalar: 2
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -4827,8 +4828,8 @@ ParticleSystemRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: -210121459
-  m_SortingLayer: 3
+  m_SortingLayerID: 1360671085
+  m_SortingLayer: 5
   m_SortingOrder: 0
   m_RenderMode: 0
   m_MeshDistribution: 0
@@ -4862,7 +4863,7 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
---- !u!114 &-8521989726466691329
+--- !u!114 &2023627524197027199
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -4871,8 +4872,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 2023045539026278558}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 36bec9a1e4795884ea4e843a0a890665, type: 3}
+  m_Script: {fileID: 11500000, guid: 918ca2415709bf3458b19a7b29ef8645, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveWithSwordSize: 1
-  scaleWithSwordSize: 1
+--- !u!114 &7379941552765254099
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2023045539026278558}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: faa5763c576886a45ab05afd75e7f426, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

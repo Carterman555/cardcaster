@@ -34,7 +34,7 @@ public class ScriptableMassiveSwordCard : ScriptableStatsModifierCard {
 
         float transitionDuration = 0.5f;
 
-        float sizeMult = PlayerStats.PercentToMult(GetPlayerStatsModifier().SwordSizePercent);
+        float sizeMult = GetPlayerStatsModifier().SwordSizePercent.PercentToMult();
         Vector2 bigSwordStartingSize = Vector2.one * (1f/sizeMult);
 
         // grow sword
@@ -47,7 +47,7 @@ public class ScriptableMassiveSwordCard : ScriptableStatsModifierCard {
 
         float transitionDuration = 0.5f;
 
-        float sizeMult = PlayerStats.PercentToMult(GetPlayerStatsModifier().SwordSizePercent);
+        float sizeMult = GetPlayerStatsModifier().SwordSizePercent.PercentToMult();
         Vector2 bigSwordEndingSize = Vector2.one * (1f / sizeMult);
 
         // shrink sword, then switch back to orignal sword

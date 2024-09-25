@@ -13,6 +13,7 @@ public class DeckManager : Singleton<DeckManager> {
     private List<ScriptableCardBase> cardsInDeck = new();
     private List<ScriptableCardBase> cardsInDiscard = new();
     private List<ScriptableCardBase> cardsInHand = new();
+    private List<ScriptableCardBase> cardsInModifierStack = new();
 
     [SerializeField] private int maxEssence;
     private float essence;
@@ -45,7 +46,7 @@ public class DeckManager : Singleton<DeckManager> {
 
     #endregion
 
-    public void IncreaseEssence(float amount) {
+    public void ChangeEssenceAmount(float amount) {
         essence = Mathf.MoveTowards(essence, maxEssence, amount);
 
         OnEssenceChanged_Amount?.Invoke(essence);
@@ -81,14 +82,21 @@ public class DeckManager : Singleton<DeckManager> {
         CardsUIManager.Instance.Setup();
     }
 
-    public void UseCard(int indexInHand) {
+    public void UseAbilityCard(int indexInHand) {
 
-        essence -= cardsInHand[indexInHand].GetCost();
-        OnEssenceChanged_Amount?.Invoke(essence);
+        ChangeEssenceAmount(-cardsInHand[indexInHand].GetCost());
 
-        cardsInDiscard.Add(cardsInHand[indexInHand]);
+        AddCardToDiscard(indexInHand);
 
         DrawCard(indexInHand);
+    }
+
+    public void AddCardToDiscard(int indexInHand) {
+        cardsInDiscard.Add(cardsInHand[indexInHand]);
+    }
+
+    public void AddCardToStack(int indexInHand) {
+        cardsInModifierStack.Add(cardsInHand[indexInHand]);
     }
 
     public void GainCard(ScriptableCardBase card) {
@@ -107,7 +115,7 @@ public class DeckManager : Singleton<DeckManager> {
         }
     }
 
-    private void DrawCard(int indexInHand) {
+    public void DrawCard(int indexInHand) {
         if (cardsInDeck.Count == 0) {
             ShuffleDiscardToDeck();
         }
@@ -137,5 +145,6 @@ public class DeckManager : Singleton<DeckManager> {
 public enum CardLocation {
     Deck,
     Discard,
-    Hand
+    Hand,
+    ModifierStack
 }

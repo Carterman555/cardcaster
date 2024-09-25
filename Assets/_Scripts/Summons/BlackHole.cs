@@ -10,10 +10,11 @@ public class BlackHole : MonoBehaviour {
     [SerializeField] private TriggerContactTracker contactTracker;
     [SerializeField] private float minForce;
     [SerializeField] private float maxForce;
-    [SerializeField] private float duration;
     [SerializeField] private float suckSpeed;
 
-    private float durationTimer;
+    private float damage;
+    private float duration;
+
     private float suckRadius;
     private bool dying;
 
@@ -25,8 +26,12 @@ public class BlackHole : MonoBehaviour {
 
     private void OnEnable() {
         stopMovementEffect = null;
-        durationTimer = 0;
         dying = false;
+    }
+
+    public void SetAbilityStats(AbilityStats stats) {
+        damage = stats.Damage;
+        duration = stats.Duration;
     }
 
     private void Update() {
@@ -37,10 +42,8 @@ public class BlackHole : MonoBehaviour {
 
         CheckTouchingEffectable();
 
-        durationTimer += Time.deltaTime;
-        if (durationTimer > duration) {
-            durationTimer = 0;
-
+        duration -= Time.deltaTime;
+        if (duration < 0) {
             if (stopMovementEffect != null) {
                 Destroy(stopMovementEffect);
                 stopMovementEffect = null;

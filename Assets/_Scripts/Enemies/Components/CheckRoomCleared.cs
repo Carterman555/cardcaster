@@ -23,7 +23,7 @@ public class CheckRoomCleared : MonoBehaviour {
     private void OnDeath() {
         CheckIfEnemiesCleared();
 
-        DeckManager.Instance.IncreaseEssence(1f);
+        DeckManager.Instance.ChangeEssenceAmount(1f);
     }
 
 

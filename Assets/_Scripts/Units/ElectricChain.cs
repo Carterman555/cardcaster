@@ -5,9 +5,11 @@ using UnityEngine;
 
 public class ElectricChain : MonoBehaviour {
 
+    private float damage;
     private int electricityLeft;
 
-    public void Setup(int electricityLeft) {
+    public void Setup(float damage, int electricityLeft) {
+        this.damage = damage;
         this.electricityLeft = electricityLeft;
 
         StartCoroutine(SpreadElectricity());
@@ -30,9 +32,9 @@ public class ElectricChain : MonoBehaviour {
             foreach (Collider2D col in cols) {
                 if (!col.TryGetComponent(out ElectricChain _electricChain)) {
                     ElectricChain electricChain = col.AddComponent<ElectricChain>();
-                    electricChain.Setup(electricityLeft - 1);
+                    electricChain.Setup(damage, electricityLeft - 1);
 
-                    col.GetComponent<Health>().Damage(ScriptableElectricSwordCard.ElectricDamage);
+                    col.GetComponent<Health>().Damage(damage);
 
                     // only spread one on other enemy
                     break;

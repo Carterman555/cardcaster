@@ -127,6 +127,11 @@ public static class Helpers {
 
     public static int FacingInt(Vector3 current, Vector3 target) => (int)Mathf.Sign(target.x - current.x);
 
+    public static float PercentToMult(this float percent) {
+        float mult = 1 + (percent / 100);
+        return mult;
+    }
+
     public static Vector3 WorldToCanvasPosition(Canvas canvas, Vector3 worldPos) {
         RectTransform _canvasRect = canvas.GetComponent<RectTransform>();
 

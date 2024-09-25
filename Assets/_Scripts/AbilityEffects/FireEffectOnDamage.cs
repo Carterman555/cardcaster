@@ -7,6 +7,7 @@ public class FireEffectOnDamage : MonoBehaviour, IAbilityEffect {
 
     private ITargetAttacker[] attackers;
 
+    [SerializeField] private ParticleSystem fireAbilityParticles;
     [SerializeField] private float burnDuration;
 
     private void OnEnable() {
@@ -16,8 +17,10 @@ public class FireEffectOnDamage : MonoBehaviour, IAbilityEffect {
             attacker.OnDamage_Target += InflictBurn;
         }
 
-        // setup fire visual effects
-        AssetSystem.Instance.AbilityFireParticles.Spawn(transform);
+        // parent to biggest renderer in order to match the transform to match the sprite shape and make sure the
+        // particles emit from the visual and move with it
+        Transform parent = transform.parent.GetBiggestRenderer().transform;
+        fireAbilityParticles.Spawn(parent);
     }
 
     private void OnDisable() {

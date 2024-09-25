@@ -109,7 +109,7 @@ public class CardButton : GameButton, IPointerDownHandler {
         card.Play(mouseWorldPos);
         useCardPlayer.PlayFeedbacks();
 
-        DeckManager.Instance.UseCard(cardIndex);
+        DeckManager.Instance.UseAbilityCard(cardIndex);
     }
 
     public void SetCard(ScriptableCardBase card) {

@@ -29,18 +29,13 @@ public class PlayerStats : Stats {
     public float DashTime;
 
     public void ApplyModifier(PlayerStatsModifier modifier) {
-        MaxHealth *= PercentToMult(modifier.MaxHealthPercent);
-        KnockbackResistance *= PercentToMult(modifier.KnockbackResistancePercent);
-        MoveSpeed *= PercentToMult(modifier.MoveSpeedPercent);
-        Damage *= PercentToMult(modifier.DamageIncreasePercent);
-        AttackSpeed *= PercentToMult(modifier.AttackSpeedPercent);
-        KnockbackStrength *= PercentToMult(modifier.KnockbackStrengthPercent);
-        SwordSize *= PercentToMult(modifier.SwordSizePercent);
-        DashSpeed *= PercentToMult(modifier.DashDistancePercent);
-    }
-
-    public static float PercentToMult(float percent) {
-        float mult = 1 + (percent / 100);
-        return mult;
+        MaxHealth *= modifier.MaxHealthPercent.PercentToMult();
+        KnockbackResistance *= modifier.KnockbackResistancePercent.PercentToMult();
+        MoveSpeed *= modifier.MoveSpeedPercent.PercentToMult();
+        Damage *= modifier.DamageIncreasePercent.PercentToMult();
+        AttackSpeed *= modifier.AttackSpeedPercent.PercentToMult();
+        KnockbackStrength *= modifier.KnockbackStrengthPercent.PercentToMult();
+        SwordSize *= modifier.SwordSizePercent.PercentToMult();
+        DashSpeed *= modifier.DashDistancePercent.PercentToMult();
     }
 }

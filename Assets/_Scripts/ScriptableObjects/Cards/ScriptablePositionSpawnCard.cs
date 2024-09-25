@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "New Card", menuName = "Cards/Position Spawn")]
-public class ScriptablePositionSpawnCard : ScriptableCardBaseOld {
+public class ScriptablePositionSpawnCard : ScriptableAbilityCardBase {
 
     [SerializeField] private GameObject objectToSpawn;
 
@@ -11,5 +11,9 @@ public class ScriptablePositionSpawnCard : ScriptableCardBaseOld {
         base.Play(position);
 
         GameObject newObject = objectToSpawn.Spawn(position, Containers.Instance.Projectiles);
+
+        if (newObject.TryGetComponent(out IAbilityStatsSetup abilityStatsSetup)) {
+            abilityStatsSetup.SetAbilityStats(Stats);
+        }
     }
 }

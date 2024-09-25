@@ -28,7 +28,7 @@ public class PlayerStatsModifier {
     public float MaxHealthPercent;
     public float KnockbackResistancePercent;
     public float MoveSpeedPercent;
-    public int DamageIncreasePercent;
+    public float DamageIncreasePercent;
     public float AttackSpeedPercent;
     public float KnockbackStrengthPercent;
     public float SwordSizePercent;

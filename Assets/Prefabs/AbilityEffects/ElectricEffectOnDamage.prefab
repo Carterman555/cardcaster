@@ -9,10 +9,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3651947580699775881}
-  - component: {fileID: 4922812747145370625}
+  - component: {fileID: 5684791330137486864}
   - component: {fileID: 5925694013192708150}
   m_Layer: 0
-  m_Name: FireEffectOnDamage
+  m_Name: ElectricEffectOnDamage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -33,7 +33,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4922812747145370625
+--- !u!114 &5684791330137486864
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -42,11 +42,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 4023930347696903506}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0d8c832e51147784e86d55d8f66bb9ca, type: 3}
+  m_Script: {fileID: 11500000, guid: 5affbf35a7054fe438a492f32ac1b51c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fireAbilityParticles: {fileID: 531279357377690003, guid: 306b383da7286bd47a9e53896f7d1f36, type: 3}
-  burnDuration: 1.5
+  electricAbilityParticles: {fileID: 4052245819753178280, guid: b874ccd8b52f72f4493baabb12bb65a1, type: 3}
+  damage: 1.5
+  chainSize: 3
 --- !u!114 &5925694013192708150
 MonoBehaviour:
   m_ObjectHideFlags: 0

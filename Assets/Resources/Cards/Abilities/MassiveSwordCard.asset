@@ -12,14 +12,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce033d4a903f44147985d28239a2605f, type: 3}
   m_Name: MassiveSwordCard
   m_EditorClassIdentifier: 
-  cardType: 16
+  cardType: 11
   description: 
   cost: 0
   rarity: 0
   sprite: {fileID: 0}
-  <IsPossibleStartingCard>k__BackingField: 1
+  isPossibleStartingCard: 1
+  abilityAttributes: 5
+  abilityStats:
+    Damage: -1
+    KnockbackStrength: -1
+    AreaSize: 0
+    Duration: 10
+    ProjectileSpeed: 0
+    Cooldown: 0
   <IsPositional>k__BackingField: 0
-  effectDuration: 6
+  <IsModifiable>k__BackingField: 1
   statsModifier:
     MaxHealthPercent: 0
     KnockbackResistancePercent: 100

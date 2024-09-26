@@ -71,10 +71,6 @@ public class DeckManager : Singleton<DeckManager> {
         }
     }
 
-    private void ShuffleDeck() {
-        cardsInDeck = cardsInDeck.OrderBy(card => UnityEngine.Random.value).ToList();
-    }
-
     private void DrawStartingHand() {
         cardsInHand = cardsInDeck.Take(handSize).ToList();
         cardsInDeck = cardsInDeck.Skip(handSize).ToList();
@@ -82,21 +78,28 @@ public class DeckManager : Singleton<DeckManager> {
         CardsUIManager.Instance.Setup();
     }
 
-    public void UseAbilityCard(int indexInHand) {
-
+    public void OnUseAbilityCard(int indexInHand) {
         ChangeEssenceAmount(-cardsInHand[indexInHand].GetCost());
-
-        AddCardToDiscard(indexInHand);
-
-        DrawCard(indexInHand);
+        DiscardCardInHand(indexInHand);
+        OnUseCard(indexInHand);
     }
 
-    public void AddCardToDiscard(int indexInHand) {
-        cardsInDiscard.Add(cardsInHand[indexInHand]);
+    public void OnUseModifierCard(int indexInHand) {
+        ChangeEssenceAmount(-cardsInHand[indexInHand].GetCost());
+        StackCardInHand(indexInHand);
+        OnUseCard(indexInHand);
     }
 
-    public void AddCardToStack(int indexInHand) {
-        cardsInModifierStack.Add(cardsInHand[indexInHand]);
+    private void OnUseCard(int indexInHand) {
+        TryDrawCard(indexInHand);
+        TryDrawOtherCards();
+    }
+
+    #region Basic Deck Methods
+
+    public void DiscardStackedCards() {
+        cardsInDiscard.AddRange(cardsInModifierStack);
+        cardsInModifierStack.Clear();
     }
 
     public void GainCard(ScriptableCardBase card) {
@@ -111,18 +114,64 @@ public class DeckManager : Singleton<DeckManager> {
             cardsInDiscard.RemoveAt(cardIndex);
         }
         else if (cardLocation == CardLocation.Hand) {
-            DrawCard(cardIndex);
+            TryDrawCard(cardIndex);
         }
     }
 
-    public void DrawCard(int indexInHand) {
+    private void DiscardCardInHand(int indexInHand) {
+        cardsInDiscard.Add(cardsInHand[indexInHand]);
+        cardsInHand[indexInHand] = null;
+    }
+
+    private void StackCardInHand(int indexInHand) {
+        cardsInModifierStack.Add(cardsInHand[indexInHand]);
+        cardsInHand[indexInHand] = null;
+    }
+
+    private bool TryDrawCard(int indexInHand) {
+
+        // ran out of cards to draw to hand so get cards from discard
         if (cardsInDeck.Count == 0) {
             ShuffleDiscardToDeck();
+
+            // still out of cards to draw to hand, so don't
+            if (cardsInDeck.Count == 0) {
+                return false;
+            }
         }
 
         cardsInHand[indexInHand] = cardsInDeck[0];
         cardsInDeck.RemoveAt(0);
+
+        return true;
     }
+
+    /// <summary>
+    /// This method verifies if all the cards have been drawn into the player's hand. If the deck runs out of cards
+    /// to draw, the cards that should still be drawn may end up beneath the hand. The method checks if there are
+    /// any remaining cards to be drawn and attempts to draw them if necessary.
+    /// </summary>
+    private void TryDrawOtherCards() {
+        for (int indexInHand = 0; indexInHand < cardsInHand.Count; indexInHand++) {
+            if (cardsInHand[indexInHand] == null) {
+                bool drewCard = TryDrawCard(indexInHand);
+                if (drewCard) {
+                    CardsUIManager.Instance.TryReplaceCard(indexInHand);
+                }
+            }
+        }
+    }
+
+    private void ShuffleDeck() {
+        cardsInDeck = cardsInDeck.OrderBy(card => UnityEngine.Random.value).ToList();
+    }
+
+    private void ShuffleDiscardToDeck() {
+        cardsInDeck = cardsInDiscard.OrderBy(card => UnityEngine.Random.value).ToList();
+        cardsInDiscard.Clear();
+    }
+
+    #endregion
 
     public void PrintAllCards(string startingText = "") {
         PrintCardsList(GetAllCards(), startingText);
@@ -136,10 +185,7 @@ public class DeckManager : Singleton<DeckManager> {
         Debug.Log(whole);
     }
 
-    private void ShuffleDiscardToDeck() {
-        cardsInDeck = cardsInDiscard.OrderBy(card => UnityEngine.Random.value).ToList();
-        cardsInDiscard.Clear();
-    }
+
 }
 
 public enum CardLocation {

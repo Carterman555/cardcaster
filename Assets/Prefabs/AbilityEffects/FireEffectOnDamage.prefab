@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d8c832e51147784e86d55d8f66bb9ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fireAbilityParticles: {fileID: 531279357377690003, guid: 306b383da7286bd47a9e53896f7d1f36, type: 3}
+  fireAbilityParticlesPrefab: {fileID: 531279357377690003, guid: 306b383da7286bd47a9e53896f7d1f36, type: 3}
   burnDuration: 1.5
 --- !u!114 &5925694013192708150
 MonoBehaviour:

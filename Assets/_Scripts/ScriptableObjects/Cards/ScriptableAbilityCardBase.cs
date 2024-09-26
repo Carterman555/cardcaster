@@ -44,6 +44,7 @@ public abstract class ScriptableAbilityCardBase : ScriptableCardBase {
 
         if (IsModifiable) {
             AbilityManager.Instance.ApplyModifiers(this);
+            DeckManager.Instance.DiscardStackedCards();
         }
 
         AbilityManager.Instance.StartCoroutine(StopAfterDuration());

@@ -54,10 +54,10 @@ public class CardButton : GameButton, IPointerDownHandler {
     }
 
     public void OnUsedCard() {
-        CardsUIManager.Instance.ReplaceCard(cardIndex);
+        CardsUIManager.Instance.TryReplaceCard(cardIndex);
     }
 
-    public void DrawCard(ScriptableCardBase card) {
+    public void OnDrawCard(ScriptableCardBase card) {
         SetCard(card);
 
         StopFollowingMouse();
@@ -109,7 +109,12 @@ public class CardButton : GameButton, IPointerDownHandler {
         card.Play(mouseWorldPos);
         useCardPlayer.PlayFeedbacks();
 
-        DeckManager.Instance.UseAbilityCard(cardIndex);
+        if (card is ScriptableAbilityCardBase) {
+            DeckManager.Instance.OnUseAbilityCard(cardIndex);
+        }
+        else if (card is ScriptableModifierCardBase) {
+            DeckManager.Instance.OnUseModifierCard(cardIndex);
+        }
     }
 
     public void SetCard(ScriptableCardBase card) {

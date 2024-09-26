@@ -63,6 +63,7 @@ public static class ObjectPoolManager {
 
         GameObject spawnedObject = Spawn(objectToSpawn, Vector3.zero, Quaternion.identity, parent);
         spawnedObject.transform.localPosition = Vector3.zero;
+        spawnedObject.transform.localRotation = Quaternion.identity;
         return spawnedObject;
     }
 
@@ -92,8 +93,7 @@ public static class ObjectPoolManager {
             return null;
         }
 
-        GameObject spawnedObject = Spawn(behaviourToSpawn.gameObject, Vector3.zero, Quaternion.identity, parent);
-        spawnedObject.transform.localPosition = Vector3.zero;
+        GameObject spawnedObject = Spawn(behaviourToSpawn.gameObject, parent);
         return spawnedObject.GetComponent<T>();
     }
 

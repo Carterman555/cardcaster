@@ -27,6 +27,13 @@ public class AllCardsPanel : StaticInstance<AllCardsPanel> {
         container.ReturnChildrenToPool();
         for (int cardIndex = 0; cardIndex < cards.Count; cardIndex++) {
             ScriptableCardBase card = cards[cardIndex];
+
+            // could be null if deck ran out of cards to draw to hand
+            if (card == null) {
+                // TODO - if still want to add same spacing i could create spacing object and spawn it here
+                continue;
+            }
+
             PanelCardButton newCard = trashCardPrefab.Spawn(container);
             newCard.Setup(card, cardLocation, cardIndex);
 

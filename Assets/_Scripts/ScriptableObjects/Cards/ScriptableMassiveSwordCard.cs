@@ -14,17 +14,14 @@ public class ScriptableMassiveSwordCard : ScriptableStatsModifierCard {
     public override void Play(Vector2 position) {
         base.Play(position);
 
-        //PlayerMovement.Instance.enabled = false;
-
         GrowSword();
     }
 
     public override void Stop() {
         base.Stop();
 
-        //PlayerMovement.Instance.enabled = true;
-
         ShrinkSword();
+        RemoveEffects();
     }
 
     private void GrowSword() {
@@ -37,9 +34,11 @@ public class ScriptableMassiveSwordCard : ScriptableStatsModifierCard {
         float sizeMult = GetPlayerStatsModifier().SwordSizePercent.PercentToMult();
         Vector2 bigSwordStartingSize = Vector2.one * (1f/sizeMult);
 
-        // grow sword
+        // grow sword, then add effects
         swordVisual.transform.localScale = bigSwordStartingSize;
-        swordVisual.transform.DOScale(1f, transitionDuration);
+        swordVisual.transform.DOScale(1f, transitionDuration).OnComplete(() => {
+            ApplyEffects();
+        });
     }
 
     private void ShrinkSword() {
@@ -56,4 +55,29 @@ public class ScriptableMassiveSwordCard : ScriptableStatsModifierCard {
             swordVisual.transform.localScale = Vector3.one;
         });
     }
+
+    #region Handle Ability Effects
+
+    private List<GameObject> effectPrefabs = new List<GameObject>();
+    private List<GameObject> effectInstances = new List<GameObject>();
+
+    public override void AddEffect(GameObject effectPrefab) {
+        base.AddEffect(effectPrefab);
+        effectPrefabs.Add(effectPrefab);
+    }
+
+    private void ApplyEffects() {
+        foreach (GameObject effectPrefab in effectPrefabs) {
+            GameObject effect = effectPrefab.Spawn(PlayerMeleeAttack.Instance.transform);
+            effectInstances.Add(effect);
+        }
+    }
+
+    private void RemoveEffects() {
+        foreach (GameObject effect in effectInstances) {
+            effect.gameObject.ReturnToPool();
+        }
+    }
+
+    #endregion
 }

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dba01c9be251ead46a9175e95714592e, type: 3}
   m_Name: TeleportCard
   m_EditorClassIdentifier: 
-  cardType: 5
+  cardType: 3
   description: 
   cost: 0
   rarity: 0

@@ -5,6 +5,7 @@ using UnityEngine.Events;
 public class Health : MonoBehaviour, IDamagable {
 
     public event Action OnDeath;
+    public event Action<float> OnHealthChanged_HealthProportion;
 
     [SerializeField] private UnityEvent damagedEventTrigger;
 
@@ -42,6 +43,8 @@ public class Health : MonoBehaviour, IDamagable {
         dead = false;
         invincible = false;
         health = maxHealth;
+
+        OnHealthChanged_HealthProportion?.Invoke(health / maxHealth);
     }
 
     public void Damage(float damage) {
@@ -52,6 +55,7 @@ public class Health : MonoBehaviour, IDamagable {
 
         health -= damage;
 
+        OnHealthChanged_HealthProportion?.Invoke(health/maxHealth);
         damagedEventTrigger?.Invoke();
 
         if (health <= 0) {

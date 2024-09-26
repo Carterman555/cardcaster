@@ -5,7 +5,9 @@ using UnityEngine;
 public class ElectricEffectOnDamage : MonoBehaviour, IAbilityEffect {
     private ITargetAttacker[] attackers;
 
-    [SerializeField] private ParticleSystem electricAbilityParticles;
+    [SerializeField] private ParticleSystem electricAbilityParticlesPrefab;
+    private ParticleSystem electricAbilityParticles;
+
     [SerializeField] private float damage;
     [SerializeField] private int chainSize;
 
@@ -19,13 +21,15 @@ public class ElectricEffectOnDamage : MonoBehaviour, IAbilityEffect {
         // parent to biggest renderer in order to match the transform to match the sprite shape and make sure the
         // particles emit from the visual and move with it
         Transform parent = transform.parent.GetBiggestRenderer().transform;
-        electricAbilityParticles.Spawn(parent);
+        electricAbilityParticles = electricAbilityParticlesPrefab.Spawn(parent);
     }
 
     private void OnDisable() {
         foreach (ITargetAttacker attacker in attackers) {
             attacker.OnDamage_Target -= Shock;
         }
+
+        electricAbilityParticles.gameObject.ReturnToPool();
     }
 
     private void Shock(GameObject target) {

@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5affbf35a7054fe438a492f32ac1b51c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  electricAbilityParticles: {fileID: 4052245819753178280, guid: b874ccd8b52f72f4493baabb12bb65a1, type: 3}
+  electricAbilityParticlesPrefab: {fileID: 4052245819753178280, guid: b874ccd8b52f72f4493baabb12bb65a1, type: 3}
   damage: 1.5
   chainSize: 3
 --- !u!114 &5925694013192708150

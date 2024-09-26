@@ -6,13 +6,22 @@ public class ReturnParticlesOnCompleted : MonoBehaviour {
 
     private ParticleSystem particles;
 
+    [SerializeField] private bool returnOther;
+    [ConditionalHide("returnOther")]
+    [SerializeField] private GameObject returnTarget;
+
     private void Awake() {
         particles = GetComponent<ParticleSystem>();
     }
 
     private void Update() {
         if (!particles.IsAlive()) {
-            gameObject.ReturnToPool();
+            if (!returnOther) {
+                gameObject.ReturnToPool();
+            }
+            else {
+                returnTarget.ReturnToPool();
+            }
         }
     }
 }

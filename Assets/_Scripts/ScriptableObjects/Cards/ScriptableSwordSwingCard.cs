@@ -5,7 +5,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "SwordSwingCard", menuName = "Cards/Sword Swing Card")]
-public class ScriptableSwordSwingCard : ScriptableCardBaseOld {
+public class ScriptableSwordSwingCard : ScriptableAbilityCardBase {
 
     [SerializeField] private float swingSpeed = 1000f;
     private MMAutoRotate autoRotate;
@@ -59,7 +59,20 @@ public class ScriptableSwordSwingCard : ScriptableCardBaseOld {
         // stop dealing damage through touch
         playerTouchDamage.gameObject.ReturnToPool();
 
-        // remove effects
+        // remove visual effects
         swingSwordEffects.gameObject.ReturnToPool();
+
+        // remove ability effects
+        foreach (GameObject abilityEffect in abilityEffects) {
+            abilityEffect.ReturnToPool();
+        }
+    }
+
+    private List<GameObject> abilityEffects = new();
+
+    public override void AddEffect(GameObject effectPrefab) {
+        base.AddEffect(effectPrefab);
+        GameObject effect = effectPrefab.Spawn(PlayerMeleeAttack.Instance.transform);
+        abilityEffects.Add(effect);
     }
 }

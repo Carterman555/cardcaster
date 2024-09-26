@@ -7,7 +7,6 @@ using UnityEngine.InputSystem;
 
 public class PlayerMeleeAttack : StaticInstance<PlayerMeleeAttack>, ITargetAttacker, IHasStats {
 
-    public static event Action<Vector2> OnAttack_Position;
     public static event Action<Health[]> OnAttack_Targets;
 
     public event Action OnAttack;
@@ -67,7 +66,6 @@ public class PlayerMeleeAttack : StaticInstance<PlayerMeleeAttack>, ITargetAttac
 
         // invoke events
         OnAttack?.Invoke();
-        OnAttack_Position?.Invoke(attackCenter);
 
         // turn the targetCol array into health array
         Health[] targetHealths = targetCols
@@ -90,7 +88,6 @@ public class PlayerMeleeAttack : StaticInstance<PlayerMeleeAttack>, ITargetAttac
 
         // invoke events
         OnAttack?.Invoke();
-        OnAttack_Position?.Invoke(attackCenter);
 
         Health[] targetHealths = new Health[] { target.GetComponent<Health>() };
         OnAttack_Targets?.Invoke(targetHealths);

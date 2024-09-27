@@ -19,6 +19,7 @@ public class Room : MonoBehaviour {
     private List<PossibleDoorway> createdDoorways = new();
 
     [SerializeField] private Tilemap groundTilemap;
+    [SerializeField] private Tilemap botGroundTilemap;
     [SerializeField] private Tilemap colliderTilemap;
 
     [SerializeField] private PolygonCollider2D cameraConfiner;
@@ -43,6 +44,10 @@ public class Room : MonoBehaviour {
 
     public Tilemap GetGroundTilemap() {
         return groundTilemap;
+    }
+
+    public Tilemap GetBotGroundTilemap() {
+        return botGroundTilemap;
     }
 
     public Tilemap GetColliderTilemap() {

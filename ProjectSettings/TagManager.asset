@@ -56,6 +56,9 @@ TagManager:
   - name: Effects
     uniqueID: 1360671085
     locked: 0
+  - name: BotWalls
+    uniqueID: 4067078365
+    locked: 0
   - name: WorldUI
     uniqueID: 3313559255
     locked: 0

@@ -17,8 +17,8 @@ public class ScriptableLaunchCard : ScriptableAbilityCardBase {
     public LayerMask obstacleLayer;
 
     [Header("Path Visual")]
-    [SerializeField] private Transform pathVisualPrefab;
-    private Transform pathVisual;
+    [SerializeField] private SpriteRenderer pathVisualPrefab;
+    private SpriteRenderer pathVisual;
 
     [Header("Launch")]
     [SerializeField] private PlayerTouchDamage damageDealerPrefab;
@@ -48,19 +48,19 @@ public class ScriptableLaunchCard : ScriptableAbilityCardBase {
         Vector2 toMouseDirection = MouseTracker.Instance.ToMouseDirection(pathVisual.transform.position);
 
         //... point path towards mouse
-        pathVisual.up = toMouseDirection;
+        pathVisual.transform.up = toMouseDirection;
 
         // scale path towards end of room
         float pathWidth = Stats.AreaSize * 2f;
 
         float checkDistance = 100f;
-        RaycastHit2D hit = Physics2D.BoxCast(pathVisual.position, new Vector2(pathWidth, 1f), pathVisual.eulerAngles.z, toMouseDirection, checkDistance, obstacleLayer);
+        RaycastHit2D hit = Physics2D.BoxCast(pathVisual.transform.position, new Vector2(pathWidth, 1f), pathVisual.transform.eulerAngles.z, toMouseDirection, checkDistance, obstacleLayer);
 
         if (hit.collider == null) {
             Debug.LogError("Could Not Find Wall!");
         }
         else {
-            pathVisual.localScale = new Vector3(pathWidth, hit.distance);
+            pathVisual.size = new Vector3(pathWidth, hit.distance);
         }
     }
 

@@ -38,4 +38,4 @@ MonoBehaviour:
     SwordSizePercent: 300
     DashDistancePercent: 0
   bigSwordSprite: {fileID: 21300000, guid: b2149264fa5b3c34aa0bd7ace452b311, type: 3}
-  normalSwordSprite: {fileID: 436878124, guid: bde6d022855f93745baad1d32c2ac2bc, type: 3}
+  normalSwordSprite: {fileID: 886075248, guid: bde6d022855f93745baad1d32c2ac2bc, type: 3}

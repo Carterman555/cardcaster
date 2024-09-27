@@ -7,8 +7,6 @@ using UnityEngine.InputSystem;
 
 public class PlayerMeleeAttack : StaticInstance<PlayerMeleeAttack>, ITargetAttacker, IHasStats {
 
-    public static event Action<Health[]> OnAttack_Targets;
-
     public event Action OnAttack;
     public event Action<GameObject> OnDamage_Target;
 
@@ -73,8 +71,6 @@ public class PlayerMeleeAttack : StaticInstance<PlayerMeleeAttack>, ITargetAttac
             .Where(health => health != null && !health.IsDead())
             .ToArray() ?? Array.Empty<Health>();
 
-        OnAttack_Targets?.Invoke(targetHealths);
-
         foreach (Health health in targetHealths) {
             OnDamage_Target?.Invoke(health.gameObject);
         }
@@ -88,10 +84,6 @@ public class PlayerMeleeAttack : StaticInstance<PlayerMeleeAttack>, ITargetAttac
 
         // invoke events
         OnAttack?.Invoke();
-
-        Health[] targetHealths = new Health[] { target.GetComponent<Health>() };
-        OnAttack_Targets?.Invoke(targetHealths);
-
         OnDamage_Target?.Invoke(target);
     }
 

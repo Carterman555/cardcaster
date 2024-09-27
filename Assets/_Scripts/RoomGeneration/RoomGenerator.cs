@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 public class RoomGenerator : StaticInstance<RoomGenerator> {
 
@@ -101,10 +102,17 @@ public class RoomGenerator : StaticInstance<RoomGenerator> {
 
                 // spawn in the hallway to connect the rooms
                 SpawnHallway(connectingDoorway.GetSide(), connectingDoorway.transform.position);
-                doorwayTileReplacer.DestroyTiles(connectingRoom.GetGroundTilemap(),
+
+                Tilemap connectingGroundTilemap = connectingDoorway.GetSide() == DoorwaySide.Bottom ?
+                    connectingRoom.GetBotGroundTilemap() : connectingRoom.GetGroundTilemap();
+
+                doorwayTileReplacer.DestroyTiles(connectingGroundTilemap,
                     connectingRoom.GetColliderTilemap(),
                     connectingDoorway.GetSide(),
                     connectingDoorway.transform.localPosition);
+
+                Tilemap newGroundTilemap = newDoorway.GetSide() == DoorwaySide.Bottom ?
+                    newRoom.GetBotGroundTilemap() : newRoom.GetGroundTilemap();
 
                 doorwayTileReplacer.DestroyTiles(newRoom.GetGroundTilemap(),
                     newRoom.GetColliderTilemap(),

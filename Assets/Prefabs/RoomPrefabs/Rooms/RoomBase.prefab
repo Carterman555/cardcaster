@@ -598,7 +598,7 @@ MonoBehaviour:
   exitTrigger: {fileID: 5333191018920502091}
   doorBlockerPrefab: {fileID: 8313895669592551187, guid: bbaed2e7b68be2e429a962ec140869c0, type: 3}
   sideDoorBlockerPrefab: {fileID: 8313895669592551187, guid: f7390d642d91aa44a95f6ec24ee93c2b, type: 3}
-  noEnemies: 1
+  noEnemies: 0
 --- !u!1 &3241341797291460811
 GameObject:
   m_ObjectHideFlags: 0

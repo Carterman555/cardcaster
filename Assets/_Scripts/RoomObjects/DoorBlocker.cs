@@ -37,7 +37,6 @@ public class DoorBlocker : MonoBehaviour {
 
     private void Open() {
         anim.SetTrigger("open");
-        //ReturnToPool(); // remove after anim is setup
     }
 
     // played by anim

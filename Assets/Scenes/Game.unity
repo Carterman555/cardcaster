@@ -2973,6 +2973,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: CardLibrary1
       objectReference: {fileID: 0}
+    - target: {fileID: 4567952786592543439, guid: 40b2a4ee98096e647b12052bd868489b, type: 3}
+      propertyPath: noEnemies
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6123748960421078426, guid: 40b2a4ee98096e647b12052bd868489b, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -3014,7 +3018,12 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 8428669027485016657, guid: 40b2a4ee98096e647b12052bd868489b, type: 3}
+    - {fileID: 2506801289747126126, guid: 40b2a4ee98096e647b12052bd868489b, type: 3}
+    - {fileID: 8111760682694894979, guid: 40b2a4ee98096e647b12052bd868489b, type: 3}
+    - {fileID: 8551235326141975821, guid: 40b2a4ee98096e647b12052bd868489b, type: 3}
+    - {fileID: 1082183665721991024, guid: 40b2a4ee98096e647b12052bd868489b, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 40b2a4ee98096e647b12052bd868489b, type: 3}
@@ -3207,7 +3216,7 @@ Transform:
   m_GameObject: {fileID: 519420028}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -10}
+  m_LocalPosition: {x: 0.0000038941703, y: 0.09549, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4488,11 +4497,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   swingAcceleration: 5
   afterSwingRotation: 80
---- !u!60 &704036465 stripped
-PolygonCollider2D:
-  m_CorrespondingSourceObject: {fileID: 4855185579247907926, guid: 40b2a4ee98096e647b12052bd868489b, type: 3}
-  m_PrefabInstance: {fileID: 481637641}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &755649926
 GameObject:
   m_ObjectHideFlags: 0
@@ -7280,7 +7284,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f453f694addf4275988fac205bc91968, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_BoundingShape2D: {fileID: 704036465}
+  m_BoundingShape2D: {fileID: 1926929211}
   m_Damping: 2
   m_MaxWindowSize: 0
 --- !u!114 &1606153971
@@ -9086,7 +9090,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1794461941}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9ae3efc859fc5ec44b9dabd3a2803717, type: 3}
   m_Name: 
@@ -9120,6 +9124,8 @@ MonoBehaviour:
   - {fileID: 3084685571954290978, guid: 3c2059076c2e7ca4f9489d83e1e2bd48, type: 3}
   - {fileID: 3084685571954290978, guid: 53858114661de8f45b67feac08720bc2, type: 3}
   - {fileID: 3084685571954290978, guid: 6606fd5b9194f1c4ba5c50a54d650770, type: 3}
+  - {fileID: 3084685571954290978, guid: 97219980dd8738042ae64ced56a1adea, type: 3}
+  - {fileID: 3084685571954290978, guid: 58dec50da409cf2489213b1ff61717e1, type: 3}
 --- !u!114 &1794461944
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9142,6 +9148,10 @@ MonoBehaviour:
   startingRoom: {fileID: 321440818}
   roomPrefabs:
   - {fileID: 3084685571954290978, guid: ac412e64bbc0b6843a6f7ae3106f8d7a, type: 3}
+  - {fileID: 3084685571954290978, guid: fe24e72f582f8cb45a3015a32754acec, type: 3}
+  - {fileID: 3084685571954290978, guid: 3e9c38da68eef4345990d318516436b4, type: 3}
+  - {fileID: 3084685571954290978, guid: 8309060ff70fa3c4997d10c8715fcd1d, type: 3}
+  - {fileID: 3084685571954290978, guid: 6726f11124a4dea4995625632b1dafdc, type: 3}
 --- !u!114 &1814983925 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2600157859336777174, guid: 96c8f26ef8c7e2f41a30a5869a84f301, type: 3}

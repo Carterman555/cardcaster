@@ -34,8 +34,8 @@ public class StraightShootBehavior : EnemyBehavior {
         Start();
         this.target = target;
         timedActionBehavior.Start();
-        // less delay the first time shooting
-        timedActionBehavior.SetActionCooldown(enemy.GetStats().AttackCooldown / 2f);
+
+        timedActionBehavior.SetActionCooldown(enemy.GetStats().AttackCooldown);
     }
 
     private void ShootAnimation() {

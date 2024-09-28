@@ -96,7 +96,7 @@ Animator:
   m_GameObject: {fileID: 5184002414725446664}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: c865354019421094f859ee5b8e38d28b, type: 2}
+  m_Controller: {fileID: 22100000, guid: 1c1b2d94d4755574faccccd48baf85fa, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -134,7 +134,7 @@ GameObject:
   - component: {fileID: 8313895669592551187}
   - component: {fileID: -1756870482551871311}
   m_Layer: 9
-  m_Name: DoorBlocker
+  m_Name: FrontDoorBlocker
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

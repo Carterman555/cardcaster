@@ -36,6 +36,8 @@ public class CardButton : GameButton, IPointerDownHandler {
     public void Setup(int cardIndex, Transform deckTransform, Vector3 destination) {
         this.cardIndex = cardIndex;
 
+        hotkeyText.text = (cardIndex + 1).ToString();
+
         MMF_Position hoverMoveFeedback = hoverPlayer.GetFeedbackOfType<MMF_Position>("Move");
         hoverMoveFeedback.InitialPosition = destination;
         hoverMoveFeedback.DestinationPosition = new Vector3(destination.x, hoverMoveFeedback.DestinationPosition.y);

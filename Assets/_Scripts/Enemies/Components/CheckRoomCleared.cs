@@ -22,11 +22,7 @@ public class CheckRoomCleared : MonoBehaviour {
 
     private void OnDeath() {
         CheckIfEnemiesCleared();
-
-        DeckManager.Instance.ChangeEssenceAmount(1f);
     }
-
-
 
     private void CheckIfEnemiesCleared() {
         bool anyAliveEnemies = Containers.Instance.Enemies.GetComponentsInChildren<Health>().Any(health => !health.IsDead());

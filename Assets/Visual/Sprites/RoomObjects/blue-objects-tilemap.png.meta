@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 95e19202b79152848b245bbd6cf8ffe4
+guid: c3bb67cfc23389b428b8538cb2cf8896
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -21,7 +21,7 @@ TextureImporter:
     heightScale: 0.25
     normalMapFilter: 0
     flipGreenChannel: 0
-  isReadable: 1
+  isReadable: 0
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
@@ -110,13 +110,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: player-idle_0
+      name: blue-objects-tilemap_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 0
-        width: 32
-        height: 32
+        y: 25
+        width: 14
+        height: 23
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -124,20 +124,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 693c34f1a4fd872449e4bdb89e096b19
-      internalID: 237226745
+      spriteID: b56567ea21dafa749951e7e9bc750cd3
+      internalID: -1187345349
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: player-idle_1
+      name: blue-objects-tilemap_1
       rect:
         serializedVersion: 2
-        x: 32
-        y: 0
-        width: 32
-        height: 32
+        x: 14
+        y: 39
+        width: 13
+        height: 9
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -145,20 +145,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b36b5df5380d4ed408d455d70f307d4a
-      internalID: 2055925804
+      spriteID: 5d6c4fbca423df545aa9de9737469d97
+      internalID: 813334081
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: player-idle_2
+      name: blue-objects-tilemap_2
       rect:
         serializedVersion: 2
-        x: 64
-        y: 0
-        width: 32
-        height: 32
+        x: 27
+        y: 37
+        width: 13
+        height: 11
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -166,20 +166,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 101cc5281497d394bbf38592701e5f39
-      internalID: 470507324
+      spriteID: 2b458166f937537439b69a6aed3a3493
+      internalID: -346390204
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: player-idle_3
+      name: blue-objects-tilemap_3
       rect:
         serializedVersion: 2
-        x: 96
-        y: 0
-        width: 32
-        height: 32
+        x: 14
+        y: 25
+        width: 14
+        height: 14
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -187,8 +187,29 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 37911da7f529cb14eb4455cfb19a5a2c
-      internalID: -1126200891
+      spriteID: ebcfb3087bba6a142b82a0f9f01e9129
+      internalID: 628055212
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: blue-objects-tilemap_4
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 4
+        width: 22
+        height: 21
+      alignment: 9
+      pivot: {x: 0.49486408, y: 0.05918755}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 92cd9407373a6bd4eba3feef3076e0d0
+      internalID: -203935277
       vertices: []
       indices: 
       edges: []
@@ -204,10 +225,11 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      player-idle_0: 237226745
-      player-idle_1: 2055925804
-      player-idle_2: 470507324
-      player-idle_3: -1126200891
+      blue-objects-tilemap_0: -1187345349
+      blue-objects-tilemap_1: 813334081
+      blue-objects-tilemap_2: -346390204
+      blue-objects-tilemap_3: 628055212
+      blue-objects-tilemap_4: -203935277
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

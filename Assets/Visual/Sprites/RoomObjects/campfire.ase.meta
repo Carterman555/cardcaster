@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: ed7e58a534095b64f9d4233652e226fc
+guid: 31602c47e58526646b97d41812655e04
 ScriptedImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -121,18 +121,18 @@ ScriptedImporter:
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
   animatedSpriteImportData:
-  - name: blue-objects-tilemap
+  - name: campfire_Frame_0
     originalName: 
-    pivot: {x: 1.9166666, y: -1.2380953}
+    pivot: {x: 0.5, y: -0.0625}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
       x: 4
       y: 4
-      width: 12
-      height: 21
-    spriteID: 35b683be9fa5a5f409bcb06814816160
+      width: 16
+      height: 16
+    spriteID: c5b8ac1bb385885438956ba237c794f7
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -141,28 +141,144 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 4, y: 4}
+  - name: campfire_Frame_1
+    originalName: 
+    pivot: {x: 0.5, y: -0.0625}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 28
+      width: 16
+      height: 16
+    spriteID: a606b473612c0404585113a4dcbcf3bf
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 28}
+  - name: campfire_Frame_2
+    originalName: 
+    pivot: {x: 0.5, y: -0.0625}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 52
+      width: 16
+      height: 16
+    spriteID: 0486fe2e8fc630e4d90338c7031d6450
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 52}
+  - name: campfire_Frame_3
+    originalName: 
+    pivot: {x: 0.5, y: -0.0625}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 76
+      width: 16
+      height: 16
+    spriteID: 065b43a63356a094f8a28cdb3d1b5584
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 76}
+  - name: campfire_Frame_4
+    originalName: 
+    pivot: {x: 0.5, y: -0.083333336}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 100
+      width: 16
+      height: 12
+    spriteID: 0244198d3e0a20746babf6c31b6fcd38
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 100}
   spriteSheetImportData: []
   asepriteLayers:
   - layerIndex: 0
-    guid: -388789032
-    name: blue-objects-tilemap
+    guid: -445043637
+    name: campfire
     layerFlags: 0
     layerType: 0
     blendMode: 0
     cells:
-    - name: blue-objects-tilemap
+    - name: campfire_Frame_0
       frameIndex: 0
       additiveSortOrder: 0
       cellRect:
         x: 1
-        y: 26
-        width: 12
-        height: 21
-      spriteId: 35b683be9fa5a5f409bcb06814816160
+        y: 1
+        width: 16
+        height: 16
+      spriteId: c5b8ac1bb385885438956ba237c794f7
+    - name: campfire_Frame_1
+      frameIndex: 1
+      additiveSortOrder: 0
+      cellRect:
+        x: 1
+        y: 1
+        width: 16
+        height: 16
+      spriteId: a606b473612c0404585113a4dcbcf3bf
+    - name: campfire_Frame_2
+      frameIndex: 2
+      additiveSortOrder: 0
+      cellRect:
+        x: 1
+        y: 1
+        width: 16
+        height: 16
+      spriteId: 0486fe2e8fc630e4d90338c7031d6450
+    - name: campfire_Frame_3
+      frameIndex: 3
+      additiveSortOrder: 0
+      cellRect:
+        x: 1
+        y: 1
+        width: 16
+        height: 16
+      spriteId: 065b43a63356a094f8a28cdb3d1b5584
+    - name: campfire_Frame_4
+      frameIndex: 4
+      additiveSortOrder: 0
+      cellRect:
+        x: 1
+        y: 1
+        width: 16
+        height: 12
+      spriteId: 0244198d3e0a20746babf6c31b6fcd38
     linkedCells: []
     parentIndex: -1
   platformSettings: []
   generatePhysicsShape: 0
   secondarySpriteTextures: []
   spritePackingTag: 
-  canvasSize: {x: 48, y: 48}
+  canvasSize: {x: 18, y: 18}

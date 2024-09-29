@@ -767,6 +767,7 @@ GameObject:
   - component: {fileID: 247086535}
   - component: {fileID: 247086536}
   - component: {fileID: 247086537}
+  - component: {fileID: 247086538}
   m_Layer: 0
   m_Name: Visual
   m_TagString: Untagged
@@ -783,7 +784,7 @@ Transform:
   m_GameObject: {fileID: 247086533}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -874,6 +875,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a18f5f6938303e54f890f80e8659476c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!210 &247086538
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 247086533}
+  m_Enabled: 1
+  m_SortingLayerID: -210121459
+  m_SortingLayer: 3
+  m_SortingOrder: 0
+  m_SortAtRoot: 1
 --- !u!1 &252866134
 GameObject:
   m_ObjectHideFlags: 0
@@ -3216,7 +3229,7 @@ Transform:
   m_GameObject: {fileID: 519420028}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.0000038941703, y: 0.09549, z: -10}
+  m_LocalPosition: {x: 0.0000049291657, y: 0.09549, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -9090,7 +9103,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1794461941}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9ae3efc859fc5ec44b9dabd3a2803717, type: 3}
   m_Name: 
@@ -9133,7 +9146,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1794461941}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9ae3efc859fc5ec44b9dabd3a2803717, type: 3}
   m_Name: 
@@ -9147,8 +9160,8 @@ MonoBehaviour:
   verticalHallwayPrefab: {fileID: 8927245960358128749, guid: 8e2403430e5795c438c597e18fd4a800, type: 3}
   startingRoom: {fileID: 321440818}
   roomPrefabs:
-  - {fileID: 3084685571954290978, guid: ac412e64bbc0b6843a6f7ae3106f8d7a, type: 3}
-  - {fileID: 3084685571954290978, guid: fe24e72f582f8cb45a3015a32754acec, type: 3}
+  - {fileID: 3084685571954290978, guid: 6606fd5b9194f1c4ba5c50a54d650770, type: 3}
+  - {fileID: 3084685571954290978, guid: 58dec50da409cf2489213b1ff61717e1, type: 3}
   - {fileID: 3084685571954290978, guid: 3e9c38da68eef4345990d318516436b4, type: 3}
   - {fileID: 3084685571954290978, guid: 8309060ff70fa3c4997d10c8715fcd1d, type: 3}
   - {fileID: 3084685571954290978, guid: 6726f11124a4dea4995625632b1dafdc, type: 3}

@@ -12,6 +12,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: DoomCharger
       objectReference: {fileID: 0}
+    - target: {fileID: 621019451974682374, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 22100000, guid: f4261b97d7b93e040a036817f2876562, type: 2}
     - target: {fileID: 1436166056584189237, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
       propertyPath: enemy
       value: 

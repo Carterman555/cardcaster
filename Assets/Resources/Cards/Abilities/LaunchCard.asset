@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: LaunchCard
   m_EditorClassIdentifier: 
   cardType: 6
-  description: 
+  description: Launch!!!
   cost: 0
   rarity: 0
   sprite: {fileID: 5025783311628219500, guid: a8a47aca9e1483f4ebbba999d588b2e3, type: 3}

@@ -104,7 +104,7 @@ public class RoomGenerator : StaticInstance<RoomGenerator> {
                 SpawnHallway(connectingDoorway.GetSide(), connectingDoorway.transform.position);
 
                 Tilemap connectingGroundTilemap = connectingDoorway.GetSide() == DoorwaySide.Bottom ?
-                    connectingRoom.GetBotGroundTilemap() : connectingRoom.GetGroundTilemap();
+                    connectingRoom.GetBotColliderTilemap() : connectingRoom.GetGroundTilemap();
 
                 doorwayTileReplacer.DestroyTiles(connectingGroundTilemap,
                     connectingRoom.GetColliderTilemap(),
@@ -112,7 +112,7 @@ public class RoomGenerator : StaticInstance<RoomGenerator> {
                     connectingDoorway.transform.localPosition);
 
                 Tilemap newGroundTilemap = newDoorway.GetSide() == DoorwaySide.Bottom ?
-                    newRoom.GetBotGroundTilemap() : newRoom.GetGroundTilemap();
+                    newRoom.GetBotColliderTilemap() : newRoom.GetGroundTilemap();
 
                 doorwayTileReplacer.DestroyTiles(newRoom.GetGroundTilemap(),
                     newRoom.GetColliderTilemap(),

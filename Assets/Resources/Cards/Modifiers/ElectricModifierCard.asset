@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: ElectricModifierCard
   m_EditorClassIdentifier: 
   cardType: 13
-  description: 
-  cost: 0
+  description: The next ability you play can electrify the enemies
+  cost: 3
   rarity: 0
-  sprite: {fileID: 0}
-  isPossibleStartingCard: 0
+  sprite: {fileID: 4409916515231285827, guid: a8a47aca9e1483f4ebbba999d588b2e3, type: 3}
+  isPossibleStartingCard: 1
   abilityAttributes: 1
   abilityStatsModifierPercentage:
     Damage: 0

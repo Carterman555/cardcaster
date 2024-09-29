@@ -45,7 +45,7 @@ public enum CardType {
     ShootSwordHologram,
     MassiveSword,
     Fire,
-    Electricify,
+    Electrify,
     DamageUpDurationDown,
     IncreaseAreaSize,
     BouncyProjectiles,

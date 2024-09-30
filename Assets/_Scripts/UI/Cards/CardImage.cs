@@ -1,4 +1,5 @@
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -12,19 +13,19 @@ public class CardImage : MonoBehaviour {
     [SerializeField] private Image[] essenceImages;
 
     [SerializeField] private TextMeshProUGUI titleText;
+    [SerializeField] private TextMeshProUGUI typeText;
     [SerializeField] private TextMeshProUGUI descriptionText;
-
-    private void Awake() {
-        cardImage = GetComponent<Image>();
-    }
 
     public void Setup(ScriptableCardBase card) {
 
+        cardImage = GetComponent<Image>();
         if (card is ScriptableAbilityCardBase) {
             cardImage.sprite = abilityCardFront;
+            typeText.text = "Ability";
         }
         else if (card is ScriptableModifierCardBase) {
             cardImage.sprite = modifierCardFront;
+            typeText.text = "Modifier";
         }
 
         iconImage.sprite = card.GetSprite();

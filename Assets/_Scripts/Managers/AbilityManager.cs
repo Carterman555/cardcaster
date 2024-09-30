@@ -6,9 +6,17 @@ public class AbilityManager : StaticInstance<AbilityManager> {
 
     private List<ScriptableModifierCardBase> activeModifiers = new List<ScriptableModifierCardBase>();
 
+    public int ActiveModifierCount() {
+        return activeModifiers.Count; 
+    }
+
+    public bool IsModifierActive(ScriptableModifierCardBase modifier) {
+        bool modifierActive = activeModifiers.Any(m => m.CardType == modifier.CardType);
+        return modifierActive;
+    }
+
     public void AddModifier(ScriptableModifierCardBase modifier) {
-        bool modifierAlreadyActive = activeModifiers.Any(m => m.CardType == modifier.CardType);
-        if (modifier.CanStackWithSelf || !modifierAlreadyActive) {
+        if (modifier.CanStackWithSelf || !IsModifierActive(modifier)) {
             activeModifiers.Add(modifier);
         }
     }

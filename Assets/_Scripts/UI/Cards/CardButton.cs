@@ -111,18 +111,24 @@ public class CardButton : GameButton, IPointerDownHandler {
         mouseDownOnCard = true;
     }
 
-    private void PlayCard() {
+    [SerializeField] private ModifierImage modifierImage;
 
-        Vector2 mouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        card.Play(mouseWorldPos);
-        useCardPlayer.PlayFeedbacks();
+    private void PlayCard() {
 
         if (card is ScriptableAbilityCardBase) {
             DeckManager.Instance.OnUseAbilityCard(cardIndex);
         }
-        else if (card is ScriptableModifierCardBase) {
+        else if (card is ScriptableModifierCardBase modifier) {
             DeckManager.Instance.OnUseModifierCard(cardIndex);
+
+            if (!AbilityManager.Instance.IsModifierActive(modifier)) {
+                modifierImage.Spawn(transform.position, Containers.Instance.HUD);
+            }
         }
+
+        Vector2 mouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        card.Play(mouseWorldPos);
+        useCardPlayer.PlayFeedbacks();
     }
 
     public void SetCard(ScriptableCardBase card) {

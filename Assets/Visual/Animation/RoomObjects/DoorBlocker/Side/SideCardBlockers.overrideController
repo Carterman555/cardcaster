@@ -9,9 +9,9 @@ AnimatorOverrideController:
   m_Name: SideCardBlockers
   m_Controller: {fileID: 9100000, guid: c865354019421094f859ee5b8e38d28b, type: 2}
   m_Clips:
-  - m_OriginalClip: {fileID: 1007095770567677685, guid: 57ba83bd0e38c3543b869c4ec8b66bb8, type: 3}
-    m_OverrideClip: {fileID: 7400000, guid: 23f4012d341ff2c4ea1ce3c5b28a422d, type: 2}
-  - m_OriginalClip: {fileID: -3100369314251171874, guid: 57ba83bd0e38c3543b869c4ec8b66bb8, type: 3}
-    m_OverrideClip: {fileID: 7400000, guid: bec2b9fe2e107a745b6516078d657105, type: 2}
-  - m_OriginalClip: {fileID: 5984496454500463648, guid: 57ba83bd0e38c3543b869c4ec8b66bb8, type: 3}
+  - m_OriginalClip: {fileID: 7400000, guid: eae5360a8ec93ba4b84675bd81d453b7, type: 2}
     m_OverrideClip: {fileID: 7400000, guid: c8137073d948288419a50723bf0b6e5a, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: b1f772dc49aca724e94266ffac9fdc79, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: bec2b9fe2e107a745b6516078d657105, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 975496df72c9948408a105f0b14df76e, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 23f4012d341ff2c4ea1ce3c5b28a422d, type: 2}

@@ -9,9 +9,9 @@ AnimatorOverrideController:
   m_Name: FrontCardBlockers
   m_Controller: {fileID: 9100000, guid: c865354019421094f859ee5b8e38d28b, type: 2}
   m_Clips:
-  - m_OriginalClip: {fileID: 1007095770567677685, guid: 57ba83bd0e38c3543b869c4ec8b66bb8, type: 3}
+  - m_OriginalClip: {fileID: 7400000, guid: 975496df72c9948408a105f0b14df76e, type: 2}
     m_OverrideClip: {fileID: 7400000, guid: c5e60e6f494134540adf4d8c65a26767, type: 2}
-  - m_OriginalClip: {fileID: -3100369314251171874, guid: 57ba83bd0e38c3543b869c4ec8b66bb8, type: 3}
+  - m_OriginalClip: {fileID: 7400000, guid: b1f772dc49aca724e94266ffac9fdc79, type: 2}
     m_OverrideClip: {fileID: 7400000, guid: 40510d81440c2d74d8098aeaa5583255, type: 2}
-  - m_OriginalClip: {fileID: 5984496454500463648, guid: 57ba83bd0e38c3543b869c4ec8b66bb8, type: 3}
+  - m_OriginalClip: {fileID: 7400000, guid: eae5360a8ec93ba4b84675bd81d453b7, type: 2}
     m_OverrideClip: {fileID: 7400000, guid: a7d4ce2d1aa20a149a84e6619deef023, type: 2}

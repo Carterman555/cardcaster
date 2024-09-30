@@ -14,6 +14,8 @@ public class VerticalDoor : MonoBehaviour {
 
     private bool doorIsBlocked;
 
+    private bool HasBeenOpened => hasBeenOpenedLeft || hasBeenOpenedRight;
+
     private void OnEnable() {
         leftPlayerTrigger.OnEnterContact += TryOpenRight;
         rightPlayerTrigger.OnEnterContact += TryOpenLeft;
@@ -34,13 +36,15 @@ public class VerticalDoor : MonoBehaviour {
     }
 
     private void TryOpenRight(GameObject player) {
-        if (!doorIsBlocked) {
+        if (!doorIsBlocked && !HasBeenOpened) {
+            anim.ResetTrigger("close");
             anim.SetTrigger("openRight");
             hasBeenOpenedRight = true;
         }
     }
     private void TryOpenLeft(GameObject player) {
-        if (!doorIsBlocked) {
+        if (!doorIsBlocked && !HasBeenOpened) {
+            anim.ResetTrigger("close");
             anim.SetTrigger("openLeft");
             hasBeenOpenedLeft = true;
         }

@@ -10,6 +10,7 @@ public class HorizontalDoor : MonoBehaviour {
 
     [SerializeField] private TriggerContactTracker cardBlockerTrigger;
 
+    private bool HasBeenOpened => hasBeenOpenedDown || hasBeenOpenedUp;
     private bool hasBeenOpenedDown;
     private bool hasBeenOpenedUp;
 
@@ -31,13 +32,17 @@ public class HorizontalDoor : MonoBehaviour {
     }
 
     private void TryOpenDownwards(GameObject player) {
-        if (!doorIsBlocked) {
+        if (!doorIsBlocked && !HasBeenOpened) {
+            anim.ResetTrigger("close");
             anim.SetTrigger("openDown");
+            hasBeenOpenedDown = true;
         }
     }
     private void TryOpenUpwards(GameObject player) {
-        if (!doorIsBlocked) {
+        if (!doorIsBlocked && !HasBeenOpened) {
+            anim.ResetTrigger("close");
             anim.SetTrigger("openUp");
+            hasBeenOpenedUp = true;
         }
     }
 

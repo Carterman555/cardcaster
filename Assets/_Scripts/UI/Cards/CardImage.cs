@@ -4,12 +4,29 @@ using UnityEngine.UI;
 
 public class CardImage : MonoBehaviour {
 
+    private Image cardImage;
+    [SerializeField] private Sprite abilityCardFront;
+    [SerializeField] private Sprite modifierCardFront;
+
     [SerializeField] private Image iconImage;
     [SerializeField] private Image[] essenceImages;
+
     [SerializeField] private TextMeshProUGUI titleText;
     [SerializeField] private TextMeshProUGUI descriptionText;
 
+    private void Awake() {
+        cardImage = GetComponent<Image>();
+    }
+
     public void Setup(ScriptableCardBase card) {
+
+        if (card is ScriptableAbilityCardBase) {
+            cardImage.sprite = abilityCardFront;
+        }
+        else if (card is ScriptableModifierCardBase) {
+            cardImage.sprite = modifierCardFront;
+        }
+
         iconImage.sprite = card.GetSprite();
         SetupCostImages(card.GetCost());
         titleText.text = card.GetName();

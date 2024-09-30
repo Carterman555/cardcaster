@@ -207,11 +207,6 @@ public class Room : MonoBehaviour {
         OnAnyRoomExit_Room?.Invoke(this);
     }
 
-    private void CloseDoors() {
-        foreach (PossibleDoorway createdDoorway in createdDoorways) {
-        }
-    }
-
     private void CreateDoorwayBlockers() {
         foreach (PossibleDoorway createdDoorway in createdDoorways) {
             bool sideBlocker = createdDoorway.GetSide() == DoorwaySide.Left || createdDoorway.GetSide() == DoorwaySide.Right;

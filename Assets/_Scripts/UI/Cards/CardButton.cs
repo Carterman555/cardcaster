@@ -7,7 +7,13 @@ using UnityEngine.UI;
 
 public class CardButton : GameButton, IPointerDownHandler {
 
+    [Header("Visual")]
     [SerializeField] private CardImage cardImage;
+
+    [SerializeField] private Image backImage;
+    [SerializeField] private Sprite abilityCardBack;
+    [SerializeField] private Sprite modifierCardBack;
+
     [SerializeField] private TextMeshProUGUI hotkeyText;
 
     [Header("Feedback Players")]
@@ -122,6 +128,13 @@ public class CardButton : GameButton, IPointerDownHandler {
     public void SetCard(ScriptableCardBase card) {
         this.card = card;
         cardImage.Setup(card);
+
+        if (card is ScriptableAbilityCardBase) {
+            backImage.sprite = abilityCardBack;
+        }
+        else if (card is ScriptableModifierCardBase) {
+            backImage.sprite = modifierCardBack;
+        }
     }
 
     public void FollowMouse() {

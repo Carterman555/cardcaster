@@ -32,7 +32,8 @@ public class ScriptableDaggerShootCard : ScriptableAbilityCardBase {
             yield return new WaitForSeconds(Stats.Cooldown);
 
             // get direction to shoot (towards mouse
-            Vector2 toMouseDirection = (MouseTracker.Instance.transform.position - PlayerMovement.Instance.transform.position).normalized;
+            Vector2 toMouseDirection = MouseTracker.Instance.transform.position - PlayerMovement.Instance.transform.position;
+            toMouseDirection.Normalize();
             Vector2 offset = spawnOffsetValue * toMouseDirection;
             Vector2 spawnPos = (Vector2)PlayerMovement.Instance.transform.position + offset;
 

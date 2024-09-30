@@ -21,12 +21,16 @@ public class CheckRoomCleared : MonoBehaviour {
     }
 
     private void OnDeath() {
-        CheckIfEnemiesCleared();
+        EnemySpawner.Instance.StartCoroutine(CheckIfEnemiesCleared());
     }
 
-    private void CheckIfEnemiesCleared() {
+    private IEnumerator CheckIfEnemiesCleared() {
+
+        // wait because some enemies spawn more on death and it needs to register those
+        yield return null;
+
         bool anyAliveEnemies = Containers.Instance.Enemies.GetComponentsInChildren<Health>().Any(health => !health.IsDead());
-        if (!anyAliveEnemies) {
+        if (!anyAliveEnemies && !EnemySpawner.Instance.SpawningEnemies()) {
             OnEnemiesCleared?.Invoke();
         }
     }

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-public class EnemySpawner : MonoBehaviour {
+public class EnemySpawner : StaticInstance<EnemySpawner> {
 
     [SerializeField] private ScriptableEnemy[] basicEnemies;
     [SerializeField] private ScriptableEnemy[] complexEnemies;
@@ -13,6 +13,12 @@ public class EnemySpawner : MonoBehaviour {
 
     [SerializeField] private RandomInt spawnAmount;
     [SerializeField] private RandomFloat spawnCooldown;
+
+    private bool spawningEnemies;
+
+    public bool SpawningEnemies() {
+        return spawningEnemies;
+    }
 
     private void OnEnable() {
         Room.OnAnyRoomEnter_Room += TrySpawnEnemies;
@@ -28,6 +34,8 @@ public class EnemySpawner : MonoBehaviour {
     }
 
     private IEnumerator SpawnEnemiesCor() {
+
+        spawningEnemies = true;
 
         //int numOfUniqueComplexEnemies = Random.Range(0, 2);
         int numOfUniqueComplexEnemies = 1;
@@ -50,6 +58,8 @@ public class EnemySpawner : MonoBehaviour {
                 SpawnEnemy(enemyPrefab);
             }
         }
+
+        spawningEnemies = false;
     }
 
     private void SpawnEnemy(Enemy enemyPrefab) {

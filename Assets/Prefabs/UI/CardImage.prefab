@@ -70,7 +70,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 8860076365698839484, guid: a45140592a1d888479b60b8c14f31a24, type: 3}
+  m_Sprite: {fileID: 611838848887852505, guid: a45140592a1d888479b60b8c14f31a24, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -92,6 +92,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d0b33dd43b43ea49bca811810dfa21f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  abilityCardFront: {fileID: 611838848887852505, guid: a45140592a1d888479b60b8c14f31a24, type: 3}
+  modifierCardFront: {fileID: 7000664575904268217, guid: a45140592a1d888479b60b8c14f31a24, type: 3}
   iconImage: {fileID: 8110443125434595454}
   essenceImages:
   - {fileID: 3914225007372402664}

@@ -2781,7 +2781,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 6678455787636538569, guid: a45140592a1d888479b60b8c14f31a24, type: 3}
+  m_Sprite: {fileID: -6947437304132239891, guid: a45140592a1d888479b60b8c14f31a24, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2901,6 +2901,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cardImage: {fileID: 8781295295215984585}
+  backImage: {fileID: 7720993515162781848}
+  abilityCardBack: {fileID: -6947437304132239891, guid: a45140592a1d888479b60b8c14f31a24, type: 3}
+  modifierCardBack: {fileID: 7757724108563442073, guid: a45140592a1d888479b60b8c14f31a24, type: 3}
   hotkeyText: {fileID: 4834253411405777544}
   hoverPlayer: {fileID: 1507770246064602376}
   toHandPlayer: {fileID: 8445676972534443276}

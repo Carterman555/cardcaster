@@ -27,5 +27,6 @@ MonoBehaviour:
     ProjectileSpeed: 0
     Cooldown: 0
   canStackWithSelf: 0
+  modifierImagePrefab: {fileID: -2071319084836149, guid: c6d28b118b972a744a66d705262b19cd, type: 3}
   appliesEffect: 1
   effectPrefab: {fileID: 4023930347696903506, guid: f279c88f7a7a49a4bb5fd72a5bd3469c, type: 3}

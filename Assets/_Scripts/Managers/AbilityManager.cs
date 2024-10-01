@@ -1,8 +1,11 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
 public class AbilityManager : StaticInstance<AbilityManager> {
+
+    public static event Action OnApplyModifiers;
 
     private List<ScriptableModifierCardBase> activeModifiers = new List<ScriptableModifierCardBase>();
 
@@ -28,5 +31,7 @@ public class AbilityManager : StaticInstance<AbilityManager> {
             }
         }
         activeModifiers.Clear();
+
+        OnApplyModifiers?.Invoke();
     }
 }

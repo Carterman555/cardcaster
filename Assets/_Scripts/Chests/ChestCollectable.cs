@@ -57,7 +57,7 @@ public class ChestCollectable : MonoBehaviour {
         //if (selectAction.action.triggered) {
         if (Input.GetMouseButtonDown(0)) {
             GoToPlayer();
-            StartCoroutine(chest.SelectCollectable(collectableIndex));
+            StartCoroutine(chest.OnSelectCollectable(collectableIndex));
         }
     }
 

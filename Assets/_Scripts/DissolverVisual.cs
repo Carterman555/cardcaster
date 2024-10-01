@@ -49,27 +49,29 @@ public class DissolverVisual {
         this.onDissolveOutFunc = onDissolveOutFunc;
     }
 
-    public IEnumerator DissolveIn() {
+    public IEnumerator DissolveIn(bool resetOnComplete = false) {
 
-        float fadeAmount = -1f;
+        float fadeAmount = 0.4f;
         while (fadeAmount > -0.1f) {
             materialInstance.SetFloat("_FadeAmount", fadeAmount);
             fadeAmount -= dissolveSpeed * Time.unscaledDeltaTime; // unscaled so can play when timescale = 0
             yield return null;
         }
 
+        ResetMaterials();
         onDissolveInFunc?.Invoke();
     }
 
-    public IEnumerator DissolveOut() {
+    public IEnumerator DissolveOut(bool resetOnComplete = false) {
 
         float fadeAmount = -0.1f;
-        while (fadeAmount < 1f) {
+        while (fadeAmount < 0.4f) {
             materialInstance.SetFloat("_FadeAmount", fadeAmount);
             fadeAmount += dissolveSpeed * Time.unscaledDeltaTime; // unscaled so can play when timescale = 0
             yield return null;
         }
 
+        ResetMaterials();
         onDissolveOutFunc?.Invoke();
     }
 

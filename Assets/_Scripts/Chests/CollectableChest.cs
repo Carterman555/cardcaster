@@ -98,7 +98,7 @@ public class CollectableChest : MonoBehaviour {
         }
     }
 
-    public IEnumerator SelectCollectable(int selectedCollectableIndex) {
+    public IEnumerator OnSelectCollectable(int selectedCollectableIndex) {
 
         float duration = 0.5f;
 

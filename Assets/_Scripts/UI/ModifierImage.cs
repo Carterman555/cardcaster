@@ -62,12 +62,10 @@ public class ModifierImage : MonoBehaviour {
         dissolverVisual = new DissolverVisual(dissolveMaterial, new Image[] { image }, dissolveSpeed);
         dissolverVisual.AddDissolvedOutListener(OnDissolved);
 
-        StartCoroutine(dissolverVisual.DissolveOut());
+        StartCoroutine(dissolverVisual.DissolveOut(true));
     }
 
     private void OnDissolved() {
-        dissolverVisual.ResetMaterials();
-
         gameObject.ReturnToPool();
     }
 

@@ -16,6 +16,8 @@ GameObject:
   - component: {fileID: 5414848298468351723}
   - component: {fileID: 5577381940195422070}
   - component: {fileID: -5537846848555564483}
+  - component: {fileID: 9160433015735330768}
+  - component: {fileID: -7604754236743832783}
   m_Layer: 7
   m_Name: EnemyBase
   m_TagString: Untagged
@@ -204,6 +206,36 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b724c820c652cb04487ef3776042c5bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &9160433015735330768
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 226976224992304211}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e7c98cfe1d221c544899de99d7a4c9eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spawnMaterial: {fileID: 2100000, guid: ecdd3156f007f3b448e4cbdbade57855, type: 2}
+--- !u!114 &-7604754236743832783
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 226976224992304211}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23ba49c69b5da3143ab2a3b3d4077c77, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  essencePrefab: {fileID: 8034270738103182623, guid: 12e28bcb234b1b548ae2d9e6745360a6, type: 3}
+  dropAmount:
+    MinValue: 1
+    MaxValue: 1
+  dropChance: 1
 --- !u!1 &4973828884281687063
 GameObject:
   m_ObjectHideFlags: 0
@@ -343,7 +375,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -364,7 +396,7 @@ SpriteRenderer:
   m_SortingLayerID: -210121459
   m_SortingLayer: 3
   m_SortingOrder: 0
-  m_Sprite: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
+  m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -372,7 +404,7 @@ SpriteRenderer:
   m_Size: {x: 0.23, y: 0.21}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!95 &621019451974682374

@@ -39,7 +39,9 @@ public class EnemySpawn : MonoBehaviour, IHasRoomNum {
             return;
         }
 
+
         // Choose a random enemy from the matching ones to spawn
-        matchingEnemies.RandomItem().Prefab.Spawn(transform.position, Containers.Instance.Enemies);
+        var enemy = matchingEnemies.RandomItem();
+        enemy.Prefab.Spawn(transform.position, Containers.Instance.Enemies);
     }
 }

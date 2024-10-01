@@ -1,7 +1,10 @@
+using Mono.CSharp;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static Mono.CSharp.Parameter;
+using static UnityEngine.RuleTile.TilingRuleOutput;
 
 [CreateAssetMenu(fileName = "ModifierCard", menuName = "Cards/Modifiers/Base")]
 public class ScriptableModifierCardBase : ScriptableCardBase {
@@ -15,11 +18,19 @@ public class ScriptableModifierCardBase : ScriptableCardBase {
     [SerializeField] private bool canStackWithSelf;
     public bool CanStackWithSelf => canStackWithSelf;
 
+    [SerializeField] private ModifierImage modifierImagePrefab;
+
     [SerializeField] private bool appliesEffect;
     [ConditionalHide("appliesEffect")][SerializeField] private GameObject effectPrefab;
 
     public override void Play(Vector2 position) {
         base.Play(position);
+
+        if (!AbilityManager.Instance.IsModifierActive(this)) {
+            Vector2 canvasPos = Camera.main.WorldToScreenPoint(position);
+            ModifierImage modifierImage = modifierImagePrefab.Spawn(canvasPos, Containers.Instance.HUD);
+            modifierImage.Setup(this);
+        }
 
         AbilityManager.Instance.AddModifier(this);
     }

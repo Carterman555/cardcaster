@@ -1,11 +1,15 @@
 using MoreMountains.Feedbacks;
 using MoreMountains.Tools;
+using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class CardButton : GameButton, IPointerDownHandler {
+
+    public static event Action<ScriptableCardBase> OnAnyStartPlaying_Card;
+    public static event Action<ScriptableCardBase> OnAnyCancel_Card;
 
     [Header("Visual")]
     [SerializeField] private CardImage cardImage;
@@ -82,6 +86,8 @@ public class CardButton : GameButton, IPointerDownHandler {
             Input.GetKeyDown(KeyCode.Alpha2) && cardIndex == 1 ||
             Input.GetKeyDown(KeyCode.Alpha3) && cardIndex == 2) {
 
+            OnStartPlayingCard();
+
             if (card is ScriptableAbilityCardBase abilityCard && abilityCard.IsPositional) {
                 FollowMouse();
             }
@@ -108,32 +114,42 @@ public class CardButton : GameButton, IPointerDownHandler {
 
     public void OnPointerDown(PointerEventData eventData) {
         FollowMouse();
+        OnStartPlayingCard();
         mouseDownOnCard = true;
     }
 
-    [SerializeField] private ModifierImage modifierImage;
+    private void OnStartPlayingCard() {
+        if (card is ScriptableModifierCardBase modifier) {
+            if (AbilityManager.Instance.IsModifierActive(modifier)) {
+                hotkeyText.text = "<color=\"red\">Won't Apply!\r\n<size=30>Modifier Already Active</size>";
+            }
+        }
+
+        OnAnyStartPlaying_Card?.Invoke(card);
+    }
+
+    private void OnCancelCard() {
+        OnAnyCancel_Card?.Invoke(card);
+    }
 
     private void PlayCard() {
+
+        Vector2 mouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        card.Play(mouseWorldPos);
+        useCardPlayer.PlayFeedbacks();
 
         if (card is ScriptableAbilityCardBase) {
             DeckManager.Instance.OnUseAbilityCard(cardIndex);
         }
         else if (card is ScriptableModifierCardBase modifier) {
             DeckManager.Instance.OnUseModifierCard(cardIndex);
-
-            if (!AbilityManager.Instance.IsModifierActive(modifier)) {
-                modifierImage.Spawn(transform.position, Containers.Instance.HUD);
-            }
         }
-
-        Vector2 mouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        card.Play(mouseWorldPos);
-        useCardPlayer.PlayFeedbacks();
     }
 
     public void SetCard(ScriptableCardBase card) {
         this.card = card;
         cardImage.Setup(card);
+        hotkeyText.text = (cardIndex + 1).ToString();
 
         if (card is ScriptableAbilityCardBase) {
             backImage.sprite = abilityCardBack;
@@ -155,5 +171,9 @@ public class CardButton : GameButton, IPointerDownHandler {
     public void StopFollowingMouse() {
         followMouse.enabled = false;
         playFeedbackOnHover.Enable();
+
+        if (card is ScriptableModifierCardBase modifier) {
+            hotkeyText.text = (cardIndex + 1).ToString();
+        }
     }
 }

@@ -17,8 +17,8 @@ MonoBehaviour:
   cost: 0
   rarity: 0
   sprite: {fileID: 5907364553800571866, guid: a8a47aca9e1483f4ebbba999d588b2e3, type: 3}
-  isPossibleStartingCard: 0
-  abilityAttributes: 7
+  isPossibleStartingCard: 1
+  abilityAttributes: 6
   abilityStats:
     Damage: 1
     KnockbackStrength: 0

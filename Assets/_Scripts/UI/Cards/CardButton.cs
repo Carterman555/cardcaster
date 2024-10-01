@@ -33,6 +33,8 @@ public class CardButton : GameButton, IPointerDownHandler {
     private ScriptableCardBase card;
     private int cardIndex;
 
+    private bool CanAffordToPlay => DeckManager.Instance.GetEssence() >= card.GetCost();
+
     protected override void Awake() {
         base.Awake();
         followMouse = GetComponent<MMFollowTarget>();
@@ -78,8 +80,11 @@ public class CardButton : GameButton, IPointerDownHandler {
     }
 
     private void Update() {
-        bool canAfford = DeckManager.Instance.GetEssence() >= card.GetCost();
-        button.interactable = canAfford;
+        button.interactable = CanAffordToPlay;
+
+        if (!CanAffordToPlay) {
+            return;
+        }
 
         // handle hotkeys
         if (Input.GetKeyDown(KeyCode.Alpha1) && cardIndex == 0 ||
@@ -113,6 +118,11 @@ public class CardButton : GameButton, IPointerDownHandler {
     }
 
     public void OnPointerDown(PointerEventData eventData) {
+
+        if (!CanAffordToPlay) {
+            return;
+        }
+
         FollowMouse();
         OnStartPlayingCard();
         mouseDownOnCard = true;

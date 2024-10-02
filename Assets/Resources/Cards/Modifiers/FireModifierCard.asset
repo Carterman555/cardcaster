@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardType: 12
   description: The next ability you play can burn the enemies
-  cost: 3
+  cost: 1
   rarity: 0
   sprite: {fileID: 6636802681587704739, guid: a8a47aca9e1483f4ebbba999d588b2e3, type: 3}
   isPossibleStartingCard: 1

@@ -14,10 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardType: 14
   description: Increase the damage, but decrease the duration of your next ability
-  cost: 0
+  cost: 1
   rarity: 0
   sprite: {fileID: 454607599803032333, guid: a8a47aca9e1483f4ebbba999d588b2e3, type: 3}
-  isPossibleStartingCard: 0
+  isPossibleStartingCard: 1
   abilityAttributes: 5
   abilityStatsModifierPercentage:
     Damage: 50

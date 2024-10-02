@@ -16,7 +16,7 @@ MonoBehaviour:
     MaxHealth: 10
     KnockbackResistance: 1
     MoveSpeed: 6
-    Damage: 2
+    Damage: 5
     AttackSpeed: 3
     KnockbackStrength: 1
     SwordSize: 1

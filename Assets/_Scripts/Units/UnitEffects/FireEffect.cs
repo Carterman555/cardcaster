@@ -13,16 +13,20 @@ public class FireEffect : UnitEffect {
 
         health = GetComponent<Health>();
         fireParticles = GetComponentInChildren<UnitEffectVisuals>().AddParticleEffect(AssetSystem.Instance.UnitFireParticles);
+
+        StartCoroutine(Burn());
     }
 
     private void OnDestroy() {
         GetComponentInChildren<UnitEffectVisuals>().RemoveParticleEffect(fireParticles);
     }
 
-    protected override void Update() {
-        base.Update();
+    private IEnumerator Burn() {
+        while (enabled) {
+            yield return new WaitForSeconds(1f);
 
-        float damagePerSecond = 2f;
-        health.Damage(damagePerSecond * Time.deltaTime);
+            float damagePerSecond = 2f;
+            health.Damage(damagePerSecond);
+        }
     }
 }

@@ -1,3 +1,4 @@
+#if UNITY_EDITOR
 using UnityEditor;
 using UnityEngine;
 
@@ -49,3 +50,4 @@ public class ConditionalHideFlagPropertyDrawer : PropertyDrawer {
         }
     }
 }
+#endif

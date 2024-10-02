@@ -18,6 +18,7 @@ GameObject:
   - component: {fileID: -5537846848555564483}
   - component: {fileID: 9160433015735330768}
   - component: {fileID: -7604754236743832783}
+  - component: {fileID: -3599747744444464393}
   m_Layer: 7
   m_Name: EnemyBase
   m_TagString: Untagged
@@ -236,6 +237,20 @@ MonoBehaviour:
     MinValue: 1
     MaxValue: 1
   dropChance: 1
+--- !u!114 &-3599747744444464393
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 226976224992304211}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0367c6d73f9125a468965c90272bd4a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damagePopupPrefab: {fileID: 6269490075395789074, guid: 4113a39b7959b5046b74c97564a2c64c, type: 3}
+  yOffset: 1
 --- !u!1 &4973828884281687063
 GameObject:
   m_ObjectHideFlags: 0

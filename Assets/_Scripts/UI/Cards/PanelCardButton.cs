@@ -37,7 +37,7 @@ public class PanelCardButton : GameButton {
     protected override void OnClick() {
         base.OnClick();
 
-        Vector2 offset = new Vector2(0f, 85f);
+        Vector2 offset = new Vector2(0f, 205f);
         TrashButton.Instance.Show((Vector2)transform.position + offset, this, cardLocation, cardIndex);
     }
 

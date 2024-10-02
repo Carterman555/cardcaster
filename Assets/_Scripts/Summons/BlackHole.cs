@@ -31,6 +31,8 @@ public class BlackHole : MonoBehaviour, IAbilityStatsSetup, ITargetAttacker {
     private void OnEnable() {
         stopMovementEffect = null;
         dying = false;
+
+        StartCoroutine(DealDamage());
     }
 
     public void SetAbilityStats(AbilityStats stats) {
@@ -81,12 +83,22 @@ public class BlackHole : MonoBehaviour, IAbilityStatsSetup, ITargetAttacker {
 
         foreach (GameObject objectInRange in contactTracker.GetContacts()) {
             SuckEnemy(objectInRange);
+        }
+    }
 
-            bool dealtDamage = DamageDealer.TryDealDamage(objectInRange, transform.position, damage * Time.fixedDeltaTime, 0);
-            if (dealtDamage) {
-                OnDamage_Target?.Invoke(objectInRange);
+    private IEnumerator DealDamage() {
+        while (enabled) {
+
+            yield return new WaitForSeconds(1f);
+
+            foreach (GameObject objectInRange in contactTracker.GetContacts()) {
+
+                bool dealtDamage = DamageDealer.TryDealDamage(objectInRange, transform.position, damage, 0);
+                if (dealtDamage) {
+                    OnDamage_Target?.Invoke(objectInRange);
+                }
+                OnAttack?.Invoke();
             }
-            OnAttack?.Invoke();
         }
     }
 

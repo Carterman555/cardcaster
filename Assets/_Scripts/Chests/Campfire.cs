@@ -3,25 +3,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CardTrasher : MonoBehaviour {
+public class Campfire : MonoBehaviour {
 
     [SerializeField] private TriggerContactTracker playerTracker;
 
     private bool used;
 
-    [SerializeField] private SpriteRenderer spriteRenderer;
-    [SerializeField] private Sprite putOutFire;
-    private Sprite originalSprite;
-
-    private void Awake() {
-        originalSprite = spriteRenderer.sprite;
-    }
+    [SerializeField] private Animator anim;
 
     private void OnEnable() {
         playerTracker.OnEnterContact += TryOpenTrashUI;
 
         used = false;
-        spriteRenderer.sprite = originalSprite;
     }
     private void OnDisable() {
         playerTracker.OnEnterContact -= TryOpenTrashUI;
@@ -38,6 +31,6 @@ public class CardTrasher : MonoBehaviour {
 
         used = true;
 
-        spriteRenderer.sprite = putOutFire;
+        anim.SetTrigger("use");
     }
 }

@@ -7,13 +7,5 @@ AnimatorOverrideController:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: item-chest
-  m_Controller: {fileID: -1976628935457238627, guid: 8f4366fba915651408189838e7a2b5de, type: 3}
-  m_Clips:
-  - m_OriginalClip: {fileID: -3100369314251171874, guid: 8f4366fba915651408189838e7a2b5de, type: 3}
-    m_OverrideClip: {fileID: -3100369314251171874, guid: 955556309f46a954c8012d24d777fa28, type: 3}
-  - m_OriginalClip: {fileID: 5984496454500463648, guid: 8f4366fba915651408189838e7a2b5de, type: 3}
-    m_OverrideClip: {fileID: 5984496454500463648, guid: 955556309f46a954c8012d24d777fa28, type: 3}
-  - m_OriginalClip: {fileID: -4709811361100694044, guid: 8f4366fba915651408189838e7a2b5de, type: 3}
-    m_OverrideClip: {fileID: -4709811361100694044, guid: 955556309f46a954c8012d24d777fa28, type: 3}
-  - m_OriginalClip: {fileID: -3207812203915790591, guid: 8f4366fba915651408189838e7a2b5de, type: 3}
-    m_OverrideClip: {fileID: -3207812203915790591, guid: 955556309f46a954c8012d24d777fa28, type: 3}
+  m_Controller: {fileID: 9100000, guid: 3ca25bbf67b5a8a4baad84f39af8c96b, type: 2}
+  m_Clips: []

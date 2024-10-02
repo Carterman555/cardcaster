@@ -14,10 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardType: 11
   description: Gain a giant sword, but decrease speed
-  cost: 0
+  cost: 2
   rarity: 0
   sprite: {fileID: -2840750719877777035, guid: a8a47aca9e1483f4ebbba999d588b2e3, type: 3}
-  isPossibleStartingCard: 0
+  isPossibleStartingCard: 1
   abilityAttributes: 5
   abilityStats:
     Damage: -1

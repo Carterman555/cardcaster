@@ -48,6 +48,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   selectAction: {fileID: 636794491818547514, guid: 50afa068aa51bd149a1f3d07794c53d5, type: 3}
   positionOffset: {x: -1, y: 1.6}
+  outlineMaterial: {fileID: 2100000, guid: f635e5ceac75c8040924988bacd9af07, type: 2}
 --- !u!212 &2658446344022278809
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -94,7 +95,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 1.125, y: 1.125}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 0
@@ -135,10 +136,10 @@ BoxCollider2D:
   m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1.125, y: 1.125}
+    newSize: {x: 1.125, y: 1.125}
+    adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0

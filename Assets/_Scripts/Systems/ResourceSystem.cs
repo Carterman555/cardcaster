@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using UnityEditor;
 using UnityEngine;
 
 /// <summary>
@@ -9,6 +10,7 @@ using UnityEngine;
 /// </summary>
 public class ResourceSystem : StaticInstance<ResourceSystem>
 {
+    public Dictionary<RoomType, ScriptableRoom[]> Rooms { get; private set; }
     public List<ScriptableEnemy> Enemies { get; private set; }
     public List<ScriptableCardBase> Cards { get; private set; }
     public List<ScriptableItemBase> Items { get; private set; }
@@ -19,11 +21,16 @@ public class ResourceSystem : StaticInstance<ResourceSystem>
     }
 
     private void AssembleResources() {
+        Rooms = Resources.LoadAll<ScriptableRoom>("Rooms")
+            .GroupBy(r => r.RoomType)
+            .ToDictionary(g => g.Key, g => g.ToArray());
+
         Enemies = Resources.LoadAll<ScriptableEnemy>("Enemies").ToList();
         Cards = Resources.LoadAll<ScriptableCardBase>("Cards").ToList();
         Items = Resources.LoadAll<ScriptableItemBase>("Items").ToList();
     }
 
+    public ScriptableRoom[] GetRooms(RoomType roomType) => Rooms[roomType];
     public List<ScriptableEnemy> GetAllEnemies() => Enemies;
     public List<ScriptableCardBase> GetAllCards() => Cards;
     public List<ScriptableItemBase> GetAllItems() => Items;

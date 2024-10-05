@@ -93,39 +93,7 @@ public class RoomGenerator : StaticInstance<RoomGenerator> {
                     continue;
                 }
 
-                // set room num
-                int roomNum = roomsSpawned + 2;
-                newRoom.SetRoomNum(roomNum);
-
-                // so another room doesn't try to connect with the same doorway
-                connectingRoom.RemovePossibleDoorway(connectingDoorway);
-
-                // spawn in the hallway to connect the rooms
-                SpawnHallway(connectingDoorway.GetSide(), connectingDoorway.transform.position);
-
-                Tilemap connectingGroundTilemap = connectingDoorway.GetSide() == DoorwaySide.Bottom ?
-                    connectingRoom.GetBotColliderTilemap() : connectingRoom.GetGroundTilemap();
-
-                doorwayTileReplacer.DestroyTiles(connectingGroundTilemap,
-                    connectingRoom.GetColliderTilemap(),
-                    connectingDoorway.GetSide(),
-                    connectingDoorway.transform.localPosition);
-
-                Tilemap newGroundTilemap = newDoorway.GetSide() == DoorwaySide.Bottom ?
-                    newRoom.GetBotColliderTilemap() : newRoom.GetGroundTilemap();
-
-                doorwayTileReplacer.DestroyTiles(newRoom.GetGroundTilemap(),
-                    newRoom.GetColliderTilemap(),
-                    newDoorway.GetSide(),
-                    newDoorway.transform.localPosition);
-
-
-                newRoom.CopyColliderToCameraConfiner(cameraConfiner);
-
-                // create enter and exit triggers
-                newRoom.CreateEnterAndExitTriggers(newDoorway);
-                connectingRoom.CreateEnterAndExitTriggers(connectingDoorway);
-
+                SetupRoom(roomsSpawned, newRoom, connectingRoom, connectingDoorway, newDoorway);
 
                 roomSpawned = true;
 
@@ -140,6 +108,41 @@ public class RoomGenerator : StaticInstance<RoomGenerator> {
         isGeneratingRooms = false;
 
         OnCompleteGeneration?.Invoke();
+    }
+
+    private void SetupRoom(int roomsSpawned, Room newRoom, Room connectingRoom, PossibleDoorway connectingDoorway, PossibleDoorway newDoorway) {
+        // set room num
+        int roomNum = roomsSpawned + 2;
+        newRoom.SetRoomNum(roomNum);
+
+        // so another room doesn't try to connect with the same doorway
+        connectingRoom.RemovePossibleDoorway(connectingDoorway);
+
+        // spawn in the hallway to connect the rooms
+        SpawnHallway(connectingDoorway.GetSide(), connectingDoorway.transform.position);
+
+        Tilemap connectingGroundTilemap = connectingDoorway.GetSide() == DoorwaySide.Bottom ?
+            connectingRoom.GetBotColliderTilemap() : connectingRoom.GetGroundTilemap();
+
+        doorwayTileReplacer.DestroyTiles(connectingGroundTilemap,
+            connectingRoom.GetColliderTilemap(),
+            connectingDoorway.GetSide(),
+            connectingDoorway.transform.localPosition);
+
+        Tilemap newGroundTilemap = newDoorway.GetSide() == DoorwaySide.Bottom ?
+            newRoom.GetBotColliderTilemap() : newRoom.GetGroundTilemap();
+
+        doorwayTileReplacer.DestroyTiles(newRoom.GetGroundTilemap(),
+            newRoom.GetColliderTilemap(),
+            newDoorway.GetSide(),
+            newDoorway.transform.localPosition);
+
+
+        newRoom.CopyColliderToCameraConfiner(cameraConfiner);
+
+        // create enter and exit triggers
+        newRoom.CreateEnterAndExitTriggers(newDoorway);
+        connectingRoom.CreateEnterAndExitTriggers(connectingDoorway);
     }
 
     private Room GetRandomRoomWithDoorway(List<Room> rooms) {

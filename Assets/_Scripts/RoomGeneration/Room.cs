@@ -94,29 +94,46 @@ public class Room : MonoBehaviour {
 
     #region Connect Room To Doorway
 
-    public bool ConnectRoomToDoorway(PossibleDoorway connectingRoomDoorway, out PossibleDoorway newDoorway) {
+    public bool TryConnectRoomToDoorway(PossibleDoorway connectingRoomDoorway, out PossibleDoorway newDoorway) {
 
-        List<PossibleDoorway> connectableDoorways = possibleDoorways
-            .Where(doorway => GetOppositeSide(doorway.GetSide()) == connectingRoomDoorway.GetSide())
-            .ToList();
-
-        if (connectableDoorways.Count == 0) {
+        if (!CanConnectToDoorwaySide(connectingRoomDoorway.GetSide())) {
             newDoorway = null;
             return false;
         }
 
-        newDoorway = connectableDoorways.RandomItem();
+        newDoorway = GetRandomConnectingDoorway(connectingRoomDoorway.GetSide());
         RemovePossibleDoorway(newDoorway);
 
         // Position the new room so the doorways align
-        Vector2 offset = connectingRoomDoorway.transform.position - newDoorway.transform.position;
+        transform.position = GetConnectionPos(connectingRoomDoorway, newDoorway);
+
+        return true;
+    }
+
+    public Vector2 GetConnectionPos(PossibleDoorway connectingRoomDoorway, PossibleDoorway newDoorway) {
+        Vector2 connectionPos = connectingRoomDoorway.transform.position - newDoorway.transform.position;
 
         float hallwayLength = 8;
         Vector2 hallwayOffset = RoomGenerator.Instance.SideToDirection(connectingRoomDoorway.GetSide()) * hallwayLength;
-        offset += hallwayOffset;
-        transform.position += (Vector3)offset;
+        connectionPos += hallwayOffset;
+        return connectionPos;
+    }
 
-        return true;
+    public bool CanConnectToDoorwaySide(DoorwaySide doorwaySide) {
+        bool possibleConnection = possibleDoorways.Any(doorway => GetOppositeSide(doorway.GetSide()) == doorwaySide);
+        return possibleConnection;
+    }
+
+    public PossibleDoorway GetRandomConnectingDoorway(DoorwaySide connectingDoorwaySide) {
+        if (!CanConnectToDoorwaySide(connectingDoorwaySide)) {
+            return null;
+        }
+
+        List<PossibleDoorway> connectableDoorways = possibleDoorways
+            .Where(doorway => GetOppositeSide(doorway.GetSide()) == connectingDoorwaySide)
+            .ToList();
+
+        return connectableDoorways.RandomItem();
     }
 
     private DoorwaySide GetOppositeSide(DoorwaySide currentSide) {

@@ -77,7 +77,7 @@ public class RoomGenerator : StaticInstance<RoomGenerator> {
                 // connected the new room to a random possible doorway in a random room
                 Room connectingRoom = GetRandomRoomWithDoorway(placedRooms);
                 PossibleDoorway connectingDoorway = connectingRoom.GetPossibleDoorways().RandomItem();
-                bool canConnect = newRoom.ConnectRoomToDoorway(connectingDoorway, out PossibleDoorway newDoorway);
+                bool canConnect = newRoom.TryConnectRoomToDoorway(connectingDoorway, out PossibleDoorway newDoorway);
 
                 //... wait a frame to give time to colliders, so CheckRoomOverlap will work. I also don't know if you are
                 //... able to instantiate and destroy an object in the same frame.

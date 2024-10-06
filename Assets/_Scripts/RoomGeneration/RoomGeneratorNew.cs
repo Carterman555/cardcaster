@@ -1,9 +1,12 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using UnityEngine.UIElements;
 
 public class RoomGeneratorNew : StaticInstance<RoomGeneratorNew> {
 
@@ -18,10 +21,12 @@ public class RoomGeneratorNew : StaticInstance<RoomGeneratorNew> {
     [SerializeField] private Transform horizontalHallwayPrefab;
     [SerializeField] private Transform verticalHallwayPrefab;
 
-    [SerializeField] private Room startingRoom;
     [SerializeField] private Room[] roomPrefabs;
 
     private bool isGeneratingRooms;
+
+    private List<RoomInfo> roomsToSpawn = new();
+    private List<Collider2D> roomOverlapTriggers = new();
 
     public bool IsGeneratingRooms() {
         return isGeneratingRooms;
@@ -32,55 +37,103 @@ public class RoomGeneratorNew : StaticInstance<RoomGeneratorNew> {
         isGeneratingRooms = true;
     }
 
-    private void Start() {
-        StartCoroutine(GenerateRooms());
+    private async void Start() {
+        await GenerateRoomsAsync();
     }
 
-    private IEnumerator GenerateRooms() {
 
-        float overlapDetectDelay = 0f;
-        yield return new WaitForSeconds(overlapDetectDelay);
+    /// <summary>
+    /// Recursively go through each room type in layout
+	///    While the room is can't be spawned
+	///	      Choose random unique room with matching type(doesn't need to be unique if chest room)
+    ///       Try to spawn this room
+    /// </summary>
+    private async Task GenerateRoomsAsync() {
 
-        List<Room> placedRooms = new() {
-            startingRoom
-        };
-        StartCoroutine(SpawnLevelLayout(layoutData.LevelLayout));
+        await SetRoomToSpawnAsync(layoutData.LevelLayout);
 
-        IEnumerator SpawnLevelLayout(RoomConnection layout) {
+        async Task SetRoomToSpawnAsync(RoomConnection layout) {
             foreach (RoomConnection subLayout in layout.connectedRooms) {
                 print("Room: " + subLayout.roomType);
 
-                bool roomSpawned = false;
+                bool canSpawn = false;
+                Room newRoomPrefab = null;
+                Vector2 spawnPosition = Vector2.zero;
 
-                while (!roomSpawned) {
-                    roomSpawned = TrySpawnNewRoom(placedRooms, out Room newRoom);
+                int breakOutCounter = 0;
 
-                    //... wait a frame to give time to colliders, so CheckRoomOverlap will work. I also don't know if you are
-                    //... able to instantiate and destroy an object in the same frame.
-                    yield return null;
+                while (!canSpawn) {
+
+                    breakOutCounter++;
+                    if (breakOutCounter > 500) {
+                        Debug.LogError("Breakout Error");
+                        break;
+                    }
+
+                    newRoomPrefab = roomPrefabs.RandomItem();
+                    (bool _canSpawn, Vector2 _spawnPosition) = await CanSpawnRoomAsync(newRoomPrefab, );
+                    canSpawn = _canSpawn;
+                    spawnPosition = _spawnPosition;
                 }
 
-                SetupRoom(newRoom);
+                RoomInfo roomInfo;
+                roomInfo.RoomPrefab = newRoomPrefab;
+                roomInfo.Position = spawnPosition;
+                roomsToSpawn.Add(roomInfo);
 
-                StartCoroutine(SpawnLevelLayout(subLayout));
+                //SetupRoom(newRoom);
+                await SetRoomToSpawnAsync(subLayout); // Recursive spawn
             }
         }
 
-        isGeneratingRooms = false;
+        foreach (RoomInfo roomInfo in roomsToSpawn) {
+            print("Room: " + roomInfo.RoomPrefab.name + ", pos: " + roomInfo.Position);
+        }
 
+        isGeneratingRooms = false;
         OnCompleteGeneration?.Invoke();
     }
 
-    private bool TrySpawnNewRoom(List<Room> placedRooms, out Room newRoom) {
-        // spawn a new room
-        newRoom = Instantiate(roomPrefabs.RandomItem(), Containers.Instance.Rooms);
+    /// <summary>
+    /// go through all the doorways of the connecting room to see if the new room can connect to any of them. If it can,
+    /// then return the position where the connection can be made
+    /// </summary>
+    public async Task<(bool canSpawn, Vector2 spawnPosition)> CanSpawnRoomAsync(Room newRoomPrefab, Room existingRoom) {
+        
+        foreach (PossibleDoorway existingDoorway in existingRoom.GetPossibleDoorways()) {
+            if (newRoomPrefab.CanConnectToDoorwaySide(existingDoorway.GetSide())) {
+                PolygonCollider2D prefabCollider = newRoomPrefab.GetComponent<PolygonCollider2D>();
+                GameObject triggerObject = Instantiate(new GameObject(), Containers.Instance.Rooms);
+                PolygonCollider2D trigger = triggerObject.AddComponent<PolygonCollider2D>();
 
-        // connected the new room to a random possible doorway in a random room
-        Room connectingRoom = GetRandomRoomWithDoorway(placedRooms);
-        PossibleDoorway connectingDoorway = connectingRoom.GetPossibleDoorways().RandomItem();
-        bool canConnect = newRoom.ConnectRoomToDoorway(connectingDoorway, out PossibleDoorway newDoorway);
+                // Copy the collider data
+                CopyColliderToNew(prefabCollider, trigger);
+                PossibleDoorway newRoomDoorway = newRoomPrefab.GetRandomConnectingDoorway(existingDoorway.GetSide());
+                triggerObject.transform.position = newRoomPrefab.GetConnectionPos(existingDoorway, newRoomDoorway);
 
-        return canConnect && !DoesRoomOverlap(placedRooms, newRoom);
+                // Yield to ensure collider overlap detection works
+                await Task.Yield();
+
+                if (!DoesTriggerOverlap(roomOverlapTriggers, trigger)) {
+                    roomOverlapTriggers.Add(trigger);
+                    return (true, triggerObject.transform.position);
+                }
+                else {
+                    Destroy(triggerObject);
+                }
+            }
+        }
+
+        return (false, Vector2.zero);
+    }
+
+
+    private static void CopyColliderToNew(PolygonCollider2D prefabCollider, PolygonCollider2D trigger) {
+        trigger.pathCount = prefabCollider.pathCount;
+        for (int i = 0; i < prefabCollider.pathCount; i++) {
+            Vector2[] path = prefabCollider.GetPath(i);
+            trigger.SetPath(i, path);
+        }
     }
 
     private void SetupRoom(Room newRoom) {
@@ -126,9 +179,17 @@ public class RoomGeneratorNew : StaticInstance<RoomGeneratorNew> {
         Instantiate(hallwayPrefab, hallwayPos, Quaternion.identity, Containers.Instance.Rooms);
     }
 
-    private bool DoesRoomOverlap(List<Room> placedRooms, Room room) {
-        foreach (Room placedRoom in placedRooms) {
-            if (placedRoom.GetComponent<Collider2D>().bounds.Intersects(room.GetComponent<Collider2D>().bounds))
+    private bool DoesRoomOverlap(List<Collider2D> roomOverlapTriggers, Room room) {
+        foreach (Collider2D overlapTrigger in roomOverlapTriggers) {
+            if (overlapTrigger.bounds.Intersects(room.GetComponent<Collider2D>().bounds))
+                return true;
+        }
+        return false;
+    }
+
+    private bool DoesTriggerOverlap(List<Collider2D> roomOverlapTriggers, Collider2D trigger) {
+        foreach (Collider2D overlapTrigger in roomOverlapTriggers) {
+            if (overlapTrigger.bounds.Intersects(trigger.bounds))
                 return true;
         }
         return false;
@@ -152,4 +213,9 @@ public class RoomGeneratorNew : StaticInstance<RoomGeneratorNew> {
         }
     }
 
+}
+
+public struct RoomInfo {
+    public Room RoomPrefab;
+    public Vector3 Position;
 }

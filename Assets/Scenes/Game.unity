@@ -2333,17 +2333,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6123748960421078426, guid: 40b2a4ee98096e647b12052bd868489b, type: 3}
   m_PrefabInstance: {fileID: 481637641}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &321440818 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4567952786592543439, guid: 40b2a4ee98096e647b12052bd868489b, type: 3}
-  m_PrefabInstance: {fileID: 481637641}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 273928af51e81904291a22548f898a8c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &322594290
 GameObject:
   m_ObjectHideFlags: 0
@@ -9203,7 +9192,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1794461942}
-  - component: {fileID: 1794461943}
   - component: {fileID: 1794461944}
   m_Layer: 0
   m_Name: RoomGenerator
@@ -9227,49 +9215,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1213286439}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1794461943
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1794461941}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9ae3efc859fc5ec44b9dabd3a2803717, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  roomsPerLevel:
-    MinValue: 10
-    MaxValue: 12
-  doorwayTileReplacer: {fileID: 11400000, guid: e6cf803c01b1aec48baa73b56fea4a91, type: 2}
-  cameraConfiner: {fileID: 1926929208}
-  horizontalHallwayPrefab: {fileID: 8927245960358128749, guid: aaf813fa1e4707847b1e6486a5b2e3d5, type: 3}
-  verticalHallwayPrefab: {fileID: 8927245960358128749, guid: 8e2403430e5795c438c597e18fd4a800, type: 3}
-  startingRoom: {fileID: 321440818}
-  roomPrefabs:
-  - {fileID: 3084685571954290978, guid: ac412e64bbc0b6843a6f7ae3106f8d7a, type: 3}
-  - {fileID: 3084685571954290978, guid: fe24e72f582f8cb45a3015a32754acec, type: 3}
-  - {fileID: 3084685571954290978, guid: 3e9c38da68eef4345990d318516436b4, type: 3}
-  - {fileID: 3084685571954290978, guid: 8309060ff70fa3c4997d10c8715fcd1d, type: 3}
-  - {fileID: 3084685571954290978, guid: 6726f11124a4dea4995625632b1dafdc, type: 3}
-  - {fileID: 3084685571954290978, guid: aeb274bda6078434d87851abb998447e, type: 3}
-  - {fileID: 3084685571954290978, guid: 258fe716838131a4bb40ccfe514f5a1e, type: 3}
-  - {fileID: 4567952786592543439, guid: 40b2a4ee98096e647b12052bd868489b, type: 3}
-  - {fileID: 3084685571954290978, guid: d2ed380b0a922a4449793c3926a54116, type: 3}
-  - {fileID: 3084685571954290978, guid: 8d0ae14239dc8b24ea0d82795c62c6ef, type: 3}
-  - {fileID: 3084685571954290978, guid: 8130da96db2bf034492640bd8c98e540, type: 3}
-  - {fileID: 3084685571954290978, guid: 4372d23d185935044b130b893154750e, type: 3}
-  - {fileID: 3084685571954290978, guid: cd92593c458a930418d993fb2e3c9904, type: 3}
-  - {fileID: 3084685571954290978, guid: 79670474caf23384494bc7bf844d13b5, type: 3}
-  - {fileID: 3084685571954290978, guid: a16c4f944fdcf164ebf9ebbb47523157, type: 3}
-  - {fileID: 3084685571954290978, guid: 09a20154a4db24640b6f7d9f28d6802b, type: 3}
-  - {fileID: 3084685571954290978, guid: 2142e5d4ecd3c3249a545cb33bfe7dc0, type: 3}
-  - {fileID: 3084685571954290978, guid: 3c2059076c2e7ca4f9489d83e1e2bd48, type: 3}
-  - {fileID: 3084685571954290978, guid: 53858114661de8f45b67feac08720bc2, type: 3}
-  - {fileID: 3084685571954290978, guid: 6606fd5b9194f1c4ba5c50a54d650770, type: 3}
-  - {fileID: 3084685571954290978, guid: 97219980dd8738042ae64ced56a1adea, type: 3}
-  - {fileID: 3084685571954290978, guid: 58dec50da409cf2489213b1ff61717e1, type: 3}
 --- !u!114 &1794461944
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9287,8 +9232,24 @@ MonoBehaviour:
   cameraConfiner: {fileID: 1606153966}
   horizontalHallwayPrefab: {fileID: 8927245960358128749, guid: aaf813fa1e4707847b1e6486a5b2e3d5, type: 3}
   verticalHallwayPrefab: {fileID: 8927245960358128749, guid: 8e2403430e5795c438c597e18fd4a800, type: 3}
-  startingRoom: {fileID: 0}
-  roomPrefabs: []
+  roomPrefabs:
+  - {fileID: 3084685571954290978, guid: ac412e64bbc0b6843a6f7ae3106f8d7a, type: 3}
+  - {fileID: 3084685571954290978, guid: fe24e72f582f8cb45a3015a32754acec, type: 3}
+  - {fileID: 3084685571954290978, guid: 3e9c38da68eef4345990d318516436b4, type: 3}
+  - {fileID: 3084685571954290978, guid: 8309060ff70fa3c4997d10c8715fcd1d, type: 3}
+  - {fileID: 3084685571954290978, guid: 6726f11124a4dea4995625632b1dafdc, type: 3}
+  - {fileID: 3084685571954290978, guid: 6606fd5b9194f1c4ba5c50a54d650770, type: 3}
+  - {fileID: 3084685571954290978, guid: 58dec50da409cf2489213b1ff61717e1, type: 3}
+  - {fileID: 3084685571954290978, guid: aeb274bda6078434d87851abb998447e, type: 3}
+  - {fileID: 3084685571954290978, guid: 258fe716838131a4bb40ccfe514f5a1e, type: 3}
+  - {fileID: 4567952786592543439, guid: 40b2a4ee98096e647b12052bd868489b, type: 3}
+  - {fileID: 3084685571954290978, guid: d2ed380b0a922a4449793c3926a54116, type: 3}
+  - {fileID: 3084685571954290978, guid: 8d0ae14239dc8b24ea0d82795c62c6ef, type: 3}
+  - {fileID: 3084685571954290978, guid: 97219980dd8738042ae64ced56a1adea, type: 3}
+  - {fileID: 3084685571954290978, guid: 8130da96db2bf034492640bd8c98e540, type: 3}
+  - {fileID: 3084685571954290978, guid: 4372d23d185935044b130b893154750e, type: 3}
+  - {fileID: 3084685571954290978, guid: cd92593c458a930418d993fb2e3c9904, type: 3}
+  roomOverlapCheckerPrefab: {fileID: 7528306657965244998, guid: 912e421f2fbf5ee498c570fd34e23fc8, type: 3}
 --- !u!114 &1814983925 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2600157859336777174, guid: 96c8f26ef8c7e2f41a30a5869a84f301, type: 3}

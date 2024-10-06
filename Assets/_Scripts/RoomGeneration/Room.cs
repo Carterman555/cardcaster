@@ -64,8 +64,8 @@ public class Room : MonoBehaviour {
 
     #endregion
 
-    public void RemovePossibleDoorway(PossibleDoorway possibleDoorway) {
-        possibleDoorways.Remove(possibleDoorway);
+    // TODO - update because uses roomoverlapchecker instead
+    public void AddCreatedDoorway(PossibleDoorway possibleDoorway) {
         createdDoorways.Add(possibleDoorway);
     }
 
@@ -91,70 +91,6 @@ public class Room : MonoBehaviour {
     private void OnDisable() {
         exitTrigger.OnEnterContact -= ExitRoom;
     }
-
-    #region Connect Room To Doorway
-
-    public bool TryConnectRoomToDoorway(PossibleDoorway connectingRoomDoorway, out PossibleDoorway newDoorway) {
-
-        if (!CanConnectToDoorwaySide(connectingRoomDoorway.GetSide())) {
-            newDoorway = null;
-            return false;
-        }
-
-        newDoorway = GetRandomConnectingDoorway(connectingRoomDoorway.GetSide());
-        RemovePossibleDoorway(newDoorway);
-
-        // Position the new room so the doorways align
-        transform.position = GetConnectionPos(connectingRoomDoorway, newDoorway);
-
-        return true;
-    }
-
-    public Vector2 GetConnectionPos(PossibleDoorway connectingRoomDoorway, PossibleDoorway newDoorway) {
-        Vector2 connectionPos = connectingRoomDoorway.transform.position - newDoorway.transform.position;
-
-        float hallwayLength = 8;
-        Vector2 hallwayOffset = RoomGenerator.Instance.SideToDirection(connectingRoomDoorway.GetSide()) * hallwayLength;
-        connectionPos += hallwayOffset;
-        return connectionPos;
-    }
-
-    public bool CanConnectToDoorwaySide(DoorwaySide doorwaySide) {
-        bool possibleConnection = possibleDoorways.Any(doorway => GetOppositeSide(doorway.GetSide()) == doorwaySide);
-        return possibleConnection;
-    }
-
-    public PossibleDoorway GetRandomConnectingDoorway(DoorwaySide connectingDoorwaySide) {
-        if (!CanConnectToDoorwaySide(connectingDoorwaySide)) {
-            return null;
-        }
-
-        List<PossibleDoorway> connectableDoorways = possibleDoorways
-            .Where(doorway => GetOppositeSide(doorway.GetSide()) == connectingDoorwaySide)
-            .ToList();
-
-        return connectableDoorways.RandomItem();
-    }
-
-    private DoorwaySide GetOppositeSide(DoorwaySide currentSide) {
-        if (currentSide == DoorwaySide.Top) {
-            return DoorwaySide.Bottom;
-        }
-        else if (currentSide == DoorwaySide.Bottom) {
-            return DoorwaySide.Top;
-        }
-        else if (currentSide == DoorwaySide.Left) {
-            return DoorwaySide.Right;
-        }
-        else if (currentSide == DoorwaySide.Right) {
-            return DoorwaySide.Left;
-        }
-        else {
-            return default;
-        }
-    }
-
-    #endregion
 
     public void CopyColliderToCameraConfiner(GameObject cameraConfinerComposite) {
 

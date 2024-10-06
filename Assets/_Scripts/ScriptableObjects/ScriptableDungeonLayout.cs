@@ -6,7 +6,10 @@ using UnityEngine.Serialization;
 [Serializable]
 public class RoomConnection {
     public RoomType roomType;
-    public List<RoomConnection> connectedRooms = new List<RoomConnection>();
+    public List<RoomConnection> connectedRooms = new();
+    
+    // used in the generation process
+    [HideInInspector] public RoomOverlapChecker RoomOverlapChecker;
 }
 
 [CreateAssetMenu(fileName = "New Dungeon Layout", menuName = "Dungeon/Dungeon Layout")]

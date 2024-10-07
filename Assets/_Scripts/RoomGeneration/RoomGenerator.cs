@@ -48,7 +48,6 @@ public class RoomGenerator : StaticInstance<RoomGenerator> {
         usedRooms = new();
         foreach (RoomType roomType in Enum.GetValues(typeof(RoomType))) {
             usedRooms.Add(roomType, new List<ScriptableRoom>());
-            print("added " + roomType);
         }
     }
     
@@ -57,17 +56,17 @@ public class RoomGenerator : StaticInstance<RoomGenerator> {
         // spawn first room checker
         RoomOverlapChecker newRoomChecker = roomOverlapCheckerPrefab.Spawn(Containers.Instance.Rooms);
         Room entranceRoomPrefab = GetRandomUniqueRoom(layoutData.LevelLayout.roomType).Prefab;
-        SetupRoomChecker(newRoomChecker, entranceRoomPrefab);
+        newRoomChecker.Setup(entranceRoomPrefab);
+        SetChildrensChecker(layoutData.LevelLayout, newRoomChecker, entranceRoomPrefab);
 
         // spawn all other room checkers
         yield return StartCoroutine(SpawnRoomCheckers(layoutData.LevelLayout));
-
 
         isGeneratingRooms = false;
         OnCompleteGeneration?.Invoke();
     }
 
-    
+    private bool failedRoomCreation;
 
     private IEnumerator SpawnRoomCheckers(RoomConnection layout) {
 
@@ -88,6 +87,7 @@ public class RoomGenerator : StaticInstance<RoomGenerator> {
                 breakOutCounter++;
                 if (breakOutCounter > 30) {
                     Debug.LogError("Breakout Error");
+                    failedRoomCreation = true;
                     yield break; // exits method
                 }
 
@@ -103,17 +103,24 @@ public class RoomGenerator : StaticInstance<RoomGenerator> {
             usedRooms[newRoomScriptable.RoomType].Add(newRoomScriptable);
 
             RoomOverlapChecker newRoomChecker = roomOverlapCheckers.Last();
-            SetupRoomChecker(newRoomChecker, newRoomPrefab);
+            SetChildrensChecker(subLayout, newRoomChecker, newRoomPrefab);
 
-            yield return StartCoroutine(SpawnRoomCheckers(subLayout)); // Recursive spawn
+            if (!failedRoomCreation) {
+                yield return StartCoroutine(SpawnRoomCheckers(subLayout)); // Recursive spawn
+            }
         }
     }
 
-    // Choose random unique room with matching type(doesn't need to be unique if chest room)
+    // Choose random unique room with matching type
     private ScriptableRoom GetRandomUniqueRoom(RoomType roomType) {
         ScriptableRoom newRoomScriptable;
-        List<ScriptableRoom> availableRooms = ResourceSystem.Instance.GetRooms(roomType).ToList();
-        availableRooms.Where(room => !usedRooms[roomType].Contains(room));
+        List<ScriptableRoom> availableRooms = ResourceSystem.Instance.GetRooms(roomType)
+            .Where(room => !usedRooms[roomType].Contains(room)).ToList();
+
+        // doesn't need to be unique if reward room
+        if (roomType == RoomType.Reward) {
+            availableRooms = ResourceSystem.Instance.GetRooms(roomType).ToList();
+        }
 
         if (availableRooms.Count == 0) {
             Debug.LogError("There are no rooms of type " + roomType + " available!");
@@ -123,9 +130,8 @@ public class RoomGenerator : StaticInstance<RoomGenerator> {
         return newRoomScriptable;
     }
 
-    private void SetupRoomChecker(RoomOverlapChecker newRoomChecker, Room roomPrefab) {
-        newRoomChecker.Setup(roomPrefab);
-        foreach (RoomConnection subLayout in layoutData.LevelLayout.connectedRooms) {
+    private void SetChildrensChecker(RoomConnection layout, RoomOverlapChecker newRoomChecker, Room roomPrefab) {
+        foreach (RoomConnection subLayout in layout.connectedRooms) {
             subLayout.ParentRoomOverlapChecker = newRoomChecker;
         }
     }
@@ -155,8 +161,9 @@ public class RoomGenerator : StaticInstance<RoomGenerator> {
                 
                 if (!newRoomChecker.OverlapsWithRoomChecker(roomOverlapCheckers)) {
                     roomOverlapCheckers.Add(newRoomChecker);
-                    print("   - Removed possible doorway: " + newRoomChecker.GetRoomPrefab().name);
+                    print("   - Successfully made connection: " + newRoomChecker.GetRoomPrefab().name);
                     newRoomChecker.RemovePossibleDoorway(newRoomDoorway);
+                    existingRoomChecker.RemovePossibleDoorway(existingDoorway);
                     callback(true);
                     yield break;
                 }

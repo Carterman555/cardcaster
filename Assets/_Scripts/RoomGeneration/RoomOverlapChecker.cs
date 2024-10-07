@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,6 +17,10 @@ public class RoomOverlapChecker : MonoBehaviour {
         CreatePossibleDoorways(roomPrefab.GetPossibleDoorways());
     }
 
+    private void OnDisable() {
+        RemovePossibleDoorways();
+    }
+
     public Room GetRoomPrefab() {
         return roomPrefab;
     }
@@ -29,9 +34,18 @@ public class RoomOverlapChecker : MonoBehaviour {
     }
 
     private void CreatePossibleDoorways(List<PossibleDoorway> possibleDoorwaysToCreate) {
-        foreach (var possibleDoorway in possibleDoorwaysToCreate) {
-            possibleDoorways.Add(possibleDoorway.Spawn(possibleDoorway.transform.position, transform));
+        foreach (var roomPossibleDoorway in possibleDoorwaysToCreate) {
+            PossibleDoorway newPossibleDoorway = roomPossibleDoorway.Spawn(roomPossibleDoorway.transform.position, transform);
+            newPossibleDoorway.SetSide(roomPossibleDoorway.GetSide());
+            possibleDoorways.Add(newPossibleDoorway);
         }
+    }
+
+    private void RemovePossibleDoorways() {
+        foreach (var possibleDoorway in possibleDoorways) {
+            possibleDoorway.gameObject.ReturnToPool();
+        }
+        possibleDoorways.Clear();
     }
 
     #region Overlap Collider
@@ -63,17 +77,26 @@ public class RoomOverlapChecker : MonoBehaviour {
     #region Connect Room To Doorway
 
     public void MoveToConnectionPos(PossibleDoorway connectingRoomDoorway, PossibleDoorway newDoorway) {
-        Vector2 connectionPos = connectingRoomDoorway.transform.position - newDoorway.transform.position;
+        Vector2 connectionPos = connectingRoomDoorway.transform.position - newDoorway.transform.localPosition;
 
         float hallwayLength = 8;
         Vector2 hallwayOffset = RoomGenerator.Instance.SideToDirection(connectingRoomDoorway.GetSide()) * hallwayLength;
         connectionPos += hallwayOffset;
+
+        print("  - Existing doorway pos " + connectingRoomDoorway.transform.position + ", new doorway pos: " + newDoorway.transform.position + ", Connection Pos: " + connectionPos);
 
         transform.position = connectionPos;
     }
 
     public bool CanConnectToDoorwaySide(DoorwaySide doorwaySide) {
         bool possibleConnection = possibleDoorways.Any(doorway => GetOppositeSide(doorway.GetSide()) == doorwaySide);
+
+        string debug = "";
+        foreach (PossibleDoorway possibleDoorway in possibleDoorways) {
+            debug += possibleDoorway.GetSide().ToString() + ", ";
+        }
+
+        //print("   - In checking connection: given doorway of existing room: " + doorwaySide + ", possibleDoorways of new room: " + debug);
         return possibleConnection;
     }
 

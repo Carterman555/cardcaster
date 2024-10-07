@@ -17,5 +17,6 @@ public class ScriptableRoom : ScriptableObject {
     [SerializeField] private RoomType roomType;
     public RoomType RoomType => roomType;
 
-    [SerializeField] private GameObject roomPrefab;
+    [SerializeField] private Room roomPrefab;
+    public Room Prefab => roomPrefab;
 }

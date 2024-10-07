@@ -21,12 +21,13 @@ public class RoomGenerator : StaticInstance<RoomGenerator> {
     [SerializeField] private Transform horizontalHallwayPrefab;
     [SerializeField] private Transform verticalHallwayPrefab;
 
-    [SerializeField] private Room[] roomPrefabs;
     [SerializeField] private RoomOverlapChecker roomOverlapCheckerPrefab;
 
     private bool isGeneratingRooms;
 
     private List<RoomOverlapChecker> roomOverlapCheckers = new();
+
+    private Dictionary<RoomType, List<ScriptableRoom>> usedRooms;
 
     public bool IsGeneratingRooms() {
         return isGeneratingRooms;
@@ -35,65 +36,97 @@ public class RoomGenerator : StaticInstance<RoomGenerator> {
     protected override void Awake() {
         base.Awake();
         isGeneratingRooms = true;
+
+        SetupUsedRoomsDict();
     }
 
     private void Start() {
         StartCoroutine(GenerateRooms());
     }
 
-    /// <summary>
-    /// Recursively go through each room type in layout
-	///    While the room is can't be spawned
-	///	      Choose random unique room with matching type(doesn't need to be unique if chest room)
-    ///       Try to spawn this room
-    /// </summary>
+    private void SetupUsedRoomsDict() {
+        usedRooms = new();
+        foreach (RoomType roomType in Enum.GetValues(typeof(RoomType))) {
+            usedRooms.Add(roomType, new List<ScriptableRoom>());
+            print("added " + roomType);
+        }
+    }
+    
     private IEnumerator GenerateRooms() {
 
-        // setup first room checker
+        // spawn first room checker
         RoomOverlapChecker newRoomChecker = roomOverlapCheckerPrefab.Spawn(Containers.Instance.Rooms);
-        newRoomChecker.Setup(roomPrefabs.RandomItem());
-        layoutData.LevelLayout.RoomOverlapChecker = newRoomChecker;
+        Room entranceRoomPrefab = GetRandomUniqueRoom(layoutData.LevelLayout.roomType).Prefab;
+        SetupRoomChecker(newRoomChecker, entranceRoomPrefab);
 
-        yield return StartCoroutine(SetRoomToSpawn(layoutData.LevelLayout));
+        // spawn all other room checkers
+        yield return StartCoroutine(SpawnRoomCheckers(layoutData.LevelLayout));
 
-        foreach (RoomOverlapChecker roomOverlapChecker in roomOverlapCheckers) {
-            print("Room: " + roomOverlapChecker.GetRoomPrefab().name + ", pos: " + roomOverlapChecker.transform.position);
-        }
 
         isGeneratingRooms = false;
         OnCompleteGeneration?.Invoke();
     }
 
-    private IEnumerator SetRoomToSpawn(RoomConnection layout) {
+    
 
+    private IEnumerator SpawnRoomCheckers(RoomConnection layout) {
+
+        // Recursively go through each room type in layout
         foreach (RoomConnection subLayout in layout.connectedRooms) {
-            print("Room: " + subLayout.roomType);
-
             bool canSpawn = false;
+            ScriptableRoom newRoomScriptable = null;
             Room newRoomPrefab = null;
 
             int breakOutCounter = 0;
 
+            print("\n");
+            print("Attempting to make connection to " + subLayout.ParentRoomOverlapChecker.GetRoomPrefab().name);
+
+            // Until it spawns a room that can be spawned
             while (!canSpawn) {
 
                 breakOutCounter++;
                 if (breakOutCounter > 30) {
                     Debug.LogError("Breakout Error");
-                    break;
+                    yield break; // exits method
                 }
 
-                newRoomPrefab = roomPrefabs.RandomItem();
-                yield return StartCoroutine(TrySpawnRoomChecker(newRoomPrefab, layout.RoomOverlapChecker, (success) => canSpawn = success));
+                newRoomScriptable = GetRandomUniqueRoom(subLayout.roomType);
+                newRoomPrefab = newRoomScriptable.Prefab;
 
-                print("Tried room: " + newRoomPrefab.name + " spawned: " + canSpawn);
+                print("Trying to connect new room: " + newRoomPrefab.name);
 
+                // Try to spawn this room
+                yield return StartCoroutine(TrySpawnRoomChecker(newRoomPrefab, subLayout.ParentRoomOverlapChecker, (success) => canSpawn = success));
             }
 
-            RoomOverlapChecker newlySpawnedOverlapChecker = roomOverlapCheckers.Last();
+            usedRooms[newRoomScriptable.RoomType].Add(newRoomScriptable);
 
-            subLayout.RoomOverlapChecker = newlySpawnedOverlapChecker;
+            RoomOverlapChecker newRoomChecker = roomOverlapCheckers.Last();
+            SetupRoomChecker(newRoomChecker, newRoomPrefab);
 
-            yield return StartCoroutine(SetRoomToSpawn(subLayout)); // Recursive spawn
+            yield return StartCoroutine(SpawnRoomCheckers(subLayout)); // Recursive spawn
+        }
+    }
+
+    // Choose random unique room with matching type(doesn't need to be unique if chest room)
+    private ScriptableRoom GetRandomUniqueRoom(RoomType roomType) {
+        ScriptableRoom newRoomScriptable;
+        List<ScriptableRoom> availableRooms = ResourceSystem.Instance.GetRooms(roomType).ToList();
+        availableRooms.Where(room => !usedRooms[roomType].Contains(room));
+
+        if (availableRooms.Count == 0) {
+            Debug.LogError("There are no rooms of type " + roomType + " available!");
+        }
+
+        newRoomScriptable = availableRooms.RandomItem();
+        return newRoomScriptable;
+    }
+
+    private void SetupRoomChecker(RoomOverlapChecker newRoomChecker, Room roomPrefab) {
+        newRoomChecker.Setup(roomPrefab);
+        foreach (RoomConnection subLayout in layoutData.LevelLayout.connectedRooms) {
+            subLayout.ParentRoomOverlapChecker = newRoomChecker;
         }
     }
 
@@ -107,6 +140,9 @@ public class RoomGenerator : StaticInstance<RoomGenerator> {
         newRoomChecker.Setup(newRoomPrefab);
 
         foreach (PossibleDoorway existingDoorway in existingRoomChecker.GetPossibleDoorways()) {
+
+            print(" - Can make connection from " + existingDoorway.GetSide().ToString() + " side of existing room: " + newRoomChecker.CanConnectToDoorwaySide(existingDoorway.GetSide()));
+
             if (newRoomChecker.CanConnectToDoorwaySide(existingDoorway.GetSide())) {
 
                 PossibleDoorway newRoomDoorway = newRoomChecker.GetRandomConnectingDoorway(existingDoorway.GetSide());
@@ -115,9 +151,11 @@ public class RoomGenerator : StaticInstance<RoomGenerator> {
                 // Yield to ensure collider overlap detection works
                 yield return null;
 
+                print("  - Overlaps with another room: " + newRoomChecker.OverlapsWithRoomChecker(roomOverlapCheckers));
+                
                 if (!newRoomChecker.OverlapsWithRoomChecker(roomOverlapCheckers)) {
                     roomOverlapCheckers.Add(newRoomChecker);
-                    print("Added: " + newRoomChecker.GetRoomPrefab().name);
+                    print("   - Removed possible doorway: " + newRoomChecker.GetRoomPrefab().name);
                     newRoomChecker.RemovePossibleDoorway(newRoomDoorway);
                     callback(true);
                     yield break;

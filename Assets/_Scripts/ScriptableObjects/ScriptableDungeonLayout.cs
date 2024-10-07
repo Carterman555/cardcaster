@@ -8,8 +8,9 @@ public class RoomConnection {
     public RoomType roomType;
     public List<RoomConnection> connectedRooms = new();
     
-    // used in the generation process
-    [HideInInspector] public RoomOverlapChecker RoomOverlapChecker;
+    //... this is the room overlap checker of the connecting room it was created from and it's used in the
+    //... generation process
+    [HideInInspector] public RoomOverlapChecker ParentRoomOverlapChecker;
 }
 
 [CreateAssetMenu(fileName = "New Dungeon Layout", menuName = "Dungeon/Dungeon Layout")]

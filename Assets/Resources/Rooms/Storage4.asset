@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f39f8fa72b60e1341889981f5fd9c4a8, type: 3}
   m_Name: Storage4
   m_EditorClassIdentifier: 
-  roomType: 0
-  roomPrefab: {fileID: 3271175819456156189, guid: 2142e5d4ecd3c3249a545cb33bfe7dc0, type: 3}
+  roomType: 6
+  roomPrefab: {fileID: 3084685571954290978, guid: 2142e5d4ecd3c3249a545cb33bfe7dc0, type: 3}

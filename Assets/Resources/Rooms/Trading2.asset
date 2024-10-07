@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Trading2
   m_EditorClassIdentifier: 
   roomType: 4
-  roomPrefab: {fileID: 3271175819456156189, guid: 53858114661de8f45b67feac08720bc2, type: 3}
+  roomPrefab: {fileID: 3084685571954290978, guid: 53858114661de8f45b67feac08720bc2, type: 3}

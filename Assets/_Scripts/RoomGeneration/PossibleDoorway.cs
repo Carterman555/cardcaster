@@ -9,6 +9,10 @@ public class PossibleDoorway : MonoBehaviour {
     public DoorwaySide GetSide() {
         return side;
     }
+
+    public void SetSide(DoorwaySide side) {
+        this.side = side;
+    }
 }
 
 public enum DoorwaySide { Top, Bottom, Left, Right }

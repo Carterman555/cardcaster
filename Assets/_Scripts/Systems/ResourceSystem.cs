@@ -21,8 +21,6 @@ public class ResourceSystem : StaticInstance<ResourceSystem>
     }
 
     private void AssembleResources() {
-
-        print("set rooms");
         Rooms = Resources.LoadAll<ScriptableRoom>("Rooms")
             .GroupBy(r => r.RoomType)
             .ToDictionary(g => g.Key, g => g.ToArray());

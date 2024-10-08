@@ -83,20 +83,11 @@ public class RoomOverlapChecker : MonoBehaviour {
         Vector2 hallwayOffset = RoomGenerator.Instance.SideToDirection(connectingRoomDoorway.GetSide()) * hallwayLength;
         connectionPos += hallwayOffset;
 
-        print("  - Existing doorway pos " + connectingRoomDoorway.transform.position + ", new doorway pos: " + newDoorway.transform.position + ", Connection Pos: " + connectionPos);
-
         transform.position = connectionPos;
     }
 
     public bool CanConnectToDoorwaySide(DoorwaySide doorwaySide) {
         bool possibleConnection = possibleDoorways.Any(doorway => GetOppositeSide(doorway.GetSide()) == doorwaySide);
-
-        string debug = "";
-        foreach (PossibleDoorway possibleDoorway in possibleDoorways) {
-            debug += possibleDoorway.GetSide().ToString() + ", ";
-        }
-
-        //print("   - In checking connection: given doorway of existing room: " + doorwaySide + ", possibleDoorways of new room: " + debug);
         return possibleConnection;
     }
 

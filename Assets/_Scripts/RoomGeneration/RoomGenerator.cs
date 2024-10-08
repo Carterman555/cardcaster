@@ -12,22 +12,7 @@ public class RoomGenerator : StaticInstance<RoomGenerator> {
 
     public static event Action OnCompleteGeneration;
 
-    [SerializeField] private ScriptableDungeonLayout layoutData;
-
-    [SerializeField] private DoorwayTileDestroyer doorwayTileReplacer;
-    [SerializeField] private GameObject cameraConfiner;
-
-    [Header("Prefabs")]
-    [SerializeField] private Transform horizontalHallwayPrefab;
-    [SerializeField] private Transform verticalHallwayPrefab;
-
-    [SerializeField] private RoomOverlapChecker roomOverlapCheckerPrefab;
-
     private bool isGeneratingRooms;
-
-    private List<RoomOverlapChecker> roomOverlapCheckers = new();
-
-    private Dictionary<RoomType, List<ScriptableRoom>> usedRooms;
 
     public bool IsGeneratingRooms() {
         return isGeneratingRooms;
@@ -36,27 +21,46 @@ public class RoomGenerator : StaticInstance<RoomGenerator> {
     protected override void Awake() {
         base.Awake();
         isGeneratingRooms = true;
-
-        SetupUsedRoomsDict();
     }
 
-    private void Start() {
-        StartCoroutine(GenerateRooms());
+    private IEnumerator Start() {
+        yield return StartCoroutine(GenerateLayout());
+
     }
 
-    private void SetupUsedRoomsDict() {
-        usedRooms = new();
-        foreach (RoomType roomType in Enum.GetValues(typeof(RoomType))) {
-            usedRooms.Add(roomType, new List<ScriptableRoom>());
+    #region Generate Layout
+
+    [Header("Generate Layout")]
+    [SerializeField] private ScriptableDungeonLayout layoutData;
+    [SerializeField] private RoomOverlapChecker roomOverlapCheckerPrefab;
+
+    private bool failedRoomCreation;
+
+    private List<RoomOverlapChecker> roomOverlapCheckers = new();
+    private Dictionary<RoomType, List<ScriptableRoom>> usedRooms;
+
+
+    private IEnumerator GenerateLayout() {
+        yield return StartCoroutine(TryGenerateLayout());
+
+        while (failedRoomCreation) {
+            failedRoomCreation = false;
+            yield return StartCoroutine(TryGenerateLayout());
         }
     }
-    
-    private IEnumerator GenerateRooms() {
+
+    private IEnumerator TryGenerateLayout() {
+
+        // reset the generation in case this is a retry
+        ClearOverlapCheckers();
+        SetupUsedRoomsDict();
 
         // spawn first room checker
-        RoomOverlapChecker newRoomChecker = roomOverlapCheckerPrefab.Spawn(Containers.Instance.Rooms);
+        RoomOverlapChecker newRoomChecker = roomOverlapCheckerPrefab.Spawn(Vector2.zero, Containers.Instance.Rooms);
         Room entranceRoomPrefab = GetRandomUniqueRoom(layoutData.LevelLayout.roomType).Prefab;
         newRoomChecker.Setup(entranceRoomPrefab);
+        roomOverlapCheckers.Add(newRoomChecker);
+
         SetChildrensChecker(layoutData.LevelLayout, newRoomChecker, entranceRoomPrefab);
 
         // spawn all other room checkers
@@ -66,7 +70,19 @@ public class RoomGenerator : StaticInstance<RoomGenerator> {
         OnCompleteGeneration?.Invoke();
     }
 
-    private bool failedRoomCreation;
+    private void ClearOverlapCheckers() {
+        foreach (RoomOverlapChecker roomOverlapChecker in roomOverlapCheckers) {
+            roomOverlapChecker.gameObject.ReturnToPool();
+        }
+        roomOverlapCheckers.Clear();
+    }
+
+    private void SetupUsedRoomsDict() {
+        usedRooms = new();
+        foreach (RoomType roomType in Enum.GetValues(typeof(RoomType))) {
+            usedRooms.Add(roomType, new List<ScriptableRoom>());
+        }
+    }
 
     private IEnumerator SpawnRoomCheckers(RoomConnection layout) {
 
@@ -76,25 +92,20 @@ public class RoomGenerator : StaticInstance<RoomGenerator> {
             ScriptableRoom newRoomScriptable = null;
             Room newRoomPrefab = null;
 
-            int breakOutCounter = 0;
-
-            print("\n");
-            print("Attempting to make connection to " + subLayout.ParentRoomOverlapChecker.GetRoomPrefab().name);
+            int tryRoomCounter = 0;
 
             // Until it spawns a room that can be spawned
             while (!canSpawn) {
 
-                breakOutCounter++;
-                if (breakOutCounter > 30) {
-                    Debug.LogError("Breakout Error");
+                tryRoomCounter++;
+                int tryRoomAmount = 15;
+                if (tryRoomCounter > tryRoomAmount) {
                     failedRoomCreation = true;
                     yield break; // exits method
                 }
 
                 newRoomScriptable = GetRandomUniqueRoom(subLayout.roomType);
                 newRoomPrefab = newRoomScriptable.Prefab;
-
-                print("Trying to connect new room: " + newRoomPrefab.name);
 
                 // Try to spawn this room
                 yield return StartCoroutine(TrySpawnRoomChecker(newRoomPrefab, subLayout.ParentRoomOverlapChecker, (success) => canSpawn = success));
@@ -147,8 +158,6 @@ public class RoomGenerator : StaticInstance<RoomGenerator> {
 
         foreach (PossibleDoorway existingDoorway in existingRoomChecker.GetPossibleDoorways()) {
 
-            print(" - Can make connection from " + existingDoorway.GetSide().ToString() + " side of existing room: " + newRoomChecker.CanConnectToDoorwaySide(existingDoorway.GetSide()));
-
             if (newRoomChecker.CanConnectToDoorwaySide(existingDoorway.GetSide())) {
 
                 PossibleDoorway newRoomDoorway = newRoomChecker.GetRandomConnectingDoorway(existingDoorway.GetSide());
@@ -157,11 +166,8 @@ public class RoomGenerator : StaticInstance<RoomGenerator> {
                 // Yield to ensure collider overlap detection works
                 yield return null;
 
-                print("  - Overlaps with another room: " + newRoomChecker.OverlapsWithRoomChecker(roomOverlapCheckers));
-                
                 if (!newRoomChecker.OverlapsWithRoomChecker(roomOverlapCheckers)) {
                     roomOverlapCheckers.Add(newRoomChecker);
-                    print("   - Successfully made connection: " + newRoomChecker.GetRoomPrefab().name);
                     newRoomChecker.RemovePossibleDoorway(newRoomDoorway);
                     existingRoomChecker.RemovePossibleDoorway(existingDoorway);
                     callback(true);
@@ -173,6 +179,66 @@ public class RoomGenerator : StaticInstance<RoomGenerator> {
         newRoomChecker.gameObject.ReturnToPool();
         callback(false);
     }
+
+    #endregion
+
+
+    #region Spawn Rooms
+
+    [Header("Spawn Rooms")]
+    [SerializeField] private DoorwayTileDestroyer doorwayTileReplacer;
+    [SerializeField] private GameObject cameraConfiner;
+
+    [SerializeField] private Transform horizontalHallwayPrefab;
+    [SerializeField] private Transform verticalHallwayPrefab;
+
+    // Solution 1: create a dict of room overlap checkers and there room number. Create a dict of rooms spawned and their room number.
+    // then recursively loop through layouts with a counter. This allows you to access the ParentRoomOverlapChecker of the current spawning room
+    // through the checker dictionary, you can get access to which room number that is then you can get access to the connecting room through the
+    // spawned rooms dictionary
+
+    // Solution 2: the room checker stores the parent checker and...
+
+    /// <summary>
+    ///     setup the room
+    ///         - spawn hallways (after both rooms have been spawned or all rooms have been spawned)
+    /// </summary>
+    private void SpawnRooms() {
+
+        int roomNumber = 1;
+
+        /// go through each room checker
+        foreach (RoomOverlapChecker roomOverlapChecker in roomOverlapCheckers) {
+
+            roomOverlapChecker.
+
+            /// spawn the room of the checker
+            Room newRoom = roomOverlapChecker.GetRoomPrefab().Spawn(roomOverlapChecker.transform.position, Containers.Instance.Rooms);
+            SetupRoom(roomNumber, newRoom, )
+            roomNumber++;
+
+        }
+    }
+
+    private void SetupRoom(int roomNumber, Room newRoom, Room connectingRoom, PossibleDoorway newDoorway, PossibleDoorway connectingDoorway) {
+        
+        newRoom.SetRoomNum(roomNumber);
+
+        connectingRoom.AddCreatedDoorway(connectingDoorway);
+
+        // spawn in the hallway to connect the rooms
+        SpawnHallway(connectingDoorway.GetSide(), connectingDoorway.transform.position);
+
+        //RemoveTilesForHallway(newRoom, )
+
+        newRoom.CopyColliderToCameraConfiner(cameraConfiner);
+
+        // create enter and exit triggers
+        newRoom.CreateEnterAndExitTriggers(newDoorway);
+        connectingRoom.CreateEnterAndExitTriggers(connectingDoorway);
+    }
+
+    #endregion
 
     private void SetupRoom(Room newRoom) {
         throw new NotImplementedException();

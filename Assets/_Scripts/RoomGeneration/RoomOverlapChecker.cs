@@ -10,8 +10,19 @@ public class RoomOverlapChecker : MonoBehaviour {
 
     private List<PossibleDoorway> possibleDoorways = new();
 
-    public void Setup(Room roomPrefab) {
+    private RoomOverlapChecker parentOverlapChecker;
+
+    //... RoomOverlapChecker = the other room checker that the doorway connects to, string = the name of the doorway
+    //... this is use to know how to connect the rooms when they spawn
+    private Dictionary<RoomOverlapChecker, string> createdDoorways = new();
+
+    public void Setup(Room roomPrefab, RoomOverlapChecker parentOverlapChecker) {
         this.roomPrefab = roomPrefab;
+        this.parentOverlapChecker = parentOverlapChecker;
+
+        possibleDoorways.Clear();
+        createdDoorways.Clear();
+
         CopyCollider(roomPrefab.GetComponent<PolygonCollider2D>());
 
         CreatePossibleDoorways(roomPrefab.GetPossibleDoorways());
@@ -29,8 +40,9 @@ public class RoomOverlapChecker : MonoBehaviour {
         return possibleDoorways;
     }
 
-    public void RemovePossibleDoorway(PossibleDoorway possibleDoorway) {
+    public void AddCreatedDoorway(PossibleDoorway possibleDoorway, RoomOverlapChecker connectingChecker) {
         possibleDoorways.Remove(possibleDoorway);
+        createdDoorways.Add(connectingChecker, possibleDoorway.name);
     }
 
     private void CreatePossibleDoorways(List<PossibleDoorway> possibleDoorwaysToCreate) {
@@ -46,6 +58,14 @@ public class RoomOverlapChecker : MonoBehaviour {
             possibleDoorway.gameObject.ReturnToPool();
         }
         possibleDoorways.Clear();
+    }
+
+    public RoomOverlapChecker GetParentChecker() {
+        return parentOverlapChecker;
+    }
+
+    public string GetDoorwayName(RoomOverlapChecker connectingChecker) {
+        return createdDoorways[connectingChecker];
     }
 
     #region Overlap Collider

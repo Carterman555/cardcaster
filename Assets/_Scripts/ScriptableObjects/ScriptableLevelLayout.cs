@@ -14,7 +14,7 @@ public class RoomConnection {
 }
 
 [CreateAssetMenu(fileName = "New Dungeon Layout", menuName = "Dungeon/Dungeon Layout")]
-public class ScriptableDungeonLayout : ScriptableObject {
+public class ScriptableLevelLayout : ScriptableObject {
 
     [FormerlySerializedAs("entranceRoom")]
     [SerializeField] private RoomConnection roomLayout;

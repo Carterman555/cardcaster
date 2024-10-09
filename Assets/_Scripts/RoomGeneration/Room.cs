@@ -170,6 +170,7 @@ public class Room : MonoBehaviour {
     }
 
     private void CreateDoorwayBlockers() {
+
         foreach (PossibleDoorway createdDoorway in createdDoorways) {
             bool sideBlocker = createdDoorway.GetSide() == DoorwaySide.Left || createdDoorway.GetSide() == DoorwaySide.Right;
 

@@ -8,6 +8,8 @@ public class Containers : StaticInstance<Containers> {
     [field:SerializeField] public Transform Projectiles { get; private set; }
     [field:SerializeField] public Transform Drops { get; private set; }
     [field:SerializeField] public Transform Rooms { get; private set; }
+    [field:SerializeField] public Transform Hallways { get; private set; }
+    [field:SerializeField] public Transform RoomOverlapCheckers { get; private set; }
     [field:SerializeField] public Transform EnvironmentObjects { get; private set; }
     [field:SerializeField] public Transform Effects { get; private set; }
 

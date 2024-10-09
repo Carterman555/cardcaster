@@ -44,6 +44,10 @@ PrefabInstance:
       propertyPath: m_Color.r
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2595042869523141569, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3807084815282453126, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.8545058
@@ -148,4 +152,5 @@ MonoBehaviour:
   scriptableEnemy: {fileID: 11400000, guid: abca1f878073ca54f9e2e60c297ac778, type: 2}
   playerTracker: {fileID: 4392500090413742484}
   explosionRadius: 3
+  explosionDelay: 1
   explosionParticlesPrefab: {fileID: 6065135645941821456, guid: 5f3b7b52a057dae4a8769678b76618b4, type: 3}

@@ -24,6 +24,7 @@ public class CardButton : GameButton, IPointerDownHandler {
     [SerializeField] private MMF_Player hoverPlayer;
     [SerializeField] private MMF_Player toHandPlayer;
     [SerializeField] private MMF_Player useCardPlayer;
+    [SerializeField] private MMRotationShaker cantPlayShaker;
 
     // follow mouse
     private MMFollowTarget followMouse;
@@ -80,46 +81,54 @@ public class CardButton : GameButton, IPointerDownHandler {
     }
 
     private void Update() {
-        button.interactable = CanAffordToPlay;
 
-        if (!CanAffordToPlay) {
-            return;
-        }
+        bool hotKeyDown = Input.GetKeyDown(KeyCode.Alpha1) && cardIndex == 0 ||
+                Input.GetKeyDown(KeyCode.Alpha2) && cardIndex == 1 ||
+                Input.GetKeyDown(KeyCode.Alpha3) && cardIndex == 2;
 
-        // handle hotkeys
-        if (Input.GetKeyDown(KeyCode.Alpha1) && cardIndex == 0 ||
-            Input.GetKeyDown(KeyCode.Alpha2) && cardIndex == 1 ||
-            Input.GetKeyDown(KeyCode.Alpha3) && cardIndex == 2) {
+        bool hotKeyUp = Input.GetKeyUp(KeyCode.Alpha1) && cardIndex == 0 ||
+                Input.GetKeyUp(KeyCode.Alpha2) && cardIndex == 1 ||
+                Input.GetKeyUp(KeyCode.Alpha3) && cardIndex == 2;
 
-            OnStartPlayingCard();
+        if (CanAffordToPlay) {
 
-            if (card is ScriptableAbilityCardBase abilityCard && abilityCard.IsPositional) {
-                FollowMouse();
+            if (hotKeyDown) {
+                OnStartPlayingCard();
+
+                if (card is ScriptableAbilityCardBase abilityCard && abilityCard.IsPositional) {
+                    FollowMouse();
+                }
+                else {
+                    hoverPlayer.PlayFeedbacks();
+                }
             }
-            else {
-                hoverPlayer.PlayFeedbacks();
-            }
-        }
-        if (Input.GetKeyUp(KeyCode.Alpha1) && cardIndex == 0 ||
-            Input.GetKeyUp(KeyCode.Alpha2) && cardIndex == 1 ||
-            Input.GetKeyUp(KeyCode.Alpha3) && cardIndex == 2) {
-            PlayCard();
-        }
 
-        // the reason for this instead of using on mouse click is because this:
-        //      the player can be dragging the card, then quickly mouse the mouse and release and it won't count a click
-        //      because the mouse is not on the card
-        if (mouseDownOnCard) {
-            if (Input.GetMouseButtonUp(0)) {
+            if (hotKeyUp) {
                 PlayCard();
-                mouseDownOnCard = false;
+            }
+
+            // the reason for this instead of using on mouse click is because this:
+            //      the player can be dragging the card, then quickly mouse the mouse and release and it won't count a click
+            //      because the mouse is not on the card
+            if (mouseDownOnCard) {
+                if (Input.GetMouseButtonUp(0)) {
+                    PlayCard();
+                    mouseDownOnCard = false;
+                }
             }
         }
+        else {
+            if (hotKeyDown) {
+                cantPlayShaker.Play();
+            }
+        }
+        
     }
 
     public void OnPointerDown(PointerEventData eventData) {
 
         if (!CanAffordToPlay) {
+            cantPlayShaker.Play();
             return;
         }
 

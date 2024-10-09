@@ -10,6 +10,7 @@ using UnityEngine;
 /// </summary>
 public class ResourceSystem : StaticInstance<ResourceSystem>
 {
+    public List<ScriptableLevelLayout> LevelLayouts { get; private set; }
     public Dictionary<RoomType, ScriptableRoom[]> Rooms { get; private set; }
     public List<ScriptableEnemy> Enemies { get; private set; }
     public List<ScriptableCardBase> Cards { get; private set; }
@@ -21,6 +22,8 @@ public class ResourceSystem : StaticInstance<ResourceSystem>
     }
 
     private void AssembleResources() {
+        LevelLayouts = Resources.LoadAll<ScriptableLevelLayout>("Layouts").ToList();
+
         Rooms = Resources.LoadAll<ScriptableRoom>("Rooms")
             .GroupBy(r => r.RoomType)
             .ToDictionary(g => g.Key, g => g.ToArray());
@@ -30,6 +33,7 @@ public class ResourceSystem : StaticInstance<ResourceSystem>
         Items = Resources.LoadAll<ScriptableItemBase>("Items").ToList();
     }
 
+    public ScriptableLevelLayout GetRandomLayout() => LevelLayouts.RandomItem();
     public ScriptableRoom[] GetRooms(RoomType roomType) => Rooms[roomType];
     public List<ScriptableEnemy> GetAllEnemies() => Enemies;
     public List<ScriptableCardBase> GetAllCards() => Cards;

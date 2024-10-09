@@ -30,6 +30,8 @@ public class RoomGenerator : StaticInstance<RoomGenerator> {
 
         SpawnRooms();
 
+        RemoveOverlapCheckers();
+
         yield return null;
 
         isGeneratingRooms = false;
@@ -39,13 +41,10 @@ public class RoomGenerator : StaticInstance<RoomGenerator> {
     #region Generate Layout
 
     [Header("Generate Layout")]
-    [SerializeField] private ScriptableDungeonLayout layoutData;
     [SerializeField] private RoomOverlapChecker roomOverlapCheckerPrefab;
 
     private bool failedRoomCreation;
-
     private Dictionary<RoomType, List<ScriptableRoom>> usedRooms;
-
 
     private IEnumerator GenerateLayout() {
         yield return StartCoroutine(TryGenerateLayout());
@@ -62,8 +61,10 @@ public class RoomGenerator : StaticInstance<RoomGenerator> {
         ClearOverlapCheckers();
         SetupUsedRoomsDict();
 
+        ScriptableLevelLayout layoutData = ResourceSystem.Instance.GetRandomLayout();
+
         // spawn first room checker
-        RoomOverlapChecker newRoomChecker = roomOverlapCheckerPrefab.Spawn(Vector2.zero, Containers.Instance.Rooms);
+        RoomOverlapChecker newRoomChecker = roomOverlapCheckerPrefab.Spawn(Vector2.zero, Containers.Instance.RoomOverlapCheckers);
         Room entranceRoomPrefab = GetRandomUniqueRoom(layoutData.LevelLayout.roomType).Prefab;
         newRoomChecker.Setup(entranceRoomPrefab, null);
         roomOverlapCheckers.Add(newRoomChecker);
@@ -160,7 +161,7 @@ public class RoomGenerator : StaticInstance<RoomGenerator> {
     /// </summary>
     private IEnumerator TrySpawnRoomChecker(Room newRoomPrefab, RoomOverlapChecker existingRoomChecker, Action<bool> callback) {
 
-        RoomOverlapChecker newRoomChecker = roomOverlapCheckerPrefab.Spawn(Containers.Instance.Rooms);
+        RoomOverlapChecker newRoomChecker = roomOverlapCheckerPrefab.Spawn(Containers.Instance.RoomOverlapCheckers);
         newRoomChecker.Setup(newRoomPrefab, existingRoomChecker);
 
         foreach (PossibleDoorway existingDoorway in existingRoomChecker.GetPossibleDoorways()) {
@@ -190,7 +191,6 @@ public class RoomGenerator : StaticInstance<RoomGenerator> {
     }
 
     #endregion
-
 
     #region Spawn Rooms
 
@@ -242,6 +242,7 @@ public class RoomGenerator : StaticInstance<RoomGenerator> {
         string newDoorwayName = roomOverlapChecker.GetDoorwayName(roomOverlapChecker.GetParentChecker());
         newDoorwayName = newDoorwayName[..^7]; // take off '(clone)'
         PossibleDoorway newDoorway = newRoom.GetPossibleDoorway(newDoorwayName);
+        newRoom.AddCreatedDoorway(newDoorway);
 
         // get the connecting rooms doorway
         string existingDoorwayName = roomOverlapChecker.GetParentChecker().GetDoorwayName(roomOverlapChecker);
@@ -300,7 +301,7 @@ public class RoomGenerator : StaticInstance<RoomGenerator> {
 
         float hallwayOffset = 4;
         Vector2 hallwayPos = doorwayPosition + SideToDirection(doorwaySide) * hallwayOffset;
-        Instantiate(hallwayPrefab, hallwayPos, Quaternion.identity, Containers.Instance.Rooms);
+        hallwayPrefab.Spawn(hallwayPos, Quaternion.identity, Containers.Instance.Hallways);
     }
 
     public Vector2 SideToDirection(DoorwaySide side) {
@@ -321,4 +322,11 @@ public class RoomGenerator : StaticInstance<RoomGenerator> {
         }
     }
     #endregion
+
+    private void RemoveOverlapCheckers() {
+        foreach (RoomOverlapChecker overlapChecker in roomOverlapCheckers) {
+            overlapChecker.gameObject.ReturnToPool();
+        }
+        roomOverlapCheckers.Clear();
+    }
 }

@@ -42,6 +42,16 @@ public class Room : MonoBehaviour {
         return possibleDoorways;
     }
 
+    public PossibleDoorway GetPossibleDoorway(string name) {
+
+        if (!possibleDoorways.Any(d => d.name == name)){
+            Debug.LogError("Could Not Find Doorway With Name: " + name);
+            return null;
+        }
+
+        return possibleDoorways.Where(d => d.name == name).FirstOrDefault();
+    }
+
     public Tilemap GetGroundTilemap() {
         return groundTilemap;
     }
@@ -64,7 +74,6 @@ public class Room : MonoBehaviour {
 
     #endregion
 
-    // TODO - update because uses roomoverlapchecker instead
     public void AddCreatedDoorway(PossibleDoorway possibleDoorway) {
         createdDoorways.Add(possibleDoorway);
     }

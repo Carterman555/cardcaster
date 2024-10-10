@@ -51,6 +51,10 @@ public class MergeBehavior : EnemyBehavior {
         return mergeStage == MergeStage.ReadyToMerging;
     }
 
+    public bool SameMergePrefab(Enemy mergedEnemyPrefab) {
+        return this.mergedEnemyPrefab.Equals(mergedEnemyPrefab);
+    }
+
     public bool IsMovingToMerge() {
         return mergeStage == MergeStage.MovingToMerge;
     }
@@ -115,7 +119,7 @@ public class MergeBehavior : EnemyBehavior {
             foreach (IMergable nearbyMergable in nearbyMergables) {
 
                 MergeBehavior nearbyMergeBehavior = nearbyMergable.GetMergeBehavior();
-                if (nearbyMergeBehavior.IsReadyToMerge()) {
+                if (nearbyMergeBehavior.IsReadyToMerge() && nearbyMergeBehavior.SameMergePrefab(mergedEnemyPrefab)) {
                     MoveToMerge(nearbyMergable);
                     nearbyMergeBehavior.MoveToMerge(enemy as IMergable);
 

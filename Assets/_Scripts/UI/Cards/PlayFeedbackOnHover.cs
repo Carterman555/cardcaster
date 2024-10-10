@@ -5,12 +5,12 @@ using UnityEngine.EventSystems;
 public class PlayFeedbackOnHover : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler {
     [SerializeField] private MMF_Player hoverFeedback;
 
-    private bool playFeedback;
+    private bool isEnabled;
     public void Enable() {
-        playFeedback = true;
+        isEnabled = true;
     }
     public void Disable() {
-        playFeedback = false;
+        isEnabled = false;
     }
 
     private void Awake() {
@@ -19,7 +19,7 @@ public class PlayFeedbackOnHover : MonoBehaviour, IPointerEnterHandler, IPointer
 
     public void OnPointerEnter(PointerEventData eventData) {
 
-        if (!playFeedback) {
+        if (!isEnabled) {
             return;
         }
 
@@ -34,7 +34,7 @@ public class PlayFeedbackOnHover : MonoBehaviour, IPointerEnterHandler, IPointer
 
     public void OnPointerExit(PointerEventData eventData) {
 
-        if (!playFeedback) {
+        if (!isEnabled) {
             return;
         }
 

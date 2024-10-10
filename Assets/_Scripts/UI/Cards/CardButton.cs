@@ -1,3 +1,4 @@
+using DG.Tweening;
 using MoreMountains.Feedbacks;
 using MoreMountains.Tools;
 using System;
@@ -24,6 +25,7 @@ public class CardButton : GameButton, IPointerDownHandler {
     [SerializeField] private MMF_Player hoverPlayer;
     [SerializeField] private MMF_Player toHandPlayer;
     [SerializeField] private MMF_Player useCardPlayer;
+    [SerializeField] private MMF_Player cancelPlayer;
     [SerializeField] private MMRotationShaker cantPlayShaker;
 
     // follow mouse
@@ -58,6 +60,8 @@ public class CardButton : GameButton, IPointerDownHandler {
         MMF_Position toHandFeedback = toHandPlayer.GetFeedbackOfType<MMF_Position>("Move To Hand");
         toHandFeedback.InitialPositionTransform = deckTransform;
         toHandFeedback.DestinationPosition = destination;
+
+        handPosition = destination;
 
         useCardPlayer.Events.OnComplete.AddListener(OnUsedCard);
 
@@ -99,12 +103,13 @@ public class CardButton : GameButton, IPointerDownHandler {
                     FollowMouse();
                 }
                 else {
+                    hoverPlayer.SetDirectionTopToBottom();
                     hoverPlayer.PlayFeedbacks();
                 }
             }
 
             if (hotKeyUp) {
-                PlayCard();
+                TryPlayCard();
             }
 
             // the reason for this instead of using on mouse click is because this:
@@ -112,7 +117,7 @@ public class CardButton : GameButton, IPointerDownHandler {
             //      because the mouse is not on the card
             if (mouseDownOnCard) {
                 if (Input.GetMouseButtonUp(0)) {
-                    PlayCard();
+                    TryPlayCard();
                     mouseDownOnCard = false;
                 }
             }
@@ -138,6 +143,9 @@ public class CardButton : GameButton, IPointerDownHandler {
     }
 
     private void OnStartPlayingCard() {
+
+        FeedbackPlayer.Play("CancelCard");
+
         if (card is ScriptableModifierCardBase modifier) {
             if (AbilityManager.Instance.IsModifierActive(modifier)) {
                 hotkeyText.text = "<color=\"red\">Won't Apply!\r\n<size=30>Modifier Already Active</size>";
@@ -147,8 +155,15 @@ public class CardButton : GameButton, IPointerDownHandler {
         OnAnyStartPlaying_Card?.Invoke(card);
     }
 
-    private void OnCancelCard() {
-        OnAnyCancel_Card?.Invoke(card);
+    private void TryPlayCard() {
+        if (setToCancel) {
+            CancelCard();
+        }
+        else {
+            PlayCard();
+        }
+
+        FeedbackPlayer.PlayInReverse("CancelCard");
     }
 
     private void PlayCard() {
@@ -195,4 +210,48 @@ public class CardButton : GameButton, IPointerDownHandler {
             hotkeyText.text = (cardIndex + 1).ToString();
         }
     }
+
+    #region Handle Cancelling
+
+    private bool setToCancel;
+
+    protected override void OnEnable() {
+        base.OnEnable();
+        CancelCardPanel.OnSetToCancel += SetToCancel;
+        CancelCardPanel.OnSetToPlay += SetToPlay;
+    }
+
+    protected override void OnDisable() {
+        base.OnDisable();
+        CancelCardPanel.OnSetToCancel -= SetToCancel;
+        CancelCardPanel.OnSetToPlay -= SetToPlay;
+    }
+
+    private void SetToCancel() {
+        setToCancel = true;
+    }
+
+    private void SetToPlay() {
+        setToCancel = false;
+    }
+
+    private Vector2 handPosition;
+
+    private void CancelCard() {
+
+        // move back to hand
+        StopFollowingMouse();
+
+        float duration = 0.3f;
+        transform.DOLocalMove(handPosition, duration).OnComplete(() => {
+        });
+
+        // fade out
+        MMF_Image fadeFeedback = hoverPlayer.GetFeedbackOfType<MMF_Image>("FadeCard");
+        fadeFeedback.RestoreInitialValues();
+
+        OnAnyCancel_Card?.Invoke(card);
+    }
+
+    #endregion
 }

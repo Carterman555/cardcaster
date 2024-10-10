@@ -33,9 +33,11 @@ public class ScriptableTeleportCard : ScriptableAbilityCardBase {
 
         teleportPosVisual.gameObject.ReturnToPool();
 
+        // fade out instantly, then fade in with delay
         float duration = 0.5f;
-        PlayerVisual.Instance.SetFadeEffect(0, 0f);
-        PlayerVisual.Instance.SetFadeEffect(0, 1f, duration);
+        FadeEffect fadeEffect = PlayerVisual.Instance.AddFadeEffect(0, 0f);
+        PlayerVisual.Instance.RemoveFadeEffect(fadeEffect, duration);
+
         CreateVisualClone(PlayerMovement.Instance.transform.position);
 
         if (IsPointValidForTeleport(position)) {

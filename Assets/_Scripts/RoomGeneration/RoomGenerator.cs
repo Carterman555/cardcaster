@@ -29,13 +29,16 @@ public class RoomGenerator : StaticInstance<RoomGenerator> {
         yield return StartCoroutine(GenerateLayout());
 
         SpawnRooms();
-
         RemoveOverlapCheckers();
 
         yield return null;
 
         isGeneratingRooms = false;
         OnCompleteGeneration?.Invoke();
+
+        yield return new WaitForSeconds(0.3f);
+
+        RemoveConfinerBoxCollider();
     }
 
     #region Generate Layout
@@ -213,7 +216,9 @@ public class RoomGenerator : StaticInstance<RoomGenerator> {
         // setup first room seperately because the setup is different
         RoomOverlapChecker firstOverlapChecker = roomOverlapCheckers[0];
         Room firstRoom = firstOverlapChecker.GetRoomPrefab().Spawn(firstOverlapChecker.transform.position, Containers.Instance.Rooms);
+        SetupFirstRoom(firstRoom, firstOverlapChecker);
         spawnRoomsDict.Add(firstOverlapChecker, firstRoom);
+
 
         /// go through each room checker
         for (int roomIndex = 1; roomIndex < roomOverlapCheckers.Count; roomIndex++) {
@@ -229,9 +234,16 @@ public class RoomGenerator : StaticInstance<RoomGenerator> {
         }
     }
 
+    // the first room sets up differently because it doesn't have a connecting room
+    private void SetupFirstRoom(Room newRoom, RoomOverlapChecker roomOverlapChecker) {
+        newRoom.SetRoomNum(1);
+        newRoom.CopyColliderToCameraConfiner(cameraConfiner);
+    }
+
     private void SetupRoom(Room newRoom, RoomOverlapChecker roomOverlapChecker, int roomNumber) {
 
         newRoom.SetRoomNum(roomNumber);
+        newRoom.CopyColliderToCameraConfiner(cameraConfiner);
 
         //... get the connecting room through the dictionary
         Room connectingRoom = spawnRoomsDict[roomOverlapChecker.GetParentChecker()];
@@ -253,8 +265,6 @@ public class RoomGenerator : StaticInstance<RoomGenerator> {
         // spawn in the hallway to connect the rooms
         SpawnHallway(existingDoorway.GetSide(), existingDoorway.transform.position);
         RemoveTilesForHallway(newRoom, connectingRoom, newDoorway, existingDoorway);
-
-        newRoom.CopyColliderToCameraConfiner(cameraConfiner);
 
         // create enter and exit triggers
         newRoom.CreateEnterAndExitTriggers(newDoorway);
@@ -328,5 +338,11 @@ public class RoomGenerator : StaticInstance<RoomGenerator> {
             overlapChecker.gameObject.ReturnToPool();
         }
         roomOverlapCheckers.Clear();
+    }
+
+    // it needs a box collider to prevent the camera from glitch when the rooms get spawned, but it needs to be destroyed to confine the
+    // camera properly
+    private void RemoveConfinerBoxCollider() {
+        Destroy(cameraConfiner.GetComponent<BoxCollider2D>());
     }
 }

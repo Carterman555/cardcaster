@@ -5,6 +5,8 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "GhostCard", menuName = "Cards/Ghost Card")]
 public class ScriptableGhostCard : ScriptableStatsModifierCard {
 
+    private FadeEffect ghostFadeEffect;
+
     public override void Play(Vector2 position) {
         base.Play(position);
         
@@ -14,7 +16,7 @@ public class ScriptableGhostCard : ScriptableStatsModifierCard {
         // ghost visuals
         float fadeAmount = 0.5f;
         float duration = 0.5f;
-        PlayerVisual.Instance.SetFadeEffect(1, fadeAmount, duration);
+        ghostFadeEffect = PlayerVisual.Instance.AddFadeEffect(1, fadeAmount, duration);
         ReferenceSystem.Instance.PlayerSwordVisual.enabled = false;
 
         //... set invincible
@@ -32,9 +34,8 @@ public class ScriptableGhostCard : ScriptableStatsModifierCard {
         PlayerMovement.Instance.GetComponent<PlayerMeleeAttack>().enabled = true;
 
         // revert ghost visuals
-        float fadeAmount = 1f;
         float duration = 0.5f;
-        PlayerVisual.Instance.SetFadeEffect(1, fadeAmount, duration);
+        PlayerVisual.Instance.RemoveFadeEffect(ghostFadeEffect, duration);
         ReferenceSystem.Instance.PlayerSwordVisual.enabled = true;
 
         //... set not invincible

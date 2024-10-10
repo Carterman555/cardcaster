@@ -14,5 +14,44 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   roomLayout:
     roomType: 5
-    connectedRooms: []
+    connectedRooms:
+    - roomType: 0
+      connectedRooms:
+      - roomType: 0
+        connectedRooms:
+        - roomType: 1
+          connectedRooms:
+          - roomType: 4
+            connectedRooms: []
+            ParentRoomOverlapChecker: {fileID: 0}
+          - roomType: 0
+            connectedRooms:
+            - roomType: 2
+              connectedRooms:
+              - roomType: 0
+                connectedRooms: []
+                ParentRoomOverlapChecker: {fileID: 0}
+              ParentRoomOverlapChecker: {fileID: 0}
+            ParentRoomOverlapChecker: {fileID: 0}
+          - roomType: 0
+            connectedRooms:
+            - roomType: 1
+              connectedRooms:
+              - roomType: 0
+                connectedRooms:
+                - roomType: 3
+                  connectedRooms:
+                  - roomType: 6
+                    connectedRooms: []
+                    ParentRoomOverlapChecker: {fileID: 0}
+                  ParentRoomOverlapChecker: {fileID: 0}
+                ParentRoomOverlapChecker: {fileID: 0}
+              - roomType: 0
+                connectedRooms: []
+                ParentRoomOverlapChecker: {fileID: 0}
+              ParentRoomOverlapChecker: {fileID: 0}
+            ParentRoomOverlapChecker: {fileID: 0}
+          ParentRoomOverlapChecker: {fileID: 0}
+        ParentRoomOverlapChecker: {fileID: 0}
+      ParentRoomOverlapChecker: {fileID: 0}
     ParentRoomOverlapChecker: {fileID: 0}

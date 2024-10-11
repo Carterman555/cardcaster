@@ -11,7 +11,7 @@ public class ScriptableStatsModifierCard : ScriptableAbilityCardBase {
         return statsModifier;
     }
 
-    public override void Play(Vector2 position) {
+    protected override void Play(Vector2 position) {
         base.Play(position);
         StatsManager.Instance.AddPlayerStatsModifier(statsModifier);
     }

@@ -16,7 +16,7 @@ public class ScriptableSwordSwingCard : ScriptableAbilityCardBase {
     [SerializeField] private ParticleSystem swingSwordEffectsPrefab;
     private ParticleSystem swingSwordEffects;
 
-    public override void Play(Vector2 position) {
+    protected override void Play(Vector2 position) {
         base.Play(position);
 
         PlayerMeleeAttack.Instance.enabled = false;

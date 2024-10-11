@@ -15,7 +15,7 @@ public class ScriptableDaggerShootCard : ScriptableAbilityCardBase {
 
     private Coroutine shootCoroutine;
 
-    public override void Play(Vector2 position) {
+    protected override void Play(Vector2 position) {
         base.Play(position);
 
         shootCoroutine = DeckManager.Instance.StartCoroutine(ShootDaggers());

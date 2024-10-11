@@ -64,7 +64,7 @@ public class ScriptableLaunchCard : ScriptableAbilityCardBase {
         }
     }
 
-    public override void Play(Vector2 position) {
+    protected override void Play(Vector2 position) {
 
         //... disable the path visual before base.play because base.play adds visual effects
         //... that will try to parent to path visual

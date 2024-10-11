@@ -43,11 +43,15 @@ public class Minion : Enemy, IMergable {
     protected override void OnEnable() {
         base.OnEnable();
         mergeBehavior.OnLeaderMerged += DestroyMergingIndicator;
+        mergeBehavior.OnMerged += DisallowSplit;
+
+        AllowSplit();
     }
 
     protected override void OnDisable() {
         base.OnDisable();
         mergeBehavior.OnLeaderMerged -= DestroyMergingIndicator;
+        mergeBehavior.OnMerged -= DisallowSplit;
     }
 
     private void InitializeBehaviors() {
@@ -170,6 +174,8 @@ public class Minion : Enemy, IMergable {
 
     #region Split On Destroy
 
+    private bool splitOnDestroy;
+
     protected override void Start() {
         base.Start();
 
@@ -182,7 +188,7 @@ public class Minion : Enemy, IMergable {
 
     private void SpawnTwoMinions() {
 
-        if (splitEnemyPrefab == null) {
+        if (splitEnemyPrefab == null || !splitOnDestroy) {
             return;
         }
 
@@ -193,6 +199,14 @@ public class Minion : Enemy, IMergable {
 
         Vector3 secondOffset = new(offsetValue, 0);
         splitEnemyPrefab.Spawn(transform.position + secondOffset, Containers.Instance.Enemies);
+    }
+
+    private void AllowSplit() {
+        splitOnDestroy = true;
+    }
+
+    private void DisallowSplit() {
+        splitOnDestroy = false;
     }
 
     #endregion

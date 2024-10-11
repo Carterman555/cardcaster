@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -11,9 +12,17 @@ public class CancelCardPanel : MonoBehaviour, IPointerEnterHandler, IPointerExit
 
     public void OnPointerEnter(PointerEventData eventData) {
         OnSetToCancel?.Invoke();
+
+        transform.DOKill();
+
+        float hoverScale = 1.2f;
+        transform.DOScale(hoverScale, duration: 0.2f);
     }
 
     public void OnPointerExit(PointerEventData eventData) {
         OnSetToPlay?.Invoke();
+
+        transform.DOKill();
+        transform.DOScale(1f, duration: 0.2f);
     }
 }

@@ -11,7 +11,7 @@ public class ScriptableMassiveSwordCard : ScriptableStatsModifierCard {
     [SerializeField] private Sprite bigSwordSprite;
     [SerializeField] private Sprite normalSwordSprite;
 
-    public override void Play(Vector2 position) {
+    protected override void Play(Vector2 position) {
         base.Play(position);
 
         GrowSword();

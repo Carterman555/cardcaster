@@ -8,7 +8,7 @@ public class ScriptableHitShockwave : ScriptableAbilityCardBase {
 
     [SerializeField] private CircleDamageAttacker shockwavePrefab;
 
-    public override void Play(Vector2 position) {
+    protected override void Play(Vector2 position) {
         base.Play(position);
 
         PlayerMeleeAttack.Instance.OnDamage_Target += CreateShockwave;

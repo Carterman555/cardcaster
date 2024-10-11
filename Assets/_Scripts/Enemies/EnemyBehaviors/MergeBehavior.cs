@@ -5,6 +5,7 @@ using UnityEngine;
 public class MergeBehavior : EnemyBehavior {
 
     public event Action OnLeaderMerged;
+    public event Action OnMerged;
 
     private TriggerContactTracker mergeTracker;
     private List<IMergable> nearbyMergables = new();
@@ -181,7 +182,9 @@ public class MergeBehavior : EnemyBehavior {
             OnLeaderMerged?.Invoke();
         }
 
+        // before die to tell minion not to split on death
+        OnMerged?.Invoke();
+
         enemy.GetComponent<Health>().Die();
-        //enemy.gameObject.ReturnToPool();
     }
 }

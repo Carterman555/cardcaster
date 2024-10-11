@@ -1,3 +1,4 @@
+using Mono.CSharp;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -35,7 +36,20 @@ public abstract class ScriptableAbilityCardBase : ScriptableCardBase {
 
     protected virtual void DraggingUpdate(Vector2 cardposition) { }
 
-    public override void Play(Vector2 position) {
+    public override void TryPlay(Vector2 position) {
+        base.TryPlay(position);
+
+        // if multiple can't play at the same time, cancel the current one playing
+        if (CanStackWithSelf || !AbilityManager.Instance.IsAbilityActive(this, out ScriptableAbilityCardBase alreadyActiveAbility)) {
+            Play(position);
+        }
+        else {
+            alreadyActiveAbility.ResetDuration();
+            Debug.Log("reset duration");
+        }
+    }
+
+    protected override void Play(Vector2 position) {
         base.Play(position);
 
         if (draggingCardCoroutine != null) {
@@ -47,7 +61,9 @@ public abstract class ScriptableAbilityCardBase : ScriptableCardBase {
             DeckManager.Instance.DiscardStackedCards();
         }
 
-        AbilityManager.Instance.StartCoroutine(StopAfterDuration());
+        AbilityManager.Instance.AddActiveAbility(this);
+
+        durationStopCoroutine = AbilityManager.Instance.StartCoroutine(StopAfterDuration());
     }
 
     private IEnumerator StopAfterDuration() {
@@ -56,9 +72,16 @@ public abstract class ScriptableAbilityCardBase : ScriptableCardBase {
     }
 
     public virtual void Stop() {
+        AbilityManager.Instance.RemoveActiveAbility(this);
     }
 
     public virtual void AddEffect(GameObject effectPrefab) {
+    }
+
+    private Coroutine durationStopCoroutine;
+    public void ResetDuration() {
+        AbilityManager.Instance.StopCoroutine(durationStopCoroutine);
+        durationStopCoroutine = AbilityManager.Instance.StartCoroutine(StopAfterDuration());
     }
 }
 

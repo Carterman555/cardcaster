@@ -12,14 +12,7 @@ public class CardButton : GameButton, IPointerDownHandler {
     public static event Action<ScriptableCardBase> OnAnyStartPlaying_Card;
     public static event Action<ScriptableCardBase> OnAnyCancel_Card;
 
-    [Header("Visual")]
-    [SerializeField] private CardImage cardImage;
-
-    [SerializeField] private Image backImage;
-    [SerializeField] private Sprite abilityCardBack;
-    [SerializeField] private Sprite modifierCardBack;
-
-    [SerializeField] private TextMeshProUGUI hotkeyText;
+    
 
     [Header("Feedback Players")]
     [SerializeField] private MMF_Player hoverPlayer;
@@ -51,8 +44,9 @@ public class CardButton : GameButton, IPointerDownHandler {
     public void Setup(int cardIndex, Transform deckTransform, Vector3 destination) {
         this.cardIndex = cardIndex;
 
-        hotkeyText.text = (cardIndex + 1).ToString();
+        SetHotkeyTextToNum();
 
+        // set positions of movement feedbacks
         MMF_Position hoverMoveFeedback = hoverPlayer.GetFeedbackOfType<MMF_Position>("Move");
         hoverMoveFeedback.InitialPosition = destination;
         hoverMoveFeedback.DestinationPosition = new Vector3(destination.x, hoverMoveFeedback.DestinationPosition.y);
@@ -62,6 +56,7 @@ public class CardButton : GameButton, IPointerDownHandler {
         toHandFeedback.DestinationPosition = destination;
 
         handPosition = destination;
+
 
         useCardPlayer.Events.OnComplete.AddListener(OnUsedCard);
 
@@ -144,13 +139,11 @@ public class CardButton : GameButton, IPointerDownHandler {
 
     private void OnStartPlayingCard() {
 
+        // show cancel card panel
         FeedbackPlayer.Play("CancelCard");
 
-        if (card is ScriptableModifierCardBase modifier) {
-            if (AbilityManager.Instance.IsModifierActive(modifier)) {
-                hotkeyText.text = "<color=\"red\">Won't Apply!\r\n<size=30>Modifier Already Active</size>";
-            }
-        }
+        // show the player this will be wasted if the modifier's already active
+        SetHotkeyTextToWarning();
 
         OnAnyStartPlaying_Card?.Invoke(card);
     }
@@ -169,7 +162,7 @@ public class CardButton : GameButton, IPointerDownHandler {
     private void PlayCard() {
 
         Vector2 mouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        card.Play(mouseWorldPos);
+        card.TryPlay(mouseWorldPos);
         useCardPlayer.PlayFeedbacks();
 
         if (card is ScriptableAbilityCardBase) {
@@ -177,19 +170,6 @@ public class CardButton : GameButton, IPointerDownHandler {
         }
         else if (card is ScriptableModifierCardBase modifier) {
             DeckManager.Instance.OnUseModifierCard(cardIndex);
-        }
-    }
-
-    public void SetCard(ScriptableCardBase card) {
-        this.card = card;
-        cardImage.Setup(card);
-        hotkeyText.text = (cardIndex + 1).ToString();
-
-        if (card is ScriptableAbilityCardBase) {
-            backImage.sprite = abilityCardBack;
-        }
-        else if (card is ScriptableModifierCardBase) {
-            backImage.sprite = modifierCardBack;
         }
     }
 
@@ -205,11 +185,48 @@ public class CardButton : GameButton, IPointerDownHandler {
     public void StopFollowingMouse() {
         followMouse.enabled = false;
         playFeedbackOnHover.Enable();
+        SetHotkeyTextToNum();
+    }
 
+    #region Visuals
+
+    [Header("Visual")]
+    [SerializeField] private CardImage cardImage;
+
+    [SerializeField] private Image backImage;
+    [SerializeField] private Sprite abilityCardBack;
+    [SerializeField] private Sprite modifierCardBack;
+
+    [SerializeField] private TextMeshProUGUI hotkeyText;
+
+    public void SetCard(ScriptableCardBase card) {
+        this.card = card;
+        cardImage.Setup(card);
+        hotkeyText.text = (cardIndex + 1).ToString();
+
+        if (card is ScriptableAbilityCardBase) {
+            backImage.sprite = abilityCardBack;
+        }
+        else if (card is ScriptableModifierCardBase) {
+            backImage.sprite = modifierCardBack;
+        }
+    }
+
+    private void SetHotkeyTextToNum() {
         if (card is ScriptableModifierCardBase modifier) {
             hotkeyText.text = (cardIndex + 1).ToString();
         }
     }
+
+    private void SetHotkeyTextToWarning() {
+        if (card is ScriptableModifierCardBase modifier) {
+            if (AbilityManager.Instance.IsModifierActive(modifier)) {
+                hotkeyText.text = "<color=\"red\">Won't Apply!\r\n<size=30>Modifier Already Active</size>";
+            }
+        }
+    }
+
+    #endregion
 
     #region Handle Cancelling
 

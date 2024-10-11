@@ -3,8 +3,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static Mono.CSharp.Parameter;
-using static UnityEngine.RuleTile.TilingRuleOutput;
 
 [CreateAssetMenu(fileName = "ModifierCard", menuName = "Cards/Modifiers/Base")]
 public class ScriptableModifierCardBase : ScriptableCardBase {
@@ -15,15 +13,12 @@ public class ScriptableModifierCardBase : ScriptableCardBase {
     [SerializeField] private AbilityStats abilityStatsModifierPercentage;
     public AbilityStats StatsModifier => abilityStatsModifierPercentage;
 
-    [SerializeField] private bool canStackWithSelf;
-    public bool CanStackWithSelf => canStackWithSelf;
-
     [SerializeField] private ModifierImage modifierImagePrefab;
 
     [SerializeField] private bool appliesEffect;
     [ConditionalHide("appliesEffect")][SerializeField] private GameObject effectPrefab;
 
-    public override void Play(Vector2 position) {
+    protected override void Play(Vector2 position) {
         base.Play(position);
 
         if (!AbilityManager.Instance.IsModifierActive(this)) {

@@ -26,7 +26,14 @@ public abstract class ScriptableCardBase : ScriptableObject, ICollectable {
     [SerializeField] private bool isPossibleStartingCard;
     public bool IsPossibleStartingCard => isPossibleStartingCard;
 
-    public virtual void Play(Vector2 position) {
+    [SerializeField] private bool canStackWithSelf;
+    public bool CanStackWithSelf => canStackWithSelf;
+
+    public virtual void TryPlay(Vector2 position) {
+
+    }
+
+    protected virtual void Play(Vector2 position) {
 
     }
 }

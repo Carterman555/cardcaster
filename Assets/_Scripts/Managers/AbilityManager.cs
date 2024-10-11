@@ -5,9 +5,36 @@ using UnityEngine;
 
 public class AbilityManager : StaticInstance<AbilityManager> {
 
+
+    #region Abilities
+
+    private List<ScriptableAbilityCardBase> activeAbilities = new();
+
+    public void AddActiveAbility(ScriptableAbilityCardBase ability) {
+        activeAbilities.Add(ability);
+    }
+
+    public void RemoveActiveAbility(ScriptableAbilityCardBase ability) {
+        if (!activeAbilities.Contains(ability)) {
+            Debug.LogError("Trying to remove ability not in list!");
+            return;
+        }
+
+        activeAbilities.Remove(ability);
+    }
+
+    public bool IsAbilityActive(ScriptableAbilityCardBase ability, out ScriptableAbilityCardBase alreadyActiveAbility) {
+        alreadyActiveAbility = activeAbilities.FirstOrDefault(a => a.GetType().Equals(ability.GetType()));
+        return alreadyActiveAbility != null;
+    }
+
+    #endregion
+
+    #region Modifiers
+
     public static event Action OnApplyModifiers;
 
-    private List<ScriptableModifierCardBase> activeModifiers = new List<ScriptableModifierCardBase>();
+    private List<ScriptableModifierCardBase> activeModifiers = new();
 
     public int ActiveModifierCount() {
         return activeModifiers.Count; 
@@ -34,4 +61,6 @@ public class AbilityManager : StaticInstance<AbilityManager> {
 
         OnApplyModifiers?.Invoke();
     }
+
+    #endregion
 }

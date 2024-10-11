@@ -18,6 +18,7 @@ MonoBehaviour:
   rarity: 0
   sprite: {fileID: -3766179659852302904, guid: a8a47aca9e1483f4ebbba999d588b2e3, type: 3}
   isPossibleStartingCard: 0
+  canStackWithSelf: 1
   abilityAttributes: 29
   abilityStats:
     Damage: 0.25

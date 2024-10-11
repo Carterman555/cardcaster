@@ -17,7 +17,8 @@ MonoBehaviour:
   cost: 1
   rarity: 0
   sprite: {fileID: 454607599803032333, guid: a8a47aca9e1483f4ebbba999d588b2e3, type: 3}
-  isPossibleStartingCard: 1
+  isPossibleStartingCard: 0
+  canStackWithSelf: 1
   abilityAttributes: 5
   abilityStatsModifierPercentage:
     Damage: 50
@@ -26,7 +27,6 @@ MonoBehaviour:
     Duration: -25
     ProjectileSpeed: 0
     Cooldown: 0
-  canStackWithSelf: 1
   modifierImagePrefab: {fileID: -2071319084836149, guid: c6d28b118b972a744a66d705262b19cd, type: 3}
   appliesEffect: 0
   effectPrefab: {fileID: 0}

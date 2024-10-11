@@ -28,7 +28,7 @@ public class ScriptableTeleportCard : ScriptableAbilityCardBase {
         teleportPosVisual.position = RaycastToFindPosition(cardposition);
     }
 
-    public override void Play(Vector2 position) {
+    protected override void Play(Vector2 position) {
         base.Play(position);
 
         teleportPosVisual.gameObject.ReturnToPool();

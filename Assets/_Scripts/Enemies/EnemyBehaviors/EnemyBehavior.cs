@@ -19,6 +19,8 @@ public class EnemyBehavior {
 
     public virtual void DoAnimationTriggerEventLogic(AnimationTriggerType triggerType) { }
 
+    public virtual void OnEnable() { }
+
     public virtual void OnDisable() { }
 
     public virtual void Start() {

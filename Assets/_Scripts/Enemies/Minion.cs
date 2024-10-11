@@ -43,15 +43,11 @@ public class Minion : Enemy, IMergable {
     protected override void OnEnable() {
         base.OnEnable();
         mergeBehavior.OnLeaderMerged += DestroyMergingIndicator;
-        mergeBehavior.OnMerged += DisallowSplit;
-
-        AllowSplit();
     }
 
     protected override void OnDisable() {
         base.OnDisable();
         mergeBehavior.OnLeaderMerged -= DestroyMergingIndicator;
-        mergeBehavior.OnMerged -= DisallowSplit;
     }
 
     private void InitializeBehaviors() {
@@ -72,7 +68,7 @@ public class Minion : Enemy, IMergable {
         base.Update();
 
         // stop chasing the player when merging
-        if (mergeBehavior.IsMovingToMerge() || mergeBehavior.IsMerging()) {
+        if (mergeBehavior.IsMerging()) {
             if (!moveBehavior.IsStopped()) {
                 moveBehavior.Stop();
             }
@@ -80,15 +76,6 @@ public class Minion : Enemy, IMergable {
         else {
             if (moveBehavior.IsStopped()) {
                 moveBehavior.Start();
-            }
-        }
-
-        // if the enemy touches the merging partner, then start merging
-        if (mergeBehavior.IsMovingToMerge()) {
-
-            // if this enemy is touching it's merging partner
-            if (mergablesTouching.Any(mergable => mergeBehavior.GetMergingPartner().Equals(mergable))) {
-                mergeBehavior.StartMerging();
             }
         }
 
@@ -115,27 +102,11 @@ public class Minion : Enemy, IMergable {
         }
     }
 
-    // if the enemy touches the merging partner, then start merging
-    private List<IMergable> mergablesTouching = new();
-
-    private void OnTriggerEnter2D(Collider2D collision) {
-
-        if (collision.TryGetComponent(out IMergable mergable)) {
-            mergablesTouching.Add(mergable);
-        }
-    }
-
-    private void OnTriggerExit2D(Collider2D collision) {
-        if (collision.TryGetComponent(out IMergable mergable)) {
-            mergablesTouching.Remove(mergable);
-        }
-    }
-
     public override void OnAddEffect(UnitEffect unitEffect) {
         base.OnAddEffect(unitEffect);
 
         if (unitEffect is StopMovement) {
-            if (!mergeBehavior.IsMovingToMerge() && !mergeBehavior.IsMerging()) {
+            if (!mergeBehavior.IsMerging()) {
                 moveBehavior.Start();
             }
         }
@@ -174,8 +145,6 @@ public class Minion : Enemy, IMergable {
 
     #region Split On Destroy
 
-    private bool splitOnDestroy;
-
     protected override void Start() {
         base.Start();
 
@@ -188,7 +157,7 @@ public class Minion : Enemy, IMergable {
 
     private void SpawnTwoMinions() {
 
-        if (splitEnemyPrefab == null || !splitOnDestroy) {
+        if (splitEnemyPrefab == null) {
             return;
         }
 
@@ -199,14 +168,6 @@ public class Minion : Enemy, IMergable {
 
         Vector3 secondOffset = new(offsetValue, 0);
         splitEnemyPrefab.Spawn(transform.position + secondOffset, Containers.Instance.Enemies);
-    }
-
-    private void AllowSplit() {
-        splitOnDestroy = true;
-    }
-
-    private void DisallowSplit() {
-        splitOnDestroy = false;
     }
 
     #endregion

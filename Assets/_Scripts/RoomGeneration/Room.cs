@@ -1,3 +1,4 @@
+using QFSW.QC;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -185,7 +186,7 @@ public class Room : MonoBehaviour {
         }
     }
 
-    private void SetRoomCleared() {
+    public void SetRoomCleared() {
         roomCleared = true;
     }
 }

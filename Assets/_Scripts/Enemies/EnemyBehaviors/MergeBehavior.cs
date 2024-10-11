@@ -1,3 +1,4 @@
+using Mono.CSharp;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -16,7 +17,7 @@ public class MergeBehavior : EnemyBehavior {
 
     private float mergeTimer; // used for both timing to be ready to merge and timing how long the merging takes
 
-    private enum MergeStage { MergingNotAllowed, MergingAllowed, ReadyToMerging, MovingToMerge, Merging }
+    private enum MergeStage { MergingNotAllowed, MergingAllowed, ReadyToMerging, Merging }
 
     private MergeStage mergeStage;
 
@@ -33,20 +34,17 @@ public class MergeBehavior : EnemyBehavior {
         this.toMergeDelay = toMergeDelay;
         this.mergeTime = mergeTime;
 
-        mergeTimer = 0;
-        mergeStage = MergeStage.MergingNotAllowed;
-        isMergeLeader = false;
-
-        mergeTracker.OnEnterContact += TryAddMergable;
-        mergeTracker.OnExitContact += TryRemoveMergable;
-
         if (enemy.TryGetComponent(out Rigidbody2D rigidbody2D)) {
             rb = rigidbody2D;
         }
         else {
             Debug.LogError("Object With Merge Behavior Does Not Have Rigidbody2D!");
         }
+
+        
     }
+
+    private DebugText debugText;//debug
 
     public bool IsReadyToMerge() {
         return mergeStage == MergeStage.ReadyToMerging;
@@ -54,10 +52,6 @@ public class MergeBehavior : EnemyBehavior {
 
     public bool SameMergePrefab(Enemy mergedEnemyPrefab) {
         return this.mergedEnemyPrefab.Equals(mergedEnemyPrefab);
-    }
-
-    public bool IsMovingToMerge() {
-        return mergeStage == MergeStage.MovingToMerge;
     }
 
     public bool IsMerging() {
@@ -82,10 +76,25 @@ public class MergeBehavior : EnemyBehavior {
         return mergingPartner;
     }
 
+    public override void OnEnable() {
+        base.OnEnable();
+
+        mergeTimer = 0;
+        mergeStage = MergeStage.MergingNotAllowed;
+        isMergeLeader = false;
+
+        debugText = DebugText.Create(enemy.transform, new Vector2(0, 1), mergeStage.ToString());//debug
+
+        mergeTracker.OnEnterContact += TryAddMergable;
+        mergeTracker.OnExitContact += TryRemoveMergable;
+    }
+
     public override void OnDisable() {
         base.OnDisable();
         mergeTracker.OnEnterContact -= TryAddMergable;
         mergeTracker.OnExitContact -= TryRemoveMergable;
+
+        debugText.gameObject.ReturnToPool(); // debug
     }
 
     private void TryAddMergable(GameObject @object) {
@@ -109,6 +118,8 @@ public class MergeBehavior : EnemyBehavior {
     public override void FrameUpdateLogic() {
         base.FrameUpdateLogic();
 
+        debugText.SetText(mergeStage.ToString()); // debug
+
         if (mergeStage == MergeStage.MergingAllowed) {
             mergeTimer += Time.deltaTime;
             if (mergeTimer > toMergeDelay) {
@@ -117,22 +128,19 @@ public class MergeBehavior : EnemyBehavior {
             }
         }
         else if (mergeStage == MergeStage.ReadyToMerging) {
+
             foreach (IMergable nearbyMergable in nearbyMergables) {
 
                 MergeBehavior nearbyMergeBehavior = nearbyMergable.GetMergeBehavior();
+
                 if (nearbyMergeBehavior.IsReadyToMerge() && nearbyMergeBehavior.SameMergePrefab(mergedEnemyPrefab)) {
-                    MoveToMerge(nearbyMergable);
-                    nearbyMergeBehavior.MoveToMerge(enemy as IMergable);
+
+                    StartMerging(nearbyMergable);
+                    nearbyMergeBehavior.StartMerging(this as IMergable);
 
                     isMergeLeader = true;
                     break;
                 }
-            }
-        }
-        else if (mergeStage == MergeStage.MovingToMerge) {
-            if (!enemy.TryGetComponent(out StopMovement stopMovement)) {
-                Vector2 toMergingPartner = mergingPartner.GetObject().transform.position - enemy.transform.position;
-                rb.velocity = toMergingPartner * enemy.GetStats().MoveSpeed;
             }
         }
         else if (mergeStage == MergeStage.Merging) {
@@ -141,6 +149,7 @@ public class MergeBehavior : EnemyBehavior {
             mergeTimer += Time.deltaTime;
             if (mergeTimer > mergeTime) {
                 mergeTimer = 0;
+
                 Merge();
             }
         }
@@ -157,13 +166,9 @@ public class MergeBehavior : EnemyBehavior {
         mergeTimer = 0;
     }
 
-    public void MoveToMerge(IMergable other) {
-        mergeStage = MergeStage.MovingToMerge;
-        mergingPartner = other;
-    }
-
-    public void StartMerging() {
+    public void StartMerging(IMergable other) {
         mergeStage = MergeStage.Merging;
+        mergingPartner = other;
     }
 
     public void Merge() {
@@ -182,9 +187,8 @@ public class MergeBehavior : EnemyBehavior {
             OnLeaderMerged?.Invoke();
         }
 
-        // before die to tell minion not to split on death
         OnMerged?.Invoke();
 
-        enemy.GetComponent<Health>().Die();
+        enemy.gameObject.ReturnToPool();
     }
 }

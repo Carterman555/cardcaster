@@ -1,6 +1,7 @@
 using QFSW.QC;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -108,4 +109,17 @@ public class EnemySpawner : StaticInstance<EnemySpawner> {
         return Vector2.Distance(point, center) < radius;
     }
 
+
+    // debugging
+    [Command]
+    private void SpawnEnemy(string enemyName) {
+        ScriptableEnemy enemy = ResourceSystem.Instance.GetAllEnemies().FirstOrDefault(e => e.name == enemyName);
+
+        if (enemy == null) {
+            Debug.LogWarning("Couldn't find enemy by name");
+            return;
+        }
+
+        SpawnEnemy(enemy.Prefab);
+    }
 }

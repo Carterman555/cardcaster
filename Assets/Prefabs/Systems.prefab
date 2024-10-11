@@ -44,8 +44,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff2517aa64dab7645ae7cbeb56eab4ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <DebugTextPrefab>k__BackingField: {fileID: 3496679820788540678, guid: f6ab9f7c93f25ea43921e9e454c473a3, type: 3}
   <UnitFireParticles>k__BackingField: {fileID: 6797801485266107839, guid: 8cd9a897fb8df9b4284925b80be71758, type: 3}
-  <AbilityFireParticles>k__BackingField: {fileID: 531279357377690003, guid: 306b383da7286bd47a9e53896f7d1f36, type: 3}
   <UnitElectricityParticles>k__BackingField: {fileID: 961277298218184562, guid: 374816dbd62895740b2babd3d85ec87a, type: 3}
 --- !u!1 &1553616459235107944
 GameObject:
@@ -92,6 +92,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerWeaponParent: {fileID: 0}
+  playerSword: {fileID: 0}
+  playerSwordVisual: {fileID: 0}
 --- !u!1 &4220445805472058552
 GameObject:
   m_ObjectHideFlags: 0

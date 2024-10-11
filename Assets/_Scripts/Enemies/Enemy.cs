@@ -33,14 +33,14 @@ public class Enemy : MonoBehaviour, IHasStats, IChangesFacing, ISpecialAttacker,
 
     protected virtual void OnEnable() {
         SubToPlayerTriggerEvents();
+
+        InvokeOnEnable();
     }
 
     protected virtual void OnDisable() {
         UnsubFromPlayerTriggerEvents();
 
-        foreach (EnemyBehavior behavior in enemyBehaviors) {
-            behavior.OnDisable();
-        }
+        InvokeOnDisable();
     }
 
     #region Stats
@@ -73,6 +73,17 @@ public class Enemy : MonoBehaviour, IHasStats, IChangesFacing, ISpecialAttacker,
         return false;
     }
 
+    private void InvokeOnEnable() {
+        foreach (EnemyBehavior behavior in enemyBehaviors) {
+            behavior.OnEnable();
+        }
+    }
+
+    private void InvokeOnDisable() {
+        foreach (EnemyBehavior behavior in enemyBehaviors) {
+            behavior.OnDisable();
+        }
+    }
 
     protected virtual void Update() {
         foreach (EnemyBehavior behavior in enemyBehaviors) {

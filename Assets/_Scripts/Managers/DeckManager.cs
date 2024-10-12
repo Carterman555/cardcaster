@@ -53,16 +53,18 @@ public class DeckManager : Singleton<DeckManager> {
     }
 
     private void Start() {
-        ChooseStartingDeck();
-
-        ShuffleDeck();
-        DrawStartingHand();
+        //ChooseStartingDeck();
+        //ShuffleDeck();
+        //DrawStartingHand();
+        
+        SetupEmptyHand();
 
         essence = maxEssence;
 
         OnEssenceChanged_Amount?.Invoke(essence);
     }
 
+    #region To delete (if starting with empty hand)
     private void ChooseStartingDeck() {
         for (int i = 0; i < startDeckSize; i++) {
             ScriptableCardBase[] possibleStartingCards = ResourceSystem.Instance.GetAllCards().Where(card => card.IsPossibleStartingCard).ToArray();
@@ -74,6 +76,17 @@ public class DeckManager : Singleton<DeckManager> {
     private void DrawStartingHand() {
         cardsInHand = cardsInDeck.Take(handSize).ToList();
         cardsInDeck = cardsInDeck.Skip(handSize).ToList();
+
+        CardsUIManager.Instance.Setup();
+    }
+
+    #endregion
+
+    private void SetupEmptyHand() {
+        cardsInHand = new();
+        for (int i = 0; i < handSize; i++) {
+            cardsInHand.Add(null);
+        }
 
         CardsUIManager.Instance.Setup();
     }
@@ -103,7 +116,12 @@ public class DeckManager : Singleton<DeckManager> {
     }
 
     public void GainCard(ScriptableCardBase card) {
+
+        // gain a card to the discard
         cardsInDiscard.Add(card);
+
+        // if the hand doesn't have the amount of cards it can, draw more
+        TryDrawOtherCards();
     }
 
     public void TrashCard(CardLocation cardLocation, int cardIndex) {
@@ -148,7 +166,7 @@ public class DeckManager : Singleton<DeckManager> {
 
     /// <summary>
     /// This method verifies if all the cards have been drawn into the player's hand. If the deck runs out of cards
-    /// to draw, the cards that should still be drawn may end up beneath the hand. The method checks if there are
+    /// to draw, the cards that should still be drawn may end up beneath the hand. This method checks if there are
     /// any remaining cards to be drawn and attempts to draw them if necessary.
     /// </summary>
     private void TryDrawOtherCards() {
@@ -156,7 +174,7 @@ public class DeckManager : Singleton<DeckManager> {
             if (cardsInHand[indexInHand] == null) {
                 bool drewCard = TryDrawCard(indexInHand);
                 if (drewCard) {
-                    CardsUIManager.Instance.TryReplaceCard(indexInHand);
+                    CardsUIManager.Instance.DrawCard(indexInHand);
                 }
             }
         }

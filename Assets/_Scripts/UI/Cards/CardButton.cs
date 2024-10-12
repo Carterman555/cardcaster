@@ -66,7 +66,7 @@ public class CardButton : GameButton, IPointerDownHandler {
     }
 
     public void OnUsedCard() {
-        CardsUIManager.Instance.TryReplaceCard(cardIndex);
+        CardsUIManager.Instance.DrawCard(cardIndex);
     }
 
     public void OnDrawCard(ScriptableCardBase card) {

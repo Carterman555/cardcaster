@@ -7,7 +7,15 @@ public class ChangeFacingBehavior : EnemyBehavior {
     private bool facingRight;
 
     public ChangeFacingBehavior(Enemy enemy) : base(enemy) {
+    }
+
+    public override void OnEnable() {
+        base.OnEnable();
+
+        // face right
+        enemy.transform.rotation = Quaternion.Euler(new Vector3(enemy.transform.rotation.eulerAngles.x, 0f, enemy.transform.rotation.eulerAngles.z));
         facingRight = true;
+        enemy.InvokeChangedFacing(facingRight);
     }
 
     public void FaceTowardsPosition(float xPos) {

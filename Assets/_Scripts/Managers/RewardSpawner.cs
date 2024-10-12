@@ -41,6 +41,4 @@ public class RewardSpawner : MonoBehaviour {
             Campfire campfire = campfirePrefab.Spawn(position, Containers.Instance.Drops);
         }
     }
-
-
 }

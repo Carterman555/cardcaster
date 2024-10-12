@@ -28,8 +28,17 @@ public class CircleMoveBehavior : EnemyBehavior, IMovementBehavior {
         }
 
         moveRadius = radius;
+    }
+
+    public override void OnEnable() {
+        base.OnEnable();
+
         angle = 0f;
+
+        // face right
         facingRight = true;
+        enemy.transform.rotation = Quaternion.Euler(new Vector3(enemy.transform.rotation.eulerAngles.x, 0f, enemy.transform.rotation.eulerAngles.z));
+        enemy.InvokeChangedFacing(facingRight);
     }
 
     public override void FrameUpdateLogic() {
@@ -53,8 +62,6 @@ public class CircleMoveBehavior : EnemyBehavior, IMovementBehavior {
     }
 
     private bool facingRight;
-
-    
 
     private void HandleDirectionFacing(bool faceRight) {
         if (!facingRight && faceRight) {

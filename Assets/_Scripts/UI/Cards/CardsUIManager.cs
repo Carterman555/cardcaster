@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -22,7 +23,7 @@ public class CardsUIManager : StaticInstance<CardsUIManager> {
             ScriptableCardBase card = cardsInHand[i];
             CardButton cardButton = cardButtonPrefab.Spawn(transform);
             cardButton.Setup(i, deckButtonTransform, new Vector3(cardXPos, cardYPos));
-            cardButton.OnDrawCard(card);
+            cardButtons[i].OnDrawCard(cardsInHand[i]);
 
             cardXPos += cardSpacing;
 
@@ -30,12 +31,24 @@ public class CardsUIManager : StaticInstance<CardsUIManager> {
         }
     }
 
-    public void TryReplaceCard(int index) {
+    public void DrawCard(int index) {
         List<ScriptableCardBase> cardsInHand = DeckManager.Instance.GetCardsInHand();
 
         // it's null when the deck runs out of cards in deck
         if (cardsInHand[index] != null) {
             cardButtons[index].OnDrawCard(cardsInHand[index]);
         }
+    }
+
+    public void SpawnNewCard(int index) {
+
+        List<ScriptableCardBase> cardsInHand = DeckManager.Instance.GetCardsInHand();
+
+        ScriptableCardBase card = cardsInHand[index];
+        CardButton cardButton = cardButtonPrefab.Spawn(transform);
+        cardButton.Setup(index, deckButtonTransform, new Vector3(cardXPos, cardYPos));
+        cardButtons[index].OnDrawCard(cardsInHand[index]);
+
+        cardButtons.Add(cardButton);
     }
 }

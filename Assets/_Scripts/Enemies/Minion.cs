@@ -42,6 +42,10 @@ public class Minion : Enemy, IMergable {
 
     protected override void OnEnable() {
         base.OnEnable();
+
+        mergeBehavior.AllowMerging();
+        isHandlingIndicator = false;
+
         mergeBehavior.OnLeaderMerged += DestroyMergingIndicator;
     }
 
@@ -58,9 +62,6 @@ public class Minion : Enemy, IMergable {
         enemyBehaviors.Add(attackBehavior);
 
         mergeBehavior = new(this, mergeTracker, mergedEnemyPrefab, toMergeDelay, mergeTime);
-        if (mergedEnemyPrefab != null) {
-            mergeBehavior.AllowMerging();
-        }
         enemyBehaviors.Add(mergeBehavior);
     }
 
@@ -86,9 +87,11 @@ public class Minion : Enemy, IMergable {
     protected override void OnPlayerEnteredRange(GameObject player) {
         base.OnPlayerEnteredRange(player);
 
-        moveBehavior.Stop();
-        attackBehavior.Start();
-        mergeBehavior.DontAllowMerging();
+        if (!mergeBehavior.IsMerging()) {
+            moveBehavior.Stop();
+            attackBehavior.Start();
+            mergeBehavior.DontAllowMerging();
+        }
     }
 
     protected override void OnPlayerExitedRange(GameObject player) {

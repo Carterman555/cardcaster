@@ -40,7 +40,7 @@ public class ScriptableTeleportCard : ScriptableAbilityCardBase {
 
         CreateVisualClone(PlayerMovement.Instance.transform.position);
 
-        if (IsPointValidForTeleport(position)) {
+        if (IsValidTeleportPos(position)) {
             TeleportPlayer(position);
         }
         else {
@@ -64,7 +64,7 @@ public class ScriptableTeleportCard : ScriptableAbilityCardBase {
             }
 
             checkPos += toPlayerDirection * raycastStep;
-            if (IsPointValidForTeleport(checkPos)) {
+            if (IsValidTeleportPos(checkPos)) {
                 return checkPos;
             }
         }
@@ -73,13 +73,12 @@ public class ScriptableTeleportCard : ScriptableAbilityCardBase {
         return playerPosition;
     }
 
-    private bool IsPointValidForTeleport(Vector2 point) {
-        float obstacleAvoidanceRadius = 1f;
-        return IsPointInRoom(point) && !Physics2D.OverlapCircle(point, obstacleAvoidanceRadius, obstacleLayer);
-    }
+    public bool IsValidTeleportPos(Vector2 pos) {
+        bool validPos = new RoomPositionHelper()
+            .SetObstacleAvoidance(1f)
+            .IsValidPosition(pos);
 
-    private bool IsPointInRoom(Vector2 point) {
-        return Room.GetCurrentRoom().GetComponent<PolygonCollider2D>().OverlapPoint(point);
+        return validPos;
     }
 
     private void TeleportPlayer(Vector2 position) {

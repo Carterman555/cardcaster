@@ -5,13 +5,12 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using System.Collections;
 
-public class CollectableChest : MonoBehaviour {
+public class Chest : MonoBehaviour {
 
     [SerializeField] private InputActionReference interactAction;
 
     private ICollectable[] scriptableCollectables;
     [SerializeField] private ChestCollectable[] collectables;
-    [SerializeField] private bool cardChest;
 
     private bool canOpen;
     private bool opened;
@@ -22,13 +21,7 @@ public class CollectableChest : MonoBehaviour {
     private const int ITEM_AMOUNT = 1;
 
     private void Start() {
-
-        if (cardChest) {
-            ChooseUniqueRandomCards();
-        }
-        else {
-            ChooseUniqueRandomItems();
-        }
+        ChooseUniqueRandomCards();
     }
 
     private void ChooseUniqueRandomCards() {
@@ -42,19 +35,6 @@ public class CollectableChest : MonoBehaviour {
 
         // select [CARD_AMOUNT] unique random cards
         scriptableCollectables = possibleCards.OrderBy(x => UnityEngine.Random.value).Distinct().Take(CARD_AMOUNT).ToArray();
-    }
-
-    private void ChooseUniqueRandomItems() {
-
-        List<ScriptableItemBase> possibleItems = ResourceSystem.Instance.GetAllItems();
-
-        // Check if we have enough items to choose from
-        if (possibleItems.Count < ITEM_AMOUNT) {
-            Debug.LogError("Not enough items to choose from.");
-        }
-
-        // select [ITEM_AMOUNT] unique random items
-        scriptableCollectables = possibleItems.OrderBy(x => UnityEngine.Random.value).Distinct().Take(ITEM_AMOUNT).ToArray();
     }
 
     private void OnTriggerEnter2D(Collider2D collision) {
@@ -92,7 +72,7 @@ public class CollectableChest : MonoBehaviour {
         float delay = 0.3f;
         yield return new WaitForSeconds(delay);
 
-        // show collectables
+        // show cards
         for (int collectableIndex = 0; collectableIndex < scriptableCollectables.Length; collectableIndex++) {
             collectables[collectableIndex].Setup(this, scriptableCollectables[collectableIndex], collectableIndex);
         }

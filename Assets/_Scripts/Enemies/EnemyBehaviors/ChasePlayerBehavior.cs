@@ -32,6 +32,11 @@ public class ChasePlayerBehavior : EnemyBehavior, IMovementBehavior {
         }
     }
 
+    public override void OnEnable() {
+        base.OnEnable();
+        changeFacingBehavior.UpdateFacing(PlayerMovement.Instance.transform.position.x);
+    }
+
     public override void Start() {
         base.Start();
         agent.isStopped = false;

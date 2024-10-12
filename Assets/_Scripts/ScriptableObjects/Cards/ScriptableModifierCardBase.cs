@@ -18,6 +18,11 @@ public class ScriptableModifierCardBase : ScriptableCardBase {
     [SerializeField] private bool appliesEffect;
     [ConditionalHide("appliesEffect")][SerializeField] private GameObject effectPrefab;
 
+    public override void TryPlay(Vector2 position) {
+        base.TryPlay(position);
+        Play(position);
+    }
+
     protected override void Play(Vector2 position) {
         base.Play(position);
 

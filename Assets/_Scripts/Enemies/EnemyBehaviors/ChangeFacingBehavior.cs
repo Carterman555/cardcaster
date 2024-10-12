@@ -27,4 +27,8 @@ public class ChangeFacingBehavior : EnemyBehavior {
         }
     }
 
+    // set facingRight to opposite of what is should to make sure FaceTowardsPosition updates the facing direction
+    public void UpdateFacing(float xPos) {
+        facingRight = xPos < enemy.transform.position.x;
+    }
 }

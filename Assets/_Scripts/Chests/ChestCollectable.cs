@@ -13,7 +13,7 @@ public class ChestCollectable : MonoBehaviour {
     private Material originalMaterial;
     [SerializeField] private Material outlineMaterial;
 
-    private CollectableChest chest;
+    private Chest chest;
     private ICollectable collectable;
     private int collectableIndex;
 
@@ -25,7 +25,7 @@ public class ChestCollectable : MonoBehaviour {
         spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
-    public void Setup(CollectableChest chest, ICollectable collectable, int collectableIndex) {
+    public void Setup(Chest chest, ICollectable collectable, int collectableIndex) {
         this.chest = chest;
         this.collectable = collectable;
         this.collectableIndex = collectableIndex;

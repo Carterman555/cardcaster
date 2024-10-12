@@ -12,8 +12,6 @@ public class CardButton : GameButton, IPointerDownHandler {
     public static event Action<ScriptableCardBase> OnAnyStartPlaying_Card;
     public static event Action<ScriptableCardBase> OnAnyCancel_Card;
 
-    
-
     [Header("Feedback Players")]
     [SerializeField] private MMF_Player hoverPlayer;
     [SerializeField] private MMF_Player toHandPlayer;
@@ -149,6 +147,7 @@ public class CardButton : GameButton, IPointerDownHandler {
     }
 
     private void TryPlayCard() {
+
         if (setToCancel) {
             CancelCard();
         }

@@ -76,8 +76,6 @@ public class DeckManager : Singleton<DeckManager> {
     private void DrawStartingHand() {
         cardsInHand = cardsInDeck.Take(handSize).ToList();
         cardsInDeck = cardsInDeck.Skip(handSize).ToList();
-
-        CardsUIManager.Instance.Setup();
     }
 
     #endregion
@@ -87,8 +85,6 @@ public class DeckManager : Singleton<DeckManager> {
         for (int i = 0; i < handSize; i++) {
             cardsInHand.Add(null);
         }
-
-        CardsUIManager.Instance.Setup();
     }
 
     public void OnUseAbilityCard(int indexInHand) {

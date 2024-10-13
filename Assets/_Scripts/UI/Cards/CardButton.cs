@@ -9,6 +9,8 @@ using UnityEngine.UI;
 
 public class CardButton : GameButton, IPointerDownHandler {
 
+    public static event Action OnAnyCardPlayed;
+
     public static event Action<ScriptableCardBase> OnAnyStartPlaying_Card;
     public static event Action<ScriptableCardBase> OnAnyCancel_Card;
 
@@ -16,7 +18,6 @@ public class CardButton : GameButton, IPointerDownHandler {
     [SerializeField] private MMF_Player hoverPlayer;
     [SerializeField] private MMF_Player toHandPlayer;
     [SerializeField] private MMF_Player useCardPlayer;
-    [SerializeField] private MMF_Player cancelPlayer;
     [SerializeField] private MMRotationShaker cantPlayShaker;
 
     // follow mouse
@@ -39,22 +40,15 @@ public class CardButton : GameButton, IPointerDownHandler {
         followMouse.Target = UIFollowMouse.Instance.transform;
     }
 
-    public void Setup(int cardIndex, Transform deckTransform, Vector3 destination) {
+    public void Setup(int cardIndex, Transform deckTransform, Vector3 position) {
         this.cardIndex = cardIndex;
 
         SetHotkeyTextToNum();
 
-        // set positions of movement feedbacks
-        MMF_Position hoverMoveFeedback = hoverPlayer.GetFeedbackOfType<MMF_Position>("Move");
-        hoverMoveFeedback.InitialPosition = destination;
-        hoverMoveFeedback.DestinationPosition = new Vector3(destination.x, hoverMoveFeedback.DestinationPosition.y);
+        SetCardPosition(position);
 
         MMF_Position toHandFeedback = toHandPlayer.GetFeedbackOfType<MMF_Position>("Move To Hand");
         toHandFeedback.InitialPositionTransform = deckTransform;
-        toHandFeedback.DestinationPosition = destination;
-
-        handPosition = destination;
-
 
         useCardPlayer.Events.OnComplete.AddListener(OnUsedCard);
 
@@ -75,6 +69,23 @@ public class CardButton : GameButton, IPointerDownHandler {
         StopFollowingMouse();
 
         toHandPlayer.PlayFeedbacks();
+    }
+
+    public void SetCardPosition(Vector3 position, bool move = false) {
+        // set positions of movement feedbacks
+        MMF_Position hoverMoveFeedback = hoverPlayer.GetFeedbackOfType<MMF_Position>("Move");
+        hoverMoveFeedback.InitialPosition = position;
+        hoverMoveFeedback.DestinationPosition = new Vector3(position.x, hoverMoveFeedback.DestinationPosition.y);
+
+        MMF_Position toHandFeedback = toHandPlayer.GetFeedbackOfType<MMF_Position>("Move To Hand");
+        toHandFeedback.DestinationPosition = position;
+
+        handPosition = position;
+
+        // move to that position
+        if (move) {
+            transform.DOMove(position, duration: 0.2f);
+        }
     }
 
     private void Update() {
@@ -170,6 +181,8 @@ public class CardButton : GameButton, IPointerDownHandler {
         else if (card is ScriptableModifierCardBase modifier) {
             DeckManager.Instance.OnUseModifierCard(cardIndex);
         }
+
+        OnAnyCardPlayed?.Invoke();
     }
 
     public void FollowMouse() {
@@ -259,7 +272,7 @@ public class CardButton : GameButton, IPointerDownHandler {
         StopFollowingMouse();
 
         float duration = 0.3f;
-        transform.DOLocalMove(handPosition, duration).OnComplete(() => {
+        transform.DOMove(handPosition, duration).OnComplete(() => {
         });
 
         // fade out

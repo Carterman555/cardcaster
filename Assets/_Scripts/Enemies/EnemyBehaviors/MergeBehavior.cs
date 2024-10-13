@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class MergeBehavior : EnemyBehavior {
 
+    public event Action OnLeaderStopMerging;
+
     public event Action OnLeaderMerged;
     public event Action OnMerged;
 
@@ -41,7 +43,9 @@ public class MergeBehavior : EnemyBehavior {
             Debug.LogError("Object With Merge Behavior Does Not Have Rigidbody2D!");
         }
 
-        
+        if (enemy as IMergable == null) {
+            Debug.LogError("Enemy with merge behavior is not IMergable: " + enemy.name);
+        }
     }
 
     private DebugText debugText;//debug
@@ -76,12 +80,33 @@ public class MergeBehavior : EnemyBehavior {
         return mergingPartner;
     }
 
+    public void StopMerging(bool stopPartner = true) {
+
+        if (!IsMerging()) {
+            Debug.LogWarning("Trying to stop merging, but already not merging");
+        }
+
+        mergeStage = MergeStage.MergingAllowed;
+        mergeTimer = 0;
+
+        if (stopPartner) {
+            mergingPartner.GetMergeBehavior().StopMerging(false);
+        }
+
+        if (isMergeLeader) {
+            OnLeaderStopMerging?.Invoke();
+        }
+
+        mergingPartner = null;
+    }
+
     public override void OnEnable() {
         base.OnEnable();
 
         mergeTimer = 0;
         mergeStage = MergeStage.MergingNotAllowed;
         isMergeLeader = false;
+        mergingPartner = null;
 
         debugText = DebugText.Create(enemy.transform, new Vector2(0, 1), mergeStage.ToString());//debug
 
@@ -136,7 +161,7 @@ public class MergeBehavior : EnemyBehavior {
                 if (nearbyMergeBehavior.IsReadyToMerge() && nearbyMergeBehavior.SameMergePrefab(mergedEnemyPrefab)) {
 
                     StartMerging(nearbyMergable);
-                    nearbyMergeBehavior.StartMerging(this as IMergable);
+                    nearbyMergeBehavior.StartMerging(enemy as IMergable);
 
                     isMergeLeader = true;
                     break;

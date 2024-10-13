@@ -40,6 +40,16 @@ public class Minion : Enemy, IMergable {
         InitializeBehaviors();
     }
 
+    protected override void Start() {
+        base.Start();
+
+        health.OnDeath += OnDeath;
+    }
+
+    private void OnDestroy() {
+        health.OnDeath -= OnDeath;
+    }
+
     protected override void OnEnable() {
         base.OnEnable();
 
@@ -47,11 +57,13 @@ public class Minion : Enemy, IMergable {
         isHandlingIndicator = false;
 
         mergeBehavior.OnLeaderMerged += DestroyMergingIndicator;
+        mergeBehavior.OnLeaderStopMerging += DestroyMergingIndicator;
     }
 
     protected override void OnDisable() {
         base.OnDisable();
         mergeBehavior.OnLeaderMerged -= DestroyMergingIndicator;
+        mergeBehavior.OnLeaderStopMerging -= DestroyMergingIndicator;
     }
 
     private void InitializeBehaviors() {
@@ -115,6 +127,15 @@ public class Minion : Enemy, IMergable {
         }
     }
 
+    private void OnDeath() {
+
+        if (mergeBehavior.IsMerging()) {
+            mergeBehavior.StopMerging();
+        }
+
+        SpawnTwoMinions();
+    }
+
     #region Handle Merge Indicator
 
     /// <summary>
@@ -142,21 +163,12 @@ public class Minion : Enemy, IMergable {
     // destroy the indicator when the merging is complete
     private void DestroyMergingIndicator() {
         mergeIndicator.gameObject.ReturnToPool();
+        isHandlingIndicator = false;
     }
 
     #endregion
 
     #region Split On Destroy
-
-    protected override void Start() {
-        base.Start();
-
-        health.OnDeath += SpawnTwoMinions;
-    }
-
-    private void OnDestroy() {
-        health.OnDeath -= SpawnTwoMinions;
-    }
 
     private void SpawnTwoMinions() {
 

@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ChangeFacingBehavior : MonoBehaviour {
+public class FacePlayerBehavior : MonoBehaviour {
 
     public static event Action<bool> OnChangedFacing;
 
@@ -17,7 +17,11 @@ public class ChangeFacingBehavior : MonoBehaviour {
         OnChangedFacing?.Invoke(facingRight);
     }
 
-    public void FaceTowardsPosition(float xPos) {
+    private void Update() {
+        FaceTowardsPosition(PlayerMovement.Instance.transform.position.x);
+    }
+
+    private void FaceTowardsPosition(float xPos) {
         float playerXPos = PlayerMovement.Instance.transform.position.x;
 
         bool mouseToRight = playerXPos > transform.position.x;

@@ -7,7 +7,6 @@ public class Scattershot : Enemy {
     [SerializeField] private Transform shootPoint;
 
     [Header("Movement")]
-    private ChangeFacingBehavior changeFacingBehavior;
     private FleePlayerBehavior fleePlayerBehavior;
 
     [Header("Shoot Projectile")]
@@ -43,9 +42,6 @@ public class Scattershot : Enemy {
     }
 
     private void InitializeBehaviors() {
-        changeFacingBehavior = new(this);
-        enemyBehaviors.Add(changeFacingBehavior);
-
         fleePlayerBehavior = new(this);
         enemyBehaviors.Add(fleePlayerBehavior);
 
@@ -75,12 +71,6 @@ public class Scattershot : Enemy {
         rb.AddForce(recoilForce * -direction, ForceMode2D.Impulse);
 
         recoil.RecoilWeapon();
-    }
-
-    protected override void Update() {
-        base.Update();
-
-        changeFacingBehavior.FaceTowardsPosition(PlayerMovement.Instance.transform.position.x);
     }
 
     public override void OnAddEffect(UnitEffect unitEffect) {

@@ -3,15 +3,10 @@ using UnityEngine.AI;
 
 public class FleePlayerBehavior : EnemyBehavior, IMovementBehavior {
 
-    private ChangeFacingBehavior changeFacingBehavior;
-
     private NavMeshAgent agent;
     private Knockback knockback;
 
     public FleePlayerBehavior(Enemy enemy) : base(enemy) {
-        // initialize behaviors
-        changeFacingBehavior = new(enemy);
-
         // get components
         if (enemy.TryGetComponent(out NavMeshAgent agent)) {
             this.agent = agent;
@@ -45,8 +40,6 @@ public class FleePlayerBehavior : EnemyBehavior, IMovementBehavior {
         if (IsStopped()) {
             return;
         }
-
-        changeFacingBehavior.FaceTowardsPosition(PlayerMovement.Instance.transform.position.x);
 
         agent.isStopped = false;
         agent.speed = enemy.GetStats().MoveSpeed;

@@ -11,12 +11,10 @@ public class CircleMoveBehavior : EnemyBehavior, IMovementBehavior {
     private Vector2 center;
     private NavMeshAgent agent;
 
-    private ChangeFacingBehavior changeFacingBehavior;
+    private FacePlayerBehavior changeFacingBehavior;
 
     public CircleMoveBehavior(Enemy enemy, float radius) : base(enemy) {
         center = enemy.transform.position;
-
-        changeFacingBehavior = new(enemy);
 
         if (enemy.TryGetComponent(out NavMeshAgent agent)) {
             this.agent = agent;

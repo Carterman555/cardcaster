@@ -2,29 +2,33 @@ using Unity.VisualScripting.FullSerializer;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class ChasePlayerBehavior : EnemyBehavior, IMovementBehavior {
+public class ChasePlayerBehavior : MonoBehaviour, IMovementBehavior {
 
-    private ChangeFacingBehavior changeFacingBehavior;
-
+    private IHasStats hasStats;
     private NavMeshAgent agent;
     private Knockback knockback;
 
-    public ChasePlayerBehavior(Enemy enemy) : base(enemy) {
-
-        // initialize behaviors
-        changeFacingBehavior = new(enemy);
+    private void Awake() {
 
         // get components
-        if (enemy.TryGetComponent(out NavMeshAgent agent)) {
+        if (TryGetComponent(out IHasStats hasStats)) {
+            this.hasStats = hasStats;
+        }
+        else {
+            Debug.LogError("Object With ChasePlayerBehavior Does Not Have IHasStats!");
+        }
+
+        if (TryGetComponent(out NavMeshAgent agent)) {
             this.agent = agent;
             agent.updateRotation = false;
             agent.updateUpAxis = false;
+            agent.isStopped = false;
         }
         else {
             Debug.LogError("Object With ChasePlayerBehavior Does Not Have NavMeshAgent!");
         }
 
-        if (enemy.TryGetComponent(out Knockback knockback)) {
+        if (TryGetComponent(out Knockback knockback)) {
             this.knockback = knockback;
         }
         else {
@@ -32,35 +36,9 @@ public class ChasePlayerBehavior : EnemyBehavior, IMovementBehavior {
         }
     }
 
-    public override void OnEnable() {
-        base.OnEnable();
-        changeFacingBehavior.UpdateFacing(PlayerMovement.Instance.transform.position.x);
-    }
-
-    public override void Start() {
-        base.Start();
+    private void Update() {
         agent.isStopped = false;
-    }
-    public override void Stop() {
-        base.Stop();
-        agent.isStopped = true;
-    }
-
-    public override void FrameUpdateLogic() {
-
-        changeFacingBehavior.FaceTowardsPosition(PlayerMovement.Instance.transform.position.x);
-
-        if (IsStopped()) {
-            return;
-        }
-
-        agent.isStopped = false;
-        agent.speed = enemy.GetStats().MoveSpeed;
-    }
-
-    public override void PhysicsUpdateLogic() {
-        if (!IsStopped() && !knockback.IsApplyingKnockback()) {
-            agent.SetDestination(PlayerMovement.Instance.transform.position);
-        }
+        agent.speed = hasStats.GetStats().MoveSpeed;
+        agent.SetDestination(PlayerMovement.Instance.transform.position);
     }
 }

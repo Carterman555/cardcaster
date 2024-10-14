@@ -3588,6 +3588,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84e3a74cf40f24c469e3b8b09e03d10a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerInvincible: 0
+  unlimitedEssence: 0
+  noEnemies: 0
 --- !u!1 &623848812
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using UnityEngine;
 
 public class DeckManager : Singleton<DeckManager> {
@@ -48,7 +49,16 @@ public class DeckManager : Singleton<DeckManager> {
 
     #endregion
 
+    public void ChangeMaxEssence(int amount) {
+        maxEssence += amount;
+    }
+
     public void ChangeEssenceAmount(float amount) {
+
+        if (DebugManager.Instance.UnlimitedEssence) { // for debugging
+            return;
+        }
+
         essence = Mathf.MoveTowards(essence, maxEssence, amount);
 
         OnEssenceChanged_Amount?.Invoke(essence);
@@ -79,8 +89,15 @@ public class DeckManager : Singleton<DeckManager> {
     }
 
     private void OnUseCard(int indexInHand) {
+
+        // index in hand might be messed up - think about how it could be messed up
+
         TryDrawCard(indexInHand);
         TryDrawOtherCards();
+
+        RemoveHandGaps();
+
+        OnHandChanged?.Invoke();
     }
 
     #region Basic Deck Methods
@@ -114,19 +131,11 @@ public class DeckManager : Singleton<DeckManager> {
     private void DiscardCardInHand(int indexInHand) {
         cardsInDiscard.Add(cardsInHand[indexInHand]);
         cardsInHand[indexInHand] = null;
-
-        RemoveHandGaps();
-
-        OnHandChanged?.Invoke();
     }
 
     private void StackCardInHand(int indexInHand) {
         cardsInModifierStack.Add(cardsInHand[indexInHand]);
         cardsInHand[indexInHand] = null;
-
-        RemoveHandGaps();
-
-        OnHandChanged?.Invoke();
     }
 
     private void RemoveHandGaps() {
@@ -158,10 +167,10 @@ public class DeckManager : Singleton<DeckManager> {
             }
         }
 
+        print("Deck Manager: drawing " + cardsInDeck[0].name + " to index " + indexInHand);
+
         cardsInHand[indexInHand] = cardsInDeck[0];
         cardsInDeck.RemoveAt(0);
-
-        PrintCards(cardsInHand);
 
         OnHandChanged?.Invoke();
 

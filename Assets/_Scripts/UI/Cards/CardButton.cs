@@ -9,7 +9,7 @@ using UnityEngine.UI;
 
 public class CardButton : GameButton, IPointerDownHandler {
 
-    public static event Action OnAnyCardPlayed;
+    public static event Action<CardButton> OnAnyCardUsed;
 
     public static event Action<ScriptableCardBase> OnAnyStartPlaying_Card;
     public static event Action<ScriptableCardBase> OnAnyCancel_Card;
@@ -60,7 +60,7 @@ public class CardButton : GameButton, IPointerDownHandler {
     }
 
     public void OnUsedCard() {
-        CardsUIManager.Instance.DrawCard(cardIndex);
+        OnAnyCardUsed?.Invoke(this);
     }
 
     public void OnDrawCard(ScriptableCardBase card) {
@@ -181,8 +181,6 @@ public class CardButton : GameButton, IPointerDownHandler {
         else if (card is ScriptableModifierCardBase modifier) {
             DeckManager.Instance.OnUseModifierCard(cardIndex);
         }
-
-        OnAnyCardPlayed?.Invoke();
     }
 
     public void FollowMouse() {

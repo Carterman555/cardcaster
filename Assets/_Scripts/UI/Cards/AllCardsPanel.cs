@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Linq;
 
 public class AllCardsPanel : StaticInstance<AllCardsPanel> {
 
@@ -20,7 +21,7 @@ public class AllCardsPanel : StaticInstance<AllCardsPanel> {
     public void UpdateCards() {
         SetCardsInContainer(deckCardsContainer, DeckManager.Instance.GetCardsInDeck(), CardLocation.Deck);
         SetCardsInContainer(discardCardsContainer, DeckManager.Instance.GetCardsInDiscard(), CardLocation.Discard);
-        SetCardsInContainer(handCardsContainer, DeckManager.Instance.GetCardsInHand(), CardLocation.Hand);
+        SetCardsInContainer(handCardsContainer, DeckManager.Instance.GetCardsInHand().ToList(), CardLocation.Hand);
     }
 
     private void SetCardsInContainer(Transform container, List<ScriptableCardBase> cards, CardLocation cardLocation) {

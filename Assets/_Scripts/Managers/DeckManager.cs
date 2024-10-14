@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class DeckManager : Singleton<DeckManager> {
 
+    public static event Action OnHandChanged;
+
     public static event Action<float> OnEssenceChanged_Amount;
 
     [SerializeField] private int startDeckSize;
@@ -12,7 +14,7 @@ public class DeckManager : Singleton<DeckManager> {
 
     private List<ScriptableCardBase> cardsInDeck = new();
     private List<ScriptableCardBase> cardsInDiscard = new();
-    private List<ScriptableCardBase> cardsInHand = new();
+    private ScriptableCardBase[] cardsInHand;
     private List<ScriptableCardBase> cardsInModifierStack = new();
 
     [SerializeField] private int maxEssence;
@@ -28,7 +30,7 @@ public class DeckManager : Singleton<DeckManager> {
         return cardsInDiscard;
     }
 
-    public List<ScriptableCardBase> GetCardsInHand() {
+    public ScriptableCardBase[] GetCardsInHand() {
         return cardsInHand;
     }
 
@@ -53,10 +55,6 @@ public class DeckManager : Singleton<DeckManager> {
     }
 
     private void Start() {
-        //ChooseStartingDeck();
-        //ShuffleDeck();
-        //DrawStartingHand();
-        
         SetupEmptyHand();
 
         essence = maxEssence;
@@ -64,27 +62,8 @@ public class DeckManager : Singleton<DeckManager> {
         OnEssenceChanged_Amount?.Invoke(essence);
     }
 
-    #region To delete (if starting with empty hand)
-    private void ChooseStartingDeck() {
-        for (int i = 0; i < startDeckSize; i++) {
-            ScriptableCardBase[] possibleStartingCards = ResourceSystem.Instance.GetAllCards().Where(card => card.IsPossibleStartingCard).ToArray();
-            ScriptableCardBase chosenCard = possibleStartingCards.RandomItem();
-            cardsInDeck.Add(Instantiate(chosenCard));
-        }
-    }
-
-    private void DrawStartingHand() {
-        cardsInHand = cardsInDeck.Take(handSize).ToList();
-        cardsInDeck = cardsInDeck.Skip(handSize).ToList();
-    }
-
-    #endregion
-
     private void SetupEmptyHand() {
-        cardsInHand = new();
-        for (int i = 0; i < handSize; i++) {
-            cardsInHand.Add(null);
-        }
+        cardsInHand = new ScriptableCardBase[handSize];
     }
 
     public void OnUseAbilityCard(int indexInHand) {
@@ -135,11 +114,36 @@ public class DeckManager : Singleton<DeckManager> {
     private void DiscardCardInHand(int indexInHand) {
         cardsInDiscard.Add(cardsInHand[indexInHand]);
         cardsInHand[indexInHand] = null;
+
+        RemoveHandGaps();
+
+        OnHandChanged?.Invoke();
     }
 
     private void StackCardInHand(int indexInHand) {
         cardsInModifierStack.Add(cardsInHand[indexInHand]);
         cardsInHand[indexInHand] = null;
+
+        RemoveHandGaps();
+
+        OnHandChanged?.Invoke();
+    }
+
+    private void RemoveHandGaps() {
+
+        // go through each card in hand and move the positions to remove gaps
+        int writeIndex = 0;
+        for (int readIndex = 0; readIndex < cardsInHand.Length; readIndex++) {
+            if (cardsInHand[readIndex] != null) {
+                cardsInHand[writeIndex] = cardsInHand[readIndex];
+                writeIndex++;
+            }
+        }
+
+        // set the rest of the cards in hand to null
+        for (int i = writeIndex; i < cardsInHand.Length; i++) {
+            cardsInHand[i] = null;
+        }
     }
 
     private bool TryDrawCard(int indexInHand) {
@@ -157,6 +161,10 @@ public class DeckManager : Singleton<DeckManager> {
         cardsInHand[indexInHand] = cardsInDeck[0];
         cardsInDeck.RemoveAt(0);
 
+        PrintCards(cardsInHand);
+
+        OnHandChanged?.Invoke();
+
         return true;
     }
 
@@ -166,12 +174,9 @@ public class DeckManager : Singleton<DeckManager> {
     /// any remaining cards to be drawn and attempts to draw them if necessary.
     /// </summary>
     private void TryDrawOtherCards() {
-        for (int indexInHand = 0; indexInHand < cardsInHand.Count; indexInHand++) {
+        for (int indexInHand = 0; indexInHand < cardsInHand.Length; indexInHand++) {
             if (cardsInHand[indexInHand] == null) {
-                bool drewCard = TryDrawCard(indexInHand);
-                if (drewCard) {
-                    CardsUIManager.Instance.DrawCard(indexInHand);
-                }
+                TryDrawCard(indexInHand);
             }
         }
     }
@@ -188,10 +193,18 @@ public class DeckManager : Singleton<DeckManager> {
     #endregion
 
     public void PrintAllCards(string startingText = "") {
-        PrintCardsList(GetAllCards(), startingText);
+        PrintCards(GetAllCards(), startingText);
     }
 
-    private void PrintCardsList(List<ScriptableCardBase> cards, string startingText = "") {
+    private void PrintCards(List<ScriptableCardBase> cards, string startingText = "") {
+        string whole = startingText;
+        foreach (var card in cards) {
+            whole += card.GetName() + ", ";
+        }
+        Debug.Log(whole);
+    }
+
+    private void PrintCards(ScriptableCardBase[] cards, string startingText = "") {
         string whole = startingText;
         foreach (var card in cards) {
             whole += card.GetName() + ", ";

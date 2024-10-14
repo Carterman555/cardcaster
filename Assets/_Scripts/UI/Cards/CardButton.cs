@@ -28,6 +28,12 @@ public class CardButton : GameButton, IPointerDownHandler {
     private ScriptableCardBase card;
     private int cardIndex;
 
+    private bool playingCard;
+
+    public bool IsPlayingCard() {
+        return playingCard;
+    }
+
     private bool CanAffordToPlay => DeckManager.Instance.GetEssence() >= card.GetCost();
 
     protected override void Awake() {
@@ -53,6 +59,8 @@ public class CardButton : GameButton, IPointerDownHandler {
         useCardPlayer.Events.OnComplete.AddListener(OnUsedCard);
 
         StopFollowingMouse();
+
+        playingCard = false;
     }
 
     private void OnDestroy() {
@@ -61,6 +69,7 @@ public class CardButton : GameButton, IPointerDownHandler {
 
     public void OnUsedCard() {
         OnAnyCardUsed?.Invoke(this);
+        playingCard = false;
     }
 
     public void OnDrawCard(ScriptableCardBase card) {
@@ -147,6 +156,8 @@ public class CardButton : GameButton, IPointerDownHandler {
     }
 
     private void OnStartPlayingCard() {
+
+        playingCard = true;
 
         // show cancel card panel
         FeedbackPlayer.Play("CancelCard");
@@ -270,8 +281,7 @@ public class CardButton : GameButton, IPointerDownHandler {
         StopFollowingMouse();
 
         float duration = 0.3f;
-        transform.DOMove(handPosition, duration).OnComplete(() => {
-        });
+        transform.DOMove(handPosition, duration);
 
         // fade out
         MMF_Image fadeFeedback = hoverPlayer.GetFeedbackOfType<MMF_Image>("FadeCard");

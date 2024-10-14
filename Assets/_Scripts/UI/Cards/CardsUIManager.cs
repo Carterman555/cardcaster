@@ -33,15 +33,17 @@ public class CardsUIManager : StaticInstance<CardsUIManager> {
     }
 
     private void OnCardUsed(CardButton cardButton) {
+
+        //cardButton.gameObject.ReturnToPool();
+        //cardButtons.Remove(cardButton);
+
         UpdateCardButtons();
 
         // draw the new card using the card button that was just used
         ScriptableCardBase[] cardsInHand = DeckManager.Instance.GetCardsInHand();
         int cardButtonIndex = cardButtons.IndexOf(cardButton);
         cardButton.OnDrawCard(cardsInHand[cardButtonIndex]);
-
-        // try draw other cards if can - TODO
-        
+        print("Cards UI Manager, OnCardUsed : drawing " + cardsInHand[cardButtonIndex].name + " to card button " + (cardButtons.Count - 1));
     }
 
     private void UpdateCardButtons() {
@@ -50,7 +52,7 @@ public class CardsUIManager : StaticInstance<CardsUIManager> {
         ScriptableCardBase[] cardsInHand = DeckManager.Instance.GetCardsInHand();
 
         for (int i = 0; i < cardButtons.Count; i++) {
-            cardButtons[i].SetCard(cardsInHand[i]);
+            //cardButtons[i].SetCard(cardsInHand[i]);
         }
 
         UpdateCardPositions();
@@ -66,6 +68,7 @@ public class CardsUIManager : StaticInstance<CardsUIManager> {
             CardButton newCardButton = SpawnNewCard();
             ScriptableCardBase newCard = cardsInHand[cardButtons.Count - 1];
             newCardButton.OnDrawCard(newCard);
+            print("Cards UI Manager, UpdateCardButtonsCount: drawing " + newCard.name + " to card button " + (cardButtons.Count - 1));
         }
 
         // remove card buttons until they match the number of cards in hand
@@ -109,18 +112,16 @@ public class CardsUIManager : StaticInstance<CardsUIManager> {
         return new Vector3(thisCardXPos, cardYPos);
     }
 
-    private void UpdateCardPositions(CardButton cardButtonToNotUpdate = null) {
+    private void UpdateCardPositions() {
         ScriptableCardBase[] cardsInHand = DeckManager.Instance.GetCardsInHand();
 
         for (int cardButtonIndex = 0; cardButtonIndex < cardButtons.Count; cardButtonIndex++) {
 
-            if (cardButtons[cardButtonIndex] == cardButtonToNotUpdate) {
-                continue;
-            }
-
             int handSize = cardsInHand.Where(card => card != null).Count();
             Vector2 pos = GetCardPos(cardButtonIndex, handSize, cardsInHand.Length);
-            cardButtons[cardButtonIndex].SetCardPosition(pos, true);
+
+            bool moveCard = !cardButtons[cardButtonIndex].IsPlayingCard();
+            cardButtons[cardButtonIndex].SetCardPosition(pos, moveCard);
         }
     }
 }

@@ -9,7 +9,7 @@ using UnityEngine.UI;
 
 public class CardButton : GameButton, IPointerDownHandler {
 
-    public static event Action<CardButton> OnAnyCardUsed;
+    public static event Action<CardButton, ScriptableCardBase> OnAnyCardUsed;
 
     public static event Action<ScriptableCardBase> OnAnyStartPlaying_Card;
     public static event Action<ScriptableCardBase> OnAnyCancel_Card;
@@ -30,9 +30,7 @@ public class CardButton : GameButton, IPointerDownHandler {
 
     private bool playingCard;
 
-    public bool IsPlayingCard() {
-        return playingCard;
-    }
+    
 
     private bool CanAffordToPlay => DeckManager.Instance.GetEssence() >= card.GetCost();
 
@@ -88,7 +86,7 @@ public class CardButton : GameButton, IPointerDownHandler {
     }
 
     public void OnUsedCard() {
-        OnAnyCardUsed?.Invoke(this);
+        OnAnyCardUsed?.Invoke(this, card);
         playingCard = false;
     }
 
@@ -166,7 +164,7 @@ public class CardButton : GameButton, IPointerDownHandler {
         FeedbackPlayer.Play("CancelCard");
 
         // show the player this will be wasted if the modifier's already active
-        SetHotkeyTextToWarning();
+        TryShowWarning();
 
         OnAnyStartPlaying_Card?.Invoke(card);
     }
@@ -227,7 +225,8 @@ public class CardButton : GameButton, IPointerDownHandler {
     public void SetCard(ScriptableCardBase card) {
         this.card = card;
         cardImage.Setup(card);
-        hotkeyText.text = (cardIndex + 1).ToString();
+
+        SetHotkeyTextToNum();
 
         if (card is ScriptableAbilityCardBase) {
             backImage.sprite = abilityCardBack;
@@ -238,12 +237,10 @@ public class CardButton : GameButton, IPointerDownHandler {
     }
 
     private void SetHotkeyTextToNum() {
-        if (card is ScriptableModifierCardBase modifier) {
-            hotkeyText.text = (cardIndex + 1).ToString();
-        }
+        hotkeyText.text = (cardIndex + 1).ToString();
     }
 
-    private void SetHotkeyTextToWarning() {
+    private void TryShowWarning() {
         if (card is ScriptableModifierCardBase modifier) {
             if (AbilityManager.Instance.IsModifierActive(modifier)) {
                 hotkeyText.text = "<color=\"red\">Won't Apply!\r\n<size=30>Modifier Already Active</size>";
@@ -295,4 +292,12 @@ public class CardButton : GameButton, IPointerDownHandler {
     }
 
     #endregion
+
+    public bool IsPlayingCard() {
+        return playingCard;
+    }
+
+    public int GetIndex() {
+        return cardIndex;
+    }
 }

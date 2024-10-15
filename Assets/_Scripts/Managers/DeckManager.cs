@@ -3,15 +3,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class DeckManager : Singleton<DeckManager> {
 
     public static event Action OnHandChanged;
+    public static event Action OnGainCardToHand;
 
     public static event Action<float> OnEssenceChanged_Amount;
 
     [SerializeField] private int startDeckSize;
-    [SerializeField] private int handSize;
+
+    [FormerlySerializedAs("handSize")]
+    [SerializeField] private int maxHandSize;
 
     private List<ScriptableCardBase> cardsInDeck = new();
     private List<ScriptableCardBase> cardsInDiscard = new();
@@ -73,7 +77,7 @@ public class DeckManager : Singleton<DeckManager> {
     }
 
     private void SetupEmptyHand() {
-        cardsInHand = new ScriptableCardBase[handSize];
+        cardsInHand = new ScriptableCardBase[maxHandSize];
     }
 
     public void OnUseAbilityCard(int indexInHand) {
@@ -110,10 +114,13 @@ public class DeckManager : Singleton<DeckManager> {
     public void GainCard(ScriptableCardBase card) {
 
         // gain a card to the discard
-        cardsInDiscard.Add(card);
-
-        // if the hand doesn't have the amount of cards it can, draw more
-        TryDrawOtherCards();
+        if (GetHandSize() == maxHandSize) {
+            cardsInDiscard.Add(card);
+        }
+        else {
+            cardsInHand[GetHandSize()] = card;
+            OnGainCardToHand?.Invoke();
+        }
     }
 
     public void TrashCard(CardLocation cardLocation, int cardIndex) {
@@ -167,8 +174,6 @@ public class DeckManager : Singleton<DeckManager> {
             }
         }
 
-        print("Deck Manager: drawing " + cardsInDeck[0].name + " to index " + indexInHand);
-
         cardsInHand[indexInHand] = cardsInDeck[0];
         cardsInDeck.RemoveAt(0);
 
@@ -197,6 +202,11 @@ public class DeckManager : Singleton<DeckManager> {
     private void ShuffleDiscardToDeck() {
         cardsInDeck = cardsInDiscard.OrderBy(card => UnityEngine.Random.value).ToList();
         cardsInDiscard.Clear();
+    }
+
+    private int GetHandSize() {
+        int handSize = cardsInHand.Where(card => card != null).Count();
+        return handSize;
     }
 
     #endregion

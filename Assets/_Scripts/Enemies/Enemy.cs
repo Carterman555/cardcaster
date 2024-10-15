@@ -4,23 +4,13 @@ using System.Linq;
 using UnityEngine;
 using QFSW.QC;
 
-public class Enemy : MonoBehaviour, IHasStats, IChangesFacing, ISpecialAttacker, IEffectable {
+public class Enemy : MonoBehaviour, IHasStats, IChangesFacing, IEffectable {
 
     #region Events
 
     public event Action<bool> OnChangedFacing;
     public void InvokeChangedFacing(bool facing) {
         OnChangedFacing?.Invoke(facing);
-    }
-
-    public event Action OnAttack;
-    public void InvokeAttack() {
-        OnAttack?.Invoke();
-    }
-
-    public event Action OnSpecialAttack;
-    public void InvokeSpecialAttack() {
-        OnSpecialAttack?.Invoke();
     }
 
     #endregion

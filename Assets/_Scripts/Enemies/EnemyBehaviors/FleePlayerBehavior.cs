@@ -1,47 +1,34 @@
 using UnityEngine;
 using UnityEngine.AI;
 
-public class FleePlayerBehavior : EnemyBehavior, IMovementBehavior {
+public class FleePlayerBehavior : MonoBehaviour, IMovementBehavior {
 
+    private IHasStats hasStats;
     private NavMeshAgent agent;
     private Knockback knockback;
 
-    public FleePlayerBehavior(Enemy enemy) : base(enemy) {
-        // get components
-        if (enemy.TryGetComponent(out NavMeshAgent agent)) {
-            this.agent = agent;
-            agent.updateRotation = false;
-            agent.updateUpAxis = false;
-        }
-        else {
-            Debug.LogError("Object With FleePlayerBehavior Does Not Have NavMeshAgent!");
-        }
+    private void Awake() {
+        hasStats = GetComponent<IHasStats>();
 
-        if (enemy.TryGetComponent(out Knockback knockback)) {
-            this.knockback = knockback;
-        }
-        else {
-            Debug.LogError("Object With FleePlayerBehavior Does Not Have Knockback!");
-        }
+        agent = GetComponent<NavMeshAgent>();
+        agent.updateRotation = false;
+        agent.updateUpAxis = false;
+
+        knockback = GetComponent<Knockback>();
     }
 
-    public override void FrameUpdateLogic() {
-        if (IsStopped()) {
+    private void Update() {
+        if (knockback.IsApplyingKnockback()) {
             return;
         }
 
         agent.isStopped = false;
-        agent.speed = enemy.GetStats().MoveSpeed;
-    }
-
-    public override void PhysicsUpdateLogic() {
-        if (!IsStopped() && !knockback.IsApplyingKnockback()) {
-            TryEscapeFromPlayer();
-        }
+        agent.speed = hasStats.GetStats().MoveSpeed;
+        TryEscapeFromPlayer();
     }
 
     private void TryEscapeFromPlayer() {
-        Vector3 directionToPlayer = PlayerMovement.Instance.transform.position - enemy.transform.position;
+        Vector3 directionToPlayer = PlayerMovement.Instance.transform.position - transform.position;
         Vector3 desiredEscapeDirection = -directionToPlayer.normalized;
 
         int maxAttempts = 10;
@@ -50,7 +37,7 @@ public class FleePlayerBehavior : EnemyBehavior, IMovementBehavior {
             float runAwayDistance = 10f;
 
             // Calculate potential escape position
-            Vector3 potentialEscapePosition = enemy.transform.position + desiredEscapeDirection * runAwayDistance;
+            Vector3 potentialEscapePosition = transform.position + desiredEscapeDirection * runAwayDistance;
 
             // Check if the position is on the NavMesh
             NavMeshHit hit;

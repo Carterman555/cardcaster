@@ -26,7 +26,7 @@ public static class ObjectPoolManager {
             ObjectPoolList.Add(pool);
         }
 
-        // Check if there are any iactive objects in the pool
+        // Check if there are any inactive objects in the pool
         GameObject spawnableObject = pool.InactiveObject.FirstOrDefault();
 
         if (spawnableObject == null) {
@@ -102,6 +102,7 @@ public static class ObjectPoolManager {
             Debug.LogError("objectToReturn Is Null!");
             return;
         }
+
         if (objectToReturn.name.Length < 8) {
             //Debug.LogWarning("Name" + objectToReturn.name + " is under 8 characters. Destroying instead");
             Object.Destroy(objectToReturn);
@@ -118,6 +119,20 @@ public static class ObjectPoolManager {
             Object.Destroy(objectToReturn);
         }
         else {
+
+            if (pool.InactiveObject.Contains(objectToReturn)) {
+
+                if (objectToReturn.activeSelf) {
+                    objectToReturn.SetActive(false);
+                    Debug.LogWarning("Trying to return object that was already returned! (Was active so set Inactive)");
+                }
+                else {
+                    Debug.LogWarning("Trying to return object that was already returned!");
+                }
+
+                return;
+            }
+
             objectToReturn.SetActive(false);
             pool.InactiveObject.Add(objectToReturn);
         }

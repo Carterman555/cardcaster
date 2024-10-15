@@ -22,6 +22,7 @@ public class ModifierImage : MonoBehaviour {
         AbilityManager.OnApplyModifiers += Dissolve;
 
         CardButton.OnAnyStartPlaying_Card += CheckToShowX;
+        CardButton.OnAnyCardUsed_Card += OnCardUsed;
         CardButton.OnAnyCancel_Card += TryShowModifierImage;
     }
 
@@ -29,6 +30,7 @@ public class ModifierImage : MonoBehaviour {
         AbilityManager.OnApplyModifiers -= Dissolve;
 
         CardButton.OnAnyStartPlaying_Card -= CheckToShowX;
+        CardButton.OnAnyCardUsed_Card -= OnCardUsed;
         CardButton.OnAnyCancel_Card -= TryShowModifierImage;
     }
 
@@ -80,12 +82,12 @@ public class ModifierImage : MonoBehaviour {
     private void CheckToShowX(ScriptableCardBase card) {
         if (card is ScriptableAbilityCardBase ability) {
             if (!ability.IsCompatible(modifier)) {
-                ShowRedX();
+                SwitchToRedX();
             }
         }
     }
 
-    private void ShowRedX() {
+    private void SwitchToRedX() {
         float scaleDuration = 0.15f;
 
         transform.DOKill();
@@ -95,16 +97,25 @@ public class ModifierImage : MonoBehaviour {
         });
     }
 
-    // if player stops playing an ability card that is not compatible, show the modifier image again
-    private void TryShowModifierImage(ScriptableCardBase card) {
+    // switch this image back to modifier image if a nonmodifiable ability card is used because the card doesn't use
+    // the modifier, but is still shows a red x when trying to play
+    private void OnCardUsed(ScriptableCardBase card) {
         if (card is ScriptableAbilityCardBase ability) {
-            if (!ability.IsCompatible(modifier)) {
-                ShowModifierImageX();
+            if (!ability.IsModifiable) {
+                SwitchToModifierImage();
             }
         }
     }
 
-    private void ShowModifierImageX() {
+    private void TryShowModifierImage(ScriptableCardBase card) {
+        if (card is ScriptableAbilityCardBase ability) {
+            if (!ability.IsCompatible(modifier)) {
+                SwitchToModifierImage();
+            }
+        }
+    }
+
+    private void SwitchToModifierImage() {
         float scaleDuration = 0.15f;
 
         transform.DOKill();

@@ -24,8 +24,9 @@ public class BaneBlaster : Enemy {
 
     protected override void Awake() {
         base.Awake();
-        InitializeBehaviors();
         InitializeSensors();
+
+        chasePlayerBehavior = GetComponent<ChasePlayerBehavior>();
     }
 
     protected override void OnEnable() {
@@ -39,15 +40,6 @@ public class BaneBlaster : Enemy {
         shootBehavior.OnShootAnim -= PlayShootAnimation;
     }
 
-    private void InitializeBehaviors() {
-
-        chasePlayerBehavior = new(this);
-        enemyBehaviors.Add(chasePlayerBehavior);
-
-        shootBehavior = new(this, projectilePrefab, shootPoint);
-        enemyBehaviors.Add(shootBehavior);
-    }
-
     private void InitializeSensors() {
         lineSight = new(PlayerMovement.Instance.transform, sightLayerMask, castRadius);
     }
@@ -57,13 +49,13 @@ public class BaneBlaster : Enemy {
         base.Update();
 
         if (lineSight.InSight(transform.position) && !playerInSight) {
-            chasePlayerBehavior.Stop();
+            chasePlayerBehavior.enabled = false;
             shootBehavior.StartShooting(PlayerMovement.Instance.transform);
 
             playerInSight = true;
         }
         else if (!lineSight.InSight(transform.position) && playerInSight) {
-            chasePlayerBehavior.Start();
+            chasePlayerBehavior.enabled = true;
             shootBehavior.Stop();
 
             playerInSight = false;
@@ -75,7 +67,7 @@ public class BaneBlaster : Enemy {
 
         if (unitEffect is StopMovement) {
             if (!lineSight.InSight(transform.position)) {
-                chasePlayerBehavior.Start();
+                chasePlayerBehavior.enabled = true;
                 shootBehavior.Stop();
 
                 playerInSight = false;

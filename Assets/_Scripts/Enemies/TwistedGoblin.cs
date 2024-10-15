@@ -13,19 +13,18 @@ public class TwistedGoblin : Enemy {
     protected override void Awake() {
         base.Awake();
 
+        moveBehavior = GetComponent<ChasePlayerBehavior>();
+
         InitializeBehaviors();
     }
 
     protected override void OnEnable() {
         base.OnEnable();
 
-        moveBehavior.Start();
+        moveBehavior.enabled = true;
     }
 
     private void InitializeBehaviors() {
-        moveBehavior = new(this);
-        enemyBehaviors.Add(moveBehavior);
-
         slashBehavior = new(this, centerPoint);
         enemyBehaviors.Add(slashBehavior);
     }
@@ -33,7 +32,7 @@ public class TwistedGoblin : Enemy {
     protected override void OnPlayerEnteredRange(GameObject player) {
         base.OnPlayerEnteredRange(player);
 
-        moveBehavior.Stop();
+        moveBehavior.enabled = false;
         slashBehavior.Start();
     }
 
@@ -41,7 +40,7 @@ public class TwistedGoblin : Enemy {
         base.OnPlayerExitedRange(player);
 
         if (!TryGetComponent(out StopMovement stopMovement)) {
-            moveBehavior.Start();
+            moveBehavior.enabled = true;
         }
 
         slashBehavior.Stop();
@@ -52,7 +51,7 @@ public class TwistedGoblin : Enemy {
 
         if (unitEffect is StopMovement) {
             if (!playerWithinRange) {
-                moveBehavior.Start();
+                moveBehavior.enabled = true;
             }
         }
     }

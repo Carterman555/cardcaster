@@ -67,9 +67,6 @@ public class Minion : Enemy, IMergable {
     }
 
     private void InitializeBehaviors() {
-        moveBehavior = new(this);
-        enemyBehaviors.Add(moveBehavior);
-
         attackBehavior = new(this, attackCenter);
         enemyBehaviors.Add(attackBehavior);
 
@@ -82,13 +79,13 @@ public class Minion : Enemy, IMergable {
 
         // stop chasing the player when merging
         if (mergeBehavior.IsMerging()) {
-            if (!moveBehavior.IsStopped()) {
-                moveBehavior.Stop();
+            if (moveBehavior.enabled) {
+                moveBehavior.enabled = false;
             }
         }
         else {
-            if (moveBehavior.IsStopped()) {
-                moveBehavior.Start();
+            if (!moveBehavior.enabled) {
+                moveBehavior.enabled = true;
             }
         }
 
@@ -100,7 +97,7 @@ public class Minion : Enemy, IMergable {
         base.OnPlayerEnteredRange(player);
 
         if (!mergeBehavior.IsMerging()) {
-            moveBehavior.Stop();
+            moveBehavior.enabled = false;
             attackBehavior.Start();
             mergeBehavior.DontAllowMerging();
         }
@@ -109,7 +106,7 @@ public class Minion : Enemy, IMergable {
     protected override void OnPlayerExitedRange(GameObject player) {
         base.OnPlayerExitedRange(player);
 
-        moveBehavior.Start();
+        moveBehavior.enabled = true;
         attackBehavior.Stop();
 
         if (mergedEnemyPrefab != null) {
@@ -122,7 +119,7 @@ public class Minion : Enemy, IMergable {
 
         if (unitEffect is StopMovement) {
             if (!mergeBehavior.IsMerging()) {
-                moveBehavior.Start();
+                moveBehavior.enabled = true;
             }
         }
     }

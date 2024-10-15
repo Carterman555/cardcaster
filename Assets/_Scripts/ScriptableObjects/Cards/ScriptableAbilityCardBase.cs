@@ -45,7 +45,6 @@ public abstract class ScriptableAbilityCardBase : ScriptableCardBase {
         }
         else {
             alreadyActiveAbility.ResetDuration();
-            Debug.Log("reset duration");
         }
     }
 

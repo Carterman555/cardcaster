@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Unity.VisualScripting;
@@ -12,17 +13,16 @@ public class CardsUIManager : StaticInstance<CardsUIManager> {
 
     private void OnEnable() {
         //DeckManager.OnHandChanged += UpdateCardButtons;
-        DeckManager.OnGainCardToHand += OnGainCard;
-        CardButton.OnAnyCardUsed += OnCardUsed;
+        DeckManager.OnGainCardToHand += DrawCardToEnd;
+        CardButton.OnAnyCardUsed_ButtonAndCard += OnCardUsed;
     }
     private void OnDisable() {
         //DeckManager.OnHandChanged -= UpdateCardButtons;
-        DeckManager.OnGainCardToHand -= OnGainCard;
-        CardButton.OnAnyCardUsed -= OnCardUsed;
+        DeckManager.OnGainCardToHand -= DrawCardToEnd;
+        CardButton.OnAnyCardUsed_ButtonAndCard -= OnCardUsed;
     }
 
-    private void OnGainCard() {
-        // add card to end
+    private void DrawCardToEnd() {
         int index = cardButtons.Count;
         DrawCard(index);
 
@@ -31,12 +31,19 @@ public class CardsUIManager : StaticInstance<CardsUIManager> {
 
     private void OnCardUsed(CardButton cardButton, ScriptableCardBase cardUsed) {
 
+        // get rid of the card button
         cardButton.gameObject.ReturnToPool();
         cardButtons.Remove(cardButton);
 
-        int maxHandSize = DeckManager.Instance.GetCardsInHand().Length;
-        if (cardUsed is not ScriptableModifierCardBase || GetHandSize() == maxHandSize) {
+        // respawn the card button if it was replaced (most likely will)
+        if (GetHandSize() > cardButtons.Count) {
             DrawCard(cardButton.GetIndex());
+        }
+
+        // spawn more cards to end. This happens when modifier cards are used on an ability and so they all
+        // become available to be drawn to the deck
+        while (GetHandSize() > cardButtons.Count) {
+            DrawCardToEnd();
         }
 
         UpdateCardButtons();
@@ -47,10 +54,11 @@ public class CardsUIManager : StaticInstance<CardsUIManager> {
 
         CardButton newCardButton = SpawnNewCard(index);
         ScriptableCardBase newCard = cardsInHand[index];
-        newCardButton.DrawCard(newCard);
-    }
 
-    
+        UpdateCardPositions();
+
+        newCardButton.OnDrawCard(newCard);
+    }
 
     public CardButton SpawnNewCard(int index) {
 
@@ -63,21 +71,24 @@ public class CardsUIManager : StaticInstance<CardsUIManager> {
 
         cardButton.Setup(index, deckButtonTransform, pos);
 
-        cardButtons.Add(cardButton);
+        // add to list at correct index
+        cardButtons.Insert(index, cardButton);
 
         return cardButton;
     }
 
     private void UpdateCardButtons() {
+        UpdateScriptableCards();
+        UpdateCardIndexes();
+        UpdateCardPositions();
+    }
 
+    private void UpdateScriptableCards() {
         ScriptableCardBase[] cardsInHand = DeckManager.Instance.GetCardsInHand();
 
         for (int i = 0; i < cardButtons.Count; i++) {
             cardButtons[i].SetCard(cardsInHand[i]);
         }
-
-        UpdateCardIndexes();
-        UpdateCardPositions();
     }
 
     private void UpdateCardIndexes() {
@@ -116,8 +127,6 @@ public class CardsUIManager : StaticInstance<CardsUIManager> {
 
             bool moveCard = !cardButtons[cardButtonIndex].IsPlayingCard();
             cardButtons[cardButtonIndex].SetCardPosition(pos, moveCard);
-
-            print("update position of " + cardsInHand[cardButtonIndex] + " to " + pos.x);
         }
     }
 }

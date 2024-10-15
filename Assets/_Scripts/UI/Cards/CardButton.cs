@@ -9,7 +9,8 @@ using UnityEngine.UI;
 
 public class CardButton : GameButton, IPointerDownHandler {
 
-    public static event Action<CardButton, ScriptableCardBase> OnAnyCardUsed;
+    public static event Action<CardButton, ScriptableCardBase> OnAnyCardUsed_ButtonAndCard;
+    public static event Action<ScriptableCardBase> OnAnyCardUsed_Card;
 
     public static event Action<ScriptableCardBase> OnAnyStartPlaying_Card;
     public static event Action<ScriptableCardBase> OnAnyCancel_Card;
@@ -30,8 +31,6 @@ public class CardButton : GameButton, IPointerDownHandler {
 
     private bool playingCard;
 
-    
-
     private bool CanAffordToPlay => DeckManager.Instance.GetEssence() >= card.GetCost();
 
     protected override void Awake() {
@@ -42,6 +41,8 @@ public class CardButton : GameButton, IPointerDownHandler {
 
     private void Start() {
         followMouse.Target = UIFollowMouse.Instance.transform;
+
+        useCardPlayer.Events.OnComplete.AddListener(OnUsedCard);
     }
 
     public void Setup(int cardIndex, Transform deckTransform, Vector3 position) {
@@ -51,8 +52,6 @@ public class CardButton : GameButton, IPointerDownHandler {
 
         MMF_Position toHandFeedback = toHandPlayer.GetFeedbackOfType<MMF_Position>("Move To Hand");
         toHandFeedback.InitialPositionTransform = deckTransform;
-
-        useCardPlayer.Events.OnComplete.AddListener(OnUsedCard);
 
         StopFollowingMouse();
 
@@ -86,11 +85,12 @@ public class CardButton : GameButton, IPointerDownHandler {
     }
 
     public void OnUsedCard() {
-        OnAnyCardUsed?.Invoke(this, card);
+        OnAnyCardUsed_ButtonAndCard?.Invoke(this, card);
+        OnAnyCardUsed_Card?.Invoke(card);
         playingCard = false;
     }
 
-    public void DrawCard(ScriptableCardBase card) {
+    public void OnDrawCard(ScriptableCardBase card) {
         SetCard(card);
 
         StopFollowingMouse();

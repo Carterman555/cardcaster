@@ -1,41 +1,38 @@
 using System;
 using UnityEngine;
 
-public class StraightShootBehavior : EnemyBehavior {
+public class StraightShootBehavior : MonoBehaviour, ISpecialAttacker {
+
     public event Action OnShootAnim;
     public event Action<Vector2> OnShoot_Direction;
+    public event Action OnSpecialAttack;
 
-    protected StraightMovement projectilePrefab;
-    protected Transform shootPoint;
+    private IHasStats hasStats;
+
+    [SerializeField] protected StraightMovement projectilePrefab;
+    [SerializeField] protected Transform shootPoint;
+
     protected Transform target;
     private TimedActionBehavior timedActionBehavior;
 
-    public StraightShootBehavior(Enemy enemy, StraightMovement projectilePrefab, Transform shootPoint) : base(enemy) {
-        this.projectilePrefab = projectilePrefab;
-        this.shootPoint = shootPoint;
+    private void Awake() {
+        hasStats = GetComponent<IHasStats>();
 
         timedActionBehavior = new TimedActionBehavior(
-            enemy.GetStats().AttackCooldown,
+            hasStats.GetStats().AttackCooldown,
             () => ShootAnimation()
         );
-
-        Stop();
     }
 
-    public override void FrameUpdateLogic() {
-        base.FrameUpdateLogic();
-
-        if (!IsStopped()) {
-            timedActionBehavior.UpdateLogic();
-        }
+    private void Update() {
+        timedActionBehavior.UpdateLogic();
     }
 
     public void StartShooting(Transform target) {
-        Start();
         this.target = target;
         timedActionBehavior.Start();
 
-        timedActionBehavior.SetActionCooldown(enemy.GetStats().AttackCooldown);
+        timedActionBehavior.SetActionCooldown(hasStats.GetStats().AttackCooldown);
     }
 
     private void ShootAnimation() {
@@ -46,9 +43,9 @@ public class StraightShootBehavior : EnemyBehavior {
     protected virtual void CreateProjectile() {
         StraightMovement newProjectile = projectilePrefab.Spawn(shootPoint.position, Containers.Instance.Projectiles);
 
-        Vector2 toTarget = target.position - enemy.transform.position;
+        Vector2 toTarget = target.position - transform.position;
         newProjectile.Setup(toTarget.normalized);
-        newProjectile.GetComponent<DamageOnContact>().Setup(enemy.GetStats().Damage, enemy.GetStats().KnockbackStrength);
+        newProjectile.GetComponent<DamageOnContact>().Setup(hasStats.GetStats().Damage, hasStats.GetStats().KnockbackStrength);
 
         InvokeShoot(toTarget.normalized);
     }

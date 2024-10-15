@@ -10,19 +10,6 @@ public class CardsUIManager : StaticInstance<CardsUIManager> {
     [SerializeField] private CardButton cardButtonPrefab;
     private List<CardButton> cardButtons = new();
 
-    public void DrawCard(int index) {
-        ScriptableCardBase[] cardsInHand = DeckManager.Instance.GetCardsInHand();
-
-        UpdateCardButtonsCount();
-
-        if (cardsInHand[index] == null) {
-            Debug.LogError("Index of card drawing is out of range so null");
-            return;
-        }
-
-        cardButtons[index].OnDrawCard(cardsInHand[index]);
-    }
-
     private void OnEnable() {
         DeckManager.OnHandChanged += UpdateCardButtons;
         CardButton.OnAnyCardUsed += OnCardUsed;
@@ -42,7 +29,7 @@ public class CardsUIManager : StaticInstance<CardsUIManager> {
         // draw the new card using the card button that was just used
         ScriptableCardBase[] cardsInHand = DeckManager.Instance.GetCardsInHand();
         int cardButtonIndex = cardButtons.IndexOf(cardButton);
-        cardButton.OnDrawCard(cardsInHand[cardButtonIndex]);
+        cardButton.DrawCard(cardsInHand[cardButtonIndex]);
         print("Cards UI Manager, OnCardUsed : drawing " + cardsInHand[cardButtonIndex].name + " to card button " + (cardButtons.Count - 1));
     }
 
@@ -67,7 +54,7 @@ public class CardsUIManager : StaticInstance<CardsUIManager> {
         while (cardButtons.Count < handSize) {
             CardButton newCardButton = SpawnNewCard();
             ScriptableCardBase newCard = cardsInHand[cardButtons.Count - 1];
-            newCardButton.OnDrawCard(newCard);
+            newCardButton.DrawCard(newCard);
             print("Cards UI Manager, UpdateCardButtonsCount: drawing " + newCard.name + " to card button " + (cardButtons.Count - 1));
         }
 

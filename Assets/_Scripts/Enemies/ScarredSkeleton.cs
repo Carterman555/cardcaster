@@ -16,13 +16,15 @@ public class ScarredSkeleton : Enemy {
     protected override void Awake() {
         base.Awake();
 
+        moveBehavior = GetComponent<ChasePlayerBehavior>();
+
         InitializeBehaviors();
     }
 
     protected override void OnEnable() {
         base.OnEnable();
 
-        moveBehavior.Start();
+        moveBehavior.enabled = true;
 
         shootBehavior.OnShootAnim += BowShootAnim;
     }
@@ -34,9 +36,6 @@ public class ScarredSkeleton : Enemy {
     }
 
     private void InitializeBehaviors() {
-        moveBehavior = new(this);
-        enemyBehaviors.Add(moveBehavior);
-
         shootBehavior = new(this, projectilePrefab, shootPoint);
         enemyBehaviors.Add(shootBehavior);
     }
@@ -44,14 +43,14 @@ public class ScarredSkeleton : Enemy {
     protected override void OnPlayerEnteredRange(GameObject player) {
         base.OnPlayerEnteredRange(player);
 
-        moveBehavior.Stop();
+        moveBehavior.enabled = false;
         shootBehavior.StartShooting(player.transform);
     }
 
     protected override void OnPlayerExitedRange(GameObject player) {
         base.OnPlayerExitedRange(player);
 
-        moveBehavior.Start();
+        moveBehavior.enabled = true;
         shootBehavior.Stop();
     }
 
@@ -60,7 +59,7 @@ public class ScarredSkeleton : Enemy {
 
         if (unitEffect is StopMovement) {
             if (!playerWithinRange) {
-                moveBehavior.Start();
+                moveBehavior.enabled = true;
             }
         }
     }

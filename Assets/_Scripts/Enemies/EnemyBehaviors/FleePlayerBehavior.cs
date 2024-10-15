@@ -23,17 +23,6 @@ public class FleePlayerBehavior : EnemyBehavior, IMovementBehavior {
         else {
             Debug.LogError("Object With FleePlayerBehavior Does Not Have Knockback!");
         }
-
-        Stop();
-    }
-
-    public override void Start() {
-        base.Start();
-        agent.isStopped = false;
-    }
-    public override void Stop() {
-        base.Stop();
-        agent.isStopped = true;
     }
 
     public override void FrameUpdateLogic() {

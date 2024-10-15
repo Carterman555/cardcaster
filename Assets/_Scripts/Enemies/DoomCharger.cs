@@ -18,18 +18,17 @@ public class DoomCharger : Enemy {
     protected override void Awake() {
         base.Awake();
         InitializeBehaviors();
+
+        moveBehavior = GetComponent<ChasePlayerBehavior>();
     }
 
     protected override void OnEnable() {
         base.OnEnable();
-        moveBehavior.Start();
+        moveBehavior.enabled = true;
         exploding = false;
     }
 
     private void InitializeBehaviors() {
-        moveBehavior = new(this);
-        enemyBehaviors.Add(moveBehavior);
-
         explodeBehavior = new(this);
         enemyBehaviors.Add(explodeBehavior);
     }
@@ -37,7 +36,7 @@ public class DoomCharger : Enemy {
     protected override void Update() {
         base.Update();
         if (playerWithinRange && !health.IsDead() && !exploding) {
-            moveBehavior.Stop();
+            moveBehavior.enabled = false;
             StartCoroutine(DelayedExplode());
         }
     }

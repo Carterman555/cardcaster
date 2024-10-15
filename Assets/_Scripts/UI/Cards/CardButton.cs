@@ -47,9 +47,7 @@ public class CardButton : GameButton, IPointerDownHandler {
     }
 
     public void Setup(int cardIndex, Transform deckTransform, Vector3 position) {
-        this.cardIndex = cardIndex;
-
-        SetHotkeyTextToNum();
+        SetCardIndex(cardIndex);
 
         SetCardPosition(position);
 
@@ -63,21 +61,9 @@ public class CardButton : GameButton, IPointerDownHandler {
         playingCard = false;
     }
 
-    private void OnDestroy() {
-        useCardPlayer.Events.OnComplete.RemoveListener(OnUsedCard);
-    }
-
-    public void OnUsedCard() {
-        OnAnyCardUsed?.Invoke(this);
-        playingCard = false;
-    }
-
-    public void OnDrawCard(ScriptableCardBase card) {
-        SetCard(card);
-
-        StopFollowingMouse();
-
-        toHandPlayer.PlayFeedbacks();
+    public void SetCardIndex(int cardIndex) {
+        this.cardIndex = cardIndex;
+        SetHotkeyTextToNum();
     }
 
     public void SetCardPosition(Vector3 position, bool move = false) {
@@ -95,6 +81,23 @@ public class CardButton : GameButton, IPointerDownHandler {
         if (move) {
             transform.DOMove(position, duration: 0.2f);
         }
+    }
+
+    private void OnDestroy() {
+        useCardPlayer.Events.OnComplete.RemoveListener(OnUsedCard);
+    }
+
+    public void OnUsedCard() {
+        OnAnyCardUsed?.Invoke(this);
+        playingCard = false;
+    }
+
+    public void DrawCard(ScriptableCardBase card) {
+        SetCard(card);
+
+        StopFollowingMouse();
+
+        toHandPlayer.PlayFeedbacks();
     }
 
     private void Update() {
@@ -177,6 +180,7 @@ public class CardButton : GameButton, IPointerDownHandler {
             PlayCard();
         }
 
+        // hide cancel card panel
         FeedbackPlayer.PlayInReverse("CancelCard");
     }
 

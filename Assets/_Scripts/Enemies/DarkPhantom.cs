@@ -25,13 +25,15 @@ public class DarkPhantom : Enemy {
 
         InitializeBehaviors();
 
+        moveBehavior = GetComponent<ChasePlayerBehavior>();
+
         originalFade = visual.color.a;
     }
 
     protected override void OnEnable() {
         base.OnEnable();
 
-        moveBehavior.Start();
+        moveBehavior.enabled = true;
 
         nearPlayerTeleportTime.Randomize();
 
@@ -47,9 +49,6 @@ public class DarkPhantom : Enemy {
     }
 
     private void InitializeBehaviors() {
-        moveBehavior = new(this);
-        enemyBehaviors.Add(moveBehavior);
-
         shootBehavior = new(this, projectilePrefab, shootPoint);
         enemyBehaviors.Add(shootBehavior);
         shootBehavior.StartShooting(PlayerMovement.Instance.transform);
@@ -96,11 +95,11 @@ public class DarkPhantom : Enemy {
 
         print("stop");
 
-        moveBehavior.Stop();
+        moveBehavior.enabled = false;
 
         float stopDuration = 0.4f;
         yield return new WaitForSeconds(stopDuration);
 
-        moveBehavior.Start();
+        moveBehavior.enabled = true;
     }
 }

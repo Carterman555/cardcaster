@@ -30,6 +30,8 @@ public class CursedWitch : Enemy {
     protected override void Awake() {
         base.Awake();
         InitializeBehaviors();
+
+        chaseBehavior = GetComponent<ChasePlayerBehavior>();
     }
 
     protected override void OnEnable() {
@@ -38,9 +40,6 @@ public class CursedWitch : Enemy {
     }
 
     private void InitializeBehaviors() {
-        chaseBehavior = new(this);
-        enemyBehaviors.Add(chaseBehavior);
-
         fleeBehavior = new(this);
         enemyBehaviors.Add(fleeBehavior);
 
@@ -72,20 +71,20 @@ public class CursedWitch : Enemy {
         bool closeToPlayer = distanceFromPlayer < moveFromPlayerRange;
 
         if (farFromPlayer) {
-            if (chaseBehavior.IsStopped() || !fleeBehavior.IsStopped()) {
+            if (!chaseBehavior.enabled || !fleeBehavior.IsStopped()) {
                 fleeBehavior.Stop();
-                chaseBehavior.Start();
+                chaseBehavior.enabled = true;
             }
         }
         else if (closeToPlayer) {
-            if (!chaseBehavior.IsStopped() || fleeBehavior.IsStopped()) {
-                chaseBehavior.Stop();
+            if (chaseBehavior.enabled || fleeBehavior.IsStopped()) {
+                chaseBehavior.enabled = false;
                 fleeBehavior.Start();
             }
         }
         else if (!farFromPlayer && !closeToPlayer) {
-            if (!chaseBehavior.IsStopped() || !fleeBehavior.IsStopped()) {
-                chaseBehavior.Stop();
+            if (chaseBehavior.enabled || !fleeBehavior.IsStopped()) {
+                chaseBehavior.enabled = false;
                 fleeBehavior.Stop();
             }
         }

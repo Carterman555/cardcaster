@@ -21,29 +21,25 @@ public class CardsUIManager : StaticInstance<CardsUIManager> {
 
     private void OnCardUsed(CardButton cardButton) {
 
-        //cardButton.gameObject.ReturnToPool();
-        //cardButtons.Remove(cardButton);
+        cardButton.gameObject.ReturnToPool();
+        cardButtons.Remove(cardButton);
 
         UpdateCardButtons();
 
         // draw the new card using the card button that was just used
-        ScriptableCardBase[] cardsInHand = DeckManager.Instance.GetCardsInHand();
-        int cardButtonIndex = cardButtons.IndexOf(cardButton);
-        cardButton.DrawCard(cardsInHand[cardButtonIndex]);
-        print("Cards UI Manager, OnCardUsed : drawing " + cardsInHand[cardButtonIndex].name + " to card button " + (cardButtons.Count - 1));
+        //ScriptableCardBase[] cardsInHand = DeckManager.Instance.GetCardsInHand();
+        //int cardButtonIndex = cardButtons.IndexOf(cardButton);
+        //cardButton.DrawCard(cardsInHand[cardButtonIndex]);
+        //print("Cards UI Manager, OnCardUsed : drawing " + cardsInHand[cardButtonIndex].name + " to card button " + (cardButtons.Count - 1));
     }
 
     private void UpdateCardButtons() {
         UpdateCardButtonsCount();
-
-        ScriptableCardBase[] cardsInHand = DeckManager.Instance.GetCardsInHand();
-
-        for (int i = 0; i < cardButtons.Count; i++) {
-            //cardButtons[i].SetCard(cardsInHand[i]);
-        }
-
+        UpdateScriptableCards();
+        UpdateCardIndexes();
         UpdateCardPositions();
     }
+
 
     // make sure the number of card button should always be eqaul to the number of cards in the hand
     private void UpdateCardButtonsCount() {
@@ -82,6 +78,20 @@ public class CardsUIManager : StaticInstance<CardsUIManager> {
         cardButtons.Add(cardButton);
 
         return cardButton;
+    }
+
+    private void UpdateScriptableCards() {
+        ScriptableCardBase[] cardsInHand = DeckManager.Instance.GetCardsInHand();
+
+        for (int i = 0; i < cardButtons.Count; i++) {
+            cardButtons[i].SetCard(cardsInHand[i]);
+        }
+    }
+
+    private void UpdateCardIndexes() {
+        for (int cardButtonIndex = 0; cardButtonIndex < cardButtons.Count; cardButtonIndex++) {
+            cardButtons[cardButtonIndex].SetCardIndex(cardButtonIndex);
+        }
     }
 
     [Header("Card Positioning")]

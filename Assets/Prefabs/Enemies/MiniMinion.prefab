@@ -348,12 +348,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scriptableEnemy: {fileID: 11400000, guid: 3cd631a20674cc24ca0da76c02764620, type: 2}
   playerTracker: {fileID: 4392500090413742484}
-  attackCenter: {fileID: 7711646497245978134}
-  mergeTracker: {fileID: 7505947039494954821}
-  mergedEnemyPrefab: {fileID: 706037645464121241, guid: ed03a3c53afc1fa4daa55b69fef0ab3a, type: 3}
-  toMergeDelay: 5
-  mergeTime: 5
-  mergeIndicatorPrefab: {fileID: 5335884612671568315, guid: 0cea3d958ee00324ba546eabd7be985a, type: 3}
+  anim: {fileID: 7812749826847277617}
   splitEnemyPrefab: {fileID: 0}
 --- !u!114 &-7541718081894400129
 MonoBehaviour:
@@ -400,3 +395,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4308ccf77a796514ea8a0bff842a0a3c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!95 &7812749826847277617 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 621019451974682374, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
+  m_PrefabInstance: {fileID: 7273941719131161911}
+  m_PrefabAsset: {fileID: 0}

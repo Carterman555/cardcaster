@@ -600,9 +600,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scriptableEnemy: {fileID: 11400000, guid: 3a6707c361bdb3f4f98392113232b349, type: 2}
   playerTracker: {fileID: 4392500090413742484}
-  projectilePrefab: {fileID: -1897301476388012080, guid: 504b7829f0aeed24ababeb2d8e7f8a87, type: 3}
-  shootPoint: {fileID: 3374335276256520517}
-  anim: {fileID: 6415638475352910460}
+  anim: {fileID: 7812749826847277617}
 --- !u!114 &4081574773904231840
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -627,3 +625,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4308ccf77a796514ea8a0bff842a0a3c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!95 &7812749826847277617 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 621019451974682374, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
+  m_PrefabInstance: {fileID: 7273941719131161911}
+  m_PrefabAsset: {fileID: 0}

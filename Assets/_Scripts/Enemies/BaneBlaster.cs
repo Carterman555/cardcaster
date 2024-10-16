@@ -15,36 +15,25 @@ public class BaneBlaster : Enemy {
 
     private bool playerInSight;
 
-    #region Initialization
-
     protected override void Awake() {
         base.Awake();
-        InitializeSensors();
+
+        lineSight = new(PlayerMovement.Instance.transform, sightLayerMask, castRadius);
 
         chasePlayerBehavior = GetComponent<ChasePlayerBehavior>();
         shootBehavior = GetComponent<StraightShootBehavior>();
-    }
 
-    private void InitializeSensors() {
-        lineSight = new(PlayerMovement.Instance.transform, sightLayerMask, castRadius);
+        EnterChaseState();
     }
-    #endregion
 
     protected override void Update() {
         base.Update();
 
         if (lineSight.InSight(transform.position) && !playerInSight) {
-            chasePlayerBehavior.enabled = false;
-            shootBehavior.enabled = true;
-            shootBehavior.StartShooting(PlayerMovement.Instance.transform);
-
-            playerInSight = true;
+            EnterShootState();
         }
         else if (!lineSight.InSight(transform.position) && playerInSight) {
-            chasePlayerBehavior.enabled = true;
-            shootBehavior.enabled = false;
-
-            playerInSight = false;
+            EnterChaseState();
         }
     }
 
@@ -53,11 +42,22 @@ public class BaneBlaster : Enemy {
 
         if (unitEffect is StopMovement) {
             if (!lineSight.InSight(transform.position)) {
-                chasePlayerBehavior.enabled = true;
-                shootBehavior.enabled = false;
-
-                playerInSight = false;
+                EnterChaseState();
             }
         }
+    }
+
+    private void EnterChaseState() {
+        chasePlayerBehavior.enabled = true;
+        shootBehavior.enabled = false;
+
+        playerInSight = false;
+    }
+
+    private void EnterShootState() {
+        chasePlayerBehavior.enabled = false;
+        shootBehavior.enabled = true;
+
+        playerInSight = true;
     }
 }

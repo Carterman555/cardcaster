@@ -6,11 +6,7 @@ using UnityEngine;
 public class Minion : Enemy {
 
     private ChasePlayerBehavior moveBehavior;
-
-    [Header("Attack")]
     private CircleSlashBehavior attackBehavior;
-    [SerializeField] private Transform attackCenter;
-
     private MergeBehavior mergeBehavior;
 
     [Header("Split On Death")]
@@ -27,14 +23,16 @@ public class Minion : Enemy {
     protected override void Awake() {
         base.Awake();
 
+        moveBehavior = GetComponent<ChasePlayerBehavior>();
+        attackBehavior = GetComponent<CircleSlashBehavior>();
         mergeBehavior = GetComponent<MergeBehavior>();
 
-        InitializeBehaviors();
+        moveBehavior.enabled = true;
+        attackBehavior.enabled = false;
+        mergeBehavior.AllowMerging();
     }
 
-    protected override void Start() {
-        base.Start();
-
+    private void Start() {
         health.OnDeath += OnDeath;
     }
 
@@ -56,8 +54,6 @@ public class Minion : Enemy {
                 moveBehavior.enabled = true;
             }
         }
-
-        HandleMergeIndicator();
     }
 
     // only merges when not close to player
@@ -66,7 +62,7 @@ public class Minion : Enemy {
 
         if (!mergeBehavior.IsMerging()) {
             moveBehavior.enabled = false;
-            attackBehavior.Start();
+            attackBehavior.enabled = true;
             mergeBehavior.DontAllowMerging();
         }
     }
@@ -75,7 +71,7 @@ public class Minion : Enemy {
         base.OnPlayerExitedRange(player);
 
         moveBehavior.enabled = true;
-        attackBehavior.Stop();
+        attackBehavior.enabled = false;
         mergeBehavior.AllowMerging();
     }
 
@@ -97,8 +93,6 @@ public class Minion : Enemy {
 
         SpawnTwoMinions();
     }
-
-    
 
     #region Split On Destroy
 

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HeatSeekMovement : MonoBehaviour, ITargetMovement {
+public class HeatSeekMovement : MonoBehaviour, ITargetProjectileMovement {
 
     [SerializeField] private float moveSpeed;
     [SerializeField] private float rotationSpeed;

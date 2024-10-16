@@ -436,11 +436,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scriptableEnemy: {fileID: 11400000, guid: 7d6a5e0b5ae736842a1118bfe8f20905, type: 2}
   playerTracker: {fileID: 4392500090413742484}
-  shootPoint: {fileID: 52676026931065248}
-  projectileCount:
-    MinValue: 4
-    MaxValue: 6
-  projectilePrefab: {fileID: -1897301476388012080, guid: 5812694bf7d1a7644a5c346ff24b30ea, type: 3}
+  anim: {fileID: 7812749826847277617}
   recoil: {fileID: 697370404407460727}
   recoilForce: 15
 --- !u!114 &-3341089646620608238
@@ -455,3 +451,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58a0f8acedfc12f43978117cc983373e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!95 &7812749826847277617 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 621019451974682374, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
+  m_PrefabInstance: {fileID: 7273941719131161911}
+  m_PrefabAsset: {fileID: 0}

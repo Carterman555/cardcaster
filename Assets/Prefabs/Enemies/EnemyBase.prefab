@@ -151,6 +151,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scriptableEnemy: {fileID: 0}
   playerTracker: {fileID: 6343162823804091555}
+  anim: {fileID: 621019451974682374}
 --- !u!114 &5414848298468351723
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -347,7 +348,6 @@ GameObject:
   - component: {fileID: 621019451974682374}
   - component: {fileID: 5911625363614290757}
   - component: {fileID: 5262278598744334137}
-  - component: {fileID: 1436166056584189237}
   m_Layer: 0
   m_Name: Visual
   m_TagString: Untagged
@@ -779,16 +779,3 @@ MonoBehaviour:
           m_PreInfinity: 2
           m_PostInfinity: 2
           m_RotationOrder: 4
---- !u!114 &1436166056584189237
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6662536027617550773}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 89dd1e3587fe1f74e9967d8a85f5e548, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  enemy: {fileID: -2736141077457755013}

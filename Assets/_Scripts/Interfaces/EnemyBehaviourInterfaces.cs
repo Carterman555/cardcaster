@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Ace : Enemy {
-
-
+public interface IEnemyMovement {
+    public bool IsMoving();
 }

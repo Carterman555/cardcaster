@@ -157,9 +157,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scriptableEnemy: {fileID: 11400000, guid: abca1f878073ca54f9e2e60c297ac778, type: 2}
   playerTracker: {fileID: 4392500090413742484}
-  explosionRadius: 3
+  anim: {fileID: 7812749826847277617}
   explosionDelay: 1
-  explosionParticlesPrefab: {fileID: 6065135645941821456, guid: 5f3b7b52a057dae4a8769678b76618b4, type: 3}
 --- !u!114 &-5057802473656346380
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -184,3 +183,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4308ccf77a796514ea8a0bff842a0a3c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!95 &7812749826847277617 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 621019451974682374, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
+  m_PrefabInstance: {fileID: 7273941719131161911}
+  m_PrefabAsset: {fileID: 0}

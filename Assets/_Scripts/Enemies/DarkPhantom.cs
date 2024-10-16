@@ -4,12 +4,9 @@ using System.Collections;
 using UnityEngine;
 
 public class DarkPhantom : Enemy {
-    private ChasePlayerBehavior moveBehavior;
 
-    [Header("Attack")]
+    private ChasePlayerBehavior moveBehavior;
     private StraightShootBehavior shootBehavior;
-    [SerializeField] private StraightMovement projectilePrefab;
-    [SerializeField] private Transform shootPoint;
 
     [Header("Teleport")]
     private RandomTeleportBehavior teleportBehavior;
@@ -17,15 +14,16 @@ public class DarkPhantom : Enemy {
     [SerializeField] private RandomFloat nearPlayerTeleportTime;
     private float nearPlayerTeleportTimer;
 
+    [Header("Fade")]
     [SerializeField] private SpriteRenderer visual;
     private float originalFade;
 
     protected override void Awake() {
         base.Awake();
 
-        InitializeBehaviors();
-
         moveBehavior = GetComponent<ChasePlayerBehavior>();
+        shootBehavior = GetComponent<StraightShootBehavior>();
+        teleportBehavior = GetComponent<RandomTeleportBehavior>();
 
         originalFade = visual.color.a;
     }
@@ -34,10 +32,9 @@ public class DarkPhantom : Enemy {
         base.OnEnable();
 
         moveBehavior.enabled = true;
+        visual.Fade(originalFade);
 
         nearPlayerTeleportTime.Randomize();
-
-        visual.Fade(originalFade);
 
         shootBehavior.OnShootAnim += StopMoving;
     }
@@ -46,15 +43,6 @@ public class DarkPhantom : Enemy {
         base.OnDisable();
 
         shootBehavior.OnShootAnim -= StopMoving;
-    }
-
-    private void InitializeBehaviors() {
-        shootBehavior = new(this, projectilePrefab, shootPoint);
-        enemyBehaviors.Add(shootBehavior);
-        shootBehavior.StartShooting(PlayerMovement.Instance.transform);
-
-        PolygonCollider2D teleportBounds = Room.GetCurrentRoom().GetComponent<PolygonCollider2D>();
-        teleportBehavior = new(gameObject, this, teleportBounds);
     }
 
     protected override void Update() {
@@ -86,14 +74,11 @@ public class DarkPhantom : Enemy {
 
             visual.DOFade(originalFade, duration).SetEase(Ease.InSine);
         });
-
     }
 
     // stop moving when shooting
     private void StopMoving() => StartCoroutine(StopMovingCor());
     private IEnumerator StopMovingCor() {
-
-        print("stop");
 
         moveBehavior.enabled = false;
 

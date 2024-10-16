@@ -4,6 +4,7 @@ using UnityEngine;
 public class ShootTargetProjectileBehavior : MonoBehaviour {
     public event Action OnShoot;
 
+    [SerializeField] private RandomInt amountToShoot;
     [SerializeField] private GameObject projectilePrefab;
     [SerializeField] private Transform shootPoint;
 
@@ -22,12 +23,10 @@ public class ShootTargetProjectileBehavior : MonoBehaviour {
             hasStats.GetStats().AttackCooldown,
             () => TriggerShootAnimation()
         );
-
-        enabled = false;
     }
 
-    public void StartShooting(int amountToShoot) {
-        timedActionBehavior.Start(amountToShoot);
+    private void OnEnable() {
+        timedActionBehavior.Start(amountToShoot.Randomize());
     }
 
     private void OnDisable() {
@@ -49,7 +48,7 @@ public class ShootTargetProjectileBehavior : MonoBehaviour {
     // played by animation
     private void ShootProjectile() {
         GameObject newProjectileObject = projectilePrefab.Spawn(shootPoint.position, Containers.Instance.Enemies);
-        ITargetMovement newProjectile = newProjectileObject.GetComponent<ITargetMovement>();
+        ITargetProjectileMovement newProjectile = newProjectileObject.GetComponent<ITargetProjectileMovement>();
         newProjectile.Setup(PlayerMovement.Instance.transform);
         newProjectileObject.GetComponent<DamageOnContact>().Setup(hasStats.GetStats().Damage, hasStats.GetStats().KnockbackStrength);
 

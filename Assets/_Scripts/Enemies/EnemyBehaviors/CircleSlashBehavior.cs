@@ -1,51 +1,48 @@
 using UnityEngine;
 
-public class CircleSlashBehavior : EnemyBehavior {
-    private TimedActionBehavior timedActionBehavior;
-    private Transform centerPoint;
+public class CircleSlashBehavior : MonoBehaviour {
 
-    public CircleSlashBehavior(Enemy enemy, Transform centerPoint) : base(enemy) {
-        this.centerPoint = centerPoint;
+    private TimedActionBehavior timedActionBehavior;
+    [SerializeField] private Transform centerPoint;
+
+    private IHasEnemyStats hasStats;
+
+    [Header("Animation")]
+    [SerializeField] private bool specialAttack;
+    [SerializeField] private Animator anim;
+
+    private void Awake() {
+        hasStats = GetComponent<IHasEnemyStats>();
 
         timedActionBehavior = new TimedActionBehavior(
-            enemy.GetStats().AttackCooldown,
-            () => enemy.InvokeAttack()
+            hasStats.GetStats().AttackCooldown,
+            () => TriggerAttackAnimation()
         );
-
-        Stop();
     }
 
-    public override void Start() {
-        base.Start();
+    private void OnEnable() {
         timedActionBehavior.Start();
     }
-
-    public override void Stop() {
-        base.Stop();
+    private void OnDisable() {
         timedActionBehavior.Stop();
     }
 
-    public override void FrameUpdateLogic() {
-        base.FrameUpdateLogic();
-        if (!IsStopped()) {
-            timedActionBehavior.UpdateLogic();
-        }
+    private void Update() {
+        timedActionBehavior.UpdateLogic();
+    }
+
+    private void TriggerAttackAnimation() {
+        string attackTriggerString = specialAttack ? "specialAttack" : "attack";
+        anim.SetTrigger(attackTriggerString);
     }
 
     private void Attack() {
         DamageDealer.DealCircleDamage(
             GameLayers.PlayerLayerMask,
             centerPoint.position,
-            enemy.GetEnemyStats().AttackRange,
-            enemy.GetStats().Damage,
-            enemy.GetStats().KnockbackStrength
+            hasStats.GetEnemyStats().AttackRange,
+            hasStats.GetStats().Damage,
+            hasStats.GetStats().KnockbackStrength
         );
-    }
-
-    public override void DoAnimationTriggerEventLogic(AnimationTriggerType triggerType) {
-        base.DoAnimationTriggerEventLogic(triggerType);
-        if (triggerType == AnimationTriggerType.CircleSlash) {
-            Attack();
-        }
     }
 }

@@ -1,51 +1,48 @@
+using Mono.CSharp;
 using UnityEngine;
 
-public class CircleStraightShootBehavior : EnemyBehavior {
+public class CircleStraightShootBehavior : MonoBehaviour {
 
-    private StraightMovement projectilePrefab;
-    private int projectileCount;
-    private bool specialAttack;
-    private float attackCooldownMult;
+    [SerializeField] private StraightMovement projectilePrefab;
+    [SerializeField] private int projectileCount;
+    [SerializeField] private float attackCooldownMult = 1f;
+
+    private IHasStats hasStats;
+
     private TimedActionBehavior timedActionBehavior;
 
-    public CircleStraightShootBehavior(Enemy enemy, StraightMovement projectilePrefab, int projectileCount, bool specialAttack = false, float attackCooldownMult = 1f) : base(enemy) {
-        this.projectilePrefab = projectilePrefab;
-        this.projectileCount = projectileCount;
-        this.specialAttack = specialAttack;
-        this.attackCooldownMult = attackCooldownMult;
+    [Header("Animation")]
+    [SerializeField] private Animator anim;
+    [SerializeField] private bool specialAttack;
 
+
+    private void Awake() {
         timedActionBehavior = new TimedActionBehavior(
-            enemy.GetStats().AttackCooldown * attackCooldownMult,
-            () => {
-                if (specialAttack) {
-                    enemy.InvokeSpecialAttack();
-                }
-                else {
-                    enemy.InvokeAttack();
-                }
-            }
+            hasStats.GetStats().AttackCooldown * attackCooldownMult,
+            () => TriggerShootAnimation()
         );
 
-        Stop();
+        enabled = false;
     }
 
-    public override void Start() {
-        base.Start();
+    private void OnEnable() {
         timedActionBehavior.Start();
     }
 
-    public override void Stop() {
-        base.Stop();
+    private void OnDisable() {
         timedActionBehavior.Stop();
     }
 
-    public override void FrameUpdateLogic() {
-        base.FrameUpdateLogic();
-        if (!IsStopped()) {
-            timedActionBehavior.UpdateLogic();
-        }
+    private void Update() {
+        timedActionBehavior.UpdateLogic();
     }
 
+    private void TriggerShootAnimation() {
+        string attackTriggerString = specialAttack ? "specialAttack" : "attack";
+        anim.SetTrigger(attackTriggerString);
+    }
+
+    // played by animation
     private void CircleShoot() {
         // Calculate the angle between each shockwave
         float angleStep = 360f / projectileCount;
@@ -55,21 +52,14 @@ public class CircleStraightShootBehavior : EnemyBehavior {
 
             float distanceFromCenter = 1f;
 
-            Vector2 spawnPosition = (Vector2)enemy.transform.position + projectileDirection * distanceFromCenter;
+            Vector2 spawnPosition = (Vector2)transform.position + projectileDirection * distanceFromCenter;
             StraightMovement projectile = projectilePrefab
                 .Spawn(spawnPosition, Containers.Instance.Projectiles);
             projectile.Setup(projectileDirection);
-            projectile.GetComponent<DamageOnContact>().Setup(enemy.GetStats().Damage, enemy.GetStats().KnockbackStrength);
+            projectile.GetComponent<DamageOnContact>().Setup(hasStats.GetStats().Damage, hasStats.GetStats().KnockbackStrength);
             projectile.transform.up = projectileDirection;
 
             angle += angleStep;
-        }
-    }
-
-    public override void DoAnimationTriggerEventLogic(AnimationTriggerType triggerType) {
-        base.DoAnimationTriggerEventLogic(triggerType);
-        if (triggerType == AnimationTriggerType.CircleStraightShoot) {
-            CircleShoot();
         }
     }
 }

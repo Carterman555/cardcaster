@@ -4,16 +4,7 @@ using System.Linq;
 using UnityEngine;
 using QFSW.QC;
 
-public class Enemy : MonoBehaviour, IHasStats, IChangesFacing, IEffectable {
-
-    #region Events
-
-    public event Action<bool> OnChangedFacing;
-    public void InvokeChangedFacing(bool facing) {
-        OnChangedFacing?.Invoke(facing);
-    }
-
-    #endregion
+public class Enemy : MonoBehaviour, IHasStats, IEffectable {
 
     protected Health health;
 

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class Minion : Enemy, IMergable {
+public class Minion : Enemy {
 
     private ChasePlayerBehavior moveBehavior;
 
@@ -11,17 +11,7 @@ public class Minion : Enemy, IMergable {
     private CircleSlashBehavior attackBehavior;
     [SerializeField] private Transform attackCenter;
 
-    [Header("Merging")]
     private MergeBehavior mergeBehavior;
-    [SerializeField] private TriggerContactTracker mergeTracker;
-    [SerializeField] private Enemy mergedEnemyPrefab;
-    [SerializeField] private float toMergeDelay;
-    [SerializeField] private float mergeTime;
-
-    [Header("Merging Indicator")]
-    [SerializeField] private FillController mergeIndicatorPrefab;
-    private FillController mergeIndicator;
-    private bool isHandlingIndicator;
 
     [Header("Split On Death")]
     [SerializeField] private Enemy splitEnemyPrefab;
@@ -37,6 +27,8 @@ public class Minion : Enemy, IMergable {
     protected override void Awake() {
         base.Awake();
 
+        mergeBehavior = GetComponent<MergeBehavior>();
+
         InitializeBehaviors();
     }
 
@@ -48,30 +40,6 @@ public class Minion : Enemy, IMergable {
 
     private void OnDestroy() {
         health.OnDeath -= OnDeath;
-    }
-
-    protected override void OnEnable() {
-        base.OnEnable();
-
-        mergeBehavior.AllowMerging();
-        isHandlingIndicator = false;
-
-        mergeBehavior.OnLeaderMerged += DestroyMergingIndicator;
-        mergeBehavior.OnLeaderStopMerging += DestroyMergingIndicator;
-    }
-
-    protected override void OnDisable() {
-        base.OnDisable();
-        mergeBehavior.OnLeaderMerged -= DestroyMergingIndicator;
-        mergeBehavior.OnLeaderStopMerging -= DestroyMergingIndicator;
-    }
-
-    private void InitializeBehaviors() {
-        attackBehavior = new(this, attackCenter);
-        enemyBehaviors.Add(attackBehavior);
-
-        mergeBehavior = new(this, mergeTracker, mergedEnemyPrefab, toMergeDelay, mergeTime);
-        enemyBehaviors.Add(mergeBehavior);
     }
 
     protected override void Update() {
@@ -108,10 +76,7 @@ public class Minion : Enemy, IMergable {
 
         moveBehavior.enabled = true;
         attackBehavior.Stop();
-
-        if (mergedEnemyPrefab != null) {
-            mergeBehavior.AllowMerging();
-        }
+        mergeBehavior.AllowMerging();
     }
 
     public override void OnAddEffect(UnitEffect unitEffect) {
@@ -133,37 +98,7 @@ public class Minion : Enemy, IMergable {
         SpawnTwoMinions();
     }
 
-    #region Handle Merge Indicator
-
-    /// <summary>
-    /// the merge leader creates an indicator to show the progress of the merging
-    /// </summary>
-    private void HandleMergeIndicator() {
-
-        // only the merge leader handles the indicator so there aren't two
-        if (!mergeBehavior.IsMergeLeader()) {
-            return;
-        }
-
-        if (!isHandlingIndicator && mergeBehavior.IsMerging()) {
-            isHandlingIndicator = true;
-
-            Vector3 offset = new Vector3(0, 1.5f);
-            mergeIndicator = mergeIndicatorPrefab.Spawn(transform.position + offset, Containers.Instance.WorldUI);
-            mergeIndicator.SetFillAmount(0);
-        }
-        else if (isHandlingIndicator) {
-            mergeIndicator.SetFillAmount(mergeBehavior.GetMergeProgress());
-        }
-    }
-
-    // destroy the indicator when the merging is complete
-    private void DestroyMergingIndicator() {
-        mergeIndicator.gameObject.ReturnToPool();
-        isHandlingIndicator = false;
-    }
-
-    #endregion
+    
 
     #region Split On Destroy
 

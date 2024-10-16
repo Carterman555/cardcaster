@@ -1,149 +1,79 @@
 using Mono.CSharp;
 using System;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
-public class MergeBehavior : EnemyBehavior {
+public class MergeBehavior : MonoBehaviour {
 
     public event Action OnLeaderStopMerging;
 
     public event Action OnLeaderMerged;
     public event Action OnMerged;
 
-    private TriggerContactTracker mergeTracker;
-    private List<IMergable> nearbyMergables = new();
-    private IMergable mergingPartner;
+    [SerializeField] private TriggerContactTracker mergeTracker;
+    private List<MergeBehavior> nearbyMergables = new();
+    private MergeBehavior mergingPartner;
 
-    private float toMergeDelay;
-    private float mergeTime;
-
+    [SerializeField] private float toMergeDelay;
+    [SerializeField] private float mergeTime;
     private float mergeTimer; // used for both timing to be ready to merge and timing how long the merging takes
 
     private enum MergeStage { MergingNotAllowed, MergingAllowed, ReadyToMerging, Merging }
-
     private MergeStage mergeStage;
 
     //... so only one stronger enemy is spawned, the leader is the one that spawns the stronger enemy
     private bool isMergeLeader;
-    private Enemy mergedEnemyPrefab;
+
+    [SerializeField] private Enemy mergedEnemyPrefab;
 
     private Rigidbody2D rb;
 
-    public MergeBehavior(Enemy enemy, TriggerContactTracker mergeTracker, Enemy mergedEnemyPrefab, float toMergeDelay, float mergeTime) : base(enemy) {
+    [Header("Merging Indicator")]
+    [SerializeField] private FillController mergeIndicatorPrefab;
+    private FillController mergeIndicator;
+    private bool isHandlingIndicator;
 
-        this.mergeTracker = mergeTracker;
-        this.mergedEnemyPrefab = mergedEnemyPrefab;
-        this.toMergeDelay = toMergeDelay;
-        this.mergeTime = mergeTime;
-
-        if (enemy.TryGetComponent(out Rigidbody2D rigidbody2D)) {
-            rb = rigidbody2D;
-        }
-        else {
-            Debug.LogError("Object With Merge Behavior Does Not Have Rigidbody2D!");
-        }
-
-        if (enemy as IMergable == null) {
-            Debug.LogError("Enemy with merge behavior is not IMergable: " + enemy.name);
-        }
+    private void Awake() {
+        rb = GetComponent<Rigidbody2D>();
     }
 
-    private DebugText debugText;//debug
-
-    public bool IsReadyToMerge() {
-        return mergeStage == MergeStage.ReadyToMerging;
-    }
-
-    public bool SameMergePrefab(Enemy mergedEnemyPrefab) {
-        return this.mergedEnemyPrefab.Equals(mergedEnemyPrefab);
-    }
-
-    public bool IsMerging() {
-        return mergeStage == MergeStage.Merging;
-    }
-
-    public bool IsMergeLeader() {
-        return isMergeLeader;
-    }
-
-    public float GetMergeProgress() {
-
-        if (!IsMerging()) {
-            Debug.LogWarning("Trying to get progress of merging when not merging!");
-            return 0f;
-        }
-
-        return mergeTimer / mergeTime;
-    }
-
-    public IMergable GetMergingPartner() {
-        return mergingPartner;
-    }
-
-    public void StopMerging(bool stopPartner = true) {
-
-        if (!IsMerging()) {
-            Debug.LogWarning("Trying to stop merging, but already not merging");
-        }
-
-        mergeStage = MergeStage.MergingAllowed;
-        mergeTimer = 0;
-
-        if (stopPartner) {
-            mergingPartner.GetMergeBehavior().StopMerging(false);
-        }
-
-        if (isMergeLeader) {
-            OnLeaderStopMerging?.Invoke();
-        }
-
-        mergingPartner = null;
-    }
-
-    public override void OnEnable() {
-        base.OnEnable();
-
+    private void OnEnable() {
         mergeTimer = 0;
         mergeStage = MergeStage.MergingNotAllowed;
         isMergeLeader = false;
         mergingPartner = null;
 
-        debugText = DebugText.Create(enemy.transform, new Vector2(0, 1), mergeStage.ToString());//debug
+        AllowMerging();
 
         mergeTracker.OnEnterContact += TryAddMergable;
         mergeTracker.OnExitContact += TryRemoveMergable;
     }
 
-    public override void OnDisable() {
-        base.OnDisable();
+    private void OnDisable() {
         mergeTracker.OnEnterContact -= TryAddMergable;
         mergeTracker.OnExitContact -= TryRemoveMergable;
-
-        debugText.gameObject.ReturnToPool(); // debug
     }
 
     private void TryAddMergable(GameObject @object) {
-        if (@object.TryGetComponent(out IMergable mergable)) {
+        if (@object.TryGetComponent(out MergeBehavior mergable)) {
 
-            // if they are the same enemy, they can merge
-            if (mergable.GetType().Equals(enemy.GetType())) {
+            // if they merge to the same enemy, they can merge
+            if (mergable.SameMergePrefab(mergedEnemyPrefab)) {
                 nearbyMergables.Add(mergable);
             }
         }
     }
 
     private void TryRemoveMergable(GameObject @object) {
-        if (@object.TryGetComponent(out IMergable mergable)) {
+        if (@object.TryGetComponent(out MergeBehavior mergable)) {
             if (nearbyMergables.Contains(mergable)) {
                 nearbyMergables.Remove(mergable);
             }
         }
     }
 
-    public override void FrameUpdateLogic() {
-        base.FrameUpdateLogic();
-
-        debugText.SetText(mergeStage.ToString()); // debug
+    private void Update() {
 
         if (mergeStage == MergeStage.MergingAllowed) {
             mergeTimer += Time.deltaTime;
@@ -154,14 +84,12 @@ public class MergeBehavior : EnemyBehavior {
         }
         else if (mergeStage == MergeStage.ReadyToMerging) {
 
-            foreach (IMergable nearbyMergable in nearbyMergables) {
-
-                MergeBehavior nearbyMergeBehavior = nearbyMergable.GetMergeBehavior();
+            foreach (MergeBehavior nearbyMergeBehavior in nearbyMergables) {
 
                 if (nearbyMergeBehavior.IsReadyToMerge() && nearbyMergeBehavior.SameMergePrefab(mergedEnemyPrefab)) {
 
-                    StartMerging(nearbyMergable);
-                    nearbyMergeBehavior.StartMerging(enemy as IMergable);
+                    StartMerging(nearbyMergeBehavior);
+                    nearbyMergeBehavior.StartMerging(this);
 
                     isMergeLeader = true;
                     break;
@@ -178,6 +106,106 @@ public class MergeBehavior : EnemyBehavior {
                 Merge();
             }
         }
+
+        HandleMergeIndicator();
+    }
+
+    private void StartMerging(MergeBehavior other) {
+        mergeStage = MergeStage.Merging;
+        mergingPartner = other;
+    }
+
+    private void Merge() {
+
+        if (mergedEnemyPrefab == null) {
+            return;
+        }
+
+        // so only one stronger enemy is spawned
+        if (isMergeLeader) {
+
+            //... the merged enemy pos is between the two merging enemies
+            Vector2 mergedEnemyPos = (transform.position + mergingPartner.transform.position) / 2;
+            mergedEnemyPrefab.Spawn(mergedEnemyPos, Containers.Instance.Enemies);
+
+            OnLeaderMerged?.Invoke();
+        }
+
+        OnMerged?.Invoke();
+
+        gameObject.ReturnToPool();
+    }
+
+    #region Handle Merge Indicator
+
+    /// <summary>
+    /// the merge leader creates an indicator to show the progress of the merging
+    /// </summary>
+    private void HandleMergeIndicator() {
+
+        // only the merge leader handles the indicator so there aren't two
+        if (!isMergeLeader) {
+            return;
+        }
+
+        if (!isHandlingIndicator && IsMerging()) {
+            isHandlingIndicator = true;
+
+            Vector3 offset = new Vector3(0, 1.5f);
+            mergeIndicator = mergeIndicatorPrefab.Spawn(transform.position + offset, Containers.Instance.WorldUI);
+            mergeIndicator.SetFillAmount(0);
+        }
+        else if (isHandlingIndicator) {
+            float mergeProgress = mergeTimer / mergeTime;
+            mergeIndicator.SetFillAmount(mergeProgress);
+        }
+    }
+
+    // destroy the indicator when the merging is complete
+    private void DestroyMergingIndicator() {
+        mergeIndicator.gameObject.ReturnToPool();
+        isHandlingIndicator = false;
+    }
+
+    #endregion
+
+    #region Get Methods
+
+    public bool IsReadyToMerge() {
+        return mergeStage == MergeStage.ReadyToMerging;
+    }
+
+    public bool SameMergePrefab(Enemy mergedEnemyPrefab) {
+        return this.mergedEnemyPrefab.Equals(mergedEnemyPrefab);
+    }
+
+    public bool IsMerging() {
+        return mergeStage == MergeStage.Merging;
+    }
+
+    #endregion
+
+
+    #region Interface Control Methods
+
+    public void StopMerging(bool stopPartner = true) {
+
+        if (!IsMerging()) {
+            Debug.LogWarning("Trying to stop merging, but already not merging");
+        }
+
+        mergeStage = MergeStage.MergingAllowed;
+        mergeTimer = 0;
+
+        if (stopPartner) {
+            mergingPartner.StopMerging(false);
+        }
+
+        if (isMergeLeader) {
+            OnLeaderStopMerging?.Invoke();
+        }
+
+        mergingPartner = null;
     }
 
     public void AllowMerging() {
@@ -191,29 +219,5 @@ public class MergeBehavior : EnemyBehavior {
         mergeTimer = 0;
     }
 
-    public void StartMerging(IMergable other) {
-        mergeStage = MergeStage.Merging;
-        mergingPartner = other;
-    }
-
-    public void Merge() {
-
-        if (mergedEnemyPrefab == null) {
-            return;
-        }
-
-        // so only one stronger enemy is spawned
-        if (isMergeLeader) {
-
-            //... the merged enemy pos is between the two merging enemies
-            Vector2 mergedEnemyPos = (enemy.transform.position + mergingPartner.GetObject().transform.position) / 2;
-            mergedEnemyPrefab.Spawn(mergedEnemyPos, Containers.Instance.Enemies);
-
-            OnLeaderMerged?.Invoke();
-        }
-
-        OnMerged?.Invoke();
-
-        enemy.gameObject.ReturnToPool();
-    }
+    #endregion
 }

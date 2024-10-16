@@ -6,11 +6,6 @@ using UnityEngine;
 public class BaneBlaster : Enemy {
 
     private ChasePlayerBehavior chasePlayerBehavior;
-
-    [Header("Shoot Projectile")]
-    [SerializeField] private Transform shootPoint;
-    [SerializeField] private StraightMovement projectilePrefab;
-    [SerializeField] private Animator blasterAnim;
     private StraightShootBehavior shootBehavior;
 
     [Header("Sight")]
@@ -27,17 +22,7 @@ public class BaneBlaster : Enemy {
         InitializeSensors();
 
         chasePlayerBehavior = GetComponent<ChasePlayerBehavior>();
-    }
-
-    protected override void OnEnable() {
-        base.OnEnable();
-        shootBehavior.OnShootAnim += PlayShootAnimation;
-    }
-
-    protected override void OnDisable() {
-        base.OnDisable();
-
-        shootBehavior.OnShootAnim -= PlayShootAnimation;
+        shootBehavior = GetComponent<StraightShootBehavior>();
     }
 
     private void InitializeSensors() {
@@ -50,13 +35,14 @@ public class BaneBlaster : Enemy {
 
         if (lineSight.InSight(transform.position) && !playerInSight) {
             chasePlayerBehavior.enabled = false;
+            shootBehavior.enabled = true;
             shootBehavior.StartShooting(PlayerMovement.Instance.transform);
 
             playerInSight = true;
         }
         else if (!lineSight.InSight(transform.position) && playerInSight) {
             chasePlayerBehavior.enabled = true;
-            shootBehavior.Stop();
+            shootBehavior.enabled = false;
 
             playerInSight = false;
         }
@@ -68,14 +54,10 @@ public class BaneBlaster : Enemy {
         if (unitEffect is StopMovement) {
             if (!lineSight.InSight(transform.position)) {
                 chasePlayerBehavior.enabled = true;
-                shootBehavior.Stop();
+                shootBehavior.enabled = false;
 
                 playerInSight = false;
             }
         }
-    }
-
-    private void PlayShootAnimation() {
-        blasterAnim.SetTrigger("shoot");
     }
 }

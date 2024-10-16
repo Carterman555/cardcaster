@@ -1,87 +1,71 @@
 using DG.Tweening;
 using MoreMountains.Tools;
+using System;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class CircleMoveBehavior : EnemyBehavior, IMovementBehavior {
+public class CircleMoveBehavior : MonoBehaviour, IChangesFacing {
 
-    private float moveRadius;
+    [SerializeField] private float moveRadius;
 
     private float angle;
     private Vector2 center;
+
+    private IHasStats hasStats;
     private NavMeshAgent agent;
 
-    private FacePlayerBehavior changeFacingBehavior;
+    private void Awake() {
+        hasStats = GetComponent<IHasStats>();
 
-    public CircleMoveBehavior(Enemy enemy, float radius) : base(enemy) {
-        center = enemy.transform.position;
-
-        if (enemy.TryGetComponent(out NavMeshAgent agent)) {
-            this.agent = agent;
-            agent.updateRotation = false;
-            agent.updateUpAxis = false;
-        }
-        else {
-            Debug.LogError("Object With CircleMoveBehavior Does Not Have NavMeshAgent!");
-        }
-
-        moveRadius = radius;
+        agent = GetComponent<NavMeshAgent>();
+        agent.updateRotation = false;
+        agent.updateUpAxis = false;
     }
 
-    public override void OnEnable() {
-        base.OnEnable();
-
+    private void OnEnable() {
         angle = 0f;
+
+        agent.isStopped = false;
 
         // face right
         facingRight = true;
-        enemy.transform.rotation = Quaternion.Euler(new Vector3(enemy.transform.rotation.eulerAngles.x, 0f, enemy.transform.rotation.eulerAngles.z));
-        enemy.InvokeChangedFacing(facingRight);
+        transform.rotation = Quaternion.Euler(new Vector3(transform.rotation.eulerAngles.x, 0f, transform.rotation.eulerAngles.z));
+        OnChangedFacing?.Invoke(facingRight);
     }
 
-    public override void FrameUpdateLogic() {
-        base.FrameUpdateLogic();
+    private void OnDisable() {
+        agent.isStopped = true;
+    }
 
-        if (IsStopped()) {
-            return;
-        }
-
-        agent.speed = enemy.GetStats().MoveSpeed;
+    private void Update() {
+        agent.speed = hasStats.GetStats().MoveSpeed;
 
         float mult = 1 / moveRadius;
-        angle += enemy.GetStats().MoveSpeed * mult * Time.deltaTime; // Increment angle based on speed
+        angle += hasStats.GetStats().MoveSpeed * mult * Time.deltaTime; // Increment angle based on speed
         float x = center.x + moveRadius * Mathf.Cos(angle);
         float y = center.y + moveRadius * Mathf.Sin(angle);
         Vector3 nextPosition = new Vector3(x, y);
         agent.SetDestination(nextPosition);
 
-        bool faceRight = nextPosition.x > enemy.transform.position.x;
+        bool faceRight = nextPosition.x > transform.position.x;
         HandleDirectionFacing(faceRight);
     }
 
+    public event Action<bool> OnChangedFacing;
+
     private bool facingRight;
 
+    // TODO - refactor cause duplicate code as FacePlayerBehaviour
     private void HandleDirectionFacing(bool faceRight) {
         if (!facingRight && faceRight) {
-            enemy.transform.rotation = Quaternion.Euler(new Vector3(enemy.transform.rotation.eulerAngles.x, 0f, enemy.transform.rotation.eulerAngles.z));
+            transform.rotation = Quaternion.Euler(new Vector3(transform.rotation.eulerAngles.x, 0f, transform.rotation.eulerAngles.z));
             facingRight = true;
-            enemy.InvokeChangedFacing(facingRight);
+            OnChangedFacing?.Invoke(facingRight);
         }
         else if (facingRight && !faceRight) {
-            enemy.transform.rotation = Quaternion.Euler(new Vector3(enemy.transform.rotation.eulerAngles.x, 180f, enemy.transform.rotation.eulerAngles.z));
+            transform.rotation = Quaternion.Euler(new Vector3(transform.rotation.eulerAngles.x, 180f, transform.rotation.eulerAngles.z));
             facingRight = false;
-            enemy.InvokeChangedFacing(facingRight);
+            OnChangedFacing?.Invoke(facingRight);
         }
     }
-
-    public override void Start() {
-        base.Start();
-        agent.isStopped = false;
-    }
-
-    public override void Stop() {
-        base.Stop();
-        agent.isStopped = true;
-    }
-
 }

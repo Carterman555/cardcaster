@@ -1,52 +1,50 @@
 using System;
 using UnityEngine;
 
-public class SpawnEnemyBehavior : EnemyBehavior {
-    public event Action OnSpawnEnemy;
+public class SpawnEnemyBehavior : MonoBehaviour {
 
-    private Enemy enemyToSpawn;
-    private Transform spawnPoint;
+    [SerializeField] private bool specialAttack = true;
+
+    [SerializeField] private Enemy enemyToSpawn;
+    [SerializeField] private Transform spawnPoint;
+    [SerializeField] private Animator anim;
+
+    private IHasStats hasStats;
     private TimedActionBehavior timedActionBehavior;
 
-    public SpawnEnemyBehavior(Enemy enemy, Enemy enemyToSpawn, Transform spawnPoint) : base(enemy) {
-        this.enemyToSpawn = enemyToSpawn;
-        this.spawnPoint = spawnPoint;
+    private void Awake() {
+
+        hasStats = GetComponent<IHasStats>();
 
         timedActionBehavior = new TimedActionBehavior(
-            enemy.GetStats().AttackCooldown,
-            () => enemy.InvokeSpecialAttack()
+            hasStats.GetStats().AttackCooldown,
+            () => TriggerSpawnAnimation()
         );
     }
 
     public void StartSpawning(int amountToSpawn) {
-        Start();
         timedActionBehavior.Start(amountToSpawn);
     }
 
-    public override void Stop() {
-        base.Stop();
+    private void OnDisable() {
         timedActionBehavior.Stop();
     }
 
-    public override void FrameUpdateLogic() {
-        if (!IsStopped()) {
-            timedActionBehavior.UpdateLogic();
-            if (timedActionBehavior.IsFinished()) {
-                Stop();
-            }
+    private void Update() {
+        timedActionBehavior.UpdateLogic();
+        if (timedActionBehavior.IsFinished()) {
+            enabled = true;
         }
     }
 
+    private void TriggerSpawnAnimation() {
+        //... this animation plays SpawnEnemy()
+        string attackTriggerString = specialAttack ? "specialAttack" : "attack";
+        anim.SetTrigger(attackTriggerString);
+    }
+
+    // played by animation
     private void SpawnEnemy() {
         Enemy spawnedEnemy = enemyToSpawn.Spawn(spawnPoint.position, Containers.Instance.Enemies);
-        OnSpawnEnemy?.Invoke();
-    }
-
-    public override void DoAnimationTriggerEventLogic(AnimationTriggerType triggerType) {
-        base.DoAnimationTriggerEventLogic(triggerType);
-
-        if (triggerType == AnimationTriggerType.SpawnEnemy) {
-            SpawnEnemy();
-        }
     }
 }

@@ -1,16 +1,21 @@
 using System;
 using UnityEngine;
 
-public class StraightShootBehavior : MonoBehaviour, ISpecialAttacker {
+public class StraightShootBehavior : MonoBehaviour, IAttacker {
 
-    public event Action OnShootAnim;
     public event Action<Vector2> OnShoot_Direction;
-    public event Action OnSpecialAttack;
+    public event Action OnAttack;
 
-    private IHasStats hasStats;
+    protected IHasStats hasStats;
+
+    [SerializeField] private bool specialAttack;
 
     [SerializeField] protected StraightMovement projectilePrefab;
     [SerializeField] protected Transform shootPoint;
+
+    [Header("Animators")]
+    [SerializeField] private Animator enemyAnim;
+    [SerializeField] private Animator weaponAnim;
 
     protected Transform target;
     private TimedActionBehavior timedActionBehavior;
@@ -20,7 +25,7 @@ public class StraightShootBehavior : MonoBehaviour, ISpecialAttacker {
 
         timedActionBehavior = new TimedActionBehavior(
             hasStats.GetStats().AttackCooldown,
-            () => ShootAnimation()
+            () => TriggerShootAnimation()
         );
     }
 
@@ -35,30 +40,24 @@ public class StraightShootBehavior : MonoBehaviour, ISpecialAttacker {
         timedActionBehavior.SetActionCooldown(hasStats.GetStats().AttackCooldown);
     }
 
-    private void ShootAnimation() {
-        enemy.InvokeAttack();
-        OnShootAnim?.Invoke();
+    private void TriggerShootAnimation() {
+        string attackTriggerString = specialAttack ? "specialAttack" : "attack";
+        enemyAnim.SetTrigger(attackTriggerString);
+        weaponAnim.SetTrigger("shoot");
     }
 
-    protected virtual void CreateProjectile() {
+    protected virtual void ShootProjectile() {
         StraightMovement newProjectile = projectilePrefab.Spawn(shootPoint.position, Containers.Instance.Projectiles);
 
         Vector2 toTarget = target.position - transform.position;
         newProjectile.Setup(toTarget.normalized);
         newProjectile.GetComponent<DamageOnContact>().Setup(hasStats.GetStats().Damage, hasStats.GetStats().KnockbackStrength);
 
-        InvokeShoot(toTarget.normalized);
+        InvokeEvents(toTarget.normalized);
     }
 
-    protected void InvokeShoot(Vector2 direction) {
+    protected void InvokeEvents(Vector2 direction) {
         OnShoot_Direction?.Invoke(direction);
-    }
-
-    public override void DoAnimationTriggerEventLogic(AnimationTriggerType triggerType) {
-        base.DoAnimationTriggerEventLogic(triggerType);
-
-        if (triggerType == AnimationTriggerType.ShootStraight) {
-            CreateProjectile();
-        }
+        OnAttack?.Invoke();
     }
 }

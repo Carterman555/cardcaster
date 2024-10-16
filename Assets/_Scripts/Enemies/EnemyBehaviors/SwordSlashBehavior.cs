@@ -1,12 +1,26 @@
 using UnityEngine;
+using System;
 
-public class SwordSlashBehavior : EnemyBehavior {
+public class SwordSlashBehavior : MonoBehaviour, IAttacker {
+
+    public event Action OnAttack;
+
+    private IHasStats hasStats;
 
     private SlashingWeapon weapon;
-    private LayerMask targetLayerMask;
     private float slashSize;
 
     private float attackTimer;
+
+    private void Awake() {
+        hasStats = GetComponent<IHasStats>();
+
+        weapon.SetTarget(Object.FindObjectOfType<PlayerMeleeAttack>().transform);
+    }
+
+    private void OnEnable() {
+        attackTimer = 0;
+    }
 
     protected SwordSlashBehavior(Enemy enemy, SlashingWeapon weapon, LayerMask targetLayerMask, float slashSize) : base(enemy) {
         this.weapon = weapon;
@@ -15,28 +29,25 @@ public class SwordSlashBehavior : EnemyBehavior {
 
         Stop();
 
-        weapon.SetTarget(Object.FindObjectOfType<PlayerMeleeAttack>().transform);
     }
 
-    public override void FrameUpdateLogic() {
 
-        if (!IsStopped()) {
-            attackTimer += Time.deltaTime;
-            if (attackTimer > enemy.GetStats().AttackCooldown) {
-                attackTimer = 0;
-
-                weapon.Swing();
-
-                // deal damage
-                Vector2 toPlayer = PlayerMovement.Instance.transform.position - enemy.transform.position;
-                Vector2 attackCenter = (Vector2)enemy.transform.position + (toPlayer.normalized * slashSize);
-                DamageDealer.DealCircleDamage(targetLayerMask, attackCenter, slashSize, enemy.GetStats().Damage, enemy.GetStats().KnockbackStrength);
-
-                enemy.InvokeAttack();
-            }
-        }
-        else {
+    private void Update() {
+        attackTimer += Time.deltaTime;
+        if (attackTimer > hasStats.GetStats().AttackCooldown) {
             attackTimer = 0;
+            Slash();
         }
+    }
+
+    private void Slash() {
+        weapon.Swing();
+
+        // deal damage
+        Vector2 toPlayer = PlayerMovement.Instance.transform.position - transform.position;
+        Vector2 attackCenter = (Vector2)transform.position + (toPlayer.normalized * slashSize);
+        DamageDealer.DealCircleDamage(GameLayers.PlayerLayerMask, attackCenter, slashSize, hasStats.GetStats().Damage, hasStats.GetStats().KnockbackStrength);
+
+        OnAttack?.Invoke();
     }
 }

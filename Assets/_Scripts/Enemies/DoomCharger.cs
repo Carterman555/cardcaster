@@ -47,9 +47,7 @@ public class DoomCharger : Enemy {
 
         yield return new WaitForSeconds(explosionDelay);
 
-        explodeBehavior.Explode(GameLayers.PlayerLayerMask, explosionRadius);
-        explosionParticlesPrefab.Spawn(transform.position, Containers.Instance.Effects);
-        gameObject.ReturnToPool();
+        explodeBehavior.Explode(GameLayers.PlayerLayerMask, explosionRadius, explosionParticlesPrefab);
 
         exploding = false;
     }

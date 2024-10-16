@@ -4,15 +4,10 @@ using UnityEngine;
 
 public class ShootStraightSpreadBehavior : StraightShootBehavior {
 
-    private int bulletCount;
+    [SerializeField] private int bulletCount;
 
-    public ShootStraightSpreadBehavior(Enemy enemy, StraightMovement projectilePrefab, Transform shootPoint, int bulletCount) :
-        base(enemy, projectilePrefab, shootPoint) {
-        this.bulletCount = bulletCount;
-    }
-
-    protected override void CreateProjectile() {
-        Vector2 toTarget = target.position - enemy.transform.position;
+    protected override void ShootProjectile() {
+        Vector2 toTarget = target.position - transform.position;
 
         for (int i = 0; i < bulletCount; i++) {
             StraightMovement newProjectile = projectilePrefab.Spawn(shootPoint.position, Containers.Instance.Projectiles);
@@ -22,15 +17,9 @@ public class ShootStraightSpreadBehavior : StraightShootBehavior {
             Vector2 currentBulletDirection = Quaternion.Euler(0, 0, spreadAngle) * toTarget.normalized;
 
             newProjectile.Setup(currentBulletDirection);
-            newProjectile.GetComponent<DamageOnContact>().Setup(enemy.GetStats().Damage, enemy.GetStats().KnockbackStrength);
+            newProjectile.GetComponent<DamageOnContact>().Setup(hasStats.GetStats().Damage, hasStats.GetStats().KnockbackStrength);
         }
 
-        InvokeShoot(toTarget.normalized);
-    }
-
-    public override void DoAnimationTriggerEventLogic(AnimationTriggerType triggerType) {
-        if (triggerType == AnimationTriggerType.ShootStraightSpread) {
-            CreateProjectile();
-        }
+        InvokeEvents(toTarget.normalized);
     }
 }

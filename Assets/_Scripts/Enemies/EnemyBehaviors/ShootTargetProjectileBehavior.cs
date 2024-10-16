@@ -1,58 +1,58 @@
 using System;
 using UnityEngine;
 
-public class ShootTargetProjectileBehavior : EnemyBehavior {
+public class ShootTargetProjectileBehavior : MonoBehaviour {
     public event Action OnShoot;
 
-    private ITargetMovement projectilePrefab;
-    private Transform shootPoint;
+    [SerializeField] private GameObject projectilePrefab;
+    [SerializeField] private Transform shootPoint;
+
+    [Header("Animation")]
+    [SerializeField] private bool specialAttack;
+    [SerializeField] private Animator anim;
+    private IHasStats hasStats;
+
     private TimedActionBehavior timedActionBehavior;
 
-    public ShootTargetProjectileBehavior(Enemy enemy, ITargetMovement projectilePrefab, Transform localShootPosition) : base(enemy) {
-        this.projectilePrefab = projectilePrefab;
-        this.shootPoint = localShootPosition;
+    private void Awake() {
+
+        hasStats = GetComponent<IHasStats>();
 
         timedActionBehavior = new TimedActionBehavior(
-            enemy.GetStats().AttackCooldown,
-            () => enemy.InvokeAttack()
+            hasStats.GetStats().AttackCooldown,
+            () => TriggerShootAnimation()
         );
 
-        Stop();
+        enabled = false;
     }
 
     public void StartShooting(int amountToShoot) {
-        Start();
         timedActionBehavior.Start(amountToShoot);
     }
 
-    public override void Stop() {
-        base.Stop();
+    private void OnDisable() {
         timedActionBehavior.Stop();
     }
 
-    public override void FrameUpdateLogic() {
-        if (!IsStopped()) {
-            timedActionBehavior.UpdateLogic();
-            if (timedActionBehavior.IsFinished()) {
-                Stop();
-            }
+    private void Update() {
+        timedActionBehavior.UpdateLogic();
+        if (timedActionBehavior.IsFinished()) {
+           enabled = true;
         }
     }
 
+    private void TriggerShootAnimation() {
+        string attackTriggerString = specialAttack ? "specialAttack" : "attack";
+        anim.SetTrigger(attackTriggerString);
+    }
+
+    // played by animation
     private void ShootProjectile() {
-        GameObject newProjectileObject = projectilePrefab.GetObject().Spawn(shootPoint.position, Containers.Instance.Enemies);
+        GameObject newProjectileObject = projectilePrefab.Spawn(shootPoint.position, Containers.Instance.Enemies);
         ITargetMovement newProjectile = newProjectileObject.GetComponent<ITargetMovement>();
         newProjectile.Setup(PlayerMovement.Instance.transform);
-        newProjectileObject.GetComponent<DamageOnContact>().Setup(enemy.GetStats().Damage, enemy.GetStats().KnockbackStrength);
+        newProjectileObject.GetComponent<DamageOnContact>().Setup(hasStats.GetStats().Damage, hasStats.GetStats().KnockbackStrength);
 
         OnShoot?.Invoke();
-    }
-
-    public override void DoAnimationTriggerEventLogic(AnimationTriggerType triggerType) {
-        base.DoAnimationTriggerEventLogic(triggerType);
-
-        if (triggerType == AnimationTriggerType.ShootTargetProjectile) {
-            ShootProjectile();
-        }
     }
 }

@@ -200,6 +200,15 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 226976224992304211, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
       insertIndex: -1
       addedObject: {fileID: -9091805166763565926}
+    - targetCorrespondingSourceObject: {fileID: 226976224992304211, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4253102065046302224}
+    - targetCorrespondingSourceObject: {fileID: 226976224992304211, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6316511975612982345}
+    - targetCorrespondingSourceObject: {fileID: 226976224992304211, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6153550554082725706}
   m_SourcePrefab: {fileID: 100100000, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
 --- !u!114 &4392500090413742484 stripped
 MonoBehaviour:
@@ -236,21 +245,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scriptableEnemy: {fileID: 11400000, guid: 130afc106dca5024e9ef1e18926c8af8, type: 2}
   playerTracker: {fileID: 4392500090413742484}
+  anim: {fileID: 7812749826847277617}
+  chasePlayerRange: 4
+  moveFromPlayerRange: 3
   betweenActionDuration:
     MinValue: 3
     MaxValue: 5
-  spawnEnemiesChance: 1
-  spawnPoint: {fileID: 4789020986000077722}
-  chasePlayerRange: 4
-  moveFromPlayerRange: 3
-  projectileShootAmount:
-    MinValue: 4
-    MaxValue: 7
-  projectilePrefab: {fileID: 4005639262296437109, guid: 7f46bb984c203cb4fba79969330e4701, type: 3}
-  enemySpawnAmount:
-    MinValue: 2
-    MaxValue: 4
-  enemyToSpawn: {fileID: -4002794726442658036, guid: 3036b955ca9649d4fbe1dcae34658259, type: 3}
+  spawnEnemiesChance: 0.3
 --- !u!114 &5984122794016962824
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -275,3 +276,58 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4308ccf77a796514ea8a0bff842a0a3c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &4253102065046302224
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7481704768261658980}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3b13b1ed3bf9f5b4e8cb3fafca61cdf2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &6316511975612982345
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7481704768261658980}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7f96687900e3524ca852125fbf7c4bb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  amountToShoot:
+    MinValue: 4
+    MaxValue: 5
+  projectilePrefab: {fileID: 6339056861437020777, guid: 7f46bb984c203cb4fba79969330e4701, type: 3}
+  shootPoint: {fileID: 4789020986000077722}
+  specialAttack: 0
+  anim: {fileID: 7812749826847277617}
+--- !u!114 &6153550554082725706
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7481704768261658980}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8b1873bd10d4454999e874c807e75a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  specialAttack: 1
+  amountToSpawn:
+    MinValue: 2
+    MaxValue: 3
+  enemyToSpawn: {fileID: -4002794726442658036, guid: 3036b955ca9649d4fbe1dcae34658259, type: 3}
+  spawnPoint: {fileID: 4789020986000077722}
+  anim: {fileID: 7812749826847277617}
+--- !u!95 &7812749826847277617 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 621019451974682374, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
+  m_PrefabInstance: {fileID: 7273941719131161911}
+  m_PrefabAsset: {fileID: 0}

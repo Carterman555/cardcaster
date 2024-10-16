@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.AI;
 
-public class FleePlayerBehavior : MonoBehaviour, IMovementBehavior {
+public class FleePlayerBehavior : MonoBehaviour, IEffectable, IEnemyMovement {
 
     private IHasStats hasStats;
     private NavMeshAgent agent;
@@ -18,7 +18,8 @@ public class FleePlayerBehavior : MonoBehaviour, IMovementBehavior {
     }
 
     private void Update() {
-        if (knockback.IsApplyingKnockback()) {
+
+        if (!IsMoving()) {
             return;
         }
 
@@ -53,5 +54,16 @@ public class FleePlayerBehavior : MonoBehaviour, IMovementBehavior {
 
         // If we've exhausted all attempts, just don't move
         Debug.LogWarning("Couldn't find a valid escape position");
+    }
+
+    public void OnAddEffect(UnitEffect unitEffect) {
+        if (unitEffect is StopMovement) {
+            agent.isStopped = true;
+        }
+    }
+
+    public bool IsMoving() {
+        bool hasStopEffect = TryGetComponent(out StopMovement stopMovement);
+        return !hasStopEffect && !knockback.IsApplyingKnockback() && enabled;
     }
 }

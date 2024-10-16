@@ -7,15 +7,20 @@ public class ExplodeBehavior : MonoBehaviour, IAttacker {
 
     public event Action OnAttack;
 
+    [SerializeField] private float explosionRadius;
+
+    [Header("Visual")]
+    [SerializeField] private ParticleSystem explosionParticlesPrefab;
+
     private IHasStats hasStats;
 
     private void Awake() {
         hasStats = GetComponent<IHasStats>();
     }
 
-    public void Explode(LayerMask targetLayerMask, float explosionRadius, ParticleSystem explosionParticlesPrefab = null, bool returnToPool = true) {
+    public void Explode(bool returnToPool = true) {
 
-        Collider2D[] cols = Physics2D.OverlapCircleAll(transform.position, explosionRadius, targetLayerMask);
+        Collider2D[] cols = Physics2D.OverlapCircleAll(transform.position, explosionRadius, GameLayers.PlayerLayer);
 
         foreach (Collider2D col in cols) {
             DamageDealer.TryDealDamage(col.gameObject,

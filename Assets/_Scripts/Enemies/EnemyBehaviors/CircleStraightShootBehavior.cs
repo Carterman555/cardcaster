@@ -21,8 +21,6 @@ public class CircleStraightShootBehavior : MonoBehaviour {
             hasStats.GetStats().AttackCooldown * attackCooldownMult,
             () => TriggerShootAnimation()
         );
-
-        enabled = false;
     }
 
     private void OnEnable() {

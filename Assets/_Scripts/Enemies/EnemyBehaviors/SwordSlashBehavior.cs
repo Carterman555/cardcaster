@@ -7,30 +7,20 @@ public class SwordSlashBehavior : MonoBehaviour, IAttacker {
 
     private IHasStats hasStats;
 
-    private SlashingWeapon weapon;
-    private float slashSize;
+    [SerializeField] private SlashingWeapon weapon;
+    [SerializeField] private float slashSize;
 
     private float attackTimer;
 
     private void Awake() {
         hasStats = GetComponent<IHasStats>();
 
-        weapon.SetTarget(Object.FindObjectOfType<PlayerMeleeAttack>().transform);
+        weapon.SetTarget(FindObjectOfType<PlayerMeleeAttack>().transform);
     }
 
     private void OnEnable() {
         attackTimer = 0;
     }
-
-    protected SwordSlashBehavior(Enemy enemy, SlashingWeapon weapon, LayerMask targetLayerMask, float slashSize) : base(enemy) {
-        this.weapon = weapon;
-        this.targetLayerMask = targetLayerMask;
-        this.slashSize = slashSize;
-
-        Stop();
-
-    }
-
 
     private void Update() {
         attackTimer += Time.deltaTime;

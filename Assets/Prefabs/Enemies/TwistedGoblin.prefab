@@ -192,7 +192,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scriptableEnemy: {fileID: 11400000, guid: 15bf6efdef5dc8f43a322a1f9752c22b, type: 2}
   playerTracker: {fileID: 2899262595723621407}
-  centerPoint: {fileID: 2685148296906252545}
+  anim: {fileID: 8693357842044784570}
 --- !u!114 &3445884156673867180
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -217,3 +217,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4308ccf77a796514ea8a0bff842a0a3c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!95 &8693357842044784570 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 621019451974682374, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
+  m_PrefabInstance: {fileID: 8087144431685241020}
+  m_PrefabAsset: {fileID: 0}

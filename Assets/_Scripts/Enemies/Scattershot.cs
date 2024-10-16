@@ -4,34 +4,21 @@ using UnityEngine;
 
 public class Scattershot : Enemy {
 
-    [SerializeField] private Transform shootPoint;
-
-    [Header("Movement")]
     private FleePlayerBehavior fleePlayerBehavior;
-
-    [Header("Shoot Projectile")]
-    [SerializeField] private RandomInt projectileCount;
-    [SerializeField] private StraightMovement projectilePrefab;
     private ShootStraightSpreadBehavior shootBehavior;
 
-    [Header("Gun")]
-    [SerializeField] private Recoil recoil;
-
     [Header("Recoil")]
+    [SerializeField] private Recoil recoil;
     [SerializeField] private float recoilForce;
     private Rigidbody2D rb;
 
     protected override void Awake() {
         base.Awake();
         rb = GetComponent<Rigidbody2D>();
-
-        InitializeBehaviors();
     }
 
     protected override void OnEnable() {
         base.OnEnable();
-
-        shootBehavior.StartShooting(PlayerMovement.Instance.transform);
 
         shootBehavior.OnShoot_Direction += OnShoot;
     }
@@ -41,28 +28,17 @@ public class Scattershot : Enemy {
         shootBehavior.OnShoot_Direction -= OnShoot;
     }
 
-    private void InitializeBehaviors() {
-        fleePlayerBehavior = new(this);
-        enemyBehaviors.Add(fleePlayerBehavior);
-
-        shootBehavior = new(this, projectilePrefab, shootPoint, projectileCount.Randomize());
-        enemyBehaviors.Add(shootBehavior);
-    }
-
     protected override void OnPlayerEnteredRange(GameObject player) {
         base.OnPlayerEnteredRange(player);
 
-        if (!TryGetComponent(out StopMovement stopMovement)) {
-            fleePlayerBehavior.Start();
-        }
-
-        shootBehavior.Stop();
+        fleePlayerBehavior.enabled = true;
+        shootBehavior.enabled = false;
     }
     protected override void OnPlayerExitedRange(GameObject player) {
         base.OnPlayerExitedRange(player);
 
-        fleePlayerBehavior.Stop();
-        shootBehavior.StartShooting(player.transform);
+        fleePlayerBehavior.enabled = false;
+        shootBehavior.enabled = true;
     }
 
     private void OnShoot(Vector2 direction) {
@@ -71,15 +47,5 @@ public class Scattershot : Enemy {
         rb.AddForce(recoilForce * -direction, ForceMode2D.Impulse);
 
         recoil.RecoilWeapon();
-    }
-
-    public override void OnAddEffect(UnitEffect unitEffect) {
-        base.OnAddEffect(unitEffect);
-
-        if (unitEffect is StopMovement) {
-            if (playerWithinRange) {
-                fleePlayerBehavior.Start();
-            }
-        }
     }
 }

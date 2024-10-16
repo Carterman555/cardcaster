@@ -345,9 +345,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scriptableEnemy: {fileID: 11400000, guid: aafd561a49975e04e8bdb25c998e7dfa, type: 2}
   playerTracker: {fileID: 4392500090413742484}
-  shootPoint: {fileID: 9144640158723354379}
-  projectilePrefab: {fileID: -7132047762621498982, guid: f8b666e14b633bd44850cb095fa226f3, type: 3}
-  blasterAnim: {fileID: 3673410799856191900}
+  anim: {fileID: 7812749826847277617}
   sightLayerMask:
     serializedVersion: 2
     m_Bits: 1344
@@ -376,3 +374,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4308ccf77a796514ea8a0bff842a0a3c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!95 &7812749826847277617 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 621019451974682374, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
+  m_PrefabInstance: {fileID: 7273941719131161911}
+  m_PrefabAsset: {fileID: 0}

@@ -4,7 +4,7 @@ using System;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class CircleMoveBehavior : MonoBehaviour, IChangesFacing {
+public class CircleMoveBehavior : MonoBehaviour, IChangesFacing, IEnemyMovement {
 
     [SerializeField] private float moveRadius;
 
@@ -13,6 +13,7 @@ public class CircleMoveBehavior : MonoBehaviour, IChangesFacing {
 
     private IHasStats hasStats;
     private NavMeshAgent agent;
+    private Knockback knockback;
 
     private void Awake() {
         hasStats = GetComponent<IHasStats>();
@@ -20,6 +21,8 @@ public class CircleMoveBehavior : MonoBehaviour, IChangesFacing {
         agent = GetComponent<NavMeshAgent>();
         agent.updateRotation = false;
         agent.updateUpAxis = false;
+
+        knockback = GetComponent<Knockback>();
     }
 
     private void OnEnable() {
@@ -38,6 +41,11 @@ public class CircleMoveBehavior : MonoBehaviour, IChangesFacing {
     }
 
     private void Update() {
+
+        if (!IsMoving()) {
+            return;
+        }
+
         agent.speed = hasStats.GetStats().MoveSpeed;
 
         float mult = 1 / moveRadius;
@@ -67,5 +75,10 @@ public class CircleMoveBehavior : MonoBehaviour, IChangesFacing {
             facingRight = false;
             OnChangedFacing?.Invoke(facingRight);
         }
+    }
+
+    public bool IsMoving() {
+        bool hasStopEffect = TryGetComponent(out StopMovement stopMovement);
+        return !hasStopEffect && !knockback.IsApplyingKnockback() && enabled;
     }
 }

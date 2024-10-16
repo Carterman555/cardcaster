@@ -3,51 +3,32 @@ using UnityEngine.AI;
 
 public class CursedWitch : Enemy {
 
-    [Header("General")]
-    [SerializeField] private RandomFloat betweenActionDuration;
-    private float betweenActionTimer;
-
-    [SerializeField][Range(0f, 1f)] private float spawnEnemiesChance;
-
-    [SerializeField] private Transform spawnPoint;
-
     [Header("Movement")]
     [SerializeField] private float chasePlayerRange = 4f;
     [SerializeField] private float moveFromPlayerRange = 3f;
     private ChasePlayerBehavior chaseBehavior;
     private FleePlayerBehavior fleeBehavior;
 
-    [Header("Shoot Projectile")]
-    [SerializeField] private RandomInt projectileShootAmount;
-    [SerializeField] private HeatSeekMovement projectilePrefab;
-    private ShootTargetProjectileBehavior shootProjectileBehavior;
+    [Header("Attacks")]
+    [SerializeField] private RandomFloat betweenActionDuration;
+    private float betweenActionTimer;
 
-    [Header("Spawn Enemy")]
-    [SerializeField] private RandomInt enemySpawnAmount;
-    [SerializeField] private Enemy enemyToSpawn;
+    [SerializeField][Range(0f, 1f)] private float spawnEnemiesChance;
+    private ShootTargetProjectileBehavior shootProjectileBehavior;
     private SpawnEnemyBehavior spawnEnemyBehavior;
 
     protected override void Awake() {
         base.Awake();
-        InitializeBehaviors();
 
         chaseBehavior = GetComponent<ChasePlayerBehavior>();
+        fleeBehavior = GetComponent<FleePlayerBehavior>();
+        shootProjectileBehavior = GetComponent<ShootTargetProjectileBehavior>();
+        spawnEnemyBehavior = GetComponent<SpawnEnemyBehavior>();
     }
 
     protected override void OnEnable() {
         base.OnEnable();
         betweenActionDuration.Randomize();
-    }
-
-    private void InitializeBehaviors() {
-        fleeBehavior = new(this);
-        enemyBehaviors.Add(fleeBehavior);
-
-        shootProjectileBehavior = new(this, projectilePrefab, spawnPoint);
-        enemyBehaviors.Add(shootProjectileBehavior);
-
-        spawnEnemyBehavior = new(this, enemyToSpawn, spawnPoint);
-        enemyBehaviors.Add(spawnEnemyBehavior);
     }
 
     protected override void Update() {
@@ -71,26 +52,26 @@ public class CursedWitch : Enemy {
         bool closeToPlayer = distanceFromPlayer < moveFromPlayerRange;
 
         if (farFromPlayer) {
-            if (!chaseBehavior.enabled || !fleeBehavior.IsStopped()) {
-                fleeBehavior.Stop();
+            if (!chaseBehavior.enabled || fleeBehavior.enabled) {
+                fleeBehavior.enabled = false;
                 chaseBehavior.enabled = true;
             }
         }
         else if (closeToPlayer) {
-            if (chaseBehavior.enabled || fleeBehavior.IsStopped()) {
+            if (chaseBehavior.enabled || !fleeBehavior.enabled) {
                 chaseBehavior.enabled = false;
-                fleeBehavior.Start();
+                fleeBehavior.enabled = true;
             }
         }
         else if (!farFromPlayer && !closeToPlayer) {
-            if (chaseBehavior.enabled || !fleeBehavior.IsStopped()) {
+            if (chaseBehavior.enabled || fleeBehavior.enabled) {
                 chaseBehavior.enabled = false;
-                fleeBehavior.Stop();
+                fleeBehavior.enabled = false;
             }
         }
     }
 
-    private bool PerformingAction => !spawnEnemyBehavior.IsStopped() || !shootProjectileBehavior.IsStopped();
+    private bool PerformingAction => shootProjectileBehavior.enabled || spawnEnemyBehavior.enabled;
 
     private void HandleAction() {
         if (!PerformingAction) {
@@ -100,10 +81,10 @@ public class CursedWitch : Enemy {
                 betweenActionDuration.Randomize();
 
                 if (spawnEnemiesChance > Random.value) {
-                    spawnEnemyBehavior.StartSpawning(enemySpawnAmount.Randomize());
+                    spawnEnemyBehavior.enabled = true;
                 }
                 else {
-                    shootProjectileBehavior.StartShooting(projectileShootAmount.Randomize());
+                    shootProjectileBehavior.enabled = true;
                 }
             }
         }

@@ -6,18 +6,18 @@ public class StraightShootBehavior : MonoBehaviour, IAttacker {
     public event Action<Vector2> OnShoot_Direction;
     public event Action OnAttack;
 
-    protected IHasStats hasStats;
+    public event Action OnShootAnim;
 
-    [SerializeField] private bool specialAttack;
+    protected IHasStats hasStats;
 
     [SerializeField] protected StraightMovement projectilePrefab;
     [SerializeField] protected Transform shootPoint;
 
-    [Header("Animators")]
+    [Header("Animation")]
+    [SerializeField] private bool specialAttack;
     [SerializeField] private Animator enemyAnim;
     [SerializeField] private Animator weaponAnim;
 
-    protected Transform target;
     private TimedActionBehavior timedActionBehavior;
 
     private void Awake() {
@@ -29,27 +29,29 @@ public class StraightShootBehavior : MonoBehaviour, IAttacker {
         );
     }
 
-    private void Update() {
-        timedActionBehavior.UpdateLogic();
+    private void OnEnable() {
+        timedActionBehavior.Start();
+    }
+    private void OnDisable() {
+        timedActionBehavior.Stop();
     }
 
-    public void StartShooting(Transform target) {
-        this.target = target;
-        timedActionBehavior.Start();
-
-        timedActionBehavior.SetActionCooldown(hasStats.GetStats().AttackCooldown);
+    private void Update() {
+        timedActionBehavior.UpdateLogic();
     }
 
     private void TriggerShootAnimation() {
         string attackTriggerString = specialAttack ? "specialAttack" : "attack";
         enemyAnim.SetTrigger(attackTriggerString);
         weaponAnim.SetTrigger("shoot");
+
+        OnShootAnim?.Invoke();
     }
 
     protected virtual void ShootProjectile() {
         StraightMovement newProjectile = projectilePrefab.Spawn(shootPoint.position, Containers.Instance.Projectiles);
 
-        Vector2 toTarget = target.position - transform.position;
+        Vector2 toTarget = PlayerMeleeAttack.Instance.transform.position - transform.position;
         newProjectile.Setup(toTarget.normalized);
         newProjectile.GetComponent<DamageOnContact>().Setup(hasStats.GetStats().Damage, hasStats.GetStats().KnockbackStrength);
 

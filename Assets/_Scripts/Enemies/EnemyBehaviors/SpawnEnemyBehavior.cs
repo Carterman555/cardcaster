@@ -5,6 +5,7 @@ public class SpawnEnemyBehavior : MonoBehaviour {
 
     [SerializeField] private bool specialAttack = true;
 
+    [SerializeField] private RandomInt amountToSpawn;
     [SerializeField] private Enemy enemyToSpawn;
     [SerializeField] private Transform spawnPoint;
     [SerializeField] private Animator anim;
@@ -22,10 +23,9 @@ public class SpawnEnemyBehavior : MonoBehaviour {
         );
     }
 
-    public void StartSpawning(int amountToSpawn) {
-        timedActionBehavior.Start(amountToSpawn);
+    public void OnEnable() {
+        timedActionBehavior.Start(amountToSpawn.Randomize());
     }
-
     private void OnDisable() {
         timedActionBehavior.Stop();
     }

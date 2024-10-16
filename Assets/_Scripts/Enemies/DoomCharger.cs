@@ -7,19 +7,16 @@ public class DoomCharger : Enemy {
 
     private ChasePlayerBehavior moveBehavior;
     private ExplodeBehavior explodeBehavior;
-    [SerializeField] private float explosionRadius;
+
     [SerializeField] private float explosionDelay;
 
     private bool exploding;
 
-    [Header("Visual")]
-    [SerializeField] private ParticleSystem explosionParticlesPrefab;
-
     protected override void Awake() {
         base.Awake();
-        InitializeBehaviors();
 
         moveBehavior = GetComponent<ChasePlayerBehavior>();
+        explodeBehavior = GetComponent<ExplodeBehavior>();
     }
 
     protected override void OnEnable() {
@@ -28,9 +25,11 @@ public class DoomCharger : Enemy {
         exploding = false;
     }
 
-    private void InitializeBehaviors() {
-        explodeBehavior = new(this);
-        enemyBehaviors.Add(explodeBehavior);
+    protected override void OnDisable() {
+        base.OnDisable();
+
+        // stop exploded if killed
+        StopAllCoroutines();
     }
 
     protected override void Update() {
@@ -47,13 +46,8 @@ public class DoomCharger : Enemy {
 
         yield return new WaitForSeconds(explosionDelay);
 
-        explodeBehavior.Explode(GameLayers.PlayerLayerMask, explosionRadius, explosionParticlesPrefab);
+        explodeBehavior.Explode();
 
         exploding = false;
-    }
-
-    protected override void OnDisable() {
-        base.OnDisable();
-        StopAllCoroutines();
     }
 }

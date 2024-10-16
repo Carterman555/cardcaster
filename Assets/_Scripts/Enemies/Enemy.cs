@@ -4,24 +4,26 @@ using System.Linq;
 using UnityEngine;
 using QFSW.QC;
 
-public class Enemy : MonoBehaviour, IHasStats, IEffectable {
+public class Enemy : MonoBehaviour, IHasEnemyStats, IEffectable {
 
     protected Health health;
 
     protected virtual void Awake() {
         health = GetComponent<Health>();
+        moveBehaviours = GetComponents<IEnemyMovement>();
     }
 
     protected virtual void OnEnable() {
         SubToPlayerTriggerEvents();
-
-        InvokeOnEnable();
     }
 
     protected virtual void OnDisable() {
         UnsubFromPlayerTriggerEvents();
+        OnPlayerExitedRange(PlayerMovement.Instance.gameObject);
+    }
 
-        InvokeOnDisable();
+    protected virtual void Update() {
+        HandleMoveAnim();
     }
 
     #region Stats
@@ -33,59 +35,6 @@ public class Enemy : MonoBehaviour, IHasStats, IEffectable {
     }
     public EnemyStats GetEnemyStats() {
         return stats;
-    }
-
-    #endregion
-
-    #region Handle Behaviors
-
-    protected List<EnemyBehavior> enemyBehaviors = new();
-
-    protected virtual void Start() {
-        playerTracker.SetRange(stats.AttackRange);
-    }
-
-    public bool IsMoving() {
-        foreach (EnemyBehavior behavior in enemyBehaviors.Where(b => b is IMovementBehavior)) {
-            if (!behavior.IsStopped()) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    private void InvokeOnEnable() {
-        foreach (EnemyBehavior behavior in enemyBehaviors) {
-            behavior.OnEnable();
-        }
-    }
-
-    private void InvokeOnDisable() {
-        foreach (EnemyBehavior behavior in enemyBehaviors) {
-            behavior.OnDisable();
-        }
-    }
-
-    protected virtual void Update() {
-        foreach (EnemyBehavior behavior in enemyBehaviors) {
-            behavior.FrameUpdateLogic();
-        }
-    }
-
-    protected virtual void FixedUpdate() {
-        foreach (EnemyBehavior behavior in enemyBehaviors) {
-            behavior.PhysicsUpdateLogic();
-        }
-    }
-
-    public virtual void OnAddEffect(UnitEffect unitEffect) {
-
-    }
-
-    public void AnimationTriggerEvent(AnimationTriggerType triggerType) {
-        foreach (EnemyBehavior behavior in enemyBehaviors) {
-            behavior.DoAnimationTriggerEventLogic(triggerType);
-        }
     }
 
     #endregion
@@ -114,12 +63,27 @@ public class Enemy : MonoBehaviour, IHasStats, IEffectable {
 
     #endregion
 
+    public virtual void OnAddEffect(UnitEffect unitEffect) {
+
+    }
+
+    #region Animation
+
+    [SerializeField] private Animator anim;
+
+    private IEnemyMovement[] moveBehaviours;
+
+    private void HandleMoveAnim() {
+        bool isMoving = moveBehaviours.Any(m => m.IsMoving());
+        anim.SetBool("move", isMoving);
+    }
+
+    #endregion
+
     // debugging
     [Command("kill_all", MonoTargetType.All)]
     [Command("kill", MonoTargetType.Argument)]
     private void KillEnemy() {
         health.Die();
     }
-
-    
 }

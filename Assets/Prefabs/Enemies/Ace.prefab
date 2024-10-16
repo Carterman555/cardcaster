@@ -36,6 +36,10 @@ PrefabInstance:
       propertyPath: m_Color.r
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2595042869523141569, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3807084815282453126, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -147,6 +151,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scriptableEnemy: {fileID: 11400000, guid: a037715e85e24ef41b1e9a811270b082, type: 2}
   playerTracker: {fileID: 4392500090413742484}
-  moveRadius: 2
-  projectilePrefab: {fileID: -1897301476388012080, guid: 5812694bf7d1a7644a5c346ff24b30ea, type: 3}
-  projectileCount: 20
+  anim: {fileID: 7812749826847277617}
+--- !u!95 &7812749826847277617 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 621019451974682374, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
+  m_PrefabInstance: {fileID: 7273941719131161911}
+  m_PrefabAsset: {fileID: 0}

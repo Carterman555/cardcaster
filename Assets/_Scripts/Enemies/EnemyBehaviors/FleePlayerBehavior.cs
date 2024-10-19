@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -54,6 +55,12 @@ public class FleePlayerBehavior : MonoBehaviour, IEffectable, IEnemyMovement {
 
         // If we've exhausted all attempts, just don't move
         Debug.LogWarning("Couldn't find a valid escape position");
+    }
+
+    private void OnDisable() {
+        if (!GetComponent<Health>().IsDead()) {
+            agent.isStopped = true;
+        }
     }
 
     public void OnAddEffect(UnitEffect unitEffect) {

@@ -46,7 +46,7 @@ public class ShootTargetProjectileBehavior : MonoBehaviour {
     }
 
     // played by animation
-    private void ShootProjectile() {
+    public void ShootProjectile() {
         GameObject newProjectileObject = projectilePrefab.Spawn(shootPoint.position, Containers.Instance.Enemies);
         ITargetProjectileMovement newProjectile = newProjectileObject.GetComponent<ITargetProjectileMovement>();
         newProjectile.Setup(PlayerMovement.Instance.transform);

@@ -6,7 +6,7 @@ public class ShootStraightSpreadBehavior : StraightShootBehavior {
 
     [SerializeField] private int bulletCount;
 
-    protected override void ShootProjectile() {
+    public override void ShootProjectile() {
         Transform target = PlayerMeleeAttack.Instance.transform;
         Vector2 toTarget = target.position - transform.position;
 

@@ -13,6 +13,10 @@ public class ScarredSkeleton : Enemy {
 
         moveBehavior = GetComponent<ChasePlayerBehavior>();
         shootBehavior = GetComponent<StraightShootBehavior>();
+    }
+
+    protected override void OnEnable() {
+        base.OnEnable();
 
         moveBehavior.enabled = true;
         shootBehavior.enabled = false;
@@ -23,6 +27,7 @@ public class ScarredSkeleton : Enemy {
 
         moveBehavior.enabled = false;
         shootBehavior.enabled = true;
+        print("enter range");
     }
 
     protected override void OnPlayerExitedRange(GameObject player) {
@@ -30,5 +35,6 @@ public class ScarredSkeleton : Enemy {
 
         moveBehavior.enabled = true;
         shootBehavior.enabled = false;
+        print("exit range");
     }
 }

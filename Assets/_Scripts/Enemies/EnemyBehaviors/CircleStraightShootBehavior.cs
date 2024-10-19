@@ -17,6 +17,8 @@ public class CircleStraightShootBehavior : MonoBehaviour {
 
 
     private void Awake() {
+        hasStats = GetComponent<IHasStats>();
+
         timedActionBehavior = new TimedActionBehavior(
             hasStats.GetStats().AttackCooldown * attackCooldownMult,
             () => TriggerShootAnimation()
@@ -41,7 +43,7 @@ public class CircleStraightShootBehavior : MonoBehaviour {
     }
 
     // played by animation
-    private void CircleShoot() {
+    public void CircleShoot() {
         // Calculate the angle between each shockwave
         float angleStep = 360f / projectileCount;
         float angle = 0f;

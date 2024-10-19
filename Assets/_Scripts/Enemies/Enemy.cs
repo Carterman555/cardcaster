@@ -15,6 +15,7 @@ public class Enemy : MonoBehaviour, IHasEnemyStats, IEffectable {
 
     protected virtual void OnEnable() {
         SubToPlayerTriggerEvents();
+        playerTracker.GetComponent<CircleCollider2D>().radius = stats.AttackRange;
     }
 
     protected virtual void OnDisable() {

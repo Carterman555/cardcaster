@@ -36,7 +36,8 @@ public class CircleSlashBehavior : MonoBehaviour {
         anim.SetTrigger(attackTriggerString);
     }
 
-    private void Attack() {
+    // played by animation
+    public void Attack() {
         DamageDealer.DealCircleDamage(
             GameLayers.PlayerLayerMask,
             centerPoint.position,

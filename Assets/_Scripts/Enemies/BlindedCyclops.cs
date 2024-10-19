@@ -12,6 +12,13 @@ public class BlindedCyclops : Enemy {
         circleSlashBehavior = GetComponent<CircleSlashBehavior>();
     }
 
+    protected override void OnEnable() {
+        base.OnEnable();
+
+        shootBehavior.enabled = true;
+        circleSlashBehavior.enabled = false;
+    }
+
     protected override void OnPlayerEnteredRange(GameObject player) {
         base.OnPlayerEnteredRange(player);
 

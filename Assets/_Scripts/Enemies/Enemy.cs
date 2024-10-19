@@ -64,7 +64,6 @@ public class Enemy : MonoBehaviour, IHasEnemyStats, IEffectable {
     #endregion
 
     public virtual void OnAddEffect(UnitEffect unitEffect) {
-
     }
 
     #region Animation

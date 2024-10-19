@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using Unity.VisualScripting.FullSerializer;
 using UnityEngine;
 using UnityEngine.AI;
@@ -29,6 +30,12 @@ public class ChasePlayerBehavior : MonoBehaviour, IEffectable, IEnemyMovement {
         agent.isStopped = false;
         agent.speed = hasStats.GetStats().MoveSpeed;
         agent.SetDestination(PlayerMovement.Instance.transform.position);
+    }
+
+    private void OnDisable() {
+        if (!GetComponent<Health>().IsDead()) {
+            agent.isStopped = true;
+        }
     }
 
     public void OnAddEffect(UnitEffect unitEffect) {

@@ -5449,6 +5449,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: CursedWitch
       objectReference: {fileID: 0}
+    - target: {fileID: 7481704768261658980, guid: ae7cb55634d3120488ed1f950c5d754f, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

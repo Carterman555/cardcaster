@@ -29,6 +29,9 @@ public class CursedWitch : Enemy {
     protected override void OnEnable() {
         base.OnEnable();
         betweenActionDuration.Randomize();
+
+        shootProjectileBehavior.enabled = false;
+        spawnEnemyBehavior.enabled = false;
     }
 
     protected override void Update() {

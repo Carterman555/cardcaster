@@ -44,7 +44,7 @@ public class SpawnEnemyBehavior : MonoBehaviour {
     }
 
     // played by animation
-    private void SpawnEnemy() {
+    public void SpawnEnemy() {
         Enemy spawnedEnemy = enemyToSpawn.Spawn(spawnPoint.position, Containers.Instance.Enemies);
     }
 }

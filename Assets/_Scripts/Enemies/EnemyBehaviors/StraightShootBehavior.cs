@@ -16,7 +16,8 @@ public class StraightShootBehavior : MonoBehaviour, IAttacker {
     [Header("Animation")]
     [SerializeField] private bool specialAttack;
     [SerializeField] private Animator enemyAnim;
-    [SerializeField] private Animator weaponAnim;
+    [SerializeField] private bool hasWeapon;
+    [ConditionalHide("hasWeapon")] [SerializeField] private Animator weaponAnim;
 
     private TimedActionBehavior timedActionBehavior;
 
@@ -43,12 +44,15 @@ public class StraightShootBehavior : MonoBehaviour, IAttacker {
     private void TriggerShootAnimation() {
         string attackTriggerString = specialAttack ? "specialAttack" : "attack";
         enemyAnim.SetTrigger(attackTriggerString);
-        weaponAnim.SetTrigger("shoot");
+
+        if (hasWeapon) {
+            weaponAnim.SetTrigger("shoot");
+        }
 
         OnShootAnim?.Invoke();
     }
 
-    protected virtual void ShootProjectile() {
+    public virtual void ShootProjectile() {
         StraightMovement newProjectile = projectilePrefab.Spawn(shootPoint.position, Containers.Instance.Projectiles);
 
         Vector2 toTarget = PlayerMeleeAttack.Instance.transform.position - transform.position;

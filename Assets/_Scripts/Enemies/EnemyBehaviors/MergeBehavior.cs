@@ -98,6 +98,11 @@ public class MergeBehavior : MonoBehaviour {
         else if (mergeStage == MergeStage.Merging) {
             rb.velocity = Vector2.zero;
 
+            // only the merge leader handles the indicator so there aren't two
+            if (isMergeLeader) {
+                HandleMergeIndicator();
+            }
+
             mergeTimer += Time.deltaTime;
             if (mergeTimer > mergeTime) {
                 mergeTimer = 0;
@@ -105,8 +110,6 @@ public class MergeBehavior : MonoBehaviour {
                 Merge();
             }
         }
-
-        HandleMergeIndicator();
     }
 
     private void StartMerging(MergeBehavior other) {
@@ -115,10 +118,6 @@ public class MergeBehavior : MonoBehaviour {
     }
 
     private void Merge() {
-
-        if (mergedEnemyPrefab == null) {
-            return;
-        }
 
         // so only one stronger enemy is spawned
         if (isMergeLeader) {
@@ -129,6 +128,12 @@ public class MergeBehavior : MonoBehaviour {
 
             OnLeaderMerged?.Invoke();
         }
+
+        if (isHandlingIndicator) {
+            DestroyMergingIndicator();
+        }
+
+        mergeStage = MergeStage.MergingNotAllowed;
 
         OnMerged?.Invoke();
 
@@ -142,12 +147,7 @@ public class MergeBehavior : MonoBehaviour {
     /// </summary>
     private void HandleMergeIndicator() {
 
-        // only the merge leader handles the indicator so there aren't two
-        if (!isMergeLeader) {
-            return;
-        }
-
-        if (!isHandlingIndicator && IsMerging()) {
+        if (!isHandlingIndicator) {
             isHandlingIndicator = true;
 
             Vector3 offset = new Vector3(0, 1.5f);
@@ -200,8 +200,8 @@ public class MergeBehavior : MonoBehaviour {
             mergingPartner.StopMerging(false);
         }
 
-        if (isMergeLeader) {
-            OnLeaderStopMerging?.Invoke();
+        if (isHandlingIndicator) {
+            DestroyMergingIndicator();
         }
 
         mergingPartner = null;
@@ -214,6 +214,11 @@ public class MergeBehavior : MonoBehaviour {
         }
     }
     public void DontAllowMerging() {
+
+        if (IsMerging()) {
+            return;
+        }
+
         mergeStage = MergeStage.MergingNotAllowed;
         mergeTimer = 0;
     }

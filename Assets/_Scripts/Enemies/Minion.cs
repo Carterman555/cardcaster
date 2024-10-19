@@ -9,27 +9,24 @@ public class Minion : Enemy {
     private CircleSlashBehavior attackBehavior;
     private MergeBehavior mergeBehavior;
 
-    [Header("Split On Death")]
-    [SerializeField] private Enemy splitEnemyPrefab;
+    [SerializeField] private bool isMergable;
 
-    public GameObject GetObject() {
-        return gameObject;
-    }
-
-    public MergeBehavior GetMergeBehavior() {
-        return mergeBehavior;
-    }
+    [SerializeField] private bool splitOnDeath;
+    [ConditionalHide("splitOnDeath")] [SerializeField] private Enemy splitEnemyPrefab;
 
     protected override void Awake() {
         base.Awake();
 
         moveBehavior = GetComponent<ChasePlayerBehavior>();
         attackBehavior = GetComponent<CircleSlashBehavior>();
-        mergeBehavior = GetComponent<MergeBehavior>();
+
+        if (isMergable) {
+            mergeBehavior = GetComponent<MergeBehavior>();
+            mergeBehavior.AllowMerging();
+        }
 
         moveBehavior.enabled = true;
         attackBehavior.enabled = false;
-        mergeBehavior.AllowMerging();
     }
 
     private void Start() {
@@ -44,7 +41,7 @@ public class Minion : Enemy {
         base.Update();
 
         // stop chasing the player when merging
-        if (mergeBehavior.IsMerging()) {
+        if (isMergable && mergeBehavior.IsMerging()) {
             if (moveBehavior.enabled) {
                 moveBehavior.enabled = false;
             }
@@ -60,10 +57,13 @@ public class Minion : Enemy {
     protected override void OnPlayerEnteredRange(GameObject player) {
         base.OnPlayerEnteredRange(player);
 
-        if (!mergeBehavior.IsMerging()) {
+        if (!isMergable || !mergeBehavior.IsMerging()) {
             moveBehavior.enabled = false;
             attackBehavior.enabled = true;
-            mergeBehavior.DontAllowMerging();
+
+            if (isMergable) {
+                mergeBehavior.DontAllowMerging();
+            }
         }
     }
 
@@ -72,22 +72,23 @@ public class Minion : Enemy {
 
         moveBehavior.enabled = true;
         attackBehavior.enabled = false;
-        mergeBehavior.AllowMerging();
+
+        if (isMergable) {
+            mergeBehavior.AllowMerging();
+        }
     }
 
     public override void OnAddEffect(UnitEffect unitEffect) {
         base.OnAddEffect(unitEffect);
 
         if (unitEffect is StopMovement) {
-            if (!mergeBehavior.IsMerging()) {
-                moveBehavior.enabled = true;
-            }
+            moveBehavior.enabled = false;
         }
     }
 
     private void OnDeath() {
 
-        if (mergeBehavior.IsMerging()) {
+        if (isMergable && mergeBehavior.IsMerging()) {
             mergeBehavior.StopMerging();
         }
 
@@ -98,7 +99,7 @@ public class Minion : Enemy {
 
     private void SpawnTwoMinions() {
 
-        if (splitEnemyPrefab == null) {
+        if (!splitOnDeath) {
             return;
         }
 

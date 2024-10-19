@@ -30,6 +30,8 @@ public class CircleMoveBehavior : MonoBehaviour, IChangesFacing, IEnemyMovement 
 
         agent.isStopped = false;
 
+        center = transform.position;
+
         // face right
         facingRight = true;
         transform.rotation = Quaternion.Euler(new Vector3(transform.rotation.eulerAngles.x, 0f, transform.rotation.eulerAngles.z));
@@ -37,7 +39,9 @@ public class CircleMoveBehavior : MonoBehaviour, IChangesFacing, IEnemyMovement 
     }
 
     private void OnDisable() {
-        agent.isStopped = true;
+        if (!GetComponent<Health>().IsDead()) {
+            agent.isStopped = true;
+        }
     }
 
     private void Update() {
@@ -54,6 +58,9 @@ public class CircleMoveBehavior : MonoBehaviour, IChangesFacing, IEnemyMovement 
         float y = center.y + moveRadius * Mathf.Sin(angle);
         Vector3 nextPosition = new Vector3(x, y);
         agent.SetDestination(nextPosition);
+
+        print("pos: " + transform.position);
+        print("nextPosition: " + nextPosition);
 
         bool faceRight = nextPosition.x > transform.position.x;
         HandleDirectionFacing(faceRight);

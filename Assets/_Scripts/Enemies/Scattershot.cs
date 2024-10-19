@@ -15,6 +15,9 @@ public class Scattershot : Enemy {
     protected override void Awake() {
         base.Awake();
         rb = GetComponent<Rigidbody2D>();
+
+        fleePlayerBehavior = GetComponent<FleePlayerBehavior>();
+        shootBehavior = GetComponent<ShootStraightSpreadBehavior>();
     }
 
     protected override void OnEnable() {

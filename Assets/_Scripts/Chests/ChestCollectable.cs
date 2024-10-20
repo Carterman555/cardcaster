@@ -17,7 +17,7 @@ public class ChestCollectable : MonoBehaviour {
     private ICollectable collectable;
     private int collectableIndex;
 
-    private bool availableToChoose;
+    private bool interactable;
 
     private SpriteRenderer spriteRenderer;
 
@@ -39,34 +39,39 @@ public class ChestCollectable : MonoBehaviour {
         float duration = 0.3f;
         transform.DOLocalMove(positionOffset, duration).SetEase(Ease.OutSine);
         transform.DOScale(Vector2.one, duration).SetEase(Ease.OutSine).OnComplete(() => {
-            availableToChoose = true;
+            interactable = true;
         });
     }
 
-    private void OnMouseEnter() {
-        // outline
-        spriteRenderer.material = outlineMaterial;
-    }
+    private bool outlined;
 
-    private void OnMouseOver() {
+    private void Update() {
 
-        if (!availableToChoose) {
-            return;
+        if (interactable && MouseTracker.Instance.IsMouseOver(gameObject)) {
+
+            if (!outlined) {
+                spriteRenderer.material = outlineMaterial;
+                outlined = true;
+            }
+
+            //if (selectAction.action.triggered) {
+            if (Input.GetMouseButtonDown(0)) {
+                GoToPlayer();
+                StartCoroutine(chest.OnSelectCollectable(collectableIndex));
+            }
         }
-
-        //if (selectAction.action.triggered) {
-        if (Input.GetMouseButtonDown(0)) {
-            GoToPlayer();
-            StartCoroutine(chest.OnSelectCollectable(collectableIndex));
+        else {
+            if (outlined) {
+                //... disable outline
+                spriteRenderer.material = originalMaterial;
+                outlined = false;
+            }
         }
-    }
-
-    private void OnMouseExit() {
-        // disable outline
-        spriteRenderer.material = originalMaterial;
     }
 
     public void GoToPlayer() {
+
+        interactable = false;
 
         // so it doesn't disappear when the chest does
         transform.SetParent(Containers.Instance.Effects);
@@ -86,7 +91,7 @@ public class ChestCollectable : MonoBehaviour {
     }
 
     public void ReturnToChest(float duration) {
-        availableToChoose = false;
+        interactable = false;
 
         transform.DOLocalMove(Vector2.zero, duration).SetEase(Ease.InSine);
         transform.DOScale(Vector2.zero, duration).SetEase(Ease.InSine);

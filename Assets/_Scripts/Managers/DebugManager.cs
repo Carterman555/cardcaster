@@ -2,6 +2,7 @@ using QFSW.QC;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.UI.Image;
 
 public class DebugManager : StaticInstance<DebugManager> {
 
@@ -10,7 +11,6 @@ public class DebugManager : StaticInstance<DebugManager> {
     [SerializeField] private bool unlimitedEssence;
     public bool UnlimitedEssence => unlimitedEssence;
 
-    [SerializeField] private bool noEnemies;
 
     private void Start() {
 
@@ -31,6 +31,14 @@ public class DebugManager : StaticInstance<DebugManager> {
         RoomGenerator.OnCompleteGeneration -= OnRoomsGenerated;
     }
 
+    [SerializeField] private bool noEnemies;
+
+    private void Update() {
+        if (printMouseOver) {
+            PrintMouseOver();
+        }
+    }
+
     private void OnRoomsGenerated() {
         if (noEnemies) {
             ClearAllRooms();
@@ -42,6 +50,25 @@ public class DebugManager : StaticInstance<DebugManager> {
         Room[] rooms = FindObjectsOfType<Room>();
         foreach (Room room in rooms) {
             room.SetRoomCleared();
+        }
+    }
+
+    
+
+    [SerializeField] private bool printMouseOver;
+
+    private void PrintMouseOver() {
+        // Convert mouse position to world position
+        Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+
+        // Perform the 2D raycast
+        RaycastHit2D hit = Physics2D.Raycast(mousePosition, Vector2.zero);
+
+        if (hit.collider != null) {
+            Debug.Log($"Mouse is over: {hit.collider.gameObject.name}");
+        }
+        else {
+            Debug.Log("Mouse is not over any 2D object");
         }
     }
 }

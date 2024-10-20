@@ -1,5 +1,8 @@
+using Mono.CSharp;
 using System.Collections.Generic;
 using System.Linq;
+using System.Xml.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public static class ObjectPoolManager {
@@ -27,7 +30,7 @@ public static class ObjectPoolManager {
         }
 
         // Check if there are any inactive objects in the pool
-        GameObject spawnableObject = pool.InactiveObject.FirstOrDefault();
+        GameObject spawnableObject = pool.InactiveObjects.FirstOrDefault();
 
         if (spawnableObject == null) {
             // If there are no inactive objects, create a new one
@@ -38,8 +41,18 @@ public static class ObjectPoolManager {
             spawnableObject.transform.position = spawnPosition;
             spawnableObject.transform.rotation = spawnRotation;
             spawnableObject.transform.SetParent(parent);
-            pool.InactiveObject.Remove(spawnableObject);
+            pool.InactiveObjects.Remove(spawnableObject);
             spawnableObject.SetActive(true);
+
+            if (pool.LookupString.Equals("FireAbilityEffect")) {
+
+                string text = "";
+                foreach (var gobject in pool.InactiveObjects) {
+                    text += gobject + ", ";
+                }
+
+                Debug.Log("Removed from list. New List " + text);
+            }
         }
 
         return spawnableObject;
@@ -110,8 +123,7 @@ public static class ObjectPoolManager {
         }
 
 
-        string goName = objectToReturn.name.Substring(0, objectToReturn.name.Length - 7);
-
+        string goName = objectToReturn.name[..^7];
         PooledObjectInfo pool = ObjectPoolList.Find(p => p.LookupString == goName);
 
         if (pool == null) {
@@ -120,26 +132,44 @@ public static class ObjectPoolManager {
         }
         else {
 
-            if (pool.InactiveObject.Contains(objectToReturn)) {
+            if (pool.InactiveObjects.Contains(objectToReturn)) {
 
                 if (objectToReturn.activeSelf) {
                     objectToReturn.SetActive(false);
-                    Debug.LogWarning("Trying to return object that was already returned! (Was active so set Inactive)");
+                    Debug.LogWarning($"Trying to return {objectToReturn.name} which was already returned! (Was active so set Inactive)");
                 }
                 else {
-                    Debug.LogWarning("Trying to return object that was already returned!");
+                    Debug.LogWarning($"Trying to return {objectToReturn.name} which was already returned!");
                 }
 
                 return;
             }
 
+            if (goName.Equals("FireAbilityEffect")) {
+                Debug.Log($"Returning {objectToReturn.name}");
+            }
+
+            pool.InactiveObjects.Add(objectToReturn);
             objectToReturn.SetActive(false);
-            pool.InactiveObject.Add(objectToReturn);
         }
+    }
+
+    public static void TryReturnToPool(this GameObject objectToReturn) {
+        if (!objectToReturn.IsReturned()) {
+            objectToReturn.ReturnToPool();
+        }
+    }
+
+    public static bool IsReturned(this GameObject objectToCheck) {
+        string goName = objectToCheck.name[..^7];
+        PooledObjectInfo pool = ObjectPoolList.Find(p => p.LookupString == goName);
+
+        bool inPool = pool.InactiveObjects.Contains(objectToCheck);
+        return inPool;
     }
 }
 
 public class PooledObjectInfo {
     public string LookupString;
-    public List<GameObject> InactiveObject = new();
+    public List<GameObject> InactiveObjects = new();
 }

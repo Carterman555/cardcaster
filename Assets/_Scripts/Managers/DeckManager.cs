@@ -12,9 +12,6 @@ public class DeckManager : Singleton<DeckManager> {
 
     public static event Action<float> OnEssenceChanged_Amount;
 
-    [SerializeField] private int startDeckSize;
-
-    [FormerlySerializedAs("handSize")]
     [SerializeField] private int maxHandSize;
 
     private List<ScriptableCardBase> cardsInDeck = new();

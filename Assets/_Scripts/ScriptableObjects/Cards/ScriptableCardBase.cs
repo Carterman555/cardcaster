@@ -23,9 +23,6 @@ public abstract class ScriptableCardBase : ScriptableObject, ICollectable {
     public Sprite GetSprite() => sprite;
 
     [Header("Advanced Info")]
-    [SerializeField] private bool isPossibleStartingCard;
-    public bool IsPossibleStartingCard => isPossibleStartingCard;
-
     [SerializeField] private bool canStackWithSelf;
     public bool CanStackWithSelf => canStackWithSelf;
 

@@ -6,6 +6,7 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using TMPro;
 using DG.Tweening;
+using System.Linq;
 
 /// <summary>
 /// A static class for general helpful methods
@@ -155,6 +156,12 @@ public static class Helpers {
             if (raycastResultList[i].gameObject.layer == UILayer) return true;
         }
         return false;
+    }
+
+    public static bool IsMouseOver(this GameObject gameObject) {
+        Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        RaycastHit2D[] hits = Physics2D.RaycastAll(mousePos, Vector2.zero);
+        return hits.Any(hit => hit.collider != null && hit.collider.gameObject == gameObject);
     }
 
     public static string ToPrettyString(this Enum value) {

@@ -29,7 +29,7 @@ public class ElectricEffectOnDamage : MonoBehaviour, IAbilityEffect {
             attacker.OnDamage_Target -= Shock;
         }
 
-        electricAbilityParticles.gameObject.ReturnToPool();
+        electricAbilityParticles.gameObject.TryReturnToPool();
     }
 
     private void Shock(GameObject target) {

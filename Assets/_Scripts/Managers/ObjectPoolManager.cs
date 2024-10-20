@@ -43,16 +43,6 @@ public static class ObjectPoolManager {
             spawnableObject.transform.SetParent(parent);
             pool.InactiveObjects.Remove(spawnableObject);
             spawnableObject.SetActive(true);
-
-            if (pool.LookupString.Equals("FireAbilityEffect")) {
-
-                string text = "";
-                foreach (var gobject in pool.InactiveObjects) {
-                    text += gobject + ", ";
-                }
-
-                Debug.Log("Removed from list. New List " + text);
-            }
         }
 
         return spawnableObject;
@@ -143,10 +133,6 @@ public static class ObjectPoolManager {
                 }
 
                 return;
-            }
-
-            if (goName.Equals("FireAbilityEffect")) {
-                Debug.Log($"Returning {objectToReturn.name}");
             }
 
             pool.InactiveObjects.Add(objectToReturn);

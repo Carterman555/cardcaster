@@ -78,7 +78,20 @@ public abstract class ScriptableAbilityCardBase : ScriptableCardBase {
     }
 
     private Coroutine durationStopCoroutine;
+
+    // this method is played instead of the Play() when it's already active (some cards can stack on themselves instead
+    // of just extending the duration
     public void ResetDuration() {
+
+        if (draggingCardCoroutine != null) {
+            AbilityManager.Instance.StopCoroutine(draggingCardCoroutine);
+        }
+
+        if (IsModifiable) {
+            AbilityManager.Instance.ApplyModifiers(this);
+            DeckManager.Instance.DiscardStackedCards();
+        }
+
         AbilityManager.Instance.StopCoroutine(durationStopCoroutine);
         durationStopCoroutine = AbilityManager.Instance.StartCoroutine(StopAfterDuration());
     }

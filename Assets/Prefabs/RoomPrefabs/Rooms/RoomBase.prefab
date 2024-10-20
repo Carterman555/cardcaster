@@ -495,7 +495,7 @@ GameObject:
   - component: {fileID: 5378690074485086980}
   - component: {fileID: 4963077493875852055}
   - component: {fileID: 2394718490218990673}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: RoomBase
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1045,7 +1045,7 @@ GameObject:
   - component: {fileID: 5333191018920502091}
   - component: {fileID: 463525309795635995}
   - component: {fileID: 7706068250185258768}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: ExitTrigger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1224,7 +1224,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6314067355699437695}
   - component: {fileID: 6718819322449431240}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: CameraConfiner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1338,7 +1338,7 @@ GameObject:
   - component: {fileID: 749560062899242941}
   - component: {fileID: 8202733970934674028}
   - component: {fileID: 3060739494603193819}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: EnterTrigger
   m_TagString: Untagged
   m_Icon: {fileID: 0}

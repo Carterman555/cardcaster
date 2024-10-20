@@ -237,7 +237,7 @@ MonoBehaviour:
   dropAmount:
     MinValue: 1
     MaxValue: 1
-  dropChance: 1
+  dropChance: 0.2
 --- !u!114 &-3599747744444464393
 MonoBehaviour:
   m_ObjectHideFlags: 0

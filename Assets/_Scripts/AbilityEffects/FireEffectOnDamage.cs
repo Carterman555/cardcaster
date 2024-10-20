@@ -30,7 +30,7 @@ public class FireEffectOnDamage : MonoBehaviour, IAbilityEffect {
             attacker.OnDamage_Target -= InflictBurn;
         }
 
-        fireAbilityParticles.gameObject.ReturnToPool();
+        fireAbilityParticles.gameObject.TryReturnToPool();
     }
 
     private void InflictBurn(GameObject target) {

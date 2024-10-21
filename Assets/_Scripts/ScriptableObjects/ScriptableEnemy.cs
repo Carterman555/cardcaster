@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem.XR;
 
 [CreateAssetMenu(fileName = "New Enemy", menuName = "Unit/Enemy")]
 public class ScriptableEnemy : ScriptableObject {

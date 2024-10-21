@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -27,7 +28,20 @@ public class PlayerMovement : StaticInstance<PlayerMovement>, IHasStats, IChange
         stoppedFromAttack = false;
     }
 
+    private void OnEnable() {
+        attackMeleeAttack.OnAttack += StopFromAttack;
+    }
+    private void OnDisable() {
+        attackMeleeAttack.OnAttack -= StopFromAttack;
+        rb.velocity = Vector2.zero;
+    }
+
     private void Update() {
+
+        if (GameStateManager.Instance.GetCurrentState() != GameState.Game) {
+            return;
+        }
+
         HandleStoppedFromAttack();
 
         anim.SetBool("move", rb.velocity.magnitude > 0);
@@ -47,6 +61,11 @@ public class PlayerMovement : StaticInstance<PlayerMovement>, IHasStats, IChange
     }
 
     private void FixedUpdate() {
+
+        if (GameStateManager.Instance.GetCurrentState() != GameState.Game) {
+            rb.velocity = Vector2.zero;
+            return;
+        }
 
         if (stoppedFromAttack) {
             rb.velocity = Vector2.zero;
@@ -106,13 +125,6 @@ public class PlayerMovement : StaticInstance<PlayerMovement>, IHasStats, IChange
     private bool stoppedFromAttack;
 
     private PlayerMeleeAttack attackMeleeAttack;
-
-    private void OnEnable() {
-        attackMeleeAttack.OnAttack += StopFromAttack;
-    }
-    private void OnDisable() {
-        attackMeleeAttack.OnAttack -= StopFromAttack;
-    }
 
     private void StopFromAttack() {
         stoppedFromAttack = true;

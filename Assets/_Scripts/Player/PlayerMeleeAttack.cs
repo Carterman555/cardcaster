@@ -33,9 +33,13 @@ public class PlayerMeleeAttack : StaticInstance<PlayerMeleeAttack>, ITargetAttac
     }
 
     private void Update() {
-        //if (attackInput.action.triggered) {
+
+        if (GameStateManager.Instance.GetCurrentState() != GameState.Game) {
+            return;
+        }
 
         attackTimer += Time.deltaTime;
+        //if (attackInput.action.triggered && attackTimer > stats.AttackCooldown) {
         if (Input.GetMouseButtonDown(0) && attackTimer > stats.AttackCooldown) {
             Attack();
             attackTimer = 0f;

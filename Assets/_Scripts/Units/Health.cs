@@ -76,4 +76,15 @@ public class Health : MonoBehaviour, IDamagable {
 
         gameObject.ReturnToPool();
     }
+
+    public void Heal(float amount) {
+
+        if (dead) {
+            return;
+        }
+
+        health = Mathf.MoveTowards(health, maxHealth, amount);
+
+        OnHealthChanged_HealthProportion?.Invoke(health / maxHealth);
+    }
 }

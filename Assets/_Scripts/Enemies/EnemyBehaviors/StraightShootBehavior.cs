@@ -13,11 +13,17 @@ public class StraightShootBehavior : MonoBehaviour, IAttacker {
     [SerializeField] protected StraightMovement projectilePrefab;
     [SerializeField] protected Transform shootPoint;
 
+    [SerializeField] private bool overrideDamage;
+    [ConditionalHide("overrideDamage")][SerializeField] private float damage;
+
+    [SerializeField] private bool hasShootVariation;
+    [ConditionalHide("hasShootVariation")][SerializeField] private float shootVariation;
+
     [Header("Animation")]
     [SerializeField] private bool specialAttack;
     [SerializeField] private Animator enemyAnim;
     [SerializeField] private bool hasWeapon;
-    [ConditionalHide("hasWeapon")] [SerializeField] private Animator weaponAnim;
+    [ConditionalHide("hasWeapon")][SerializeField] private Animator weaponAnim;
 
     private TimedActionBehavior timedActionBehavior;
 
@@ -56,10 +62,19 @@ public class StraightShootBehavior : MonoBehaviour, IAttacker {
         StraightMovement newProjectile = projectilePrefab.Spawn(shootPoint.position, Containers.Instance.Projectiles);
 
         Vector2 toTarget = PlayerMeleeAttack.Instance.transform.position - transform.position;
-        newProjectile.Setup(toTarget.normalized);
-        newProjectile.GetComponent<DamageOnContact>().Setup(hasStats.GetStats().Damage, hasStats.GetStats().KnockbackStrength);
+        Vector2 shootDirection = toTarget;
 
-        InvokeEvents(toTarget.normalized);
+        if (hasShootVariation) {
+            float randomAngle = UnityEngine.Random.Range(-shootVariation, shootVariation);
+            shootDirection = shootDirection.RotateDirection(randomAngle);
+        }
+
+        newProjectile.Setup(shootDirection.normalized);
+
+        float dmg = overrideDamage ? damage : hasStats.GetStats().Damage;
+        newProjectile.GetComponent<DamageOnContact>().Setup(dmg, hasStats.GetStats().KnockbackStrength);
+
+        InvokeEvents(shootDirection.normalized);
     }
 
     protected void InvokeEvents(Vector2 direction) {

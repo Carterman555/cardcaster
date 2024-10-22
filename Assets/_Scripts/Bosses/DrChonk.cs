@@ -5,18 +5,40 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class DrChonk : MonoBehaviour {
+public class DrChonk : MonoBehaviour, IHasStats {
 
     private DrChonkState currentState;
     private float stateTimer;
 
     private readonly DrChonkState[] activeStates = new DrChonkState[] { DrChonkState.EatMinions, DrChonkState.Roll, DrChonkState.ShootMinions };
 
-    [SerializeField] private Dictionary<DrChonkState, RandomFloat> stateDurations;
+    [SerializeField] private List<DrChunkStateDurationPair> stateDurationsList;
+    private Dictionary<DrChonkState, RandomFloat> stateDurations = new();
 
+    [SerializeField] private ScriptableBoss scriptableBoss;
+    public Stats GetStats() {
+        return scriptableBoss.Stats;
+    }
+
+    private void Awake() {
+        health = GetComponent<Health>();
+        bounceMoveBehaviour = GetComponent<BounceMoveBehaviour>();
+        straightShootBehavior = GetComponent<StraightShootBehavior>();
+
+        InitializeDurationDict();
+    }
+
+    private void InitializeDurationDict() {
+        foreach (var stateDuration in stateDurationsList) {
+            stateDurations.Add(stateDuration.State, stateDuration.Duration);
+        }
+    }
 
     private void OnEnable() {
         stateTimer = 0f;
+
+        bounceMoveBehaviour.enabled = false;
+        straightShootBehavior.enabled = false;
 
         SubEatMinionMethods();
 
@@ -72,23 +94,26 @@ public class DrChonk : MonoBehaviour {
 
         }
         else if (previousState == DrChonkState.Roll) {
-
+            bounceMoveBehaviour.enabled = false;
         }
         else if (previousState == DrChonkState.ShootMinions) {
-
+            straightShootBehavior.enabled = false;
         }
 
         if (newState == DrChonkState.BetweenStates) {
 
         }
         else if (newState == DrChonkState.EatMinions) {
-            // trigger open mouth and suck animation
+
+            bounceMoveBehaviour.enabled = true;
+
+            // trigger open mouth and suck animation - TODO
         }
         else if (newState == DrChonkState.Roll) {
-
+            // trigger roll animation - TODO
         }
         else if (newState == DrChonkState.ShootMinions) {
-
+            straightShootBehavior.enabled = true;
         }
     }
 
@@ -113,8 +138,15 @@ public class DrChonk : MonoBehaviour {
 
     #region Eating Minions
 
+    [Header("Eat Minions")]
     [SerializeField] private TriggerContactTracker suckMinionTrigger;
     [SerializeField] private TriggerContactTracker eatMinionTrigger;
+
+    [SerializeField] private Transform suckCenter;
+
+    [SerializeField] private float eatMinionHealAmount;
+
+    private Health health;
 
     private void SubEatMinionMethods() {
         suckMinionTrigger.OnEnterContact += TrySuckMinion;
@@ -126,16 +158,26 @@ public class DrChonk : MonoBehaviour {
         eatMinionTrigger.OnEnterContact -= TryEatMinion;
     }
 
-    private void TrySuckMinion(GameObject minion) {
+    private void TrySuckMinion(GameObject collisionObject) {
         if (currentState == DrChonkState.EatMinions) {
-            // suck in minion
+            if (collisionObject.TryGetComponent(out HealerMinion healerMinion)) {
+                // suck in minion
+                healerMinion.SuckToChonk(suckCenter.position);
+            }
         }
     }
 
-    public void TryEatMinion(GameObject minion) {
+    public void TryEatMinion(GameObject collisionObject) {
         if (currentState == DrChonkState.EatMinions) {
-            // heal effect on boss
-            // heal boss
+            if (collisionObject.TryGetComponent(out HealerMinion healerMinion)) {
+                // eat minion
+                collisionObject.ReturnToPool();
+
+                // heal
+                health.Heal(eatMinionHealAmount);
+
+                // heal effect - TODO
+            }
         }
     }
 
@@ -143,17 +185,29 @@ public class DrChonk : MonoBehaviour {
 
     #region Roll
 
+    private BounceMoveBehaviour bounceMoveBehaviour;
+
     #endregion
 
 
     #region Shooting Minions
 
+    private StraightShootBehavior straightShootBehavior;
+
     #endregion
 }
 
+[Serializable]
 public enum DrChonkState {
     BetweenStates = 0,
     EatMinions = 1,
     Roll = 2,
     ShootMinions = 3
 }
+
+[Serializable]
+public class DrChunkStateDurationPair {
+    public DrChonkState State;
+    public RandomFloat Duration;
+}
+

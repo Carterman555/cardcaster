@@ -10,19 +10,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: df8d0c02ff44cd34db700f8d5c89336d, type: 3}
-  m_Name: Minion
+  m_Name: HealerMinion
   m_EditorClassIdentifier: 
-  <Name>k__BackingField: Minion
+  <Name>k__BackingField: Healer Minion
   <Description>k__BackingField: 
-  <Prefab>k__BackingField: {fileID: 706037645464121241, guid: ed03a3c53afc1fa4daa55b69fef0ab3a, type: 3}
+  <Prefab>k__BackingField: {fileID: -4002794726442658036, guid: 3036b955ca9649d4fbe1dcae34658259, type: 3}
   <Stats>k__BackingField:
-    MaxHealth: 15
-    KnockbackResistance: 1
-    MoveSpeed: 2.5
+    MaxHealth: 6
+    KnockbackResistance: 0.75
+    MoveSpeed: 4
     Damage: 1
-    AttackSpeed: 2
+    AttackSpeed: 0
     KnockbackStrength: 1
-    WalkSpeed: 0.5
-    AttackRange: 0.7
-  <Difficulty>k__BackingField: 0
-  <Tags>k__BackingField: 1
+    WalkSpeed: 0
+    AttackRange: 0
+  <Difficulty>k__BackingField: 0.5
+  <Tags>k__BackingField: 0

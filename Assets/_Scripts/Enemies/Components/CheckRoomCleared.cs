@@ -8,19 +8,7 @@ public class CheckRoomCleared : MonoBehaviour {
 
     public static event Action OnEnemiesCleared;
 
-    private Health health;
-
-    private void Awake() {
-        health = GetComponent<Health>();
-
-        health.OnDeath += OnDeath;
-    }
-
-    private void OnDestroy() {
-        health.OnDeath -= OnDeath;
-    }
-
-    private void OnDeath() {
+    private void OnDisable() {
         EnemySpawner.Instance.StartCoroutine(CheckIfEnemiesCleared());
     }
 

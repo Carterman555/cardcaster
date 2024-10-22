@@ -151,6 +151,7 @@ GameObject:
   - component: {fileID: 5435557155981603943}
   - component: {fileID: 3475693366517184030}
   - component: {fileID: 1536872082787145078}
+  - component: {fileID: 7542433000797141514}
   m_Layer: 0
   m_Name: CardChest
   m_TagString: Untagged
@@ -237,8 +238,19 @@ MonoBehaviour:
   - {fileID: 719241793831164899}
   - {fileID: 3401930131981464386}
   - {fileID: 3263118975993250123}
-  cardChest: 1
   anim: {fileID: 7857223334506551197}
+--- !u!114 &7542433000797141514
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8696099311601879913}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0c8cc3b7b271484c84a48ecc9ceba9d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1078041670592965185
 PrefabInstance:
   m_ObjectHideFlags: 0

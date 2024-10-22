@@ -4,38 +4,40 @@ using UnityEngine;
 
 public class HealerMinion : Enemy {
 
-    //private WallBounceMovement wallBounceMovement;
+    private BounceMoveBehaviour bounceMoveBehaviour;
     private Rigidbody2D rb;
 
     protected override void Awake() {
         base.Awake();
 
-        //wallBounceMovement = GetComponent<WallBounceMovement>();
+        bounceMoveBehaviour = GetComponent<BounceMoveBehaviour>();
         rb = GetComponent<Rigidbody2D>();
     }
 
     protected override void OnEnable() {
         base.OnEnable();
 
-        //wallBounceMovement.enabled = true;
+        bounceMoveBehaviour.enabled = true;
         gettingSucked = false;
     }
 
+    [Header("Geting Sucked")]
     private Vector2 suckCenter;
     private bool gettingSucked;
+    [SerializeField] private float suckAcceleration;
+    [SerializeField] private float maxSuckSpeed;
 
     public void SuckToChonk(Vector2 suckCenter) {
-        //wallBounceMovement.enabled = false;
+        bounceMoveBehaviour.enabled = false;
 
         this.suckCenter = suckCenter;
         gettingSucked = true;
     }
 
-    protected override void Update() {
-        base.Update();
-
+    private void FixedUpdate() {
         if (gettingSucked) {
-            //rb.velocity = Vector2.MoveTowards()
+            Vector2 suckDirection = (suckCenter - (Vector2)transform.position).normalized;
+            rb.velocity = Vector2.MoveTowards(rb.velocity, suckDirection * maxSuckSpeed, suckAcceleration * Time.fixedDeltaTime);
         }
     }
 

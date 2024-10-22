@@ -29,18 +29,17 @@ public class Knockback : MonoBehaviour {
             Debug.LogError(gameObject.name + ": KnockbackResistance Cannot be 0!");
         }
 
+        float knockbackFactor = 12f;
         float knockbackForce = strength / hasStats.GetStats().KnockbackResistance;
         rb.velocity = knockbackForce * knockbackFactor * direction.normalized;
 
         applyingKnockback = true;
     }
 
-    [SerializeField] private float knockbackFactor = 6f;
-    [SerializeField] private float knockbackDeacceleration = 40f;
-
     public void FixedUpdate() {
         if (applyingKnockback) {
 
+            float knockbackDeacceleration = 100f;
             rb.velocity = Vector2.MoveTowards(rb.velocity, Vector2.zero, knockbackDeacceleration * Time.fixedDeltaTime);
 
             if (rb.velocity == Vector2.zero) {

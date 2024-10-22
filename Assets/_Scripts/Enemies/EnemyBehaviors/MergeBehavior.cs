@@ -5,8 +5,6 @@ using UnityEngine;
 
 public class MergeBehavior : MonoBehaviour {
 
-    public event Action OnLeaderStopMerging;
-
     public event Action OnLeaderMerged;
     public event Action OnMerged;
 

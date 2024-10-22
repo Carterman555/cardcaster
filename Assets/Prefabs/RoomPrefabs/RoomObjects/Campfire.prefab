@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 8806557566693611909}
   - component: {fileID: 3698229785430942989}
   - component: {fileID: 1296630484762602501}
+  - component: {fileID: -7337060429072082821}
   m_Layer: 0
   m_Name: Campfire
   m_TagString: Untagged
@@ -109,6 +110,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerTracker: {fileID: 3698229785430942989}
   anim: {fileID: 6518520215595721484}
+--- !u!114 &-7337060429072082821
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8638158404008627114}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0c8cc3b7b271484c84a48ecc9ceba9d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8990063016616871222
 GameObject:
   m_ObjectHideFlags: 0

@@ -10,9 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ff4f25c988b22e145a7ddd278777abaa, type: 3}
-  m_Name: DummyBoss
+  m_Name: DrChonk
   m_EditorClassIdentifier: 
-  <Name>k__BackingField: DummyBoss
-  <Description>k__BackingField: So Dumn
-  <Prefab>k__BackingField: {fileID: 3677015542772641547, guid: 1d3a9cfb4557e23458cf729da6997eb0, type: 3}
+  <Name>k__BackingField: Dr. Chonk
+  <Description>k__BackingField: 
+  <Prefab>k__BackingField: {fileID: 4111830215114382718, guid: 4d4e5acd6242e5f4a8af619b75b118dc, type: 3}
+  <Stats>k__BackingField:
+    MaxHealth: 200
+    KnockbackResistance: 100
+    MoveSpeed: 3
+    Damage: 0
+    AttackSpeed: 0.25
+    KnockbackStrength: 1
   <PossibleLevels>k__BackingField: 1

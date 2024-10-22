@@ -11,6 +11,8 @@ public class ScriptableBoss : ScriptableObject {
 
     [field: SerializeField] public GameObject Prefab { get; private set; }
 
+    [field: SerializeField] public Stats Stats { get; private set; }
+
     [field: SerializeField] public Level PossibleLevels { get; private set; }
 }
 

@@ -59,9 +59,6 @@ public class CircleMoveBehavior : MonoBehaviour, IChangesFacing, IEnemyMovement 
         Vector3 nextPosition = new Vector3(x, y);
         agent.SetDestination(nextPosition);
 
-        print("pos: " + transform.position);
-        print("nextPosition: " + nextPosition);
-
         bool faceRight = nextPosition.x > transform.position.x;
         HandleDirectionFacing(faceRight);
     }

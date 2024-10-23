@@ -11,6 +11,9 @@ public class BounceMoveBehaviour : MonoBehaviour {
 
     [SerializeField] private TriggerContactTracker bounceTrigger;
 
+    [SerializeField] private bool hasBounceVariation;
+    [ConditionalHide("hasBounceVariation")][SerializeField] private float bounceVariation;
+
     private void Awake() {
         rb = GetComponent<Rigidbody2D>();
         hasStats = GetComponent<IHasStats>();
@@ -24,6 +27,8 @@ public class BounceMoveBehaviour : MonoBehaviour {
     }
     private void OnDisable() {
         bounceTrigger.OnEnterContact -= Bounce;
+
+        rb.velocity = Vector2.zero;
     }
 
     private void RandomizeDirection() {
@@ -39,6 +44,11 @@ public class BounceMoveBehaviour : MonoBehaviour {
         // Calculate the reflection vector
         Vector2 normal = collisionObject.GetComponent<Collider2D>().ClosestPoint(transform.position) - (Vector2)transform.position;
         Vector2 reflectDir = Vector2.Reflect(rb.velocity, normal.normalized); // Reflect based on current velocity
+
+        if (hasBounceVariation) {
+            float randomAngle = Random.Range(-bounceVariation, bounceVariation);
+            reflectDir = reflectDir.RotateDirection(randomAngle);
+        }
 
         // Set the new velocity
         rb.velocity = reflectDir.normalized * rb.velocity.magnitude; // Preserve the speed

@@ -1,0 +1,1016 @@
+fileFormatVersion: 2
+guid: 7cbd33a088f8e9c4193d4a93d9f2511e
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: 11500000, guid: 62a9f0aa5b59740cfbadc7e5f9823bb0, type: 3}
+  textureImporterSettings:
+    alphaSource: 1
+    mipMapMode: 0
+    enableMipMap: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+    convertToNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+    swizzle: 50462976
+    isReadable: 0
+    streamingMipmaps: 0
+    streamingMipmapsPriority: 0
+    vTOnly: 0
+    ignoreMipmapLimit: 0
+    nPOTScale: 1
+    sRGBTexture: 1
+    spriteMode: 2
+    spriteExtrude: 1
+    spriteMeshType: 1
+    alignment: 0
+    spritePivot: {x: 0.5, y: 0.5}
+    spritePixelsToUnits: 16
+    spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+    spriteGenerateFallbackPhysicsShape: 0
+    generateCubemap: 6
+    cubemapConvolution: 0
+    seamlessCubemap: 0
+    alphaIsTransparency: 1
+    spriteTessellationDetail: -1
+    textureType: 8
+    textureShape: 1
+    singleChannelComponent: 0
+    flipbookRows: 0
+    flipbookColumns: 0
+    ignorePngGamma: 0
+    cookieMode: 0
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+    normalMap: 0
+    textureFormat: 0
+    maxTextureSize: 0
+    lightmap: 0
+    compressionQuality: 0
+    linearTexture: 0
+    grayScaleToAlpha: 0
+    rGBM: 0
+    cubemapConvolutionSteps: 0
+    cubemapConvolutionExponent: 0
+    maxTextureSizeSet: 0
+    compressionQualitySet: 0
+    textureFormatSet: 0
+    applyGammaDecoding: 0
+  previousAsepriteImporterSettings:
+    fileImportMode: 1
+    importHiddenLayers: 0
+    layerImportMode: 1
+    defaultPivotSpace: 0
+    defaultPivotAlignment: 7
+    customPivotPosition: {x: 0.5, y: 0.5}
+    mosaicPadding: 4
+    spritePadding: 0
+    generateModelPrefab: 1
+    generateAnimationClips: 1
+    addSortingGroup: 1
+    addShadowCasters: 0
+  asepriteImporterSettings:
+    fileImportMode: 1
+    importHiddenLayers: 0
+    layerImportMode: 1
+    defaultPivotSpace: 0
+    defaultPivotAlignment: 7
+    customPivotPosition: {x: 0.5, y: 0.5}
+    mosaicPadding: 4
+    spritePadding: 0
+    generateModelPrefab: 1
+    generateAnimationClips: 1
+    addSortingGroup: 1
+    addShadowCasters: 0
+  importFileNodeState: 1
+  platformSettingsDirtyTick: 638652024899400476
+  textureAssetName: 
+  singleSpriteImportData:
+  - name: 
+    originalName: 
+    pivot: {x: 0, y: 0}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 0
+      y: 0
+      width: 0
+      height: 0
+    spriteID: 
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 0, y: 0}
+  animatedSpriteImportData:
+  - name: drchonk_Frame_0
+    originalName: 
+    pivot: {x: 0.5, y: -0.056818184}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 4
+      width: 82
+      height: 88
+    spriteID: babaa73ab5038084a8742ea0385bf049
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 4}
+  - name: drchonk_Frame_1
+    originalName: 
+    pivot: {x: 0.5, y: -0.056818184}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 100
+      width: 82
+      height: 88
+    spriteID: f6a1893559380be4ab2bbf79eba94291
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 100}
+  - name: drchonk_Frame_2
+    originalName: 
+    pivot: {x: 0.5, y: -0.057471264}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 868
+      width: 82
+      height: 87
+    spriteID: 99507f42cbd9f3548ade9b15ac94af1f
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 868}
+  - name: drchonk_Frame_3
+    originalName: 
+    pivot: {x: 0.5, y: -0.057471264}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 94
+      y: 4
+      width: 82
+      height: 87
+    spriteID: bb674b11dafbe9f419a3a55449214108
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 94, y: 4}
+  - name: drchonk_Frame_4
+    originalName: 
+    pivot: {x: 0.5, y: -0.056818184}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 196
+      width: 82
+      height: 88
+    spriteID: 8ec3a275cb8eed14b9b8f13b2a593b84
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 196}
+  - name: drchonk_Frame_5
+    originalName: 
+    pivot: {x: 0.5, y: -0.056818184}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 292
+      width: 82
+      height: 88
+    spriteID: 11b6bdb598f798a4698b844e2c3e2100
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 292}
+  - name: drchonk_Frame_6
+    originalName: 
+    pivot: {x: 0.5, y: -0.057471264}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 94
+      y: 99
+      width: 82
+      height: 87
+    spriteID: 6e94e07deb4246f42924e58d4960c421
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 94, y: 99}
+  - name: drchonk_Frame_7
+    originalName: 
+    pivot: {x: 0.5, y: -0.057471264}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 94
+      y: 194
+      width: 82
+      height: 87
+    spriteID: cf97f897389406745bbecda51d1da99e
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 94, y: 194}
+  - name: drchonk_Frame_8
+    originalName: 
+    pivot: {x: 0.5, y: -0.056818184}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 388
+      width: 82
+      height: 88
+    spriteID: f1bc0a45227a06148b3321a1b3192fe5
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 388}
+  - name: drchonk_Frame_9
+    originalName: 
+    pivot: {x: 0.5, y: -0.056818184}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 484
+      width: 82
+      height: 88
+    spriteID: 1e3bf581deed6004cb05bf0a55be9871
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 484}
+  - name: drchonk_Frame_10
+    originalName: 
+    pivot: {x: 0.5, y: -0.057471264}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 94
+      y: 289
+      width: 82
+      height: 87
+    spriteID: 3a8a07c08c992df429a13c40e39b0e53
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 94, y: 289}
+  - name: drchonk_Frame_11
+    originalName: 
+    pivot: {x: 0.5, y: -0.057471264}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 94
+      y: 384
+      width: 82
+      height: 87
+    spriteID: e71d2af6a5c0a0e459cc123f046436bc
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 94, y: 384}
+  - name: drchonk_Frame_12
+    originalName: 
+    pivot: {x: 0.5, y: -0.057471264}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 94
+      y: 479
+      width: 82
+      height: 87
+    spriteID: 2ba965d1f3b39a545945f1ca7303cded
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 94, y: 479}
+  - name: drchonk_Frame_13
+    originalName: 
+    pivot: {x: 0.5, y: -0.057471264}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 94
+      y: 574
+      width: 82
+      height: 87
+    spriteID: c8ff56f251485cd4a8c06c709bc007f6
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 94, y: 574}
+  - name: drchonk_Frame_14
+    originalName: 
+    pivot: {x: 0.5, y: -0.056818184}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 580
+      width: 82
+      height: 88
+    spriteID: e9fee5f21228f964e8f5c173c1c8ebe9
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 580}
+  - name: drchonk_Frame_15
+    originalName: 
+    pivot: {x: 0.5, y: -0.056818184}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 676
+      width: 82
+      height: 88
+    spriteID: b4eb200ffb4578b4181963b23694b1f9
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 676}
+  - name: drchonk_Frame_16
+    originalName: 
+    pivot: {x: 0.5, y: -0.083333336}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 94
+      y: 669
+      width: 80
+      height: 84
+    spriteID: c9bfb9b506752534dbd769811768eb87
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 94, y: 669}
+  - name: drchonk_Frame_17
+    originalName: 
+    pivot: {x: 0.5, y: -0.14473684}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 94
+      y: 941
+      width: 78
+      height: 76
+    spriteID: da63958764114cd4a902636f47905248
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 94, y: 941}
+  - name: drchonk_Frame_26
+    originalName: 
+    pivot: {x: 0.5, y: -0.14473684}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 184
+      y: 444
+      width: 78
+      height: 76
+    spriteID: fb1f371932712ee4597f307cf6fa774d
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 184, y: 444}
+  - name: drchonk_Frame_27
+    originalName: 
+    pivot: {x: 0.5, y: -0.083333336}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 94
+      y: 761
+      width: 80
+      height: 84
+    spriteID: 788443e309551b24caf0cdf940540bf1
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 94, y: 761}
+  - name: drchonk_Frame_28
+    originalName: 
+    pivot: {x: 0.5, y: -0.056818184}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 772
+      width: 82
+      height: 88
+    spriteID: e79f9baeec6677341a4534462d9b6184
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 772}
+  - name: drchonk_Frame_18
+    originalName: 
+    pivot: {x: 0.5, y: -0.2857143}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 272
+      y: 4
+      width: 82
+      height: 63
+    spriteID: f8cbe389589d7b544ab64936581afed5
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 272, y: 4}
+  - name: drchonk_Frame_19
+    originalName: 
+    pivot: {x: 0.5, y: -0.112500004}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 94
+      y: 853
+      width: 80
+      height: 80
+    spriteID: 41382f82fe8c34d4c92a1981070ff305
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 94, y: 853}
+  - name: drchonk_Frame_20
+    originalName: 
+    pivot: {x: 0.5, y: -0.112500004}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 184
+      y: 4
+      width: 80
+      height: 80
+    spriteID: dcc66b08235224d4586181d49d73681e
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 184, y: 4}
+  - name: drchonk_Frame_21
+    originalName: 
+    pivot: {x: 0.5, y: -0.112500004}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 184
+      y: 92
+      width: 80
+      height: 80
+    spriteID: 3a14fb1de141ba142befaf4b089d3d98
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 184, y: 92}
+  - name: drchonk_Frame_22
+    originalName: 
+    pivot: {x: 0.5, y: -0.112500004}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 184
+      y: 180
+      width: 80
+      height: 80
+    spriteID: 4f6d95663a070a144ace50633babc304
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 184, y: 180}
+  - name: drchonk_Frame_23
+    originalName: 
+    pivot: {x: 0.5, y: -0.112500004}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 184
+      y: 268
+      width: 80
+      height: 80
+    spriteID: 8f7f6d6aa5e03c4428029ced7fa2de43
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 184, y: 268}
+  - name: drchonk_Frame_24
+    originalName: 
+    pivot: {x: 0.5, y: -0.112500004}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 184
+      y: 356
+      width: 80
+      height: 80
+    spriteID: 0c9acebdbdd6eef44810dcbe814ae174
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 184, y: 356}
+  - name: drchonk_Frame_25
+    originalName: 
+    pivot: {x: 0.5, y: -0.2857143}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 272
+      y: 75
+      width: 82
+      height: 63
+    spriteID: ed92f8ebcbc0dd14d9ee4dc322209751
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 272, y: 75}
+  spriteSheetImportData: []
+  asepriteLayers:
+  - layerIndex: 0
+    guid: 1507859551
+    name: drchonk
+    layerFlags: 0
+    layerType: 0
+    blendMode: 0
+    cells:
+    - name: drchonk_Frame_0
+      frameIndex: 0
+      additiveSortOrder: 0
+      cellRect:
+        x: 7
+        y: 5
+        width: 82
+        height: 88
+      spriteId: babaa73ab5038084a8742ea0385bf049
+    - name: drchonk_Frame_1
+      frameIndex: 1
+      additiveSortOrder: 0
+      cellRect:
+        x: 7
+        y: 5
+        width: 82
+        height: 88
+      spriteId: f6a1893559380be4ab2bbf79eba94291
+    - name: drchonk_Frame_2
+      frameIndex: 2
+      additiveSortOrder: 0
+      cellRect:
+        x: 7
+        y: 5
+        width: 82
+        height: 87
+      spriteId: 99507f42cbd9f3548ade9b15ac94af1f
+    - name: drchonk_Frame_3
+      frameIndex: 3
+      additiveSortOrder: 0
+      cellRect:
+        x: 7
+        y: 5
+        width: 82
+        height: 87
+      spriteId: bb674b11dafbe9f419a3a55449214108
+    - name: drchonk_Frame_4
+      frameIndex: 4
+      additiveSortOrder: 0
+      cellRect:
+        x: 7
+        y: 5
+        width: 82
+        height: 88
+      spriteId: 8ec3a275cb8eed14b9b8f13b2a593b84
+    - name: drchonk_Frame_5
+      frameIndex: 5
+      additiveSortOrder: 0
+      cellRect:
+        x: 7
+        y: 5
+        width: 82
+        height: 88
+      spriteId: 11b6bdb598f798a4698b844e2c3e2100
+    - name: drchonk_Frame_6
+      frameIndex: 6
+      additiveSortOrder: 0
+      cellRect:
+        x: 7
+        y: 5
+        width: 82
+        height: 87
+      spriteId: 6e94e07deb4246f42924e58d4960c421
+    - name: drchonk_Frame_7
+      frameIndex: 7
+      additiveSortOrder: 0
+      cellRect:
+        x: 7
+        y: 5
+        width: 82
+        height: 87
+      spriteId: cf97f897389406745bbecda51d1da99e
+    - name: drchonk_Frame_8
+      frameIndex: 8
+      additiveSortOrder: 0
+      cellRect:
+        x: 7
+        y: 5
+        width: 82
+        height: 88
+      spriteId: f1bc0a45227a06148b3321a1b3192fe5
+    - name: drchonk_Frame_9
+      frameIndex: 9
+      additiveSortOrder: 0
+      cellRect:
+        x: 7
+        y: 5
+        width: 82
+        height: 88
+      spriteId: 1e3bf581deed6004cb05bf0a55be9871
+    - name: drchonk_Frame_10
+      frameIndex: 10
+      additiveSortOrder: 0
+      cellRect:
+        x: 7
+        y: 5
+        width: 82
+        height: 87
+      spriteId: 3a8a07c08c992df429a13c40e39b0e53
+    - name: drchonk_Frame_11
+      frameIndex: 11
+      additiveSortOrder: 0
+      cellRect:
+        x: 7
+        y: 5
+        width: 82
+        height: 87
+      spriteId: e71d2af6a5c0a0e459cc123f046436bc
+    - name: drchonk_Frame_12
+      frameIndex: 12
+      additiveSortOrder: 0
+      cellRect:
+        x: 7
+        y: 5
+        width: 82
+        height: 87
+      spriteId: 2ba965d1f3b39a545945f1ca7303cded
+    - name: drchonk_Frame_13
+      frameIndex: 13
+      additiveSortOrder: 0
+      cellRect:
+        x: 7
+        y: 5
+        width: 82
+        height: 87
+      spriteId: c8ff56f251485cd4a8c06c709bc007f6
+    - name: drchonk_Frame_14
+      frameIndex: 14
+      additiveSortOrder: 0
+      cellRect:
+        x: 7
+        y: 5
+        width: 82
+        height: 88
+      spriteId: e9fee5f21228f964e8f5c173c1c8ebe9
+    - name: drchonk_Frame_15
+      frameIndex: 15
+      additiveSortOrder: 0
+      cellRect:
+        x: 7
+        y: 5
+        width: 82
+        height: 88
+      spriteId: b4eb200ffb4578b4181963b23694b1f9
+    - name: drchonk_Frame_16
+      frameIndex: 16
+      additiveSortOrder: 0
+      cellRect:
+        x: 8
+        y: 7
+        width: 80
+        height: 84
+      spriteId: c9bfb9b506752534dbd769811768eb87
+    - name: drchonk_Frame_17
+      frameIndex: 17
+      additiveSortOrder: 0
+      cellRect:
+        x: 9
+        y: 11
+        width: 78
+        height: 76
+      spriteId: da63958764114cd4a902636f47905248
+    - name: drchonk_Frame_26
+      frameIndex: 26
+      additiveSortOrder: 0
+      cellRect:
+        x: 9
+        y: 11
+        width: 78
+        height: 76
+      spriteId: fb1f371932712ee4597f307cf6fa774d
+    - name: drchonk_Frame_27
+      frameIndex: 27
+      additiveSortOrder: 0
+      cellRect:
+        x: 8
+        y: 7
+        width: 80
+        height: 84
+      spriteId: 788443e309551b24caf0cdf940540bf1
+    - name: drchonk_Frame_28
+      frameIndex: 28
+      additiveSortOrder: 0
+      cellRect:
+        x: 7
+        y: 5
+        width: 82
+        height: 88
+      spriteId: e79f9baeec6677341a4534462d9b6184
+    - name: drchonk_Frame_18
+      frameIndex: 18
+      additiveSortOrder: 0
+      cellRect:
+        x: 7
+        y: 18
+        width: 82
+        height: 63
+      spriteId: f8cbe389589d7b544ab64936581afed5
+    - name: drchonk_Frame_19
+      frameIndex: 19
+      additiveSortOrder: 0
+      cellRect:
+        x: 8
+        y: 9
+        width: 80
+        height: 80
+      spriteId: 41382f82fe8c34d4c92a1981070ff305
+    - name: drchonk_Frame_20
+      frameIndex: 20
+      additiveSortOrder: 0
+      cellRect:
+        x: 8
+        y: 9
+        width: 80
+        height: 80
+      spriteId: dcc66b08235224d4586181d49d73681e
+    - name: drchonk_Frame_21
+      frameIndex: 21
+      additiveSortOrder: 0
+      cellRect:
+        x: 8
+        y: 9
+        width: 80
+        height: 80
+      spriteId: 3a14fb1de141ba142befaf4b089d3d98
+    - name: drchonk_Frame_22
+      frameIndex: 22
+      additiveSortOrder: 0
+      cellRect:
+        x: 8
+        y: 9
+        width: 80
+        height: 80
+      spriteId: 4f6d95663a070a144ace50633babc304
+    - name: drchonk_Frame_23
+      frameIndex: 23
+      additiveSortOrder: 0
+      cellRect:
+        x: 8
+        y: 9
+        width: 80
+        height: 80
+      spriteId: 8f7f6d6aa5e03c4428029ced7fa2de43
+    - name: drchonk_Frame_24
+      frameIndex: 24
+      additiveSortOrder: 0
+      cellRect:
+        x: 8
+        y: 9
+        width: 80
+        height: 80
+      spriteId: 0c9acebdbdd6eef44810dcbe814ae174
+    - name: drchonk_Frame_25
+      frameIndex: 25
+      additiveSortOrder: 0
+      cellRect:
+        x: 7
+        y: 18
+        width: 82
+        height: 63
+      spriteId: ed92f8ebcbc0dd14d9ee4dc322209751
+    linkedCells: []
+    parentIndex: -1
+  platformSettings:
+  - name: DefaultTexturePlatform
+    overridden: 0
+    ignorePlatformSupport: 0
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    androidETC2FallbackOverride: 0
+  - name: Standalone
+    overridden: 0
+    ignorePlatformSupport: 0
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    androidETC2FallbackOverride: 0
+  - name: WebGL
+    overridden: 0
+    ignorePlatformSupport: 0
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    androidETC2FallbackOverride: 0
+  generatePhysicsShape: 0
+  secondarySpriteTextures: []
+  spritePackingTag: 
+  canvasSize: {x: 96, y: 96}

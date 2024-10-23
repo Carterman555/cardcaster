@@ -20,6 +20,8 @@ public class DrChonk : MonoBehaviour, IHasStats {
         return scriptableBoss.Stats;
     }
 
+    [SerializeField] private Animator anim;
+
     private void Awake() {
         health = GetComponent<Health>();
         bounceMoveBehaviour = GetComponent<BounceMoveBehaviour>();
@@ -35,6 +37,9 @@ public class DrChonk : MonoBehaviour, IHasStats {
     }
 
     private void OnEnable() {
+
+        ChangeState(DrChonkState.BetweenStates);
+
         stateTimer = 0f;
 
         bounceMoveBehaviour.enabled = false;
@@ -92,28 +97,40 @@ public class DrChonk : MonoBehaviour, IHasStats {
         }
         else if (previousState == DrChonkState.EatMinions) {
 
+            // close mouth
+            anim.SetBool("mouthOpen", false);
         }
         else if (previousState == DrChonkState.Roll) {
             bounceMoveBehaviour.enabled = false;
+
+            // stop rolling animation
+            anim.SetBool("rolling", false);
         }
         else if (previousState == DrChonkState.ShootMinions) {
             straightShootBehavior.enabled = false;
+
+            // close mouth
+            anim.SetBool("mouthOpen", false);
         }
 
         if (newState == DrChonkState.BetweenStates) {
 
         }
         else if (newState == DrChonkState.EatMinions) {
-
-            bounceMoveBehaviour.enabled = true;
-
-            // trigger open mouth and suck animation - TODO
+            // open mouth
+            anim.SetBool("mouthOpen", true);
         }
         else if (newState == DrChonkState.Roll) {
-            // trigger roll animation - TODO
+            bounceMoveBehaviour.enabled = true;
+
+            // start rolling animation
+            anim.SetBool("rolling", true);
         }
         else if (newState == DrChonkState.ShootMinions) {
             straightShootBehavior.enabled = true;
+
+            // open mouth
+            anim.SetBool("mouthOpen", true);
         }
     }
 

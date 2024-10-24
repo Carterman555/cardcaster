@@ -111,6 +111,11 @@ public class CardButton : GameButton, IPointerDownHandler {
         if (CanAffordToPlay) {
 
             if (hotKeyDown) {
+
+                if (playingCard) {
+                    return;
+                }
+
                 OnStartPlayingCard();
 
                 if (card is ScriptableAbilityCardBase abilityCard && abilityCard.IsPositional) {
@@ -145,6 +150,10 @@ public class CardButton : GameButton, IPointerDownHandler {
     }
 
     public void OnPointerDown(PointerEventData eventData) {
+
+        if (playingCard) {
+            return;
+        }
 
         if (!CanAffordToPlay) {
             cantPlayShaker.Play();

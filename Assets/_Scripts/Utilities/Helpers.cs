@@ -184,7 +184,15 @@ public static class Helpers {
         });
     }
 
+    public static bool GameStopping() {
+#if UNITY_EDITOR
+        return !UnityEditor.EditorApplication.isPlayingOrWillChangePlaymode;
+#else
+        return false;
+#endif
+    }
+
     // -------------- Game Specific --------------
 
-    
+
 }

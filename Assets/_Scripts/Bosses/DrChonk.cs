@@ -5,7 +5,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class DrChonk : MonoBehaviour, IHasStats {
+public class DrChonk : MonoBehaviour, IHasStats, IBoss {
 
     private DrChonkState currentState;
     private float stateTimer;
@@ -48,10 +48,12 @@ public class DrChonk : MonoBehaviour, IHasStats {
         SubEatMinionMethods();
 
         // spawn 5 healer minions surrounding boss
-        SpawnStartingMinions();
+        //SpawnStartingMinions();
     }
     private void OnDisable() {
         UnsubEatMinionMethods();
+
+        OnDefeated();
     }
 
     private void Update() {
@@ -61,7 +63,8 @@ public class DrChonk : MonoBehaviour, IHasStats {
 
 
             if (currentState == DrChonkState.BetweenStates) {
-                ChangeToRandomState();
+                //ChangeToRandomState();
+                ChangeState(DrChonkState.Roll); // debug
             }
             else {
                 ChangeState(DrChonkState.BetweenStates);
@@ -134,21 +137,23 @@ public class DrChonk : MonoBehaviour, IHasStats {
         }
     }
 
+    [Header("Spawn Starting Healers")]
     [SerializeField] private GameObject healerMinionPrefab;
+    [SerializeField] private Transform spawnCenter;
+    [SerializeField] private float startingHealersDistance = 2f;
 
     private void SpawnStartingMinions() {
 
         int startingMinionAmount = 5;
-        float distanceFromBoss = 2f;
 
         Vector2 spawnDirection = Vector2.up;
         float rotationBetweenMinions = 360f / startingMinionAmount;
 
         for (int i = 0; i < startingMinionAmount; i++) {
 
-            spawnDirection.RotateDirection(rotationBetweenMinions);
+            spawnDirection = spawnDirection.RotateDirection(rotationBetweenMinions);
 
-            Vector2 pos = (Vector2)transform.position + (spawnDirection * distanceFromBoss);
+            Vector2 pos = (Vector2)spawnCenter.position + (spawnDirection * startingHealersDistance);
             healerMinionPrefab.Spawn(pos, Containers.Instance.Enemies);
         }
     }
@@ -206,12 +211,19 @@ public class DrChonk : MonoBehaviour, IHasStats {
 
     #endregion
 
-
+    
     #region Shooting Minions
 
     private StraightShootBehavior straightShootBehavior;
 
     #endregion
+
+    private void OnDefeated() {
+        // kill all enemies
+        foreach (Transform enemy in Containers.Instance.Enemies) {
+            enemy.GetComponent<Health>().Die();
+        }
+    }
 }
 
 [Serializable]

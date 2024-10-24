@@ -20,6 +20,11 @@ public class Enemy : MonoBehaviour, IHasEnemyStats, IEffectable {
 
     protected virtual void OnDisable() {
         UnsubFromPlayerTriggerEvents();
+
+        if (Helpers.GameStopping()) {
+            return;
+        }
+
         OnPlayerExitedRange(PlayerMovement.Instance.gameObject);
     }
 

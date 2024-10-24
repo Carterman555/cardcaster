@@ -101,7 +101,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 226976224992304211, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 621019451974682374, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
       propertyPath: m_Controller
@@ -141,11 +141,11 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: ecdd3156f007f3b448e4cbdbade57855, type: 2}
     - target: {fileID: 3807084815282453126, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -1.35
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3807084815282453126, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.59
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3807084815282453126, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
       propertyPath: m_LocalPosition.z
@@ -381,6 +381,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bounceTrigger: {fileID: 3168397404524896961}
+  centerPoint: {fileID: 5775655431456473009}
+  hasBounceVariation: 0
+  bounceVariation: 0
 --- !u!95 &7812749826847277617 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 621019451974682374, guid: d26e40392c042dc4d8c237ede2183746, type: 3}

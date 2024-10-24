@@ -159,6 +159,7 @@ GameObject:
   - component: {fileID: 736498432054221567}
   - component: {fileID: 1808028452612826994}
   - component: {fileID: 1383755626373208146}
+  - component: {fileID: -1558523491058040561}
   - component: {fileID: 512004819037131981}
   - component: {fileID: 1206499748571781939}
   - component: {fileID: 8987095808021778562}
@@ -187,6 +188,7 @@ Transform:
   - {fileID: 7243959844192712482}
   - {fileID: 1340306799450584447}
   - {fileID: 7714839109663644078}
+  - {fileID: 1450392954472587151}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!58 &736498432054221567
@@ -258,7 +260,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4111830215114382718}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0ce2c67228600654285c175e70e01085, type: 3}
   m_Name: 
@@ -283,10 +285,30 @@ MonoBehaviour:
   scriptableBoss: {fileID: 11400000, guid: 90471916cfd5670448c242dd6b6e82d4, type: 2}
   anim: {fileID: 4239218035097059229}
   healerMinionPrefab: {fileID: 7481704768261658980, guid: df1e1c62ee40e4144a5ec062019e6f03, type: 3}
+  spawnCenter: {fileID: 1450392954472587151}
+  startingHealersDistance: 3
   suckMinionTrigger: {fileID: 8748015086365348856}
   eatMinionTrigger: {fileID: 6312044565954755361}
   suckCenter: {fileID: 7243959844192712482}
   eatMinionHealAmount: 10
+--- !u!114 &-1558523491058040561
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4111830215114382718}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b436399d89bfd245b88204bdbc8ed47, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damagedEventTrigger:
+    m_PersistentCalls:
+      m_Calls: []
+  hasDeathParticles: 0
+  deathParticles: {fileID: 0}
+  deathParticlesColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!114 &512004819037131981
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -306,13 +328,14 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4111830215114382718}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3d4ed370b107b3d4b893f7a0a7352bb2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   bounceTrigger: {fileID: 7235549668406470377}
-  hasBounceVariation: 1
+  centerPoint: {fileID: 1450392954472587151}
+  hasBounceVariation: 0
   bounceVariation: 5
 --- !u!114 &8987095808021778562
 MonoBehaviour:
@@ -321,7 +344,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4111830215114382718}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8f1ed07a53aae3c4ea9936ddb76a99aa, type: 3}
   m_Name: 
@@ -419,6 +442,37 @@ MonoBehaviour:
   layerFilter:
     serializedVersion: 2
     m_Bits: 128
+--- !u!1 &7168315820327929020
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1450392954472587151}
+  m_Layer: 0
+  m_Name: CenterPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1450392954472587151
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7168315820327929020}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 2.83, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1044121333785347722}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7344628509167858534
 GameObject:
   m_ObjectHideFlags: 0

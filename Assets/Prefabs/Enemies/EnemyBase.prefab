@@ -194,8 +194,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd29217e14438f4439a067c6fdd77708, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  knockbackFactor: 12
-  knockbackDeacceleration: 100
 --- !u!114 &-5537846848555564483
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -237,7 +235,7 @@ MonoBehaviour:
   dropAmount:
     MinValue: 1
     MaxValue: 1
-  dropChance: 0.2
+  dropChance: 0.4
 --- !u!114 &-3599747744444464393
 MonoBehaviour:
   m_ObjectHideFlags: 0

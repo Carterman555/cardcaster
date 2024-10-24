@@ -46,14 +46,31 @@ public class DebugManager : StaticInstance<DebugManager> {
     }
 
     [Command]
+    private void ClearRoom() {
+        print("cleared");
+
+        Room.GetCurrentRoom().SetRoomCleared();
+
+        foreach (GameObject enemy in Containers.Instance.Enemies) {
+            enemy.ReturnToPool();
+        }
+
+        EnemySpawner.Instance.StopSpawning();
+
+        CheckRoomCleared.InvokeCleared();
+    }
+
+    [Command]
     private void ClearAllRooms() {
         Room[] rooms = FindObjectsOfType<Room>();
         foreach (Room room in rooms) {
             room.SetRoomCleared();
         }
+
+        ClearRoom();
     }
 
-    
+
 
     [SerializeField] private bool printMouseOver;
 

@@ -29,9 +29,18 @@ public class EnemySpawner : StaticInstance<EnemySpawner> {
     }
 
     private void TrySpawnEnemies(Room room) {
-        if (!room.IsRoomCleared()) {
-            StartCoroutine(SpawnEnemiesCor());
+
+        // don't spawn in boss room
+        if (room.TryGetComponent(out BossRoom bossRoom)) {
+            return;
         }
+
+        // don't spawn if room is already cleared
+        if (room.IsRoomCleared()) {
+            return;
+        }
+
+        StartCoroutine(SpawnEnemiesCor());
     }
 
     private IEnumerator SpawnEnemiesCor() {
@@ -80,5 +89,10 @@ public class EnemySpawner : StaticInstance<EnemySpawner> {
         }
 
         SpawnEnemy(enemy.Prefab);
+    }
+
+    public void StopSpawning() {
+        StopAllCoroutines();
+        spawningEnemies = false;
     }
 }

@@ -15,6 +15,8 @@ public class DrChonk : MonoBehaviour, IHasStats, IBoss {
     [SerializeField] private List<DrChunkStateDurationPair> stateDurationsList;
     private Dictionary<DrChonkState, RandomFloat> stateDurations = new();
 
+    [SerializeField] private Transform centerPoint;
+
     [SerializeField] private ScriptableBoss scriptableBoss;
     public Stats GetStats() {
         return scriptableBoss.Stats;
@@ -48,7 +50,7 @@ public class DrChonk : MonoBehaviour, IHasStats, IBoss {
         SubEatMinionMethods();
 
         // spawn 5 healer minions surrounding boss
-        //SpawnStartingMinions();
+        SpawnStartingMinions();
     }
     private void OnDisable() {
         UnsubEatMinionMethods();
@@ -64,7 +66,7 @@ public class DrChonk : MonoBehaviour, IHasStats, IBoss {
 
             if (currentState == DrChonkState.BetweenStates) {
                 //ChangeToRandomState();
-                ChangeState(DrChonkState.Roll); // debug
+                ChangeState(DrChonkState.Roll);
             }
             else {
                 ChangeState(DrChonkState.BetweenStates);
@@ -102,6 +104,7 @@ public class DrChonk : MonoBehaviour, IHasStats, IBoss {
 
             // close mouth
             anim.SetBool("mouthOpen", false);
+            suckEffect.SetActive(false);
         }
         else if (previousState == DrChonkState.Roll) {
             bounceMoveBehaviour.enabled = false;
@@ -122,6 +125,7 @@ public class DrChonk : MonoBehaviour, IHasStats, IBoss {
         else if (newState == DrChonkState.EatMinions) {
             // open mouth
             anim.SetBool("mouthOpen", true);
+            suckEffect.SetActive(true);
         }
         else if (newState == DrChonkState.Roll) {
             bounceMoveBehaviour.enabled = true;
@@ -139,7 +143,6 @@ public class DrChonk : MonoBehaviour, IHasStats, IBoss {
 
     [Header("Spawn Starting Healers")]
     [SerializeField] private GameObject healerMinionPrefab;
-    [SerializeField] private Transform spawnCenter;
     [SerializeField] private float startingHealersDistance = 2f;
 
     private void SpawnStartingMinions() {
@@ -153,7 +156,7 @@ public class DrChonk : MonoBehaviour, IHasStats, IBoss {
 
             spawnDirection = spawnDirection.RotateDirection(rotationBetweenMinions);
 
-            Vector2 pos = (Vector2)spawnCenter.position + (spawnDirection * startingHealersDistance);
+            Vector2 pos = (Vector2)centerPoint.position + (spawnDirection * startingHealersDistance);
             healerMinionPrefab.Spawn(pos, Containers.Instance.Enemies);
         }
     }
@@ -167,6 +170,9 @@ public class DrChonk : MonoBehaviour, IHasStats, IBoss {
     [SerializeField] private Transform suckCenter;
 
     [SerializeField] private float eatMinionHealAmount;
+
+    [SerializeField] private GameObject suckEffect;
+    [SerializeField] private ParticleSystem healEffectPrefab;
 
     private Health health;
 
@@ -198,7 +204,8 @@ public class DrChonk : MonoBehaviour, IHasStats, IBoss {
                 // heal
                 health.Heal(eatMinionHealAmount);
 
-                // heal effect - TODO
+                // heal effect
+                healEffectPrefab.Spawn(centerPoint.position, Containers.Instance.Effects);
             }
         }
     }

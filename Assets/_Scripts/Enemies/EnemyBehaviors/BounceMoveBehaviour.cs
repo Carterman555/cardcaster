@@ -13,12 +13,16 @@ public class BounceMoveBehaviour : MonoBehaviour, IEffectable, IEnemyMovement {
 
     private Vector2 velocity;
 
+    private float emergencyBounceTimer;
+
     [SerializeField] private TriggerContactTracker bounceTrigger;
 
     [SerializeField] private Transform centerPoint;
 
     [SerializeField] private bool hasBounceVariation;
     [ConditionalHide("hasBounceVariation")][SerializeField] private float bounceVariation;
+
+    [SerializeField] private bool twoWayFacing = true;
 
     private void Awake() {
         rb = GetComponent<Rigidbody2D>();
@@ -31,6 +35,8 @@ public class BounceMoveBehaviour : MonoBehaviour, IEffectable, IEnemyMovement {
 
         RandomizeDirection();
         UpdateFacing();
+
+        emergencyBounceTimer = 0;
     }
     private void OnDisable() {
         bounceTrigger.OnEnterContact -= Bounce;
@@ -51,35 +57,65 @@ public class BounceMoveBehaviour : MonoBehaviour, IEffectable, IEnemyMovement {
             return;
         }
 
+        // if the enemy is touching an obstacle for a certain amount of time then a
+        // glitch has occured and try to bounce away from the wall
+        if (bounceTrigger.HasContact()) {
+            emergencyBounceTimer += Time.deltaTime;
+            float delayBeforeEmergencyBounce = 0.1f;
+            if (emergencyBounceTimer > delayBeforeEmergencyBounce) {
+                Bounce(bounceTrigger.GetFirstContact());
+                print("Emergency bounce");
+            }
+        }
+        else {
+            emergencyBounceTimer = 0;
+        }
+
         rb.velocity = velocity;
     }
 
     private void Bounce(GameObject collisionObject) {
+
         // Calculate the reflection vector
         Vector2 normal = collisionObject.GetComponent<Collider2D>().ClosestPoint(centerPoint.position) - (Vector2)centerPoint.position;
         Vector2 reflectDir = Vector2.Reflect(velocity, normal.normalized); // Reflect based on current velocity
 
-        if (hasBounceVariation) {
-            float randomAngle = Random.Range(-bounceVariation, bounceVariation);
-            reflectDir = reflectDir.RotateDirection(randomAngle);
+        // A safe guard because sometimes the bounce glitches and enemies bounce twice at the same time, causing the
+        // enemy to bounce back into the wall.
+        bool verticalBounce = Mathf.Abs(normal.y) > Mathf.Abs(normal.x);
+        if (verticalBounce) {
+            bool bounceIntoWall = Mathf.Sign(normal.y) == Mathf.Sign(reflectDir.y);
+            if (bounceIntoWall) {
+                return;
+            }
+        }
+        else {
+            bool bounceIntoWall = Mathf.Sign(normal.x) == Mathf.Sign(reflectDir.x);
+            if (bounceIntoWall) {
+                return;
+            }
         }
 
         // Set the new velocity
         velocity = reflectDir.normalized * velocity.magnitude; // Preserve the speed
 
         UpdateFacing();
-
-        print("bounce");
     }
 
     private void UpdateFacing() {
-        // if going right
-        if (rb.velocity.x > 0f) {
-            FaceRight();
+
+        if (twoWayFacing) {
+            // if going right
+            if (rb.velocity.x > 0f) {
+                FaceRight();
+            }
+            // if going left
+            else if (rb.velocity.x < 0f) {
+                FaceLeft();
+            }
         }
-        // if going left
-        else if (rb.velocity.x < 0f) {
-            FaceLeft();
+        else {
+            transform.RotateTowardsDirection(rb.velocity, centerPoint);
         }
     }
 

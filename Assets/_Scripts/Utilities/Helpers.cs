@@ -107,10 +107,6 @@ public static class Helpers {
         return -Mathf.Sign(_angle);
     }
 
-    public static float Normalize(float value, float min, float max) {
-        return (value - min) / (max - min);
-    }
-
     public static Transform GetClosest(this Transform self, Transform[] objects) {
         float closestDistance = float.PositiveInfinity;
         Transform closestOb = null;

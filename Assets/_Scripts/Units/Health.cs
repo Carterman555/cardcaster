@@ -14,7 +14,6 @@ public class Health : MonoBehaviour, IDamagable {
     private float health;
 
     private bool dead;
-    private bool invincible;
 
     [SerializeField] private bool hasDeathParticles;
     [ConditionalHide("hasDeathParticles")]
@@ -27,11 +26,8 @@ public class Health : MonoBehaviour, IDamagable {
     }
 
     public bool IsInvincible() {
-        return invincible;
-    }
-
-    public void SetInvincible(bool invincible) {
-        this.invincible = invincible;
+        bool isInvincible = TryGetComponent(out Invincibility invincibility);
+        return isInvincible;
     }
 
     private void Awake() {
@@ -42,7 +38,6 @@ public class Health : MonoBehaviour, IDamagable {
 
     private void OnEnable() {
         dead = false;
-        invincible = false;
         health = maxHealth;
 
         OnHealthChanged_HealthProportion?.Invoke(health / maxHealth);
@@ -50,7 +45,7 @@ public class Health : MonoBehaviour, IDamagable {
 
     public void Damage(float damage) {
 
-        if (dead || invincible) {
+        if (dead || IsInvincible()) {
             return;
         }
 

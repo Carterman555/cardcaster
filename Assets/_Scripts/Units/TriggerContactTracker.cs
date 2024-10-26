@@ -11,6 +11,8 @@ public class TriggerContactTracker : MonoBehaviour {
 
     private List<GameObject> contacts = new List<GameObject>();
 
+    [SerializeField] private bool debug;
+
     public List<GameObject> GetContacts() {
         return contacts;
     }
@@ -47,6 +49,7 @@ public class TriggerContactTracker : MonoBehaviour {
     }
 
     private void OnTriggerEnter2D(Collider2D collision) {
+
         if (layerFilter.ContainsLayer(collision.gameObject.layer)) {
             contacts.Add(collision.gameObject);
             OnEnterContact?.Invoke(collision.gameObject);

@@ -1,11 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "GhostCard", menuName = "Cards/Ghost Card")]
 public class ScriptableGhostCard : ScriptableStatsModifierCard {
 
     private FadeEffect ghostFadeEffect;
+
+    private Invincibility playerInvincibility;
 
     protected override void Play(Vector2 position) {
         base.Play(position);
@@ -20,7 +23,7 @@ public class ScriptableGhostCard : ScriptableStatsModifierCard {
         ReferenceSystem.Instance.PlayerSwordVisual.enabled = false;
 
         //... set invincible
-        PlayerMovement.Instance.GetComponent<Health>().SetInvincible(true);
+        playerInvincibility = PlayerMovement.Instance.AddComponent<Invincibility>();
 
         //... make it move through objects and enemies
         Physics2D.IgnoreLayerCollision(GameLayers.PlayerLayer, GameLayers.RoomObjectLayer, true);
@@ -39,7 +42,7 @@ public class ScriptableGhostCard : ScriptableStatsModifierCard {
         ReferenceSystem.Instance.PlayerSwordVisual.enabled = true;
 
         //... set not invincible
-        PlayerMovement.Instance.GetComponent<Health>().SetInvincible(false);
+        Destroy(playerInvincibility);
 
         //... prevent from moving through objects and enemies
         Physics2D.IgnoreLayerCollision(GameLayers.PlayerLayer, GameLayers.RoomObjectLayer, false);

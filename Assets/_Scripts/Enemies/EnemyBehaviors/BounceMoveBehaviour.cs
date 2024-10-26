@@ -23,6 +23,7 @@ public class BounceMoveBehaviour : MonoBehaviour, IEffectable, IEnemyMovement {
     [ConditionalHide("hasBounceVariation")][SerializeField] private float bounceVariation;
 
     [SerializeField] private bool twoWayFacing = true;
+    [ConditionalHideReversed("twoWayFacing")] [SerializeField] private float facingAngleOffset;
 
     private void Awake() {
         rb = GetComponent<Rigidbody2D>();
@@ -34,12 +35,16 @@ public class BounceMoveBehaviour : MonoBehaviour, IEffectable, IEnemyMovement {
         bounceTrigger.OnEnterContact += Bounce;
 
         RandomizeDirection();
-        UpdateFacing();
 
         emergencyBounceTimer = 0;
     }
     private void OnDisable() {
         bounceTrigger.OnEnterContact -= Bounce;
+
+        // reset direction facing
+        if (!twoWayFacing) {
+            transform.rotation = Quaternion.identity;
+        }
 
         rb.velocity = Vector2.zero;
     }
@@ -49,6 +54,8 @@ public class BounceMoveBehaviour : MonoBehaviour, IEffectable, IEnemyMovement {
 
         float randomDegrees = Random.Range(0f, 360f);
         velocity = velocity.RotateDirection(randomDegrees);
+
+        UpdateFacing(velocity);
     }
 
     private void Update() {
@@ -99,23 +106,24 @@ public class BounceMoveBehaviour : MonoBehaviour, IEffectable, IEnemyMovement {
         // Set the new velocity
         velocity = reflectDir.normalized * velocity.magnitude; // Preserve the speed
 
-        UpdateFacing();
+        UpdateFacing(velocity);
     }
 
-    private void UpdateFacing() {
+    private void UpdateFacing(Vector2 velocity) {
 
         if (twoWayFacing) {
             // if going right
-            if (rb.velocity.x > 0f) {
+            if (velocity.x > 0f) {
                 FaceRight();
             }
             // if going left
-            else if (rb.velocity.x < 0f) {
+            else if (velocity.x < 0f) {
                 FaceLeft();
             }
         }
         else {
-            transform.RotateTowardsDirection(rb.velocity, centerPoint);
+            Vector2 faceDirection = velocity.normalized.RotateDirection(facingAngleOffset);
+            transform.up = faceDirection;
         }
     }
 

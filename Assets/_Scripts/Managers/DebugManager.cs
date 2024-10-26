@@ -1,6 +1,7 @@
 using QFSW.QC;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using static UnityEngine.UI.Image;
 
@@ -15,12 +16,7 @@ public class DebugManager : StaticInstance<DebugManager> {
     private void Start() {
 
         if (playerInvincible) {
-            PlayerMovement.Instance.GetComponent<Health>().SetInvincible(true);
-        }
-
-        if (unlimitedEssence) {
-            //DeckManager.Instance.ChangeMaxEssence(9999);
-            //DeckManager.Instance.ChangeEssenceAmount(9999f);
+            PlayerMovement.Instance.AddComponent<Invincibility>();
         }
     }
 

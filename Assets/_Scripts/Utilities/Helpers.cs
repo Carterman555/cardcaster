@@ -107,6 +107,42 @@ public static class Helpers {
         return -Mathf.Sign(_angle);
     }
 
+    public static float RotateAroundCenter(
+        this Transform objectToRotate,
+        Vector2 direction,
+        float rotationOffset = 0f) {
+        // Get the sprite renderer
+        SpriteRenderer spriteRenderer = objectToRotate.GetComponent<SpriteRenderer>();
+        if (spriteRenderer == null) return 0f;
+
+        // Calculate sprite's center in local coordinates
+        Vector2 spriteCenter = spriteRenderer.sprite.bounds.center;
+
+        // Get the current pivot offset in world space
+        Vector2 pivotOffset = (Vector2)objectToRotate.TransformPoint(spriteCenter) - (Vector2)objectToRotate.position;
+
+        // Calculate rotation angle from direction
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg + rotationOffset;
+
+        // Calculate how the offset should change after rotation
+        float angleRad = angle * Mathf.Deg2Rad;
+        Vector2 rotatedOffset = new Vector2(
+            pivotOffset.magnitude * Mathf.Cos(angleRad),
+            pivotOffset.magnitude * Mathf.Sin(angleRad)
+        );
+
+        // Update rotation
+        objectToRotate.rotation = Quaternion.Euler(0, 0, angle);
+
+        // Update position to maintain the center point
+        Vector2 newPosition = (Vector2)objectToRotate.position + (rotatedOffset - pivotOffset);
+        objectToRotate.position = newPosition;
+
+        
+
+        return angle;
+    }
+
     public static Transform GetClosest(this Transform self, Transform[] objects) {
         float closestDistance = float.PositiveInfinity;
         Transform closestOb = null;

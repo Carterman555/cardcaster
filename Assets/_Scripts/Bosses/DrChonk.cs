@@ -1,26 +1,28 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class DrChonk : MonoBehaviour, IHasStats, IBoss {
 
-    private DrChonkState currentState;
-    private float stateTimer;
-
-    private readonly DrChonkState[] activeStates = new DrChonkState[] { DrChonkState.EatMinions, DrChonkState.Roll, DrChonkState.ShootMinions };
-
-    [SerializeField] private List<DrChunkStateDurationPair> stateDurationsList;
-    private Dictionary<DrChonkState, RandomFloat> stateDurations = new();
-
-    [SerializeField] private Transform centerPoint;
-
     [SerializeField] private ScriptableBoss scriptableBoss;
     public Stats GetStats() {
         return scriptableBoss.Stats;
     }
+
+    private DrChonkState currentState;
+    private DrChonkState previousActionState;
+
+    private readonly DrChonkState[] actionStates = new DrChonkState[] { DrChonkState.EatMinions, DrChonkState.Roll, DrChonkState.ShootMinions };
+
+    [SerializeField] private List<DrChunkStateDurationPair> stateDurationsList;
+    private Dictionary<DrChonkState, RandomFloat> stateDurations = new();
+    private float stateTimer;
+
+    [SerializeField] private Transform centerPoint;
 
     [SerializeField] private Animator anim;
 
@@ -48,12 +50,14 @@ public class DrChonk : MonoBehaviour, IHasStats, IBoss {
         straightShootBehavior.enabled = false;
 
         SubEatMinionMethods();
+        SubShootMinionMethods();
 
         // spawn 5 healer minions surrounding boss
         SpawnStartingMinions();
     }
     private void OnDisable() {
         UnsubEatMinionMethods();
+        UnsubShootMinionMethods();
 
         OnDefeated();
     }
@@ -65,7 +69,7 @@ public class DrChonk : MonoBehaviour, IHasStats, IBoss {
 
 
             if (currentState == DrChonkState.BetweenStates) {
-                ChangeToRandomState();
+                ChangeToRandomState(previousActionState);
                 //ChangeState(DrChonkState.Roll);
             }
             else {
@@ -84,8 +88,9 @@ public class DrChonk : MonoBehaviour, IHasStats, IBoss {
         }
     }
 
-    private void ChangeToRandomState() {
-        DrChonkState newState = activeStates.RandomItem();
+    private void ChangeToRandomState(DrChonkState stateToAvoid) {
+        DrChonkState[] availableStates = actionStates.Where(s => s != stateToAvoid).ToArray();
+        DrChonkState newState = availableStates.RandomItem();
         ChangeState(newState);
     }
 
@@ -93,6 +98,10 @@ public class DrChonk : MonoBehaviour, IHasStats, IBoss {
 
         DrChonkState previousState = currentState;
         currentState = newState;
+
+        if (actionStates.Contains(previousState)) {
+            previousActionState = previousState;
+        }
 
         stateTimer = 0;
         stateDurations[newState].Randomize();
@@ -223,13 +232,50 @@ public class DrChonk : MonoBehaviour, IHasStats, IBoss {
 
     private StraightShootBehavior straightShootBehavior;
 
+    private List<SpawnOnContact> healMinionProjectiles = new List<SpawnOnContact>();
+
+    private void SubShootMinionMethods() {
+        straightShootBehavior.OnShoot_Projectile += OnShootProjectile;
+    }
+    private void UnsubShootMinionMethods() {
+        straightShootBehavior.OnShoot_Projectile -= OnShootProjectile;
+    }
+
+    private void OnShootProjectile(GameObject projectile) {
+
+        if (!projectile.TryGetComponent(out SpawnOnContact spawnOnContact)) {
+            return;
+        }
+
+        //... make sure the component that spawns in a minion is enabled because it could have gotten disabled
+        //... from when the boss was defeated (DisableSpawnOnProjectiles())
+        spawnOnContact.enabled = true;
+
+        if (!healMinionProjectiles.Contains(spawnOnContact)) {
+            healMinionProjectiles.Add(spawnOnContact);
+        }
+    }
+
+    // prevents the healer minion projectiles from spawning enemies
+    private void DisableSpawnOnProjectiles() {
+        foreach (SpawnOnContact spawnOnContact in healMinionProjectiles) {
+            spawnOnContact.enabled = false;
+        }
+        healMinionProjectiles.Clear();
+    }
+
     #endregion
 
     private void OnDefeated() {
         // kill all enemies
         foreach (Transform enemy in Containers.Instance.Enemies) {
-            enemy.GetComponent<Health>().Die();
+            Health enemyHealth = enemy.GetComponent<Health>();
+            if (!enemyHealth.IsDead()) {
+                enemyHealth.Die();
+            }
         }
+
+        DisableSpawnOnProjectiles();
     }
 }
 

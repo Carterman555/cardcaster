@@ -4,6 +4,7 @@ using UnityEngine;
 public class StraightShootBehavior : MonoBehaviour, IAttacker {
 
     public event Action<Vector2> OnShoot_Direction;
+    public event Action<GameObject> OnShoot_Projectile;
     public event Action OnAttack;
 
     public event Action OnShootAnim;
@@ -74,11 +75,19 @@ public class StraightShootBehavior : MonoBehaviour, IAttacker {
         float dmg = overrideDamage ? damage : hasStats.GetStats().Damage;
         newProjectile.GetComponent<DamageOnContact>().Setup(dmg, hasStats.GetStats().KnockbackStrength);
 
-        InvokeEvents(shootDirection.normalized);
+        InvokeShootDirectionEvent(shootDirection.normalized);
+        InvokeShootProjectileEvent(newProjectile.gameObject);
+        InvokeAttackEvent();
     }
 
-    protected void InvokeEvents(Vector2 direction) {
+    // methods needed for ShootStraightSpreadBehavior
+    protected void InvokeShootDirectionEvent(Vector2 direction) {
         OnShoot_Direction?.Invoke(direction);
+    }
+    protected void InvokeShootProjectileEvent(GameObject projectile) {
+        OnShoot_Projectile?.Invoke(projectile);
+    }
+    protected void InvokeAttackEvent() {
         OnAttack?.Invoke();
     }
 }

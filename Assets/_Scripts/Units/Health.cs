@@ -68,7 +68,7 @@ public class Health : MonoBehaviour, IDamagable {
         }
 
         OnDeath?.Invoke();
-
+        
         gameObject.ReturnToPool();
     }
 

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class ShootStraightSpreadBehavior : StraightShootBehavior {
 
@@ -19,8 +20,11 @@ public class ShootStraightSpreadBehavior : StraightShootBehavior {
 
             newProjectile.Setup(currentBulletDirection);
             newProjectile.GetComponent<DamageOnContact>().Setup(hasStats.GetStats().Damage, hasStats.GetStats().KnockbackStrength);
+
+            InvokeShootProjectileEvent(newProjectile.gameObject);
         }
 
-        InvokeEvents(toTarget.normalized);
+        InvokeShootDirectionEvent(toTarget.normalized);
+        InvokeAttackEvent();
     }
 }

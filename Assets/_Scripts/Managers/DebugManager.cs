@@ -43,13 +43,9 @@ public class DebugManager : StaticInstance<DebugManager> {
 
     [Command]
     private void ClearRoom() {
-        print("cleared");
-
         Room.GetCurrentRoom().SetRoomCleared();
 
-        foreach (GameObject enemy in Containers.Instance.Enemies) {
-            enemy.ReturnToPool();
-        }
+        KillAllEnemies();
 
         EnemySpawner.Instance.StopSpawning();
 
@@ -66,6 +62,12 @@ public class DebugManager : StaticInstance<DebugManager> {
         ClearRoom();
     }
 
+    [Command("kill_enemies", MonoTargetType.All)]
+    private void KillAllEnemies() {
+        foreach (Transform enemy in Containers.Instance.Enemies) {
+            enemy.gameObject.ReturnToPool();
+        }
+    }
 
 
     [SerializeField] private bool printMouseOver;
@@ -84,4 +86,5 @@ public class DebugManager : StaticInstance<DebugManager> {
             Debug.Log("Mouse is not over any 2D object");
         }
     }
+
 }

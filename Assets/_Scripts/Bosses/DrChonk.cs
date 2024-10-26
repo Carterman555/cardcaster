@@ -65,8 +65,8 @@ public class DrChonk : MonoBehaviour, IHasStats, IBoss {
 
 
             if (currentState == DrChonkState.BetweenStates) {
-                //ChangeToRandomState();
-                ChangeState(DrChonkState.Roll);
+                ChangeToRandomState();
+                //ChangeState(DrChonkState.Roll);
             }
             else {
                 ChangeState(DrChonkState.BetweenStates);

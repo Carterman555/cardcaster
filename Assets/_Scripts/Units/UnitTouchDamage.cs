@@ -1,4 +1,3 @@
-using IslandDefender;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -6,84 +5,101 @@ using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
 
 
-namespace IslandDefender.Management {
+[RequireComponent(typeof(TriggerContactTracker))]
+public class UnitTouchDamage : MonoBehaviour {
 
-    [RequireComponent(typeof(TriggerContactTracker))]
-    public class UnitTouchDamage : MonoBehaviour {
+    private TriggerContactTracker tracker;
+    private Dictionary<GameObject, Coroutine> activeCoroutines = new Dictionary<GameObject, Coroutine>();
 
-        private TriggerContactTracker tracker;
-        private Dictionary<GameObject, Coroutine> activeCoroutines = new Dictionary<GameObject, Coroutine>();
+    //... the player has a period of invincibility after taking damage (right now it's 1.2s), so this might not be the actual
+    //... attack cooldown
+    [SerializeField] private float attackCooldown = 0.2f;
 
-        private Health health;
-        private bool dead;
+    [SerializeField] private bool hasHealth;
+    [ConditionalHide("hasHealth")] [SerializeField] private Health health;
+    private bool dead;
 
-        private IHasStats hasStats;
+    [SerializeField] private bool overrideDamage;
+    [ConditionalHide("overrideDamage")][SerializeField] private float damage;
 
-        private void Awake() {
-            tracker = GetComponent<TriggerContactTracker>();
+    private IHasStats hasStats;
+
+    private void Awake() {
+        tracker = GetComponent<TriggerContactTracker>();
+
+        if (health) {
             health = GetComponentInParent<Health>();
-            hasStats = GetComponentInParent<IHasStats>();
         }
 
-        private void OnEnable() {
-            tracker.OnEnterContact += HandleEnterContact;
-            tracker.OnExitContact += HandleLeaveContact;
+        hasStats = GetComponentInParent<IHasStats>();
+    }
 
-            if (health != null) {
-                health.OnDeath += StopAllDamage;
-            }
+    private void OnEnable() {
+        tracker.OnEnterContact += HandleEnterContact;
+        tracker.OnExitContact += HandleLeaveContact;
 
-            ResetValues();
+        if (hasHealth) {
+            health.OnDeath += StopAllDamage;
         }
 
+        activeCoroutines.Clear();
+        dead = false;
+    }
 
-        private void OnDisable() {
-            tracker.OnEnterContact -= HandleEnterContact;
-            tracker.OnExitContact -= HandleLeaveContact;
+
+    private void OnDisable() {
+        tracker.OnEnterContact -= HandleEnterContact;
+        tracker.OnExitContact -= HandleLeaveContact;
+
+        if (!hasHealth) {
+            StopAllDamage();
         }
+    }
 
-        private void ResetValues() {
-            activeCoroutines.Clear();
-            dead = false;
+    // if not already attacking the target and not dead, start a coroutine to attack
+    private void HandleEnterContact(GameObject target) {
+        if (!activeCoroutines.ContainsKey(target) && !dead) {
+            Coroutine coroutine = StartCoroutine(DamageOverTime(target));
+            activeCoroutines[target] = coroutine;
         }
+    }
 
-        private void HandleEnterContact(GameObject target) {
-            if (!activeCoroutines.ContainsKey(target) && !dead) {
-                Coroutine coroutine = StartCoroutine(DamageOverTime(target));
-                activeCoroutines[target] = coroutine;
-            }
+    // if attacking the target and not dead, stop the coroutine that's attacking
+    private void HandleLeaveContact(GameObject target) {
+        if (activeCoroutines.TryGetValue(target, out Coroutine coroutine) && !dead) {
+            StopCoroutine(coroutine);
+            activeCoroutines.Remove(target);
         }
+    }
 
-        private void HandleLeaveContact(GameObject target) {
-            if (activeCoroutines.TryGetValue(target, out Coroutine coroutine) && !dead) {
-                StopCoroutine(coroutine);
-                activeCoroutines.Remove(target);
-            }
+    private void StopAllDamage() {
+        StopAllCoroutines();
+        activeCoroutines.Clear();
+        dead = true;
+
+        if (hasHealth) {
+            health.OnDeath -= StopAllDamage;
         }
+    }
 
-        private void StopAllDamage() {
-            StopAllCoroutines();
-            activeCoroutines.Clear();
-            dead = true;
-        }
+    private IEnumerator DamageOverTime(GameObject target) {
+        while (true) {
 
-        private IEnumerator DamageOverTime(GameObject target) {
-            while (true) {
-
-                if (!target.activeSelf) {
-                    if (activeCoroutines.TryGetValue(target, out Coroutine coroutine)) {
-                        StopCoroutine(coroutine);
-                        activeCoroutines.Remove(target);
-                    }
+            // if the target becomes inactive, stop attacking
+            if (!target.activeSelf) {
+                if (activeCoroutines.TryGetValue(target, out Coroutine coroutine)) {
+                    StopCoroutine(coroutine);
+                    activeCoroutines.Remove(target);
                 }
-
-                DamageDealer.TryDealDamage(target,
-                    transform.position,
-                    hasStats.GetStats().Damage,
-                    hasStats.GetStats().KnockbackStrength);
-
-                yield return new WaitForSeconds(hasStats.GetStats().AttackCooldown);
             }
+
+            float dmg = overrideDamage ? damage : hasStats.GetStats().Damage;
+            DamageDealer.TryDealDamage(target,
+                transform.position,
+                dmg,
+                hasStats.GetStats().KnockbackStrength);
+
+            yield return new WaitForSeconds(attackCooldown);
         }
     }
 }

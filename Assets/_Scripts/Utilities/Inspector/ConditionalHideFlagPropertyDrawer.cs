@@ -1,6 +1,8 @@
+using System;
+using UnityEngine;
+
 #if UNITY_EDITOR
 using UnityEditor;
-using UnityEngine;
 
 [CustomPropertyDrawer(typeof(ConditionalHideFlagAttribute))]
 public class ConditionalHideFlagPropertyDrawer : PropertyDrawer {
@@ -51,3 +53,15 @@ public class ConditionalHideFlagPropertyDrawer : PropertyDrawer {
     }
 }
 #endif
+
+[AttributeUsage(AttributeTargets.Field | AttributeTargets.Property |
+    AttributeTargets.Class | AttributeTargets.Struct, Inherited = true)]
+public class ConditionalHideFlagAttribute : PropertyAttribute {
+    public string FlagSourceField = "";
+    public AbilityAttribute RequiredFlag;
+
+    public ConditionalHideFlagAttribute(string flagSourceField, AbilityAttribute requiredFlag) {
+        this.FlagSourceField = flagSourceField;
+        this.RequiredFlag = requiredFlag;
+    }
+}

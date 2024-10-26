@@ -4,12 +4,11 @@ using System;
 #if UNITY_EDITOR
 using UnityEditor;
 
-[CustomPropertyDrawer(typeof(ConditionalHideAttribute))]
-public class ConditionalHidePropertyDrawer : PropertyDrawer {
+[CustomPropertyDrawer(typeof(ConditionalHideReversedAttribute))]
+public class ConditionalHideReversedPropertyDrawer : PropertyDrawer {
     public override void OnGUI(Rect position, SerializedProperty property, GUIContent label) {
-        ConditionalHideAttribute condHAtt = (ConditionalHideAttribute)attribute;
-        bool enabled = GetConditionalHideAttributeResult(condHAtt, property);
-
+        ConditionalHideReversedAttribute condHAtt = (ConditionalHideReversedAttribute)attribute;
+        bool enabled = !GetConditionalHideAttributeResult(condHAtt, property); // Note the ! operator
         bool wasEnabled = GUI.enabled;
         GUI.enabled = enabled;
         if (enabled) {
@@ -19,9 +18,8 @@ public class ConditionalHidePropertyDrawer : PropertyDrawer {
     }
 
     public override float GetPropertyHeight(SerializedProperty property, GUIContent label) {
-        ConditionalHideAttribute condHAtt = (ConditionalHideAttribute)attribute;
-        bool enabled = GetConditionalHideAttributeResult(condHAtt, property);
-
+        ConditionalHideReversedAttribute condHAtt = (ConditionalHideReversedAttribute)attribute;
+        bool enabled = !GetConditionalHideAttributeResult(condHAtt, property); // Note the ! operator
         if (enabled) {
             return EditorGUI.GetPropertyHeight(property, label);
         }
@@ -30,19 +28,17 @@ public class ConditionalHidePropertyDrawer : PropertyDrawer {
         }
     }
 
-    private bool GetConditionalHideAttributeResult(ConditionalHideAttribute condHAtt, SerializedProperty property) {
+    private bool GetConditionalHideAttributeResult(ConditionalHideReversedAttribute condHAtt, SerializedProperty property) {
         bool enabled = true;
         string propertyPath = property.propertyPath;
         string conditionPath = propertyPath.Replace(property.name, condHAtt.ConditionalSourceField);
         SerializedProperty sourcePropertyValue = property.serializedObject.FindProperty(conditionPath);
-
         if (sourcePropertyValue != null) {
             enabled = sourcePropertyValue.boolValue;
         }
         else {
-            Debug.LogWarning("Attempting to use a ConditionalHideAttribute but no matching SourcePropertyValue found in object: " + condHAtt.ConditionalSourceField);
+            Debug.LogWarning("Attempting to use a ConditionalHideReversedAttribute but no matching SourcePropertyValue found in object: " + condHAtt.ConditionalSourceField);
         }
-
         return enabled;
     }
 }
@@ -50,10 +46,9 @@ public class ConditionalHidePropertyDrawer : PropertyDrawer {
 
 [AttributeUsage(AttributeTargets.Field | AttributeTargets.Property |
     AttributeTargets.Class | AttributeTargets.Struct, Inherited = true)]
-public class ConditionalHideAttribute : PropertyAttribute {
+public class ConditionalHideReversedAttribute : PropertyAttribute {
     public string ConditionalSourceField = "";
-
-    public ConditionalHideAttribute(string conditionalSourceField) {
+    public ConditionalHideReversedAttribute(string conditionalSourceField) {
         this.ConditionalSourceField = conditionalSourceField;
     }
 }

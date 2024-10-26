@@ -20,7 +20,7 @@ public class ReturnOnContact : MonoBehaviour, IDelayedReturn {
     }
 
     private void OnTriggerEnter2D(Collider2D collision) {
-        if (layerMask.ContainsLayer(collision.gameObject.layer)) {
+        if (layerMask.ContainsLayer(collision.gameObject.layer) && enabled) {
             gameObject.ReturnToPool();
             OnStartReturn?.Invoke();
         }

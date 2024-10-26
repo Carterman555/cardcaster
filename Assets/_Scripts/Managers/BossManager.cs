@@ -29,7 +29,10 @@ public class BossManager : MonoBehaviour {
     }
 
     private void TryStartBossFight(Room room) {
-        if (room.TryGetComponent(out BossRoom bossRoom)) {
+
+        bool isBossRoom = room.TryGetComponent(out BossRoom bossRoom);
+
+        if (isBossRoom && !room.IsRoomCleared()) {
             StartBossFight(bossRoom);
         }
     }
@@ -69,7 +72,6 @@ public class BossManager : MonoBehaviour {
         boss.enabled = true;
     }
 
-    [Command]
     private void OnBossDefeated() {
 
         boss.enabled = false;

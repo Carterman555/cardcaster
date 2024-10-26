@@ -299,6 +299,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ce2c67228600654285c175e70e01085, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  scriptableBoss: {fileID: 11400000, guid: 90471916cfd5670448c242dd6b6e82d4, type: 2}
   stateDurationsList:
   - State: 0
     Duration:
@@ -317,7 +318,6 @@ MonoBehaviour:
       MinValue: 5
       MaxValue: 10
   centerPoint: {fileID: 1044121333785347722}
-  scriptableBoss: {fileID: 11400000, guid: 90471916cfd5670448c242dd6b6e82d4, type: 2}
   anim: {fileID: 4239218035097059229}
   healerMinionPrefab: {fileID: 7481704768261658980, guid: df1e1c62ee40e4144a5ec062019e6f03, type: 3}
   startingHealersDistance: 3
@@ -342,9 +342,9 @@ MonoBehaviour:
   damagedEventTrigger:
     m_PersistentCalls:
       m_Calls: []
-  hasDeathParticles: 0
-  deathParticles: {fileID: 0}
-  deathParticlesColor: {r: 0, g: 0, b: 0, a: 0}
+  hasDeathParticles: 1
+  deathParticles: {fileID: 6065135645941821456, guid: 9d414eb7344541344b030026510edc40, type: 3}
+  deathParticlesColor: {r: 0.17221434, g: 0.8113208, b: 0.24007843, a: 1}
 --- !u!114 &512004819037131981
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -17,7 +17,6 @@ MonoBehaviour:
   cost: 2
   rarity: 0
   sprite: {fileID: -2840750719877777035, guid: a8a47aca9e1483f4ebbba999d588b2e3, type: 3}
-  isPossibleStartingCard: 0
   canStackWithSelf: 0
   abilityAttributes: 5
   abilityStats:
@@ -33,7 +32,7 @@ MonoBehaviour:
     MaxHealthPercent: 0
     KnockbackResistancePercent: 100
     MoveSpeedPercent: -80
-    DamageIncreasePercent: 100
+    DamageIncreasePercent: 0
     AttackSpeedPercent: 0
     KnockbackStrengthPercent: 100
     SwordSizePercent: 300

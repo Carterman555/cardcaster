@@ -3,6 +3,7 @@ using MoreMountains.Feedbacks;
 using MoreMountains.Tools;
 using System;
 using TMPro;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -29,9 +30,15 @@ public class CardButton : GameButton, IPointerDownHandler {
     private ScriptableCardBase card;
     private int cardIndex;
 
+    private static bool playingAnyCard;
     private bool playingCard;
 
     private bool CanAffordToPlay => DeckManager.Instance.GetEssence() >= card.GetCost();
+
+    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
+    private static void Init() {
+        playingAnyCard = false;
+    }
 
     protected override void Awake() {
         base.Awake();
@@ -88,6 +95,7 @@ public class CardButton : GameButton, IPointerDownHandler {
         OnAnyCardUsed_ButtonAndCard?.Invoke(this, card);
         OnAnyCardUsed_Card?.Invoke(card);
         playingCard = false;
+        playingAnyCard = false;
     }
 
     public void OnDrawCard(ScriptableCardBase card) {
@@ -110,24 +118,26 @@ public class CardButton : GameButton, IPointerDownHandler {
 
         if (CanAffordToPlay) {
 
-            if (hotKeyDown) {
-
-                if (playingCard) {
-                    return;
-                }
+            // start playing card if hotkey is down and not playing another card
+            if (hotKeyDown && !playingAnyCard) {
 
                 OnStartPlayingCard();
 
+                playFeedbackOnHover.Disable();
+
+                // if the card is positional, the hotkey makes it follow the mouse
                 if (card is ScriptableAbilityCardBase abilityCard && abilityCard.IsPositional) {
                     FollowMouse();
                 }
+
+                // if the card is not positional, the hotkey just raises the card
                 else {
                     hoverPlayer.SetDirectionTopToBottom();
                     hoverPlayer.PlayFeedbacks();
                 }
             }
 
-            if (hotKeyUp) {
+            if (hotKeyUp && playingCard) {
                 TryPlayCard();
             }
 
@@ -141,17 +151,16 @@ public class CardButton : GameButton, IPointerDownHandler {
                 }
             }
         }
-        else {
+        else if (!CanAffordToPlay) {
             if (hotKeyDown) {
                 cantPlayShaker.Play();
             }
         }
-        
     }
 
     public void OnPointerDown(PointerEventData eventData) {
 
-        if (playingCard) {
+        if (playingAnyCard) {
             return;
         }
 
@@ -168,6 +177,7 @@ public class CardButton : GameButton, IPointerDownHandler {
     private void OnStartPlayingCard() {
 
         playingCard = true;
+        playingAnyCard = true;
 
         // show cancel card panel
         FeedbackPlayer.Play("CancelCard");
@@ -186,6 +196,8 @@ public class CardButton : GameButton, IPointerDownHandler {
         else {
             PlayCard();
         }
+
+        playFeedbackOnHover.Enable();
 
         // hide cancel card panel
         FeedbackPlayer.PlayInReverse("CancelCard");
@@ -286,6 +298,9 @@ public class CardButton : GameButton, IPointerDownHandler {
     private Vector2 handPosition;
 
     private void CancelCard() {
+
+        playingCard = false;
+        playingAnyCard = false;
 
         // move back to hand
         StopFollowingMouse();

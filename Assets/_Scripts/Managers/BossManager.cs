@@ -60,7 +60,7 @@ public class BossManager : MonoBehaviour {
         bossHealth = boss.GetComponent<Health>();
 
         //... setup the boss health bar
-        bossHealthUI.Setup(chosenBoss.name, bossHealth);
+        bossHealthUI.Setup(chosenBoss.Name, bossHealth);
 
         bossHealth.OnDeath += OnBossDefeated;
     }

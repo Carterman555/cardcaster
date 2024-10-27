@@ -1,3 +1,4 @@
+using QFSW.QC;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -208,6 +209,8 @@ public class DeckManager : Singleton<DeckManager> {
 
     #endregion
 
+    // debugging
+
     public void PrintAllCards(string startingText = "") {
         PrintCards(GetAllCards(), startingText);
     }
@@ -228,6 +231,24 @@ public class DeckManager : Singleton<DeckManager> {
         Debug.Log(whole);
     }
 
+    [Command]
+    private void GainCard(string cardName) {
+        ScriptableCardBase card = ResourceSystem.Instance.GetAllCards().FirstOrDefault(c => c.name == cardName);
+
+        if (card == null) {
+            Debug.LogWarning("Card Not Found!");
+        }
+
+        GainCard(card);
+    }
+
+    [Command]
+    private void GainRandomCards() {
+        for (int i = 0; i < 15; i++) {
+            ScriptableCardBase card = ResourceSystem.Instance.GetAllCards().RandomItem();
+            GainCard(card);
+        }
+    }
 
 }
 

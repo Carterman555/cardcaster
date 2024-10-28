@@ -114,6 +114,8 @@ public class ScriptableLaunchCard : ScriptableAbilityCardBase {
     }
 
     private void StopLaunch(GameObject wall) {
+        base.Stop();
+
         wallTrigger.OnEnterContact -= StopLaunch;
 
         PlayerMovement.Instance.enabled = true;

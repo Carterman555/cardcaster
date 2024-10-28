@@ -12,12 +12,10 @@ public class CardsUIManager : StaticInstance<CardsUIManager> {
     private List<CardButton> cardButtons = new();
 
     private void OnEnable() {
-        //DeckManager.OnHandChanged += UpdateCardButtons;
         DeckManager.OnGainCardToHand += DrawCardToEnd;
         CardButton.OnAnyCardUsed_ButtonAndCard += OnCardUsed;
     }
     private void OnDisable() {
-        //DeckManager.OnHandChanged -= UpdateCardButtons;
         DeckManager.OnGainCardToHand -= DrawCardToEnd;
         CardButton.OnAnyCardUsed_ButtonAndCard -= OnCardUsed;
     }

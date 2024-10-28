@@ -953,7 +953,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 250}
   m_SizeDelta: {x: 0, y: 200}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &184569776
@@ -4044,9 +4044,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerInvincible: 0
-  unlimitedEssence: 0
+  unlimitedEssence: 1
   noEnemies: 0
   printMouseOver: 0
+  startingCards: 07000000
 --- !u!1 &623848812
 GameObject:
   m_ObjectHideFlags: 0
@@ -7138,7 +7139,7 @@ MonoBehaviour:
   weapon: {fileID: 685561545}
   hand: {fileID: 2062877376}
   hitFeedbacks: {fileID: 1683459429}
-  attackParticles: {fileID: 1709629989399924173, guid: 5ef67e035ca442147a4f694cd1554c59, type: 3}
+  attackParticlesPrefab: {fileID: 1709629989399924173, guid: 5ef67e035ca442147a4f694cd1554c59, type: 3}
   slashPrefab: {fileID: 6955697948194271802, guid: 03c80cdf0baa14c4da859810941a4405, type: 3}
 --- !u!114 &1214084861
 MonoBehaviour:

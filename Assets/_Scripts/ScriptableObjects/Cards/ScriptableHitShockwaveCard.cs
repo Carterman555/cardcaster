@@ -17,6 +17,8 @@ public class ScriptableHitShockwave : ScriptableAbilityCardBase {
     public override void Stop() {
         base.Stop();
 
+        effectPrefabs.Clear();
+
         PlayerMeleeAttack.Instance.OnDamage_Target -= CreateShockwave;
     }
 

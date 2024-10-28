@@ -49,6 +49,8 @@ public class Health : MonoBehaviour, IDamagable {
             return;
         }
 
+        print("damage");
+
         health -= damage;
 
         OnHealthChanged_HealthProportion?.Invoke(health/maxHealth);

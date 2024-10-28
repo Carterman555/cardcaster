@@ -116,8 +116,8 @@ ParticleSystem:
     startLifetime:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 0.3
-      minScalar: 0.5
+      scalar: 0.5
+      minScalar: 0.3
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -169,8 +169,8 @@ ParticleSystem:
     startSpeed:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 8
-      minScalar: 4
+      scalar: 12
+      minScalar: 6
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -980,8 +980,8 @@ ParticleSystem:
       countCurve:
         serializedVersion: 2
         minMaxState: 3
-        scalar: 15
-        minScalar: 10
+        scalar: 25
+        minScalar: 20
         maxCurve:
           serializedVersion: 2
           m_Curve:
@@ -4923,7 +4923,7 @@ GameObject:
   - component: {fileID: 7161239218057907917}
   - component: {fileID: 3676315479470080393}
   m_Layer: 0
-  m_Name: HitEffect
+  m_Name: BigHitEffect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5081,8 +5081,8 @@ ParticleSystem:
     startSpeed:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 6
-      minScalar: 4
+      scalar: 8
+      minScalar: 6
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -5910,7 +5910,7 @@ ParticleSystem:
       countCurve:
         serializedVersion: 2
         minMaxState: 0
-        scalar: 15
+        scalar: 25
         minScalar: 0
         maxCurve:
           serializedVersion: 2

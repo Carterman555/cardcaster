@@ -1,6 +1,7 @@
 using QFSW.QC;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
 using static UnityEngine.UI.Image;
@@ -18,6 +19,8 @@ public class DebugManager : StaticInstance<DebugManager> {
         if (playerInvincible) {
             PlayerMovement.Instance.AddComponent<Invincibility>();
         }
+
+        GiveStartingCards();
     }
 
     private void OnEnable() {
@@ -87,4 +90,13 @@ public class DebugManager : StaticInstance<DebugManager> {
         }
     }
 
+
+    [SerializeField] private List<CardType> startingCards;
+
+    private void GiveStartingCards() {
+        foreach (CardType cardType in startingCards) {
+            ScriptableCardBase card = ResourceSystem.Instance.GetAllCards().FirstOrDefault(c => c.CardType == cardType);
+            DeckManager.Instance.GainCard(card);
+        }
+    }
 }

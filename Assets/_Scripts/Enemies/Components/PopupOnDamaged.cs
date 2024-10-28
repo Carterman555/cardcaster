@@ -24,6 +24,6 @@ public class PopupOnDamaged : MonoBehaviour {
     public void CreateDamagePopup(float damage) {
         Vector2 position = (Vector2)transform.position + new Vector2(0, yOffset);
         DamagePopup damagePopup = damagePopupPrefab.Spawn(position, Containers.Instance.Effects);
-        damagePopup.Setup(Mathf.RoundToInt(damage));
+        damagePopup.Setup(damage);
     }
 }

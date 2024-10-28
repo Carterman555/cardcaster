@@ -77,6 +77,8 @@ public class ScriptableMassiveSwordCard : ScriptableStatsModifierCard {
         foreach (GameObject effect in effectInstances) {
             effect.gameObject.ReturnToPool();
         }
+        effectPrefabs.Clear();
+        effectInstances.Clear();
     }
 
     #endregion

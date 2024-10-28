@@ -24,6 +24,8 @@ public class ScriptableDaggerShootCard : ScriptableAbilityCardBase {
     public override void Stop() {
         base.Stop();
 
+        abilityEffectPrefabs.Clear();
+
         DeckManager.Instance.StopCoroutine(shootCoroutine);
     }
 

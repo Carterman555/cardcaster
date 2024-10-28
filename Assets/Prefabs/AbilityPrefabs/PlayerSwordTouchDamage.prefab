@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1054489940337216221}
   - component: {fileID: 6934243973706104934}
   m_Layer: 0
-  m_Name: PlayerSwordTouchDamage-swing
+  m_Name: PlayerSwordTouchDamage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

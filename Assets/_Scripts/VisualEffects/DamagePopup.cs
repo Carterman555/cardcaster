@@ -22,7 +22,17 @@ public class DamagePopup : MonoBehaviour {
         text = GetComponent<TextMeshPro>();
     }
 
-    public void Setup(int damage) {
+    public void Setup(float damage) {
+
+        if (damage < 1f) {
+            // round to nearest tenths place
+            damage = Mathf.Round(damage * 10f) / 10f;
+        }
+        else {
+            damage = Mathf.Round(damage);
+        }
+
+
         text.text = damage.ToString();
 
         // set color based on damage

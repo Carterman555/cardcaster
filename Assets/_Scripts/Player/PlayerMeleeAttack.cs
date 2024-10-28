@@ -96,7 +96,7 @@ public class PlayerMeleeAttack : StaticInstance<PlayerMeleeAttack>, ITargetAttac
 
     [Header("Effects and Feedbacks")]
     [SerializeField] private MMF_Player hitFeedbacks;
-    [SerializeField] private ParticleSystem attackParticles;
+    [SerializeField] private ParticleSystem attackParticlesPrefab;
     [SerializeField] private Transform slashPrefab;
 
     private void PlayAttackFeedbacks(Collider2D[] targetCols) {
@@ -107,7 +107,8 @@ public class PlayerMeleeAttack : StaticInstance<PlayerMeleeAttack>, ITargetAttac
         }
 
         foreach (Collider2D col in targetCols) {
-            attackParticles.Spawn(col.transform.position, Containers.Instance.Effects);
+            Vector2 contactPos = col.ClosestPoint(transform.position);
+            attackParticlesPrefab.Spawn(contactPos, Containers.Instance.Effects);
         }
     }
 

@@ -71,7 +71,6 @@ public class BounceMoveBehaviour : MonoBehaviour, IEffectable, IEnemyMovement {
             float delayBeforeEmergencyBounce = 0.1f;
             if (emergencyBounceTimer > delayBeforeEmergencyBounce) {
                 Bounce(bounceTrigger.GetFirstContact());
-                print("Emergency bounce");
             }
         }
         else {

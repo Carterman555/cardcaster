@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c396f94d4a5f6d4d90b2c22d7ca5226, type: 3}
+  m_Name: BoomerangSwordCard
+  m_EditorClassIdentifier: 
+  cardType: 7
+  description: 
+  cost: 2
+  rarity: 0
+  sprite: {fileID: 21300000, guid: 16a86a7f581fc4dfb953e0df8ad3ecac, type: 3}
+  canStackWithSelf: 0
+  abilityAttributes: 9
+  abilityStats:
+    Damage: -1
+    KnockbackStrength: -1
+    AreaSize: 0
+    Duration: 0
+    ProjectileSpeed: 30
+    Cooldown: 0
+  <IsPositional>k__BackingField: 1
+  <IsModifiable>k__BackingField: 1
+  playerTouchDamagePrefab: {fileID: 6934243973706104934, guid: 8f7f3a14b56d08b49adfce4774b17f00, type: 3}
+  acceleration: 50
+  rotateSpeed: 500

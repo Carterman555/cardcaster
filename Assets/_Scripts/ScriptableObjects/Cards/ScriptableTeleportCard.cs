@@ -47,6 +47,8 @@ public class ScriptableTeleportCard : ScriptableAbilityCardBase {
             Vector2 validPosition = RaycastToFindPosition(position);
             TeleportPlayer(validPosition);
         }
+
+        base.Stop();
     }
 
     private Vector2 RaycastToFindPosition(Vector2 targetPosition) {

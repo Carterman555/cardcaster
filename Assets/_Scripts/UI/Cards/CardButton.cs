@@ -70,6 +70,11 @@ public class CardButton : GameButton, IPointerDownHandler {
         SetHotkeyTextToNum();
     }
 
+    // to move to after done moving to hand
+    private Vector3 toMovePos;
+
+    private bool waitingForToHandToMove;
+
     public void SetCardPosition(Vector3 position, bool move = false) {
         // set positions of movement feedbacks
         MMF_Position hoverMoveFeedback = hoverPlayer.GetFeedbackOfType<MMF_Position>("Move");
@@ -83,8 +88,34 @@ public class CardButton : GameButton, IPointerDownHandler {
 
         // move to that position
         if (move) {
-            transform.DOMove(position, duration: 0.2f);
+
+            // move right away if in hand pos
+            if (!toHandFeedback.IsPlaying) {
+                transform.DOKill();
+                transform.DOMove(position, duration: 0.2f);
+            }
+
+            // wait to move until after done moving to hand
+            else {
+
+                toMovePos = position;
+
+                // if not already waiting for the hand player to move the card
+                if (!waitingForToHandToMove) {
+                    toHandPlayer.Events.OnComplete.AddListener(MoveToPos);
+                    waitingForToHandToMove = true;
+                }
+            }
         }
+    }
+
+    private void MoveToPos() {
+        transform.DOKill();
+        transform.DOMove(toMovePos, duration: 0.2f);
+
+        toMovePos = Vector3.zero;
+        waitingForToHandToMove = false;
+        toHandPlayer.Events.OnComplete.RemoveListener(MoveToPos);
     }
 
     private void OnDestroy() {
@@ -306,6 +337,7 @@ public class CardButton : GameButton, IPointerDownHandler {
         StopFollowingMouse();
 
         float duration = 0.3f;
+        transform.DOKill();
         transform.DOMove(handPosition, duration);
 
         // fade out

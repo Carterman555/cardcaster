@@ -17,11 +17,10 @@ MonoBehaviour:
   cost: 2
   rarity: 0
   sprite: {fileID: -3766179659852302904, guid: a8a47aca9e1483f4ebbba999d588b2e3, type: 3}
-  isPossibleStartingCard: 1
   canStackWithSelf: 1
   abilityAttributes: 29
   abilityStats:
-    Damage: 0.25
+    Damage: 2
     KnockbackStrength: 0.25
     AreaSize: 0
     Duration: 5

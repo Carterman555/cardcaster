@@ -62,7 +62,12 @@ public abstract class ScriptableAbilityCardBase : ScriptableCardBase {
 
         AbilityManager.Instance.AddActiveAbility(this);
 
-        durationStopCoroutine = AbilityManager.Instance.StartCoroutine(StopAfterDuration());
+        // only plays Stop method after duration if the ability card has duration, so if it doesn't
+        // then the card is responsible for invoking base.Stop to remove the active ability
+        bool hasDuration = abilityAttributes.HasFlag(AbilityAttribute.HasDuration);
+        if (hasDuration) {
+            durationStopCoroutine = AbilityManager.Instance.StartCoroutine(StopAfterDuration());
+        }
     }
 
     private IEnumerator StopAfterDuration() {

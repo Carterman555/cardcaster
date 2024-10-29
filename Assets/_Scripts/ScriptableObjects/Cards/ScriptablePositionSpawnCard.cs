@@ -19,6 +19,13 @@ public class ScriptablePositionSpawnCard : ScriptableAbilityCardBase {
         }
 
         ApplyEffects(newObject);
+
+
+        // if something is spawned and it doesn't have a duration, it needs to invoke Stop() to remove this ability
+        // from being active in abilityManager
+        if (!AbilityAttributes.HasFlag(AbilityAttribute.HasDuration)) {
+            base.Stop();
+        }
     }
 
     public override void AddEffect(GameObject effectPrefab) {

@@ -17,11 +17,12 @@ public class ScriptableBoomerangSwordCard : ScriptableAbilityCardBase {
     private MMAutoRotate autoRotate;
 
     protected override void Play(Vector2 position) {
+
         base.Play(position);
 
         PlayerMeleeAttack.Instance.enabled = false;
 
-        // make sword deal damage through touch
+        //... make sword deal damage through touch
         SetupSwordTouchDamage();
 
         SetupBoomerangMovement();
@@ -105,7 +106,7 @@ public class ScriptableBoomerangSwordCard : ScriptableAbilityCardBase {
 
     public override void AddEffect(GameObject effectPrefab) {
         base.AddEffect(effectPrefab);
-        GameObject effect = effectPrefab.Spawn(PlayerMeleeAttack.Instance.transform);
+        GameObject effect = effectPrefab.Spawn(ReferenceSystem.Instance.PlayerSword);
         abilityEffects.Add(effect);
     }
 }

@@ -5,35 +5,31 @@ using UnityEngine;
 
 public class FireEffectOnDamage : MonoBehaviour, IAbilityEffect {
 
-    private ITargetAttacker[] attackers;
-
     [SerializeField] private ParticleSystem fireAbilityParticlesPrefab;
-    private ParticleSystem fireAbilityParticles;
-
     [SerializeField] private float burnDuration;
 
+    private EffectOnDamage effectOnDamage;
+
     private void OnEnable() {
-        attackers = transform.parent.GetComponents<ITargetAttacker>();
+        StartCoroutine(OnEnableCor());
+    }
 
-        foreach (ITargetAttacker attacker in attackers) {
-            attacker.OnDamage_Target += InflictBurn;
-        }
+    private IEnumerator OnEnableCor() {
 
-        // parent to biggest renderer in order to match the transform to match the sprite shape and make sure the
-        // particles emit from the visual and move with it
-        Transform parent = transform.parent.GetBiggestRenderer().transform;
-        fireAbilityParticles = fireAbilityParticlesPrefab.Spawn(parent);
+        //... wait a frame before checking for attackers because an attacker could have been added
+        //... in the same frame. Like if they were both added from an ability card. This makes sure
+        //... this subscribes to the attackers' onDamage event
+        yield return null;
+
+        effectOnDamage = new(InflictBurn, transform.parent, fireAbilityParticlesPrefab);
     }
 
     private void OnDisable() {
-        foreach (ITargetAttacker attacker in attackers) {
-            attacker.OnDamage_Target -= InflictBurn;
-        }
-
-        fireAbilityParticles.gameObject.TryReturnToPool();
+        effectOnDamage.Disable();
     }
 
     private void InflictBurn(GameObject target) {
+
         if (target.TryGetComponent(out IEffectable effectable)) {
 
             if (target.GetComponent<Health>().IsDead()) {

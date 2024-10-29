@@ -196,6 +196,8 @@ GameObject:
   - component: {fileID: 512004819037131981}
   - component: {fileID: 1206499748571781939}
   - component: {fileID: 8987095808021778562}
+  - component: {fileID: -2327778949296054411}
+  - component: {fileID: -4242213799015855196}
   m_Layer: 7
   m_Name: DrChonk
   m_TagString: Untagged
@@ -397,6 +399,37 @@ MonoBehaviour:
   enemyAnim: {fileID: 4239218035097059229}
   hasWeapon: 0
   weaponAnim: {fileID: 0}
+--- !u!114 &-2327778949296054411
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4111830215114382718}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23ba49c69b5da3143ab2a3b3d4077c77, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  essencePrefab: {fileID: 8034270738103182623, guid: 12e28bcb234b1b548ae2d9e6745360a6, type: 3}
+  dropAmount:
+    MinValue: 3
+    MaxValue: 4
+  dropChance: 1
+--- !u!114 &-4242213799015855196
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4111830215114382718}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0367c6d73f9125a468965c90272bd4a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damagePopupPrefab: {fileID: 6269490075395789074, guid: 4113a39b7959b5046b74c97564a2c64c, type: 3}
+  yOffset: 2
 --- !u!1 &5270044504826222362
 GameObject:
   m_ObjectHideFlags: 0

@@ -73,7 +73,7 @@ public class ScriptableSwordSwingCard : ScriptableAbilityCardBase {
 
     public override void AddEffect(GameObject effectPrefab) {
         base.AddEffect(effectPrefab);
-        GameObject effect = effectPrefab.Spawn(PlayerMeleeAttack.Instance.transform);
+        GameObject effect = effectPrefab.Spawn(ReferenceSystem.Instance.PlayerSword);
         abilityEffects.Add(effect);
     }
 }

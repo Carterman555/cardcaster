@@ -3,33 +3,30 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class ElectricEffectOnDamage : MonoBehaviour, IAbilityEffect {
-    private ITargetAttacker[] attackers;
 
     [SerializeField] private ParticleSystem electricAbilityParticlesPrefab;
-    private ParticleSystem electricAbilityParticles;
 
     [SerializeField] private float damage;
     [SerializeField] private int chainSize;
 
+    private EffectOnDamage effectOnDamage;
+
     private void OnEnable() {
-        attackers = transform.parent.GetComponents<ITargetAttacker>();
+        StartCoroutine(OnEnableCor());
+    }
 
-        foreach (ITargetAttacker attacker in attackers) {
-            attacker.OnDamage_Target += Shock;
-        }
+    private IEnumerator OnEnableCor() {
 
-        // parent to biggest renderer in order to match the transform to match the sprite shape and make sure the
-        // particles emit from the visual and move with it
-        Transform parent = transform.parent.GetBiggestRenderer().transform;
-        electricAbilityParticles = electricAbilityParticlesPrefab.Spawn(parent);
+        //... wait a frame before checking for attackers because an attacker could have been added
+        //... in the same frame. Like if they were both added from an ability card. This makes sure
+        //... this subscribes to the attackers' onDamage event
+        yield return null;
+
+        effectOnDamage = new(Shock, transform.parent, electricAbilityParticlesPrefab);
     }
 
     private void OnDisable() {
-        foreach (ITargetAttacker attacker in attackers) {
-            attacker.OnDamage_Target -= Shock;
-        }
-
-        electricAbilityParticles.gameObject.TryReturnToPool();
+        effectOnDamage.Disable();
     }
 
     private void Shock(GameObject target) {

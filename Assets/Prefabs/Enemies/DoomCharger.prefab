@@ -198,6 +198,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70a3a49f3117d6a40b368b3ed79d10c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  targetLayerMask:
+    serializedVersion: 2
+    m_Bits: 64
+  useIHasStats: 1
+  serializedExplosionRadius: 1
   explosionRadius: 3
   explosionParticlesPrefab: {fileID: 6065135645941821456, guid: 5f3b7b52a057dae4a8769678b76618b4, type: 3}
 --- !u!95 &7812749826847277617 stripped

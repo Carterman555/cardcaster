@@ -36,8 +36,14 @@ public abstract class ScriptableAbilityCardBase : ScriptableCardBase {
 
     protected virtual void DraggingUpdate(Vector2 cardposition) { }
 
+    public virtual void OnStopDraggingCard() {
+
+    }
+
     public override void TryPlay(Vector2 position) {
         base.TryPlay(position);
+
+        OnStopDraggingCard();
 
         // if multiple can't play at the same time, cancel the current one playing
         if (CanStackWithSelf || !AbilityManager.Instance.IsAbilityActive(this, out ScriptableAbilityCardBase alreadyActiveAbility)) {

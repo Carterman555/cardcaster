@@ -2,15 +2,10 @@ using DG.Tweening;
 using Mono.CSharp;
 using System;
 using System.Collections.Generic;
-using System.Drawing;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UIElements;
 
-/// <summary>
-/// this needs to check if the position the player is trying to teleport to is in the room and not in a collider.
-/// if one of those is the case, then it needs to send a raycast from the mouse position to the player position until
-/// there is an open spot to teleport. Then teleport there
-/// </summary>
 [CreateAssetMenu(fileName = "LaunchCard", menuName = "Cards/Launch Card")]
 public class ScriptableLaunchCard : ScriptableAbilityCardBase {
     public float raycastStep = 0.1f;
@@ -28,11 +23,14 @@ public class ScriptableLaunchCard : ScriptableAbilityCardBase {
 
     [SerializeField] private TriggerContactTracker wallTriggerPrefab;
     private TriggerContactTracker wallTrigger;
+    private float checkFactor = 0.75f; // make smaller
 
     [SerializeField] private float launchSpeed;
     private Tween launchTween;
 
     private List<GameObject> abilityEffects = new();
+
+    private Vector2 launchDirection;
 
     [Header("Visuals")]
     [SerializeField] private ParticleSystem launchEffectsPrefab;
@@ -56,22 +54,25 @@ public class ScriptableLaunchCard : ScriptableAbilityCardBase {
         float pathWidth = Stats.AreaSize * 2f;
 
         float checkDistance = 100f;
-        RaycastHit2D hit = Physics2D.BoxCast(pathVisual.transform.position, new Vector2(pathWidth, 1f), pathVisual.transform.eulerAngles.z, toMouseDirection, checkDistance, obstacleLayer);
+        float distanceFromPlayer = 1.5f;
+        Vector2 origin = (Vector2)pathVisual.transform.position + (toMouseDirection * distanceFromPlayer);
+        RaycastHit2D hit = Physics2D.BoxCast(origin, new Vector2(pathWidth * checkFactor, 1f), pathVisual.transform.eulerAngles.z, toMouseDirection, checkDistance, obstacleLayer);
 
         if (hit.collider == null) {
             Debug.LogError("Could Not Find Wall!");
         }
-        else {
-            pathVisual.size = new Vector3(pathWidth, hit.distance);
+        else if (hit.distance > 1f) {
+            pathVisual.size = new Vector3(pathWidth, hit.distance + distanceFromPlayer);
         }
     }
 
-    protected override void Play(Vector2 position) {
+    public override void OnStopDraggingCard() {
+        base.OnStopDraggingCard();
 
-        //... disable the path visual before base.play because base.play adds visual effects
-        //... that will try to parent to path visual
         pathVisual.gameObject.ReturnToPool();
+    }
 
+    protected override void Play(Vector2 position) {
         base.Play(position);
 
         Transform playerTransform = PlayerMovement.Instance.transform;
@@ -84,6 +85,7 @@ public class ScriptableLaunchCard : ScriptableAbilityCardBase {
         float launchFullSpeedTime = 0.5f;
         Vector2 toMouseDirection = MouseTracker.Instance.ToMouseDirection(pathVisual.transform.position);
         launchTween = DOTween.To(() => playerRb.velocity, x => playerRb.velocity = x, toMouseDirection * launchSpeed, launchFullSpeedTime);
+        launchDirection = toMouseDirection;
 
         // make deal damage
         damageDealer = damageDealerPrefab.Spawn(playerTransform.position, playerTransform);
@@ -96,8 +98,8 @@ public class ScriptableLaunchCard : ScriptableAbilityCardBase {
 
         // make it stop when hit wall
         wallTrigger = wallTriggerPrefab.Spawn(playerTransform.position, playerTransform);
-        wallTrigger.GetComponent<CircleCollider2D>().radius = Stats.AreaSize;
-        wallTrigger.OnEnterContact += StopLaunch;
+        wallTrigger.GetComponent<CircleCollider2D>().radius = Stats.AreaSize * checkFactor;
+        wallTrigger.OnEnterContact += TryStopLaunch;
 
         // move sword to point forward
         ReferenceSystem.Instance.PlayerWeaponParent.GetComponent<SlashingWeapon>().enabled = false;
@@ -113,10 +115,25 @@ public class ScriptableLaunchCard : ScriptableAbilityCardBase {
         launchEffects.transform.up = toMouseDirection;
     }
 
+    // only stop the launch if the wall is in front of the player. This is to prevent the player from stopping
+    // immediately after launching if backed up into wall
+    private void TryStopLaunch(GameObject wall) {
+        Vector2 playerPosition = PlayerMovement.Instance.transform.position;
+        Vector2 contactPoint = wall.GetComponent<Collider2D>().ClosestPoint(playerPosition);
+
+        Vector2 toContactPoint = contactPoint - playerPosition;
+        float dotProduct = Vector2.Dot(toContactPoint, launchDirection);
+
+        bool contactPointInFrontOfPlayer = dotProduct > 0f;
+        if (contactPointInFrontOfPlayer) {
+            StopLaunch(wall);
+        }
+    }
+
     private void StopLaunch(GameObject wall) {
         base.Stop();
 
-        wallTrigger.OnEnterContact -= StopLaunch;
+        wallTrigger.OnEnterContact -= TryStopLaunch;
 
         PlayerMovement.Instance.enabled = true;
         PlayerMeleeAttack.Instance.enabled = true;

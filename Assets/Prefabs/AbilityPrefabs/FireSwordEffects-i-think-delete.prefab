@@ -4864,7 +4864,7 @@ GameObject:
   - component: {fileID: 920200030280322407}
   - component: {fileID: 4422035545809862014}
   m_Layer: 0
-  m_Name: FireSwordEffects
+  m_Name: FireSwordEffects-i-think-delete
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

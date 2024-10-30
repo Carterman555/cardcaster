@@ -20,12 +20,20 @@ public class ScriptablePositionSpawnCard : ScriptableAbilityCardBase {
 
         ApplyEffects(newObject);
 
-
-        // if something is spawned and it doesn't have a duration, it needs to invoke Stop() to remove this ability
-        // from being active in abilityManager
+        // if something is spawned and it doesn't have a duration, it needs to invoke Stop() because normally it
+        // is invoked after the duration, but it won't be without a duration
         if (!AbilityAttributes.HasFlag(AbilityAttribute.HasDuration)) {
-            base.Stop();
+            Stop();
         }
+    }
+
+    public override void Stop() {
+        base.Stop();
+
+        // just clear the list instead of returning the ability effects on stop because summons without a duration
+        // play stop right after play. This would make returning the effects now not apply to those summons. The
+        // effects are instead returned by ReturnOnDisable
+        abilityEffectPrefabs.Clear();
     }
 
     public override void AddEffect(GameObject effectPrefab) {

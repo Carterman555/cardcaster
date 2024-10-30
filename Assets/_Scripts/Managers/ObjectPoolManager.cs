@@ -8,6 +8,9 @@ using UnityEngine;
 public static class ObjectPoolManager {
     public static List<PooledObjectInfo> ObjectPoolList = new List<PooledObjectInfo>();
 
+    // debugging
+    private static string nameToDebug = "";
+
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
     private static void Init() {
         ObjectPoolList = new List<PooledObjectInfo>();
@@ -133,6 +136,11 @@ public static class ObjectPoolManager {
                 }
 
                 return;
+            }
+
+            // debug
+            if (objectToReturn.name == nameToDebug) {
+                Debug.Log($"returned {nameToDebug}");
             }
 
             pool.InactiveObjects.Add(objectToReturn);

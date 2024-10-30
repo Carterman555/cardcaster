@@ -3949,7 +3949,7 @@ MonoBehaviour:
   unlimitedEssence: 1
   noEnemies: 0
   printMouseOver: 0
-  startingCards: 0c00000009000000
+  startingCards: 0000000006000000
 --- !u!1 &623848812
 GameObject:
   m_ObjectHideFlags: 0

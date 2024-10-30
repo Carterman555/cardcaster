@@ -15,6 +15,7 @@ public class DamageOnContact : MonoBehaviour, ITargetAttacker {
     private float damage;
     private float knockbackStrength;
 
+    [SerializeField] private bool piercing;
     private bool canDamage;
 
     private void Awake() {
@@ -46,7 +47,9 @@ public class DamageOnContact : MonoBehaviour, ITargetAttacker {
                 OnDamage_Target?.Invoke(collision.gameObject);
             }
 
-            PreventDamage();
+            if (!piercing) {
+                PreventDamage();
+            }
 
             OnAttack?.Invoke();
         }

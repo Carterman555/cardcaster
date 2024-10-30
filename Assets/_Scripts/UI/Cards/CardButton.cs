@@ -344,6 +344,10 @@ public class CardButton : GameButton, IPointerDownHandler {
         MMF_Image fadeFeedback = hoverPlayer.GetFeedbackOfType<MMF_Image>("FadeCard");
         fadeFeedback.RestoreInitialValues();
 
+        if (card is ScriptableAbilityCardBase abilityCard) {
+            abilityCard.OnStopDraggingCard();
+        }
+
         OnAnyCancel_Card?.Invoke(card);
     }
 

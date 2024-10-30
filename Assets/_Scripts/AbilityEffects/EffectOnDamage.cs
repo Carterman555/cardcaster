@@ -26,7 +26,7 @@ public class EffectOnDamage {
 
     public void Disable() {
         UnsubFromAttackEvents();
-        particles.gameObject.ReturnToPool();
+        particles.gameObject.TryReturnToPool();
     }
 
     private void SubToAttackEvents() {

@@ -341,8 +341,8 @@ public class CardButton : GameButton, IPointerDownHandler {
         transform.DOMove(handPosition, duration);
 
         // fade out
-        MMF_Image fadeFeedback = hoverPlayer.GetFeedbackOfType<MMF_Image>("FadeCard");
-        fadeFeedback.RestoreInitialValues();
+        float hoverAlpha = 180f / 255f;
+        cardImage.GetComponent<Image>().Fade(hoverAlpha);
 
         if (card is ScriptableAbilityCardBase abilityCard) {
             abilityCard.OnStopDraggingCard();

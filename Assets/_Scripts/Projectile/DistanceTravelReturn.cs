@@ -1,9 +1,7 @@
 using System;
 using UnityEngine;
 
-public class DistanceTravelReturn : MonoBehaviour, IDelayedReturn {
-
-    public event Action OnStartReturn;
+public class DistanceTravelReturn : MonoBehaviour {
 
     private float distanceToReturn;
     private Vector2 originalPos;
@@ -17,8 +15,7 @@ public class DistanceTravelReturn : MonoBehaviour, IDelayedReturn {
     private void Update() {
         float distanceTravelled = Vector2.Distance(originalPos, transform.position); // could be costly
         if (distanceTravelled > distanceToReturn) {
-            transform.ShrinkThenDestroy();
-            OnStartReturn?.Invoke();
+            gameObject.ReturnToPool();
         }
     }
 }

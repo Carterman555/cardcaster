@@ -3946,10 +3946,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerInvincible: 0
-  unlimitedEssence: 1
+  unlimitedEssence: 0
   noEnemies: 0
   printMouseOver: 0
-  startingCards: 0000000006000000
+  startingCards: 0a00000010000000
+  spawnAtBossRoom: 0
 --- !u!1 &623848812
 GameObject:
   m_ObjectHideFlags: 0

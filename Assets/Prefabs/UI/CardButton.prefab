@@ -2679,7 +2679,7 @@ MonoBehaviour:
         ModifyColor: 1
         ColorOverTime:
           serializedVersion: 2
-          key0: {r: 1, g: 1, b: 1, a: 0.70980394}
+          key0: {r: 1, g: 1, b: 1, a: 0.7058824}
           key1: {r: 1, g: 1, b: 1, a: 1}
           key2: {r: 0, g: 0, b: 0, a: 1}
           key3: {r: 0, g: 0, b: 0, a: 0}

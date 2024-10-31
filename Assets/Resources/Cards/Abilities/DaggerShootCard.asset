@@ -16,7 +16,7 @@ MonoBehaviour:
   description: Rapid fire daggers
   cost: 2
   rarity: 0
-  sprite: {fileID: -3766179659852302904, guid: a8a47aca9e1483f4ebbba999d588b2e3, type: 3}
+  sprite: {fileID: -2141203052, guid: d638d131cac6f4d45aeb96fc55848241, type: 3}
   canStackWithSelf: 1
   abilityAttributes: 29
   abilityStats:

@@ -16,8 +16,7 @@ MonoBehaviour:
   description: Creates a shockwave on hit
   cost: 1
   rarity: 0
-  sprite: {fileID: 4761049826753756937, guid: a8a47aca9e1483f4ebbba999d588b2e3, type: 3}
-  isPossibleStartingCard: 0
+  sprite: {fileID: 299688740, guid: d638d131cac6f4d45aeb96fc55848241, type: 3}
   canStackWithSelf: 0
   abilityAttributes: 7
   abilityStats:

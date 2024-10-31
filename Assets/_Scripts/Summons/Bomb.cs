@@ -1,12 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.Rendering;
+using System.Linq;
 using UnityEngine;
 
 [RequireComponent(typeof(ExplodeBehavior))]
 public class Bomb : MonoBehaviour, IAbilityStatsSetup {
 
     private ExplodeBehavior explodeBehavior;
+
+    [SerializeField] private Animator anim;
 
     private void Awake() {
         explodeBehavior = GetComponent<ExplodeBehavior>();
@@ -17,11 +19,12 @@ public class Bomb : MonoBehaviour, IAbilityStatsSetup {
         explodeBehavior.SetExplosionRadius(stats.AreaSize);
         explodeBehavior.SetKnockbackStrength(stats.KnockbackStrength);
 
-        StartCoroutine(DelayedExplode(stats.Cooldown));
+        float litAnimationDuration = 0.8f;
+        float animSpeed = litAnimationDuration / stats.Cooldown;
+        anim.speed = animSpeed;
     }
 
-    public IEnumerator DelayedExplode(float delay) {
-        yield return new WaitForSeconds(delay);
+    public void ExplodeBomb() {
         explodeBehavior.Explode();
     }
 }

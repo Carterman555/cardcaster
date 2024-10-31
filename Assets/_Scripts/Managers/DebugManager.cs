@@ -42,6 +42,10 @@ public class DebugManager : StaticInstance<DebugManager> {
         if (noEnemies) {
             ClearAllRooms();
         }
+
+        if (spawnAtBossRoom) {
+            TeleportToBossRoom();
+        }
     }
 
     [Command]
@@ -98,5 +102,14 @@ public class DebugManager : StaticInstance<DebugManager> {
             ScriptableCardBase card = ResourceSystem.Instance.GetAllCards().FirstOrDefault(c => c.CardType == cardType);
             DeckManager.Instance.GainCard(card);
         }
+    }
+
+
+    [SerializeField] private bool spawnAtBossRoom;
+
+    [Command]
+    private void TeleportToBossRoom() {
+        BossRoom bossRoom = FindObjectOfType<BossRoom>();
+        PlayerMeleeAttack.Instance.transform.position = bossRoom.GetBossSpawnPoint().position;
     }
 }

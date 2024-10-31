@@ -4,11 +4,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BounceOnContact : MonoBehaviour, IDelayedReturn {
+public class BounceOnContact : MonoBehaviour {
 
-    public event Action OnStartReturn;
-
-    [SerializeField] private LayerMask bounceLayer;
+    [SerializeField] private LayerMask bounceLayer = GameLayers.ObstacleLayerMask;
     [SerializeField] private int maxBounces = 3;
     private int bounces;
 
@@ -21,7 +19,6 @@ public class BounceOnContact : MonoBehaviour, IDelayedReturn {
     private void Awake() {
         rb = GetComponent<Rigidbody2D>();
         originalScale = transform.localScale;
-
     }
 
     private void OnEnable() {
@@ -34,8 +31,7 @@ public class BounceOnContact : MonoBehaviour, IDelayedReturn {
 
         bool bouncesLeft = bounces < maxBounces;
         if (!bouncesLeft && !returning) {
-            transform.ShrinkThenDestroy();
-            OnStartReturn?.Invoke();
+            gameObject.ReturnToPool();
             return;
         }
 
@@ -51,6 +47,9 @@ public class BounceOnContact : MonoBehaviour, IDelayedReturn {
 
         // Set the new velocity
         rb.velocity = reflectDir.normalized * rb.velocity.magnitude; // Preserve the speed
+
+        // rotate the projectile that way
+        transform.up = reflectDir.normalized;
 
         bounces++;
     }

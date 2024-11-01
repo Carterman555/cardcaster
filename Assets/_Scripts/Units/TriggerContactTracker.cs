@@ -11,8 +11,6 @@ public class TriggerContactTracker : MonoBehaviour {
 
     private List<GameObject> contacts = new List<GameObject>();
 
-    [SerializeField] private bool debug;
-
     public List<GameObject> GetContacts() {
         return contacts;
     }

@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ddceab62dd8231248bd8d7581dfc91e1, type: 3}
+  m_Name: Magneticify
+  m_EditorClassIdentifier: 
+  cardType: 17
+  description: 
+  cost: 1
+  rarity: 0
+  sprite: {fileID: 0}
+  canStackWithSelf: 0
+  abilityAttributes: -1
+  abilityStatsModifierPercentage:
+    Damage: 0
+    KnockbackStrength: 0
+    AreaSize: 0
+    Duration: 0
+    ProjectileSpeed: 0
+    Cooldown: 0
+  modifierImagePrefab: {fileID: -2071319084836149, guid: c6d28b118b972a744a66d705262b19cd, type: 3}
+  appliesEffect: 1
+  effectPrefab: {fileID: 79529023155393847, guid: 465b7af3edfec044f86658ea6c23b9e9, type: 3}

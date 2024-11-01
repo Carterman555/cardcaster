@@ -11,25 +11,20 @@ public class BlackHole : MonoBehaviour, IAbilityStatsSetup, ITargetAttacker {
     public event Action OnAttack;
     public event Action<GameObject> OnDamage_Target;
 
+    private SuckBehaviour suckBehaviour;
+
     [SerializeField] private TriggerContactTracker contactTracker;
-    [SerializeField] private float minForce;
-    [SerializeField] private float maxForce;
-    [SerializeField] private float suckSpeed;
 
     private float damage;
     private float duration;
 
-    private float suckRadius;
     private bool dying;
 
-    private StopMovement stopMovementEffect;
-
-    [Header("Visual")]
-    [SerializeField] private ParticleSystem particles;
-    [SerializeField] private ParticleSystemForceField particleField;
+    private void Awake() {
+        suckBehaviour = GetComponent<SuckBehaviour>();
+    }
 
     private void OnEnable() {
-        stopMovementEffect = null;
         dying = false;
 
         StartCoroutine(DealDamage());
@@ -38,20 +33,8 @@ public class BlackHole : MonoBehaviour, IAbilityStatsSetup, ITargetAttacker {
     public void SetAbilityStats(AbilityStats stats) {
         damage = stats.Damage;
         duration = stats.Duration;
-        suckRadius = stats.AreaSize;
 
-        GetComponent<CircleCollider2D>().radius = stats.AreaSize;
-
-        // size visual based on area size
-        var main = particles.main;
-        main.startLifetime = new ParticleSystem.MinMaxCurve(1, 0.3f * suckRadius);
-
-        var emission = particles.emission;
-        emission.rateOverTime = suckRadius * 10f;
-
-        var shape = particles.shape;
-        shape.radius = suckRadius;
-        particleField.endRange = suckRadius + 1;
+        suckBehaviour.Setup(stats.AreaSize);
     }
 
     private void Update() {
@@ -60,34 +43,15 @@ public class BlackHole : MonoBehaviour, IAbilityStatsSetup, ITargetAttacker {
             return;
         }
 
-        CheckTouchingEffectable();
-
         duration -= Time.deltaTime;
         if (duration < 0) {
-            if (stopMovementEffect != null) {
-                Destroy(stopMovementEffect);
-                stopMovementEffect = null;
-            }
-
             dying = true;
-
             transform.ShrinkThenDestroy();
         }
     }
 
-    private void FixedUpdate() {
-
-        if (dying) {
-            return;
-        }
-
-        foreach (GameObject objectInRange in contactTracker.GetContacts()) {
-            SuckEnemy(objectInRange);
-        }
-    }
-
     private IEnumerator DealDamage() {
-        while (enabled) {
+        while (enabled && !dying) {
 
             yield return new WaitForSeconds(1f);
 
@@ -99,59 +63,6 @@ public class BlackHole : MonoBehaviour, IAbilityStatsSetup, ITargetAttacker {
                 }
                 OnAttack?.Invoke();
             }
-        }
-    }
-
-    private void SuckEnemy(GameObject objectInRange) {
-        Vector2 toBlackHole = transform.position - objectInRange.transform.position;
-
-        float distance = toBlackHole.magnitude;
-
-        float forceFactor = Mathf.Clamp(1 - (distance / suckRadius), 0, 1);
-        float suckingForce = Mathf.Lerp(minForce, maxForce, forceFactor);
-
-        // don't suck if very close to black hole to avoid jittering
-        float distanceThreshold = 0.05f;
-        bool touchingBlackHole = distance < distanceThreshold;
-        if (touchingBlackHole) {
-            suckingForce = 0;
-
-            if (stopMovementEffect == null) {
-                TryStopMovementOfTouching(objectInRange);
-            }
-        }
-
-        Vector3 suckVelocity = toBlackHole.normalized * suckingForce;
-
-        if (objectInRange.TryGetComponent(out NavMeshAgent agent)) {
-            agent.velocity = agent.desiredVelocity + suckVelocity;
-        }
-        else if (objectInRange.TryGetComponent(out Rigidbody2D rb)) {
-            rb.velocity = Vector2.MoveTowards(rb.velocity, suckVelocity, suckSpeed * Time.fixedDeltaTime);
-        }
-    }
-
-    private void TryStopMovementOfTouching(GameObject objectTouching) {
-        if (objectTouching.TryGetComponent(out IEffectable effectable)) {
-            if (stopMovementEffect == null) {
-                stopMovementEffect = objectTouching.AddComponent<StopMovement>();
-                stopMovementEffect.Setup();
-            }
-        }
-    }
-
-    private void CheckTouchingEffectable() {
-
-        if (stopMovementEffect == null) {
-            return;
-        }
-
-        float distanceThreshold = 0.05f;
-        float distance = Vector2.Distance(stopMovementEffect.transform.position, transform.position);
-        bool touchingBlackHole = distance < distanceThreshold;
-        if (!touchingBlackHole) {
-            Destroy(stopMovementEffect);
-            stopMovementEffect = null;
         }
     }
 }

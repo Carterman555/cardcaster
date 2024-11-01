@@ -7,18 +7,21 @@ using System.Collections;
 
 public class Chest : MonoBehaviour {
 
-    [SerializeField] private InputActionReference interactAction;
-
     private ICollectable[] scriptableCollectables;
     [SerializeField] private ChestCollectable[] collectables;
 
-    private bool canOpen;
     private bool opened;
 
     [SerializeField] private Animator anim;
 
+    private Interactable interactable;
+
     private const int CARD_AMOUNT = 3;
     private const int ITEM_AMOUNT = 1;
+
+    private void Awake() {
+        interactable = GetComponent<Interactable>();
+    }
 
     private void Start() {
         ChooseUniqueRandomCards();
@@ -37,28 +40,10 @@ public class Chest : MonoBehaviour {
         scriptableCollectables = possibleCards.OrderBy(x => UnityEngine.Random.value).Distinct().Take(CARD_AMOUNT).ToArray();
     }
 
-    private void OnTriggerEnter2D(Collider2D collision) {
-        if (!opened && collision.gameObject.layer == GameLayers.PlayerLayer) {
-            // shine or outline - TODO
-            anim.SetBool("hovering", true);
-
-            canOpen = true;
-        }
-    }
-
-    private void OnTriggerExit2D(Collider2D collision) {
-        if (!opened && collision.gameObject.layer == GameLayers.PlayerLayer) {
-            // disable shine or outline - TODO
-            anim.SetBool("hovering", false);
-
-            canOpen = false;
-        }
-    }
-
     private void Update() {
-        if (canOpen) {
+        if (!opened && ) {
             if (interactAction.action.triggered) {
-                StartCoroutine(Open());
+                //StartCoroutine(Open());
             }
         }
     }

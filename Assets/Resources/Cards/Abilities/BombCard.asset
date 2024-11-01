@@ -25,7 +25,7 @@ MonoBehaviour:
     AreaSize: 5
     Duration: 5
     ProjectileSpeed: 0
-    Cooldown: 1
+    Cooldown: 2
   <IsPositional>k__BackingField: 1
   <IsModifiable>k__BackingField: 1
   objectToSpawn: {fileID: 291389537816103061, guid: 90136b416fc0f58418c7b7cdb9587c77, type: 3}

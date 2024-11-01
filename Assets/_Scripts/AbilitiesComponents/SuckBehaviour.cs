@@ -16,8 +16,10 @@ public class SuckBehaviour : MonoBehaviour {
     private StopMovement stopMovementEffect;
 
     [Header("Visual")]
-    [SerializeField] private ParticleSystem particles;
     [SerializeField] private ParticleSystemForceField particleField;
+
+    [SerializeField] private bool emitParticles;
+    [ConditionalHide("emitParticles")][SerializeField] private ParticleSystem particles;
 
     private void OnEnable() {
         stopMovementEffect = null;
@@ -38,14 +40,17 @@ public class SuckBehaviour : MonoBehaviour {
         GetComponent<CircleCollider2D>().radius = suckRadius;
 
         // size visual based on area size
-        var main = particles.main;
-        main.startLifetime = new ParticleSystem.MinMaxCurve(1, 0.3f * suckRadius);
+        if (emitParticles) {
+            var main = particles.main;
+            main.startLifetime = new ParticleSystem.MinMaxCurve(1, 0.3f * suckRadius);
 
-        var emission = particles.emission;
-        emission.rateOverTime = suckRadius * 10f;
+            var emission = particles.emission;
+            emission.rateOverTime = suckRadius * 10f;
 
-        var shape = particles.shape;
-        shape.radius = suckRadius;
+            var shape = particles.shape;
+            shape.radius = suckRadius;
+        }
+        
         particleField.endRange = suckRadius + 1;
     }
 

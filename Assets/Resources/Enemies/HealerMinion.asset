@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <Name>k__BackingField: Healer Minion
   <Description>k__BackingField: 
-  <Prefab>k__BackingField: {fileID: -4002794726442658036, guid: 3036b955ca9649d4fbe1dcae34658259, type: 3}
+  <Prefab>k__BackingField: {fileID: -2715306006297114095, guid: df1e1c62ee40e4144a5ec062019e6f03, type: 3}
   <Stats>k__BackingField:
     MaxHealth: 6
     KnockbackResistance: 0.75

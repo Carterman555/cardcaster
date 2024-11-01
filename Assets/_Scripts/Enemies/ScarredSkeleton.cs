@@ -27,7 +27,6 @@ public class ScarredSkeleton : Enemy {
 
         moveBehavior.enabled = false;
         shootBehavior.enabled = true;
-        print("enter range");
     }
 
     protected override void OnPlayerExitedRange(GameObject player) {
@@ -35,6 +34,5 @@ public class ScarredSkeleton : Enemy {
 
         moveBehavior.enabled = true;
         shootBehavior.enabled = false;
-        print("exit range");
     }
 }

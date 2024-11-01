@@ -139,7 +139,7 @@ public static class ObjectPoolManager {
             }
 
             // debug
-            if (objectToReturn.name == nameToDebug) {
+            if (goName == nameToDebug) {
                 Debug.Log($"returned {nameToDebug}");
             }
 

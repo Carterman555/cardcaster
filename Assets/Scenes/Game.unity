@@ -3949,7 +3949,7 @@ MonoBehaviour:
   unlimitedEssence: 0
   noEnemies: 0
   printMouseOver: 0
-  startingCards: 0a00000010000000
+  startingCards: 0100000011000000
   spawnAtBossRoom: 0
 --- !u!1 &623848812
 GameObject:

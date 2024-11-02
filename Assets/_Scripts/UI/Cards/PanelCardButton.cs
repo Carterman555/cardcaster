@@ -11,14 +11,17 @@ public class PanelCardButton : GameButton {
 
     [SerializeField] private CardImage cardImage;
 
+    private ScriptableCardBase card;
     private CardLocation cardLocation;
     private int cardIndex;
 
     public void Setup(ScriptableCardBase card, CardLocation cardLocation, int cardIndex) {
-        cardImage.Setup(card);
-
+        this.card = card;
         this.cardLocation = cardLocation;
         this.cardIndex = cardIndex;
+
+        cardImage.Setup(card);
+        
         SetupTrashing();
     }
 
@@ -67,6 +70,10 @@ public class PanelCardButton : GameButton {
     }
 
     #endregion
+
+    public ScriptableCardBase GetCard() {
+        return card;
+    }
 
     public CardLocation GetCardLocation() {
         return cardLocation;

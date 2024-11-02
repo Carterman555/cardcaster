@@ -133,6 +133,19 @@ public class DeckManager : Singleton<DeckManager> {
         }
     }
 
+    public void ReplaceCard(CardLocation cardLocation, int cardIndex, ScriptableCardBase newCard) {
+        if (cardLocation == CardLocation.Deck) {
+            cardsInDeck[cardIndex] = newCard;
+        }
+        else if (cardLocation == CardLocation.Discard) {
+            cardsInDiscard[cardIndex] = newCard;
+        }
+        else if (cardLocation == CardLocation.Hand) {
+            cardsInHand[cardIndex] = newCard;
+            OnHandChanged?.Invoke();
+        }
+    }
+
     private void DiscardCardInHand(int indexInHand) {
         cardsInDiscard.Add(cardsInHand[indexInHand]);
         cardsInHand[indexInHand] = null;

@@ -1,18 +1,41 @@
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ShopUIManager : StaticInstance<ShopUIManager>, IInitializable {
 
     public void Initialize() => Instance = this;
 
-    public void Activate() {
+    [SerializeField] private Image currentCardIcon;
+    [SerializeField] private Image newCardIcon;
+
+    private ScriptableCardBase currentCard;
+    private CardLocation currentCardLocation;
+    private int currentCardIndex;
+
+    private ScriptableCardBase newCard;
+    private ShopItem shopItem;
+
+    #region Open Trade UI
+
+    public void Activate(ScriptableCardBase newCard, ShopItem shopItem) {
         PanelCardButton.OnClicked_PanelCard += ShowSelectButton;
         SelectButton.OnSelect_PanelCard += ShowTradeUI;
+
+        tradeButton.onClick.AddListener(OnTradeButtonClicked);
+
+        this.shopItem = shopItem;
+        this.newCard = newCard;
+
+        newCardIcon.sprite = newCard.GetSprite();
     }
     public void Deactivate() {
         PanelCardButton.OnClicked_PanelCard -= ShowSelectButton;
         SelectButton.OnSelect_PanelCard -= ShowTradeUI;
+
+        tradeButton.onClick.RemoveListener(OnTradeButtonClicked);
     }
 
     private void ShowSelectButton(PanelCardButton panelCard) {
@@ -24,5 +47,33 @@ public class ShopUIManager : StaticInstance<ShopUIManager>, IInitializable {
 
     private void ShowTradeUI(PanelCardButton panelCard) {
         FeedbackPlayer.Play("OpenTradeUI");
+
+        currentCard = panelCard.GetCard();
+        currentCardLocation = panelCard.GetCardLocation();
+        currentCardIndex = panelCard.GetCardIndex();
+
+        currentCardIcon.sprite = currentCard.GetSprite();
+    }
+
+    #endregion
+
+    [SerializeField] private Button tradeButton;
+
+    private void OnTradeButtonClicked() {
+        SwapIcons().OnComplete(() => {
+            FeedbackPlayer.Play("CloseTradeUI");
+
+            // replace the shop item with player's card
+            shopItem.SetCard(currentCard);
+
+            // replace the player's card with shop item card
+            DeckManager.Instance.ReplaceCard(currentCardLocation, currentCardIndex, newCard);
+        });
+    }
+
+    private Tween SwapIcons() {
+        float swapDuration = 0.5f;
+        currentCardIcon.transform.DOMove(newCardIcon.transform.position, swapDuration).SetUpdate(true);
+        return newCardIcon.transform.DOMove(currentCardIcon.transform.position, swapDuration).SetUpdate(true);
     }
 }

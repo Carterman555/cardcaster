@@ -646,6 +646,7 @@ MonoBehaviour:
   minForce: 1
   maxForce: 3
   suckSpeed: 3
+  hasParticleField: 1
   particleField: {fileID: 2906743570936462765}
   emitParticles: 1
   particles: {fileID: 8841411784643663690}

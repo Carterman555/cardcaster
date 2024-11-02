@@ -27,7 +27,7 @@ public class Campfire : MonoBehaviour {
         }
 
         FeedbackPlayer.Play("OpenAllCardsPanel");
-        AllCardsPanel.Instance.SetCardToTrash(true);
+        TrashCardManager.Instance.Activate();
 
         used = true;
 

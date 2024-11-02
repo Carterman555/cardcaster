@@ -42,9 +42,11 @@ public class AllCardsPanel : StaticInstance<AllCardsPanel> {
         }
     }
 
-    public void SetCardToTrash(bool canTrash) {
-        foreach (var card in cardButtons) {
-            card.GetComponent<Button>().interactable = canTrash;
-        }
+    // deactivate on the managers related to the AllCardsPanel that are possibly active. one is sometimes activated
+    // when the AllCardsPanel is activated depending on why the AllCardsPanel is activated. (if to trash a card, the
+    // trash manager is activated for example)
+    private void OnDisable() {
+        TrashCardManager.Instance.Deactivate();
+        ShopUIManager.Instance.Deactivate();
     }
 }

@@ -108,7 +108,7 @@ SpriteRenderer:
   m_SortingLayerID: -210121459
   m_SortingLayer: 3
   m_SortingOrder: 0
-  m_Sprite: {fileID: -4632864088685052807, guid: 8f4366fba915651408189838e7a2b5de, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 61ea63386f6b5a34bae4a36619403afa, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -151,6 +151,7 @@ GameObject:
   - component: {fileID: 5435557155981603943}
   - component: {fileID: 3475693366517184030}
   - component: {fileID: 1536872082787145078}
+  - component: {fileID: 4010304432295445385}
   - component: {fileID: 7542433000797141514}
   m_Layer: 0
   m_Name: CardChest
@@ -168,7 +169,7 @@ Transform:
   m_GameObject: {fileID: 8696099311601879913}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.43, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -208,7 +209,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.24331659}
+  m_Offset: {x: 0, y: 0.57}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -233,12 +234,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c6b19f2a297c734f93fd001011d852b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  interactAction: {fileID: -6811146151478928456, guid: 50afa068aa51bd149a1f3d07794c53d5, type: 3}
   collectables:
   - {fileID: 719241793831164899}
   - {fileID: 3401930131981464386}
   - {fileID: 3263118975993250123}
   anim: {fileID: 7857223334506551197}
+--- !u!114 &4010304432295445385
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8696099311601879913}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 823edaa7ade144b489dfbd4291e9786f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  interactAction: {fileID: -6811146151478928456, guid: 50afa068aa51bd149a1f3d07794c53d5, type: 3}
+  interactableTextPrefab: {fileID: 9084209149797969205, guid: a643d41c5c0620048bcb91e7ddbffcec, type: 3}
+  textPosition: {x: 0, y: 1.4}
+  spriteRenderer: {fileID: 8716365102295414358}
+  outlineMaterial: {fileID: 2100000, guid: 2fff2435ee99439438c463e2ce768283, type: 2}
 --- !u!114 &7542433000797141514
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -259,13 +276,17 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 4745401347879017545}
     m_Modifications:
+    - target: {fileID: 508550145687220642, guid: c50f166591c4ff74a99a976c4b3d1b7a, type: 3}
+      propertyPath: positionOffset.y
+      value: 2.6
+      objectReference: {fileID: 0}
     - target: {fileID: 9031405480286709825, guid: c50f166591c4ff74a99a976c4b3d1b7a, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9031405480286709825, guid: c50f166591c4ff74a99a976c4b3d1b7a, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9031405480286709825, guid: c50f166591c4ff74a99a976c4b3d1b7a, type: 3}
       propertyPath: m_LocalPosition.z
@@ -338,7 +359,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 508550145687220642, guid: c50f166591c4ff74a99a976c4b3d1b7a, type: 3}
       propertyPath: positionOffset.y
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 9031405480286709825, guid: c50f166591c4ff74a99a976c4b3d1b7a, type: 3}
       propertyPath: m_LocalPosition.x
@@ -346,7 +367,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9031405480286709825, guid: c50f166591c4ff74a99a976c4b3d1b7a, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9031405480286709825, guid: c50f166591c4ff74a99a976c4b3d1b7a, type: 3}
       propertyPath: m_LocalPosition.z
@@ -419,7 +440,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 508550145687220642, guid: c50f166591c4ff74a99a976c4b3d1b7a, type: 3}
       propertyPath: positionOffset.y
-      value: 1.6
+      value: 2.6
       objectReference: {fileID: 0}
     - target: {fileID: 9031405480286709825, guid: c50f166591c4ff74a99a976c4b3d1b7a, type: 3}
       propertyPath: m_LocalPosition.x
@@ -427,7 +448,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9031405480286709825, guid: c50f166591c4ff74a99a976c4b3d1b7a, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9031405480286709825, guid: c50f166591c4ff74a99a976c4b3d1b7a, type: 3}
       propertyPath: m_LocalPosition.z

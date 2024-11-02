@@ -17,10 +17,18 @@ public class Chest : MonoBehaviour {
     private Interactable interactable;
 
     private const int CARD_AMOUNT = 3;
-    private const int ITEM_AMOUNT = 1;
 
     private void Awake() {
         interactable = GetComponent<Interactable>();
+    }
+
+    private void OnEnable() {
+        interactable.OnInteract += TryOpenChest;
+
+        opened = false;
+    }
+    private void OnDisable() {
+        interactable.OnInteract -= TryOpenChest;
     }
 
     private void Start() {
@@ -40,17 +48,16 @@ public class Chest : MonoBehaviour {
         scriptableCollectables = possibleCards.OrderBy(x => UnityEngine.Random.value).Distinct().Take(CARD_AMOUNT).ToArray();
     }
 
-    private void Update() {
-        if (!opened && ) {
-            if (interactAction.action.triggered) {
-                //StartCoroutine(Open());
-            }
+    private void TryOpenChest() {
+        if (!opened) {
+            StartCoroutine(Open());
         }
     }
 
     private IEnumerator Open() {
-        opened = false;
-        canOpen = false;
+
+        opened = true;
+        interactable.enabled = false;
 
         anim.SetTrigger("open");
 

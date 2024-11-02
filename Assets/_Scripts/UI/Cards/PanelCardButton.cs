@@ -1,4 +1,5 @@
 using MoreMountains.Feedbacks;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,14 +7,9 @@ using UnityEngine.UI;
 
 public class PanelCardButton : GameButton {
 
-    [SerializeField] private CardImage cardImage;
-    [SerializeField] private MMF_Player burnCardFeedbacks;
+    public static event Action<PanelCardButton> OnClicked_PanelCard;
 
-    [Header("Burn")]
-    [SerializeField] private Image[] burnImages;
-    [SerializeField] private Material burnMaterial;
-    [SerializeField] private float fadeSpeed;
-    private Material burnMaterialInstance;
+    [SerializeField] private CardImage cardImage;
 
     private CardLocation cardLocation;
     private int cardIndex;
@@ -23,7 +19,24 @@ public class PanelCardButton : GameButton {
 
         this.cardLocation = cardLocation;
         this.cardIndex = cardIndex;
+        SetupTrashing();
+    }
 
+    protected override void OnClick() {
+        base.OnClick();
+        OnClicked_PanelCard?.Invoke(this);
+    }
+
+    #region Trash
+
+    [Header("Trashing")]
+    [SerializeField] private MMF_Player burnCardFeedbacks;
+    [SerializeField] private Image[] burnImages;
+    [SerializeField] private Material burnMaterial;
+    [SerializeField] private float fadeSpeed;
+    private Material burnMaterialInstance;
+
+    private void SetupTrashing() {
         burnCardFeedbacks.RestoreInitialValues();
 
         burnMaterialInstance = new Material(burnMaterial);
@@ -34,14 +47,12 @@ public class PanelCardButton : GameButton {
         }
     }
 
-    protected override void OnClick() {
-        base.OnClick();
-
-        Vector2 offset = new Vector2(0f, 205f);
-        TrashButton.Instance.Show((Vector2)transform.position + offset, this, cardLocation, cardIndex);
+    public void Trash() {
+        DeckManager.Instance.TrashCard(cardLocation, cardIndex);
+        StartCoroutine(TrashCardVisual());
     }
 
-    public IEnumerator TrashCardBurn() {
+    public IEnumerator TrashCardVisual() {
 
         burnCardFeedbacks.PlayFeedbacks();
 
@@ -53,5 +64,15 @@ public class PanelCardButton : GameButton {
         }
 
         FeedbackPlayer.PlayInReverse("OpenAllCardsPanel");
+    }
+
+    #endregion
+
+    public CardLocation GetCardLocation() {
+        return cardLocation;
+    }
+
+    public int GetCardIndex() {
+        return cardIndex;
     }
 }

@@ -130,8 +130,8 @@ MonoBehaviour:
   maxForce: 3
   suckSpeed: 3
   particleField: {fileID: 0}
-  emitParticles: 0
-  particles: {fileID: 0}
+  emitParticles: 1
+  particles: {fileID: 6258089798578424797}
 --- !u!114 &8004413256504450308
 MonoBehaviour:
   m_ObjectHideFlags: 0

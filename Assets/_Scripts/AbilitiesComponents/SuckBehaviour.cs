@@ -16,7 +16,8 @@ public class SuckBehaviour : MonoBehaviour {
     private StopMovement stopMovementEffect;
 
     [Header("Visual")]
-    [SerializeField] private ParticleSystemForceField particleField;
+    [SerializeField] private bool hasParticleField;
+    [ConditionalHide("hasParticleField")][SerializeField] private ParticleSystemForceField particleField;
 
     [SerializeField] private bool emitParticles;
     [ConditionalHide("emitParticles")][SerializeField] private ParticleSystem particles;
@@ -50,8 +51,10 @@ public class SuckBehaviour : MonoBehaviour {
             var shape = particles.shape;
             shape.radius = suckRadius;
         }
-        
-        particleField.endRange = suckRadius + 1;
+
+        if (hasParticleField) {
+            particleField.endRange = suckRadius + 1;
+        }
     }
 
     private void Update() {

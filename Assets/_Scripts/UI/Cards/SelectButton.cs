@@ -1,13 +1,16 @@
 using DG.Tweening;
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 
-public class TrashButton : GameButton, IInitializable {
+public class SelectButton : GameButton, IInitializable {
     
     #region Static Instance
 
-    public static TrashButton Instance { get; private set; }
+    public static SelectButton Instance { get; private set; }
 
     public void Initialize() {
         Instance = this;
@@ -20,19 +23,25 @@ public class TrashButton : GameButton, IInitializable {
 
     #endregion
 
-    private PanelCardButton cardToTrash;
+    public static event Action<PanelCardButton> OnSelect_PanelCard;
+
+    [SerializeField] private TextMeshProUGUI text;
+
+    private PanelCardButton panelCard;
     private CardLocation cardLocation;
     private int cardIndex;
 
-    public void Show(Vector2 position, PanelCardButton cardToTrash, CardLocation cardLocation, int cardIndex) {
-        this.cardToTrash = cardToTrash;
-        this.cardLocation = cardLocation;
-        this.cardIndex = cardIndex;
+    public void Show(string buttonText, Vector2 position, PanelCardButton panelCard) {
+        text.text = buttonText;
+
+        this.panelCard = panelCard;
+        cardLocation = panelCard.GetCardLocation();
+        cardIndex = panelCard.GetCardIndex();
 
         gameObject.SetActive(true);
 
         //... parent it to card so it moves with scroll
-        transform.SetParent(cardToTrash.transform, false);
+        transform.SetParent(panelCard.transform, false);
         transform.position = position;
 
         button.interactable = true;
@@ -56,10 +65,9 @@ public class TrashButton : GameButton, IInitializable {
     protected override void OnClick() {
         base.OnClick();
 
-        button.interactable = false;
-        DeckManager.Instance.TrashCard(cardLocation, cardIndex);
-        DeckManager.Instance.StartCoroutine(cardToTrash.TrashCardBurn());
+        OnSelect_PanelCard?.Invoke(panelCard);
 
+        button.interactable = false;
         Hide();
     }
 

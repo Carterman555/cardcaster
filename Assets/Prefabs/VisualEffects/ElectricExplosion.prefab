@@ -4912,6 +4912,7 @@ GameObject:
   - component: {fileID: 961277298218184562}
   - component: {fileID: 2866235719749182817}
   - component: {fileID: 292279507781135857}
+  - component: {fileID: 7380045598531030640}
   m_Layer: 0
   m_Name: ElectricExplosion
   m_TagString: Untagged
@@ -9831,5 +9832,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 08e515b2b99be864cb60709a92143362, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  returnOther: 0
+  returnTarget: {fileID: 0}
+--- !u!114 &7380045598531030640
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6601023767502265191}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: faa5763c576886a45ab05afd75e7f426, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

@@ -20,9 +20,17 @@ public class PanelCardButton : GameButton {
         this.cardLocation = cardLocation;
         this.cardIndex = cardIndex;
 
+
         cardImage.Setup(card);
         
         SetupTrashing();
+    }
+
+    protected override void OnEnable() {
+        base.OnEnable();
+
+        // the button can be set to not interactable by shopUIManager so make sure it's reset here
+        GetComponent<Button>().interactable = true;
     }
 
     protected override void OnClick() {

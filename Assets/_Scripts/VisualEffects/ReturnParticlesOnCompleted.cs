@@ -17,10 +17,10 @@ public class ReturnParticlesOnCompleted : MonoBehaviour {
     private void Update() {
         if (!particles.IsAlive()) {
             if (!returnOther) {
-                gameObject.ReturnToPool();
+                gameObject.TryReturnToPool();
             }
             else {
-                returnTarget.ReturnToPool();
+                returnTarget.TryReturnToPool();
             }
         }
     }

@@ -30,6 +30,8 @@ public class ShopUIManager : StaticInstance<ShopUIManager>, IInitializable {
         this.newCard = newCard;
 
         newCardIcon.sprite = newCard.GetSprite();
+
+        DisableLesserRarities(newCard.GetRarity());
     }
     public void Deactivate() {
         PanelCardButton.OnClicked_PanelCard -= ShowSelectButton;
@@ -53,6 +55,18 @@ public class ShopUIManager : StaticInstance<ShopUIManager>, IInitializable {
         currentCardIndex = panelCard.GetCardIndex();
 
         currentCardIcon.sprite = currentCard.GetSprite();
+    }
+
+    // only cards that are of equal rarity or rarer can be traded
+    private void DisableLesserRarities(Rarity newCardRarity) {
+        PanelCardButton[] allPanelCards = FindObjectsOfType<PanelCardButton>();
+        foreach (PanelCardButton panelCard in allPanelCards) {
+
+            // if panel card is more common than item trying to trade
+            if (panelCard.GetCard().GetRarity() < newCardRarity) {
+                panelCard.GetComponent<Button>().interactable = false;
+            }
+        }
     }
 
     #endregion

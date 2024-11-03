@@ -9722,6 +9722,7 @@ GameObject:
   - component: {fileID: 5667777853156523222}
   - component: {fileID: 264984613782256890}
   - component: {fileID: 6797801485266107839}
+  - component: {fileID: 3168784243097430830}
   m_Layer: 0
   m_Name: FireUnitEffect
   m_TagString: Untagged
@@ -14555,3 +14556,15 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     vectorLabel1_3: W
+--- !u!114 &3168784243097430830
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7965134482077225069}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: faa5763c576886a45ab05afd75e7f426, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

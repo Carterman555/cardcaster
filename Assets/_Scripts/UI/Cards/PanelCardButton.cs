@@ -20,7 +20,6 @@ public class PanelCardButton : GameButton {
         this.cardLocation = cardLocation;
         this.cardIndex = cardIndex;
 
-
         cardImage.Setup(card);
         
         SetupTrashing();

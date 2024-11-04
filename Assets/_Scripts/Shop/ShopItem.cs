@@ -9,17 +9,16 @@ public class ShopItem : MonoBehaviour {
 
     private ScriptableCardBase card;
 
-    [SerializeField] private ScriptableCardBase testCard;
-
     private void Awake() {
         interactable = GetComponent<Interactable>();
         spriteRenderer = GetComponent<SpriteRenderer>();
-
-        SetCard(testCard);
     }
 
     private void OnEnable() {
         interactable.OnInteract += OpenAllCardsUI;
+
+        //... default card for debugging
+        SetCard(ResourceSystem.Instance.GetCard(CardType.Fire));
     }
     private void OnDisable() {
         interactable.OnInteract -= OpenAllCardsUI;

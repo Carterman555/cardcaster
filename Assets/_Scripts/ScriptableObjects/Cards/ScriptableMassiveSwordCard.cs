@@ -14,7 +14,9 @@ public class ScriptableMassiveSwordCard : ScriptableStatsModifierCard {
     protected override void Play(Vector2 position) {
         base.Play(position);
 
-        GrowSword();
+        GrowSword().OnComplete(() => {
+            ApplyEffects();
+        });
     }
 
     public override void Stop() {
@@ -24,7 +26,7 @@ public class ScriptableMassiveSwordCard : ScriptableStatsModifierCard {
         RemoveEffects();
     }
 
-    private void GrowSword() {
+    private Tween GrowSword() {
 
         SpriteRenderer swordVisual = ReferenceSystem.Instance.PlayerSwordVisual;
         swordVisual.sprite = bigSwordSprite;
@@ -35,10 +37,9 @@ public class ScriptableMassiveSwordCard : ScriptableStatsModifierCard {
         Vector2 bigSwordStartingSize = Vector2.one * (1f/sizeMult);
 
         // grow sword, then add effects
+        swordVisual.transform.DOKill();
         swordVisual.transform.localScale = bigSwordStartingSize;
-        swordVisual.transform.DOScale(1f, transitionDuration).OnComplete(() => {
-            ApplyEffects();
-        });
+        return swordVisual.transform.DOScale(1f, transitionDuration);
     }
 
     private void ShrinkSword() {
@@ -50,6 +51,7 @@ public class ScriptableMassiveSwordCard : ScriptableStatsModifierCard {
         Vector2 bigSwordEndingSize = Vector2.one * (1f / sizeMult);
 
         // shrink sword, then switch back to orignal sword
+        swordVisual.transform.DOKill();
         swordVisual.transform.DOScale(bigSwordEndingSize, transitionDuration).OnComplete(() => {
             swordVisual.sprite = normalSwordSprite;
             swordVisual.transform.localScale = Vector3.one;

@@ -37,7 +37,8 @@ public class Chest : MonoBehaviour {
 
     private void ChooseUniqueRandomCards() {
 
-        List<ScriptableCardBase> possibleCards = ResourceSystem.Instance.GetAllCards();
+        Level currentLevel = Level.Level1; // change with levelmanager is created
+        List<ScriptableCardBase> possibleCards = ResourceSystem.Instance.GetPossibleCards(currentLevel);
 
         // Check if we have enough cards to choose from
         if (possibleCards.Count < CARD_AMOUNT) {

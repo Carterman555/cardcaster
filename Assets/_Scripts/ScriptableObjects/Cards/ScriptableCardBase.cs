@@ -13,14 +13,17 @@ public abstract class ScriptableCardBase : ScriptableObject, ICollectable {
     [SerializeField] private string description;
     public string GetDescription() => description;
 
+    [SerializeField] private Sprite sprite;
+    public Sprite GetSprite() => sprite;
+
     [SerializeField] private int cost;
     public int GetCost() => cost;
 
     [SerializeField] private Rarity rarity;
     public Rarity GetRarity() => rarity;
 
-    [SerializeField] private Sprite sprite;
-    public Sprite GetSprite() => sprite;
+    [SerializeField] private Level minLevel = Level.Level1;
+    public Level MinLevel => minLevel;
 
     [Header("Advanced Info")]
     [SerializeField] private bool canStackWithSelf;

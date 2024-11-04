@@ -224,6 +224,22 @@ public static class Helpers {
 #endif
     }
 
+    public static void Print<T>(this List<T> list) {
+        string str = "";
+        foreach (T item in list) {
+            str += item + ", ";
+        }
+        Debug.Log(str);
+    }
+
+    public static void Print<T>(this T[] array) {
+        string str = "";
+        foreach (T item in array) {
+            str += item + ", ";
+        }
+        Debug.Log(str);
+    }
+
     // -------------- Game Specific --------------
 
 

@@ -8,8 +8,10 @@ using UnityEngine.Serialization;
 
 public class DeckManager : Singleton<DeckManager> {
 
-    public static event Action OnHandChanged;
+    // events for the cardUIManager to update the card UI
     public static event Action OnGainCardToHand;
+    public static event Action OnTrashCardInHand;
+    public static event Action OnReplaceCardInHand;
 
     public static event Action<float> OnEssenceChanged_Amount;
 
@@ -98,8 +100,6 @@ public class DeckManager : Singleton<DeckManager> {
         TryDrawOtherCards();
 
         RemoveHandGaps();
-
-        OnHandChanged?.Invoke();
     }
 
     #region Basic Deck Methods
@@ -130,6 +130,7 @@ public class DeckManager : Singleton<DeckManager> {
         }
         else if (cardLocation == CardLocation.Hand) {
             TryDrawCard(cardIndex);
+            OnTrashCardInHand?.Invoke();
         }
     }
 
@@ -142,7 +143,7 @@ public class DeckManager : Singleton<DeckManager> {
         }
         else if (cardLocation == CardLocation.Hand) {
             cardsInHand[cardIndex] = newCard;
-            OnHandChanged?.Invoke();
+            OnReplaceCardInHand?.Invoke();
         }
     }
 
@@ -187,8 +188,6 @@ public class DeckManager : Singleton<DeckManager> {
 
         cardsInHand[indexInHand] = cardsInDeck[0];
         cardsInDeck.RemoveAt(0);
-
-        OnHandChanged?.Invoke();
 
         return true;
     }
@@ -246,7 +245,7 @@ public class DeckManager : Singleton<DeckManager> {
 
     [Command]
     private void GainCard(string cardName) {
-        ScriptableCardBase card = ResourceSystem.Instance.GetAllCards().FirstOrDefault(c => c.name == cardName);
+        ScriptableCardBase card = ResourceSystem.Instance.GetCard(cardName);
 
         if (card == null) {
             Debug.LogWarning("Card Not Found!");
@@ -258,7 +257,7 @@ public class DeckManager : Singleton<DeckManager> {
     [Command]
     private void GainRandomCards() {
         for (int i = 0; i < 15; i++) {
-            ScriptableCardBase card = ResourceSystem.Instance.GetAllCards().RandomItem();
+            ScriptableCardBase card = ResourceSystem.Instance.GetPossibleCards(Level.Level7).RandomItem();
             GainCard(card);
         }
     }

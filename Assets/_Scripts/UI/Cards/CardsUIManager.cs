@@ -12,12 +12,18 @@ public class CardsUIManager : StaticInstance<CardsUIManager> {
     private List<CardButton> cardButtons = new();
 
     private void OnEnable() {
-        DeckManager.OnGainCardToHand += DrawCardToEnd;
         CardButton.OnAnyCardUsed_ButtonAndCard += OnCardUsed;
+
+        DeckManager.OnGainCardToHand += DrawCardToEnd;
+        DeckManager.OnTrashCardInHand += UpdateCardButtons;
+        DeckManager.OnReplaceCardInHand += UpdateCardButtons;
     }
     private void OnDisable() {
         DeckManager.OnGainCardToHand -= DrawCardToEnd;
         CardButton.OnAnyCardUsed_ButtonAndCard -= OnCardUsed;
+
+        DeckManager.OnTrashCardInHand -= UpdateCardButtons;
+        DeckManager.OnReplaceCardInHand -= UpdateCardButtons;
     }
 
     private void DrawCardToEnd() {
@@ -29,7 +35,7 @@ public class CardsUIManager : StaticInstance<CardsUIManager> {
 
     private void OnCardUsed(CardButton cardButton, ScriptableCardBase cardUsed) {
 
-        // get rid of the card button
+        // return the card button
         cardButton.gameObject.ReturnToPool();
         cardButtons.Remove(cardButton);
 
@@ -47,32 +53,19 @@ public class CardsUIManager : StaticInstance<CardsUIManager> {
         UpdateCardButtons();
     }
 
+    // spawn in a new card and set it up
     private void DrawCard(int index) {
-        ScriptableCardBase[] cardsInHand = DeckManager.Instance.GetCardsInHand();
-
-        CardButton newCardButton = SpawnNewCard(index);
-        ScriptableCardBase newCard = cardsInHand[index];
-
-        UpdateCardPositions();
-
-        newCardButton.OnDrawCard(newCard);
-    }
-
-    public CardButton SpawnNewCard(int index) {
-
         ScriptableCardBase[] cardsInHand = DeckManager.Instance.GetCardsInHand();
 
         ScriptableCardBase card = cardsInHand[index];
         CardButton cardButton = cardButtonPrefab.Spawn(transform);
 
-        Vector2 pos = GetCardPos(index, GetHandSize(), cardsInHand.Length);
-
-        cardButton.Setup(index, deckButtonTransform, pos);
+        cardButton.Setup(deckButtonTransform, card);
 
         // add to list at correct index
         cardButtons.Insert(index, cardButton);
 
-        return cardButton;
+        UpdateCardPositions();
     }
 
     private void UpdateCardButtons() {
@@ -120,11 +113,8 @@ public class CardsUIManager : StaticInstance<CardsUIManager> {
         ScriptableCardBase[] cardsInHand = DeckManager.Instance.GetCardsInHand();
 
         for (int cardButtonIndex = 0; cardButtonIndex < cardButtons.Count; cardButtonIndex++) {
-
             Vector2 pos = GetCardPos(cardButtonIndex, GetHandSize(), cardsInHand.Length);
-
-            bool moveCard = !cardButtons[cardButtonIndex].IsPlayingCard();
-            cardButtons[cardButtonIndex].SetCardPosition(pos, moveCard);
+            cardButtons[cardButtonIndex].SetCardPosition(pos);
         }
     }
 }

@@ -14,9 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardType: 10
   description: 
+  sprite: {fileID: 886075248, guid: bde6d022855f93745baad1d32c2ac2bc, type: 3}
   cost: 0
   rarity: 0
-  sprite: {fileID: 886075248, guid: bde6d022855f93745baad1d32c2ac2bc, type: 3}
+  minLevel: 1
   canStackWithSelf: 0
   abilityAttributes: 9
   abilityStats:

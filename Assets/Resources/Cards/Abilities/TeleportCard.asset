@@ -14,9 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardType: 3
   description: Teleport to a location in the room
+  sprite: {fileID: -660011274, guid: d638d131cac6f4d45aeb96fc55848241, type: 3}
   cost: 1
   rarity: 0
-  sprite: {fileID: -660011274, guid: d638d131cac6f4d45aeb96fc55848241, type: 3}
+  minLevel: 1
   canStackWithSelf: 0
   abilityAttributes: 0
   abilityStats:

@@ -16,7 +16,6 @@ public class ResourceSystem : StaticInstance<ResourceSystem>
     public List<ScriptableEnemy> Enemies { get; private set; }
     public Dictionary<Level, ScriptableBoss[]> Bosses { get; private set; }
     public List<ScriptableCardBase> Cards { get; private set; }
-    public List<ScriptableItemBase> Items { get; private set; }
 
     protected override void Awake() {
         base.Awake();
@@ -39,7 +38,6 @@ public class ResourceSystem : StaticInstance<ResourceSystem>
             .ToDictionary(group => group.Key, group => group.Select(x => x.boss).ToArray());
 
         Cards = Resources.LoadAll<ScriptableCardBase>("Cards").ToList();
-        Items = Resources.LoadAll<ScriptableItemBase>("Items").ToList();
     }
 
     // Helper method to extract individual levels from the PossibleLevels bit flags
@@ -55,8 +53,8 @@ public class ResourceSystem : StaticInstance<ResourceSystem>
     public ScriptableRoom[] GetRooms(RoomType roomType) => Rooms[roomType];
     public List<ScriptableEnemy> GetAllEnemies() => Enemies;
     public ScriptableBoss[] GetBosses(Level level) => Bosses[level];
-    public List<ScriptableCardBase> GetAllCards() => Cards;
-    public List<ScriptableItemBase> GetAllItems() => Items;
 
-
+    public List<ScriptableCardBase> GetPossibleCards(Level level) => Cards.Where(c => c.MinLevel <= level).ToList();
+    public ScriptableCardBase GetCard(CardType cardType) => Cards.FirstOrDefault(c => c.CardType == cardType);
+    public ScriptableCardBase GetCard(string cardName) => Cards.FirstOrDefault(c => c.name == cardName);
 }   

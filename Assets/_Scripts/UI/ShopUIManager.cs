@@ -11,6 +11,9 @@ public class ShopUIManager : StaticInstance<ShopUIManager>, IInitializable {
     [SerializeField] private Image currentCardIcon;
     [SerializeField] private Image newCardIcon;
 
+    private Vector2 currentCardLocalPosition;
+    private Vector2 newCardLocalPosition;
+
     private ScriptableCardBase currentCard;
     private CardLocation currentCardLocation;
     private int currentCardIndex;
@@ -19,6 +22,12 @@ public class ShopUIManager : StaticInstance<ShopUIManager>, IInitializable {
     private ShopItem shopItem;
 
     #region Open Trade UI
+
+    protected override void Awake() {
+        base.Awake();
+        currentCardLocalPosition = currentCardIcon.transform.localPosition;
+        newCardLocalPosition = newCardIcon.transform.localPosition;
+    }
 
     public void Activate(ScriptableCardBase newCard, ShopItem shopItem) {
         PanelCardButton.OnClicked_PanelCard += ShowSelectButton;
@@ -48,11 +57,15 @@ public class ShopUIManager : StaticInstance<ShopUIManager>, IInitializable {
     }
 
     private void ShowTradeUI(PanelCardButton panelCard) {
-        FeedbackPlayer.Play("OpenTradeUI");
+        FeedbackPlayer.Play("TransitionTradeUI");
 
         currentCard = panelCard.GetCard();
         currentCardLocation = panelCard.GetCardLocation();
         currentCardIndex = panelCard.GetCardIndex();
+
+        // reset the icon positions
+        currentCardIcon.transform.localPosition = currentCardLocalPosition;
+        newCardIcon.transform.localPosition = newCardLocalPosition;
 
         currentCardIcon.sprite = currentCard.GetSprite();
     }
@@ -87,7 +100,7 @@ public class ShopUIManager : StaticInstance<ShopUIManager>, IInitializable {
 
     private Tween SwapIcons() {
         float swapDuration = 0.5f;
-        currentCardIcon.transform.DOMove(newCardIcon.transform.position, swapDuration).SetUpdate(true);
-        return newCardIcon.transform.DOMove(currentCardIcon.transform.position, swapDuration).SetUpdate(true);
+        currentCardIcon.transform.DOLocalMove(newCardLocalPosition, swapDuration).SetUpdate(true);
+        return newCardIcon.transform.DOLocalMove(currentCardLocalPosition, swapDuration).SetUpdate(true);
     }
 }

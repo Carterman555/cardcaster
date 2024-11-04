@@ -111,6 +111,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3831935200979323441, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5015206911376298341, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
       propertyPath: animationEvents.Array.size
       value: 1

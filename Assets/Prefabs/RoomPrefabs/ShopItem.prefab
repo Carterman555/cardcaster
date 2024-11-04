@@ -75,7 +75,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -210121459
   m_SortingLayer: 3
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 1276986863, guid: d638d131cac6f4d45aeb96fc55848241, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -130,7 +130,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 2.5, y: 2.5}
+  m_Size: {x: 1.75, y: 1.75}
   m_EdgeRadius: 0
 --- !u!114 &6199522996517688613
 MonoBehaviour:
@@ -144,7 +144,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50e05029c7bb6de40b872c5834aecd15, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  testCard: {fileID: 11400000, guid: eff5e2b81e74daa40b96b4f219f5c87d, type: 2}
 --- !u!114 &3454742852932245681
 MonoBehaviour:
   m_ObjectHideFlags: 0

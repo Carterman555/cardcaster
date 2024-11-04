@@ -33,7 +33,6 @@ public class FeedbackPlayer : MonoBehaviour {
         MMFPlayer.PlayFeedbacks();
     }
     public void PlayInReverse() {
-        MMFPlayer.SetDirectionBottomToTop();
-        MMFPlayer.PlayFeedbacks();
+        MMFPlayer.PlayFeedbacksInReverse();
     }
 }

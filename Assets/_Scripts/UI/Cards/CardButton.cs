@@ -2,6 +2,7 @@ using DG.Tweening;
 using MoreMountains.Feedbacks;
 using MoreMountains.Tools;
 using System;
+using System.Runtime.CompilerServices;
 using TMPro;
 using UnityEditor;
 using UnityEngine;
@@ -52,17 +53,17 @@ public class CardButton : GameButton, IPointerDownHandler {
         useCardPlayer.Events.OnComplete.AddListener(OnUsedCard);
     }
 
-    public void Setup(int cardIndex, Transform deckTransform, Vector3 position) {
-        SetCardIndex(cardIndex);
-
-        SetCardPosition(position);
+    public void Setup(Transform deckTransform, ScriptableCardBase card) {
+        playingCard = false;
 
         MMF_Position toHandFeedback = toHandPlayer.GetFeedbackOfType<MMF_Position>("Move To Hand");
         toHandFeedback.InitialPositionTransform = deckTransform;
 
         StopFollowingMouse();
 
-        playingCard = false;
+        toHandPlayer.PlayFeedbacks();
+
+        SetCard(card);
     }
 
     public void SetCardIndex(int cardIndex) {
@@ -75,7 +76,8 @@ public class CardButton : GameButton, IPointerDownHandler {
 
     private bool waitingForToHandToMove;
 
-    public void SetCardPosition(Vector3 position, bool move = false) {
+    public void SetCardPosition(Vector3 position) {
+
         // set positions of movement feedbacks
         MMF_Position hoverMoveFeedback = hoverPlayer.GetFeedbackOfType<MMF_Position>("Move");
         hoverMoveFeedback.InitialPosition = position;
@@ -86,8 +88,8 @@ public class CardButton : GameButton, IPointerDownHandler {
 
         handPosition = position;
 
-        // move to that position
-        if (move) {
+        // move to that position, if not playing the card
+        if (!playingCard) {
 
             // move right away if in hand pos
             if (!toHandFeedback.IsPlaying) {
@@ -127,14 +129,6 @@ public class CardButton : GameButton, IPointerDownHandler {
         OnAnyCardUsed_Card?.Invoke(card);
         playingCard = false;
         playingAnyCard = false;
-    }
-
-    public void OnDrawCard(ScriptableCardBase card) {
-        SetCard(card);
-
-        StopFollowingMouse();
-
-        toHandPlayer.PlayFeedbacks();
     }
 
     private void Update() {

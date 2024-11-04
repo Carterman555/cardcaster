@@ -99,7 +99,7 @@ public class DebugManager : StaticInstance<DebugManager> {
 
     private void GiveStartingCards() {
         foreach (CardType cardType in startingCards) {
-            ScriptableCardBase card = ResourceSystem.Instance.GetAllCards().FirstOrDefault(c => c.CardType == cardType);
+            ScriptableCardBase card = ResourceSystem.Instance.GetCard(cardType);
             DeckManager.Instance.GainCard(card);
         }
     }

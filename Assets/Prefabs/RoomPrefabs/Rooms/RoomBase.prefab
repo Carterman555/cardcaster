@@ -613,7 +613,7 @@ GameObject:
   - component: {fileID: 4627391543725717552}
   - component: {fileID: 3262036890838972417}
   m_Layer: 8
-  m_Name: BotColliderTilemap
+  m_Name: BotWallsTilemap
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -971,7 +971,7 @@ TilemapRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -227888931
-  m_SortingLayer: 6
+  m_SortingLayer: 7
   m_SortingOrder: 0
   m_ChunkSize: {x: 32, y: 32, z: 32}
   m_ChunkCullingBounds: {x: 0, y: 0, z: 0}
@@ -1459,7 +1459,7 @@ GameObject:
   - component: {fileID: 2695803902233304376}
   - component: {fileID: 6734409234780944796}
   m_Layer: 8
-  m_Name: ColliderTilemap
+  m_Name: TopWallsTilemap
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1816,8 +1816,8 @@ TilemapRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: -210121459
-  m_SortingLayer: 3
+  m_SortingLayerID: 438269023
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_ChunkSize: {x: 32, y: 32, z: 32}
   m_ChunkCullingBounds: {x: 0, y: 0, z: 0}

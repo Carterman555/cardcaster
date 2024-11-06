@@ -1,0 +1,277 @@
+using MoreMountains.Tools;
+using System.Collections;
+using System.Linq;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.Tilemaps;
+using Unity.Mathematics;
+
+/// <summary>
+/// This class contains the tiles and the logic for creating the room tiles from the ground tiles.
+/// </summary>
+[CreateAssetMenu(fileName = "RoomTilemapCreator", menuName = "RoomCreator/RoomTilemapCreator")]
+public class RoomTilemapCreator : ScriptableObject {
+
+    // takes in the three tilemaps: ground (already contains tiles), top walls, bot walls.
+    // 1) match tileGrid values to ground tilemap
+    // 2) turn tiles the outline the ground into wall tile type
+    // 3) goes through each outline and decides which tile it's going to be based on the position of the surrounding
+    // ground tiles
+    // 4) places the tiles in the array
+    public void CreateRoomTiles(Tilemap groundTilemap, Tilemap topWallsTilemap, Tilemap botWallsTilemap) {
+
+        BoundsInt bounds = groundTilemap.cellBounds;
+
+        //... the wall tiles increases the size of the tileGrid
+        Vector2Int outlineSize = new Vector2Int(2, 4);
+        TileType[,] tileGrid = new TileType[bounds.size.x + outlineSize.x, bounds.size.y + outlineSize.y];
+
+        CopyGroundTilesToTileGrid(ref tileGrid, groundTilemap);
+
+        OutlineGridWithWallTiles(ref tileGrid);
+
+        SetSpecificWallTileTypes(ref tileGrid);
+
+        PrintTileGridInitials(tileGrid);
+    }
+
+    private void CopyGroundTilesToTileGrid(ref TileType[,] tileGrid, Tilemap groundTilemap) {
+
+        BoundsInt bounds = groundTilemap.cellBounds;
+
+        // iterate through each cell in the Tilemap
+        for (int x = 0; x < bounds.size.x; x++) {
+            for (int y = 0; y < bounds.size.y; y++) {
+                Vector3Int tilemapPosition = new Vector3Int(x + bounds.min.x, y + bounds.min.y, 0);
+
+                // set the tile to the tileGrid
+                if (groundTilemap.HasTile(tilemapPosition)) {
+                    //... add 1 because index 0 includes the walls so ground starts at (1, 1)
+                    tileGrid[x + 1, y + 1] = TileType.Ground;
+                }
+            }
+        }
+    }
+
+    private void OutlineGridWithWallTiles(ref TileType[,] tileGrid) {
+
+        for (int x = 0; x < tileGrid.GetLength(0); x++) {
+            for (int y = 0; y < tileGrid.GetLength(1); y++) {
+                if (tileGrid[x, y] == TileType.Ground) {
+                    TurnSurroundingIntoWallTiles(ref tileGrid, x, y);
+                }
+            }
+        }
+    }
+
+    // turn the surrounding 'none' tiles into wall tiles. The surrounding tiles are 1 space in every direction (including
+    // diagonals), except three spaces up because the top walls are three tiles high
+    private void TurnSurroundingIntoWallTiles(ref TileType[,] tileGrid, int groundX, int groundY) {
+
+        // go through each tile surrounding the ground tile
+        for (int x = groundX - 1; x <= groundX + 1; x++) {
+            for (int y = groundY - 1; y <= groundY + 3; y++) {
+
+                if (!IsPointOnGrid(tileGrid, x, y)) {
+                    continue;
+                }
+
+                // if no tile is there
+                if (tileGrid[x, y] == TileType.None) {
+                    // make it a generic wall tile (the specific wall tile will be decided later)
+                    tileGrid[x, y] = TileType.Wall;
+                }
+            }
+        }
+    }
+
+    private void SetSpecificWallTileTypes(ref TileType[,] tileGrid) {
+
+        // go through each tile in grid
+        for (int x = 0; x < tileGrid.GetLength(0); x++) {
+            for (int y = 0; y < tileGrid.GetLength(1); y++) {
+
+                // if the tile is the generic wall type
+                if (tileGrid[x, y] == TileType.Wall) {
+                    tileGrid[x, y] = GetWallTileType(tileGrid, x, y);
+                }
+            }
+        }
+    }
+
+    private TileType GetWallTileType(TileType[,] tileGrid, int x, int y) {
+        if (!IsPointOnGrid(tileGrid, x, y)) {
+            Debug.LogError("Point is not in grid!");
+            return default;
+        }
+
+        //... if the tile below is ground
+        if (GetTileAtPos(tileGrid, x, y - 1) == TileType.Ground) {
+            return TileType.LowerTopWall;
+        }
+
+        //... if the tile below is wall and below that is ground
+        if (IsWallTile(tileGrid, x, y - 1) &&
+            GetTileAtPos(tileGrid, x, y - 2) == TileType.Ground) {
+
+            return TileType.MiddleTopWall;
+        }
+
+        //... if 2 tiles below are walls and below that is ground
+        if (IsWallTile(tileGrid, x, y - 1) &&
+            IsWallTile(tileGrid, x, y - 2) &&
+            GetTileAtPos(tileGrid, x, y - 3) == TileType.Ground) {
+
+            // it can either be UpperTopWall, InnerBottomLeftCorner, InnerBottomRightCorner
+
+            //... if 2 down and 1 left is ground
+            if (GetTileAtPos(tileGrid, x - 1, y - 2) == TileType.Ground) {
+                return TileType.InnerBottomLeftCorner;
+            }
+
+            //... if 2 down and 1 right is ground
+            if (GetTileAtPos(tileGrid, x + 1, y - 2) == TileType.Ground) {
+                return TileType.InnerBottomRightCorner;
+            }
+
+            return TileType.UpperTopWall;
+        }
+
+        //... if no tile above and 3 tiles below are walls
+        if (GetTileAtPos(tileGrid, x, y + 1) == TileType.None &&
+            IsWallTile(tileGrid, x, y - 1) &&
+            IsWallTile(tileGrid, x, y - 2) &&
+            IsWallTile(tileGrid, x, y - 3)) {
+
+            // it can either be OuterBottomLeftCorner or OuterBottomRightCorner
+
+            //... if 3 down and 1 left is ground
+            if (GetTileAtPos(tileGrid, x - 1, y - 3) == TileType.Ground) {
+                return TileType.OuterBottomLeftCorner;
+            }
+
+            //... if 3 down and 1 right is ground
+            if (GetTileAtPos(tileGrid, x + 1, y - 3) == TileType.Ground) {
+                return TileType.OuterBottomRightCorner;
+            }
+        }
+
+        //... if tile above is ground
+        if (GetTileAtPos(tileGrid, x, y + 1) == TileType.Ground) {
+
+            // it can either be BottomWall, InnerTopLeftCorner, InnerTopRightCorner
+
+            //... if tile to left is ground
+            if (GetTileAtPos(tileGrid, x - 1, y) == TileType.Ground) {
+                return TileType.InnerTopLeftCorner;
+            }
+
+            //... if tile to right is ground
+            if (GetTileAtPos(tileGrid, x - 1, y) == TileType.Ground) {
+                return TileType.InnerTopRightCorner;
+            }
+
+            return TileType.BottomWall;
+        }
+
+        //... if above is wall and to the left and up is ground
+        if (IsWallTile(tileGrid, x, y + 1) &&
+            GetTileAtPos(tileGrid, x - 1, y + 1) == TileType.Ground) {
+            
+            return TileType.OuterTopLeftCorner;
+        }
+
+        //... if above is wall and to the right and up is ground
+        if (IsWallTile(tileGrid, x, y + 1) &&
+            GetTileAtPos(tileGrid, x + 1, y + 1) == TileType.Ground) {
+
+            return TileType.OuterTopRightCorner;
+        }
+
+        // Todo - check if side walls (last because makes logic easier)
+
+        return TileType.Wall;
+    }
+
+    // if outside range then tiletype is none
+    private TileType GetTileAtPos(TileType[,] tileGrid, int x, int y) {
+        if (IsPointOnGrid(tileGrid, x, y)) {
+            return tileGrid[x, y];
+        }
+        else {
+            return TileType.None;
+        }
+    }
+
+    private bool IsWallTile(TileType[,] tileGrid, int x, int y) {
+        TileType tileType = GetTileAtPos(tileGrid, x, y);
+        bool isWallTile = tileType != TileType.Ground && tileType != TileType.None;
+        return isWallTile;
+    }
+
+    private bool IsPointOnGrid(TileType[,] tileGrid, int x, int y) {
+        bool withinX = x >= 0 && x < tileGrid.GetLength(0);
+        bool withinY = y >= 0 && y < tileGrid.GetLength(1);
+        return withinX && withinY;
+    }
+
+    private void PrintTileGrid(TileType[,] tileGrid) {
+        int maxTileNameLength = tileGrid.Cast<TileType>()
+            .Select(t => t.ToString().Length)
+            .Max();
+
+        string gridStr = "";
+        for (int y = 0; y < tileGrid.GetLength(1); y++) {
+            for (int x = 0; x < tileGrid.GetLength(0); x++) {
+                // Format the tile string with uniform spacing
+                gridStr += $"{tileGrid[x, y].ToString().PadRight(maxTileNameLength)}";
+            }
+            gridStr += "\n";
+        }
+        Debug.Log(gridStr);
+    }
+
+    private void PrintTileGridInitials(TileType[,] tileGrid) {
+        int maxTileNameLength = tileGrid.Cast<TileType>()
+            .Select(t => GetTileInitials(t))
+            .Max(s => s.Length);
+
+        string gridStr = "";
+        for (int y = tileGrid.GetLength(1) - 1; y >= 0; y--) {
+            for (int x = 0; x < tileGrid.GetLength(0); x++) {
+                // Format the tile string with uniform spacing
+                gridStr += $"{GetTileInitials(tileGrid[x, y]).PadRight(maxTileNameLength)}";
+            }
+            gridStr += "\n";
+        }
+        Debug.Log(gridStr);
+    }
+
+    private string GetTileInitials(TileType tileType) {
+        // Get the capital letters from the tile type name
+        return string.Concat(tileType.ToString().Where(char.IsUpper));
+    }
+
+    private enum TileType {
+
+        None,
+        Wall,
+
+        Ground,
+        LowerTopWall,
+        MiddleTopWall,
+        UpperTopWall,
+        BottomWall,
+        LeftWall,
+        RightWall,
+
+        InnerTopLeftCorner,
+        InnerTopRightCorner,
+        InnerBottomLeftCorner,
+        InnerBottomRightCorner,
+        OuterTopLeftCorner,
+        OuterTopRightCorner,
+        OuterBottomLeftCorner,
+        OuterBottomRightCorner,
+    }
+}

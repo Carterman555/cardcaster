@@ -44,6 +44,9 @@ TagManager:
   - name: Ground
     uniqueID: 2162585041
     locked: 0
+  - name: TopWalls
+    uniqueID: 438269023
+    locked: 0
   - name: Background Effects
     uniqueID: 3148355809
     locked: 0

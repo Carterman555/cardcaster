@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using Unity.Mathematics;
+using System;
+using System.Runtime.CompilerServices;
 
 /// <summary>
 /// This class contains the tiles and the logic for creating the room tiles from the ground tiles.
@@ -12,13 +14,15 @@ using Unity.Mathematics;
 [CreateAssetMenu(fileName = "RoomTilemapCreator", menuName = "RoomCreator/RoomTilemapCreator")]
 public class RoomTilemapCreator : ScriptableObject {
 
+    [SerializeField] private 
+
     // takes in the three tilemaps: ground (already contains tiles), top walls, bot walls.
     // 1) match tileGrid values to ground tilemap
     // 2) turn tiles the outline the ground into wall tile type
     // 3) goes through each outline and decides which tile it's going to be based on the position of the surrounding
     // ground tiles
     // 4) places the tiles in the array
-    public void CreateRoomTiles(Tilemap groundTilemap, Tilemap topWallsTilemap, Tilemap botWallsTilemap) {
+    public void CreateRoomTiles(string tileSetName, Tilemap groundTilemap, Tilemap topWallsTilemap, Tilemap botWallsTilemap) {
 
         BoundsInt bounds = groundTilemap.cellBounds;
 
@@ -31,6 +35,8 @@ public class RoomTilemapCreator : ScriptableObject {
         OutlineGridWithWallTiles(ref tileGrid);
 
         SetSpecificWallTileTypes(ref tileGrid);
+
+        PlaceTiles(tileGrid, groundTilemap, topWallsTilemap, botWallsTilemap);
 
         PrintTileGridInitials(tileGrid);
     }
@@ -122,16 +128,16 @@ public class RoomTilemapCreator : ScriptableObject {
             IsWallTile(tileGrid, x, y - 2) &&
             GetTileAtPos(tileGrid, x, y - 3) == TileType.Ground) {
 
-            // it can either be UpperTopWall, InnerBottomLeftCorner, InnerBottomRightCorner
+            // it can either be UpperTopWall, InnerTopRightCorner, InnerTopLeftCorner
 
             //... if 2 down and 1 left is ground
             if (GetTileAtPos(tileGrid, x - 1, y - 2) == TileType.Ground) {
-                return TileType.InnerBottomLeftCorner;
+                return TileType.InnerTopRightCorner;
             }
 
             //... if 2 down and 1 right is ground
             if (GetTileAtPos(tileGrid, x + 1, y - 2) == TileType.Ground) {
-                return TileType.InnerBottomRightCorner;
+                return TileType.InnerTopLeftCorner;
             }
 
             return TileType.UpperTopWall;
@@ -143,32 +149,32 @@ public class RoomTilemapCreator : ScriptableObject {
             IsWallTile(tileGrid, x, y - 2) &&
             IsWallTile(tileGrid, x, y - 3)) {
 
-            // it can either be OuterBottomLeftCorner or OuterBottomRightCorner
+            // it can either be OuterTopRightCorner or OuterTopLeftCorner
 
             //... if 3 down and 1 left is ground
             if (GetTileAtPos(tileGrid, x - 1, y - 3) == TileType.Ground) {
-                return TileType.OuterBottomLeftCorner;
+                return TileType.OuterTopRightCorner;
             }
 
             //... if 3 down and 1 right is ground
             if (GetTileAtPos(tileGrid, x + 1, y - 3) == TileType.Ground) {
-                return TileType.OuterBottomRightCorner;
+                return TileType.OuterTopLeftCorner;
             }
         }
 
         //... if tile above is ground
         if (GetTileAtPos(tileGrid, x, y + 1) == TileType.Ground) {
 
-            // it can either be BottomWall, InnerTopLeftCorner, InnerTopRightCorner
+            // it can either be BottomWall, InnerBottomRightCorner, InnerBottomLeftCorner
 
             //... if tile to left is ground
             if (GetTileAtPos(tileGrid, x - 1, y) == TileType.Ground) {
-                return TileType.InnerTopLeftCorner;
+                return TileType.InnerBottomRightCorner;
             }
 
             //... if tile to right is ground
-            if (GetTileAtPos(tileGrid, x - 1, y) == TileType.Ground) {
-                return TileType.InnerTopRightCorner;
+            if (GetTileAtPos(tileGrid, x + 1, y) == TileType.Ground) {
+                return TileType.InnerBottomLeftCorner;
             }
 
             return TileType.BottomWall;
@@ -177,20 +183,44 @@ public class RoomTilemapCreator : ScriptableObject {
         //... if above is wall and to the left and up is ground
         if (IsWallTile(tileGrid, x, y + 1) &&
             GetTileAtPos(tileGrid, x - 1, y + 1) == TileType.Ground) {
-            
-            return TileType.OuterTopLeftCorner;
+
+            return TileType.OuterBottomRightCorner;
         }
 
         //... if above is wall and to the right and up is ground
         if (IsWallTile(tileGrid, x, y + 1) &&
             GetTileAtPos(tileGrid, x + 1, y + 1) == TileType.Ground) {
 
-            return TileType.OuterTopRightCorner;
+            return TileType.OuterBottomLeftCorner;
         }
 
-        // Todo - check if side walls (last because makes logic easier)
+        // check if side walls last because makes logic easier
+
+        //... if any of the three tiles to the left going down are ground
+        if (IsWallTile(tileGrid, x - 1, y) ||
+            IsWallTile(tileGrid, x - 1, y - 1) ||
+            IsWallTile(tileGrid, x - 1, y - 2)) {
+            return TileType.RightWall;
+        }
+
+        //... if any of the three tiles to the right going down are ground
+        if (IsWallTile(tileGrid, x + 1, y) ||
+            IsWallTile(tileGrid, x + 1, y - 1) ||
+            IsWallTile(tileGrid, x + 1, y - 2)) {
+            return TileType.LeftWall;
+        }
 
         return TileType.Wall;
+    }
+
+    private bool IsWallTile(TileType[,] tileGrid, int x, int y) {
+        TileType tileType = GetTileAtPos(tileGrid, x, y);
+        bool isWallTile = tileType != TileType.Ground && tileType != TileType.None;
+        return isWallTile;
+    }
+
+    private void PlaceTiles(TileType[,] tileGrid, Tilemap groundTilemap, Tilemap topWallsTilemap, Tilemap botWallsTilemap) {
+        
     }
 
     // if outside range then tiletype is none
@@ -201,12 +231,6 @@ public class RoomTilemapCreator : ScriptableObject {
         else {
             return TileType.None;
         }
-    }
-
-    private bool IsWallTile(TileType[,] tileGrid, int x, int y) {
-        TileType tileType = GetTileAtPos(tileGrid, x, y);
-        bool isWallTile = tileType != TileType.Ground && tileType != TileType.None;
-        return isWallTile;
     }
 
     private bool IsPointOnGrid(TileType[,] tileGrid, int x, int y) {
@@ -273,5 +297,13 @@ public class RoomTilemapCreator : ScriptableObject {
         OuterTopRightCorner,
         OuterBottomLeftCorner,
         OuterBottomRightCorner,
+    }
+
+    [Serializable]
+    private struct TileSet {
+        public string Name;
+
+        public Tile[] GroundTiles;
+        public Tile[] LowerTopWalls;
     }
 }

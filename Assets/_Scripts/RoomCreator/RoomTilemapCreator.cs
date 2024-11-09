@@ -1,12 +1,8 @@
-using MoreMountains.Tools;
-using System.Collections;
 using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
-using Unity.Mathematics;
 using System;
-using System.Runtime.CompilerServices;
 
 /// <summary>
 /// This class contains the tiles and the logic for creating the room tiles from the ground tiles.
@@ -14,7 +10,7 @@ using System.Runtime.CompilerServices;
 [CreateAssetMenu(fileName = "RoomTilemapCreator", menuName = "RoomCreator/RoomTilemapCreator")]
 public class RoomTilemapCreator : ScriptableObject {
 
-    [SerializeField] private 
+    [SerializeField] private TileSet[] tileSets;
 
     // takes in the three tilemaps: ground (already contains tiles), top walls, bot walls.
     // 1) match tileGrid values to ground tilemap
@@ -36,9 +32,7 @@ public class RoomTilemapCreator : ScriptableObject {
 
         SetSpecificWallTileTypes(ref tileGrid);
 
-        PlaceTiles(tileGrid, groundTilemap, topWallsTilemap, botWallsTilemap);
-
-        PrintTileGridInitials(tileGrid);
+        PlaceTiles(tileGrid, tileSetName, groundTilemap, topWallsTilemap, botWallsTilemap);
     }
 
     private void CopyGroundTilesToTileGrid(ref TileType[,] tileGrid, Tilemap groundTilemap) {
@@ -180,15 +174,17 @@ public class RoomTilemapCreator : ScriptableObject {
             return TileType.BottomWall;
         }
 
-        //... if above is wall and to the left and up is ground
+        //... if above is wall, to the left is wall, and to the left and up is ground
         if (IsWallTile(tileGrid, x, y + 1) &&
+            IsWallTile(tileGrid, x - 1, y) &&
             GetTileAtPos(tileGrid, x - 1, y + 1) == TileType.Ground) {
 
             return TileType.OuterBottomRightCorner;
         }
 
-        //... if above is wall and to the right and up is ground
+        //... if above is wall, to the right is wall, and to the right and up is ground
         if (IsWallTile(tileGrid, x, y + 1) &&
+            IsWallTile(tileGrid, x + 1, y) &&
             GetTileAtPos(tileGrid, x + 1, y + 1) == TileType.Ground) {
 
             return TileType.OuterBottomLeftCorner;
@@ -197,16 +193,16 @@ public class RoomTilemapCreator : ScriptableObject {
         // check if side walls last because makes logic easier
 
         //... if any of the three tiles to the left going down are ground
-        if (IsWallTile(tileGrid, x - 1, y) ||
-            IsWallTile(tileGrid, x - 1, y - 1) ||
-            IsWallTile(tileGrid, x - 1, y - 2)) {
+        if (GetTileAtPos(tileGrid, x - 1, y) == TileType.Ground ||
+            GetTileAtPos(tileGrid, x - 1, y - 1) == TileType.Ground ||
+            GetTileAtPos(tileGrid, x - 1, y - 2) == TileType.Ground) {
             return TileType.RightWall;
         }
 
         //... if any of the three tiles to the right going down are ground
-        if (IsWallTile(tileGrid, x + 1, y) ||
-            IsWallTile(tileGrid, x + 1, y - 1) ||
-            IsWallTile(tileGrid, x + 1, y - 2)) {
+        if (GetTileAtPos(tileGrid, x + 1, y) == TileType.Ground ||
+            GetTileAtPos(tileGrid, x + 1, y - 1) == TileType.Ground ||
+            GetTileAtPos(tileGrid, x + 1, y - 2) == TileType.Ground) {
             return TileType.LeftWall;
         }
 
@@ -219,9 +215,126 @@ public class RoomTilemapCreator : ScriptableObject {
         return isWallTile;
     }
 
-    private void PlaceTiles(TileType[,] tileGrid, Tilemap groundTilemap, Tilemap topWallsTilemap, Tilemap botWallsTilemap) {
-        
+    private void PlaceTiles(TileType[,] tileGrid, string tileSetName, Tilemap groundTilemap, Tilemap topWallsTilemap, Tilemap botWallsTilemap) {
+
+        TileSet tileSet = tileSets.First(t => t.Name == tileSetName);
+
+        BoundsInt groundBounds = groundTilemap.cellBounds;
+
+        // go through each tile in grid
+        for (int x = 0; x < tileGrid.GetLength(0); x++) {
+            for (int y = 0; y < tileGrid.GetLength(1); y++) {
+
+                TileType tileType = tileGrid[x, y];
+
+                Vector3Int tilePos = new Vector3Int(x + groundBounds.min.x - 1, y + groundBounds.min.y - 1, 0);
+                Tile tile = GetRandomTileFromType(tileSet, tileType);
+                Tilemap tilemap = GetTilemapFromTileType(tileType, groundTilemap, topWallsTilemap, botWallsTilemap);
+
+                tilemap.SetTile(tilePos, tile);
+            }
+        }
     }
+
+    private Tile GetRandomTileFromType(TileSet tileSet, TileType tileType) {
+
+        if (tileType == TileType.None)
+            return null;
+
+        if (tileType == TileType.Ground)
+            return tileSet.GroundTiles.RandomItem();
+
+        if (tileType == TileType.LowerTopWall)
+            return tileSet.LowerTopWalls.RandomItem();
+
+        if (tileType == TileType.MiddleTopWall)
+            return tileSet.MiddleTopWalls.RandomItem();
+
+        if (tileType == TileType.UpperTopWall)
+            return tileSet.UpperTopWalls.RandomItem();
+
+        if (tileType == TileType.BottomWall)
+            return tileSet.BottomWalls.RandomItem();
+
+        if (tileType == TileType.LeftWall)
+            return tileSet.LeftWalls.RandomItem();
+
+        if (tileType == TileType.RightWall)
+            return tileSet.RightWalls.RandomItem();
+
+        if (tileType == TileType.InnerTopLeftCorner)
+            return tileSet.InnerTopLeftCorners.RandomItem();
+
+        if (tileType == TileType.InnerTopRightCorner)
+            return tileSet.InnerTopRightCorners.RandomItem();
+
+        if (tileType == TileType.InnerBottomLeftCorner)
+            return tileSet.InnerBottomLeftCorners.RandomItem();
+
+        if (tileType == TileType.InnerBottomRightCorner)
+            return tileSet.InnerBottomRightCorners.RandomItem();
+
+        if (tileType == TileType.OuterTopLeftCorner)
+            return tileSet.OuterTopLeftCorners.RandomItem();
+
+        if (tileType == TileType.OuterTopRightCorner)
+            return tileSet.OuterTopRightCorners.RandomItem();
+
+        if (tileType == TileType.OuterBottomLeftCorner)
+            return tileSet.OuterBottomLeftCorners.RandomItem();
+
+        if (tileType == TileType.OuterBottomRightCorner)
+            return tileSet.OuterBottomRightCorners.RandomItem();
+
+        // If the tileType doesn't match any of the above, return a default tile (optional)
+        return null;
+    }
+
+    private Tilemap GetTilemapFromTileType(TileType tileType, Tilemap groundTilemap, Tilemap topWallsTilemap, Tilemap botWallsTilemap) {
+
+        TileType[] groundTiles = new TileType[] {
+            TileType.Ground,
+            TileType.LowerTopWall,
+        };
+
+        TileType[] topWallTiles = new TileType[] {
+            TileType.MiddleTopWall,
+            TileType.UpperTopWall,
+            TileType.InnerTopLeftCorner,
+            TileType.InnerTopRightCorner,
+            TileType.OuterTopLeftCorner,
+            TileType.OuterTopRightCorner,
+        };
+
+        TileType[] bottomWallTiles = new TileType[] {
+            TileType.BottomWall,
+            TileType.LeftWall,
+            TileType.RightWall,
+            TileType.InnerBottomLeftCorner,
+            TileType.InnerBottomRightCorner,
+            TileType.OuterBottomLeftCorner,
+            TileType.OuterBottomRightCorner
+        };
+
+
+        if (groundTiles.Contains(tileType)) {
+            return groundTilemap;
+        }
+        else if (topWallTiles.Contains(tileType)) {
+            return topWallsTilemap;
+        }
+        else if (bottomWallTiles.Contains(tileType)) {
+            return botWallsTilemap;
+        }
+        else if (tileType == TileType.None) {
+            return groundTilemap;
+        }
+
+
+        Debug.LogError($"Tile type: {tileType} does not fit into any tilemap!");
+        return null;
+    }
+
 
     // if outside range then tiletype is none
     private TileType GetTileAtPos(TileType[,] tileGrid, int x, int y) {
@@ -304,6 +417,22 @@ public class RoomTilemapCreator : ScriptableObject {
         public string Name;
 
         public Tile[] GroundTiles;
+
         public Tile[] LowerTopWalls;
+        public Tile[] MiddleTopWalls;
+        public Tile[] UpperTopWalls;
+        public Tile[] BottomWalls;
+        public Tile[] LeftWalls;
+        public Tile[] RightWalls;
+
+        public Tile[] InnerTopLeftCorners;
+        public Tile[] InnerTopRightCorners;
+        public Tile[] InnerBottomLeftCorners;
+        public Tile[] InnerBottomRightCorners;
+
+        public Tile[] OuterTopLeftCorners;
+        public Tile[] OuterTopRightCorners;
+        public Tile[] OuterBottomLeftCorners;
+        public Tile[] OuterBottomRightCorners;
     }
 }

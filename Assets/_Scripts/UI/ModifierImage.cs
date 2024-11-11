@@ -21,17 +21,17 @@ public class ModifierImage : MonoBehaviour {
     private void OnEnable() {
         AbilityManager.OnApplyModifiers += Dissolve;
 
-        CardButton.OnAnyStartPlaying_Card += CheckToShowX;
-        CardButton.OnAnyCardUsed_Card += OnCardUsed;
-        CardButton.OnAnyCancel_Card += TryShowModifierImage;
+        HandCard.OnAnyStartPlaying_Card += CheckToShowX;
+        HandCard.OnAnyCardUsed_Card += OnCardUsed;
+        HandCard.OnAnyCancel_Card += TryShowModifierImage;
     }
 
     private void OnDisable() {
         AbilityManager.OnApplyModifiers -= Dissolve;
 
-        CardButton.OnAnyStartPlaying_Card -= CheckToShowX;
-        CardButton.OnAnyCardUsed_Card -= OnCardUsed;
-        CardButton.OnAnyCancel_Card -= TryShowModifierImage;
+        HandCard.OnAnyStartPlaying_Card -= CheckToShowX;
+        HandCard.OnAnyCardUsed_Card -= OnCardUsed;
+        HandCard.OnAnyCancel_Card -= TryShowModifierImage;
     }
 
     public void Setup(ScriptableModifierCardBase modifier) {

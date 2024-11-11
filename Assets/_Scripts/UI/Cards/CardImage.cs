@@ -1,3 +1,4 @@
+using System.Runtime.CompilerServices;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -32,6 +33,8 @@ public class CardImage : MonoBehaviour {
         SetupCostImages(card.GetCost());
         titleText.text = card.GetName();
         descriptionText.text = card.GetDescription();
+
+        GetComponent<ChangeColorFromRarity>().SetColor(card.GetRarity());
     }
 
     private void SetupCostImages(int cost) {

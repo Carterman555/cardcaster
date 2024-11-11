@@ -34,7 +34,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -13.3}
+  m_AnchoredPosition: {x: 0, y: -15.4}
   m_SizeDelta: {x: 160, y: 15.8742}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!222 &6427539442954357039
@@ -67,8 +67,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Ability
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8308d0e6f51844f44b4ca8d671a036a3, type: 2}
-  m_sharedMaterial: {fileID: 2002732806699863819, guid: 8308d0e6f51844f44b4ca8d671a036a3, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: d6fd8257d87b2374f8d84cb7d78d8392, type: 2}
+  m_sharedMaterial: {fileID: 3955962077340898542, guid: d6fd8257d87b2374f8d84cb7d78d8392, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -92,8 +92,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 15
-  m_fontSizeBase: 15
+  m_fontSize: 10.2
+  m_fontSizeBase: 10.2
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 0
@@ -146,6 +146,7 @@ GameObject:
   - component: {fileID: 2034349315374184413}
   - component: {fileID: 5466343821612105132}
   - component: {fileID: -5029209581449810682}
+  - component: {fileID: 4058689592740030879}
   m_Layer: 0
   m_Name: CardImage
   m_TagString: Untagged
@@ -238,6 +239,29 @@ MonoBehaviour:
   titleText: {fileID: 8421946754090297211}
   typeText: {fileID: 4695060487792709567}
   descriptionText: {fileID: 3427304383025992864}
+--- !u!114 &4058689592740030879
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 479060129788471932}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a78778200d899a7478e4abcde69f7d1e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  setSpriteRenderer: 0
+  spriteRenderer: {fileID: 0}
+  setImage: 0
+  image: {fileID: 0}
+  setTextUI: 1
+  textUI: {fileID: 8421946754090297211}
+  commonColor: {r: 1, g: 1, b: 1, a: 1}
+  uncommonColor: {r: 0.47058827, g: 0.87843144, b: 0.5137255, a: 1}
+  rareColor: {r: 0.427451, g: 0.80392164, b: 0.95294124, a: 1}
+  epicColor: {r: 0.7254902, g: 0.43529415, b: 0.92549026, a: 1}
+  mythicColor: {r: 0.9176471, g: 0.8078432, b: 0.27450982, a: 1}
 --- !u!1 &1933626149731812347
 GameObject:
   m_ObjectHideFlags: 0
@@ -273,7 +297,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 7.4}
-  m_SizeDelta: {x: 160, y: 21.2}
+  m_SizeDelta: {x: 160, y: 20.7}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!222 &3335345600469449999
 CanvasRenderer:
@@ -305,8 +329,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Title
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8308d0e6f51844f44b4ca8d671a036a3, type: 2}
-  m_sharedMaterial: {fileID: 2002732806699863819, guid: 8308d0e6f51844f44b4ca8d671a036a3, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: d6fd8257d87b2374f8d84cb7d78d8392, type: 2}
+  m_sharedMaterial: {fileID: 3955962077340898542, guid: d6fd8257d87b2374f8d84cb7d78d8392, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -330,10 +354,10 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 20
-  m_fontSizeBase: 20
+  m_fontSize: 15.64
+  m_fontSizeBase: 15.64
   m_fontWeight: 400
-  m_enableAutoSizing: 1
+  m_enableAutoSizing: 0
   m_fontSizeMin: 15
   m_fontSizeMax: 20
   m_fontStyle: 0
@@ -580,8 +604,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Increase the damage, but decrease the duration of your next ability
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8308d0e6f51844f44b4ca8d671a036a3, type: 2}
-  m_sharedMaterial: {fileID: 2002732806699863819, guid: 8308d0e6f51844f44b4ca8d671a036a3, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: d6fd8257d87b2374f8d84cb7d78d8392, type: 2}
+  m_sharedMaterial: {fileID: 3955962077340898542, guid: d6fd8257d87b2374f8d84cb7d78d8392, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -605,19 +629,19 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 15.55
-  m_fontSizeBase: 15
+  m_fontSize: 10.2
+  m_fontSizeBase: 10.2
   m_fontWeight: 400
-  m_enableAutoSizing: 1
-  m_fontSizeMin: 12
-  m_fontSizeMax: 18
+  m_enableAutoSizing: 0
+  m_fontSizeMin: 9.6
+  m_fontSizeMax: 14.4
   m_fontStyle: 0
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 256
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
-  m_lineSpacing: 0
+  m_lineSpacing: 31.99
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0

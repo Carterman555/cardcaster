@@ -313,10 +313,7 @@ public class RoomGenerator : StaticInstance<RoomGenerator> {
 
         foreach (Collider2D col in cols) {
             col.gameObject.ReturnToPool();
-            print($"Removed {col.name} at {col.transform.position}");
         }
-
-        Helpers.DrawRectangle(center, boxSize);
     }
 
     private void SpawnHallway(DoorwaySide doorwaySide, Vector2 doorwayPosition) {

@@ -9,6 +9,8 @@ public class ShopItem : MonoBehaviour {
 
     private ScriptableCardBase card;
 
+    [SerializeField] private ChangeColorFromRarity changeShineColor;
+
     private void Awake() {
         interactable = GetComponent<Interactable>();
         spriteRenderer = GetComponent<SpriteRenderer>();
@@ -27,6 +29,8 @@ public class ShopItem : MonoBehaviour {
     public void SetCard(ScriptableCardBase card) {
         this.card = card;
         spriteRenderer.sprite = card.GetSprite();
+
+        changeShineColor.SetColor(card.GetRarity());
     }
 
     private void OpenAllCardsUI() {

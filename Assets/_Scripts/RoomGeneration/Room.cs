@@ -16,7 +16,7 @@ public class Room : MonoBehaviour {
 
     private int roomNum;
 
-    [SerializeField] private List<PossibleDoorway> possibleDoorways;
+    private List<PossibleDoorway> possibleDoorways;
     private List<PossibleDoorway> createdDoorways = new();
 
     [SerializeField] private Tilemap groundTilemap;
@@ -40,17 +40,21 @@ public class Room : MonoBehaviour {
     }
 
     public List<PossibleDoorway> GetPossibleDoorways() {
+
+        //... assign it if it's null
+        possibleDoorways ??= transform.GetComponentsInChildren<PossibleDoorway>().ToList();
+
         return possibleDoorways;
     }
 
     public PossibleDoorway GetPossibleDoorway(string name) {
 
-        if (!possibleDoorways.Any(d => d.name == name)){
+        if (!GetPossibleDoorways().Any(d => d.name == name)){
             Debug.LogError("Could Not Find Doorway With Name: " + name);
             return null;
         }
 
-        return possibleDoorways.Where(d => d.name == name).FirstOrDefault();
+        return GetPossibleDoorways().Where(d => d.name == name).FirstOrDefault();
     }
 
     public Tilemap GetGroundTilemap() {

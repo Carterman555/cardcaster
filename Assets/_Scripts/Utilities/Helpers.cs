@@ -224,6 +224,21 @@ public static class Helpers {
 #endif
     }
 
+    public static void DrawRectangle(Vector3 center, Vector2 size) {
+        float halfWidth = size.x / 2f;
+        float halfHeight = size.y / 2f;
+
+        Vector3 topLeft = center + new Vector3(-halfWidth, halfHeight, 0f);
+        Vector3 topRight = center + new Vector3(halfWidth, halfHeight, 0f);
+        Vector3 bottomRight = center + new Vector3(halfWidth, -halfHeight, 0f);
+        Vector3 bottomLeft = center + new Vector3(-halfWidth, -halfHeight, 0f);
+
+        Debug.DrawLine(topLeft, topRight, Color.white);
+        Debug.DrawLine(topRight, bottomRight, Color.white);
+        Debug.DrawLine(bottomRight, bottomLeft, Color.white);
+        Debug.DrawLine(bottomLeft, topLeft, Color.white);
+    }
+
     public static void Print<T>(this List<T> list) {
         string str = "";
         foreach (T item in list) {

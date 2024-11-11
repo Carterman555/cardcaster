@@ -266,6 +266,7 @@ public class RoomGenerator : StaticInstance<RoomGenerator> {
         // spawn in the hallway to connect the rooms
         SpawnHallway(existingDoorway.GetSide(), existingDoorway.transform.position);
         RemoveTilesForHallway(newRoom, connectingRoom, newDoorway, existingDoorway);
+        RemoveObjectsForHallway(newDoorway.transform.position, existingDoorway.transform.position);
 
         // create enter and exit triggers
         newRoom.CreateEnterAndExitTriggers(newDoorway);
@@ -292,6 +293,30 @@ public class RoomGenerator : StaticInstance<RoomGenerator> {
             newColliderTilemap,
             newDoorway.GetSide(),
             newDoorway.transform.localPosition);
+    }
+
+    private void RemoveObjectsForHallway(Vector2 newDoorwayPosition, Vector2 existingDoorwayPosition) {
+
+        float centerX = (newDoorwayPosition.x + existingDoorwayPosition.x) / 2f;
+        float centerY = (newDoorwayPosition.y + existingDoorwayPosition.y) / 2f;
+
+        Vector2 center = new Vector2(centerX, centerY);
+
+        float range = 2f;
+
+        float xDistance = Mathf.Abs(newDoorwayPosition.x - existingDoorwayPosition.x);
+        float yDistance = Mathf.Abs(newDoorwayPosition.y - existingDoorwayPosition.y);
+
+        Vector2 boxSize = new Vector2(xDistance + range, yDistance + range);
+
+        Collider2D[] cols = Physics2D.OverlapBoxAll(center, boxSize, 0, GameLayers.RoomObjectLayerMask);
+
+        foreach (Collider2D col in cols) {
+            col.gameObject.ReturnToPool();
+            print($"Removed {col.name} at {col.transform.position}");
+        }
+
+        Helpers.DrawRectangle(center, boxSize);
     }
 
     private void SpawnHallway(DoorwaySide doorwaySide, Vector2 doorwayPosition) {

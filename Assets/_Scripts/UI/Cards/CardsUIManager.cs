@@ -8,11 +8,11 @@ using UnityEngine.UI;
 
 public class CardsUIManager : StaticInstance<CardsUIManager> {
 
-    [SerializeField] private CardButton cardButtonPrefab;
-    private List<CardButton> cardButtons = new();
+    [SerializeField] private HandCard cardButtonPrefab;
+    private List<HandCard> cardButtons = new();
 
     private void OnEnable() {
-        CardButton.OnAnyCardUsed_ButtonAndCard += OnCardUsed;
+        HandCard.OnAnyCardUsed_ButtonAndCard += OnCardUsed;
 
         DeckManager.OnGainCardToHand += DrawCardToEnd;
         DeckManager.OnTrashCardInHand += UpdateCardButtons;
@@ -20,7 +20,7 @@ public class CardsUIManager : StaticInstance<CardsUIManager> {
     }
     private void OnDisable() {
         DeckManager.OnGainCardToHand -= DrawCardToEnd;
-        CardButton.OnAnyCardUsed_ButtonAndCard -= OnCardUsed;
+        HandCard.OnAnyCardUsed_ButtonAndCard -= OnCardUsed;
 
         DeckManager.OnTrashCardInHand -= UpdateCardButtons;
         DeckManager.OnReplaceCardInHand -= UpdateCardButtons;
@@ -33,7 +33,7 @@ public class CardsUIManager : StaticInstance<CardsUIManager> {
         UpdateCardButtons();
     }
 
-    private void OnCardUsed(CardButton cardButton, ScriptableCardBase cardUsed) {
+    private void OnCardUsed(HandCard cardButton, ScriptableCardBase cardUsed) {
 
         // return the card button
         cardButton.gameObject.ReturnToPool();
@@ -58,7 +58,7 @@ public class CardsUIManager : StaticInstance<CardsUIManager> {
         ScriptableCardBase[] cardsInHand = DeckManager.Instance.GetCardsInHand();
 
         ScriptableCardBase card = cardsInHand[index];
-        CardButton cardButton = cardButtonPrefab.Spawn(transform);
+        HandCard cardButton = cardButtonPrefab.Spawn(transform);
 
         cardButton.Setup(deckButtonTransform, card);
 

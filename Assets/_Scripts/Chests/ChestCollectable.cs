@@ -10,19 +10,16 @@ public class ChestCollectable : MonoBehaviour {
 
     [SerializeField] private Vector2 positionOffset;
 
-    private Material originalMaterial;
-    [SerializeField] private Material outlineMaterial;
-
     private Chest chest;
     private ICollectable collectable;
     private int collectableIndex;
 
-    private bool interactable;
-
     private SpriteRenderer spriteRenderer;
+    private Interactable interactable;
 
     private void Awake() {
         spriteRenderer = GetComponent<SpriteRenderer>();
+        interactable = GetComponent<Interactable>();
     }
 
     public void Setup(Chest chest, ICollectable collectable, int collectableIndex) {
@@ -31,28 +28,22 @@ public class ChestCollectable : MonoBehaviour {
         this.collectableIndex = collectableIndex;
 
         spriteRenderer.sprite = collectable.GetSprite();
-        originalMaterial = spriteRenderer.material;
 
         transform.position = chest.transform.position;
         transform.localScale = Vector2.zero;
 
+        interactable.enabled = false;
+
         float duration = 0.3f;
         transform.DOLocalMove(positionOffset, duration).SetEase(Ease.OutSine);
         transform.DOScale(Vector2.one, duration).SetEase(Ease.OutSine).OnComplete(() => {
-            interactable = true;
+            interactable.enabled = true;
         });
     }
-
-    private bool outlined;
 
     private void Update() {
 
         if (interactable && MouseTracker.Instance.IsMouseOver(gameObject)) {
-
-            if (!outlined) {
-                spriteRenderer.material = outlineMaterial;
-                outlined = true;
-            }
 
             //if (selectAction.action.triggered) {
             if (Input.GetMouseButtonDown(0)) {
@@ -60,18 +51,11 @@ public class ChestCollectable : MonoBehaviour {
                 StartCoroutine(chest.OnSelectCollectable(collectableIndex));
             }
         }
-        else {
-            if (outlined) {
-                //... disable outline
-                spriteRenderer.material = originalMaterial;
-                outlined = false;
-            }
-        }
     }
 
     public void GoToPlayer() {
 
-        interactable = false;
+        interactable.enabled = false;
 
         // so it doesn't disappear when the chest does
         transform.SetParent(Containers.Instance.Effects);
@@ -91,7 +75,7 @@ public class ChestCollectable : MonoBehaviour {
     }
 
     public void ReturnToChest(float duration) {
-        interactable = false;
+        interactable.enabled = false;
 
         transform.DOLocalMove(Vector2.zero, duration).SetEase(Ease.InSine);
         transform.DOScale(Vector2.zero, duration).SetEase(Ease.InSine);

@@ -9,9 +9,9 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class CardButton : GameButton, IPointerDownHandler {
+public class HandCard : MonoBehaviour, IPointerDownHandler {
 
-    public static event Action<CardButton, ScriptableCardBase> OnAnyCardUsed_ButtonAndCard;
+    public static event Action<HandCard, ScriptableCardBase> OnAnyCardUsed_ButtonAndCard;
     public static event Action<ScriptableCardBase> OnAnyCardUsed_Card;
 
     public static event Action<ScriptableCardBase> OnAnyStartPlaying_Card;
@@ -41,8 +41,7 @@ public class CardButton : GameButton, IPointerDownHandler {
         playingAnyCard = false;
     }
 
-    protected override void Awake() {
-        base.Awake();
+    private void Awake() {
         followMouse = GetComponent<MMFollowTarget>();
         playFeedbackOnHover = GetComponent<PlayFeedbackOnHover>();
     }
@@ -300,14 +299,12 @@ public class CardButton : GameButton, IPointerDownHandler {
 
     private bool setToCancel;
 
-    protected override void OnEnable() {
-        base.OnEnable();
+    private void OnEnable() {
         CancelCardPanel.OnSetToCancel += SetToCancel;
         CancelCardPanel.OnSetToPlay += SetToPlay;
     }
 
-    protected override void OnDisable() {
-        base.OnDisable();
+    private void OnDisable() {
         CancelCardPanel.OnSetToCancel -= SetToCancel;
         CancelCardPanel.OnSetToPlay -= SetToPlay;
     }

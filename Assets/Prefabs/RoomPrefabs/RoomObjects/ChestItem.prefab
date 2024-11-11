@@ -12,8 +12,9 @@ GameObject:
   - component: {fileID: 508550145687220642}
   - component: {fileID: 2658446344022278809}
   - component: {fileID: 7176444197778562328}
+  - component: {fileID: 8305092476999919952}
   m_Layer: 0
-  m_Name: Card
+  m_Name: ChestItem
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -88,9 +89,9 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1360671085
-  m_SortingLayer: 5
+  m_SortingLayer: 6
   m_SortingOrder: 0
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 762365693, guid: d638d131cac6f4d45aeb96fc55848241, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -98,7 +99,7 @@ SpriteRenderer:
   m_Size: {x: 1.125, y: 1.125}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!61 &7176444197778562328
@@ -146,3 +147,20 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &8305092476999919952
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9101030214393115601}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 823edaa7ade144b489dfbd4291e9786f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  interactAction: {fileID: -6811146151478928456, guid: 50afa068aa51bd149a1f3d07794c53d5, type: 3}
+  interactableTextPrefab: {fileID: 9084209149797969205, guid: a643d41c5c0620048bcb91e7ddbffcec, type: 3}
+  textPosition: {x: 0, y: 0.8}
+  spriteRenderer: {fileID: 2658446344022278809}
+  outlineMaterial: {fileID: 2100000, guid: cac22936acfd64b499b1102451300276, type: 2}

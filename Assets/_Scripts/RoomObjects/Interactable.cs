@@ -11,7 +11,7 @@ public class Interactable : MonoBehaviour {
     public event Action OnInteract;
 
     [SerializeField] private InputActionReference interactAction;
-    private bool withinRange;
+    private bool canInteract;
 
     [Header("Text")]
     [SerializeField] private TextMeshPro interactableTextPrefab;
@@ -28,51 +28,77 @@ public class Interactable : MonoBehaviour {
     }
 
     private void OnTriggerEnter2D(Collider2D collision) {
-        if (collision.TryGetComponent(out InteractTrigger interactTrigger)) {
 
-            spriteRenderer.material = outlineMaterial;
+        if (Helpers.GameStopping()) {
+            return;
+        }
 
-            interactableText = interactableTextPrefab.Spawn((Vector2)transform.position + textPosition, transform);
-
-            // grow text
-            transform.DOKill();
-            interactableText.transform.localScale = Vector3.zero;
-            interactableText.transform.DOScale(1, duration: 0.3f);
-
-            withinRange = true;
+        if (collision.TryGetComponent(out InteractTrigger interactTrigger) && enabled) {
+            InteractManager.Instance.AddWithinRange(this);
         }
     }
 
     private void OnTriggerExit2D(Collider2D collision) {
-        if (collision.TryGetComponent(out InteractTrigger interactTrigger)) {
-            spriteRenderer.material = originalMaterial;
 
-            // shrink text
+        if (Helpers.GameStopping()) {
+            return;
+        }
+
+        if (collision.TryGetComponent(out InteractTrigger interactTrigger) && enabled) {
+            InteractManager.Instance.RemoveWithinRange(this);
+        }
+    }
+
+    public void SetCanInteract() {
+
+        canInteract = true;
+
+        spriteRenderer.material = outlineMaterial;
+
+        interactableText = interactableTextPrefab.Spawn((Vector2)transform.position + textPosition, transform);
+
+        // grow text
+        interactableText.transform.DOKill();
+        interactableText.transform.localScale = Vector3.zero;
+        interactableText.transform.DOScale(1, duration: 0.3f);
+    }
+
+    public void SetCantInteract() {
+
+        canInteract = false;
+
+        spriteRenderer.material = originalMaterial;
+
+        // shrink text
+        interactableText.transform.DOKill();
+        interactableText.transform.ShrinkThenDestroy();
+    }
+
+    private void OnDisable() {
+
+        if (Helpers.GameStopping()) {
+            return;
+        }
+
+        InteractManager.Instance.TryRemoveWithinRange(this);
+
+        spriteRenderer.material = originalMaterial;
+
+        // shrink text
+        bool interactableTextActive = interactableText != null && interactableText.enabled == true;
+        if (interactableTextActive) {
             interactableText.transform.DOKill();
             interactableText.transform.ShrinkThenDestroy();
-
-            withinRange = false;
         }
     }
 
     private void Update() {
-        if (withinRange && interactAction.action.triggered) {
+        if (canInteract && interactAction.action.triggered) {
             OnInteract?.Invoke();
         }
     }
 
-    private void OnDisable() {
-        spriteRenderer.material = originalMaterial;
-
-        // shrink text
-        if (interactableText != null) {
-            interactableText.transform.DOKill();
-            interactableText.transform.ShrinkThenDestroy();
-        }
+    public bool CanInteract() {
+        return canInteract;
     }
-
-    public bool IsWithinRange() {
-        return withinRange;
-    }
-
 }

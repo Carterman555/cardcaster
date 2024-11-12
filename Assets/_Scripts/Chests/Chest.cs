@@ -8,7 +8,7 @@ using System.Collections;
 public class Chest : MonoBehaviour {
 
     private ICollectable[] scriptableCollectables;
-    [SerializeField] private ChestCollectable[] collectables;
+    [SerializeField] private ChestItem[] collectables;
 
     private bool opened;
 

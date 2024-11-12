@@ -211,7 +211,7 @@ public static class Helpers {
 
         return transform.DOScale(Vector3.zero, duration).SetEase(Ease.InSine).OnComplete(() => {
             transform.DOKill();
-            transform.gameObject.ReturnToPool();
+            transform.gameObject.TryReturnToPool();
             transform.localScale = originalScale;
         });
     }

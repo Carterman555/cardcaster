@@ -4,7 +4,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class ChestCollectable : MonoBehaviour {
+public class ChestItem : MonoBehaviour {
 
     [SerializeField] private InputActionReference selectAction;
 
@@ -17,9 +17,18 @@ public class ChestCollectable : MonoBehaviour {
     private SpriteRenderer spriteRenderer;
     private Interactable interactable;
 
+    [SerializeField] private ChangeColorFromRarity changeShineColor;
+
     private void Awake() {
         spriteRenderer = GetComponent<SpriteRenderer>();
         interactable = GetComponent<Interactable>();
+    }
+
+    private void OnEnable() {
+        interactable.OnInteract += OnInteract;
+    }
+    private void OnDisable() {
+        interactable.OnInteract -= OnInteract;
     }
 
     public void Setup(Chest chest, ICollectable collectable, int collectableIndex) {
@@ -39,18 +48,13 @@ public class ChestCollectable : MonoBehaviour {
         transform.DOScale(Vector2.one, duration).SetEase(Ease.OutSine).OnComplete(() => {
             interactable.enabled = true;
         });
+
+        changeShineColor.SetColor(collectable.GetRarity());
     }
 
-    private void Update() {
-
-        if (interactable && MouseTracker.Instance.IsMouseOver(gameObject)) {
-
-            //if (selectAction.action.triggered) {
-            if (Input.GetMouseButtonDown(0)) {
-                GoToPlayer();
-                StartCoroutine(chest.OnSelectCollectable(collectableIndex));
-            }
-        }
+    private void OnInteract() {
+        GoToPlayer();
+        StartCoroutine(chest.OnSelectCollectable(collectableIndex));
     }
 
     public void GoToPlayer() {
@@ -60,7 +64,7 @@ public class ChestCollectable : MonoBehaviour {
         // so it doesn't disappear when the chest does
         transform.SetParent(Containers.Instance.Effects);
 
-        float duration = 0.5f;
+        float duration = 0.2f;
         transform.DOMove(PlayerMovement.Instance.transform.position, duration).SetEase(Ease.InSine).OnComplete(() => {
             transform.DOScale(Vector2.zero, duration).SetEase(Ease.InSine).OnComplete(() => {
                 GainCollectable();

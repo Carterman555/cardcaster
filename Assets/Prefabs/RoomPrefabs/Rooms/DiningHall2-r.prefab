@@ -345,10 +345,6 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 2394718490218990673, guid: 4723c0ded694bfb4b9bd66f2d1dae76b, type: 3}
-      propertyPath: botColliderTilemap
-      value: 
-      objectReference: {fileID: 8413920733912396119}
-    - target: {fileID: 2394718490218990673, guid: 4723c0ded694bfb4b9bd66f2d1dae76b, type: 3}
       propertyPath: possibleDoorways.Array.size
       value: 2
       objectReference: {fileID: 0}
@@ -362,7 +358,7 @@ PrefabInstance:
       objectReference: {fileID: 4406360597070792308}
     - target: {fileID: 2779059601650462574, guid: 4723c0ded694bfb4b9bd66f2d1dae76b, type: 3}
       propertyPath: m_Name
-      value: DiningHall2
+      value: DiningHall2-r
       objectReference: {fileID: 0}
     - target: {fileID: 4963077493875852055, guid: 4723c0ded694bfb4b9bd66f2d1dae76b, type: 3}
       propertyPath: m_Points.m_Paths.Array.data[0].Array.size
@@ -16199,11 +16195,6 @@ Transform:
 --- !u!4 &8124305561102917607 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8884452204527657620, guid: 4723c0ded694bfb4b9bd66f2d1dae76b, type: 3}
-  m_PrefabInstance: {fileID: 861523333492751731}
-  m_PrefabAsset: {fileID: 0}
---- !u!1839735485 &8413920733912396119 stripped
-Tilemap:
-  m_CorrespondingSourceObject: {fileID: 9165105326778731556, guid: 4723c0ded694bfb4b9bd66f2d1dae76b, type: 3}
   m_PrefabInstance: {fileID: 861523333492751731}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1272173486708771547

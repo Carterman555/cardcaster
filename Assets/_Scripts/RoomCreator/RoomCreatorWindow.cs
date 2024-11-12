@@ -1,4 +1,5 @@
 #if UNITY_EDITOR
+using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
@@ -6,6 +7,8 @@ using UnityEngine;
 using UnityEngine.Tilemaps;
 
 public class RoomCreatorWindow : EditorWindow {
+
+    private Grid tilemapGrid;
 
     private Tilemap groundTilemap;
     private Tilemap topWallsTilemap;
@@ -19,38 +22,46 @@ public class RoomCreatorWindow : EditorWindow {
 
     [MenuItem("Tools/Room Creator")]
     public static void ShowWindow() {
-        RoomCreatorWindow window = GetWindow<RoomCreatorWindow>("Room Creator");
-        window.Initialize();
-    }
-
-    private void Initialize() {
+        GetWindow<RoomCreatorWindow>("Room Creator");
     }
 
     private void OnGUI() {
 
-        groundTilemap = EditorGUILayout.ObjectField("Ground Tilemap", groundTilemap, typeof(Tilemap), true) as Tilemap;
-        topWallsTilemap = EditorGUILayout.ObjectField("Top Walls Tilemap", topWallsTilemap, typeof(Tilemap), true) as Tilemap;
-        botWallsTilemap = EditorGUILayout.ObjectField("Bottom Walls Tilemap", botWallsTilemap, typeof(Tilemap), true) as Tilemap;
+        tilemapGrid = EditorGUILayout.ObjectField("Tilemap Grid", tilemapGrid, typeof(Grid), true) as Grid;
 
         GUILayout.Space(5);
         var headerRect = GUILayoutUtility.GetRect(0, height: 30, GUILayout.ExpandWidth(true));
         EditorGUI.LabelField(headerRect, "Tilemap Creator");
         GUILayout.Space(5);
 
-        roomTilemapCreator = EditorGUILayout.ObjectField("Room Tilemap Creator", roomTilemapCreator, typeof(RoomTilemapCreator), true) as RoomTilemapCreator;
         tileSetName = EditorGUILayout.TextField("Tile Set Name", tileSetName);
 
         if (GUILayout.Button("Create Wall Tiles")) {
+            Undo.RecordObjects( new Object[] { groundTilemap, topWallsTilemap, botWallsTilemap }, "Create Wall Tiles");
+
+            SetTilemaps();
+
+            roomTilemapCreator = Resources.Load<RoomTilemapCreator>("RoomTilemapCreator");
             roomTilemapCreator.CreateRoomTiles(tileSetName, groundTilemap, topWallsTilemap, botWallsTilemap);
         }
 
         GUILayout.Space(5);
 
         if (GUILayout.Button("Clear Ground Tilemap")) {
+
+            Undo.RecordObject(groundTilemap, "Clear Ground Tilemap");
+
+            SetTilemaps();
             ClearTilemap(groundTilemap);
         }
 
         if (GUILayout.Button("Clear Wall Tilemaps")) {
+
+            Undo.RecordObject(topWallsTilemap, "Clear Top Wall Tilemaps");
+            Undo.RecordObject(botWallsTilemap, "Clear Bot Wall Tilemaps");
+
+
+            SetTilemaps();
             ClearTilemap(topWallsTilemap);
             ClearTilemap(botWallsTilemap);
         }
@@ -64,12 +75,33 @@ public class RoomCreatorWindow : EditorWindow {
         camConfinerCollider = EditorGUILayout.ObjectField("Camera Confiner Collider", camConfinerCollider, typeof(PolygonCollider2D), true) as PolygonCollider2D;
 
         if (GUILayout.Button("Setup Polygon Colliders")) {
+            // Start undo recording for this object
+            Undo.RecordObject(roomCollider, "Setup Room Collider");
+            Undo.RecordObject(camConfinerCollider, "Setup Cam Confiner Collider");
+
+            SetTilemaps();
             RoomColliderMatcher roomColliderMatcher = new(roomCollider, camConfinerCollider, topWallsTilemap, botWallsTilemap);
             roomColliderMatcher.SetupRoomCollider();
             roomColliderMatcher.SetupCamConfinerCollider();
         }
 
         
+    }
+
+    private void SetTilemaps() {
+
+        string groundTilemapName = "GroundTilemap";
+        string topWallsTilemapName = "TopWallsTilemap";
+        string botWallsTilemapName = "BotWallsTilemap";
+
+        groundTilemap = tilemapGrid.transform.Find(groundTilemapName).GetComponent<Tilemap>();
+        if (groundTilemap == null) Debug.LogError("Could not find ground tilemap by name!");
+
+        topWallsTilemap = tilemapGrid.transform.Find(topWallsTilemapName).GetComponent<Tilemap>();
+        if (topWallsTilemap == null) Debug.LogError("Could not find top walls tilemap by name!");
+
+        botWallsTilemap = tilemapGrid.transform.Find(botWallsTilemapName).GetComponent<Tilemap>();
+        if (botWallsTilemap == null) Debug.LogError("Could not find bottom walls tilemap by name!");
     }
 
     private void ClearTilemap(Tilemap tilemap) {
@@ -80,5 +112,7 @@ public class RoomCreatorWindow : EditorWindow {
             }
         }
     }
+
+
 }
 #endif

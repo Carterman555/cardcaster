@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -294,8 +295,13 @@ public class RoomColliderMatcher {
 
 
     private void AddPoint(PolygonCollider2D polygonCollider, Vector2 point) {
+
+        // Add the new point to the list
         List<Vector2> pointsList = polygonCollider.points.ToList();
         pointsList.Add(point);
         polygonCollider.points = pointsList.ToArray();
+
+        // Mark the object as dirty so the editor knows it has changed
+        EditorUtility.SetDirty(polygonCollider);
     }
 }

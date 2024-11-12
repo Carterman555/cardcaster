@@ -81,7 +81,7 @@ public class RoomPositionHelper {
 
     private bool OnlyOnGroundTile(Room room, Vector2 point) {
         bool onGroundTile = OnTile(room.GetGroundTilemap(), point);
-        bool onColliderTile = OnTile(room.GetColliderTilemap(), point) || OnTile(room.GetBotColliderTilemap(), point);
+        bool onColliderTile = OnTile(room.GetTopWallsTilemap(), point) || OnTile(room.GetBotWallsTilemap(), point);
         return onGroundTile && !onColliderTile;
     }
 

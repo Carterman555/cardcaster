@@ -81,3 +81,63 @@ MonoBehaviour:
     - {fileID: 11400000, guid: 00857731647111049b9da35227134207, type: 2}
     OuterBottomRightCorners:
     - {fileID: 11400000, guid: ccd38890f39f9a04983ef31f5189c7c7, type: 2}
+  - Name: SmoothStone
+    GroundTiles:
+    - {fileID: 11400000, guid: 1f9a43c131049e44c9331bc679a60cca, type: 2}
+    - {fileID: 11400000, guid: df096aa651e77df4b9ce96eacdf9b446, type: 2}
+    - {fileID: 11400000, guid: 80988322e73fd9f4c8885eb26c49a2c5, type: 2}
+    - {fileID: 11400000, guid: aec1c881a5e5b92499b343f1ca04ba59, type: 2}
+    - {fileID: 11400000, guid: 2e1226cad30a280409bfbac7cc207c85, type: 2}
+    - {fileID: 11400000, guid: 3d3da11f3d0466f4795edeaccbb5192e, type: 2}
+    - {fileID: 11400000, guid: c01397ec4fc0aba48a9ff13c02851c45, type: 2}
+    - {fileID: 11400000, guid: eb9a95c0a2d7cea43b4174489a11c626, type: 2}
+    - {fileID: 11400000, guid: bbd049c4ec0026048b3ff472097c15e1, type: 2}
+    - {fileID: 11400000, guid: b1ec9e906d8370e4383390c412598add, type: 2}
+    - {fileID: 11400000, guid: 2b4ba787a31c28042907d2898143b5b9, type: 2}
+    - {fileID: 11400000, guid: 8bb9ccac0459c4b419b4e5fca19118ee, type: 2}
+    - {fileID: 11400000, guid: 5bf69a8d0c4f2e445a425d7db93f2c00, type: 2}
+    - {fileID: 11400000, guid: 16d0bc93afb14324b884256d2070b1a1, type: 2}
+    LowerTopWalls:
+    - {fileID: 11400000, guid: aa2349b085da0184dbcbb8e3df8c7caf, type: 2}
+    - {fileID: 11400000, guid: e120d2a0151566b44ac761693e38b738, type: 2}
+    MiddleTopWalls:
+    - {fileID: 11400000, guid: da2e9f910c214364c9405b188847601c, type: 2}
+    - {fileID: 11400000, guid: d2c8d1befd38d8042b81a30419fb3b1e, type: 2}
+    UpperTopWalls:
+    - {fileID: 11400000, guid: b7996f1dccafe2846b5d6f0a9ded513f, type: 2}
+    - {fileID: 11400000, guid: fc284337ad6e79048a078c982d4c51c9, type: 2}
+    BottomWalls:
+    - {fileID: 11400000, guid: 524acf05adc30414dbcc505585d97d95, type: 2}
+    - {fileID: 11400000, guid: 843f5c12848a13841a75e71db13d0a83, type: 2}
+    - {fileID: 11400000, guid: 647d883be0246334ca1ce8f08c793a2f, type: 2}
+    - {fileID: 11400000, guid: 05e6c9ee88d57124daf48ee007b9d706, type: 2}
+    LeftWalls:
+    - {fileID: 11400000, guid: 0f29d0dc231b9e542939a3f5e94ea3aa, type: 2}
+    - {fileID: 11400000, guid: c54036e7588bfa242b6b2e03cf61df66, type: 2}
+    - {fileID: 11400000, guid: 41f6028308fab8c49acc14f51d18a93e, type: 2}
+    - {fileID: 11400000, guid: b5ce2f686554cb040b42c604299e3cbe, type: 2}
+    - {fileID: 11400000, guid: 729c40232c808c249a2f0f9cf81c05b2, type: 2}
+    - {fileID: 11400000, guid: ce88818a6c0caf24c8f89e0b1fdae92d, type: 2}
+    RightWalls:
+    - {fileID: 11400000, guid: 4aba2b90191548147b0566426d576619, type: 2}
+    - {fileID: 11400000, guid: 1e9b39a67abebd9479e9c7212b3cda65, type: 2}
+    - {fileID: 11400000, guid: 6fd0aed7806800d449d0080b7b0c27a4, type: 2}
+    - {fileID: 11400000, guid: bd501aa67c86b5d4d984818d5c7e1e99, type: 2}
+    - {fileID: 11400000, guid: b2852a22f013be849bca455c7221bf25, type: 2}
+    - {fileID: 11400000, guid: 2ca863d2022b47645b62979d2489504a, type: 2}
+    InnerTopLeftCorners:
+    - {fileID: 11400000, guid: 99b412120de61bd4995a99cc88f594e5, type: 2}
+    InnerTopRightCorners:
+    - {fileID: 11400000, guid: 9c2f718053970da479cde9b664e566f3, type: 2}
+    InnerBottomLeftCorners:
+    - {fileID: 11400000, guid: 67ddd5d2c6772a54fa4a1c46df24fc0b, type: 2}
+    InnerBottomRightCorners:
+    - {fileID: 11400000, guid: d583a70a8ae5cb14c94bc89f9f28b5f9, type: 2}
+    OuterTopLeftCorners:
+    - {fileID: 11400000, guid: 0def5d25f68347b489fb34b1412c88fd, type: 2}
+    OuterTopRightCorners:
+    - {fileID: 11400000, guid: 4a8753f3154db6c4cbd143f1ee6a79ad, type: 2}
+    OuterBottomLeftCorners:
+    - {fileID: 11400000, guid: b394a9da2dcd2b344a8997e133bca8aa, type: 2}
+    OuterBottomRightCorners:
+    - {fileID: 11400000, guid: a1a0c854b6f1e814ea4fe9bd03d35fe8, type: 2}

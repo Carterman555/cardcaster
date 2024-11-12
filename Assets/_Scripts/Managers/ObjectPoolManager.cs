@@ -158,6 +158,11 @@ public static class ObjectPoolManager {
         string goName = objectToCheck.name[..^7];
         PooledObjectInfo pool = ObjectPoolList.Find(p => p.LookupString == goName);
 
+        //... if pool doesn't exist with this object
+        if (pool == null) {
+            return false;
+        }
+
         bool inPool = pool.InactiveObjects.Contains(objectToCheck);
         return inPool;
     }

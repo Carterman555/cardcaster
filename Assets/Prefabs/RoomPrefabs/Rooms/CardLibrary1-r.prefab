@@ -383,10 +383,6 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 2394718490218990673, guid: 4723c0ded694bfb4b9bd66f2d1dae76b, type: 3}
-      propertyPath: botColliderTilemap
-      value: 
-      objectReference: {fileID: 7021078423194137274}
-    - target: {fileID: 2394718490218990673, guid: 4723c0ded694bfb4b9bd66f2d1dae76b, type: 3}
       propertyPath: possibleDoorways.Array.size
       value: 2
       objectReference: {fileID: 0}
@@ -404,7 +400,7 @@ PrefabInstance:
       objectReference: {fileID: 8205705835259739272}
     - target: {fileID: 2779059601650462574, guid: 4723c0ded694bfb4b9bd66f2d1dae76b, type: 3}
       propertyPath: m_Name
-      value: CardLibrary1
+      value: CardLibrary1-r
       objectReference: {fileID: 0}
     - target: {fileID: 3713881456626135245, guid: 4723c0ded694bfb4b9bd66f2d1dae76b, type: 3}
       propertyPath: m_LocalPosition.x
@@ -25420,11 +25416,6 @@ Transform:
 --- !u!4 &3302621347294137939 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3713881456626135245, guid: 4723c0ded694bfb4b9bd66f2d1dae76b, type: 3}
-  m_PrefabInstance: {fileID: 2188502149196594846}
-  m_PrefabAsset: {fileID: 0}
---- !u!1839735485 &7021078423194137274 stripped
-Tilemap:
-  m_CorrespondingSourceObject: {fileID: 9165105326778731556, guid: 4723c0ded694bfb4b9bd66f2d1dae76b, type: 3}
   m_PrefabInstance: {fileID: 2188502149196594846}
   m_PrefabAsset: {fileID: 0}
 --- !u!4 &7283716054944324618 stripped

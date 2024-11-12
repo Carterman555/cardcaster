@@ -61,11 +61,11 @@ public class Room : MonoBehaviour {
         return groundTilemap;
     }
 
-    public Tilemap GetBotColliderTilemap() {
+    public Tilemap GetBotWallsTilemap() {
         return botColliderTilemap;
     }
 
-    public Tilemap GetColliderTilemap() {
+    public Tilemap GetTopWallsTilemap() {
         return colliderTilemap;
     }
 

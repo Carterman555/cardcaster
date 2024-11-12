@@ -278,16 +278,16 @@ public class RoomGenerator : StaticInstance<RoomGenerator> {
     #region Spawn Hallways
 
     private void RemoveTilesForHallway(Room newRoom, Room existingRoom, PossibleDoorway newDoorway, PossibleDoorway existingDoorway) {
-        Tilemap connectingColliderTilemap = existingDoorway.GetSide() == DoorwaySide.Bottom ?
-                            existingRoom.GetBotColliderTilemap() : existingRoom.GetColliderTilemap();
+        Tilemap connectingColliderTilemap = existingDoorway.GetSide() == DoorwaySide.Top ?
+                            existingRoom.GetTopWallsTilemap() : existingRoom.GetBotWallsTilemap();
 
         doorwayTileReplacer.DestroyTiles(existingRoom.GetGroundTilemap(),
             connectingColliderTilemap,
             existingDoorway.GetSide(),
             existingDoorway.transform.localPosition);
 
-        Tilemap newColliderTilemap = newDoorway.GetSide() == DoorwaySide.Bottom ?
-            newRoom.GetBotColliderTilemap() : newRoom.GetColliderTilemap();
+        Tilemap newColliderTilemap = newDoorway.GetSide() == DoorwaySide.Top ?
+            newRoom.GetTopWallsTilemap() : newRoom.GetBotWallsTilemap();
 
         doorwayTileReplacer.DestroyTiles(newRoom.GetGroundTilemap(),
             newColliderTilemap,

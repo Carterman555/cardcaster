@@ -12,6 +12,12 @@ public class RoomTilemapCreator : ScriptableObject {
 
     [SerializeField] private TileSet[] tileSets;
 
+    // I realized I want to have variables instead of passing these through as parameters, but I haven't 
+    // removed them as parameters yet
+    private Tilemap groundTilemap;
+    private Tilemap topWallsTilemap;
+    private Tilemap botWallsTilemap;
+
     // takes in the three tilemaps: ground (already contains tiles), top walls, bot walls.
     // 1) match tileGrid values to ground tilemap
     // 2) turn tiles the outline the ground into wall tile type
@@ -19,6 +25,10 @@ public class RoomTilemapCreator : ScriptableObject {
     // ground tiles
     // 4) places the tiles in the array
     public void CreateRoomTiles(string tileSetName, Tilemap groundTilemap, Tilemap topWallsTilemap, Tilemap botWallsTilemap) {
+
+        this.groundTilemap = groundTilemap;
+        this.topWallsTilemap = topWallsTilemap;
+        this.botWallsTilemap = botWallsTilemap;
 
         BoundsInt bounds = groundTilemap.cellBounds;
 
@@ -137,24 +147,40 @@ public class RoomTilemapCreator : ScriptableObject {
             return TileType.UpperTopWall;
         }
 
-        //... if no tile above and 3 tiles below are walls
-        if (GetTileAtPos(tileGrid, x, y + 1) == TileType.None &&
-            IsWallTile(tileGrid, x, y - 1) &&
+
+        bool threeBelowAreWalls = IsWallTile(tileGrid, x, y - 1) &&
             IsWallTile(tileGrid, x, y - 2) &&
-            IsWallTile(tileGrid, x, y - 3)) {
+            IsWallTile(tileGrid, x, y - 3);
 
-            // it can either be OuterTopRightCorner or OuterTopLeftCorner
+        bool threeToLeftGoingDownAreWalls = IsWallTile(tileGrid, x - 1, y) &&
+            IsWallTile(tileGrid, x - 1, y - 1) &&
+            IsWallTile(tileGrid, x - 1, y - 2);
 
-            //... if 3 down and 1 left is ground
-            if (GetTileAtPos(tileGrid, x - 1, y - 3) == TileType.Ground) {
-                return TileType.OuterTopRightCorner;
-            }
-
-            //... if 3 down and 1 right is ground
-            if (GetTileAtPos(tileGrid, x + 1, y - 3) == TileType.Ground) {
-                return TileType.OuterTopLeftCorner;
-            }
+        if (threeBelowAreWalls &&
+            threeToLeftGoingDownAreWalls &&
+            GetTileAtPos(tileGrid, x - 1, y - 3) == TileType.Ground) {
+            return TileType.OuterTopRightCorner;
         }
+
+        bool threeToRightGoingDownAreWalls = IsWallTile(tileGrid, x + 1, y) &&
+            IsWallTile(tileGrid, x + 1, y - 1) &&
+            IsWallTile(tileGrid, x + 1, y - 2);
+
+        if (threeBelowAreWalls &&
+            threeToRightGoingDownAreWalls &&
+            GetTileAtPos(tileGrid, x + 1, y - 3) == TileType.Ground) {
+            return TileType.OuterTopLeftCorner;
+        }
+
+        ////... if 3 down and 1 left is ground
+        //if (GetTileAtPos(tileGrid, x - 1, y - 3) == TileType.Ground) {
+        //    return TileType.OuterTopRightCorner;
+        //}
+
+        ////... if 3 down and 1 right is ground
+        //if (GetTileAtPos(tileGrid, x + 1, y - 3) == TileType.Ground) {
+        //    return TileType.OuterTopLeftCorner;
+        //}
 
         //... if tile above is ground
         if (GetTileAtPos(tileGrid, x, y + 1) == TileType.Ground) {
@@ -206,6 +232,14 @@ public class RoomTilemapCreator : ScriptableObject {
             return TileType.LeftWall;
         }
 
+        Vector3Int tilePos = GridToTilemapPos(groundTilemap, new Vector2(x, y));
+        TileSet tileSet = tileSets.First(t => t.Name == "Stone");
+        topWallsTilemap.SetTile(tilePos, GetRandomTileFromType(tileSet, TileType.Ground));
+
+        Debug.LogError($"Could not find which wall type should be used at {x}, {y}! Placed ground tile there.");
+
+
+
         return TileType.Wall;
     }
 
@@ -219,15 +253,13 @@ public class RoomTilemapCreator : ScriptableObject {
 
         TileSet tileSet = tileSets.First(t => t.Name == tileSetName);
 
-        BoundsInt groundBounds = groundTilemap.cellBounds;
-
         // go through each tile in grid
         for (int x = 0; x < tileGrid.GetLength(0); x++) {
             for (int y = 0; y < tileGrid.GetLength(1); y++) {
 
                 TileType tileType = tileGrid[x, y];
 
-                Vector3Int tilePos = new Vector3Int(x + groundBounds.min.x - 1, y + groundBounds.min.y - 1, 0);
+                Vector3Int tilePos = GridToTilemapPos(groundTilemap, new Vector2(x, y));
                 Tile tile = GetRandomTileFromType(tileSet, tileType);
                 Tilemap tilemap = GetTilemapFromTileType(tileType, groundTilemap, topWallsTilemap, botWallsTilemap);
 
@@ -350,6 +382,11 @@ public class RoomTilemapCreator : ScriptableObject {
         bool withinX = x >= 0 && x < tileGrid.GetLength(0);
         bool withinY = y >= 0 && y < tileGrid.GetLength(1);
         return withinX && withinY;
+    }
+
+    private Vector3Int GridToTilemapPos(Tilemap tilemap, Vector2 gridPos) {
+        BoundsInt bounds = tilemap.cellBounds;
+        return new Vector3Int((int)gridPos.x + bounds.min.x - 1, (int)gridPos.y + bounds.min.y - 1, 0);
     }
 
     private void PrintTileGrid(TileType[,] tileGrid) {

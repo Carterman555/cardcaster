@@ -141,3 +141,71 @@ MonoBehaviour:
     - {fileID: 11400000, guid: b394a9da2dcd2b344a8997e133bca8aa, type: 2}
     OuterBottomRightCorners:
     - {fileID: 11400000, guid: a1a0c854b6f1e814ea4fe9bd03d35fe8, type: 2}
+  - Name: BlueStone
+    GroundTiles:
+    - {fileID: 11400000, guid: 7d8978f5c6b3cc1419ef7b0a12027caf, type: 2}
+    - {fileID: 11400000, guid: 16c0e3f33896ce64094c4d2aee102493, type: 2}
+    - {fileID: 11400000, guid: 9a859046a7fcccc45b32c306d2e1daec, type: 2}
+    - {fileID: 11400000, guid: 61e9d5bbaf0a53147a15bc33fd7fc84d, type: 2}
+    - {fileID: 11400000, guid: f53a2b7131a484e4bb0592e34f8fd491, type: 2}
+    - {fileID: 11400000, guid: 358f19ac13a498448a8328931137715d, type: 2}
+    - {fileID: 11400000, guid: 17e5026988c7ece478bc3eee98f44914, type: 2}
+    - {fileID: 11400000, guid: 56ce163f3baadba478dab41e14609a98, type: 2}
+    - {fileID: 11400000, guid: e3dee7e324c572643bb04f2c8f7bccfa, type: 2}
+    - {fileID: 11400000, guid: e4e9828936854c347a535ad8a4e6cdaf, type: 2}
+    - {fileID: 11400000, guid: 9125b9e907e8a5f429ee8d61eaa8a997, type: 2}
+    - {fileID: 11400000, guid: f93a0b5d14431d646a663da7bb719d3d, type: 2}
+    - {fileID: 11400000, guid: 269257ab79dd23f4fa2df11637f0a83b, type: 2}
+    - {fileID: 11400000, guid: e2f69ce2e498ff242afe49bd412811e5, type: 2}
+    - {fileID: 11400000, guid: d4f91a93dbf91d44bad4d4e5219a935a, type: 2}
+    - {fileID: 11400000, guid: 76ba6eb4fba972d4dad49e803e5a7ade, type: 2}
+    LowerTopWalls:
+    - {fileID: 11400000, guid: caa64d9d069a51642ad2738e37944016, type: 2}
+    - {fileID: 11400000, guid: 6b25f30fa0555264f9f3535a9d985846, type: 2}
+    - {fileID: 11400000, guid: 088dc20bf1d8c9c4bacc9cd1a253bad4, type: 2}
+    - {fileID: 11400000, guid: f4373c393ed65954f98d03c479ad661a, type: 2}
+    MiddleTopWalls:
+    - {fileID: 11400000, guid: 00c26822cd6d5154f89e4c49eb259542, type: 2}
+    - {fileID: 11400000, guid: b5fb2aeeeaa5d2a439569aa69afd4e1a, type: 2}
+    - {fileID: 11400000, guid: fc8849645b408254badd37f97316d341, type: 2}
+    - {fileID: 11400000, guid: 7e9cfdcfa5470cb47bebe1c51f6c1399, type: 2}
+    UpperTopWalls:
+    - {fileID: 11400000, guid: b588d3ed8cb148345b0eed922d52eacb, type: 2}
+    - {fileID: 11400000, guid: c6ac320c0f309554cbac3bb1716091b6, type: 2}
+    - {fileID: 11400000, guid: 40a3b0a2d3b42c14cb61935dc7cdf4fb, type: 2}
+    - {fileID: 11400000, guid: 15b8ac43151f8454e8403ee9b6a6f289, type: 2}
+    BottomWalls:
+    - {fileID: 11400000, guid: a257a002f243465499221b0c160ea613, type: 2}
+    - {fileID: 11400000, guid: db92e7dc4cf5f434786d02683ae57e42, type: 2}
+    - {fileID: 11400000, guid: 3609ef51f4af90e44a7d70a40e52ace7, type: 2}
+    - {fileID: 11400000, guid: e432c31b8d6bac342bf4e8ef1365ce9f, type: 2}
+    LeftWalls:
+    - {fileID: 11400000, guid: 289a34fc80745044b9e2bcec009be424, type: 2}
+    - {fileID: 11400000, guid: 105e062a8c488e94ba4582077a211bb2, type: 2}
+    - {fileID: 11400000, guid: 65c7f562183d6f1458ec9594ac250d54, type: 2}
+    - {fileID: 11400000, guid: cdbb95fefa0af9b4293913a286eba23e, type: 2}
+    - {fileID: 11400000, guid: e89ba6d92b36fea47829be1911f55e1d, type: 2}
+    - {fileID: 11400000, guid: ca8d4054e0f12d54c933768b5368c3be, type: 2}
+    RightWalls:
+    - {fileID: 11400000, guid: 50bfadb1fdfcf0244bd9684ef9a87521, type: 2}
+    - {fileID: 11400000, guid: bbea686360585ba45b963ccd8bd75945, type: 2}
+    - {fileID: 11400000, guid: 504a090f8d8056b4b9e640cbb3e120fd, type: 2}
+    - {fileID: 11400000, guid: 2253dc0cda4ad6040a009e7f906a2e6a, type: 2}
+    - {fileID: 11400000, guid: aa4b23945a8c843439d1d4be541bfaf3, type: 2}
+    - {fileID: 11400000, guid: 9748921f378155346b430970ffca0955, type: 2}
+    InnerTopLeftCorners:
+    - {fileID: 11400000, guid: 3389689457057924e92cdb82f2ed312b, type: 2}
+    InnerTopRightCorners:
+    - {fileID: 11400000, guid: 308138a26693f2c45ba29fe46fb3c7f0, type: 2}
+    InnerBottomLeftCorners:
+    - {fileID: 11400000, guid: 5109e39bf89b19f4fb49a218d7a7eec4, type: 2}
+    InnerBottomRightCorners:
+    - {fileID: 11400000, guid: daac632e8b5741346a8a74d8696f99d1, type: 2}
+    OuterTopLeftCorners:
+    - {fileID: 11400000, guid: 048f1999585f83348ab8245d96c929f4, type: 2}
+    OuterTopRightCorners:
+    - {fileID: 11400000, guid: 8058fd4c45ef8104fa0c44636f030531, type: 2}
+    OuterBottomLeftCorners:
+    - {fileID: 11400000, guid: e617ed75617d3034286f7ae3a2b4a6b4, type: 2}
+    OuterBottomRightCorners:
+    - {fileID: 11400000, guid: b1a157a9a5bd8fb45aadae5cebb4c4dc, type: 2}

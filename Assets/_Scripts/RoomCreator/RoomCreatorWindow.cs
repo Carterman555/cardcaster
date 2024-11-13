@@ -37,9 +37,10 @@ public class RoomCreatorWindow : EditorWindow {
         tileSetName = EditorGUILayout.TextField("Tile Set Name", tileSetName);
 
         if (GUILayout.Button("Create Wall Tiles")) {
-            Undo.RecordObjects( new Object[] { groundTilemap, topWallsTilemap, botWallsTilemap }, "Create Wall Tiles");
 
             SetTilemaps();
+
+            Undo.RecordObjects(new Object[] { groundTilemap, topWallsTilemap, botWallsTilemap }, "Create Wall Tiles");
 
             roomTilemapCreator = Resources.Load<RoomTilemapCreator>("RoomTilemapCreator");
             roomTilemapCreator.CreateRoomTiles(tileSetName, groundTilemap, topWallsTilemap, botWallsTilemap);
@@ -48,20 +49,19 @@ public class RoomCreatorWindow : EditorWindow {
         GUILayout.Space(5);
 
         if (GUILayout.Button("Clear Ground Tilemap")) {
+            SetTilemaps();
 
             Undo.RecordObject(groundTilemap, "Clear Ground Tilemap");
 
-            SetTilemaps();
             ClearTilemap(groundTilemap);
         }
 
         if (GUILayout.Button("Clear Wall Tilemaps")) {
+            SetTilemaps();
 
             Undo.RecordObject(topWallsTilemap, "Clear Top Wall Tilemaps");
             Undo.RecordObject(botWallsTilemap, "Clear Bot Wall Tilemaps");
 
-
-            SetTilemaps();
             ClearTilemap(topWallsTilemap);
             ClearTilemap(botWallsTilemap);
         }
@@ -75,11 +75,12 @@ public class RoomCreatorWindow : EditorWindow {
         camConfinerCollider = EditorGUILayout.ObjectField("Camera Confiner Collider", camConfinerCollider, typeof(PolygonCollider2D), true) as PolygonCollider2D;
 
         if (GUILayout.Button("Setup Polygon Colliders")) {
+            SetTilemaps();
+
             // Start undo recording for this object
             Undo.RecordObject(roomCollider, "Setup Room Collider");
             Undo.RecordObject(camConfinerCollider, "Setup Cam Confiner Collider");
 
-            SetTilemaps();
             RoomColliderMatcher roomColliderMatcher = new(roomCollider, camConfinerCollider, topWallsTilemap, botWallsTilemap);
             roomColliderMatcher.SetupRoomCollider();
             roomColliderMatcher.SetupCamConfinerCollider();

@@ -69,7 +69,7 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 1024
+    maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 0
@@ -1021,7 +1021,7 @@ TextureImporter:
         width: 21
         height: 30
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -1029,6 +1029,27 @@ TextureImporter:
       bones: []
       spriteID: d2c86e316faa6bf4ab561ccc29c93b6e
       internalID: -1944370585
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: objects-tilemap_44
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 224
+        width: 40
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 10a02f40ed74f0d46a45d0c748cc269f
+      internalID: -1975879975
       vertices: []
       indices: 
       edges: []
@@ -1083,6 +1104,7 @@ TextureImporter:
       objects-tilemap_41: 349294264
       objects-tilemap_42: -214076377
       objects-tilemap_43: -1944370585
+      objects-tilemap_44: -1975879975
       objects-tilemap_5: -1550118371
       objects-tilemap_6: -1096088295
       objects-tilemap_7: 1389965165

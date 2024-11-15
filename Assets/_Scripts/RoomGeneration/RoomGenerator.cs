@@ -17,6 +17,8 @@ public class RoomGenerator : StaticInstance<RoomGenerator> {
 
     private List<RoomOverlapChecker> roomOverlapCheckers = new();
 
+    private EnvironmentType currentEnvironmentType;
+
     public bool IsGeneratingRooms() {
         return isGeneratingRooms;
     }
@@ -26,7 +28,18 @@ public class RoomGenerator : StaticInstance<RoomGenerator> {
         isGeneratingRooms = true;
     }
 
-    private IEnumerator Start() {
+    private void Start() {
+        print("level: " + LevelManager.Instance.GetLevel());
+        GenerateRooms((EnvironmentType)LevelManager.Instance.GetLevel() - 1);
+    }
+
+    public void GenerateRooms(EnvironmentType environmentType) {
+        print($"environmentType: {environmentType}");
+        currentEnvironmentType = environmentType;
+        StartCoroutine(GenerateRoomsCor());
+    }
+
+    private IEnumerator GenerateRoomsCor() {
         yield return StartCoroutine(GenerateLayout());
 
         SpawnRooms();
@@ -138,6 +151,7 @@ public class RoomGenerator : StaticInstance<RoomGenerator> {
     private ScriptableRoom GetRandomUniqueRoom(RoomType roomType) {
         ScriptableRoom newRoomScriptable;
         List<ScriptableRoom> availableRooms = ResourceSystem.Instance.GetRooms(roomType)
+            .Where(room => room.EnvironmentType == currentEnvironmentType)
             .Where(room => !usedRooms[roomType].Contains(room)).ToList();
 
         // doesn't need to be unique if reward room

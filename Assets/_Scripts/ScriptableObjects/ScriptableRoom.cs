@@ -11,11 +11,20 @@ public enum RoomType {
     Exit
 }
 
+public enum EnvironmentType {
+    Stone = 0,
+    SmoothStone = 1,
+    BlueStone = 2
+}
+
 [CreateAssetMenu(fileName = "New Room Data", menuName = "Room Generation/Room Data")]
 public class ScriptableRoom : ScriptableObject {
 
     [SerializeField] private RoomType roomType;
     public RoomType RoomType => roomType;
+
+    [SerializeField] private EnvironmentType environmentType;
+    public EnvironmentType EnvironmentType => environmentType;
 
     [SerializeField] private Room roomPrefab;
     public Room Prefab => roomPrefab;

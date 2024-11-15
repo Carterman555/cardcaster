@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: RoomTilemapCreator
   m_EditorClassIdentifier: 
   tileSets:
-  - Name: Stone
+  - EnvironmentType: 0
     GroundTiles:
     - {fileID: 11400000, guid: 4e037845ca23e4e438d56100875622ab, type: 2}
     - {fileID: 11400000, guid: ed2719a0c999a3344a8f94e5463a5814, type: 2}
@@ -81,7 +81,7 @@ MonoBehaviour:
     - {fileID: 11400000, guid: 00857731647111049b9da35227134207, type: 2}
     OuterBottomRightCorners:
     - {fileID: 11400000, guid: ccd38890f39f9a04983ef31f5189c7c7, type: 2}
-  - Name: SmoothStone
+  - EnvironmentType: 1
     GroundTiles:
     - {fileID: 11400000, guid: 1f9a43c131049e44c9331bc679a60cca, type: 2}
     - {fileID: 11400000, guid: df096aa651e77df4b9ce96eacdf9b446, type: 2}
@@ -141,7 +141,7 @@ MonoBehaviour:
     - {fileID: 11400000, guid: b394a9da2dcd2b344a8997e133bca8aa, type: 2}
     OuterBottomRightCorners:
     - {fileID: 11400000, guid: a1a0c854b6f1e814ea4fe9bd03d35fe8, type: 2}
-  - Name: BlueStone
+  - EnvironmentType: 2
     GroundTiles:
     - {fileID: 11400000, guid: 7d8978f5c6b3cc1419ef7b0a12027caf, type: 2}
     - {fileID: 11400000, guid: 16c0e3f33896ce64094c4d2aee102493, type: 2}

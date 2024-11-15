@@ -24,7 +24,7 @@ public class RoomTilemapCreator : ScriptableObject {
     // 3) goes through each outline and decides which tile it's going to be based on the position of the surrounding
     // ground tiles
     // 4) places the tiles in the array
-    public void CreateRoomTiles(string tileSetName, Tilemap groundTilemap, Tilemap topWallsTilemap, Tilemap botWallsTilemap) {
+    public void CreateRoomTiles(EnvironmentType environmentType, Tilemap groundTilemap, Tilemap topWallsTilemap, Tilemap botWallsTilemap) {
 
         this.groundTilemap = groundTilemap;
         this.topWallsTilemap = topWallsTilemap;
@@ -42,7 +42,7 @@ public class RoomTilemapCreator : ScriptableObject {
 
         SetSpecificWallTileTypes(ref tileGrid);
 
-        PlaceTiles(tileGrid, tileSetName, groundTilemap, topWallsTilemap, botWallsTilemap);
+        PlaceTiles(tileGrid, environmentType, groundTilemap, topWallsTilemap, botWallsTilemap);
     }
 
     private void CopyGroundTilesToTileGrid(ref TileType[,] tileGrid, Tilemap groundTilemap) {
@@ -172,15 +172,6 @@ public class RoomTilemapCreator : ScriptableObject {
             return TileType.OuterTopLeftCorner;
         }
 
-        ////... if 3 down and 1 left is ground
-        //if (GetTileAtPos(tileGrid, x - 1, y - 3) == TileType.Ground) {
-        //    return TileType.OuterTopRightCorner;
-        //}
-
-        ////... if 3 down and 1 right is ground
-        //if (GetTileAtPos(tileGrid, x + 1, y - 3) == TileType.Ground) {
-        //    return TileType.OuterTopLeftCorner;
-        //}
 
         //... if tile above is ground
         if (GetTileAtPos(tileGrid, x, y + 1) == TileType.Ground) {
@@ -233,7 +224,7 @@ public class RoomTilemapCreator : ScriptableObject {
         }
 
         Vector3Int tilePos = GridToTilemapPos(groundTilemap, new Vector2(x, y));
-        TileSet tileSet = tileSets.First(t => t.Name == "Stone");
+        TileSet tileSet = tileSets.First(t => t.EnvironmentType == EnvironmentType.Stone);
         topWallsTilemap.SetTile(tilePos, GetRandomTileFromType(tileSet, TileType.Ground));
 
         Debug.LogError($"Could not find which wall type should be used at {x}, {y}! Placed ground tile there.");
@@ -249,9 +240,9 @@ public class RoomTilemapCreator : ScriptableObject {
         return isWallTile;
     }
 
-    private void PlaceTiles(TileType[,] tileGrid, string tileSetName, Tilemap groundTilemap, Tilemap topWallsTilemap, Tilemap botWallsTilemap) {
+    private void PlaceTiles(TileType[,] tileGrid, EnvironmentType environmentType, Tilemap groundTilemap, Tilemap topWallsTilemap, Tilemap botWallsTilemap) {
 
-        TileSet tileSet = tileSets.First(t => t.Name == tileSetName);
+        TileSet tileSet = tileSets.First(t => t.EnvironmentType == environmentType);
 
         // go through each tile in grid
         for (int x = 0; x < tileGrid.GetLength(0); x++) {
@@ -451,7 +442,7 @@ public class RoomTilemapCreator : ScriptableObject {
 
     [Serializable]
     private struct TileSet {
-        public string Name;
+        public EnvironmentType EnvironmentType;
 
         public Tile[] GroundTiles;
 

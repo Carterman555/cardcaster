@@ -15,7 +15,7 @@ public class RoomCreatorWindow : EditorWindow {
     private Tilemap botWallsTilemap;
 
     private RoomTilemapCreator roomTilemapCreator;
-    private string tileSetName;
+    private EnvironmentType environmentType;
 
     private PolygonCollider2D roomCollider;
     private PolygonCollider2D camConfinerCollider;
@@ -34,7 +34,7 @@ public class RoomCreatorWindow : EditorWindow {
         EditorGUI.LabelField(headerRect, "Tilemap Creator");
         GUILayout.Space(5);
 
-        tileSetName = EditorGUILayout.TextField("Tile Set Name", tileSetName);
+        environmentType = (EnvironmentType)EditorGUILayout.EnumPopup("Environment Type", environmentType);
 
         if (GUILayout.Button("Create Wall Tiles")) {
 
@@ -43,7 +43,7 @@ public class RoomCreatorWindow : EditorWindow {
             Undo.RecordObjects(new Object[] { groundTilemap, topWallsTilemap, botWallsTilemap }, "Create Wall Tiles");
 
             roomTilemapCreator = Resources.Load<RoomTilemapCreator>("RoomTilemapCreator");
-            roomTilemapCreator.CreateRoomTiles(tileSetName, groundTilemap, topWallsTilemap, botWallsTilemap);
+            roomTilemapCreator.CreateRoomTiles(environmentType, groundTilemap, topWallsTilemap, botWallsTilemap);
         }
 
         GUILayout.Space(5);

@@ -21,6 +21,10 @@ public class FeedbackPlayer : MonoBehaviour {
         feedbackPlayers.Add(feedbackName, this);
     }
 
+    private void OnDestroy() {
+        feedbackPlayers.Remove(feedbackName);
+    }
+
     public static void Play(string feedbackName) {
         feedbackPlayers[feedbackName].Play();
     }

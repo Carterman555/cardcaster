@@ -2636,7 +2636,7 @@ PrefabInstance:
       objectReference: {fileID: 7506847317250540694}
     - target: {fileID: 2779059601650462574, guid: 4723c0ded694bfb4b9bd66f2d1dae76b, type: 3}
       propertyPath: m_Name
-      value: Storage4
+      value: Storage2-SmoothStone
       objectReference: {fileID: 0}
     - target: {fileID: 4963077493875852055, guid: 4723c0ded694bfb4b9bd66f2d1dae76b, type: 3}
       propertyPath: m_Points.m_Paths.Array.data[0].Array.size
@@ -14748,8 +14748,29 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 8875133518755227330, guid: 535947c62a96a604aa81483e019bea56, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7209851643432618804}
   m_SourcePrefab: {fileID: 100100000, guid: 535947c62a96a604aa81483e019bea56, type: 3}
+--- !u!1 &6499561963223592526 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8875133518755227330, guid: 535947c62a96a604aa81483e019bea56, type: 3}
+  m_PrefabInstance: {fileID: 2385179107999893644}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &7209851643432618804
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6499561963223592526}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d266ec11b814ba42ac8bd2acd540118, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  activeProbability: 0.72
 --- !u!4 &9203601993278514221 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6818476786581843105, guid: 535947c62a96a604aa81483e019bea56, type: 3}

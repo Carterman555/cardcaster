@@ -12,5 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f39f8fa72b60e1341889981f5fd9c4a8, type: 3}
   m_Name: DiningHall2-Stone
   m_EditorClassIdentifier: 
-  roomType: 0
+  roomType: 1
+  environmentType: 0
   roomPrefab: {fileID: 3084685571954290978, guid: 4372d23d185935044b130b893154750e, type: 3}

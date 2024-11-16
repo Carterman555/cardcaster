@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 6700296248950954747}
   - component: {fileID: 4652640521394271643}
   - component: {fileID: 6378933325722892584}
+  - component: {fileID: -4026846413475061730}
   m_Layer: 0
   m_Name: BlueBush2
   m_TagString: Untagged
@@ -72,7 +73,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -210121459
-  m_SortingLayer: 3
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_Sprite: {fileID: -203935277, guid: c3bb67cfc23389b428b8538cb2cf8896, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -94,6 +95,19 @@ SortingGroup:
   m_GameObject: {fileID: 6586402331342424620}
   m_Enabled: 1
   m_SortingLayerID: -210121459
-  m_SortingLayer: 3
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_SortAtRoot: 1
+--- !u!114 &-4026846413475061730
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6586402331342424620}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d266ec11b814ba42ac8bd2acd540118, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  activeProbability: 0.75

@@ -45,11 +45,13 @@ public class PlayerMeleeAttack : StaticInstance<PlayerMeleeAttack>, ITargetAttac
             attackTimer = 0f;
         }
 
-        // hide hand behind player head
+        // hide sword and hand behind player head
         if (weapon.InUpPos()) {
+            ReferenceSystem.Instance.PlayerSwordVisual.sortingOrder = 0;
             hand.sortingOrder = 0;
         }
         else {
+            ReferenceSystem.Instance.PlayerSwordVisual.sortingOrder = 1;
             hand.sortingOrder = 1;
         }
     }

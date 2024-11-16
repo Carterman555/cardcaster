@@ -13,4 +13,5 @@ MonoBehaviour:
   m_Name: CardLibrary1-Stone
   m_EditorClassIdentifier: 
   roomType: 0
+  environmentType: 0
   roomPrefab: {fileID: 4567952786592543439, guid: 40b2a4ee98096e647b12052bd868489b, type: 3}

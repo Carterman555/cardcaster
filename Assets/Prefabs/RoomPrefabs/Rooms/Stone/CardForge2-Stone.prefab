@@ -1878,7 +1878,7 @@ PrefabInstance:
       objectReference: {fileID: 8749291279478786821}
     - target: {fileID: 2779059601650462574, guid: 4723c0ded694bfb4b9bd66f2d1dae76b, type: 3}
       propertyPath: m_Name
-      value: CardForge2
+      value: CardForge2-Stone
       objectReference: {fileID: 0}
     - target: {fileID: 4963077493875852055, guid: 4723c0ded694bfb4b9bd66f2d1dae76b, type: 3}
       propertyPath: m_Points.m_Paths.Array.data[0].Array.size
@@ -10572,7 +10572,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: Barrel_1
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 7968721769289316898, guid: de11213faf568ad4085521b8bf93c17b, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -11189,11 +11190,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2428570351794732679, guid: 72a33e071b44e1643ae270c4cf19bc79, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 4.5184336
+      value: -1.78
       objectReference: {fileID: 0}
     - target: {fileID: 2428570351794732679, guid: 72a33e071b44e1643ae270c4cf19bc79, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -6.1571794
+      value: -1.73
       objectReference: {fileID: 0}
     - target: {fileID: 2428570351794732679, guid: 72a33e071b44e1643ae270c4cf19bc79, type: 3}
       propertyPath: m_LocalPosition.z

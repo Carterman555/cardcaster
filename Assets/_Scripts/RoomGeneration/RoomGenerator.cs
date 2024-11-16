@@ -29,12 +29,10 @@ public class RoomGenerator : StaticInstance<RoomGenerator> {
     }
 
     private void Start() {
-        print("level: " + LevelManager.Instance.GetLevel());
         GenerateRooms((EnvironmentType)LevelManager.Instance.GetLevel() - 1);
     }
 
     public void GenerateRooms(EnvironmentType environmentType) {
-        print($"environmentType: {environmentType}");
         currentEnvironmentType = environmentType;
         StartCoroutine(GenerateRoomsCor());
     }
@@ -64,12 +62,11 @@ public class RoomGenerator : StaticInstance<RoomGenerator> {
     private Dictionary<RoomType, List<ScriptableRoom>> usedRooms;
 
     private IEnumerator GenerateLayout() {
-        yield return StartCoroutine(TryGenerateLayout());
-
-        while (failedRoomCreation) {
+        do {
             failedRoomCreation = false;
             yield return StartCoroutine(TryGenerateLayout());
         }
+        while (failedRoomCreation);
     }
 
     private IEnumerator TryGenerateLayout() {
@@ -136,7 +133,7 @@ public class RoomGenerator : StaticInstance<RoomGenerator> {
                 yield return StartCoroutine(TrySpawnRoomChecker(newRoomPrefab, subLayout.ParentRoomOverlapChecker, (success) => canSpawn = success));
             }
 
-            usedRooms[newRoomScriptable.RoomType].Add(newRoomScriptable);
+            usedRooms[newRoomScriptable.RoomType].Add(newRoomScriptable); 
 
             RoomOverlapChecker newRoomChecker = roomOverlapCheckers.Last();
             SetChildrensChecker(subLayout, newRoomChecker, newRoomPrefab);
@@ -152,11 +149,14 @@ public class RoomGenerator : StaticInstance<RoomGenerator> {
         ScriptableRoom newRoomScriptable;
         List<ScriptableRoom> availableRooms = ResourceSystem.Instance.GetRooms(roomType)
             .Where(room => room.EnvironmentType == currentEnvironmentType)
-            .Where(room => !usedRooms[roomType].Contains(room)).ToList();
+            //.Where(room => !usedRooms[roomType].Contains(room)) // commented to reuse same rooms because not enough yet
+            .ToList();
 
         // doesn't need to be unique if reward room
         if (roomType == RoomType.Reward) {
-            availableRooms = ResourceSystem.Instance.GetRooms(roomType).ToList();
+            availableRooms = ResourceSystem.Instance.GetRooms(roomType)
+                .Where(room => room.EnvironmentType == currentEnvironmentType)
+                .ToList();
         }
 
         if (availableRooms.Count == 0) {
@@ -216,8 +216,7 @@ public class RoomGenerator : StaticInstance<RoomGenerator> {
     [SerializeField] private DoorwayTileDestroyer doorwayTileReplacer;
     [SerializeField] private GameObject cameraConfiner;
 
-    [SerializeField] private Transform horizontalHallwayPrefab;
-    [SerializeField] private Transform verticalHallwayPrefab;
+    
 
     private Dictionary<RoomOverlapChecker, Room> spawnRoomsDict = new();
 
@@ -291,6 +290,16 @@ public class RoomGenerator : StaticInstance<RoomGenerator> {
 
     #region Spawn Hallways
 
+    [Header("Spawn Hallways")]
+    [SerializeField] private List<HallwaySet> hallwaySets;
+
+    [Serializable]
+    public struct HallwaySet {
+        public EnvironmentType EnvironmentType;
+        public Transform HorizontalHallwayPrefab;
+        public Transform VerticalHallwayPrefab;
+    }
+
     private void RemoveTilesForHallway(Room newRoom, Room existingRoom, PossibleDoorway newDoorway, PossibleDoorway existingDoorway) {
         Tilemap connectingWallTilemap = existingDoorway.GetSide() == DoorwaySide.Top ?
                             existingRoom.GetTopWallsTilemap() : existingRoom.GetBotWallsTilemap();
@@ -331,17 +340,11 @@ public class RoomGenerator : StaticInstance<RoomGenerator> {
     private void SpawnHallway(DoorwaySide doorwaySide, Vector2 doorwayPosition) {
 
         Transform hallwayPrefab = null;
-        if (doorwaySide == DoorwaySide.Top) {
-            hallwayPrefab = verticalHallwayPrefab;
+        if (doorwaySide == DoorwaySide.Top || doorwaySide == DoorwaySide.Bottom) {
+            hallwayPrefab = hallwaySets.FirstOrDefault(set => set.EnvironmentType == currentEnvironmentType).VerticalHallwayPrefab;
         }
-        else if (doorwaySide == DoorwaySide.Bottom) {
-            hallwayPrefab = verticalHallwayPrefab;
-        }
-        else if (doorwaySide == DoorwaySide.Left) {
-            hallwayPrefab = horizontalHallwayPrefab;
-        }
-        else if (doorwaySide == DoorwaySide.Right) {
-            hallwayPrefab = horizontalHallwayPrefab;
+        else if (doorwaySide == DoorwaySide.Left || doorwaySide == DoorwaySide.Right) {
+            hallwayPrefab = hallwaySets.FirstOrDefault(set => set.EnvironmentType == currentEnvironmentType).HorizontalHallwayPrefab;
         }
 
         float hallwayOffset = 4;

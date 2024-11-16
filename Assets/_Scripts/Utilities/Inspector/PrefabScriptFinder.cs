@@ -100,7 +100,7 @@ public class PrefabScriptFinder : EditorWindow {
         EditorGUILayout.BeginHorizontal();
 
         // Object name and hierarchy path
-        string displayName = isPrefab ? obj.name : GetGameObjectPath(obj);
+        string displayName = isPrefab ? GetPrefabPath(obj) : GetGameObjectPath(obj);
         if (GUILayout.Button(displayName, EditorStyles.label)) {
             EditorGUIUtility.PingObject(obj);
         }
@@ -125,17 +125,40 @@ public class PrefabScriptFinder : EditorWindow {
         return path;
     }
 
+    private string GetPrefabPath(GameObject obj) {
+        GameObject prefabRoot = PrefabUtility.GetOutermostPrefabInstanceRoot(obj);
+        if (prefabRoot == null) prefabRoot = obj;
+
+        string path = obj.name;
+        Transform current = obj.transform;
+        Transform rootTransform = prefabRoot.transform;
+
+        while (current != rootTransform && current.parent != null) {
+            path = current.parent.name + "/" + path;
+            current = current.parent;
+        }
+
+        return path;
+    }
+
     private void FindPrefabsWithScript() {
         string[] guids = AssetDatabase.FindAssets("t:Prefab");
+        System.Type targetType = targetScript.GetClass();
 
         for (int i = 0; i < guids.Length; i++) {
             string path = AssetDatabase.GUIDToAssetPath(guids[i]);
             GameObject prefab = AssetDatabase.LoadAssetAtPath<GameObject>(path);
 
             if (prefab != null) {
-                System.Type targetType = targetScript.GetClass();
-                if (prefab.GetComponent(targetType) != null) {
-                    foundPrefabs.Add(prefab);
+                // Check the prefab and all its children for the script
+                Component[] components = prefab.GetComponentsInChildren(targetType, true);
+                if (components != null && components.Length > 0) {
+                    // Add each game object that has the component
+                    foreach (Component component in components) {
+                        if (!foundPrefabs.Contains(component.gameObject)) {
+                            foundPrefabs.Add(component.gameObject);
+                        }
+                    }
                 }
             }
 
@@ -154,42 +177,30 @@ public class PrefabScriptFinder : EditorWindow {
     private void FindSceneObjectsWithScript() {
         Scene activeScene = SceneManager.GetActiveScene();
         GameObject[] rootObjects = activeScene.GetRootGameObjects();
-        List<GameObject> allObjects = new List<GameObject>();
-
-        // Gather all objects in the scene
-        foreach (GameObject root in rootObjects) {
-            allObjects.Add(root);
-            allObjects.AddRange(GetAllChildren(root));
-        }
-
         System.Type targetType = targetScript.GetClass();
 
-        for (int i = 0; i < allObjects.Count; i++) {
-            GameObject obj = allObjects[i];
+        for (int i = 0; i < rootObjects.Length; i++) {
+            GameObject root = rootObjects[i];
+            Component[] components = root.GetComponentsInChildren(targetType, true);
 
-            if (obj.GetComponent(targetType) != null) {
-                foundSceneObjects.Add(obj);
+            if (components != null && components.Length > 0) {
+                foreach (Component component in components) {
+                    if (!foundSceneObjects.Contains(component.gameObject)) {
+                        foundSceneObjects.Add(component.gameObject);
+                    }
+                }
             }
 
             // Update progress bar
             if (EditorUtility.DisplayCancelableProgressBar(
                 "Searching Scene Objects",
-                $"Checking: {obj.name}",
-                i / (float)allObjects.Count)) {
+                $"Checking: {root.name}",
+                i / (float)rootObjects.Length)) {
                 break;
             }
         }
 
         EditorUtility.ClearProgressBar();
-    }
-
-    private List<GameObject> GetAllChildren(GameObject obj) {
-        List<GameObject> children = new List<GameObject>();
-        foreach (Transform child in obj.transform) {
-            children.Add(child.gameObject);
-            children.AddRange(GetAllChildren(child.gameObject));
-        }
-        return children;
     }
 }
 #endif

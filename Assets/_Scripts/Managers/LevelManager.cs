@@ -13,6 +13,11 @@ public class LevelManager : Singleton<LevelManager> {
         level = 1;
     }
 
+    public void StartGame() {
+        level = 1;
+        StartCoroutine(LoadLevel());
+    }
+
     [Command]
     public void NextLevel() {
         level++;

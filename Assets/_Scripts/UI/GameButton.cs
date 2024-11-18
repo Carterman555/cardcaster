@@ -16,11 +16,7 @@ public class GameButton : MonoBehaviour {
         button.onClick.RemoveListener(OnClick);
     }
 
-    //[SerializeField] private bool playClickAudio = true;
-
     protected virtual void OnClick() {
-        //if (playClickAudio) {
-        //    AudioSystem.Instance.PlaySound(AudioSystem.SoundClips.ButtonClick, 0f, 1f);
-        //}
+
     }
 }

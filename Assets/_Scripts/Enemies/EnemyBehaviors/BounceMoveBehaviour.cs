@@ -32,14 +32,14 @@ public class BounceMoveBehaviour : MonoBehaviour, IEffectable, IEnemyMovement {
     }
 
     private void OnEnable() {
-        bounceTrigger.OnEnterContact += Bounce;
+        bounceTrigger.OnEnterContact_GO += Bounce;
 
         RandomizeDirection();
 
         emergencyBounceTimer = 0;
     }
     private void OnDisable() {
-        bounceTrigger.OnEnterContact -= Bounce;
+        bounceTrigger.OnEnterContact_GO -= Bounce;
 
         // reset direction facing
         if (!twoWayFacing) {

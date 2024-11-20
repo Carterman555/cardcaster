@@ -17,18 +17,18 @@ public class HorizontalDoor : MonoBehaviour {
     private bool doorIsBlocked;
 
     private void OnEnable() {
-        topPlayerTrigger.OnEnterContact += TryOpenDownwards;
-        bottomPlayerTrigger.OnEnterContact += TryOpenUpwards;
+        topPlayerTrigger.OnEnterContact_GO += TryOpenDownwards;
+        bottomPlayerTrigger.OnEnterContact_GO += TryOpenUpwards;
 
-        cardBlockerTrigger.OnEnterContact += TryClose;
-        cardBlockerTrigger.OnExitContact += TryReopen;
+        cardBlockerTrigger.OnEnterContact_GO += TryClose;
+        cardBlockerTrigger.OnExitContact_GO += TryReopen;
     }
     private void OnDisable() {
-        topPlayerTrigger.OnEnterContact -= TryOpenDownwards;
-        bottomPlayerTrigger.OnEnterContact -= TryOpenUpwards;
+        topPlayerTrigger.OnEnterContact_GO -= TryOpenDownwards;
+        bottomPlayerTrigger.OnEnterContact_GO -= TryOpenUpwards;
 
-        cardBlockerTrigger.OnEnterContact -= TryClose;
-        cardBlockerTrigger.OnExitContact -= TryReopen;
+        cardBlockerTrigger.OnEnterContact_GO -= TryClose;
+        cardBlockerTrigger.OnExitContact_GO -= TryReopen;
     }
 
     private void TryOpenDownwards(GameObject player) {

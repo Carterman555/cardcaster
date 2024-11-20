@@ -12,12 +12,12 @@ public class Campfire : MonoBehaviour {
     [SerializeField] private Animator anim;
 
     private void OnEnable() {
-        playerTracker.OnEnterContact += TryOpenTrashUI;
+        playerTracker.OnEnterContact_GO += TryOpenTrashUI;
 
         used = false;
     }
     private void OnDisable() {
-        playerTracker.OnEnterContact -= TryOpenTrashUI;
+        playerTracker.OnEnterContact_GO -= TryOpenTrashUI;
     }
 
     private void TryOpenTrashUI(GameObject player) {

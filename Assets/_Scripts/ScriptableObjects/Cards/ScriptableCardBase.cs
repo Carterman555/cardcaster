@@ -22,12 +22,15 @@ public abstract class ScriptableCardBase : ScriptableObject, ICollectable {
     [SerializeField] private Rarity rarity;
     public Rarity GetRarity() => rarity;
 
-    [SerializeField] private Level minLevel = Level.Level1;
-    public Level MinLevel => minLevel;
+    [SerializeField] private int minLevel = 1;
+    public int MinLevel => minLevel;
 
     [Header("Advanced Info")]
     [SerializeField] private bool canStackWithSelf;
     public bool CanStackWithSelf => canStackWithSelf;
+
+    [SerializeField] private bool startUnlocked;
+    public bool StartUnlocked => startUnlocked;
 
     public virtual void TryPlay(Vector2 position) {
 

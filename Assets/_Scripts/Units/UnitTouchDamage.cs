@@ -35,8 +35,8 @@ public class UnitTouchDamage : MonoBehaviour {
     }
 
     private void OnEnable() {
-        tracker.OnEnterContact += HandleEnterContact;
-        tracker.OnExitContact += HandleLeaveContact;
+        tracker.OnEnterContact_GO += HandleEnterContact;
+        tracker.OnExitContact_GO += HandleLeaveContact;
 
         if (hasHealth) {
             health.OnDeath += StopAllDamage;
@@ -48,8 +48,8 @@ public class UnitTouchDamage : MonoBehaviour {
 
 
     private void OnDisable() {
-        tracker.OnEnterContact -= HandleEnterContact;
-        tracker.OnExitContact -= HandleLeaveContact;
+        tracker.OnEnterContact_GO -= HandleEnterContact;
+        tracker.OnExitContact_GO -= HandleLeaveContact;
 
         if (!hasHealth) {
             StopAllDamage();

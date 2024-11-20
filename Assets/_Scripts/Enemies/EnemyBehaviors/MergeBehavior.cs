@@ -43,13 +43,13 @@ public class MergeBehavior : MonoBehaviour {
 
         AllowMerging();
 
-        mergeTracker.OnEnterContact += TryAddMergable;
-        mergeTracker.OnExitContact += TryRemoveMergable;
+        mergeTracker.OnEnterContact_GO += TryAddMergable;
+        mergeTracker.OnExitContact_GO += TryRemoveMergable;
     }
 
     private void OnDisable() {
-        mergeTracker.OnEnterContact -= TryAddMergable;
-        mergeTracker.OnExitContact -= TryRemoveMergable;
+        mergeTracker.OnEnterContact_GO -= TryAddMergable;
+        mergeTracker.OnExitContact_GO -= TryRemoveMergable;
     }
 
     private void TryAddMergable(GameObject @object) {

@@ -14,8 +14,9 @@ public class ResourceSystem : StaticInstance<ResourceSystem>
     public List<ScriptableLevelLayout> LevelLayouts { get; private set; }
     public Dictionary<RoomType, ScriptableRoom[]> Rooms { get; private set; }
     public List<ScriptableEnemy> Enemies { get; private set; }
-    public Dictionary<Level, ScriptableBoss[]> Bosses { get; private set; }
-    public List<ScriptableCardBase> Cards { get; private set; }
+    public List<ScriptableBoss> Bosses { get; private set; }
+    public List<ScriptableCardBase> AllCards { get; private set; }
+    public List<ScriptableCardBase> UnlockedCards { get; private set; }
 
     protected override void Awake() {
         base.Awake();
@@ -30,31 +31,23 @@ public class ResourceSystem : StaticInstance<ResourceSystem>
             .ToDictionary(g => g.Key, g => g.ToArray());
 
         Enemies = Resources.LoadAll<ScriptableEnemy>("Enemies").ToList();
+        Bosses = Resources.LoadAll<ScriptableBoss>("Bosses").ToList();
 
-        Bosses = Resources.LoadAll<ScriptableBoss>("Bosses")
-            .SelectMany(boss => GetLevels(boss.PossibleLevels)
-                .Select(level => new { level, boss })) // Create an anonymous object of level and boss
-            .GroupBy(x => x.level)
-            .ToDictionary(group => group.Key, group => group.Select(x => x.boss).ToArray());
-
-        Cards = Resources.LoadAll<ScriptableCardBase>("Cards").ToList();
-    }
-
-    // Helper method to extract individual levels from the PossibleLevels bit flags
-    private IEnumerable<Level> GetLevels(Level possibleLevels) {
-        foreach (Level level in Enum.GetValues(typeof(Level))) {
-            if (level != Level.None && possibleLevels.HasFlag(level)) {
-                yield return level;
-            }
-        }
+        AllCards = Resources.LoadAll<ScriptableCardBase>("Cards").ToList();
+        UnlockedCards = AllCards.Where(c => c.StartUnlocked).ToList();
     }
 
     public ScriptableLevelLayout GetRandomLayout() => LevelLayouts.RandomItem();
     public ScriptableRoom[] GetRooms(RoomType roomType) => Rooms[roomType];
     public List<ScriptableEnemy> GetAllEnemies() => Enemies;
-    public ScriptableBoss[] GetBosses(Level level) => Bosses[level];
+    public List<ScriptableBoss> GetBosses(int level) => Bosses.Where(b => b.PossibleLevels.Contains(level)).ToList();
 
-    public List<ScriptableCardBase> GetPossibleCards(Level level) => Cards.Where(c => c.MinLevel <= level).ToList();
-    public ScriptableCardBase GetCard(CardType cardType) => Cards.FirstOrDefault(c => c.CardType == cardType);
-    public ScriptableCardBase GetCard(string cardName) => Cards.FirstOrDefault(c => c.name == cardName);
+    public List<ScriptableCardBase> GetAllCardsWithLevel(int level) => AllCards.Where(c => c.MinLevel == level).ToList();
+    public List<ScriptableCardBase> GetAllCardsUpToLevel(int level) => AllCards.Where(c => c.MinLevel <= level).ToList();
+
+    public List<ScriptableCardBase> GetUnlockedCardsWithLevel(int level) => UnlockedCards.Where(c => c.MinLevel == level).ToList();
+    public List<ScriptableCardBase> GetUnlockedCardsUpToLevel(int level) => UnlockedCards.Where(c => c.MinLevel <= level).ToList();
+
+    public ScriptableCardBase GetCard(CardType cardType) => AllCards.FirstOrDefault(c => c.CardType == cardType);
+    public ScriptableCardBase GetCard(string cardName) => AllCards.FirstOrDefault(c => c.name == cardName);
 }   

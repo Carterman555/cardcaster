@@ -8,15 +8,15 @@ public class ShopRoom : MonoBehaviour {
     [SerializeField] private Transform[] itemSpawnPoints;
 
     private void OnEnable() {
-        SpawnItems();
+        SpawnCards();
     }
 
-    private void SpawnItems() {
+    private void SpawnCards() {
         foreach (Transform spawnPoint in itemSpawnPoints) {
             ShopItem shopItem = shopItemPrefab.Spawn(spawnPoint.position, transform);
 
-            Level currentLevel = Level.Level1; // change with levelmanager is created
-            List<ScriptableCardBase> possibleCards = ResourceSystem.Instance.GetPossibleCards(currentLevel);
+            int currentLevel = LevelManager.Instance.GetLevel();
+            List<ScriptableCardBase> possibleCards = ResourceSystem.Instance.GetUnlockedCardsUpToLevel(currentLevel);
             ScriptableCardBase randomCard = possibleCards.RandomItem();
 
             shopItem.SetCard(randomCard);

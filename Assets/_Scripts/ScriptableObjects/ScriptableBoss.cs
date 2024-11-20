@@ -13,17 +13,5 @@ public class ScriptableBoss : ScriptableObject {
 
     [field: SerializeField] public Stats Stats { get; private set; }
 
-    [field: SerializeField] public Level PossibleLevels { get; private set; }
-}
-
-[Flags]
-public enum Level {
-    None = 0,
-    Level1 = 1 << 0,
-    Level2 = 1 << 1,
-    Level3 = 1 << 2,
-    Level4 = 1 << 3,
-    Level5 = 1 << 4,
-    Level6 = 1 << 5,
-    Level7 = 1 << 6
+    [field: SerializeField] public int[] PossibleLevels { get; private set; }
 }

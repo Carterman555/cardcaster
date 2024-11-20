@@ -51,12 +51,12 @@ public class Enemy : MonoBehaviour, IHasEnemyStats, IEffectable {
     protected bool playerWithinRange => playerTracker.HasContact();
 
     private void SubToPlayerTriggerEvents() {
-        playerTracker.OnEnterContact += OnPlayerEnteredRange;
-        playerTracker.OnExitContact += OnPlayerExitedRange;
+        playerTracker.OnEnterContact_GO += OnPlayerEnteredRange;
+        playerTracker.OnExitContact_GO += OnPlayerExitedRange;
     }
     private void UnsubFromPlayerTriggerEvents() {
-        playerTracker.OnEnterContact -= OnPlayerEnteredRange;
-        playerTracker.OnExitContact -= OnPlayerExitedRange;
+        playerTracker.OnEnterContact_GO -= OnPlayerEnteredRange;
+        playerTracker.OnExitContact_GO -= OnPlayerExitedRange;
     }
 
     protected virtual void OnPlayerEnteredRange(GameObject player) {

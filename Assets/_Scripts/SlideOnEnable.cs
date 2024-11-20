@@ -2,14 +2,13 @@ using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static UnityEngine.RuleTile.TilingRuleOutput;
 
 public class SlideOnEnable : MonoBehaviour {
 
-    [SerializeField] private bool currentPosIsStart;
+    [SerializeField] private bool defaultPosIsStart;
 
-    [ConditionalHideReversed("currentPosIsStart")][SerializeField] private Vector2 startPos;
-    [ConditionalHide("currentPosIsStart")][SerializeField] private Vector2 targetPos;
+    [ConditionalHideReversed("defaultPosIsStart")][SerializeField] private Vector2 startPos;
+    [ConditionalHide("defaultPosIsStart")][SerializeField] private Vector2 targetPos;
 
     [SerializeField] private float duration = 0.3f;
     [SerializeField] private Ease ease = Ease.InSine;
@@ -21,16 +20,20 @@ public class SlideOnEnable : MonoBehaviour {
     }
 
     private void OnEnable() {
-        if (currentPosIsStart) {
-            DOTween.To(() => rectTransform.anchoredPosition, x => rectTransform.anchoredPosition = x, targetPos, duration).SetEase(ease);
 
-            //rectTransform.anchoredPosition =
+        if (defaultPosIsStart) {
+            startPos = rectTransform.anchoredPosition;
         }
         else {
             targetPos = rectTransform.anchoredPosition;
-            rectTransform.anchoredPosition = startPos;
-            DOTween.To(() => rectTransform.anchoredPosition, x => rectTransform.anchoredPosition = x, targetPos, duration).SetEase(ease);
         }
+
+        Slide();
+    }
+
+    public void Slide() {
+        rectTransform.anchoredPosition = startPos;
+        DOTween.To(() => rectTransform.anchoredPosition, x => rectTransform.anchoredPosition = x, targetPos, duration).SetEase(ease);
     }
 
     [Header("Slide Back")]
@@ -38,10 +41,9 @@ public class SlideOnEnable : MonoBehaviour {
     [ConditionalHide("differentSlideBackEase")] [SerializeField] private Ease slideBackEase = Ease.OutSine;
 
     public void SlideBack() {
-        print("slide back");
-
         Ease currentEase = differentSlideBackEase ? slideBackEase : ease;
 
+        rectTransform.anchoredPosition = targetPos;
         DOTween.To(() => rectTransform.anchoredPosition, x => rectTransform.anchoredPosition = x, startPos, duration).SetEase(ease);
     }
 }

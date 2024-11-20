@@ -1,0 +1,40 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67bd8d43822ed4748885c2156e343526, type: 3}
+  m_Name: RoomsToLight
+  m_EditorClassIdentifier: 
+  Colliders:
+  - {fileID: 5698419427641359972, guid: ac412e64bbc0b6843a6f7ae3106f8d7a, type: 3}
+  - {fileID: 5698419427641359972, guid: 3e9c38da68eef4345990d318516436b4, type: 3}
+  - {fileID: 5698419427641359972, guid: 8309060ff70fa3c4997d10c8715fcd1d, type: 3}
+  - {fileID: 5698419427641359972, guid: aeb274bda6078434d87851abb998447e, type: 3}
+  - {fileID: 5698419427641359972, guid: 258fe716838131a4bb40ccfe514f5a1e, type: 3}
+  - {fileID: 6539081194544201097, guid: 40b2a4ee98096e647b12052bd868489b, type: 3}
+  - {fileID: 5698419427641359972, guid: d2ed380b0a922a4449793c3926a54116, type: 3}
+  - {fileID: 5698419427641359972, guid: 97219980dd8738042ae64ced56a1adea, type: 3}
+  - {fileID: 5698419427641359972, guid: 8130da96db2bf034492640bd8c98e540, type: 3}
+  - {fileID: 5698419427641359972, guid: 4372d23d185935044b130b893154750e, type: 3}
+  - {fileID: 5698419427641359972, guid: 2f9aee220edd58641a7999934484f89f, type: 3}
+  - {fileID: 5698419427641359972, guid: 79670474caf23384494bc7bf844d13b5, type: 3}
+  - {fileID: 5698419427641359972, guid: 3c2059076c2e7ca4f9489d83e1e2bd48, type: 3}
+  - {fileID: 5698419427641359972, guid: a16c4f944fdcf164ebf9ebbb47523157, type: 3}
+  - {fileID: 5698419427641359972, guid: fe24e72f582f8cb45a3015a32754acec, type: 3}
+  - {fileID: 5698419427641359972, guid: 6726f11124a4dea4995625632b1dafdc, type: 3}
+  - {fileID: 5698419427641359972, guid: 8d0ae14239dc8b24ea0d82795c62c6ef, type: 3}
+  - {fileID: 5698419427641359972, guid: cd92593c458a930418d993fb2e3c9904, type: 3}
+  - {fileID: 5698419427641359972, guid: 80731a690bd399a4aa52ca5846558615, type: 3}
+  - {fileID: 5698419427641359972, guid: 10ab68223d61c854a8600fd9310ed7d8, type: 3}
+  - {fileID: 5698419427641359972, guid: 53858114661de8f45b67feac08720bc2, type: 3}
+  - {fileID: 5698419427641359972, guid: 09a20154a4db24640b6f7d9f28d6802b, type: 3}
+  - {fileID: 5698419427641359972, guid: 2142e5d4ecd3c3249a545cb33bfe7dc0, type: 3}
+  - {fileID: 5698419427641359972, guid: 6606fd5b9194f1c4ba5c50a54d650770, type: 3}
+  - {fileID: 5698419427641359972, guid: 58dec50da409cf2489213b1ff61717e1, type: 3}

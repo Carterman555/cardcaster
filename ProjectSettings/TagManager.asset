@@ -62,6 +62,9 @@ TagManager:
   - name: BotWalls
     uniqueID: 4067078365
     locked: 0
+  - name: RoomDarkness
+    uniqueID: 421269379
+    locked: 0
   - name: WorldUI
     uniqueID: 3313559255
     locked: 0

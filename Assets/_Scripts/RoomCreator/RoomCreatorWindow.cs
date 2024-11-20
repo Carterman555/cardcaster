@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using UnityEngine.Rendering.Universal;
+using System;
 
 public class RoomCreatorWindow : EditorWindow {
 
@@ -19,6 +21,12 @@ public class RoomCreatorWindow : EditorWindow {
 
     private PolygonCollider2D roomCollider;
     private PolygonCollider2D camConfinerCollider;
+
+    private Light2D roomLight;
+
+
+    // setup multiple lights
+    private ScriptableRoomColliders scriptableRoomColliders;
 
     [MenuItem("Tools/Room Creator")]
     public static void ShowWindow() {
@@ -40,7 +48,7 @@ public class RoomCreatorWindow : EditorWindow {
 
             SetTilemaps();
 
-            Undo.RecordObjects(new Object[] { groundTilemap, topWallsTilemap, botWallsTilemap }, "Create Wall Tiles");
+            Undo.RecordObjects(new UnityEngine.Object[] { groundTilemap, topWallsTilemap, botWallsTilemap }, "Create Wall Tiles");
 
             roomTilemapCreator = Resources.Load<RoomTilemapCreator>("RoomTilemapCreator");
             roomTilemapCreator.CreateRoomTiles(environmentType, groundTilemap, topWallsTilemap, botWallsTilemap);
@@ -86,7 +94,25 @@ public class RoomCreatorWindow : EditorWindow {
             roomColliderMatcher.SetupCamConfinerCollider();
         }
 
-        
+        roomLight = EditorGUILayout.ObjectField("Room Light", roomLight, typeof(Light2D), true) as Light2D;
+
+        if (GUILayout.Button("Setup Light Shape")) {
+            Undo.RecordObject(roomLight, "Setup Light Shape");
+
+            RoomLightShapeMatcher roomLightShapeMatcher = new();
+            roomLightShapeMatcher.MatchLightShape(roomLight, roomCollider);
+        }
+
+        scriptableRoomColliders = EditorGUILayout.ObjectField("Room Colliders", scriptableRoomColliders, typeof(ScriptableRoomColliders), true) as ScriptableRoomColliders;
+
+        if (GUILayout.Button("Setup All Lights")) {
+            RoomLightShapeMatcher roomLightShapeMatcher = new();
+
+            foreach (var roomCollider in scriptableRoomColliders.Colliders) {
+                Light2D currentRoomLight = roomCollider.GetComponentInChildren<Light2D>();
+                roomLightShapeMatcher.MatchLightShape(currentRoomLight, roomCollider);
+            }
+        }
     }
 
     private void SetTilemaps() {

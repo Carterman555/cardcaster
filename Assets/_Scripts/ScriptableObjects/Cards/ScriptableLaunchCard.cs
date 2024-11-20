@@ -99,7 +99,7 @@ public class ScriptableLaunchCard : ScriptableAbilityCardBase {
         // make it stop when hit wall
         wallTrigger = wallTriggerPrefab.Spawn(playerTransform.position, playerTransform);
         wallTrigger.GetComponent<CircleCollider2D>().radius = Stats.AreaSize * checkFactor;
-        wallTrigger.OnEnterContact += TryStopLaunch;
+        wallTrigger.OnEnterContact_GO += TryStopLaunch;
 
         // move sword to point forward
         ReferenceSystem.Instance.PlayerWeaponParent.GetComponent<SlashingWeapon>().enabled = false;
@@ -133,7 +133,7 @@ public class ScriptableLaunchCard : ScriptableAbilityCardBase {
     private void StopLaunch(GameObject wall) {
         base.Stop();
 
-        wallTrigger.OnEnterContact -= TryStopLaunch;
+        wallTrigger.OnEnterContact_GO -= TryStopLaunch;
 
         PlayerMovement.Instance.enabled = true;
         PlayerMeleeAttack.Instance.enabled = true;

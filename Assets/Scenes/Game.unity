@@ -13389,14 +13389,14 @@ MonoBehaviour:
   cameraConfiner: {fileID: 1926929208}
   hallwaySets:
   - EnvironmentType: 0
-    HorizontalHallwayPrefab: {fileID: 8927245960358128749, guid: aaf813fa1e4707847b1e6486a5b2e3d5, type: 3}
-    VerticalHallwayPrefab: {fileID: 8927245960358128749, guid: 8e2403430e5795c438c597e18fd4a800, type: 3}
+    HorizontalHallwayPrefab: {fileID: 1685274173836115787, guid: 25f72fcacbbfa354580b680a87dbc852, type: 3}
+    VerticalHallwayPrefab: {fileID: 5599218490186815928, guid: c9e797507841e314fb5858be11599b57, type: 3}
   - EnvironmentType: 1
-    HorizontalHallwayPrefab: {fileID: 8927245960358128749, guid: 6ab1bd98b4fbafe4e9db88157ab00f18, type: 3}
-    VerticalHallwayPrefab: {fileID: 8927245960358128749, guid: f3737942291c2c34ba1852f8f4d48307, type: 3}
+    HorizontalHallwayPrefab: {fileID: 1685274173836115787, guid: 9ecddfc7e06c99e47954dc08e60faa2e, type: 3}
+    VerticalHallwayPrefab: {fileID: 5599218490186815928, guid: 7e6c3ba5cde950441bd57b10b7b4c69b, type: 3}
   - EnvironmentType: 2
-    HorizontalHallwayPrefab: {fileID: 8927245960358128749, guid: f9bdefd7a524ff4448801385fcfc7855, type: 3}
-    VerticalHallwayPrefab: {fileID: 8927245960358128749, guid: ddd2373a47a6c46418465f009e357f87, type: 3}
+    HorizontalHallwayPrefab: {fileID: 1685274173836115787, guid: 6905c4d73c4c49646a3cbafe129a8260, type: 3}
+    VerticalHallwayPrefab: {fileID: 5599218490186815928, guid: 4c1f7ddc05597f44898345cdf16375d0, type: 3}
 --- !u!114 &1814983925 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2600157859336777174, guid: 96c8f26ef8c7e2f41a30a5869a84f301, type: 3}

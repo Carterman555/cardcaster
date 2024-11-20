@@ -257,7 +257,7 @@ public class DeckManager : Singleton<DeckManager> {
     [Command]
     private void GainRandomCards() {
         for (int i = 0; i < 15; i++) {
-            ScriptableCardBase card = ResourceSystem.Instance.GetPossibleCards(Level.Level7).RandomItem();
+            ScriptableCardBase card = ResourceSystem.Instance.GetAllCardsInLevel(99).RandomItem();
             GainCard(card);
         }
     }

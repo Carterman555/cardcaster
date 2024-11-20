@@ -17,22 +17,22 @@ public class VerticalDoor : MonoBehaviour {
     private bool HasBeenOpened => hasBeenOpenedLeft || hasBeenOpenedRight;
 
     private void OnEnable() {
-        leftPlayerTrigger.OnEnterContact += TryOpenRight;
-        rightPlayerTrigger.OnEnterContact += TryOpenLeft;
+        leftPlayerTrigger.OnEnterContact_GO += TryOpenRight;
+        rightPlayerTrigger.OnEnterContact_GO += TryOpenLeft;
 
-        cardBlockerTrigger.OnEnterContact += TryClose;
-        cardBlockerTrigger.OnExitContact += TryReopen;
+        cardBlockerTrigger.OnEnterContact_GO += TryClose;
+        cardBlockerTrigger.OnExitContact_GO += TryReopen;
 
         hasBeenOpenedLeft = false;
         hasBeenOpenedRight = false;
         doorIsBlocked = false;
     }
     private void OnDisable() {
-        leftPlayerTrigger.OnEnterContact -= TryOpenRight;
-        rightPlayerTrigger.OnEnterContact -= TryOpenLeft;
+        leftPlayerTrigger.OnEnterContact_GO -= TryOpenRight;
+        rightPlayerTrigger.OnEnterContact_GO -= TryOpenLeft;
 
-        cardBlockerTrigger.OnEnterContact -= TryClose;
-        cardBlockerTrigger.OnExitContact -= TryReopen;
+        cardBlockerTrigger.OnEnterContact_GO -= TryClose;
+        cardBlockerTrigger.OnExitContact_GO -= TryReopen;
     }
 
     private void TryOpenRight(GameObject player) {

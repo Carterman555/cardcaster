@@ -1,9 +1,11 @@
+using DG.Tweening;
 using QFSW.QC;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 using UnityEngine.Tilemaps;
 
 public class Room : MonoBehaviour {
@@ -32,6 +34,8 @@ public class Room : MonoBehaviour {
 
     [SerializeField] private bool noEnemies;
     private bool roomCleared;
+
+    [SerializeField] private Light2D roomLight;
 
     #region Get Methods
 
@@ -93,17 +97,22 @@ public class Room : MonoBehaviour {
 
         // starting room
         if (roomNum == 1) {
-            EnterRoom(gameObject);
+            RoomGenerator.OnCompleteGeneration += OnEnterRoom;
         }
     }
 
+    private void InvokeOnEnter() {
+        throw new NotImplementedException();
+    }
+
     private void OnEnable() {
-        enterTrigger.OnEnterContact += EnterRoom;
+        enterTrigger.OnEnterContact += OnEnterRoom;
 
         roomCleared = noEnemies;
+        roomLight.intensity = 0;
     }
     private void OnDisable() {
-        exitTrigger.OnEnterContact -= ExitRoom;
+        exitTrigger.OnEnterContact -= OnEnterRoom;
     }
 
     public void CopyColliderToCameraConfiner(GameObject cameraConfinerComposite) {
@@ -141,7 +150,7 @@ public class Room : MonoBehaviour {
         exitCol.offset = (Vector2)doorway.transform.localPosition + offset;
     }
 
-    private void EnterRoom(GameObject player) {
+    private void OnEnterRoom() {
 
         currentRoomNum = roomNum;
         currentRoom = this;
@@ -150,25 +159,25 @@ public class Room : MonoBehaviour {
             CreateDoorwayBlockers();
         }
 
-        exitTrigger.OnEnterContact += ExitRoom;
+        //... brighten room
+        DOTween.To(() => roomLight.intensity, x => roomLight.intensity = x, 1, duration: 1f);
+
+        exitTrigger.OnEnterContact += OnExitRoom;
         CheckRoomCleared.OnEnemiesCleared += SetRoomCleared;
 
-        enterTrigger.OnEnterContact -= EnterRoom;
+        RoomGenerator.OnCompleteGeneration -= OnEnterRoom;
+        enterTrigger.OnEnterContact -= OnEnterRoom;
 
         OnAnyRoomEnter_Room?.Invoke(this);
     }
 
-    private void ExitRoom(GameObject player) {
-        //if (enteredRoomNum != roomNum) {
-        //    return;
-        //}
-
+    private void OnExitRoom() {
         currentRoomNum = -1;
         currentRoom = null;
 
-        enterTrigger.OnEnterContact += EnterRoom;
+        enterTrigger.OnEnterContact += OnEnterRoom;
 
-        exitTrigger.OnEnterContact -= ExitRoom;
+        exitTrigger.OnEnterContact -= OnExitRoom;
         CheckRoomCleared.OnEnemiesCleared -= SetRoomCleared;
 
         OnAnyRoomExit_Room?.Invoke(this);

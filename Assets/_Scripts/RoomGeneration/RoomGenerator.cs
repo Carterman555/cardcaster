@@ -276,10 +276,11 @@ public class RoomGenerator : StaticInstance<RoomGenerator> {
         PossibleDoorway existingDoorway = connectingRoom.GetPossibleDoorway(existingDoorwayName);
         connectingRoom.AddCreatedDoorway(existingDoorway);
 
-        // spawn in the hallway to connect the rooms
-        SpawnHallway(existingDoorway.GetSide(), existingDoorway.transform.position);
+        // spawn and setup in the hallway to connect the rooms
+        Transform hallway = SpawnHallway(existingDoorway.GetSide(), existingDoorway.transform.position);
         RemoveTilesForHallway(newRoom, connectingRoom, newDoorway, existingDoorway);
         RemoveObjectsForHallway(newDoorway.transform.position, existingDoorway.transform.position);
+        AddRoomsToHallwayLight(hallway, connectingRoom.GetRoomNum(), newRoom.GetRoomNum());
 
         // create enter and exit triggers
         newRoom.CreateEnterAndExitTriggers(newDoorway);
@@ -298,6 +299,21 @@ public class RoomGenerator : StaticInstance<RoomGenerator> {
         public EnvironmentType EnvironmentType;
         public Transform HorizontalHallwayPrefab;
         public Transform VerticalHallwayPrefab;
+    }
+
+    private Transform SpawnHallway(DoorwaySide doorwaySide, Vector2 doorwayPosition) {
+
+        Transform hallwayPrefab = null;
+        if (doorwaySide == DoorwaySide.Top || doorwaySide == DoorwaySide.Bottom) {
+            hallwayPrefab = hallwaySets.FirstOrDefault(set => set.EnvironmentType == currentEnvironmentType).VerticalHallwayPrefab;
+        }
+        else if (doorwaySide == DoorwaySide.Left || doorwaySide == DoorwaySide.Right) {
+            hallwayPrefab = hallwaySets.FirstOrDefault(set => set.EnvironmentType == currentEnvironmentType).HorizontalHallwayPrefab;
+        }
+
+        float hallwayOffset = 4;
+        Vector2 hallwayPos = doorwayPosition + SideToDirection(doorwaySide) * hallwayOffset;
+        return hallwayPrefab.Spawn(hallwayPos, Quaternion.identity, Containers.Instance.Hallways);
     }
 
     private void RemoveTilesForHallway(Room newRoom, Room existingRoom, PossibleDoorway newDoorway, PossibleDoorway existingDoorway) {
@@ -337,19 +353,9 @@ public class RoomGenerator : StaticInstance<RoomGenerator> {
         }
     }
 
-    private void SpawnHallway(DoorwaySide doorwaySide, Vector2 doorwayPosition) {
-
-        Transform hallwayPrefab = null;
-        if (doorwaySide == DoorwaySide.Top || doorwaySide == DoorwaySide.Bottom) {
-            hallwayPrefab = hallwaySets.FirstOrDefault(set => set.EnvironmentType == currentEnvironmentType).VerticalHallwayPrefab;
-        }
-        else if (doorwaySide == DoorwaySide.Left || doorwaySide == DoorwaySide.Right) {
-            hallwayPrefab = hallwaySets.FirstOrDefault(set => set.EnvironmentType == currentEnvironmentType).HorizontalHallwayPrefab;
-        }
-
-        float hallwayOffset = 4;
-        Vector2 hallwayPos = doorwayPosition + SideToDirection(doorwaySide) * hallwayOffset;
-        hallwayPrefab.Spawn(hallwayPos, Quaternion.identity, Containers.Instance.Hallways);
+    private void AddRoomsToHallwayLight(Transform hallway, int connectingRoomNum, int newRoomNum) {
+        HallwayLight hallwayLight = hallway.GetComponentInChildren<HallwayLight>();
+        hallwayLight.SetConnectingRoomNums(newRoomNum, connectingRoomNum);
     }
 
     public Vector2 SideToDirection(DoorwaySide side) {

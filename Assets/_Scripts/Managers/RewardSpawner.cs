@@ -2,9 +2,11 @@ using DG.Tweening;
 using QFSW.QC;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class RewardSpawner : MonoBehaviour {
+
 
     [SerializeField][Range(0f, 1f)] private float rewardOnClearChance;
     [SerializeField][Range(0f, 1f)] private float chestRewardChance;
@@ -20,8 +22,16 @@ public class RewardSpawner : MonoBehaviour {
     }
 
     private void TrySpawnReward() {
-        if (Random.value < rewardOnClearChance) {
-            SpawnReward();
+
+        bool clearedBossRoom = Room.GetCurrentRoom().TryGetComponent(out BossRoom bossRoom);
+
+        if (!clearedBossRoom) {
+            if (Random.value < rewardOnClearChance) {
+                SpawnReward();
+            }
+        }
+        else {
+            SpawnBossLoot(bossRoom.GetBossSpawnPoint().position);
         }
     }
 
@@ -40,5 +50,31 @@ public class RewardSpawner : MonoBehaviour {
             // spawn campfire
             Campfire campfire = campfirePrefab.Spawn(position, Containers.Instance.Drops);
         }
+    }
+
+    [Header("Boss Loot")]
+    [SerializeField] private bool bossAlwaysUnlocksCard;
+    [SerializeField] private CardDrop cardDropPrefab;
+
+    [Command]
+    private void SpawnBossLoot(Vector2 spawnPoint) {
+
+        int currentLevel = LevelManager.Instance.GetLevel();
+        List<ScriptableCardBase> possibleCardsToSpawn = ResourceSystem.Instance.GetAllCardsWithLevel(currentLevel);
+
+        if (bossAlwaysUnlocksCard) {
+
+            List<ScriptableCardBase> unlockedCards = ResourceSystem.Instance.GetUnlockedCardsWithLevel(currentLevel);
+            bool unlockedAllCardsAtLevel = possibleCardsToSpawn.Count == unlockedCards.Count;
+
+            if (!unlockedAllCardsAtLevel) {
+                possibleCardsToSpawn.Where(c => !unlockedCards.Contains(c));
+            }
+        }
+
+        CardDrop newCardDrop = cardItemPrefab.Spawn(spawnPoint, Containers.Instance.Drops);
+
+        ScriptableCardBase scriptableCard = possibleCardsToSpawn.RandomItem();
+        newCardItem.Setup(scriptableCard);
     }
 }

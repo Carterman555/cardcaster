@@ -4,8 +4,11 @@ using UnityEngine;
 
 public class TriggerContactTracker : MonoBehaviour {
 
-    public event Action<GameObject> OnEnterContact;
-    public event Action<GameObject> OnExitContact;
+    public event Action OnEnterContact;
+    public event Action OnExitContact;
+
+    public event Action<GameObject> OnEnterContact_GO;
+    public event Action<GameObject> OnExitContact_GO;
 
     [SerializeField] private LayerMask layerFilter;
 
@@ -40,7 +43,7 @@ public class TriggerContactTracker : MonoBehaviour {
     private void RemoveDisabled() {
         for (int i = contacts.Count - 1; i >= 0; i--) {
             if (!contacts[i].activeSelf) {
-                OnExitContact?.Invoke(contacts[i]);
+                OnExitContact_GO?.Invoke(contacts[i]);
                 contacts.RemoveAt(i);
             }
         }
@@ -50,14 +53,18 @@ public class TriggerContactTracker : MonoBehaviour {
 
         if (layerFilter.ContainsLayer(collision.gameObject.layer)) {
             contacts.Add(collision.gameObject);
-            OnEnterContact?.Invoke(collision.gameObject);
+
+            OnEnterContact?.Invoke();
+            OnEnterContact_GO?.Invoke(collision.gameObject);
         }
     }
 
     private void OnTriggerExit2D(Collider2D collision) {
         if (layerFilter.ContainsLayer(collision.gameObject.layer)) {
             contacts.Remove(collision.gameObject);
-            OnExitContact?.Invoke(collision.gameObject);
+
+            OnExitContact?.Invoke();
+            OnExitContact_GO?.Invoke(collision.gameObject);
         }
     }
 }

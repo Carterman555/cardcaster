@@ -186,13 +186,13 @@ public class DrChonk : MonoBehaviour, IHasStats, IBoss {
     private Health health;
 
     private void SubEatMinionMethods() {
-        suckMinionTrigger.OnEnterContact += TrySuckMinion;
-        eatMinionTrigger.OnEnterContact += TryEatMinion;
+        suckMinionTrigger.OnEnterContact_GO += TrySuckMinion;
+        eatMinionTrigger.OnEnterContact_GO += TryEatMinion;
     }
 
     private void UnsubEatMinionMethods() {
-        suckMinionTrigger.OnEnterContact -= TrySuckMinion;
-        eatMinionTrigger.OnEnterContact -= TryEatMinion;
+        suckMinionTrigger.OnEnterContact_GO -= TrySuckMinion;
+        eatMinionTrigger.OnEnterContact_GO -= TryEatMinion;
     }
 
     private void TrySuckMinion(GameObject collisionObject) {

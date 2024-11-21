@@ -19,8 +19,6 @@ public class AllCardsPanel : StaticInstance<AllCardsPanel> {
 
     // played by popup feedback
     public void UpdateCards() {
-        print(DeckManager.Instance.GetCardsInDiscard());
-
         SetCardsInContainer(deckCardsContainer, DeckManager.Instance.GetCardsInDeck(), CardLocation.Deck);
         SetCardsInContainer(discardCardsContainer, DeckManager.Instance.GetCardsInDiscard(), CardLocation.Discard);
         SetCardsInContainer(handCardsContainer, DeckManager.Instance.GetCardsInHand().ToList(), CardLocation.Hand);
@@ -39,8 +37,6 @@ public class AllCardsPanel : StaticInstance<AllCardsPanel> {
 
             PanelCardButton newCard = trashCardPrefab.Spawn(container);
             newCard.Setup(card, cardLocation, cardIndex);
-
-            print("setup: " + card.name);
 
             cardButtons.Add(newCard);
         }

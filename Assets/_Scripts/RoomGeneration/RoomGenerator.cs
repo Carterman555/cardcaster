@@ -89,7 +89,6 @@ public class RoomGenerator : StaticInstance<RoomGenerator> {
         yield return StartCoroutine(SpawnRoomCheckers(layoutData.LevelLayout));
 
         isGeneratingRooms = false;
-        OnCompleteGeneration?.Invoke();
     }
 
     private void ClearOverlapCheckers() {

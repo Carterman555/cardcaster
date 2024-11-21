@@ -1017,6 +1017,22 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6406168845811474983, guid: 4723c0ded694bfb4b9bd66f2d1dae76b, type: 3}
+      propertyPath: m_LocalBounds.m_Center.x
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6406168845811474983, guid: 4723c0ded694bfb4b9bd66f2d1dae76b, type: 3}
+      propertyPath: m_LocalBounds.m_Center.y
+      value: 1.0001998
+      objectReference: {fileID: 0}
+    - target: {fileID: 6406168845811474983, guid: 4723c0ded694bfb4b9bd66f2d1dae76b, type: 3}
+      propertyPath: m_LocalBounds.m_Extent.x
+      value: 19
+      objectReference: {fileID: 0}
+    - target: {fileID: 6406168845811474983, guid: 4723c0ded694bfb4b9bd66f2d1dae76b, type: 3}
+      propertyPath: m_LocalBounds.m_Extent.y
+      value: 11.0002
+      objectReference: {fileID: 0}
+    - target: {fileID: 6406168845811474983, guid: 4723c0ded694bfb4b9bd66f2d1dae76b, type: 3}
       propertyPath: m_ShapePath.Array.data[0].x
       value: -20
       objectReference: {fileID: 0}
@@ -25724,6 +25740,10 @@ PrefabInstance:
     - target: {fileID: 5410359453482674565, guid: cbe9d5233d6e2fb4ab8841b1f83fde7b, type: 3}
       propertyPath: m_Name
       value: EnemySpawn
+      objectReference: {fileID: 0}
+    - target: {fileID: 5410359453482674565, guid: cbe9d5233d6e2fb4ab8841b1f83fde7b, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7104372755863850615, guid: cbe9d5233d6e2fb4ab8841b1f83fde7b, type: 3}
       propertyPath: possibleTags

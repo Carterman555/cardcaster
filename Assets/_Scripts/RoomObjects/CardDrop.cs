@@ -12,12 +12,20 @@ public class CardDrop : MonoBehaviour {
 
     private SpriteRenderer spriteRenderer;
     protected Interactable interactable;
+    protected SuckMovement suckMovement;
 
     [SerializeField] private ChangeColorFromRarity changeShineColor;
+
+    [SerializeField] private ScriptableCardBase defaultCard; // for testing
 
     private void Awake() {
         spriteRenderer = GetComponent<SpriteRenderer>();
         interactable = GetComponent<Interactable>();
+        suckMovement = GetComponent<SuckMovement>();
+
+        if (defaultCard != null) {
+            Setup(defaultCard);
+        }
     }
 
     private void OnEnable() {
@@ -54,14 +62,20 @@ public class CardDrop : MonoBehaviour {
         //... so it doesn't disappear when the chest does
         transform.SetParent(Containers.Instance.Drops);
 
-        float duration = 0.2f;
-        transform.DOMove(PlayerMovement.Instance.transform.position, duration).SetEase(Ease.InSine).OnComplete(() => {
-            transform.DOScale(Vector2.zero, duration).SetEase(Ease.InSine).OnComplete(() => {
-                DeckManager.Instance.GainCard(scriptableCard);
+        suckMovement.enabled = true;
+        suckMovement.Setup(PlayerMovement.Instance.transform);
 
-                transform.DOKill();
-                gameObject.ReturnToPool();
-            });
+        suckMovement.OnReachTarget += ShrinkAndGainCard;
+    }
+
+    public void ShrinkAndGainCard() {
+        suckMovement.OnReachTarget -= ShrinkAndGainCard;
+
+        transform.DOScale(Vector2.zero, duration: 0.2f).SetEase(Ease.InSine).OnComplete(() => {
+            DeckManager.Instance.GainCard(scriptableCard);
+
+            transform.DOKill();
+            gameObject.ReturnToPool();
         });
     }
 }

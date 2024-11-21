@@ -113,11 +113,19 @@ public class DeckManager : Singleton<DeckManager> {
 
         if (GetHandSize() == maxHandSize) {
             cardsInDiscard.Add(card);
-            PrintCards(cardsInDiscard, "new discard: ");
         }
         else {
             cardsInHand[GetHandSize()] = card;
             OnGainCardToHand?.Invoke();
+        }
+
+
+        // if gains a locked card, unlock it
+        bool cardLocked = !ResourceSystem.Instance.GetUnlockedCardsUpToLevel(99).Contains(card);
+        if (cardLocked) {
+            ResourceSystem.Instance.UnlockCard(card);
+            FeedbackPlayer.Play("NewCardUnlocked");
+            NewCardUnlockedPanel.Instance.Setup(card);
         }
     }
 

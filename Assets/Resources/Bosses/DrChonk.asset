@@ -22,4 +22,4 @@ MonoBehaviour:
     Damage: 0
     AttackSpeed: 1
     KnockbackStrength: 1
-  <PossibleLevels>k__BackingField: 1
+  <PossibleLevels>k__BackingField: 01000000

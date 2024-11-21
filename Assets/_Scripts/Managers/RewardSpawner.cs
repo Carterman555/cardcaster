@@ -68,7 +68,7 @@ public class RewardSpawner : MonoBehaviour {
             bool unlockedAllCardsAtLevel = possibleCardsToSpawn.Count == unlockedCards.Count;
 
             if (!unlockedAllCardsAtLevel) {
-                possibleCardsToSpawn.Where(c => !unlockedCards.Contains(c));
+                possibleCardsToSpawn = possibleCardsToSpawn.Where(c => !unlockedCards.Contains(c)).ToList();
             }
         }
 

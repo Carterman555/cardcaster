@@ -72,9 +72,9 @@ public class RewardSpawner : MonoBehaviour {
             }
         }
 
-        CardDrop newCardDrop = cardItemPrefab.Spawn(spawnPoint, Containers.Instance.Drops);
+        CardDrop newCardDrop = cardDropPrefab.Spawn(spawnPoint, Containers.Instance.Drops);
 
         ScriptableCardBase scriptableCard = possibleCardsToSpawn.RandomItem();
-        newCardItem.Setup(scriptableCard);
+        newCardDrop.Setup(scriptableCard);
     }
 }

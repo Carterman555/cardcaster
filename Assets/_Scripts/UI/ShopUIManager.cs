@@ -19,7 +19,7 @@ public class ShopUIManager : StaticInstance<ShopUIManager>, IInitializable {
     private int currentCardIndex;
 
     private ScriptableCardBase newCard;
-    private ShopItem shopItem;
+    private ShopCard shopItem;
 
     #region Open Trade UI
 
@@ -29,7 +29,7 @@ public class ShopUIManager : StaticInstance<ShopUIManager>, IInitializable {
         newCardLocalPosition = newCardIcon.transform.localPosition;
     }
 
-    public void Activate(ScriptableCardBase newCard, ShopItem shopItem) {
+    public void Activate(ScriptableCardBase newCard, ShopCard shopItem) {
         PanelCardButton.OnClicked_PanelCard += ShowSelectButton;
         SelectButton.OnSelect_PanelCard += ShowTradeUI;
 

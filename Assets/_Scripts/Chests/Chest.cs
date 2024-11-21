@@ -7,8 +7,8 @@ using System.Collections;
 
 public class Chest : MonoBehaviour {
 
-    private ICollectable[] scriptableCollectables;
-    [SerializeField] private ChestItem[] collectables;
+    private ScriptableCardBase[] scriptableCards;
+    [SerializeField] private ChestCard[] chestCards;
 
     private bool opened;
 
@@ -46,7 +46,7 @@ public class Chest : MonoBehaviour {
         }
 
         // select [CARD_AMOUNT] unique random cards
-        scriptableCollectables = possibleCards.OrderBy(x => UnityEngine.Random.value).Distinct().Take(CARD_AMOUNT).ToArray();
+        scriptableCards = possibleCards.OrderBy(x => UnityEngine.Random.value).Distinct().Take(CARD_AMOUNT).ToArray();
     }
 
     private void TryOpenChest() {
@@ -66,8 +66,8 @@ public class Chest : MonoBehaviour {
         yield return new WaitForSeconds(delay);
 
         // show cards
-        for (int collectableIndex = 0; collectableIndex < scriptableCollectables.Length; collectableIndex++) {
-            collectables[collectableIndex].Setup(this, scriptableCollectables[collectableIndex], collectableIndex);
+        for (int cardIndex = 0; cardIndex < scriptableCards.Length; cardIndex++) {
+            chestCards[cardIndex].Setup(this, scriptableCards[cardIndex], cardIndex);
         }
     }
 
@@ -76,9 +76,9 @@ public class Chest : MonoBehaviour {
         float duration = 0.5f;
 
         // hide other collectables in chest
-        for (int collectableIndex = 0; collectableIndex < collectables.Length; collectableIndex++) {
+        for (int collectableIndex = 0; collectableIndex < chestCards.Length; collectableIndex++) {
             if (collectableIndex != selectedCollectableIndex) {
-                collectables[collectableIndex].ReturnToChest(duration);
+                chestCards[collectableIndex].ReturnToChest(duration);
             }
         }
 

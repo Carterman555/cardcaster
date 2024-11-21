@@ -111,9 +111,9 @@ public class DeckManager : Singleton<DeckManager> {
 
     public void GainCard(ScriptableCardBase card) {
 
-        // gain a card to the discard
         if (GetHandSize() == maxHandSize) {
             cardsInDiscard.Add(card);
+            PrintCards(cardsInDiscard, "new discard: ");
         }
         else {
             cardsInHand[GetHandSize()] = card;
@@ -257,7 +257,7 @@ public class DeckManager : Singleton<DeckManager> {
     [Command]
     private void GainRandomCards() {
         for (int i = 0; i < 15; i++) {
-            ScriptableCardBase card = ResourceSystem.Instance.GetAllCardsInLevel(99).RandomItem();
+            ScriptableCardBase card = ResourceSystem.Instance.GetAllCardsUpToLevel(99).RandomItem();
             GainCard(card);
         }
     }

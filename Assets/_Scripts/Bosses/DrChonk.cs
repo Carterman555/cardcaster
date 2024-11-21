@@ -59,7 +59,9 @@ public class DrChonk : MonoBehaviour, IHasStats, IBoss {
         UnsubEatMinionMethods();
         UnsubShootMinionMethods();
 
-        OnDefeated();
+        if (!Helpers.GameStopping()) {
+            OnDefeated();
+        }
     }
 
     private void Update() {

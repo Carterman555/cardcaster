@@ -234,7 +234,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c6b19f2a297c734f93fd001011d852b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  collectables:
+  chestCards:
   - {fileID: 719241793831164899}
   - {fileID: 3401930131981464386}
   - {fileID: 3263118975993250123}

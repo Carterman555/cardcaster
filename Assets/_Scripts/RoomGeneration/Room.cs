@@ -101,10 +101,6 @@ public class Room : MonoBehaviour {
         }
     }
 
-    private void InvokeOnEnter() {
-        throw new NotImplementedException();
-    }
-
     private void OnEnable() {
         enterTrigger.OnEnterContact += OnEnterRoom;
 
@@ -150,7 +146,7 @@ public class Room : MonoBehaviour {
         exitCol.offset = (Vector2)doorway.transform.localPosition + offset;
     }
 
-    private void OnEnterRoom() {
+    public void OnEnterRoom() {
 
         currentRoomNum = roomNum;
         currentRoom = this;

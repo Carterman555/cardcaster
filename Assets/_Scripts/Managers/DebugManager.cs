@@ -110,6 +110,10 @@ public class DebugManager : StaticInstance<DebugManager> {
     [Command]
     private void TeleportToBossRoom() {
         BossRoom bossRoom = FindObjectOfType<BossRoom>();
-        PlayerMeleeAttack.Instance.transform.position = bossRoom.GetBossSpawnPoint().position;
+
+        bossRoom.GetComponent<Room>().OnEnterRoom();
+
+        Vector3 offset = new Vector3(-5f, 0);
+        PlayerMeleeAttack.Instance.transform.position = bossRoom.GetBossSpawnPoint().position + offset;
     }
 }

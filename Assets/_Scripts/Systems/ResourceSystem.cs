@@ -50,4 +50,13 @@ public class ResourceSystem : StaticInstance<ResourceSystem>
 
     public ScriptableCardBase GetCard(CardType cardType) => AllCards.FirstOrDefault(c => c.CardType == cardType);
     public ScriptableCardBase GetCard(string cardName) => AllCards.FirstOrDefault(c => c.name == cardName);
+
+    public void UnlockCard(ScriptableCardBase cardToUnlock) {
+
+        if (UnlockedCards.Contains(cardToUnlock)) {
+            Debug.LogWarning("Trying to unlock card that is already unlocked");
+        }
+
+        UnlockedCards.Add(cardToUnlock);
+    }
 }   

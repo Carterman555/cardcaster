@@ -27,7 +27,7 @@ public class ChestCard : CardDrop {
     public void ReturnToChest(float duration) {
         interactable.enabled = false;
 
-        transform.DOLocalMove(Vector2.zero, duration).SetEase(Ease.InSine);
+        transform.DOLocalMove(new Vector2(0, 0.5f), duration).SetEase(Ease.InSine);
         transform.DOScale(Vector2.zero, duration).SetEase(Ease.InSine);
     }
 }

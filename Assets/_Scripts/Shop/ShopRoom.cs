@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ShopRoom : MonoBehaviour {
 
-    [SerializeField] private ShopItem shopItemPrefab;
+    [SerializeField] private ShopCard shopItemPrefab;
     [SerializeField] private Transform[] itemSpawnPoints;
 
     private void OnEnable() {
@@ -13,7 +13,7 @@ public class ShopRoom : MonoBehaviour {
 
     private void SpawnCards() {
         foreach (Transform spawnPoint in itemSpawnPoints) {
-            ShopItem shopItem = shopItemPrefab.Spawn(spawnPoint.position, transform);
+            ShopCard shopItem = shopItemPrefab.Spawn(spawnPoint.position, transform);
 
             int currentLevel = LevelManager.Instance.GetLevel();
             List<ScriptableCardBase> possibleCards = ResourceSystem.Instance.GetUnlockedCardsUpToLevel(currentLevel);

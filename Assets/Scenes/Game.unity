@@ -1149,7 +1149,7 @@ MonoBehaviour:
   m_Follow: {fileID: 0}
   m_Lens:
     FieldOfView: 34
-    OrthographicSize: 5.625
+    OrthographicSize: 7
     NearClipPlane: 0.3
     FarClipPlane: 1000
     Dutch: 0
@@ -5505,13 +5505,13 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 3a6707c361bdb3f4f98392113232b349, type: 2}
   - {fileID: 11400000, guid: 7d6a5e0b5ae736842a1118bfe8f20905, type: 2}
   - {fileID: 11400000, guid: 15bf6efdef5dc8f43a322a1f9752c22b, type: 2}
-  complexChance: 0.1
+  complexChance: 0.2
   spawnAmount:
-    MinValue: 5
-    MaxValue: 9
+    MinValue: 10
+    MaxValue: 20
   spawnCooldown:
-    MinValue: 1.5
-    MaxValue: 2.5
+    MinValue: 1
+    MaxValue: 2
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -5619,7 +5619,7 @@ Camera:
   far clip plane: 1000
   field of view: 34
   orthographic: 1
-  orthographic size: 5.625
+  orthographic size: 7
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -6254,7 +6254,7 @@ MonoBehaviour:
   unlimitedEssence: 0
   noEnemies: 0
   printMouseOver: 0
-  startingCards: 07000000090000001000000001000000
+  startingCards: 
   spawnAtBossRoom: 0
 --- !u!1 &623848812
 GameObject:
@@ -7984,7 +7984,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d411ed3bfa2399499513c5f37e4fbdd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rewardOnClearChance: 1
+  rewardOnClearChance: 0.5
   chestRewardChance: 0.5
   chestPrefab: {fileID: 1536872082787145078, guid: 215373478dbcd864e86d25584df971a6, type: 3}
   campfirePrefab: {fileID: 1296630484762602501, guid: 04b1850aa410be64f90e6bf5ac0e7a83, type: 3}
@@ -13914,7 +13914,7 @@ MonoBehaviour:
   m_Follow: {fileID: 1214084856}
   m_Lens:
     FieldOfView: 34
-    OrthographicSize: 5.625
+    OrthographicSize: 7
     NearClipPlane: 0.3
     FarClipPlane: 1000
     Dutch: 0
@@ -13943,7 +13943,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2d8e5fc2338f3e43a82da5547a042f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mouseInfluence: 2
+  mouseInfluence: 3
 --- !u!114 &1606153970
 MonoBehaviour:
   m_ObjectHideFlags: 0

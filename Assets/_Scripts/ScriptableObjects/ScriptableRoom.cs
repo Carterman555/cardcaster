@@ -28,4 +28,6 @@ public class ScriptableRoom : ScriptableObject {
 
     [SerializeField] private Room roomPrefab;
     public Room Prefab => roomPrefab;
+
+    [SerializeField] private ScriptableEnemyComposition ScriptableEnemyComposition;
 }

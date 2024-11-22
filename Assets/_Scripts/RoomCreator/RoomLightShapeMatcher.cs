@@ -1,3 +1,4 @@
+#if UNITY_EDITOR
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,6 +17,8 @@ public class RoomLightShapeMatcher {
         Vector2[] points = roomCollider.GetPath(0);
         light.SetShapePath(points.Select(p => (Vector3)p).ToArray());
 
+
         EditorUtility.SetDirty(light);
     }
 }
+#endif

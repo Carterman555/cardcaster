@@ -47,8 +47,7 @@ public class EnemySpawner : StaticInstance<EnemySpawner> {
 
         spawningEnemies = true;
 
-        //int numOfUniqueComplexEnemies = Random.Range(0, 2);
-        int numOfUniqueComplexEnemies = 1;
+        int numOfUniqueComplexEnemies = Random.Range(1, 3); // 1 or 2
         Enemy[] thisRoomsComplexEnemyPrefabs = new Enemy[numOfUniqueComplexEnemies];
 
         for (int i = 0; i < numOfUniqueComplexEnemies; i++) {
@@ -60,11 +59,23 @@ public class EnemySpawner : StaticInstance<EnemySpawner> {
             yield return new WaitForSeconds(spawnCooldown.Randomize());
 
             if (Random.value < complexChance) {
-                Enemy enemyPrefab = complexEnemies.RandomItem().Prefab;
+                ScriptableEnemy scriptableEnemy = complexEnemies.RandomItem();
+                Enemy enemyPrefab = scriptableEnemy.Prefab;
+
+                if (enemyPrefab == null) {
+                    print($"Null: {scriptableEnemy.Name}");
+                }
+
                 SpawnEnemy(enemyPrefab);
             }
             else {
-                Enemy enemyPrefab = basicEnemies.RandomItem().Prefab;
+                ScriptableEnemy scriptableEnemy = basicEnemies.RandomItem();
+                Enemy enemyPrefab = scriptableEnemy.Prefab;
+
+                if (enemyPrefab == null) {
+                    print($"Null: {scriptableEnemy.Name}");
+                }
+
                 SpawnEnemy(enemyPrefab);
             }
         }

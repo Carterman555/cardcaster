@@ -167,6 +167,22 @@ PrefabInstance:
       propertyPath: m_BaseOffset
       value: 0.87
       objectReference: {fileID: 0}
+    - target: {fileID: 7684566445724823258, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
+      propertyPath: m_Size.x
+      value: 0.4006506
+      objectReference: {fileID: 0}
+    - target: {fileID: 7684566445724823258, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
+      propertyPath: m_Size.y
+      value: 1.5294253
+      objectReference: {fileID: 0}
+    - target: {fileID: 7684566445724823258, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
+      propertyPath: m_Offset.x
+      value: 0.09489699
+      objectReference: {fileID: 0}
+    - target: {fileID: 7684566445724823258, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
+      propertyPath: m_Offset.y
+      value: -0.18479949
+      objectReference: {fileID: 0}
     - target: {fileID: 8584576305029821836, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
       propertyPath: m_Size.x
       value: 0.7635063
@@ -291,6 +307,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   projectilePrefab: {fileID: -1897301476388012080, guid: 5812694bf7d1a7644a5c346ff24b30ea, type: 3}
   shootPoint: {fileID: 1454595341667756058}
+  overrideDamage: 0
+  damage: 0
+  hasShootVariation: 0
+  shootVariation: 0
   specialAttack: 0
   enemyAnim: {fileID: 7812749826847277617}
   hasWeapon: 0

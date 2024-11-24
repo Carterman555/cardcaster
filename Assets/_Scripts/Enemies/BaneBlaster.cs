@@ -7,57 +7,51 @@ public class BaneBlaster : Enemy {
 
     private ChasePlayerBehavior chasePlayerBehavior;
     private StraightShootBehavior shootBehavior;
-
-    [Header("Sight")]
-    [SerializeField] private LayerMask sightLayerMask;
-    [SerializeField] private float castRadius;
-    private ObjectInLineSight lineSight;
-
-    private bool playerInSight;
+    private LineSight lineSight;
 
     protected override void Awake() {
         base.Awake();
 
-        lineSight = new(PlayerMovement.Instance.transform, sightLayerMask, castRadius);
-
         chasePlayerBehavior = GetComponent<ChasePlayerBehavior>();
         shootBehavior = GetComponent<StraightShootBehavior>();
+        lineSight = GetComponent<LineSight>();
+
+        lineSight.SetTarget(PlayerMeleeAttack.Instance.transform);
 
         EnterChaseState();
     }
 
-    protected override void Update() {
-        base.Update();
+    protected override void OnEnable() {
+        base.OnEnable();
 
-        if (lineSight.InSight(transform.position) && !playerInSight) {
-            EnterShootState();
-        }
-        else if (!lineSight.InSight(transform.position) && playerInSight) {
-            EnterChaseState();
-        }
+        lineSight.OnEnterSight += EnterShootState;
+        lineSight.OnExitSight += EnterChaseState;
+    }
+
+    protected override void OnDisable() {
+        base.OnDisable();
+
+        lineSight.OnEnterSight -= EnterShootState;
+        lineSight.OnExitSight -= EnterChaseState;
+    }
+
+    private void EnterChaseState() {
+        chasePlayerBehavior.enabled = true;
+        shootBehavior.enabled = false;
+    }
+
+    private void EnterShootState() {
+        chasePlayerBehavior.enabled = false;
+        shootBehavior.enabled = true;
     }
 
     public override void OnAddEffect(UnitEffect unitEffect) {
         base.OnAddEffect(unitEffect);
 
         if (unitEffect is StopMovement) {
-            if (!lineSight.InSight(transform.position)) {
+            if (!lineSight.InSight()) {
                 EnterChaseState();
             }
         }
-    }
-
-    private void EnterChaseState() {
-        chasePlayerBehavior.enabled = true;
-        shootBehavior.enabled = false;
-
-        playerInSight = false;
-    }
-
-    private void EnterShootState() {
-        chasePlayerBehavior.enabled = false;
-        shootBehavior.enabled = true;
-
-        playerInSight = true;
     }
 }

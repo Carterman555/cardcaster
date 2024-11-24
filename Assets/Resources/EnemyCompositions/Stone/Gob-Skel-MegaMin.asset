@@ -10,12 +10,28 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4c96040730651ab4482ffa55bdb9b4a3, type: 3}
-  m_Name: MiniMin-Skel-Gob
+  m_Name: Gob-Skel-MegaMin
   m_EditorClassIdentifier: 
-  enemyProbabilities:
-  - ScriptableEnemy: {fileID: 11400000, guid: 3cd631a20674cc24ca0da76c02764620, type: 2}
-    Probability: 5
-  - ScriptableEnemy: {fileID: 11400000, guid: 3a6707c361bdb3f4f98392113232b349, type: 2}
-    Probability: 2
+  initialEnemyAmounts:
   - ScriptableEnemy: {fileID: 11400000, guid: 15bf6efdef5dc8f43a322a1f9752c22b, type: 2}
-    Probability: 2
+    Amount:
+      MinValue: 2
+      MaxValue: 3
+  - ScriptableEnemy: {fileID: 11400000, guid: 3a6707c361bdb3f4f98392113232b349, type: 2}
+    Amount:
+      MinValue: 2
+      MaxValue: 3
+  - ScriptableEnemy: {fileID: 11400000, guid: aa3136f2fce2e9648be10e6567a5ec98, type: 2}
+    Amount:
+      MinValue: 1
+      MaxValue: 2
+  spawnTimedEnemies: 1
+  afterInitialEnemiesDelay: 15
+  timedEnemyAmounts:
+  - ScriptableEnemy: {fileID: 11400000, guid: 15bf6efdef5dc8f43a322a1f9752c22b, type: 2}
+    Amount:
+      MinValue: 1
+      MaxValue: 2
+  betweenEnemyDelay:
+    MinValue: 2
+    MaxValue: 3

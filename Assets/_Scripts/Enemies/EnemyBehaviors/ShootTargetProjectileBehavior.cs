@@ -36,7 +36,7 @@ public class ShootTargetProjectileBehavior : MonoBehaviour {
     private void Update() {
         timedActionBehavior.UpdateLogic();
         if (timedActionBehavior.IsFinished()) {
-           enabled = true;
+           enabled = false;
         }
     }
 

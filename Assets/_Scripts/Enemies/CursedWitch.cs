@@ -4,9 +4,7 @@ using UnityEngine.AI;
 public class CursedWitch : Enemy {
 
     [Header("Movement")]
-    [SerializeField] private float chasePlayerRange = 4f;
     [SerializeField] private float moveFromPlayerRange = 3f;
-    private ChasePlayerBehavior chaseBehavior;
     private FleePlayerBehavior fleeBehavior;
 
     [Header("Attacks")]
@@ -20,7 +18,6 @@ public class CursedWitch : Enemy {
     protected override void Awake() {
         base.Awake();
 
-        chaseBehavior = GetComponent<ChasePlayerBehavior>();
         fleeBehavior = GetComponent<FleePlayerBehavior>();
         shootProjectileBehavior = GetComponent<ShootTargetProjectileBehavior>();
         spawnEnemyBehavior = GetComponent<SpawnEnemyBehavior>();
@@ -42,33 +39,19 @@ public class CursedWitch : Enemy {
         HandleAction();
     }
 
-    /// <summary>
-    /// if far from player, chase
-    /// if close, move away
-    /// if midrange, stop
-    /// </summary>
     private void HandleMovement() {
 
         float distanceFromPlayer = Vector2.Distance(PlayerMovement.Instance.transform.position, transform.position);
 
-        bool farFromPlayer = distanceFromPlayer > chasePlayerRange;
         bool closeToPlayer = distanceFromPlayer < moveFromPlayerRange;
 
-        if (farFromPlayer) {
-            if (!chaseBehavior.enabled || fleeBehavior.enabled) {
-                fleeBehavior.enabled = false;
-                chaseBehavior.enabled = true;
-            }
-        }
-        else if (closeToPlayer) {
-            if (chaseBehavior.enabled || !fleeBehavior.enabled) {
-                chaseBehavior.enabled = false;
+        if (closeToPlayer) {
+            if (!fleeBehavior.enabled) {
                 fleeBehavior.enabled = true;
             }
         }
-        else if (!farFromPlayer && !closeToPlayer) {
-            if (chaseBehavior.enabled || fleeBehavior.enabled) {
-                chaseBehavior.enabled = false;
+        else if (!closeToPlayer) {
+            if (fleeBehavior.enabled) {
                 fleeBehavior.enabled = false;
             }
         }

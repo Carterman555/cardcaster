@@ -10,7 +10,7 @@ public class EnemySpawner : StaticInstance<EnemySpawner> {
 
     private ScriptableEnemyComposition currentEnemyComposition;
 
-    private List<Enemy> enemiesLeftToSpawn;
+    private List<Enemy> enemiesLeftToSpawn = new();
 
     public bool SpawningEnemies() {
         return spawningEnemies;
@@ -39,8 +39,10 @@ public class EnemySpawner : StaticInstance<EnemySpawner> {
 
         SpawnInitialEnemies();
 
-        SetEnemiesToSpawnList();
-        StartCoroutine(SpawnTimedEnemiesCor());
+        if (currentEnemyComposition.SpawnTimedEnemies) {
+            SetEnemiesToSpawnList();
+            StartCoroutine(SpawnTimedEnemiesCor());
+        }
     }
 
     private void SpawnInitialEnemies() {
@@ -67,38 +69,18 @@ public class EnemySpawner : StaticInstance<EnemySpawner> {
 
         spawningEnemies = true;
 
-        yield return new WaitForSeconds(currentEnemyComposition.AfterInitialEnemiesDelay.Randomize());
+        yield return new WaitForSeconds(currentEnemyComposition.AfterInitialEnemiesDelay);
 
         while (enemiesLeftToSpawn.Count > 0) {
             yield return new WaitForSeconds(currentEnemyComposition.BetweenEnemyDelay.Randomize());
 
-            Enemy randomEnemy
-            SpawnEnemy();
-        }
+            Enemy randomEnemy = enemiesLeftToSpawn.RandomItem();
+            SpawnEnemy(randomEnemy);
 
+            enemiesLeftToSpawn.Remove(randomEnemy);
+        }
 
         spawningEnemies = false;
-    }
-
-    // chooses random enemy to spawn taking into account how much they are weighted
-    private void SpawnRandomEnemy() {
-
-        float probabilitySum = 0;
-        foreach (EnemyAmount enemyProbability in currentEnemyComposition) {
-            probabilitySum += enemyProbability.Probability;
-        }
-
-        float randomNum = UnityEngine.Random.Range(0f, probabilitySum);
-
-        foreach (EnemyAmount enemyProbability in currentEnemyComposition) {
-            randomNum -= enemyProbability.Probability;
-            if (randomNum < 0f) {
-
-                Enemy randomEnemyPrefab = enemyProbability.ScriptableEnemy.Prefab;
-                SpawnEnemy(randomEnemyPrefab);
-                return;
-            }
-        }
     }
 
     private void SpawnEnemy(Enemy enemyPrefab) {

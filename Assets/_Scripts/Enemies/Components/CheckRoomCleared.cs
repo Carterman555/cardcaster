@@ -14,7 +14,7 @@ public class CheckRoomCleared : MonoBehaviour {
         if (Helpers.GameStopping()) {
             return;
         }
-        EnemySpawner.Instance.StartCoroutine(CheckIfEnemiesCleared());
+        EnemySpawnerOld.Instance.StartCoroutine(CheckIfEnemiesCleared());
     }
 
     private IEnumerator CheckIfEnemiesCleared() {
@@ -38,7 +38,7 @@ public class CheckRoomCleared : MonoBehaviour {
         if (!isOnCooldown) {
             isOnCooldown = true;
             OnEnemiesCleared?.Invoke();
-            EnemySpawner.Instance.StartCoroutine(ResetCooldown());
+            EnemySpawnerOld.Instance.StartCoroutine(ResetCooldown());
         }
     }
 

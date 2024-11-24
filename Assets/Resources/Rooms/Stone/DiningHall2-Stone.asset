@@ -15,3 +15,4 @@ MonoBehaviour:
   roomType: 1
   environmentType: 0
   roomPrefab: {fileID: 3084685571954290978, guid: 4372d23d185935044b130b893154750e, type: 3}
+  scriptableEnemyComposition: {fileID: 11400000, guid: a8bc6eb84e8d66340aaf88d5834608ef, type: 2}

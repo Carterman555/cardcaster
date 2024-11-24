@@ -6,13 +6,21 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "NewEnemyComposition", menuName = "Room Generation/Enemy Composition")]
 public class ScriptableEnemyComposition : ScriptableObject {
 
-    [SerializeField] private EnemyProbability[] enemyProbabilities;
-    public EnemyProbability[] EnemyProbabilities => enemyProbabilities;
+    [SerializeField] private EnemyAmount[] initialEnemyAmounts;
+    public EnemyAmount[] InitialEnemyAmounts => initialEnemyAmounts;
 
+    [SerializeField] private RandomFloat afterInitialEnemiesDelay;
+    public RandomFloat AfterInitialEnemiesDelay => afterInitialEnemiesDelay;
+
+    [SerializeField] private EnemyAmount[] timedEnemyAmounts;
+    public EnemyAmount[] TimedEnemyAmounts => timedEnemyAmounts;
+
+    [SerializeField] private RandomFloat betweenEnemyDelay;
+    public RandomFloat BetweenEnemyDelay => betweenEnemyDelay;
 }
 
 [Serializable]
-public struct EnemyProbability {
+public struct EnemyAmount {
     public ScriptableEnemy ScriptableEnemy;
-    public float Probability;
+    public RandomInt Amount;
 }

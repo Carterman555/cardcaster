@@ -13,4 +13,6 @@ MonoBehaviour:
   m_Name: BasicRoom3-Stone
   m_EditorClassIdentifier: 
   roomType: 0
+  environmentType: 0
   roomPrefab: {fileID: 3084685571954290978, guid: 8309060ff70fa3c4997d10c8715fcd1d, type: 3}
+  scriptableEnemyComposition: {fileID: 11400000, guid: 56217d3cedcdf1643a47267151f4b11d, type: 2}

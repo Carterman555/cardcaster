@@ -13,4 +13,7 @@ MonoBehaviour:
   m_Name: Storage2-Stone
   m_EditorClassIdentifier: 
   roomType: 0
+  environmentType: 0
   roomPrefab: {fileID: 3084685571954290978, guid: a16c4f944fdcf164ebf9ebbb47523157, type: 3}
+  noEnemies: 0
+  scriptableEnemyComposition: {fileID: 11400000, guid: ada49893ec555e84480f53bed9b1f2aa, type: 2}

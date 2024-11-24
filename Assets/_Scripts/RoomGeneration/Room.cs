@@ -16,6 +16,8 @@ public class Room : MonoBehaviour {
     private static Room currentRoom;
     private static int currentRoomNum;
 
+    [SerializeField] private ScriptableRoom scriptableRoom;
+
     private int roomNum;
 
     private List<PossibleDoorway> possibleDoorways;
@@ -32,7 +34,6 @@ public class Room : MonoBehaviour {
     [SerializeField] private DoorBlocker doorBlockerPrefab;
     [SerializeField] private DoorBlocker sideDoorBlockerPrefab;
 
-    [SerializeField] private bool noEnemies;
     private bool roomCleared;
 
     [SerializeField] private Light2D roomLight;
@@ -41,6 +42,10 @@ public class Room : MonoBehaviour {
 
     public static Room GetCurrentRoom() {
         return currentRoom;
+    }
+
+    public ScriptableRoom GetScriptableRoom() {
+        return scriptableRoom;
     }
 
     public List<PossibleDoorway> GetPossibleDoorways() {
@@ -104,7 +109,7 @@ public class Room : MonoBehaviour {
     private void OnEnable() {
         enterTrigger.OnEnterContact += OnEnterRoom;
 
-        roomCleared = noEnemies;
+        roomCleared = scriptableRoom.NoEnemies;
         roomLight.intensity = 0;
     }
     private void OnDisable() {

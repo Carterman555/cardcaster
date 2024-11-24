@@ -13,4 +13,6 @@ MonoBehaviour:
   m_Name: CardForge2-Stone
   m_EditorClassIdentifier: 
   roomType: 0
+  environmentType: 0
   roomPrefab: {fileID: 3084685571954290978, guid: 258fe716838131a4bb40ccfe514f5a1e, type: 3}
+  scriptableEnemyComposition: {fileID: 11400000, guid: c277a1bf9e0ebe84aac2b724cb4fd769, type: 2}

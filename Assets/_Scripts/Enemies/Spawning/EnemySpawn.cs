@@ -5,7 +5,16 @@ using UnityEngine;
 
 public class EnemySpawn : MonoBehaviour, IHasRoomNum {
 
+    [SerializeField] private bool specificEnemy;
+
+    [ConditionalHide("specificEnemy")]
+    [SerializeField] private ScriptableEnemy enemyToSpawn;
+
+
+    [ConditionalHideReversed("specificEnemy")]
     [SerializeField] private EnemyTag possibleTags;
+
+    [ConditionalHideReversed("specificEnemy")]
     [SerializeField] private float maxDifficulty;
 
     private int roomNum;
@@ -29,19 +38,32 @@ public class EnemySpawn : MonoBehaviour, IHasRoomNum {
 
     private void SpawnEnemy() {
 
+        Enemy enemyPrefab;
+
+        if (specificEnemy) {
+            enemyPrefab = enemyToSpawn.Prefab;
+        }
+        else {
+            enemyPrefab = ChooseRandomEnemy();
+        }
+
+        enemyPrefab.Spawn(transform.position, Containers.Instance.Enemies);
+    }
+
+    private Enemy ChooseRandomEnemy() {
         List<ScriptableEnemy> allEnemies = ResourceSystem.Instance.GetAllEnemies();
 
         // Filter enemies that match any of the possible tags
         var matchingEnemies = allEnemies.Where(enemy => (enemy.Tags & possibleTags) != EnemyTag.None && enemy.Difficulty <= maxDifficulty).ToArray();
 
         if (matchingEnemies.Length == 0) {
-            Debug.LogWarning("No enemies match the given tags.");
-            return;
+            Debug.LogError("No enemies match the given tags.");
+            return null;
         }
 
 
         // Choose a random enemy from the matching ones to spawn
-        var enemy = matchingEnemies.RandomItem();
-        enemy.Prefab.Spawn(transform.position, Containers.Instance.Enemies);
+        Enemy enemyPrefab = matchingEnemies.RandomItem().Prefab;
+        return enemyPrefab;
     }
 }

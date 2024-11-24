@@ -27,7 +27,7 @@ MonoBehaviour:
     AreaSize: 0
     Duration: 5
     ProjectileSpeed: 16
-    Cooldown: 0.5
+    Cooldown: 0.25
   <IsPositional>k__BackingField: 0
   <IsModifiable>k__BackingField: 1
   daggerPrefab: {fileID: 712133601725730603, guid: d716733ca4d8a4341a71e831dda4daa3, type: 3}

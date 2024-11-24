@@ -9,12 +9,17 @@ public class ScriptableEnemyComposition : ScriptableObject {
     [SerializeField] private EnemyAmount[] initialEnemyAmounts;
     public EnemyAmount[] InitialEnemyAmounts => initialEnemyAmounts;
 
-    [SerializeField] private RandomFloat afterInitialEnemiesDelay;
-    public RandomFloat AfterInitialEnemiesDelay => afterInitialEnemiesDelay;
+    [SerializeField] private bool spawnTimedEnemies;
+    public bool SpawnTimedEnemies => spawnTimedEnemies;
+
+    [ConditionalHide("spawnTimedEnemies")]
+    [SerializeField] private float afterInitialEnemiesDelay;
+    public float AfterInitialEnemiesDelay => afterInitialEnemiesDelay;
 
     [SerializeField] private EnemyAmount[] timedEnemyAmounts;
     public EnemyAmount[] TimedEnemyAmounts => timedEnemyAmounts;
 
+    [ConditionalHide("spawnTimedEnemies")]
     [SerializeField] private RandomFloat betweenEnemyDelay;
     public RandomFloat BetweenEnemyDelay => betweenEnemyDelay;
 }

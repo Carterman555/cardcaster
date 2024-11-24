@@ -1,4 +1,5 @@
 using System;
+using System.Drawing;
 using UnityEngine;
 
 public class StraightShootBehavior : MonoBehaviour, IAttacker {
@@ -22,6 +23,7 @@ public class StraightShootBehavior : MonoBehaviour, IAttacker {
 
     [Header("Animation")]
     [SerializeField] private bool specialAttack;
+    [SerializeField] private bool stopAimingOnAnimStart;
     [SerializeField] private Animator enemyAnim;
     [SerializeField] private bool hasWeapon;
     [ConditionalHide("hasWeapon")][SerializeField] private Animator weaponAnim;
@@ -48,6 +50,8 @@ public class StraightShootBehavior : MonoBehaviour, IAttacker {
         timedActionBehavior.UpdateLogic();
     }
 
+    private Vector2 shootDirection;
+
     private void TriggerShootAnimation() {
         string attackTriggerString = specialAttack ? "specialAttack" : "attack";
         enemyAnim.SetTrigger(attackTriggerString);
@@ -57,13 +61,29 @@ public class StraightShootBehavior : MonoBehaviour, IAttacker {
         }
 
         OnShootAnim?.Invoke();
+
+        // save direction to player when start animation to stop aiming after animation has started
+        if (stopAimingOnAnimStart) {
+            shootDirection = PlayerMeleeAttack.Instance.transform.position - transform.position;
+            if (weaponAnim.TryGetComponent(out PointTowardsPlayer pointTowardsPlayer)) {
+                pointTowardsPlayer.enabled = false;
+            }
+        }
     }
 
     public virtual void ShootProjectile() {
         StraightMovement newProjectile = projectilePrefab.Spawn(shootPoint.position, Containers.Instance.Projectiles);
 
-        Vector2 toTarget = PlayerMeleeAttack.Instance.transform.position - transform.position;
-        Vector2 shootDirection = toTarget;
+        // the weapon stopped pointing towards player when animation started so make it point towards player again
+        if (stopAimingOnAnimStart) {
+            if (weaponAnim.TryGetComponent(out PointTowardsPlayer pointTowardsPlayer)) {
+                pointTowardsPlayer.enabled = true;
+            }
+        }
+
+        if (!stopAimingOnAnimStart) {
+            shootDirection = PlayerMeleeAttack.Instance.transform.position - transform.position;
+        }
 
         if (hasShootVariation) {
             float randomAngle = UnityEngine.Random.Range(-shootVariation, shootVariation);

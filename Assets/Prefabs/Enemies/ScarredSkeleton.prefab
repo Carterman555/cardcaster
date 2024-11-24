@@ -615,6 +615,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 226976224992304211, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
       insertIndex: -1
       addedObject: {fileID: -5145827645362001838}
+    - targetCorrespondingSourceObject: {fileID: 226976224992304211, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -6390835054937521312}
   m_SourcePrefab: {fileID: 100100000, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
 --- !u!114 &4392500090413742484 stripped
 MonoBehaviour:
@@ -695,9 +698,26 @@ MonoBehaviour:
   hasShootVariation: 0
   shootVariation: 0
   specialAttack: 0
+  stopAimingOnAnimStart: 1
   enemyAnim: {fileID: 7812749826847277617}
   hasWeapon: 1
   weaponAnim: {fileID: 6415638475352910460}
+--- !u!114 &-6390835054937521312
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7481704768261658980}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba9fb5f3e1b1a684b87fca74cdec8a3a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sightLayerMask:
+    serializedVersion: 2
+    m_Bits: 1856
+  castRadius: 0.25
 --- !u!95 &7812749826847277617 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 621019451974682374, guid: d26e40392c042dc4d8c237ede2183746, type: 3}

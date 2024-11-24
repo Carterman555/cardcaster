@@ -5,34 +5,53 @@ using UnityEngine;
 
 public class ScarredSkeleton : Enemy {
 
-    private ChasePlayerBehavior moveBehavior;
+    private ChasePlayerBehavior chasePlayerBehavior;
     private StraightShootBehavior shootBehavior;
+    private LineSight lineSight;
 
     protected override void Awake() {
         base.Awake();
 
-        moveBehavior = GetComponent<ChasePlayerBehavior>();
+        chasePlayerBehavior = GetComponent<ChasePlayerBehavior>();
         shootBehavior = GetComponent<StraightShootBehavior>();
+        lineSight = GetComponent<LineSight>();
+
+        lineSight.SetTarget(PlayerMeleeAttack.Instance.transform);
+
+        EnterChaseState();
     }
 
     protected override void OnEnable() {
         base.OnEnable();
 
-        moveBehavior.enabled = true;
+        lineSight.OnEnterSight += EnterShootState;
+        lineSight.OnExitSight += EnterChaseState;
+    }
+
+    protected override void OnDisable() {
+        base.OnDisable();
+
+        lineSight.OnEnterSight -= EnterShootState;
+        lineSight.OnExitSight -= EnterChaseState;
+    }
+
+    private void EnterChaseState() {
+        chasePlayerBehavior.enabled = true;
         shootBehavior.enabled = false;
     }
 
-    protected override void OnPlayerEnteredRange(GameObject player) {
-        base.OnPlayerEnteredRange(player);
-
-        moveBehavior.enabled = false;
+    private void EnterShootState() {
+        chasePlayerBehavior.enabled = false;
         shootBehavior.enabled = true;
     }
 
-    protected override void OnPlayerExitedRange(GameObject player) {
-        base.OnPlayerExitedRange(player);
+    public override void OnAddEffect(UnitEffect unitEffect) {
+        base.OnAddEffect(unitEffect);
 
-        moveBehavior.enabled = true;
-        shootBehavior.enabled = false;
+        if (unitEffect is StopMovement) {
+            if (!lineSight.InSight()) {
+                EnterChaseState();
+            }
+        }
     }
 }

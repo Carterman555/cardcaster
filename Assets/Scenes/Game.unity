@@ -5458,6 +5458,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 516767147}
+  - component: {fileID: 516767150}
   - component: {fileID: 516767149}
   m_Layer: 0
   m_Name: EnemySpawner
@@ -5488,7 +5489,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 516767146}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 08a9f4affe3541d419f089de5fe66215, type: 3}
   m_Name: 
@@ -5512,6 +5513,18 @@ MonoBehaviour:
   spawnCooldown:
     MinValue: 1
     MaxValue: 2
+--- !u!114 &516767150
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 516767146}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3e688671859d20f489f71df8273c0dc2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -6254,7 +6267,7 @@ MonoBehaviour:
   unlimitedEssence: 0
   noEnemies: 0
   printMouseOver: 0
-  startingCards: 060000000d000000010000000c0000000b00000005000000
+  startingCards: 
   spawnAtBossRoom: 0
 --- !u!1 &623848812
 GameObject:

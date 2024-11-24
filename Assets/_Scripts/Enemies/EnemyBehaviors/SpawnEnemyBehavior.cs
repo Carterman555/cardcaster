@@ -33,7 +33,7 @@ public class SpawnEnemyBehavior : MonoBehaviour {
     private void Update() {
         timedActionBehavior.UpdateLogic();
         if (timedActionBehavior.IsFinished()) {
-            enabled = true;
+            enabled = false;
         }
     }
 

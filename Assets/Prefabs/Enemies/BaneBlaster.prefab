@@ -352,6 +352,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 226976224992304211, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
       insertIndex: -1
       addedObject: {fileID: 7032819161898582784}
+    - targetCorrespondingSourceObject: {fileID: 226976224992304211, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2958357090058817775}
   m_SourcePrefab: {fileID: 100100000, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
 --- !u!114 &4392500090413742484 stripped
 MonoBehaviour:
@@ -389,10 +392,6 @@ MonoBehaviour:
   scriptableEnemy: {fileID: 11400000, guid: aafd561a49975e04e8bdb25c998e7dfa, type: 2}
   playerTracker: {fileID: 4392500090413742484}
   anim: {fileID: 7812749826847277617}
-  sightLayerMask:
-    serializedVersion: 2
-    m_Bits: 1344
-  castRadius: 1
 --- !u!114 &8705883564165813318
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -439,6 +438,22 @@ MonoBehaviour:
   enemyAnim: {fileID: 7812749826847277617}
   hasWeapon: 0
   weaponAnim: {fileID: 3673410799856191900}
+--- !u!114 &2958357090058817775
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7481704768261658980}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba9fb5f3e1b1a684b87fca74cdec8a3a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sightLayerMask:
+    serializedVersion: 2
+    m_Bits: 1856
+  castRadius: 0.25
 --- !u!95 &7812749826847277617 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 621019451974682374, guid: d26e40392c042dc4d8c237ede2183746, type: 3}

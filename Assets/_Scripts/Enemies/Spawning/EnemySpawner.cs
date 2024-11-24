@@ -1,21 +1,16 @@
-using QFSW.QC;
+using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.Tilemaps;
 
 public class EnemySpawner : StaticInstance<EnemySpawner> {
 
-    [SerializeField] private ScriptableEnemy[] basicEnemies;
-    [SerializeField] private ScriptableEnemy[] complexEnemies;
-
-    [SerializeField][Range(0f, 1f)] private float complexChance;
-
-    [SerializeField] private RandomInt spawnAmount;
-    [SerializeField] private RandomFloat spawnCooldown;
-
     private bool spawningEnemies;
+
+    private ScriptableEnemyComposition currentEnemyComposition;
+
+    private List<Enemy> enemiesLeftToSpawn;
 
     public bool SpawningEnemies() {
         return spawningEnemies;
@@ -40,70 +35,75 @@ public class EnemySpawner : StaticInstance<EnemySpawner> {
             return;
         }
 
-        StartCoroutine(SpawnEnemiesCor());
+        currentEnemyComposition = room.GetScriptableRoom().ScriptableEnemyComposition;
+
+        SpawnInitialEnemies();
+
+        SetEnemiesToSpawnList();
+        StartCoroutine(SpawnTimedEnemiesCor());
     }
 
-    private IEnumerator SpawnEnemiesCor() {
+    private void SpawnInitialEnemies() {
+        foreach (EnemyAmount enemyAmount in currentEnemyComposition.InitialEnemyAmounts) {
+            enemyAmount.Amount.Randomize();
+            for (int i = 0; i < enemyAmount.Amount.Value; i++) {
+                SpawnEnemy(enemyAmount.ScriptableEnemy.Prefab);
+            }
+        }
+    }
+
+    private void SetEnemiesToSpawnList() {
+        enemiesLeftToSpawn.Clear();
+
+        foreach (EnemyAmount enemyAmount in currentEnemyComposition.TimedEnemyAmounts) {
+            int chosenAmount = enemyAmount.Amount.Randomize();
+            for (int i = 0; i < chosenAmount; i++) {
+                enemiesLeftToSpawn.Add(enemyAmount.ScriptableEnemy.Prefab);
+            }
+        }
+    }
+
+    private IEnumerator SpawnTimedEnemiesCor() {
 
         spawningEnemies = true;
 
-        int numOfUniqueComplexEnemies = Random.Range(1, 3); // 1 or 2
-        Enemy[] thisRoomsComplexEnemyPrefabs = new Enemy[numOfUniqueComplexEnemies];
+        yield return new WaitForSeconds(currentEnemyComposition.AfterInitialEnemiesDelay.Randomize());
 
-        for (int i = 0; i < numOfUniqueComplexEnemies; i++) {
-            thisRoomsComplexEnemyPrefabs[i] = complexEnemies.RandomItem().Prefab;
+        while (enemiesLeftToSpawn.Count > 0) {
+            yield return new WaitForSeconds(currentEnemyComposition.BetweenEnemyDelay.Randomize());
+
+            Enemy randomEnemy
+            SpawnEnemy();
         }
 
-        spawnAmount.Randomize();
-        for (int i = 0; i < spawnAmount.Value; i++) {
-            yield return new WaitForSeconds(spawnCooldown.Randomize());
-
-            if (Random.value < complexChance) {
-                ScriptableEnemy scriptableEnemy = complexEnemies.RandomItem();
-                Enemy enemyPrefab = scriptableEnemy.Prefab;
-
-                if (enemyPrefab == null) {
-                    print($"Null: {scriptableEnemy.Name}");
-                }
-
-                SpawnEnemy(enemyPrefab);
-            }
-            else {
-                ScriptableEnemy scriptableEnemy = basicEnemies.RandomItem();
-                Enemy enemyPrefab = scriptableEnemy.Prefab;
-
-                if (enemyPrefab == null) {
-                    print($"Null: {scriptableEnemy.Name}");
-                }
-
-                SpawnEnemy(enemyPrefab);
-            }
-        }
 
         spawningEnemies = false;
+    }
+
+    // chooses random enemy to spawn taking into account how much they are weighted
+    private void SpawnRandomEnemy() {
+
+        float probabilitySum = 0;
+        foreach (EnemyAmount enemyProbability in currentEnemyComposition) {
+            probabilitySum += enemyProbability.Probability;
+        }
+
+        float randomNum = UnityEngine.Random.Range(0f, probabilitySum);
+
+        foreach (EnemyAmount enemyProbability in currentEnemyComposition) {
+            randomNum -= enemyProbability.Probability;
+            if (randomNum < 0f) {
+
+                Enemy randomEnemyPrefab = enemyProbability.ScriptableEnemy.Prefab;
+                SpawnEnemy(randomEnemyPrefab);
+                return;
+            }
+        }
     }
 
     private void SpawnEnemy(Enemy enemyPrefab) {
         float avoidRadius = 2f;
         Vector2 position = new RoomPositionHelper().GetRandomSpawnPos(PlayerMovement.Instance.transform.position, avoidRadius);
         enemyPrefab.Spawn(position, Containers.Instance.Enemies);
-    }
-
-    // debugging
-    [Command]
-    private void SpawnEnemy(string enemyName) {
-        ScriptableEnemy enemy = ResourceSystem.Instance.GetAllEnemies().FirstOrDefault(e => e.name == enemyName);
-
-        if (enemy == null) {
-            Debug.LogWarning("Couldn't find enemy by name");
-            return;
-        }
-
-        SpawnEnemy(enemy.Prefab);
-    }
-
-    public void StopSpawning() {
-        StopAllCoroutines();
-        spawningEnemies = false;
     }
 }

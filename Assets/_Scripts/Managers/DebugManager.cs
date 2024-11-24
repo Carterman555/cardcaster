@@ -54,7 +54,7 @@ public class DebugManager : StaticInstance<DebugManager> {
 
         KillAllEnemies();
 
-        EnemySpawner.Instance.StopSpawning();
+        EnemySpawnerOld.Instance.StopSpawning();
 
         CheckRoomCleared.InvokeCleared();
     }

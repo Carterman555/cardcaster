@@ -885,6 +885,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 2394718490218990673, guid: 4723c0ded694bfb4b9bd66f2d1dae76b, type: 3}
+      propertyPath: scriptableRoom
+      value: 
+      objectReference: {fileID: 11400000, guid: 1d410e4a5ab6dfa47b9ae4a6bed61d51, type: 2}
+    - target: {fileID: 2394718490218990673, guid: 4723c0ded694bfb4b9bd66f2d1dae76b, type: 3}
       propertyPath: botColliderTilemap
       value: 
       objectReference: {fileID: 8413920733912396119}
@@ -25743,8 +25747,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5410359453482674565, guid: cbe9d5233d6e2fb4ab8841b1f83fde7b, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7104372755863850615, guid: cbe9d5233d6e2fb4ab8841b1f83fde7b, type: 3}
+      propertyPath: enemyToSpawn
+      value: 
+      objectReference: {fileID: 11400000, guid: f902a967706560441ad66394e8b585c2, type: 2}
     - target: {fileID: 7104372755863850615, guid: cbe9d5233d6e2fb4ab8841b1f83fde7b, type: 3}
       propertyPath: possibleTags
       value: 12
@@ -25752,6 +25760,10 @@ PrefabInstance:
     - target: {fileID: 7104372755863850615, guid: cbe9d5233d6e2fb4ab8841b1f83fde7b, type: 3}
       propertyPath: maxDifficulty
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7104372755863850615, guid: cbe9d5233d6e2fb4ab8841b1f83fde7b, type: 3}
+      propertyPath: specificEnemy
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7456050652385910532, guid: cbe9d5233d6e2fb4ab8841b1f83fde7b, type: 3}
       propertyPath: m_LocalPosition.x

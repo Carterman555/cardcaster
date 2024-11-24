@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
+using UnityEngine.Serialization;
 
 public enum RoomType {
     Normal,
@@ -29,5 +30,10 @@ public class ScriptableRoom : ScriptableObject {
     [SerializeField] private Room roomPrefab;
     public Room Prefab => roomPrefab;
 
-    [SerializeField] private ScriptableEnemyComposition ScriptableEnemyComposition;
+    [SerializeField] private bool noEnemies;
+    public bool NoEnemies => noEnemies;
+
+    [ConditionalHideReversed("noEnemies")]
+    [SerializeField] private ScriptableEnemyComposition scriptableEnemyComposition;
+    public ScriptableEnemyComposition ScriptableEnemyComposition => scriptableEnemyComposition;
 }

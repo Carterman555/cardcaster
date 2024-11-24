@@ -1937,6 +1937,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2394718490218990673, guid: 4723c0ded694bfb4b9bd66f2d1dae76b, type: 3}
+      propertyPath: scriptableRoom
+      value: 
+      objectReference: {fileID: 11400000, guid: 112174e5e4eee05419bfd3679e0e15ad, type: 2}
+    - target: {fileID: 2394718490218990673, guid: 4723c0ded694bfb4b9bd66f2d1dae76b, type: 3}
       propertyPath: possibleDoorways.Array.size
       value: 3
       objectReference: {fileID: 0}

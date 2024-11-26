@@ -11,11 +11,11 @@ GameObject:
   - component: {fileID: 1124832459702758688}
   - component: {fileID: 6482346275787368926}
   - component: {fileID: 7906188696243600679}
-  - component: {fileID: 3006919553162268956}
   - component: {fileID: -1897301476388012080}
   - component: {fileID: 5928653454067051690}
   - component: {fileID: 8369485514390924925}
   - component: {fileID: -9049614202188346056}
+  - component: {fileID: 1066643492302776744}
   m_Layer: 11
   m_Name: CardProjectile
   m_TagString: Untagged
@@ -78,7 +78,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -742048995
-  m_SortingLayer: 4
+  m_SortingLayer: 5
   m_SortingOrder: 0
   m_Sprite: {fileID: 1218721288, guid: bde6d022855f93745baad1d32c2ac2bc, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -118,41 +118,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!58 &3006919553162268956
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3719507589224047476}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ForceSendLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ForceReceiveLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ContactCaptureLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_CallbackLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  serializedVersion: 2
-  m_Radius: 0.5
 --- !u!114 &-1897301476388012080
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -181,6 +146,7 @@ MonoBehaviour:
   targetLayer:
     serializedVersion: 2
     m_Bits: 64
+  piercing: 0
 --- !u!114 &8369485514390924925
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -210,13 +176,58 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hasSpawnParticles: 1
   spawnParticles: {fileID: 1709629989399924173, guid: 22a723bf7c529e44d9f1f2994fffe609, type: 3}
-  spawnParticlesColor: {r: 0.90588236, g: 0.8352941, b: 0.7019608, a: 1}
+  spawnParticlesColor: {r: 0.8117647, g: 0.34117648, b: 0.23137255, a: 1}
   hasHitParticles: 0
   hitTargetParticles: {fileID: 0}
   hitTargetParticlesColor: {r: 0, g: 0, b: 0, a: 0}
   hasDestroyParticles: 1
   destroyParticles: {fileID: 1709629989399924173, guid: 22a723bf7c529e44d9f1f2994fffe609, type: 3}
-  destroyParticlesColor: {r: 0.90588236, g: 0.8352941, b: 0.7019608, a: 1}
+  destroyParticlesColor: {r: 0.8117647, g: 0.34117648, b: 0.23137255, a: 1}
+--- !u!61 &1066643492302776744
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3719507589224047476}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.0044632256, y: 0.0022316426}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1.125, y: 1.125}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.3841086, y: 0.6206583}
+  m_EdgeRadius: 0
 --- !u!1001 &2274066201549478125
 PrefabInstance:
   m_ObjectHideFlags: 0

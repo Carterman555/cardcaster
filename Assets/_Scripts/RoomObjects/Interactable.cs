@@ -17,6 +17,7 @@ public class Interactable : MonoBehaviour {
     [SerializeField] private TextMeshPro interactableTextPrefab;
     private TextMeshPro interactableText;
     [SerializeField] private Vector2 textPosition;
+    [SerializeField] private string text = "E";
 
     [Header("Outline")]
     private Material originalMaterial;
@@ -56,6 +57,8 @@ public class Interactable : MonoBehaviour {
         spriteRenderer.material = outlineMaterial;
 
         interactableText = interactableTextPrefab.Spawn((Vector2)transform.position + textPosition, transform);
+
+        interactableText.text = text;
 
         // grow text
         interactableText.transform.DOKill();

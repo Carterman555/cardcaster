@@ -39,6 +39,11 @@ public class DeckManager : Singleton<DeckManager> {
         return cardsInHand;
     }
 
+    public int GetHandSize() {
+        int handSize = cardsInHand.Where(card => card != null).Count();
+        return handSize;
+    }
+
     public List<ScriptableCardBase> GetAllCards() {
         List<ScriptableCardBase> allCards = new();
         allCards.AddRange(cardsInDeck);
@@ -68,8 +73,12 @@ public class DeckManager : Singleton<DeckManager> {
         OnEssenceChanged_Amount?.Invoke(essence);
     }
 
-    private void Start() {
+    protected override void Awake() {
+        base.Awake();
         SetupEmptyHand();
+    }
+
+    private void Start() {
 
         essence = maxEssence;
 
@@ -220,11 +229,6 @@ public class DeckManager : Singleton<DeckManager> {
     private void ShuffleDiscardToDeck() {
         cardsInDeck = cardsInDiscard.OrderBy(card => UnityEngine.Random.value).ToList();
         cardsInDiscard.Clear();
-    }
-
-    private int GetHandSize() {
-        int handSize = cardsInHand.Where(card => card != null).Count();
-        return handSize;
     }
 
     #endregion

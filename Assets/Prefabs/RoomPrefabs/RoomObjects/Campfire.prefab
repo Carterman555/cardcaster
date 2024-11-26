@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4252806765468281331}
   - component: {fileID: 8806557566693611909}
-  - component: {fileID: 3698229785430942989}
   - component: {fileID: 1296630484762602501}
+  - component: {fileID: 8160879553328499664}
   - component: {fileID: -7337060429072082821}
   m_Layer: 0
   m_Name: Campfire
@@ -79,23 +79,8 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.8625426, y: 1.9687817}
+  m_Size: {x: 2.5, y: 2}
   m_EdgeRadius: 0
---- !u!114 &3698229785430942989
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8638158404008627114}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 83180820e87499c44a09cbfa34602608, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  layerFilter:
-    serializedVersion: 2
-    m_Bits: 64
 --- !u!114 &1296630484762602501
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -108,8 +93,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 203e9f301e71b7343b1bc88e3865e48a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerTracker: {fileID: 3698229785430942989}
   anim: {fileID: 6518520215595721484}
+--- !u!114 &8160879553328499664
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8638158404008627114}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 823edaa7ade144b489dfbd4291e9786f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  interactAction: {fileID: -6811146151478928456, guid: 50afa068aa51bd149a1f3d07794c53d5, type: 3}
+  interactableTextPrefab: {fileID: 9084209149797969205, guid: a643d41c5c0620048bcb91e7ddbffcec, type: 3}
+  textPosition: {x: 0, y: 1.4}
+  text: Burn Card (E)
+  spriteRenderer: {fileID: 4638059093303010787}
+  outlineMaterial: {fileID: 2100000, guid: f635e5ceac75c8040924988bacd9af07, type: 2}
 --- !u!114 &-7337060429072082821
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -175,7 +177,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

@@ -5,32 +5,34 @@ using UnityEngine;
 
 public class Campfire : MonoBehaviour {
 
-    [SerializeField] private TriggerContactTracker playerTracker;
-
-    private bool used;
+    private Interactable interactable;
 
     [SerializeField] private Animator anim;
 
-    private void OnEnable() {
-        playerTracker.OnEnterContact_GO += TryOpenTrashUI;
+    private void Awake() {
+        interactable = GetComponent<Interactable>();
+    }
 
-        used = false;
+    private void OnEnable() {
+        interactable.OnInteract += OpenTrashUI;
     }
     private void OnDisable() {
-        playerTracker.OnEnterContact_GO -= TryOpenTrashUI;
+        interactable.OnInteract -= OpenTrashUI;
     }
 
-    private void TryOpenTrashUI(GameObject player) {
-
-        if (used) {
-            return;
-        }
-
+    private void OpenTrashUI() {
         FeedbackPlayer.Play("OpenAllCardsPanel");
         TrashCardManager.Instance.Activate();
 
-        used = true;
+        TrashCardManager.OnTrashCard += PutOutFire;
+    }
+
+    private void PutOutFire() {
+        TrashCardManager.OnTrashCard -= PutOutFire;
 
         anim.SetTrigger("use");
+
+        interactable.OnInteract -= OpenTrashUI;
+        interactable.enabled = false;
     }
 }

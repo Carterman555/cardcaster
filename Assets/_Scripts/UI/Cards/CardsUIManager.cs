@@ -17,13 +17,24 @@ public class CardsUIManager : StaticInstance<CardsUIManager> {
         DeckManager.OnGainCardToHand += DrawCardToEnd;
         DeckManager.OnTrashCardInHand += UpdateCardButtons;
         DeckManager.OnReplaceCardInHand += UpdateCardButtons;
+
+        DrawCardsOnNewLevel();
     }
     private void OnDisable() {
-        DeckManager.OnGainCardToHand -= DrawCardToEnd;
         HandCard.OnAnyCardUsed_ButtonAndCard -= OnCardUsed;
 
+        DeckManager.OnGainCardToHand -= DrawCardToEnd;
         DeckManager.OnTrashCardInHand -= UpdateCardButtons;
         DeckManager.OnReplaceCardInHand -= UpdateCardButtons;
+    }
+
+    private void DrawCardsOnNewLevel() {
+
+        int handSize = DeckManager.Instance.GetHandSize();
+        for (int i = 0; i < handSize; i++) {
+            DrawCardToEnd();
+        }
+
     }
 
     private void DrawCardToEnd() {

@@ -1718,7 +1718,7 @@ MonoBehaviour:
         Mode: 0
         AnimateScaleTarget: {fileID: 1519043710445125909}
         AnimateScaleDuration: 0.4
-        RemapCurveZero: 0
+        RemapCurveZero: -0.5
         RemapCurveOne: -1
         Offset: 0
         AnimateX: 1
@@ -1916,7 +1916,7 @@ MonoBehaviour:
         Mode: 0
         AnimateScaleTarget: {fileID: 1519043710445125909}
         AnimateScaleDuration: 0.4
-        RemapCurveZero: 0
+        RemapCurveZero: 0.5
         RemapCurveOne: 1
         Offset: 0
         AnimateX: 0
@@ -2850,6 +2850,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1cb4247d3ba53c4d9fe38cbfd1824e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cardStartPos: {x: 120, y: 115}
   hoverPlayer: {fileID: 1507770246064602376}
   toHandPlayer: {fileID: 8445676972534443276}
   useCardPlayer: {fileID: 2697354873728968971}

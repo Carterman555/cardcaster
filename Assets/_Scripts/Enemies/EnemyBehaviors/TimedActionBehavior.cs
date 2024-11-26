@@ -46,6 +46,13 @@ public class TimedActionBehavior {
         }
     }
 
+    public float GetActionTimer() {
+        return actionTimer;
+    }
+    public void SetActionTimer(float timerValue) {
+        actionTimer = timerValue;
+    }
+
     public void SetActionCooldown(float newCooldown) {
         actionCooldown = newCooldown;
     }

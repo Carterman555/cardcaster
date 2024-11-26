@@ -46,4 +46,12 @@ public class CircleSlashBehavior : MonoBehaviour {
             hasStats.GetStats().KnockbackStrength
         );
     }
+
+    public float GetActionTimer() {
+        return timedActionBehavior.GetActionTimer();
+    }
+
+    public void SetActionTimeRemaining(float timeRemaining) {
+        timedActionBehavior.SetActionTimer(timeRemaining);
+    }
 }

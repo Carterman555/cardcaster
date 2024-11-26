@@ -383,7 +383,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: bounce-bullet
+      name: simple-bullet
       rect:
         serializedVersion: 2
         x: 216
@@ -433,7 +433,7 @@ TextureImporter:
         width: 18
         height: 18
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -441,6 +441,27 @@ TextureImporter:
       bones: []
       spriteID: 4b7d27478743b5941999164366aaf250
       internalID: -129268225
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bounce-bullet
+      rect:
+        serializedVersion: 2
+        x: 18
+        y: 476
+        width: 18
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e4a2443924ac36343899e7b6f5c4ad33
+      internalID: -514661212
       vertices: []
       indices: 
       edges: []
@@ -464,7 +485,7 @@ TextureImporter:
       Used_Icons_1: -743878670
       Used_Icons_2: -129268225
       arrow: 1940436109
-      bounce-bullet: 625216967
+      bounce-bullet: -514661212
       card-small: 1218721288
       close-ui: -1183330171
       collapse-arrow: -1476148090
@@ -472,6 +493,7 @@ TextureImporter:
       magic-projectile1: 2020966142
       magic-projectile2: -1630129890
       magic-projectile3: -1045381893
+      simple-bullet: 625216967
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

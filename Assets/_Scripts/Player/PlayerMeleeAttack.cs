@@ -22,7 +22,7 @@ public class PlayerMeleeAttack : StaticInstance<PlayerMeleeAttack>, ITargetAttac
 
     private float GetAttackRadius() {
         float radiusMult = 0.65f;
-        float radiusAdd = 0.35f;
+        float radiusAdd = 0.65f;
         return stats.SwordSize * radiusMult + radiusAdd;
     }
 

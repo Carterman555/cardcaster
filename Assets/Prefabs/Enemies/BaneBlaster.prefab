@@ -435,6 +435,7 @@ MonoBehaviour:
   hasShootVariation: 0
   shootVariation: 0
   specialAttack: 0
+  stopAimingOnAnimStart: 0
   enemyAnim: {fileID: 7812749826847277617}
   hasWeapon: 0
   weaponAnim: {fileID: 3673410799856191900}
@@ -453,7 +454,7 @@ MonoBehaviour:
   sightLayerMask:
     serializedVersion: 2
     m_Bits: 1856
-  castRadius: 0.25
+  castRadius: 0.5
 --- !u!95 &7812749826847277617 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 621019451974682374, guid: d26e40392c042dc4d8c237ede2183746, type: 3}

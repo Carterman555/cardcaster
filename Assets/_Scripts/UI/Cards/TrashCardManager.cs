@@ -6,6 +6,8 @@ using UnityEngine;
 
 public class TrashCardManager : StaticInstance<TrashCardManager> {
 
+    public static event Action OnTrashCard;
+
     public void Activate() {
         PanelCardButton.OnClicked_PanelCard += ShowSelectButton;
         SelectButton.OnSelect_PanelCard += TrashCard;
@@ -17,6 +19,7 @@ public class TrashCardManager : StaticInstance<TrashCardManager> {
 
     private void TrashCard(PanelCardButton panelCard) {
         panelCard.Trash();
+        OnTrashCard?.Invoke();
     }
 
     private void ShowSelectButton(PanelCardButton panelCard) {

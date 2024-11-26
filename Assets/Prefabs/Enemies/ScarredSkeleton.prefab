@@ -717,7 +717,7 @@ MonoBehaviour:
   sightLayerMask:
     serializedVersion: 2
     m_Bits: 1856
-  castRadius: 0.25
+  castRadius: 0.5
 --- !u!95 &7812749826847277617 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 621019451974682374, guid: d26e40392c042dc4d8c237ede2183746, type: 3}

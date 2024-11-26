@@ -53,7 +53,7 @@ public class ShopUIManager : StaticInstance<ShopUIManager>, IInitializable {
         Vector2 offset = new Vector2(0f, 205f);
         Vector2 position = (Vector2)panelCard.transform.position + offset;
 
-        SelectButton.Instance.Show("Select", position, panelCard);
+        SelectButton.Instance.Show("Trade", position, panelCard);
     }
 
     private void ShowTradeUI(PanelCardButton panelCard) {

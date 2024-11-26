@@ -62,4 +62,12 @@ public class CircleStraightShootBehavior : MonoBehaviour {
             angle += angleStep;
         }
     }
+
+    public float GetActionTimer() {
+        return timedActionBehavior.GetActionTimer();
+    }
+
+    public void SetActionTimer(float timerValue) {
+         timedActionBehavior.SetActionTimer(timerValue);
+    }
 }

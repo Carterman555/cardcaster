@@ -17,6 +17,8 @@ public class HandCard : MonoBehaviour, IPointerDownHandler {
     public static event Action<ScriptableCardBase> OnAnyStartPlaying_Card;
     public static event Action<ScriptableCardBase> OnAnyCancel_Card;
 
+    [SerializeField] private Vector2 cardStartPos;
+
     [Header("Feedback Players")]
     [SerializeField] private MMF_Player hoverPlayer;
     [SerializeField] private MMF_Player toHandPlayer;
@@ -56,13 +58,19 @@ public class HandCard : MonoBehaviour, IPointerDownHandler {
         playingCard = false;
 
         MMF_Position toHandFeedback = toHandPlayer.GetFeedbackOfType<MMF_Position>("Move To Hand");
-        toHandFeedback.InitialPositionTransform = deckTransform;
+        toHandFeedback.InitialPosition = cardStartPos;
+
+        //... need to wait a frame after setting to hand position before playing feedback for it to go to that
+        //... pos
+        Invoke(nameof(PlayHandFeedback), Time.deltaTime);
 
         StopFollowingMouse();
 
-        toHandPlayer.PlayFeedbacks();
-
         SetCard(card);
+    }
+
+    private void PlayHandFeedback() {
+        toHandPlayer.PlayFeedbacks();
     }
 
     public void SetCardIndex(int cardIndex) {

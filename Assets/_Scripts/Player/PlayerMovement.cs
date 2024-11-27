@@ -51,9 +51,8 @@ public class PlayerMovement : StaticInstance<PlayerMovement>, IHasStats, IChange
         }
 
         moveDirection = moveInput.action.ReadValue<Vector2>();
-
-        //if (dashAction.action.triggered && !isDashing) {
-        if (Input.GetMouseButtonDown(1) && !isDashing && !knockback.IsApplyingKnockback()) {
+        
+        if (dashAction.action.triggered && !isDashing && !knockback.IsApplyingKnockback()) {
             StartCoroutine(Dash());
         }
 

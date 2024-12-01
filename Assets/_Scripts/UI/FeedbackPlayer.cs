@@ -25,11 +25,20 @@ public class FeedbackPlayer : MonoBehaviour {
         feedbackPlayers.Remove(feedbackName);
     }
 
+    public static MMF_Player GetPlayer(string feedbackName) {
+        return feedbackPlayers[feedbackName].GetPlayer();
+    }
+
     public static void Play(string feedbackName) {
         feedbackPlayers[feedbackName].Play();
     }
     public static void PlayInReverse(string popupName) {
         feedbackPlayers[popupName].PlayInReverse();
+    }
+
+    
+    public MMF_Player GetPlayer() {
+        return MMFPlayer;
     }
 
     public void Play() {

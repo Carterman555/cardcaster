@@ -11,6 +11,9 @@ public class ShopCard : MonoBehaviour {
 
     [SerializeField] private ChangeColorFromRarity changeShineColor;
 
+    [SerializeField] private bool debugCard;
+    [ConditionalHide("debugCard")] [SerializeField] private ScriptableCardBase defaultCard;
+
     private void Awake() {
         interactable = GetComponent<Interactable>();
         spriteRenderer = GetComponent<SpriteRenderer>();
@@ -19,8 +22,9 @@ public class ShopCard : MonoBehaviour {
     private void OnEnable() {
         interactable.OnInteract += OpenAllCardsUI;
 
-        //... default card for debugging
-        SetCard(ResourceSystem.Instance.GetCard(CardType.Fire));
+        if (debugCard) {
+            SetCard(defaultCard);
+        }
     }
     private void OnDisable() {
         interactable.OnInteract -= OpenAllCardsUI;
@@ -28,8 +32,8 @@ public class ShopCard : MonoBehaviour {
 
     public void SetCard(ScriptableCardBase card) {
         this.card = card;
-        spriteRenderer.sprite = card.GetSprite();
 
+        spriteRenderer.sprite = card.GetSprite();
         changeShineColor.SetColor(card.GetRarity());
     }
 

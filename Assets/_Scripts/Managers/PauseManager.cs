@@ -15,10 +15,6 @@ public class PauseManager : StaticInstance<PauseManager> {
         if (pauseAction.action.triggered) {
             TryPauseGame();
         }
-
-        if (unpauseAction.action.triggered) {
-            TryUnpauseGame();
-        }
     }
 
     public void TogglePause() {
@@ -40,7 +36,6 @@ public class PauseManager : StaticInstance<PauseManager> {
         Time.timeScale = 0f;
 
         FeedbackPlayer.Play("PausePanel");
-        playerInput.SwitchCurrentActionMap("UI");
     }
 
     public void TryUnpauseGame() {
@@ -53,6 +48,5 @@ public class PauseManager : StaticInstance<PauseManager> {
         Time.timeScale = 1f;
 
         FeedbackPlayer.PlayInReverse("PausePanel");
-        playerInput.SwitchCurrentActionMap("Gameplay");
     }
 }

@@ -51,7 +51,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "TogglePause",
+                    "name": "Pause",
                     "type": "Button",
                     "id": "1619083b-7d8c-4e96-917f-2b3008784510",
                     "expectedControlType": "Button",
@@ -167,7 +167,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "TogglePause",
+                    "action": "Pause",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
@@ -176,8 +176,30 @@
         {
             "name": "UI",
             "id": "2e9e62f8-4040-418d-9a11-b38c873037bc",
-            "actions": [],
-            "bindings": []
+            "actions": [
+                {
+                    "name": "CloseUI",
+                    "type": "Button",
+                    "id": "bd3c6804-862d-4213-841a-c752289069ab",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "28c0988d-6969-4b4c-a837-a81f6d1265ac",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "CloseUI",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": []

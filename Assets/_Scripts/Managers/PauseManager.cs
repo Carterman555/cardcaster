@@ -7,41 +7,52 @@ public class PauseManager : StaticInstance<PauseManager> {
 
     [SerializeField] private PlayerInput playerInput;
 
-    [SerializeField] private InputAction pauseAction;
+    [SerializeField] private InputActionReference pauseAction;
 
     private bool paused;
 
-    protected override void Awake() {
-        base.Awake();
-        pauseAction.Enable();
-    }
-
     private void Update() {
-        if (pauseAction.triggered) {
-            TogglePause();
+        if (pauseAction.action.triggered) {
+            TryPauseGame();
+        }
+
+        if (unpauseAction.action.triggered) {
+            TryUnpauseGame();
         }
     }
 
     public void TogglePause() {
         if (paused) {
-            UnpauseGame();
+            TryUnpauseGame();
         }
         else if (!paused) {
-            PauseGame();
+            TryPauseGame();
         }
     }
 
-    public void PauseGame() {
+    public void TryPauseGame() {
+
+        if (FeedbackPlayer.GetPlayer("PausePanel").IsPlaying) {
+            return;
+        }
+
         paused = true;
         Time.timeScale = 0f;
 
+        FeedbackPlayer.Play("PausePanel");
         playerInput.SwitchCurrentActionMap("UI");
     }
 
-    public void UnpauseGame() {
+    public void TryUnpauseGame() {
+
+        if (FeedbackPlayer.GetPlayer("PausePanel").IsPlaying) {
+            return;
+        }
+
         paused = false;
         Time.timeScale = 1f;
 
+        FeedbackPlayer.PlayInReverse("PausePanel");
         playerInput.SwitchCurrentActionMap("Gameplay");
     }
 }

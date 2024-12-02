@@ -163,6 +163,8 @@ public class ScriptableLaunchCard : ScriptableAbilityCardBase {
         abilityEffects.Clear();
 
         launchEffects.gameObject.ReturnToPool();
+
+        CameraShaker.Instance.ShakeCamera(0.4f);
     }
 
     public override void AddEffect(GameObject effectPrefab) {

@@ -31,7 +31,8 @@ public class ScriptableMassiveSwordCard : ScriptableStatsModifierCard {
         SpriteRenderer swordVisual = ReferenceSystem.Instance.PlayerSwordVisual;
         swordVisual.sprite = bigSwordSprite;
 
-        float transitionDuration = 0.5f;
+        //... shake when swing
+        PlayerMeleeAttack.Instance.OnAttack += ShakeCamera;
 
         float sizeMult = GetPlayerStatsModifier().SwordSizePercent.PercentToMult();
         Vector2 bigSwordStartingSize = Vector2.one * (1f/sizeMult);
@@ -39,23 +40,28 @@ public class ScriptableMassiveSwordCard : ScriptableStatsModifierCard {
         // grow sword, then add effects
         swordVisual.transform.DOKill();
         swordVisual.transform.localScale = bigSwordStartingSize;
-        return swordVisual.transform.DOScale(1f, transitionDuration);
+        return swordVisual.transform.DOScale(1f, duration: 0.5f);
     }
 
     private void ShrinkSword() {
         SpriteRenderer swordVisual = ReferenceSystem.Instance.PlayerSwordVisual;
 
-        float transitionDuration = 0.5f;
+        //... don't shake when swing
+        PlayerMeleeAttack.Instance.OnAttack -= ShakeCamera;
 
         float sizeMult = GetPlayerStatsModifier().SwordSizePercent.PercentToMult();
         Vector2 bigSwordEndingSize = Vector2.one * (1f / sizeMult);
-
+       
         // shrink sword, then switch back to orignal sword
         swordVisual.transform.DOKill();
-        swordVisual.transform.DOScale(bigSwordEndingSize, transitionDuration).OnComplete(() => {
+        swordVisual.transform.DOScale(bigSwordEndingSize, duration: 0.5f).OnComplete(() => {
             swordVisual.sprite = normalSwordSprite;
             swordVisual.transform.localScale = Vector3.one;
         });
+    }
+
+    private void ShakeCamera() {
+        CameraShaker.Instance.ShakeCamera(0.2f);
     }
 
     #region Handle Ability Effects

@@ -1,11 +1,14 @@
 using DG.Tweening.Core.Easing;
 using Mono.CSharp;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D), typeof(Knockback))]
 public class BounceMoveBehaviour : MonoBehaviour, IEffectable, IEnemyMovement {
+
+    public event Action OnBounce;
 
     private Rigidbody2D rb;
     private Knockback knockback;
@@ -52,7 +55,7 @@ public class BounceMoveBehaviour : MonoBehaviour, IEffectable, IEnemyMovement {
     private void RandomizeDirection() {
         velocity = Vector2.up * hasStats.GetStats().MoveSpeed;
 
-        float randomDegrees = Random.Range(0f, 360f);
+        float randomDegrees = UnityEngine.Random.Range(0f, 360f);
         velocity = velocity.RotateDirection(randomDegrees);
 
         UpdateFacing(velocity);
@@ -106,6 +109,8 @@ public class BounceMoveBehaviour : MonoBehaviour, IEffectable, IEnemyMovement {
         velocity = reflectDir.normalized * velocity.magnitude; // Preserve the speed
 
         UpdateFacing(velocity);
+
+        OnBounce?.Invoke();
     }
 
     private void UpdateFacing(Vector2 velocity) {

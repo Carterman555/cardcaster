@@ -307,7 +307,7 @@ GameObject:
   - component: {fileID: 9138537760632337751}
   - component: {fileID: 8542190569636602293}
   m_Layer: 0
-  m_Name: Systems
+  m_Name: PersistentManagers
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

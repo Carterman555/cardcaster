@@ -9,9 +9,7 @@ public class ExplodeBehavior : MonoBehaviour, ITargetAttacker {
     public event Action OnAttack;
     public event Action<GameObject> OnDamage_Target;
 
-
     [SerializeField] private LayerMask targetLayerMask;
-
 
     [Header("Stats")]
     [SerializeField] private bool useIHasStats;
@@ -26,7 +24,7 @@ public class ExplodeBehavior : MonoBehaviour, ITargetAttacker {
 
     [Header("Visual")]
     [SerializeField] private ParticleSystem explosionParticlesPrefab;
-
+    [SerializeField] private bool shakeCamera = true;
 
     private void Awake() {
         if (useIHasStats) {
@@ -47,6 +45,10 @@ public class ExplodeBehavior : MonoBehaviour, ITargetAttacker {
         // spawn particles
         if (explosionParticlesPrefab != null) {
             explosionParticlesPrefab.Spawn(transform.position, Containers.Instance.Effects);
+        }
+
+        if (shakeCamera) {
+            CameraShaker.Instance.ShakeCamera(0.3f);
         }
 
         // invoke events

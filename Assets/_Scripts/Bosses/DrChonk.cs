@@ -51,6 +51,7 @@ public class DrChonk : MonoBehaviour, IHasStats, IBoss {
 
         SubEatMinionMethods();
         SubShootMinionMethods();
+        SubBounceMethods();
 
         // spawn 5 healer minions surrounding boss
         SpawnStartingMinions();
@@ -58,6 +59,7 @@ public class DrChonk : MonoBehaviour, IHasStats, IBoss {
     private void OnDisable() {
         UnsubEatMinionMethods();
         UnsubShootMinionMethods();
+        UnsubBounceMethods();
 
         if (!Helpers.GameStopping()) {
             OnDefeated();
@@ -227,9 +229,21 @@ public class DrChonk : MonoBehaviour, IHasStats, IBoss {
 
     private BounceMoveBehaviour bounceMoveBehaviour;
 
+    private void SubBounceMethods() {
+        bounceMoveBehaviour.OnBounce += ShakeCamera;
+    }
+
+    private void UnsubBounceMethods() {
+        bounceMoveBehaviour.OnBounce -= ShakeCamera;
+    }
+
+    private void ShakeCamera() {
+        CameraShaker.Instance.ShakeCamera(0.3f);
+    }
+
     #endregion
 
-    
+
     #region Shooting Minions
 
     private StraightShootBehavior straightShootBehavior;

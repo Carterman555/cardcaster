@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[RequireComponent(typeof(IHasStats), typeof(Rigidbody2D))]
+[RequireComponent(typeof(Rigidbody2D))]
 public class Knockback : MonoBehaviour {
 
     private IHasStats hasStats;
@@ -8,6 +8,9 @@ public class Knockback : MonoBehaviour {
     private Health health;
         
     private bool applyingKnockback;
+
+    [SerializeField] private bool overrideKnockback;
+    [ConditionalHide("overrideKnockback")][SerializeField] private float overrideKnockbackResistance;
 
     public bool IsApplyingKnockback() {
         return applyingKnockback;
@@ -29,8 +32,16 @@ public class Knockback : MonoBehaviour {
             Debug.LogError(gameObject.name + ": KnockbackResistance Cannot be 0!");
         }
 
+        float knockbackResistance;
+        if (overrideKnockback) {
+            knockbackResistance = overrideKnockbackResistance;
+        }
+        else {
+            knockbackResistance = hasStats.GetStats().KnockbackResistance;
+        }
+
         float knockbackFactor = 12f;
-        float knockbackForce = strength / hasStats.GetStats().KnockbackResistance;
+        float knockbackForce = strength / knockbackResistance;
         rb.velocity = knockbackForce * knockbackFactor * direction.normalized;
 
         applyingKnockback = true;

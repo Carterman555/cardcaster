@@ -21,10 +21,14 @@ public class StraightShootBehavior : MonoBehaviour, IAttacker {
     [SerializeField] private bool hasShootVariation;
     [ConditionalHide("hasShootVariation")][SerializeField] private float shootVariation;
 
+    public enum ShootTarget { Player, Random }
+    private ShootTarget shootTarget = ShootTarget.Player;
+
     [Header("Animation")]
-    [SerializeField] private bool specialAttack;
-    [SerializeField] private bool stopAimingOnAnimStart;
-    [SerializeField] private Animator enemyAnim;
+    [SerializeField] private bool hasShootAnim = true;
+    [ConditionalHide("hasShootAnim")][SerializeField] private bool specialAttack;
+    [ConditionalHide("hasShootAnim")][SerializeField] private bool stopAimingOnAnimStart;
+    [ConditionalHide("hasShootAnim")][SerializeField] private Animator enemyAnim;
     [SerializeField] private bool hasWeapon;
     [ConditionalHide("hasWeapon")][SerializeField] private Animator weaponAnim;
 
@@ -33,10 +37,16 @@ public class StraightShootBehavior : MonoBehaviour, IAttacker {
     private void Awake() {
         hasStats = GetComponent<IHasStats>();
 
-        timedActionBehavior = new TimedActionBehavior(
+        if (hasShootAnim) {
+            timedActionBehavior = new TimedActionBehavior(
             hasStats.GetStats().AttackCooldown,
-            () => TriggerShootAnimation()
-        );
+            () => TriggerShootAnimation());
+        }
+        else {
+            timedActionBehavior = new TimedActionBehavior(
+            hasStats.GetStats().AttackCooldown,
+            () => ShootProjectile());
+        }
     }
 
     private void OnEnable() {
@@ -64,7 +74,7 @@ public class StraightShootBehavior : MonoBehaviour, IAttacker {
 
         // save direction to player when start animation to stop aiming after animation has started
         if (stopAimingOnAnimStart) {
-            shootDirection = PlayerMeleeAttack.Instance.transform.position - transform.position;
+            shootDirection = GetShootDirection();
             if (weaponAnim.TryGetComponent(out PointTowardsPlayer pointTowardsPlayer)) {
                 pointTowardsPlayer.enabled = false;
             }
@@ -82,7 +92,7 @@ public class StraightShootBehavior : MonoBehaviour, IAttacker {
         }
 
         if (!stopAimingOnAnimStart) {
-            shootDirection = PlayerMeleeAttack.Instance.transform.position - transform.position;
+            shootDirection = GetShootDirection();
         }
 
         if (hasShootVariation) {
@@ -110,4 +120,25 @@ public class StraightShootBehavior : MonoBehaviour, IAttacker {
     protected void InvokeAttackEvent() {
         OnAttack?.Invoke();
     }
+
+    public void SetShootTarget(ShootTarget shootTarget) {
+        this.shootTarget = shootTarget;
+    }
+
+    public Vector2 GetShootDirection() {
+        if (shootTarget == ShootTarget.Player) {
+            return PlayerDirection;
+        }
+        else if (shootTarget == ShootTarget.Random) {
+            return RandomDirection;
+        }
+        else {
+            Debug.LogError("Shoot Type Not Supported: " + shootTarget.ToString());
+            return Vector2.zero;
+        }
+    }
+
+    public Vector2 PlayerDirection => PlayerMeleeAttack.Instance.transform.position - transform.position;
+
+    public Vector2 RandomDirection => UnityEngine.Random.insideUnitCircle.normalized;
 }

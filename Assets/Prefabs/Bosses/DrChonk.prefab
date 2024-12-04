@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 4239218035097059229}
   - component: {fileID: 643206228613008287}
   - component: {fileID: 3050354712212985075}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: Visual
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -74,7 +74,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -210121459
-  m_SortingLayer: 3
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_Sprite: {fileID: 1893983719171818119, guid: 7cbd33a088f8e9c4193d4a93d9f2511e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -396,6 +396,7 @@ MonoBehaviour:
   hasShootVariation: 1
   shootVariation: 10
   specialAttack: 0
+  stopAimingOnAnimStart: 0
   enemyAnim: {fileID: 4239218035097059229}
   hasWeapon: 0
   weaponAnim: {fileID: 0}
@@ -441,7 +442,7 @@ GameObject:
   - component: {fileID: 7243959844192712482}
   - component: {fileID: 9087410966840128190}
   - component: {fileID: 6312044565954755361}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: EatTrigger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -513,7 +514,6 @@ MonoBehaviour:
   layerFilter:
     serializedVersion: 2
     m_Bits: 128
-  debug: 0
 --- !u!1 &7292421935587701795
 GameObject:
   m_ObjectHideFlags: 0
@@ -1052,7 +1052,7 @@ GameObject:
   - component: {fileID: 3617721464181306232}
   - component: {fileID: 2293138364654710446}
   - component: {fileID: 8748015086365348856}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: SuckTrigger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1124,7 +1124,6 @@ MonoBehaviour:
   layerFilter:
     serializedVersion: 2
     m_Bits: 128
-  debug: 0
 --- !u!1 &7847922075650450923
 GameObject:
   m_ObjectHideFlags: 0
@@ -1237,7 +1236,6 @@ MonoBehaviour:
   layerFilter:
     serializedVersion: 2
     m_Bits: 64
-  debug: 0
 --- !u!114 &5207951055974075421
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1266,7 +1264,7 @@ GameObject:
   - component: {fileID: 1340306799450584447}
   - component: {fileID: 6483975006649863757}
   - component: {fileID: 7235549668406470377}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: BounceTrigger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1338,7 +1336,6 @@ MonoBehaviour:
   layerFilter:
     serializedVersion: 2
     m_Bits: 1792
-  debug: 0
 --- !u!1 &8703366146115713559
 GameObject:
   m_ObjectHideFlags: 0
@@ -6167,7 +6164,7 @@ ParticleSystemRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1360671085
-  m_SortingLayer: 5
+  m_SortingLayer: 6
   m_SortingOrder: 0
   m_RenderMode: 0
   m_MeshDistribution: 0

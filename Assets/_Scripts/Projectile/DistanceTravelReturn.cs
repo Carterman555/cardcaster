@@ -13,6 +13,12 @@ public class DistanceTravelReturn : MonoBehaviour {
     }
 
     private void Update() {
+
+        bool setup = distanceToReturn > 0;
+        if (!setup) {
+            return;
+        }
+
         float distanceTravelled = Vector2.Distance(originalPos, transform.position); // could be costly
         if (distanceTravelled > distanceToReturn) {
             gameObject.ReturnToPool();

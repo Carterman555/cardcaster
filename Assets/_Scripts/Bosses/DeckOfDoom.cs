@@ -47,8 +47,6 @@ public class DeckOfDoom : MonoBehaviour, IHasStats, IBoss {
 
     private void Update() {
 
-        print($"State: {currentState.ToString()}");
-
         stateTimer += Time.deltaTime;
         if (stateTimer > stateDurations[currentState].Value) {
 

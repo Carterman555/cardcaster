@@ -7,18 +7,18 @@ public class RoomPositionHelper {
     private float obstacleAvoidDistance = 0f;
     private bool mustBeOnGroundTile = true;
 
-    public Vector2 GetRandomSpawnPos() {
+    public Vector2 GetRandomRoomPos() {
         Vector2 randomPoint = new RoomPositionHelper()
             .SetObstacleAvoidance(0.5f)
-            .GetRandomPosition();
+            .GetRandomPositionInCollider();
         return randomPoint;
     }
 
-    public Vector2 GetRandomSpawnPos(Vector2 avoidCenter, float avoidRadius) {
+    public Vector2 GetRandomRoomPos(Vector2 avoidCenter, float avoidRadius) {
         Vector2 randomPoint = new RoomPositionHelper()
             .SetAvoidArea(avoidCenter, avoidRadius)
             .SetObstacleAvoidance(0.5f)
-            .GetRandomPosition();
+            .GetRandomPositionInCollider();
         return randomPoint;
     }
 
@@ -40,7 +40,7 @@ public class RoomPositionHelper {
         return this;
     }
 
-    public Vector2 GetRandomPosition() {
+    public Vector2 GetRandomPositionInCollider() {
         PolygonCollider2D col = Room.GetCurrentRoom().GetComponent<PolygonCollider2D>();
         Bounds bounds = col.bounds;
         Vector2 randomPoint;

@@ -15,7 +15,7 @@ public class DeckOfDoom : MonoBehaviour, IHasStats, IBoss {
     private DeckOfDoomState currentState;
     private DeckOfDoomState previousActionState;
 
-    private readonly DeckOfDoomState[] actionStates = new DeckOfDoomState[] { DeckOfDoomState.Spin, DeckOfDoomState.Split, DeckOfDoomState.Dash };
+    private readonly DeckOfDoomState[] actionStates = new DeckOfDoomState[] { DeckOfDoomState.Spin, DeckOfDoomState.Split, DeckOfDoomState.CardSurge };
 
     [SerializeField] private List<DeckOfDoomStateDurationPair> stateDurationsList;
     private Dictionary<DeckOfDoomState, RandomFloat> stateDurations = new();
@@ -54,7 +54,7 @@ public class DeckOfDoom : MonoBehaviour, IHasStats, IBoss {
 
             if (currentState == DeckOfDoomState.BetweenStates) {
                 //ChangeToRandomState(previousActionState);
-                ChangeState(DeckOfDoomState.Split);
+                ChangeState(DeckOfDoomState.CardSurge);
             }
             else {
                 ChangeState(DeckOfDoomState.BetweenStates);
@@ -92,7 +92,8 @@ public class DeckOfDoom : MonoBehaviour, IHasStats, IBoss {
 
             RejoinSplits();
         }
-        else if (previousState == DeckOfDoomState.Dash) {
+        else if (previousState == DeckOfDoomState.CardSurge) {
+            StopShootingSurges();
         }
 
         if (newState == DeckOfDoomState.BetweenStates) {
@@ -107,16 +108,17 @@ public class DeckOfDoom : MonoBehaviour, IHasStats, IBoss {
             anim.SetBool("deckSplitFace", true);
             bounceMoveBehavior.enabled = true;
         }
-        else if (newState == DeckOfDoomState.Dash) {
+        else if (newState == DeckOfDoomState.CardSurge) {
+            StartShootingSurges();
         }
     }
 
 
     #region Spin
 
+    [Header("Spin State")]
     private StraightShootBehavior shootBehavior;
 
-    [Header("Spin State")]
     [SerializeField] private float shootDelay;
 
     // to have delay before shooting
@@ -129,6 +131,7 @@ public class DeckOfDoom : MonoBehaviour, IHasStats, IBoss {
 
     #region Split
 
+    [Header("Split State")]
     private BounceMoveBehaviour bounceMoveBehavior;
 
     [SerializeField] private DeckOfDoomSplit deckSplitPrefab;
@@ -157,9 +160,48 @@ public class DeckOfDoom : MonoBehaviour, IHasStats, IBoss {
 
     #endregion
 
-    #region Dash
+    #region CardSurge
 
+    [Header("Card Surge State")]
+    [SerializeField] private CardSurge cardSurgePrefab;
+    [SerializeField] private float surgeCooldown;
+    [SerializeField] [Range(0f, 1f)] private float targetPlayerProbability;
 
+    private Coroutine shootSurgesCoroutine;
+
+    private void StartShootingSurges() {
+        shootSurgesCoroutine = StartCoroutine(ShootSurges());
+    }
+
+    private void StopShootingSurges() {
+
+        if (shootSurgesCoroutine == null) {
+            Debug.LogWarning("Tried to stop shooting surges, but coroutine is null!");
+            return;
+        }
+
+        StopCoroutine(shootSurgesCoroutine);
+        shootSurgesCoroutine = null;
+    }
+
+    private IEnumerator ShootSurges() {
+
+        while (true) {
+            yield return new WaitForSeconds(surgeCooldown);
+
+            SpawnSurge();
+        }
+    }
+
+    private void SpawnSurge() {
+        
+        // randomly choose between targeting random pos in room or player
+        bool targetPlayer = UnityEngine.Random.Range(0f, 1f) < targetPlayerProbability;
+        CardSurge.TargetType targetType = targetPlayer ? CardSurge.TargetType.Player : CardSurge.TargetType.Random;
+
+        CardSurge cardSurge = cardSurgePrefab.Spawn(Containers.Instance.Projectiles);
+        cardSurge.Setup(targetType);
+    }
 
     #endregion
 
@@ -170,7 +212,7 @@ public enum DeckOfDoomState {
     BetweenStates = 0,
     Spin = 1,
     Split = 2,
-    Dash = 3
+    CardSurge = 3
 }
 
 [Serializable]

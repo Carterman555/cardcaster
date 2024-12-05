@@ -47,7 +47,7 @@ TagManager:
   - name: TopWalls
     uniqueID: 438269023
     locked: 0
-  - name: Background Effects
+  - name: BackgroundEffects
     uniqueID: 3148355809
     locked: 0
   - name: Main
@@ -62,7 +62,7 @@ TagManager:
   - name: BotWalls
     uniqueID: 4067078365
     locked: 0
-  - name: RoomDarkness
+  - name: ForegroundEffects
     uniqueID: 421269379
     locked: 0
   - name: WorldUI

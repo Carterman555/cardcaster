@@ -85,7 +85,7 @@ public class EnemySpawnerOld : StaticInstance<EnemySpawnerOld> {
 
     private void SpawnEnemy(Enemy enemyPrefab) {
         float avoidRadius = 2f;
-        Vector2 position = new RoomPositionHelper().GetRandomSpawnPos(PlayerMovement.Instance.transform.position, avoidRadius);
+        Vector2 position = new RoomPositionHelper().GetRandomRoomPos(PlayerMovement.Instance.transform.position, avoidRadius);
         enemyPrefab.Spawn(position, Containers.Instance.Enemies);
     }
 

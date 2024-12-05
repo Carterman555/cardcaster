@@ -39,7 +39,7 @@ public class RewardSpawner : MonoBehaviour {
     private void SpawnReward() {
 
         float avoidPlayerRadius = 2f;
-        Vector2 position = new RoomPositionHelper().GetRandomSpawnPos(PlayerMovement.Instance.transform.position, avoidPlayerRadius);
+        Vector2 position = new RoomPositionHelper().GetRandomRoomPos(PlayerMovement.Instance.transform.position, avoidPlayerRadius);
 
         if (Random.value < chestRewardChance) {
             // Instantiate the chest instead of using the spawning pool because the item that gets chosen gets unparented. And it's easiest to

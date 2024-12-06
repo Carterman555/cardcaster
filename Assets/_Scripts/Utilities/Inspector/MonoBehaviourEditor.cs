@@ -1,6 +1,6 @@
+#if UNITY_EDITOR
 using UnityEngine;
 using UnityEditor;
-
 
 /// <summary>
 /// This one is mandatory for ScriptableObjectDrawer since without it, the custom property drawer
@@ -13,3 +13,4 @@ using UnityEditor;
 public class MonoBehaviourEditor : Editor {
 
 }
+#endif

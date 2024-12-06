@@ -1,8 +1,11 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class BreakOnDamaged : MonoBehaviour, IDamagable {
+
+    public event Action<float, bool> OnDamaged_Damage_Shared;
 
     private Animator anim;
 
@@ -12,10 +15,12 @@ public class BreakOnDamaged : MonoBehaviour, IDamagable {
         anim = GetComponent<Animator>();
     }
 
-    public void Damage(float damage) {
+    public void Damage(float damage, bool shared = false) {
         anim.SetTrigger("break");
 
         ParticleSystem particles = breakParticlesPrefab.Spawn(transform.position, Containers.Instance.Effects);
         particles.Play();
+
+        OnDamaged_Damage_Shared.Invoke(damage, shared);
     }
 }

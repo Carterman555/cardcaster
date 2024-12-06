@@ -128,6 +128,18 @@ PrefabInstance:
       propertyPath: m_IsTrigger
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8999610040005324296, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
+      propertyPath: deathParticlesColor.b
+      value: 0.91372555
+      objectReference: {fileID: 0}
+    - target: {fileID: 8999610040005324296, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
+      propertyPath: deathParticlesColor.g
+      value: 0.9294118
+      objectReference: {fileID: 0}
+    - target: {fileID: 8999610040005324296, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
+      propertyPath: deathParticlesColor.r
+      value: 0.9215687
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: -2736141077457755013, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
     m_RemovedGameObjects: []
@@ -221,6 +233,7 @@ MonoBehaviour:
   serializedExplosionRadius: 1
   explosionRadius: 3
   explosionParticlesPrefab: {fileID: 6065135645941821456, guid: 5f3b7b52a057dae4a8769678b76618b4, type: 3}
+  shakeCamera: 1
 --- !u!95 &7812749826847277617 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 621019451974682374, guid: d26e40392c042dc4d8c237ede2183746, type: 3}

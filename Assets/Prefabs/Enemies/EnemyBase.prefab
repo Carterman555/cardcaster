@@ -19,6 +19,7 @@ GameObject:
   - component: {fileID: 9160433015735330768}
   - component: {fileID: -7604754236743832783}
   - component: {fileID: -3599747744444464393}
+  - component: {fileID: 8999610040005324296}
   m_Layer: 7
   m_Name: EnemyBase
   m_TagString: Untagged
@@ -195,6 +196,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd29217e14438f4439a067c6fdd77708, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  overrideKnockback: 0
+  overrideKnockbackResistance: 0
 --- !u!114 &-5537846848555564483
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -251,6 +254,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damagePopupPrefab: {fileID: 6269490075395789074, guid: 4113a39b7959b5046b74c97564a2c64c, type: 3}
   yOffset: 1
+--- !u!114 &8999610040005324296
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 226976224992304211}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6a808fb6184942439bc84493cda6a08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  deathParticlesPrefab: {fileID: 198793636792726744, guid: 7325c4ae2260d9f46b182ff4f48ee9f2, type: 3}
+  deathParticlesColor: {r: 0.5254902, g: 0.5647059, b: 0.6039216, a: 1}
+  hasParticlePoint: 0
+  particlePoint: {fileID: 0}
 --- !u!1 &2578162526222060076
 GameObject:
   m_ObjectHideFlags: 0

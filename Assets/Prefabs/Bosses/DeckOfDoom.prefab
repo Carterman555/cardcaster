@@ -12,12 +12,13 @@ GameObject:
   - component: {fileID: 3011047724568233012}
   - component: {fileID: 1727303866139851955}
   - component: {fileID: 7604278803096048823}
+  - component: {fileID: 5736202852365760215}
+  - component: {fileID: 2621830293063425681}
   - component: {fileID: 7842081825320602579}
   - component: {fileID: 3351410608047035514}
-  - component: {fileID: 5736202852365760215}
   - component: {fileID: 1767139438961328018}
   - component: {fileID: 7558040409948274480}
-  - component: {fileID: 2621830293063425681}
+  - component: {fileID: -2277769799398756272}
   m_Layer: 7
   m_Name: DeckOfDoom
   m_TagString: Untagged
@@ -133,8 +134,8 @@ MonoBehaviour:
   stateDurationsList:
   - State: 0
     Duration:
-      MinValue: 8
-      MaxValue: 8
+      MinValue: 5
+      MaxValue: 5
   - State: 1
     Duration:
       MinValue: 12
@@ -151,38 +152,9 @@ MonoBehaviour:
   shootDelay: 3
   deckSplitPrefab: {fileID: -4080490040357254744, guid: a778576d5c747a44aa3fe3811a42b366, type: 3}
   numOfSplits: 3
---- !u!114 &7842081825320602579
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1338195640233062225}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9b436399d89bfd245b88204bdbc8ed47, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  damagedEventTrigger:
-    m_PersistentCalls:
-      m_Calls: []
-  hasDeathParticles: 1
-  deathParticles: {fileID: 6065135645941821456, guid: 9d414eb7344541344b030026510edc40, type: 3}
-  deathParticlesColor: {r: 0.17221434, g: 0.8113208, b: 0.24007843, a: 1}
---- !u!114 &3351410608047035514
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1338195640233062225}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cd29217e14438f4439a067c6fdd77708, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  overrideKnockback: 0
-  overrideKnockbackResistance: 0
+  cardSurgePrefab: {fileID: 1953470431834479791, guid: f1d2c1f3d8c52194b86ed3706fcd13dc, type: 3}
+  surgeCooldown: 1
+  targetPlayerProbability: 0.3
 --- !u!114 &5736202852365760215
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -207,6 +179,56 @@ MonoBehaviour:
   enemyAnim: {fileID: 4039351960834069205}
   hasWeapon: 0
   weaponAnim: {fileID: 0}
+--- !u!114 &2621830293063425681
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1338195640233062225}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d4ed370b107b3d4b893f7a0a7352bb2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bounceTrigger: {fileID: 8603987094714855798}
+  centerPoint: {fileID: 2512676828727106287}
+  hasBounceVariation: 0
+  bounceVariation: 0
+  twoWayFacing: 1
+  facingAngleOffset: 0
+--- !u!114 &7842081825320602579
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1338195640233062225}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b436399d89bfd245b88204bdbc8ed47, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damagedEventTrigger:
+    m_PersistentCalls:
+      m_Calls: []
+  hasDeathParticles: 1
+  deathParticles: {fileID: 6065135645941821456, guid: 9d414eb7344541344b030026510edc40, type: 3}
+  deathParticlesColor: {r: 0.1254902, g: 0.18039216, b: 0.21568629, a: 1}
+--- !u!114 &3351410608047035514
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1338195640233062225}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd29217e14438f4439a067c6fdd77708, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  overrideKnockback: 0
+  overrideKnockbackResistance: 0
 --- !u!114 &1767139438961328018
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -238,24 +260,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damagePopupPrefab: {fileID: 6269490075395789074, guid: 4113a39b7959b5046b74c97564a2c64c, type: 3}
   yOffset: 2
---- !u!114 &2621830293063425681
+--- !u!114 &-2277769799398756272
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1338195640233062225}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3d4ed370b107b3d4b893f7a0a7352bb2, type: 3}
+  m_Script: {fileID: 11500000, guid: f6a808fb6184942439bc84493cda6a08, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bounceTrigger: {fileID: 8603987094714855798}
-  centerPoint: {fileID: 2512676828727106287}
-  hasBounceVariation: 0
-  bounceVariation: 0
-  twoWayFacing: 1
-  facingAngleOffset: 0
+  deathParticlesPrefab: {fileID: 6065135645941821456, guid: 9d414eb7344541344b030026510edc40, type: 3}
+  deathParticlesColor: {r: 0.1254902, g: 0.18039216, b: 0.21568628, a: 1}
+  hasParticlePoint: 1
+  particlePoint: {fileID: 2512676828727106287}
 --- !u!1 &2675290753206742061
 GameObject:
   m_ObjectHideFlags: 0

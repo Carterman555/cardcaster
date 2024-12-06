@@ -2,26 +2,31 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(Health))]
+[RequireComponent(typeof(IDamagable))]
 public class PopupOnDamaged : MonoBehaviour {
 
     [SerializeField] private DamagePopup damagePopupPrefab;
     [SerializeField] private float yOffset;
 
-    private Health health;
+    private IDamagable damagable;
 
     private void Awake() {
-        health = GetComponent<Health>();
+        damagable = GetComponent<IDamagable>();
     }
 
     private void OnEnable() {
-        health.OnDamaged_Damage += CreateDamagePopup;
+        damagable.OnDamaged_Damage_Shared += CreateDamagePopup;
     }
     private void OnDisable() {
-        health.OnDamaged_Damage -= CreateDamagePopup;
+        damagable.OnDamaged_Damage_Shared -= CreateDamagePopup;
     }
 
-    public void CreateDamagePopup(float damage) {
+    public void CreateDamagePopup(float damage, bool fromShared) {
+
+        if (fromShared) {
+            return;
+        }
+
         Vector2 position = (Vector2)transform.position + new Vector2(0, yOffset);
         DamagePopup damagePopup = damagePopupPrefab.Spawn(position, Containers.Instance.Effects);
         damagePopup.Setup(damage);

@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8453159193190453471}
   - component: {fileID: 1695236653188823781}
   - component: {fileID: -4080490040357254744}
-  - component: {fileID: 7275142565364874359}
+  - component: {fileID: 3590918457497778308}
   - component: {fileID: 946293228287324947}
   - component: {fileID: 357451342900074160}
   - component: {fileID: 1304013747714631756}
@@ -128,7 +128,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scriptableBoss: {fileID: 11400000, guid: f578276634804944a9915047e62dd18c, type: 2}
   anim: {fileID: 1390823386657672635}
---- !u!114 &7275142565364874359
+--- !u!114 &3590918457497778308
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -137,15 +137,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 520499752767023456}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9b436399d89bfd245b88204bdbc8ed47, type: 3}
+  m_Script: {fileID: 11500000, guid: ff6ea884591c69f479259b0755124326, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damagedEventTrigger:
-    m_PersistentCalls:
-      m_Calls: []
-  hasDeathParticles: 1
-  deathParticles: {fileID: 6065135645941821456, guid: 9d414eb7344541344b030026510edc40, type: 3}
-  deathParticlesColor: {r: 0.17221434, g: 0.8113208, b: 0.24007843, a: 1}
 --- !u!114 &946293228287324947
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -327,8 +321,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackCooldown: 0.2
-  hasHealth: 1
-  health: {fileID: 7275142565364874359}
+  hasHealth: 0
+  health: {fileID: 0}
   overrideDamage: 1
   damage: 1
 --- !u!1 &2754034361892763137

@@ -167,6 +167,18 @@ PrefabInstance:
       propertyPath: m_BaseOffset
       value: 0.87
       objectReference: {fileID: 0}
+    - target: {fileID: 5414848298468351723, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
+      propertyPath: deathParticlesColor.b
+      value: 0.24705884
+      objectReference: {fileID: 0}
+    - target: {fileID: 5414848298468351723, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
+      propertyPath: deathParticlesColor.g
+      value: 0.19215688
+      objectReference: {fileID: 0}
+    - target: {fileID: 5414848298468351723, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
+      propertyPath: deathParticlesColor.r
+      value: 0.121568635
+      objectReference: {fileID: 0}
     - target: {fileID: 7684566445724823258, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
       propertyPath: m_Size.x
       value: 0.4006506
@@ -311,7 +323,9 @@ MonoBehaviour:
   damage: 0
   hasShootVariation: 0
   shootVariation: 0
+  hasShootAnim: 1
   specialAttack: 0
+  stopAimingOnAnimStart: 0
   enemyAnim: {fileID: 7812749826847277617}
   hasWeapon: 0
   weaponAnim: {fileID: 0}

@@ -6,7 +6,7 @@ public class Health : MonoBehaviour, IDamagable {
 
     public event Action OnDeath;
     public event Action<float> OnHealthChanged_HealthProportion;
-    public event Action<float> OnDamaged_Damage;
+    public event Action<float, bool> OnDamaged_Damage_Shared;
 
     [SerializeField] private UnityEvent damagedEventTrigger;
 
@@ -14,12 +14,6 @@ public class Health : MonoBehaviour, IDamagable {
     private float health;
 
     private bool dead;
-
-    [SerializeField] private bool hasDeathParticles;
-    [ConditionalHide("hasDeathParticles")]
-    [SerializeField] private ParticleSystem deathParticles;
-    [ConditionalHide("hasDeathParticles")]
-    [SerializeField] private Color deathParticlesColor;
 
     public bool IsDead() {
         return dead;
@@ -43,7 +37,7 @@ public class Health : MonoBehaviour, IDamagable {
         OnHealthChanged_HealthProportion?.Invoke(health / maxHealth);
     }
 
-    public void Damage(float damage) {
+    public void Damage(float damage, bool shared = false) {
 
         if (dead || IsInvincible()) {
             return;
@@ -53,7 +47,7 @@ public class Health : MonoBehaviour, IDamagable {
 
         OnHealthChanged_HealthProportion?.Invoke(health/maxHealth);
         damagedEventTrigger?.Invoke();
-        OnDamaged_Damage?.Invoke(damage);
+        OnDamaged_Damage_Shared?.Invoke(damage, shared);
 
         if (health <= 0) {
             Die();
@@ -63,12 +57,7 @@ public class Health : MonoBehaviour, IDamagable {
     public void Die() {
         dead = true;
 
-        if (hasDeathParticles) {
-            deathParticles.CreateColoredParticles(transform.position, deathParticlesColor);
-        }
-
         OnDeath?.Invoke();
-        
         gameObject.ReturnToPool();
     }
 

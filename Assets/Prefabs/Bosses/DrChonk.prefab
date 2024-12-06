@@ -198,6 +198,7 @@ GameObject:
   - component: {fileID: 8987095808021778562}
   - component: {fileID: -2327778949296054411}
   - component: {fileID: -4242213799015855196}
+  - component: {fileID: 3829760610537316383}
   m_Layer: 7
   m_Name: DrChonk
   m_TagString: Untagged
@@ -359,6 +360,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd29217e14438f4439a067c6fdd77708, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  overrideKnockback: 0
+  overrideKnockbackResistance: 0
 --- !u!114 &1206499748571781939
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -395,6 +398,7 @@ MonoBehaviour:
   damage: 2
   hasShootVariation: 1
   shootVariation: 10
+  hasShootAnim: 1
   specialAttack: 0
   stopAimingOnAnimStart: 0
   enemyAnim: {fileID: 4239218035097059229}
@@ -431,6 +435,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damagePopupPrefab: {fileID: 6269490075395789074, guid: 4113a39b7959b5046b74c97564a2c64c, type: 3}
   yOffset: 2
+--- !u!114 &3829760610537316383
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4111830215114382718}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6a808fb6184942439bc84493cda6a08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  deathParticlesPrefab: {fileID: 6065135645941821456, guid: 9d414eb7344541344b030026510edc40, type: 3}
+  deathParticlesColor: {r: 0.17254902, g: 0.8117647, b: 0.23921569, a: 1}
+  hasParticlePoint: 0
+  particlePoint: {fileID: 0}
 --- !u!1 &5270044504826222362
 GameObject:
   m_ObjectHideFlags: 0

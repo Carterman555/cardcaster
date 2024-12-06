@@ -6984,7 +6984,7 @@ MonoBehaviour:
   unlimitedEssence: 0
   noEnemies: 0
   printMouseOver: 0
-  startingCards: 0b000000090000000600000002000000
+  startingCards: 
   spawnAtBossRoom: 0
 --- !u!1 &623848812
 GameObject:
@@ -11134,9 +11134,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  hasDeathParticles: 0
-  deathParticles: {fileID: 0}
-  deathParticlesColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!70 &1214084862
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -21399,83 +21396,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2113050993}
   m_CullTransparentMesh: 1
---- !u!1001 &285967624234404418
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 1338195640233062225, guid: c4c94c4170581ca48be6ef20fbe73968, type: 3}
-      propertyPath: m_Name
-      value: DeckOfDoom
-      objectReference: {fileID: 0}
-    - target: {fileID: 7604278803096048823, guid: c4c94c4170581ca48be6ef20fbe73968, type: 3}
-      propertyPath: surgeCooldown
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7604278803096048823, guid: c4c94c4170581ca48be6ef20fbe73968, type: 3}
-      propertyPath: cardSurgePrefab
-      value: 
-      objectReference: {fileID: 1953470431834479791, guid: f1d2c1f3d8c52194b86ed3706fcd13dc, type: 3}
-    - target: {fileID: 7604278803096048823, guid: c4c94c4170581ca48be6ef20fbe73968, type: 3}
-      propertyPath: targetPlayerProbability
-      value: 0.3
-      objectReference: {fileID: 0}
-    - target: {fileID: 7604278803096048823, guid: c4c94c4170581ca48be6ef20fbe73968, type: 3}
-      propertyPath: stateDurationsList.Array.data[0].Duration.MaxValue
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7604278803096048823, guid: c4c94c4170581ca48be6ef20fbe73968, type: 3}
-      propertyPath: stateDurationsList.Array.data[0].Duration.MinValue
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 9001155239179587642, guid: c4c94c4170581ca48be6ef20fbe73968, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -5.61
-      objectReference: {fileID: 0}
-    - target: {fileID: 9001155239179587642, guid: c4c94c4170581ca48be6ef20fbe73968, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -1.43
-      objectReference: {fileID: 0}
-    - target: {fileID: 9001155239179587642, guid: c4c94c4170581ca48be6ef20fbe73968, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9001155239179587642, guid: c4c94c4170581ca48be6ef20fbe73968, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 9001155239179587642, guid: c4c94c4170581ca48be6ef20fbe73968, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9001155239179587642, guid: c4c94c4170581ca48be6ef20fbe73968, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9001155239179587642, guid: c4c94c4170581ca48be6ef20fbe73968, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9001155239179587642, guid: c4c94c4170581ca48be6ef20fbe73968, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9001155239179587642, guid: c4c94c4170581ca48be6ef20fbe73968, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9001155239179587642, guid: c4c94c4170581ca48be6ef20fbe73968, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: c4c94c4170581ca48be6ef20fbe73968, type: 3}
 --- !u!1001 &6237864730157833736
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -21614,4 +21534,3 @@ SceneRoots:
   - {fileID: 860838815}
   - {fileID: 1635037926}
   - {fileID: 882422893}
-  - {fileID: 285967624234404418}

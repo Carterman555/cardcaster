@@ -39,7 +39,7 @@ public class DeckOfDoom : MonoBehaviour, IHasStats, IBoss {
     }
 
     private void OnEnable() {
-        //ChangeState(DeckOfDoomState.Split);
+        //ChangeState(DeckOfDoomState.Spin);
         ChangeState(DeckOfDoomState.BetweenStates);
 
         stateTimer = 0f;
@@ -52,7 +52,7 @@ public class DeckOfDoom : MonoBehaviour, IHasStats, IBoss {
 
             if (currentState == DeckOfDoomState.BetweenStates) {
                 //ChangeToRandomState(previousActionState);
-                ChangeState(DeckOfDoomState.CardSurge);
+                ChangeState(DeckOfDoomState.Spin);
             }
             else {
                 ChangeState(DeckOfDoomState.BetweenStates);
@@ -142,6 +142,8 @@ public class DeckOfDoom : MonoBehaviour, IHasStats, IBoss {
         splits = new DeckOfDoomSplit[numOfSplits];
         for (int i = 0; i < numOfSplits; i++) {
             DeckOfDoomSplit deckSplit = deckSplitPrefab.Spawn(transform.position, Containers.Instance.Enemies);
+            deckSplit.GetComponent<SharedHealth>().SetHealth(GetComponent<Health>());
+
             splits[i] = deckSplit;
         }
     }

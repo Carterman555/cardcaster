@@ -5,7 +5,6 @@ public class Knockback : MonoBehaviour {
 
     private IHasStats hasStats;
     private Rigidbody2D rb;
-    private Health health;
         
     private bool applyingKnockback;
 
@@ -19,12 +18,11 @@ public class Knockback : MonoBehaviour {
     private void Awake() {
         hasStats = GetComponent<IHasStats>();
         rb = GetComponent<Rigidbody2D>();
-        health = GetComponent<Health>();
     }
 
     public void ApplyKnockback(Vector2 direction, float strength) {
 
-        if (health.IsInvincible()) {
+        if (TryGetComponent(out Health health) && health.IsInvincible()) {
             return;
         }
 

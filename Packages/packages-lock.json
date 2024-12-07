@@ -302,6 +302,13 @@
       },
       "url": "https://packages.unity.com"
     },
+    "de.ra-coding.tilemap-to-png": {
+      "version": "https://github.com/Ra-Coding/unity-tilemap-to-png.git#upm",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "019e611857e44e2f9fb6413d5a9368a33f0c009c"
+    },
     "com.unity.modules.ai": {
       "version": "1.0.0",
       "depth": 0,

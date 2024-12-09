@@ -11328,7 +11328,7 @@ GameObject:
   - component: {fileID: 1226022044}
   - component: {fileID: 1226022045}
   m_Layer: 13
-  m_Name: MiniMap Icon
+  m_Name: MiniMapIcon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11344,7 +11344,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 5, y: 5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1214084856}
@@ -11390,7 +11390,7 @@ SpriteRenderer:
   m_SortingLayerID: -981408041
   m_SortingLayer: 9
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 4b40fc0f65c85f14fbc9c7c5f40ca686, type: 3}
+  m_Sprite: {fileID: 5324263924718413467, guid: 59975ce93a119e945a78bb5f5587ae1d, type: 3}
   m_Color: {r: 0.1251335, g: 0.7169812, b: 0.15954328, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -21036,7 +21036,7 @@ Camera:
   far clip plane: 1000
   field of view: 34
   orthographic: 1
-  orthographic size: 20
+  orthographic size: 40
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2

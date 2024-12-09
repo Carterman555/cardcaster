@@ -3708,6 +3708,22 @@ PrefabInstance:
       propertyPath: possibleDoorways.Array.data[1]
       value: 
       objectReference: {fileID: 3630442605685770619}
+    - target: {fileID: 2588529346335818995, guid: 4723c0ded694bfb4b9bd66f2d1dae76b, type: 3}
+      propertyPath: m_Size.x
+      value: 36
+      objectReference: {fileID: 0}
+    - target: {fileID: 2588529346335818995, guid: 4723c0ded694bfb4b9bd66f2d1dae76b, type: 3}
+      propertyPath: m_Size.y
+      value: 22
+      objectReference: {fileID: 0}
+    - target: {fileID: 2588529346335818995, guid: 4723c0ded694bfb4b9bd66f2d1dae76b, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: fe2fce9fb986df14fa7a723bd9134e35, type: 3}
+    - target: {fileID: 2588529346335818995, guid: 4723c0ded694bfb4b9bd66f2d1dae76b, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2779059601650462574, guid: 4723c0ded694bfb4b9bd66f2d1dae76b, type: 3}
       propertyPath: m_Name
       value: BasicRoom1-BlueStone
@@ -19775,6 +19791,14 @@ PrefabInstance:
     - target: {fileID: 8096819079777925670, guid: 4723c0ded694bfb4b9bd66f2d1dae76b, type: 3}
       propertyPath: m_Tiles.Array.data[522].second.m_TileObjectToInstantiateIndex
       value: 65535
+      objectReference: {fileID: 0}
+    - target: {fileID: 8145462629638374072, guid: 4723c0ded694bfb4b9bd66f2d1dae76b, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8145462629638374072, guid: 4723c0ded694bfb4b9bd66f2d1dae76b, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8981315918092152400, guid: 4723c0ded694bfb4b9bd66f2d1dae76b, type: 3}
       propertyPath: m_IsActive

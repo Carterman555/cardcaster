@@ -10,8 +10,7 @@ using System;
 
 public class RoomCreatorWindow : EditorWindow {
 
-
-    private Room mainRoom;
+    private GameObject mainRoom;
 
     private Tilemap groundTilemap;
     private Tilemap topWallsTilemap;
@@ -38,7 +37,7 @@ public class RoomCreatorWindow : EditorWindow {
 
     private void OnGUI() {
 
-        mainRoom = EditorGUILayout.ObjectField("Room", mainRoom, typeof(Room), true) as Room;
+        mainRoom = EditorGUILayout.ObjectField("Room", mainRoom, typeof(GameObject), true) as GameObject;
 
         GUILayout.Space(5);
         var headerRect = GUILayoutUtility.GetRect(0, height: 30, GUILayout.ExpandWidth(true));
@@ -129,7 +128,7 @@ public class RoomCreatorWindow : EditorWindow {
         }
 
         if (ConditionalButton("Create All Minimap Sprites", scriptableRooms != null)) {
-            foreach (Room room in scriptableRooms.Rooms) {
+            foreach (GameObject room in scriptableRooms.Rooms) {
                 SetupMinimapSprite(room);
             }
         }
@@ -151,7 +150,7 @@ public class RoomCreatorWindow : EditorWindow {
 
     #region Minimap Icon
 
-    private void SetupMinimapSprite(Room room) {
+    private void SetupMinimapSprite(GameObject room) {
 
         Undo.RecordObject(room, "Setup Minimap Sprite");
 
@@ -174,18 +173,18 @@ public class RoomCreatorWindow : EditorWindow {
         Sprite miniMapSprite = AssetDatabase.LoadAssetAtPath<Sprite>(filePath);
         miniMapIconTransform.GetComponent<SpriteRenderer>().sprite = miniMapSprite;
 
-        // Position sprite
-        Vector2 tileMapsCenter = roomMiniMapSpriteCreator.GetTileMapsCenter();
-        miniMapIconTransform.position = tileMapsCenter;
+        // Position sprite - broken rn
+        //Vector2 tileMapsCenter = roomMiniMapSpriteCreator.GetTileMapsCenter();
+        //miniMapIconTransform.position = tileMapsCenter;
 
         EditorUtility.SetDirty(room);
     }
 
     #endregion
 
-    private void SetTilemaps(Room room = null) {
+    private void SetTilemaps(GameObject room = null) {
 
-        Room roomToUse = room != null ? room : mainRoom;
+        GameObject roomToUse = room != null ? room : mainRoom;
 
         string gridName = "Grid";
         Grid grid = roomToUse.transform.Find(gridName).GetComponent<Grid>();

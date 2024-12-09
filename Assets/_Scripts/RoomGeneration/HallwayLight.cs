@@ -12,6 +12,8 @@ public class HallwayLight : MonoBehaviour {
 
     private int[] connectingRoomNums = new int[2];
 
+    [SerializeField] private SpriteRenderer miniMapIcon;
+
     private void Awake() {
         hallwayLight = GetComponent<Light2D>();
     }
@@ -19,6 +21,7 @@ public class HallwayLight : MonoBehaviour {
     private void OnEnable() {
         connectingRoomNums = new int[2];
         hallwayLight.intensity = 0f;
+        miniMapIcon.Fade(0);
 
         Room.OnAnyRoomEnter_Room += TryLightPartially;
     }
@@ -34,9 +37,10 @@ public class HallwayLight : MonoBehaviour {
             return;
         }
 
-        //... if the room entered is a connecting room
+        //... if entered a room connecting to this hallway
         if (connectingRoomNums.Contains(room.GetRoomNum())) {
             LightPartially();
+            miniMapIcon.DOFade(1f, duration: 0.5f);
         }
     }
 

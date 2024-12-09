@@ -37,6 +37,7 @@ public class Room : MonoBehaviour {
     private bool roomCleared;
 
     [SerializeField] private Light2D roomLight;
+    [SerializeField] private SpriteRenderer miniMapIcon;
 
     #region Get Methods
 
@@ -111,6 +112,7 @@ public class Room : MonoBehaviour {
 
         roomCleared = scriptableRoom.NoEnemies;
         roomLight.intensity = 0;
+        miniMapIcon.Fade(1);
     }
     private void OnDisable() {
         exitTrigger.OnEnterContact -= OnEnterRoom;
@@ -162,6 +164,9 @@ public class Room : MonoBehaviour {
 
         //... brighten room
         DOTween.To(() => roomLight.intensity, x => roomLight.intensity = x, 1, duration: 1f);
+
+        //... show room on minimap
+        miniMapIcon.DOFade(1f, duration: 0.5f);
 
         exitTrigger.OnEnterContact += OnExitRoom;
         CheckRoomCleared.OnEnemiesCleared += SetRoomCleared;

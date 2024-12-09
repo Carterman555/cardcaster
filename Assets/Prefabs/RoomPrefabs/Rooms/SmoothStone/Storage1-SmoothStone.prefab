@@ -2596,6 +2596,10 @@ PrefabInstance:
       propertyPath: possibleDoorways.Array.data[1]
       value: 
       objectReference: {fileID: 6566345217802229789}
+    - target: {fileID: 2588529346335818995, guid: 4723c0ded694bfb4b9bd66f2d1dae76b, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: dc15f1a57ed8b70429fbddad44cab1c6, type: 3}
     - target: {fileID: 2779059601650462574, guid: 4723c0ded694bfb4b9bd66f2d1dae76b, type: 3}
       propertyPath: m_Name
       value: Storage1-SmoothStone
@@ -2759,6 +2763,22 @@ PrefabInstance:
     - target: {fileID: 6406168845811474983, guid: 4723c0ded694bfb4b9bd66f2d1dae76b, type: 3}
       propertyPath: m_ShapePath.Array.size
       value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 6406168845811474983, guid: 4723c0ded694bfb4b9bd66f2d1dae76b, type: 3}
+      propertyPath: m_LocalBounds.m_Center.x
+      value: -2.0005002
+      objectReference: {fileID: 0}
+    - target: {fileID: 6406168845811474983, guid: 4723c0ded694bfb4b9bd66f2d1dae76b, type: 3}
+      propertyPath: m_LocalBounds.m_Center.y
+      value: 3.5004
+      objectReference: {fileID: 0}
+    - target: {fileID: 6406168845811474983, guid: 4723c0ded694bfb4b9bd66f2d1dae76b, type: 3}
+      propertyPath: m_LocalBounds.m_Extent.x
+      value: 12.0005
+      objectReference: {fileID: 0}
+    - target: {fileID: 6406168845811474983, guid: 4723c0ded694bfb4b9bd66f2d1dae76b, type: 3}
+      propertyPath: m_LocalBounds.m_Extent.y
+      value: 10.500401
       objectReference: {fileID: 0}
     - target: {fileID: 6406168845811474983, guid: 4723c0ded694bfb4b9bd66f2d1dae76b, type: 3}
       propertyPath: m_ShapePath.Array.data[0].x
@@ -12047,6 +12067,14 @@ PrefabInstance:
     - target: {fileID: 8096819079777925670, guid: 4723c0ded694bfb4b9bd66f2d1dae76b, type: 3}
       propertyPath: m_Tiles.Array.data[310].second.m_TileObjectToInstantiateIndex
       value: 65535
+      objectReference: {fileID: 0}
+    - target: {fileID: 8145462629638374072, guid: 4723c0ded694bfb4b9bd66f2d1dae76b, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -2.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8145462629638374072, guid: 4723c0ded694bfb4b9bd66f2d1dae76b, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 9165105326778731556, guid: 4723c0ded694bfb4b9bd66f2d1dae76b, type: 3}
       propertyPath: m_Size.y

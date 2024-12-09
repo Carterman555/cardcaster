@@ -4,5 +4,5 @@ using UnityEngine;
 
 [CreateAssetMenu(fileName = "ScriptableRooms", menuName = "RoomCreator/Rooms")]
 public class ScriptableRooms : ScriptableObject {
-    public Room[] Rooms;
+    public GameObject[] Rooms;
 }

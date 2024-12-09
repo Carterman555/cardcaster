@@ -14,7 +14,7 @@ public class RoomMiniMapSpriteCreator {
     private string fileName;
     private string assetFilePath;
 
-    private int pixelsPerUnit = 4;
+    private int pixelsPerUnit = 1;
 
     public void CreateMiniMapSprite(string filename, Tilemap[] tilemaps) {
         this.fileName = filename;
@@ -53,6 +53,11 @@ public class RoomMiniMapSpriteCreator {
                 }
             }
         }
+
+        minTileX--;
+        minTileY--;
+        maxTileX++;
+        maxTileY++;
     }
 
     private void CreateImage() {

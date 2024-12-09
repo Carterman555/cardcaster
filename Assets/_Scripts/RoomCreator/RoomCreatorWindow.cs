@@ -10,7 +10,8 @@ using System;
 
 public class RoomCreatorWindow : EditorWindow {
 
-    private Grid tilemapGrid;
+
+    private Room mainRoom;
 
     private Tilemap groundTilemap;
     private Tilemap topWallsTilemap;
@@ -24,9 +25,11 @@ public class RoomCreatorWindow : EditorWindow {
 
     private Light2D roomLight;
 
-
     // setup multiple lights
     private ScriptableRoomColliders scriptableRoomColliders;
+
+    // setup multiple minimap sprites
+    private ScriptableRooms scriptableRooms;
 
     [MenuItem("Tools/Room Creator")]
     public static void ShowWindow() {
@@ -35,7 +38,7 @@ public class RoomCreatorWindow : EditorWindow {
 
     private void OnGUI() {
 
-        tilemapGrid = EditorGUILayout.ObjectField("Tilemap Grid", tilemapGrid, typeof(Grid), true) as Grid;
+        mainRoom = EditorGUILayout.ObjectField("Room", mainRoom, typeof(Room), true) as Room;
 
         GUILayout.Space(5);
         var headerRect = GUILayoutUtility.GetRect(0, height: 30, GUILayout.ExpandWidth(true));
@@ -44,7 +47,7 @@ public class RoomCreatorWindow : EditorWindow {
 
         environmentType = (EnvironmentType)EditorGUILayout.EnumPopup("Environment Type", environmentType);
 
-        if (GUILayout.Button("Create Wall Tiles")) {
+        if (ConditionalButton("Create Wall Tiles", mainRoom != null)) {
 
             SetTilemaps();
 
@@ -56,7 +59,7 @@ public class RoomCreatorWindow : EditorWindow {
 
         GUILayout.Space(5);
 
-        if (GUILayout.Button("Clear Ground Tilemap")) {
+        if (ConditionalButton("Clear Ground Tilemap", mainRoom != null)) {
             SetTilemaps();
 
             Undo.RecordObject(groundTilemap, "Clear Ground Tilemap");
@@ -64,7 +67,7 @@ public class RoomCreatorWindow : EditorWindow {
             ClearTilemap(groundTilemap);
         }
 
-        if (GUILayout.Button("Clear Wall Tilemaps")) {
+        if (ConditionalButton("Clear Wall Tilemaps", mainRoom != null)) {
             SetTilemaps();
 
             Undo.RecordObject(topWallsTilemap, "Clear Top Wall Tilemaps");
@@ -82,7 +85,7 @@ public class RoomCreatorWindow : EditorWindow {
         roomCollider = EditorGUILayout.ObjectField("Room Collider", roomCollider, typeof(PolygonCollider2D), true) as PolygonCollider2D;
         camConfinerCollider = EditorGUILayout.ObjectField("Camera Confiner Collider", camConfinerCollider, typeof(PolygonCollider2D), true) as PolygonCollider2D;
 
-        if (GUILayout.Button("Setup Polygon Colliders")) {
+        if (ConditionalButton("Setup Polygon Colliders", mainRoom != null && roomCollider != null && camConfinerCollider != null)) {
             SetTilemaps();
 
             // Start undo recording for this object
@@ -96,7 +99,7 @@ public class RoomCreatorWindow : EditorWindow {
 
         roomLight = EditorGUILayout.ObjectField("Room Light", roomLight, typeof(Light2D), true) as Light2D;
 
-        if (GUILayout.Button("Setup Light Shape")) {
+        if (ConditionalButton("Setup Light Shape", roomCollider != null && roomLight != null)) {
             Undo.RecordObject(roomLight, "Setup Light Shape");
 
             RoomLightShapeMatcher roomLightShapeMatcher = new();
@@ -105,7 +108,7 @@ public class RoomCreatorWindow : EditorWindow {
 
         scriptableRoomColliders = EditorGUILayout.ObjectField("Room Colliders", scriptableRoomColliders, typeof(ScriptableRoomColliders), true) as ScriptableRoomColliders;
 
-        if (GUILayout.Button("Setup All Lights")) {
+        if (ConditionalButton("Setup All Lights", scriptableRoomColliders != null)) {
             RoomLightShapeMatcher roomLightShapeMatcher = new();
 
             foreach (var roomCollider in scriptableRoomColliders.Colliders) {
@@ -113,21 +116,92 @@ public class RoomCreatorWindow : EditorWindow {
                 roomLightShapeMatcher.MatchLightShape(currentRoomLight, roomCollider);
             }
         }
+
+        GUILayout.Space(5);
+        headerRect = GUILayoutUtility.GetRect(0, height: 30, GUILayout.ExpandWidth(true));
+        EditorGUI.LabelField(headerRect, "Minimap Sprite");
+        GUILayout.Space(5);
+
+        scriptableRooms = EditorGUILayout.ObjectField("Rooms", scriptableRooms, typeof(ScriptableRooms), true) as ScriptableRooms;
+
+        if (ConditionalButton("Create Minimap Sprite", mainRoom != null)) {
+            SetupMinimapSprite(mainRoom);
+        }
+
+        if (ConditionalButton("Create All Minimap Sprites", scriptableRooms != null)) {
+            foreach (Room room in scriptableRooms.Rooms) {
+                SetupMinimapSprite(room);
+            }
+        }
     }
 
-    private void SetTilemaps() {
+    private bool ConditionalButton(string text, bool activeCondition) {
+
+        if (activeCondition) {
+            return GUILayout.Button(text);
+        }
+        else {
+            GUI.enabled = false;
+            GUILayout.Button(text);
+            GUI.enabled = true;
+
+            return false;
+        }
+    }
+
+    #region Minimap Icon
+
+    private void SetupMinimapSprite(Room room) {
+
+        Undo.RecordObject(room, "Setup Minimap Sprite");
+
+        // Create sprite
+        SetTilemaps(room);
+
+        Tilemap[] tilemaps = new Tilemap[] { groundTilemap, topWallsTilemap, botWallsTilemap };
+
+        string fileName = room.name + "-MinimapIcon";
+
+        RoomMiniMapSpriteCreator roomMiniMapSpriteCreator = new RoomMiniMapSpriteCreator();
+        roomMiniMapSpriteCreator.CreateMiniMapSprite(fileName, tilemaps);
+
+        // Set sprite
+        string miniMapIconName = "MinimapIcon";
+        Transform miniMapIconTransform = room.transform.Find(miniMapIconName);
+        if (miniMapIconTransform == null) Debug.LogError("Could not find MinimapIcon by name!");
+
+        string filePath = roomMiniMapSpriteCreator.GetFilePath();
+        Sprite miniMapSprite = AssetDatabase.LoadAssetAtPath<Sprite>(filePath);
+        miniMapIconTransform.GetComponent<SpriteRenderer>().sprite = miniMapSprite;
+
+        // Position sprite
+        Vector2 tileMapsCenter = roomMiniMapSpriteCreator.GetTileMapsCenter();
+        miniMapIconTransform.position = tileMapsCenter;
+
+        EditorUtility.SetDirty(room);
+    }
+
+    #endregion
+
+    private void SetTilemaps(Room room = null) {
+
+        Room roomToUse = room != null ? room : mainRoom;
+
+        string gridName = "Grid";
+        Grid grid = roomToUse.transform.Find(gridName).GetComponent<Grid>();
+        if (grid == null) Debug.LogError("Could not find grid by name!");
 
         string groundTilemapName = "GroundTilemap";
         string topWallsTilemapName = "TopWallsTilemap";
         string botWallsTilemapName = "BotWallsTilemap";
 
-        groundTilemap = tilemapGrid.transform.Find(groundTilemapName).GetComponent<Tilemap>();
+        groundTilemap = grid.transform.Find(groundTilemapName).GetComponent<Tilemap>();
         if (groundTilemap == null) Debug.LogError("Could not find ground tilemap by name!");
 
-        topWallsTilemap = tilemapGrid.transform.Find(topWallsTilemapName).GetComponent<Tilemap>();
+        topWallsTilemap = grid.transform.Find(topWallsTilemapName).GetComponent<Tilemap>();
         if (topWallsTilemap == null) Debug.LogError("Could not find top walls tilemap by name!");
 
-        botWallsTilemap = tilemapGrid.transform.Find(botWallsTilemapName).GetComponent<Tilemap>();
+        botWallsTilemap = grid.transform.Find(botWallsTilemapName).GetComponent<Tilemap>();
         if (botWallsTilemap == null) Debug.LogError("Could not find bottom walls tilemap by name!");
     }
 

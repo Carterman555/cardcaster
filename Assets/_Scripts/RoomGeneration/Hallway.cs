@@ -6,28 +6,36 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
 
-public class HallwayLight : MonoBehaviour {
+public class Hallway : MonoBehaviour {
 
-    private Light2D hallwayLight;
+    [SerializeField] private Light2D hallwayLight;
 
     private int[] connectingRoomNums = new int[2];
 
-    [SerializeField] private SpriteRenderer miniMapIcon;
-
-    private void Awake() {
-        hallwayLight = GetComponent<Light2D>();
-    }
+    [SerializeField] private SpriteRenderer miniMapIconToSpawn;
+    private SpriteRenderer miniMapIcon;
 
     private void OnEnable() {
         connectingRoomNums = new int[2];
         hallwayLight.intensity = 0f;
-        miniMapIcon.Fade(0);
+
+        SetupMapIcon();
 
         Room.OnAnyRoomEnter_Room += TryLightPartially;
     }
 
     private void OnDisable() {
         Room.OnAnyRoomEnter_Room -= TryLightPartially;
+    }
+
+    // spawn the map icon as a child of LevelMapIcons so LevelMapIcons can create a unified outline around all the
+    // rooms and hallways
+    private void SetupMapIcon() {
+        miniMapIcon = miniMapIconToSpawn.Spawn(miniMapIconToSpawn.transform.position, Containers.Instance.LevelMapIcons);
+        //miniMapIcon.Fade(0f);
+        miniMapIcon.Fade(1f);
+
+        miniMapIconToSpawn.enabled = false;
     }
 
     private void TryLightPartially(Room room) {

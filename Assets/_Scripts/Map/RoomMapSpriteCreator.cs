@@ -5,7 +5,7 @@ using UnityEngine.Tilemaps;
 using UnityEditor;
 using System.Linq;
 
-public class RoomMiniMapSpriteCreator {
+public class RoomMapSpriteCreator {
 
     private Tilemap[] tilemaps;
     private int minTileX, maxTileX, minTileY, maxTileY;
@@ -62,8 +62,11 @@ public class RoomMiniMapSpriteCreator {
 
     private void CreateImage() {
 
-        int roomTileWidth = maxTileX - minTileX;
-        int roomTileHeight = maxTileY - minTileY;
+        //... so there are transparent pixels around the sprite so material outline works
+        int padding = 1;
+
+        int roomTileWidth = maxTileX - minTileX + (padding * 2);
+        int roomTileHeight = maxTileY - minTileY + (padding * 2);
 
         int roomPixelWidth = roomTileWidth * pixelsPerUnit;
         int roomPixelHeight = roomTileHeight * pixelsPerUnit;
@@ -88,9 +91,8 @@ public class RoomMiniMapSpriteCreator {
             for (int tileY = minTileY; tileY < maxTileY; tileY++) {
                 if (TileAtPos(tileX, tileY)) {
 
-                    // Map pixels so that minX = 0 and minY = 0
-                    int pixelX = (tileX - minTileX) * pixelsPerUnit;
-                    int pixelY = (tileY - minTileY) * pixelsPerUnit;
+                    int pixelX = (tileX - minTileX + padding) * pixelsPerUnit;
+                    int pixelY = (tileY - minTileY + padding) * pixelsPerUnit;
 
                     imageInProgress.SetPixels(pixelX, pixelY, pixelsPerUnit, pixelsPerUnit, colorArray);
                 }

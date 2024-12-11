@@ -161,7 +161,7 @@ public class RoomCreatorWindow : EditorWindow {
 
         string fileName = room.name + "-MinimapIcon";
 
-        RoomMiniMapSpriteCreator roomMiniMapSpriteCreator = new RoomMiniMapSpriteCreator();
+        RoomMapSpriteCreator roomMiniMapSpriteCreator = new RoomMapSpriteCreator();
         roomMiniMapSpriteCreator.CreateMiniMapSprite(fileName, tilemaps);
 
         // Set sprite

@@ -353,7 +353,7 @@ public class RoomGenerator : StaticInstance<RoomGenerator> {
     }
 
     private void AddRoomsToHallwayLight(Transform hallway, int connectingRoomNum, int newRoomNum) {
-        HallwayLight hallwayLight = hallway.GetComponentInChildren<HallwayLight>();
+        Hallway hallwayLight = hallway.GetComponentInChildren<Hallway>();
         hallwayLight.SetConnectingRoomNums(newRoomNum, connectingRoomNum);
     }
 

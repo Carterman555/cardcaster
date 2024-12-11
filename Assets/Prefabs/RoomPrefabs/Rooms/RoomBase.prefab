@@ -601,7 +601,7 @@ MonoBehaviour:
   doorBlockerPrefab: {fileID: 8313895669592551187, guid: bbaed2e7b68be2e429a962ec140869c0, type: 3}
   sideDoorBlockerPrefab: {fileID: 8313895669592551187, guid: f7390d642d91aa44a95f6ec24ee93c2b, type: 3}
   roomLight: {fileID: 6406168845811474983}
-  miniMapIcon: {fileID: 2588529346335818995}
+  miniMapIconToSpawn: {fileID: 2588529346335818995}
 --- !u!1 &3241341797291460811
 GameObject:
   m_ObjectHideFlags: 0
@@ -1228,8 +1228,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Sprite: {fileID: 21300000, guid: aed92240691826547b55a078696761bb, type: 3}
+  m_Color: {r: 0.3372549, g: 0.44705883, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

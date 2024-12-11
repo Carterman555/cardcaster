@@ -37,7 +37,8 @@ public class Room : MonoBehaviour {
     private bool roomCleared;
 
     [SerializeField] private Light2D roomLight;
-    [SerializeField] private SpriteRenderer miniMapIcon;
+    [SerializeField] private SpriteRenderer miniMapIconToSpawn;
+    private SpriteRenderer miniMapIcon;
 
     #region Get Methods
 
@@ -112,10 +113,23 @@ public class Room : MonoBehaviour {
 
         roomCleared = scriptableRoom.NoEnemies;
         roomLight.intensity = 0;
-        miniMapIcon.Fade(1);
+
+        SetupMapIcon();
     }
     private void OnDisable() {
         exitTrigger.OnEnterContact -= OnEnterRoom;
+
+        Destroy(miniMapIcon.gameObject);
+    }
+
+    // spawn the map icon as a child of LevelMapIcons so LevelMapIcons can create a unified outline around all the
+    // rooms and hallways
+    private void SetupMapIcon() {
+        miniMapIcon = miniMapIconToSpawn.Spawn(miniMapIconToSpawn.transform.position, Containers.Instance.LevelMapIcons);
+        //miniMapIcon.Fade(0f);
+        miniMapIcon.Fade(1f);
+
+        miniMapIconToSpawn.enabled = false;
     }
 
     public void CopyColliderToCameraConfiner(GameObject cameraConfinerComposite) {

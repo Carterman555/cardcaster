@@ -22,6 +22,10 @@ namespace AllIn1SpriteShader
         [Header("This operation will delete the component")]
         [SerializeField] private bool createUnifiedOutline;
 
+        public void CreateUnifiedOutline() {
+            createUnifiedOutline = true;
+        }
+
         void Update()
         {
             if (createUnifiedOutline)

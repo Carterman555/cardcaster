@@ -5,18 +5,19 @@ using UnityEngine;
 
 public class Containers : StaticInstance<Containers> {
 
-    [field:SerializeField] public Transform Enemies { get; private set; }
-    [field:SerializeField] public Transform Projectiles { get; private set; }
-    [field:SerializeField] public Transform Drops { get; private set; }
-    [field:SerializeField] public Transform Rooms { get; private set; }
-    [field:SerializeField] public Transform Hallways { get; private set; }
-    [field:SerializeField] public Transform RoomOverlapCheckers { get; private set; }
-    [field:SerializeField] public Transform EnvironmentObjects { get; private set; }
-    [field:SerializeField] public Transform Effects { get; private set; }
+    [field: SerializeField] public Transform Enemies { get; private set; }
+    [field: SerializeField] public Transform Projectiles { get; private set; }
+    [field: SerializeField] public Transform Drops { get; private set; }
+    [field: SerializeField] public Transform Rooms { get; private set; }
+    [field: SerializeField] public Transform LevelMapIcons { get; private set; }
+    [field: SerializeField] public Transform Hallways { get; private set; }
+    [field: SerializeField] public Transform RoomOverlapCheckers { get; private set; }
+    [field: SerializeField] public Transform EnvironmentObjects { get; private set; }
+    [field: SerializeField] public Transform Effects { get; private set; }
 
-    [field:SerializeField] public Transform HUD { get; private set; }
-    [field:SerializeField] public Transform ActiveModifierImages { get; private set; }
-    [field:SerializeField] public Transform WorldUI { get; private set; }
+    [field: SerializeField] public Transform HUD { get; private set; }
+    [field: SerializeField] public Transform ActiveModifierImages { get; private set; }
+    [field: SerializeField] public Transform WorldUI { get; private set; }
 
     public Transform GetContainer(Container container) {
         switch (container) {
@@ -28,6 +29,8 @@ public class Containers : StaticInstance<Containers> {
                 return Drops;
             case Container.Rooms:
                 return Rooms;
+            case Container.LevelMapIcons:
+                return LevelMapIcons;
             case Container.Hallways:
                 return Hallways;
             case Container.RoomOverlapCheckers:
@@ -52,5 +55,6 @@ public enum Container {
     Hallways = 4,
     RoomOverlapCheckers = 5,
     EnvironmentObjects = 6,
-    Effects = 7
+    Effects = 7,
+    LevelMapIcons = 8
 }

@@ -12,8 +12,8 @@ public class Hallway : MonoBehaviour {
 
     private int[] connectingRoomNums = new int[2];
 
-    [SerializeField] private SpriteRenderer miniMapIconToSpawn;
-    private SpriteRenderer miniMapIcon;
+    [SerializeField] private SpriteRenderer mapIconToSpawn;
+    private SpriteRenderer mapIcon;
 
     private void OnEnable() {
         connectingRoomNums = new int[2];
@@ -31,11 +31,11 @@ public class Hallway : MonoBehaviour {
     // spawn the map icon as a child of LevelMapIcons so LevelMapIcons can create a unified outline around all the
     // rooms and hallways
     private void SetupMapIcon() {
-        miniMapIcon = miniMapIconToSpawn.Spawn(miniMapIconToSpawn.transform.position, Containers.Instance.LevelMapIcons);
+        mapIcon = mapIconToSpawn.Spawn(mapIconToSpawn.transform.position, Containers.Instance.LevelMapIcons);
         //miniMapIcon.Fade(0f);
-        miniMapIcon.Fade(1f);
+        mapIcon.Fade(1f);
 
-        miniMapIconToSpawn.enabled = false;
+        mapIconToSpawn.enabled = false;
     }
 
     private void TryLightPartially(Room room) {
@@ -48,12 +48,16 @@ public class Hallway : MonoBehaviour {
         //... if entered a room connecting to this hallway
         if (connectingRoomNums.Contains(room.GetRoomNum())) {
             LightPartially();
-            miniMapIcon.DOFade(1f, duration: 0.5f);
+
+            //... show room on minimap
+            LevelMapIcons.Instance.ShowMapIcon(mapIcon);
         }
     }
 
     public void SetConnectingRoomNums(int roomNum1, int roomNum2) {
         connectingRoomNums = new int[] { roomNum1, roomNum2 };
+
+        mapIcon.name = "HallwayMapIcon" + roomNum1 + "-" + roomNum2;
     }
 
     private void OnTriggerEnter2D(Collider2D collision) {

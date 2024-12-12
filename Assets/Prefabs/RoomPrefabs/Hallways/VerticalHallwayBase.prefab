@@ -1876,7 +1876,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hallwayLight: {fileID: 4489148606251934642}
-  miniMapIconToSpawn: {fileID: 5606438257067107107}
+  mapIconToSpawn: {fileID: 5606438257067107107}
 --- !u!1 &8479680024734866578
 GameObject:
   m_ObjectHideFlags: 0

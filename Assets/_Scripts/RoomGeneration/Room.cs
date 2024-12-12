@@ -37,8 +37,8 @@ public class Room : MonoBehaviour {
     private bool roomCleared;
 
     [SerializeField] private Light2D roomLight;
-    [SerializeField] private SpriteRenderer miniMapIconToSpawn;
-    private SpriteRenderer miniMapIcon;
+    [SerializeField] private SpriteRenderer mapIconToSpawn;
+    private SpriteRenderer mapIcon;
 
     #region Get Methods
 
@@ -97,6 +97,7 @@ public class Room : MonoBehaviour {
     public void SetRoomNum(int roomNum) {
         this.roomNum = roomNum;
 
+
         IHasRoomNum[] hasRoomNumChildren = GetComponentsInChildren<IHasRoomNum>();
         foreach (IHasRoomNum hasRoomNum in hasRoomNumChildren) {
             hasRoomNum.SetRoomNum(roomNum);
@@ -106,6 +107,8 @@ public class Room : MonoBehaviour {
         if (roomNum == 1) {
             RoomGenerator.OnCompleteGeneration += OnEnterRoom;
         }
+
+        mapIcon.name = "RoomMapIcon" + roomNum;
     }
 
     private void OnEnable() {
@@ -119,17 +122,14 @@ public class Room : MonoBehaviour {
     private void OnDisable() {
         exitTrigger.OnEnterContact -= OnEnterRoom;
 
-        Destroy(miniMapIcon.gameObject);
+        Destroy(mapIcon.gameObject);
     }
 
     // spawn the map icon as a child of LevelMapIcons so LevelMapIcons can create a unified outline around all the
     // rooms and hallways
     private void SetupMapIcon() {
-        miniMapIcon = miniMapIconToSpawn.Spawn(miniMapIconToSpawn.transform.position, Containers.Instance.LevelMapIcons);
-        //miniMapIcon.Fade(0f);
-        miniMapIcon.Fade(1f);
-
-        miniMapIconToSpawn.enabled = false;
+        mapIcon = mapIconToSpawn.Spawn(mapIconToSpawn.transform.position, Containers.Instance.LevelMapIcons);
+        mapIconToSpawn.enabled = false;
     }
 
     public void CopyColliderToCameraConfiner(GameObject cameraConfinerComposite) {
@@ -180,7 +180,7 @@ public class Room : MonoBehaviour {
         DOTween.To(() => roomLight.intensity, x => roomLight.intensity = x, 1, duration: 1f);
 
         //... show room on minimap
-        miniMapIcon.DOFade(1f, duration: 0.5f);
+        LevelMapIcons.Instance.ShowMapIcon(mapIcon);
 
         exitTrigger.OnEnterContact += OnExitRoom;
         CheckRoomCleared.OnEnemiesCleared += SetRoomCleared;

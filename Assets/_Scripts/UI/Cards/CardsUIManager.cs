@@ -77,6 +77,8 @@ public class CardsUIManager : StaticInstance<CardsUIManager> {
         cardButtons.Insert(index, cardButton);
 
         UpdateCardPositions();
+
+        AudioManager.Instance.PlaySound(AudioManager.Instance.AudioClips.DrawCard);
     }
 
     private void UpdateCardButtons() {

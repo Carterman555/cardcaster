@@ -18,7 +18,7 @@ public class AudioManager : StaticInstance<AudioManager> {
         SFXSource.PlayOneShot(audioClip, vol);
     }
 
-    public void PlayRandomSound(AudioClips audioClips) {
+    public void PlaySound(AudioClips audioClips) {
         AudioClip audioClip = audioClips.Clips.RandomItem();
         PlaySound(audioClip, audioClips.Volume);
     }

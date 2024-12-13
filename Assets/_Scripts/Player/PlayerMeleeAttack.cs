@@ -67,7 +67,7 @@ public class PlayerMeleeAttack : StaticInstance<PlayerMeleeAttack>, ITargetAttac
         PlayAttackFeedbacks(targetCols);
         CreateSlashEffect(toMouseDirection);
 
-        AudioManager.Instance.PlayRandomSound(AudioManager.Instance.AudioClips.Swing);
+        AudioManager.Instance.PlaySound(AudioManager.Instance.AudioClips.Swing);
 
         // invoke events
         OnAttack?.Invoke();

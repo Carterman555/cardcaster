@@ -247,6 +247,8 @@ public class HandCard : MonoBehaviour, IPointerDownHandler {
         else if (card is ScriptableModifierCardBase modifier) {
             DeckManager.Instance.OnUseModifierCard(cardIndex);
         }
+
+        AudioManager.Instance.PlaySound(AudioManager.Instance.AudioClips.PlayCard);
     }
 
     public void FollowMouse() {
@@ -346,6 +348,8 @@ public class HandCard : MonoBehaviour, IPointerDownHandler {
         if (card is ScriptableAbilityCardBase abilityCard) {
             abilityCard.OnStopDraggingCard();
         }
+
+        AudioManager.Instance.PlaySound(AudioManager.Instance.AudioClips.CancelCard);
 
         OnAnyCancel_Card?.Invoke(card);
     }

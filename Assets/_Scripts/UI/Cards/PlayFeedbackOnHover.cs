@@ -5,6 +5,10 @@ using UnityEngine.EventSystems;
 public class PlayFeedbackOnHover : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler {
     [SerializeField] private MMF_Player hoverFeedback;
 
+    [SerializeField] private bool playSFX;
+    [ConditionalHide("playSFX")][SerializeField] private AudioClips OnEnterClips;
+    [ConditionalHide("playSFX")][SerializeField] private AudioClips OnExitClips;
+
     private bool isEnabled;
     public void Enable() {
         isEnabled = true;
@@ -30,6 +34,10 @@ public class PlayFeedbackOnHover : MonoBehaviour, IPointerEnterHandler, IPointer
             hoverFeedback.SetDirectionTopToBottom();
             hoverFeedback.PlayFeedbacks();
         }
+
+        if (playSFX) {
+            AudioManager.Instance.PlaySound(OnEnterClips);
+        }
     }
 
     public void OnPointerExit(PointerEventData eventData) {
@@ -44,6 +52,10 @@ public class PlayFeedbackOnHover : MonoBehaviour, IPointerEnterHandler, IPointer
         else {
             hoverFeedback.SetDirectionBottomToTop();
             hoverFeedback.PlayFeedbacks();
+        }
+
+        if (playSFX) {
+            AudioManager.Instance.PlaySound(OnEnterClips);
         }
     }
 }

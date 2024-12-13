@@ -18,6 +18,8 @@ public class PlayerMovement : StaticInstance<PlayerMovement>, IHasStats, IChange
 
     [SerializeField] private Animator anim;
 
+    private float stepTimer;
+
     protected override void Awake() {
         base.Awake();
         rb = GetComponent<Rigidbody2D>();
@@ -44,7 +46,9 @@ public class PlayerMovement : StaticInstance<PlayerMovement>, IHasStats, IChange
 
         HandleStoppedFromAttack();
 
-        anim.SetBool("move", rb.velocity.magnitude > 0);
+        bool moving = rb.velocity.magnitude > 0;
+
+        anim.SetBool("move", moving);
 
         if (stoppedFromAttack) {
             return;
@@ -57,6 +61,19 @@ public class PlayerMovement : StaticInstance<PlayerMovement>, IHasStats, IChange
         }
 
         FaceTowardsMouse();
+
+        if (moving) {
+            HandleStepSounds();
+        }
+    }
+
+    private void HandleStepSounds() {
+        float stepCooldown = 0.2f;
+        stepTimer += Time.deltaTime;
+        if (stepTimer > stepCooldown) {
+            AudioManager.Instance.PlayRandomSound(AudioManager.Instance.AudioClips.PlayerStep);
+            stepTimer = 0;
+        }
     }
 
     private void FixedUpdate() {

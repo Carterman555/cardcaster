@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1dcc6f87abbf43c49bce1556774f1271, type: 3}
+  m_Name: AudioClips
+  m_EditorClassIdentifier: 
+  playerStep:
+    Clips:
+    - {fileID: 8300000, guid: bca8b1140e25db24d8aab066259a7f21, type: 3}
+    - {fileID: 8300000, guid: 3325c7eb9a806054790528a04dd382f1, type: 3}
+    - {fileID: 8300000, guid: f43d15665ebb9994f927e6b8bdf66193, type: 3}
+    - {fileID: 8300000, guid: 06765f3642ad2db459e8209c56819f86, type: 3}
+    - {fileID: 8300000, guid: 2dc6d102f15a04c49897853d986daa44, type: 3}
+    Volume: 0.1
+  swing:
+    Clips:
+    - {fileID: 8300000, guid: e8eedfd20c3331d499db269065917b4f, type: 3}
+    - {fileID: 8300000, guid: 25f6883537c3a2c4eb38a3c49449b4e4, type: 3}
+    - {fileID: 8300000, guid: 51817a9f084e8ea46ac7216062c040a9, type: 3}
+    - {fileID: 8300000, guid: 7ef55e19cf6b3eb48b86480ea1362d18, type: 3}
+    - {fileID: 8300000, guid: 94347edc71f46ff4588225ba5a1ba307, type: 3}
+    Volume: 0.25

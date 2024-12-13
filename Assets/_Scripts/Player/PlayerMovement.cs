@@ -55,24 +55,34 @@ public class PlayerMovement : StaticInstance<PlayerMovement>, IHasStats, IChange
         }
 
         moveDirection = moveInput.action.ReadValue<Vector2>();
-        
+
         if (dashAction.action.triggered && !isDashing && !knockback.IsApplyingKnockback()) {
             StartCoroutine(Dash());
         }
 
         FaceTowardsMouse();
 
-        if (moving) {
-            HandleStepSounds();
-        }
+        HandleStepSounds(moving);
     }
 
-    private void HandleStepSounds() {
-        float stepCooldown = 0.2f;
-        stepTimer += Time.deltaTime;
-        if (stepTimer > stepCooldown) {
-            AudioManager.Instance.PlayRandomSound(AudioManager.Instance.AudioClips.PlayerStep);
-            stepTimer = 0;
+    private bool wasMoving;
+
+    private void HandleStepSounds(bool moving) {
+
+        bool startedMoving = !wasMoving && moving;
+        wasMoving = moving;
+
+        if (startedMoving) {
+            stepTimer = 1f;
+        }
+
+        if (moving) {
+            float stepCooldown = 0.2f;
+            stepTimer += Time.deltaTime;
+            if (stepTimer > stepCooldown) {
+                AudioManager.Instance.PlaySound(AudioManager.Instance.AudioClips.PlayerStep);
+                stepTimer = 0;
+            }
         }
     }
 
@@ -102,6 +112,9 @@ public class PlayerMovement : StaticInstance<PlayerMovement>, IHasStats, IChange
     private IEnumerator Dash() {
         isDashing = true;
         rb.velocity = moveDirection.normalized * stats.DashSpeed;
+
+        AudioManager.Instance.PlaySound(AudioManager.Instance.AudioClips.Dash);
+
         yield return new WaitForSeconds(stats.DashTime);
         isDashing = false;
     }

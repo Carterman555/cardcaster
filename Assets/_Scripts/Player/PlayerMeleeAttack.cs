@@ -39,7 +39,10 @@ public class PlayerMeleeAttack : StaticInstance<PlayerMeleeAttack>, ITargetAttac
         }
 
         attackTimer += Time.deltaTime;
-        if (attackInput.action.triggered && attackTimer > stats.AttackCooldown) {
+        if (!Helpers.IsMouseOverUI() &&
+            attackInput.action.triggered &&
+            attackTimer > stats.AttackCooldown) {
+
             Attack();
             attackTimer = 0f;
         }

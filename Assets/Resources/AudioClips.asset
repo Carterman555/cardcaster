@@ -14,20 +14,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerStep:
     Clips:
-    - {fileID: 8300000, guid: bca8b1140e25db24d8aab066259a7f21, type: 3}
-    - {fileID: 8300000, guid: 3325c7eb9a806054790528a04dd382f1, type: 3}
-    - {fileID: 8300000, guid: f43d15665ebb9994f927e6b8bdf66193, type: 3}
-    - {fileID: 8300000, guid: 06765f3642ad2db459e8209c56819f86, type: 3}
-    - {fileID: 8300000, guid: 2dc6d102f15a04c49897853d986daa44, type: 3}
+    - {fileID: 8300000, guid: cdf3c10dd73de7142886c59dbd7ae7b4, type: 3}
+    - {fileID: 8300000, guid: fdebae1212f7b44499c5bcbf1440c310, type: 3}
+    - {fileID: 8300000, guid: 369b9f5ed0430e047b1d9b1ccb154007, type: 3}
+    - {fileID: 8300000, guid: 3d521fc055eadb142825ab1278b1486f, type: 3}
+    - {fileID: 8300000, guid: 14927c23c79ae7946b99084518e78307, type: 3}
     Volume: 0.05
   swing:
     Clips:
     - {fileID: 8300000, guid: 4267915e1b8c2144abe1f9299d467768, type: 3}
-    - {fileID: 8300000, guid: 1b9292bd0c819d84d9a8a13c562404dd, type: 3}
-    - {fileID: 8300000, guid: d4ae9ade42602474ab8ed58c47ac9df0, type: 3}
-    - {fileID: 8300000, guid: d0b320ff400677e46897e133e33e10ae, type: 3}
-    - {fileID: 8300000, guid: 0e1764294157c6644b84f17439a9950a, type: 3}
-    Volume: 0.15
+    - {fileID: 8300000, guid: ccd47681998b9d947935980afd6598dc, type: 3}
+    - {fileID: 8300000, guid: 38c6b89bfeb013942bdd1d87536309db, type: 3}
+    - {fileID: 8300000, guid: 768efb4945ae119419da2e486da37038, type: 3}
+    - {fileID: 8300000, guid: bc615eeb0da36ae4ab8a8aaa46510b7d, type: 3}
+    Volume: 0.25
   dash:
     Clips:
     - {fileID: 8300000, guid: 1d2d3942243d0fd489108777c40650ee, type: 3}
@@ -38,11 +38,11 @@ MonoBehaviour:
     - {fileID: 8300000, guid: a7e908566c9938f41b1d16a9c59a405f, type: 3}
     - {fileID: 8300000, guid: 757648662577dc9438834753ed98d96e, type: 3}
     - {fileID: 8300000, guid: ef467b4e05b04fe4fbeb0aa3e66e5af2, type: 3}
-    Volume: 0.3
+    Volume: 0.2
   drawCard:
     Clips:
     - {fileID: 8300000, guid: e9abfb5e1aad99a41b61898d1c0923d0, type: 3}
-    Volume: 0.4
+    Volume: 0.8
   hoverCard:
     Clips:
     - {fileID: 8300000, guid: 411b0a572862f474f8d4dafaa1b1c09f, type: 3}
@@ -50,8 +50,50 @@ MonoBehaviour:
   playCard:
     Clips:
     - {fileID: 8300000, guid: db34bae08a4b59b47b24d97db0857231, type: 3}
-    Volume: 0.632
+    Volume: 1
   cancelCard:
     Clips:
     - {fileID: 8300000, guid: d220ecc004ebc0a4e84d2c4a6dde2d53, type: 3}
+    Volume: 0.733
+  burnCard:
+    Clips:
+    - {fileID: 8300000, guid: 93521d69466bf984592a3cc3f273b889, type: 3}
+    Volume: 1
+  openDoor:
+    Clips:
+    - {fileID: 8300000, guid: 6e7f495bda3eb0646873170c39fdf419, type: 3}
+    Volume: 1
+  closeDoor:
+    Clips:
+    - {fileID: 8300000, guid: 6e7f495bda3eb0646873170c39fdf419, type: 3}
+    Volume: 1
+  openDoorBlocker:
+    Clips: []
+    Volume: 0
+  closeDoorBlocker:
+    Clips:
+    - {fileID: 8300000, guid: 141b7047c9cd8da4b8d495af50d4cb1f, type: 3}
+    Volume: 1
+  openChest:
+    Clips:
+    - {fileID: 8300000, guid: aa24bd8556aa091409e3fd563573d67a, type: 3}
+    Volume: 1
+  gainChestCard:
+    Clips:
+    - {fileID: 8300000, guid: f3f70106499a4294cb6baface6151c67, type: 3}
+    Volume: 1
+  breakBarrel:
+    Clips:
+    - {fileID: 8300000, guid: e1f7eb8f3f55b7448a607918caecb355, type: 3}
+    Volume: 0.3
+  openPanel:
+    Clips:
+    - {fileID: 8300000, guid: b565964301fd81843824121dbf2709f8, type: 3}
     Volume: 0.5
+  closePanel:
+    Clips:
+    - {fileID: 8300000, guid: b565964301fd81843824121dbf2709f8, type: 3}
+    Volume: 0.5
+  buttonClick:
+    Clips: []
+    Volume: 0

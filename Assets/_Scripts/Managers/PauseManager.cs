@@ -36,6 +36,8 @@ public class PauseManager : StaticInstance<PauseManager> {
         Time.timeScale = 0f;
 
         FeedbackPlayer.Play("PausePanel");
+
+        AudioManager.Instance.PlaySound(AudioManager.Instance.AudioClips.OpenPanel);
     }
 
     public void TryUnpauseGame() {
@@ -48,5 +50,7 @@ public class PauseManager : StaticInstance<PauseManager> {
         Time.timeScale = 1f;
 
         FeedbackPlayer.PlayInReverse("PausePanel");
+
+        AudioManager.Instance.PlaySound(AudioManager.Instance.AudioClips.ClosePanel);
     }
 }

@@ -40,6 +40,8 @@ public class VerticalDoor : MonoBehaviour {
             anim.ResetTrigger("close");
             anim.SetTrigger("openRight");
             hasBeenOpenedRight = true;
+
+            AudioManager.Instance.PlaySound(AudioManager.Instance.AudioClips.OpenDoor);
         }
     }
     private void TryOpenLeft(GameObject player) {
@@ -47,6 +49,8 @@ public class VerticalDoor : MonoBehaviour {
             anim.ResetTrigger("close");
             anim.SetTrigger("openLeft");
             hasBeenOpenedLeft = true;
+
+            AudioManager.Instance.PlaySound(AudioManager.Instance.AudioClips.OpenDoor);
         }
     }
 
@@ -56,6 +60,8 @@ public class VerticalDoor : MonoBehaviour {
             anim.ResetTrigger("openRight");
             anim.ResetTrigger("openLeft");
             doorIsBlocked = true;
+
+            AudioManager.Instance.PlaySingleSound(AudioManager.Instance.AudioClips.CloseDoor);
         }
     }
 
@@ -70,6 +76,8 @@ public class VerticalDoor : MonoBehaviour {
                 anim.SetTrigger("openRight");
             }
             doorIsBlocked = false;
+
+            AudioManager.Instance.PlaySingleSound(AudioManager.Instance.AudioClips.OpenDoor);
         }
     }
 }

@@ -21,6 +21,8 @@ public class BreakOnDamaged : MonoBehaviour, IDamagable {
         ParticleSystem particles = breakParticlesPrefab.Spawn(transform.position, Containers.Instance.Effects);
         particles.Play();
 
-        OnDamaged_Damage_Shared.Invoke(damage, shared);
+        AudioManager.Instance.PlaySound(AudioManager.Instance.AudioClips.BreakBarrel);
+
+        OnDamaged_Damage_Shared?.Invoke(damage, shared);
     }
 }

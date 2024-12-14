@@ -60,6 +60,11 @@ public class TriggerContactTracker : MonoBehaviour {
     }
 
     private void OnTriggerExit2D(Collider2D collision) {
+
+        if (Helpers.GameStopping()) {
+            return;
+        }
+
         if (layerFilter.ContainsLayer(collision.gameObject.layer)) {
             contacts.Remove(collision.gameObject);
 

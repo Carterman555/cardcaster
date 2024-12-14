@@ -36,6 +36,8 @@ public class HorizontalDoor : MonoBehaviour {
             anim.ResetTrigger("close");
             anim.SetTrigger("openDown");
             hasBeenOpenedDown = true;
+
+            AudioManager.Instance.PlaySound(AudioManager.Instance.AudioClips.OpenDoor);
         }
     }
     private void TryOpenUpwards(GameObject player) {
@@ -43,6 +45,8 @@ public class HorizontalDoor : MonoBehaviour {
             anim.ResetTrigger("close");
             anim.SetTrigger("openUp");
             hasBeenOpenedUp = true;
+
+            AudioManager.Instance.PlaySound(AudioManager.Instance.AudioClips.OpenDoor);
         }
     }
 
@@ -52,6 +56,8 @@ public class HorizontalDoor : MonoBehaviour {
             anim.ResetTrigger("openDown");
             anim.ResetTrigger("openUp");
             doorIsBlocked = true;
+
+            AudioManager.Instance.PlaySingleSound(AudioManager.Instance.AudioClips.CloseDoor);
         }
     }
 
@@ -66,6 +72,8 @@ public class HorizontalDoor : MonoBehaviour {
                 anim.SetTrigger("openUp");
             }
             doorIsBlocked = false;
+
+            AudioManager.Instance.PlaySingleSound(AudioManager.Instance.AudioClips.OpenDoor);
         }
     }
 }

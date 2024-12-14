@@ -34,4 +34,41 @@ public class ScriptableAudio : ScriptableObject {
 
     [SerializeField] private AudioClips cancelCard;
     public AudioClips CancelCard => cancelCard;
+
+    [SerializeField] private AudioClips burnCard;
+    public AudioClips BurnCard => burnCard;
+
+    [Header("Environment")]
+
+    [SerializeField] private AudioClips openDoor;
+    public AudioClips OpenDoor => openDoor;
+
+    [SerializeField] private AudioClips closeDoor;
+    public AudioClips CloseDoor => closeDoor;
+
+    [SerializeField] private AudioClips openDoorBlocker;
+    public AudioClips OpenDoorBlocker => openDoorBlocker;
+
+    [SerializeField] private AudioClips closeDoorBlocker;
+    public AudioClips CloseDoorBlocker => closeDoorBlocker;
+
+    [SerializeField] private AudioClips openChest;
+    public AudioClips OpenChest => openChest;
+
+    [SerializeField] private AudioClips gainChestCard;
+    public AudioClips GainChestCard => gainChestCard;
+
+    [SerializeField] private AudioClips breakBarrel;
+    public AudioClips BreakBarrel => breakBarrel;
+
+    [Header("UI")]
+
+    [SerializeField] private AudioClips openPanel;
+    public AudioClips OpenPanel => openPanel;
+
+    [SerializeField] private AudioClips closePanel;
+    public AudioClips ClosePanel => closePanel;
+
+    [SerializeField] private AudioClips buttonClick;
+    public AudioClips ButtonClick => buttonClick;
 }

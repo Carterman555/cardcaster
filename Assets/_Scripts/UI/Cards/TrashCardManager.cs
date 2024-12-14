@@ -19,6 +19,9 @@ public class TrashCardManager : StaticInstance<TrashCardManager> {
 
     private void TrashCard(PanelCardButton panelCard) {
         panelCard.Trash();
+
+        AudioManager.Instance.PlaySound(AudioManager.Instance.AudioClips.BurnCard);
+
         OnTrashCard?.Invoke();
     }
 

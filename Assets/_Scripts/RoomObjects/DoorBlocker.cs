@@ -13,7 +13,6 @@ public class DoorBlocker : MonoBehaviour {
 
     public void Setup(DoorwaySide side) {
 
-        // remove after anim is setup (maybe)
         if (side == DoorwaySide.Top) {
             transform.position += topOffset;
         }
@@ -26,6 +25,8 @@ public class DoorBlocker : MonoBehaviour {
         else if (side == DoorwaySide.Right) {
             transform.position += rightOffset;
         }
+
+        AudioManager.Instance.PlaySingleSound(AudioManager.Instance.AudioClips.CloseDoorBlocker);
     }
 
     private void OnEnable() {
@@ -37,6 +38,8 @@ public class DoorBlocker : MonoBehaviour {
 
     private void Open() {
         anim.SetTrigger("open");
+
+        //AudioManager.Instance.PlaySingleSound(AudioManager.Instance.AudioClips.OpenDoorBlocker);
     }
 
     // played by anim

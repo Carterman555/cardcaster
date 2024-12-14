@@ -22,6 +22,8 @@ public class ChestCard : CardDrop {
     protected override void OnInteract() {
         base.OnInteract();
         StartCoroutine(chest.OnSelectCollectable(collectableIndex));
+
+        AudioManager.Instance.PlaySound(AudioManager.Instance.AudioClips.GainChestCard);
     }
 
     public void ReturnToChest(float duration) {

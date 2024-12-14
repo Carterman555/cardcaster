@@ -2991,7 +2991,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hoverFeedback: {fileID: 1507770246064602376}
-  playSFX: 1
+  playSFX: 0
   OnEnterClips:
     Clips:
     - {fileID: 8300000, guid: 411b0a572862f474f8d4dafaa1b1c09f, type: 3}

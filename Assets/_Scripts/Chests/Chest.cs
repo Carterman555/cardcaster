@@ -62,6 +62,8 @@ public class Chest : MonoBehaviour {
 
         anim.SetTrigger("open");
 
+        AudioManager.Instance.PlaySound(AudioManager.Instance.AudioClips.OpenChest);
+
         float delay = 0.3f;
         yield return new WaitForSeconds(delay);
 

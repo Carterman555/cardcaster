@@ -15,6 +15,9 @@ public class CircleStraightShootBehavior : MonoBehaviour {
     [SerializeField] private Animator anim;
     [SerializeField] private bool specialAttack;
 
+    [Header("SFX")]
+    [SerializeField] private bool customSFX;
+    [ConditionalHide("customSFX")][SerializeField] private AudioClips shootSFX;
 
     private void Awake() {
         hasStats = GetComponent<IHasStats>();
@@ -60,6 +63,13 @@ public class CircleStraightShootBehavior : MonoBehaviour {
             projectile.transform.up = projectileDirection;
 
             angle += angleStep;
+        }
+
+        if (customSFX) {
+            AudioManager.Instance.PlaySound(shootSFX);
+        }
+        else {
+            AudioManager.Instance.PlaySound(AudioManager.Instance.AudioClips.BasicEnemyShoot);
         }
     }
 

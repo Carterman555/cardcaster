@@ -37,7 +37,6 @@ public class PauseManager : StaticInstance<PauseManager> {
 
         FeedbackPlayer.Play("PausePanel");
 
-        AudioManager.Instance.PlaySound(AudioManager.Instance.AudioClips.OpenPanel);
     }
 
     public void TryUnpauseGame() {

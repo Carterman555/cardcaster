@@ -34,10 +34,6 @@ public class EssenceDrop : MonoBehaviour {
         DeckManager.Instance.ChangeEssenceAmount(1);
         transform.gameObject.ReturnToPool();
 
-        //float duration = 0.2f;
-        //transform.DOScale(Vector2.zero, duration).SetEase(Ease.InSine).OnComplete(() => {
-        //    DeckManager.Instance.ChangeEssenceAmount(1);
-        //    transform.gameObject.ReturnToPool();
-        //});
+        AudioManager.Instance.PlaySound(AudioManager.Instance.AudioClips.CollectEssence);
     }
 }

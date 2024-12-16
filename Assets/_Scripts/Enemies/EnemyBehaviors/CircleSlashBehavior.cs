@@ -45,6 +45,8 @@ public class CircleSlashBehavior : MonoBehaviour {
             hasStats.GetStats().Damage,
             hasStats.GetStats().KnockbackStrength
         );
+
+        AudioManager.Instance.PlaySound(AudioManager.Instance.AudioClips.Swing);
     }
 
     public float GetActionTimer() {

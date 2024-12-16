@@ -461,6 +461,7 @@ GameObject:
   m_Component:
   - component: {fileID: 56763343}
   - component: {fileID: 56763344}
+  - component: {fileID: 56763345}
   m_Layer: 5
   m_Name: OpenMap
   m_TagString: Untagged
@@ -1270,6 +1271,28 @@ MonoBehaviour:
         StateOnSkip: 1
         SetStateOnPlayerComplete: 0
         StateOnPlayerComplete: 1
+--- !u!114 &56763345
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 56763342}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 82dbcdc4c400e004d9ab9a65a7336151, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playPanelSFX: 0
+  playCustomSFX: 1
+  playClips:
+    Clips:
+    - {fileID: 8300000, guid: 6e4ea726a30ff5a4e9a667aceb1dde66, type: 3}
+    Volume: 1
+  playInReverseClips:
+    Clips:
+    - {fileID: 8300000, guid: 6e4ea726a30ff5a4e9a667aceb1dde66, type: 3}
+    Volume: 1
 --- !u!1 &56794522
 GameObject:
   m_ObjectHideFlags: 0
@@ -1648,6 +1671,7 @@ GameObject:
   - component: {fileID: 99057274}
   - component: {fileID: 99057273}
   - component: {fileID: 99057272}
+  - component: {fileID: 99057275}
   m_Layer: 5
   m_Name: TradeButton
   m_TagString: Untagged
@@ -1757,6 +1781,30 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 99057268}
   m_CullTransparentMesh: 1
+--- !u!114 &99057275
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 99057268}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d9b6e2d632e03543833ffcc8a21a03c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playClickSFX: 0
+  customClickSFX: 0
+  clickSFX:
+    Clips: []
+    Volume: 0
+  customHoverSFX: 0
+  enterSFX:
+    Clips: []
+    Volume: 0
+  exitSFX:
+    Clips: []
+    Volume: 0
 --- !u!1 &115132051
 GameObject:
   m_ObjectHideFlags: 0
@@ -2065,6 +2113,35 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 147217344}
   m_CullTransparentMesh: 1
+--- !u!1 &163363510 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1200322797861973533, guid: 92f0b9e7a08d80f478363eab821f4196, type: 3}
+  m_PrefabInstance: {fileID: 348425308}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &163363515
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 163363510}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d9b6e2d632e03543833ffcc8a21a03c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playClickSFX: 0
+  customClickSFX: 0
+  clickSFX:
+    Clips: []
+    Volume: 0
+  customHoverSFX: 0
+  enterSFX:
+    Clips: []
+    Volume: 0
+  exitSFX:
+    Clips: []
+    Volume: 0
 --- !u!1 &172246516
 GameObject:
   m_ObjectHideFlags: 0
@@ -2764,6 +2841,7 @@ GameObject:
   - component: {fileID: 284399567}
   - component: {fileID: 284399566}
   - component: {fileID: 284399565}
+  - component: {fileID: 284399568}
   m_Layer: 5
   m_Name: SettingsButton
   m_TagString: Untagged
@@ -2897,6 +2975,30 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 284399563}
   m_CullTransparentMesh: 1
+--- !u!114 &284399568
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 284399563}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d9b6e2d632e03543833ffcc8a21a03c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playClickSFX: 0
+  customClickSFX: 0
+  clickSFX:
+    Clips: []
+    Volume: 0
+  customHoverSFX: 0
+  enterSFX:
+    Clips: []
+    Volume: 0
+  exitSFX:
+    Clips: []
+    Volume: 0
 --- !u!1 &285116020
 GameObject:
   m_ObjectHideFlags: 0
@@ -3043,6 +3145,7 @@ GameObject:
   - component: {fileID: 316220181}
   - component: {fileID: 316220183}
   - component: {fileID: 316220182}
+  - component: {fileID: 316220184}
   m_Layer: 5
   m_Name: AllCardsPopup
   m_TagString: Untagged
@@ -4475,6 +4578,26 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   feedbackName: OpenAllCardsPanel
+--- !u!114 &316220184
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 316220180}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 82dbcdc4c400e004d9ab9a65a7336151, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playPanelSFX: 1
+  playCustomSFX: 0
+  playClips:
+    Clips: []
+    Volume: 0
+  playInReverseClips:
+    Clips: []
+    Volume: 0
 --- !u!1 &322594290
 GameObject:
   m_ObjectHideFlags: 0
@@ -4526,6 +4649,35 @@ MonoBehaviour:
   CurrentTimeScale: 1
   TargetTimeScale: 1
   TestButton: 0
+--- !u!1 &337652156 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7997675605245469523, guid: 92f0b9e7a08d80f478363eab821f4196, type: 3}
+  m_PrefabInstance: {fileID: 348425308}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &337652161
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 337652156}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d9b6e2d632e03543833ffcc8a21a03c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playClickSFX: 0
+  customClickSFX: 0
+  clickSFX:
+    Clips: []
+    Volume: 0
+  customHoverSFX: 0
+  enterSFX:
+    Clips: []
+    Volume: 0
+  exitSFX:
+    Clips: []
+    Volume: 0
 --- !u!1 &340584749
 GameObject:
   m_ObjectHideFlags: 0
@@ -4538,6 +4690,7 @@ GameObject:
   - component: {fileID: 340584753}
   - component: {fileID: 340584752}
   - component: {fileID: 340584751}
+  - component: {fileID: 340584754}
   m_Layer: 5
   m_Name: CancelButton
   m_TagString: Untagged
@@ -4659,6 +4812,30 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 340584749}
   m_CullTransparentMesh: 1
+--- !u!114 &340584754
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 340584749}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d9b6e2d632e03543833ffcc8a21a03c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playClickSFX: 0
+  customClickSFX: 0
+  clickSFX:
+    Clips: []
+    Volume: 0
+  customHoverSFX: 0
+  enterSFX:
+    Clips: []
+    Volume: 0
+  exitSFX:
+    Clips: []
+    Volume: 0
 --- !u!1001 &340746300
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5060,7 +5237,43 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 5847498353394906722, guid: 92f0b9e7a08d80f478363eab821f4196, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1495745977}
+    - targetCorrespondingSourceObject: {fileID: 5847498353394906722, guid: 92f0b9e7a08d80f478363eab821f4196, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1495745976}
+    - targetCorrespondingSourceObject: {fileID: 5214151534669129662, guid: 92f0b9e7a08d80f478363eab821f4196, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 465668902}
+    - targetCorrespondingSourceObject: {fileID: 3603089762851596920, guid: 92f0b9e7a08d80f478363eab821f4196, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2048472330}
+    - targetCorrespondingSourceObject: {fileID: 5500491240123574070, guid: 92f0b9e7a08d80f478363eab821f4196, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1561912098}
+    - targetCorrespondingSourceObject: {fileID: 4824962933869721547, guid: 92f0b9e7a08d80f478363eab821f4196, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 468005012}
+    - targetCorrespondingSourceObject: {fileID: 4368670403788290693, guid: 92f0b9e7a08d80f478363eab821f4196, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1545121479}
+    - targetCorrespondingSourceObject: {fileID: 7997675605245469523, guid: 92f0b9e7a08d80f478363eab821f4196, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 337652161}
+    - targetCorrespondingSourceObject: {fileID: 1200322797861973533, guid: 92f0b9e7a08d80f478363eab821f4196, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 163363515}
+    - targetCorrespondingSourceObject: {fileID: 217814083442181978, guid: 92f0b9e7a08d80f478363eab821f4196, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1113994271}
+    - targetCorrespondingSourceObject: {fileID: 9029928832757205524, guid: 92f0b9e7a08d80f478363eab821f4196, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 522014377}
+    - targetCorrespondingSourceObject: {fileID: 1651058776369372042, guid: 92f0b9e7a08d80f478363eab821f4196, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 565755732}
   m_SourcePrefab: {fileID: 100100000, guid: 92f0b9e7a08d80f478363eab821f4196, type: 3}
 --- !u!224 &348425309 stripped
 RectTransform:
@@ -7034,6 +7247,35 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d0b33dd43b43ea49bca811810dfa21f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &465668897 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5214151534669129662, guid: 92f0b9e7a08d80f478363eab821f4196, type: 3}
+  m_PrefabInstance: {fileID: 348425308}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &465668902
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 465668897}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d9b6e2d632e03543833ffcc8a21a03c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playClickSFX: 0
+  customClickSFX: 0
+  clickSFX:
+    Clips: []
+    Volume: 0
+  customHoverSFX: 0
+  enterSFX:
+    Clips: []
+    Volume: 0
+  exitSFX:
+    Clips: []
+    Volume: 0
 --- !u!1 &467816474
 GameObject:
   m_ObjectHideFlags: 0
@@ -7072,6 +7314,35 @@ RectTransform:
   m_AnchoredPosition: {x: 725, y: -296}
   m_SizeDelta: {x: 200, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &468005007 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4824962933869721547, guid: 92f0b9e7a08d80f478363eab821f4196, type: 3}
+  m_PrefabInstance: {fileID: 348425308}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &468005012
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 468005007}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d9b6e2d632e03543833ffcc8a21a03c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playClickSFX: 0
+  customClickSFX: 0
+  clickSFX:
+    Clips: []
+    Volume: 0
+  customHoverSFX: 0
+  enterSFX:
+    Clips: []
+    Volume: 0
+  exitSFX:
+    Clips: []
+    Volume: 0
 --- !u!1 &488436647
 GameObject:
   m_ObjectHideFlags: 0
@@ -7507,6 +7778,35 @@ MonoBehaviour:
   m_CameraActivatedEvent:
     m_PersistentCalls:
       m_Calls: []
+--- !u!1 &522014372 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 9029928832757205524, guid: 92f0b9e7a08d80f478363eab821f4196, type: 3}
+  m_PrefabInstance: {fileID: 348425308}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &522014377
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 522014372}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d9b6e2d632e03543833ffcc8a21a03c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playClickSFX: 0
+  customClickSFX: 0
+  clickSFX:
+    Clips: []
+    Volume: 0
+  customHoverSFX: 0
+  enterSFX:
+    Clips: []
+    Volume: 0
+  exitSFX:
+    Clips: []
+    Volume: 0
 --- !u!1 &529533737
 GameObject:
   m_ObjectHideFlags: 0
@@ -7653,6 +7953,7 @@ GameObject:
   - component: {fileID: 534246254}
   - component: {fileID: 534246253}
   - component: {fileID: 534246252}
+  - component: {fileID: 534246255}
   m_Layer: 5
   m_Name: CloseButton
   m_TagString: Untagged
@@ -7773,6 +8074,59 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 534246250}
   m_CullTransparentMesh: 1
+--- !u!114 &534246255
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 534246250}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d9b6e2d632e03543833ffcc8a21a03c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playClickSFX: 0
+  customClickSFX: 0
+  clickSFX:
+    Clips: []
+    Volume: 0
+  customHoverSFX: 0
+  enterSFX:
+    Clips: []
+    Volume: 0
+  exitSFX:
+    Clips: []
+    Volume: 0
+--- !u!1 &565755727 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1651058776369372042, guid: 92f0b9e7a08d80f478363eab821f4196, type: 3}
+  m_PrefabInstance: {fileID: 348425308}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &565755732
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 565755727}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d9b6e2d632e03543833ffcc8a21a03c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playClickSFX: 0
+  customClickSFX: 0
+  clickSFX:
+    Clips: []
+    Volume: 0
+  customHoverSFX: 0
+  enterSFX:
+    Clips: []
+    Volume: 0
+  exitSFX:
+    Clips: []
+    Volume: 0
 --- !u!1 &584443655
 GameObject:
   m_ObjectHideFlags: 0
@@ -8136,6 +8490,7 @@ GameObject:
   - component: {fileID: 625466818}
   - component: {fileID: 625466817}
   - component: {fileID: 625466816}
+  - component: {fileID: 625466819}
   m_Layer: 5
   m_Name: ResumeButton
   m_TagString: Untagged
@@ -8257,6 +8612,30 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 625466814}
   m_CullTransparentMesh: 1
+--- !u!114 &625466819
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 625466814}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d9b6e2d632e03543833ffcc8a21a03c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playClickSFX: 0
+  customClickSFX: 0
+  clickSFX:
+    Clips: []
+    Volume: 0
+  customHoverSFX: 0
+  enterSFX:
+    Clips: []
+    Volume: 0
+  exitSFX:
+    Clips: []
+    Volume: 0
 --- !u!1 &644522582
 GameObject:
   m_ObjectHideFlags: 0
@@ -9744,6 +10123,7 @@ GameObject:
   - component: {fileID: 816439840}
   - component: {fileID: 816439839}
   - component: {fileID: 816439838}
+  - component: {fileID: 816439841}
   m_Layer: 5
   m_Name: CloseButton
   m_TagString: Untagged
@@ -9865,6 +10245,30 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 816439836}
   m_CullTransparentMesh: 1
+--- !u!114 &816439841
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 816439836}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d9b6e2d632e03543833ffcc8a21a03c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playClickSFX: 0
+  customClickSFX: 0
+  clickSFX:
+    Clips: []
+    Volume: 0
+  customHoverSFX: 0
+  enterSFX:
+    Clips: []
+    Volume: 0
+  exitSFX:
+    Clips: []
+    Volume: 0
 --- !u!4 &840296821 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2245722157079849748, guid: 480f308bd60ae164a96ad60ab357ab8b, type: 3}
@@ -11347,6 +11751,35 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc170911851aba34c9c9214a27d56e50, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1113994266 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 217814083442181978, guid: 92f0b9e7a08d80f478363eab821f4196, type: 3}
+  m_PrefabInstance: {fileID: 348425308}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1113994271
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1113994266}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d9b6e2d632e03543833ffcc8a21a03c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playClickSFX: 0
+  customClickSFX: 0
+  clickSFX:
+    Clips: []
+    Volume: 0
+  customHoverSFX: 0
+  enterSFX:
+    Clips: []
+    Volume: 0
+  exitSFX:
+    Clips: []
+    Volume: 0
 --- !u!1 &1136745265
 GameObject:
   m_ObjectHideFlags: 0
@@ -11360,6 +11793,7 @@ GameObject:
   - component: {fileID: 1136745268}
   - component: {fileID: 1136745267}
   - component: {fileID: 1136745270}
+  - component: {fileID: 1136745271}
   m_Layer: 5
   m_Name: MenuButton
   m_TagString: Untagged
@@ -11482,6 +11916,30 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canvasGroupToDisable: {fileID: 904856767}
+--- !u!114 &1136745271
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1136745265}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d9b6e2d632e03543833ffcc8a21a03c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playClickSFX: 0
+  customClickSFX: 0
+  clickSFX:
+    Clips: []
+    Volume: 0
+  customHoverSFX: 0
+  enterSFX:
+    Clips: []
+    Volume: 0
+  exitSFX:
+    Clips: []
+    Volume: 0
 --- !u!1 &1151150774
 GameObject:
   m_ObjectHideFlags: 0
@@ -14544,6 +15002,7 @@ GameObject:
   - component: {fileID: 1302724871}
   - component: {fileID: 1302724873}
   - component: {fileID: 1302724872}
+  - component: {fileID: 1302724874}
   m_Layer: 5
   m_Name: PausePopup
   m_TagString: Untagged
@@ -15441,6 +15900,26 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   feedbackName: PausePanel
+--- !u!114 &1302724874
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1302724870}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 82dbcdc4c400e004d9ab9a65a7336151, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playPanelSFX: 1
+  playCustomSFX: 0
+  playClips:
+    Clips: []
+    Volume: 0
+  playInReverseClips:
+    Clips: []
+    Volume: 0
 --- !u!1 &1318532000
 GameObject:
   m_ObjectHideFlags: 0
@@ -16178,6 +16657,7 @@ GameObject:
   - component: {fileID: 1389313232}
   - component: {fileID: 1389313231}
   - component: {fileID: 1389313230}
+  - component: {fileID: 1389313233}
   m_Layer: 5
   m_Name: CloseButton
   m_TagString: Untagged
@@ -16298,6 +16778,30 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1389313228}
   m_CullTransparentMesh: 1
+--- !u!114 &1389313233
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1389313228}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d9b6e2d632e03543833ffcc8a21a03c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playClickSFX: 0
+  customClickSFX: 0
+  clickSFX:
+    Clips: []
+    Volume: 0
+  customHoverSFX: 0
+  enterSFX:
+    Clips: []
+    Volume: 0
+  exitSFX:
+    Clips: []
+    Volume: 0
 --- !u!1 &1452584354
 GameObject:
   m_ObjectHideFlags: 0
@@ -17026,6 +17530,79 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   feedbackName: BossHealthPopup
+--- !u!1 &1495745974 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5847498353394906722, guid: 92f0b9e7a08d80f478363eab821f4196, type: 3}
+  m_PrefabInstance: {fileID: 348425308}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1495745976
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1495745974}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d9b6e2d632e03543833ffcc8a21a03c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playClickSFX: 0
+  customClickSFX: 0
+  clickSFX:
+    Clips: []
+    Volume: 0
+  customHoverSFX: 0
+  enterSFX:
+    Clips: []
+    Volume: 0
+  exitSFX:
+    Clips: []
+    Volume: 0
+--- !u!114 &1495745977
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1495745974}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Navigation:
+    m_Mode: 3
+    m_WrapAround: 0
+    m_SelectOnUp: {fileID: 0}
+    m_SelectOnDown: {fileID: 0}
+    m_SelectOnLeft: {fileID: 0}
+    m_SelectOnRight: {fileID: 0}
+  m_Transition: 1
+  m_Colors:
+    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
+    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_ColorMultiplier: 1
+    m_FadeDuration: 0.1
+  m_SpriteState:
+    m_HighlightedSprite: {fileID: 0}
+    m_PressedSprite: {fileID: 0}
+    m_SelectedSprite: {fileID: 0}
+    m_DisabledSprite: {fileID: 0}
+  m_AnimationTriggers:
+    m_NormalTrigger: Normal
+    m_HighlightedTrigger: Highlighted
+    m_PressedTrigger: Pressed
+    m_SelectedTrigger: Selected
+    m_DisabledTrigger: Disabled
+  m_Interactable: 1
+  m_TargetGraphic: {fileID: 0}
+  m_OnClick:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &1510841268
 GameObject:
   m_ObjectHideFlags: 0
@@ -17113,6 +17690,7 @@ GameObject:
   - component: {fileID: 1529253099}
   - component: {fileID: 1529253098}
   - component: {fileID: 1529253097}
+  - component: {fileID: 1529253100}
   m_Layer: 5
   m_Name: CloseButton
   m_TagString: Untagged
@@ -17233,6 +17811,30 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1529253095}
   m_CullTransparentMesh: 1
+--- !u!114 &1529253100
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1529253095}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d9b6e2d632e03543833ffcc8a21a03c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playClickSFX: 0
+  customClickSFX: 0
+  clickSFX:
+    Clips: []
+    Volume: 0
+  customHoverSFX: 0
+  enterSFX:
+    Clips: []
+    Volume: 0
+  exitSFX:
+    Clips: []
+    Volume: 0
 --- !u!1001 &1543931917
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -17247,7 +17849,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1263217620473054, guid: 9ed2a051c32b4fe47a5e4fb95c20b03f, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 224296548220470038, guid: 9ed2a051c32b4fe47a5e4fb95c20b03f, type: 3}
       propertyPath: m_Pivot.x
@@ -17334,6 +17936,35 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9ed2a051c32b4fe47a5e4fb95c20b03f, type: 3}
+--- !u!1 &1545121474 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4368670403788290693, guid: 92f0b9e7a08d80f478363eab821f4196, type: 3}
+  m_PrefabInstance: {fileID: 348425308}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1545121479
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1545121474}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d9b6e2d632e03543833ffcc8a21a03c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playClickSFX: 0
+  customClickSFX: 0
+  clickSFX:
+    Clips: []
+    Volume: 0
+  customHoverSFX: 0
+  enterSFX:
+    Clips: []
+    Volume: 0
+  exitSFX:
+    Clips: []
+    Volume: 0
 --- !u!1 &1556131641
 GameObject:
   m_ObjectHideFlags: 0
@@ -17409,6 +18040,35 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &1561912093 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5500491240123574070, guid: 92f0b9e7a08d80f478363eab821f4196, type: 3}
+  m_PrefabInstance: {fileID: 348425308}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1561912098
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1561912093}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d9b6e2d632e03543833ffcc8a21a03c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playClickSFX: 0
+  customClickSFX: 0
+  clickSFX:
+    Clips: []
+    Volume: 0
+  customHoverSFX: 0
+  enterSFX:
+    Clips: []
+    Volume: 0
+  exitSFX:
+    Clips: []
+    Volume: 0
 --- !u!1 &1570470852
 GameObject:
   m_ObjectHideFlags: 0
@@ -18237,6 +18897,8 @@ GameObject:
   - component: {fileID: 1608221475}
   - component: {fileID: 1608221474}
   - component: {fileID: 1608221477}
+  - component: {fileID: 1608221478}
+  - component: {fileID: 1608221479}
   m_Layer: 5
   m_Name: DeckButton
   m_TagString: Untagged
@@ -18371,6 +19033,54 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   image: {fileID: 1608221475}
   hoverMaterial: {fileID: 2100000, guid: 2fff2435ee99439438c463e2ce768283, type: 2}
+--- !u!114 &1608221478
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1608221472}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d9b6e2d632e03543833ffcc8a21a03c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playClickSFX: 0
+  customClickSFX: 0
+  clickSFX:
+    Clips: []
+    Volume: 0
+  customHoverSFX: 0
+  enterSFX:
+    Clips: []
+    Volume: 0
+  exitSFX:
+    Clips: []
+    Volume: 0
+--- !u!114 &1608221479
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1608221472}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d9b6e2d632e03543833ffcc8a21a03c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playClickSFX: 0
+  customClickSFX: 0
+  clickSFX:
+    Clips: []
+    Volume: 0
+  customHoverSFX: 0
+  enterSFX:
+    Clips: []
+    Volume: 0
+  exitSFX:
+    Clips: []
+    Volume: 0
 --- !u!1 &1609445167
 GameObject:
   m_ObjectHideFlags: 0
@@ -19135,6 +19845,7 @@ GameObject:
   - component: {fileID: 1779925638}
   - component: {fileID: 1779925637}
   - component: {fileID: 1779925641}
+  - component: {fileID: 1779925642}
   m_Layer: 5
   m_Name: SelectButton
   m_TagString: Untagged
@@ -19272,6 +19983,30 @@ MonoBehaviour:
   m_EffectColor: {r: 0.34117648, g: 0.44705886, b: 0.4666667, a: 1}
   m_EffectDistance: {x: 5, y: 5}
   m_UseGraphicAlpha: 1
+--- !u!114 &1779925642
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1779925635}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d9b6e2d632e03543833ffcc8a21a03c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playClickSFX: 0
+  customClickSFX: 0
+  clickSFX:
+    Clips: []
+    Volume: 0
+  customHoverSFX: 0
+  enterSFX:
+    Clips: []
+    Volume: 0
+  exitSFX:
+    Clips: []
+    Volume: 0
 --- !u!1 &1780111831
 GameObject:
   m_ObjectHideFlags: 0
@@ -19284,6 +20019,7 @@ GameObject:
   - component: {fileID: 1780111835}
   - component: {fileID: 1780111834}
   - component: {fileID: 1780111833}
+  - component: {fileID: 1780111836}
   m_Layer: 5
   m_Name: NoButton
   m_TagString: Untagged
@@ -19405,6 +20141,30 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1780111831}
   m_CullTransparentMesh: 1
+--- !u!114 &1780111836
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1780111831}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d9b6e2d632e03543833ffcc8a21a03c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playClickSFX: 0
+  customClickSFX: 0
+  clickSFX:
+    Clips: []
+    Volume: 0
+  customHoverSFX: 0
+  enterSFX:
+    Clips: []
+    Volume: 0
+  exitSFX:
+    Clips: []
+    Volume: 0
 --- !u!1 &1789260749
 GameObject:
   m_ObjectHideFlags: 0
@@ -19590,6 +20350,7 @@ GameObject:
   - component: {fileID: 1792117262}
   - component: {fileID: 1792117261}
   - component: {fileID: 1792117260}
+  - component: {fileID: 1792117263}
   m_Layer: 5
   m_Name: CancelButton
   m_TagString: Untagged
@@ -19710,6 +20471,30 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1792117258}
   m_CullTransparentMesh: 1
+--- !u!114 &1792117263
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1792117258}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d9b6e2d632e03543833ffcc8a21a03c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playClickSFX: 0
+  customClickSFX: 0
+  clickSFX:
+    Clips: []
+    Volume: 0
+  customHoverSFX: 0
+  enterSFX:
+    Clips: []
+    Volume: 0
+  exitSFX:
+    Clips: []
+    Volume: 0
 --- !u!1 &1794461941
 GameObject:
   m_ObjectHideFlags: 0
@@ -20407,6 +21192,7 @@ GameObject:
   - component: {fileID: 1913973016}
   - component: {fileID: 1913973015}
   - component: {fileID: 1913973014}
+  - component: {fileID: 1913973017}
   m_Layer: 5
   m_Name: YesButton
   m_TagString: Untagged
@@ -20528,6 +21314,30 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1913973012}
   m_CullTransparentMesh: 1
+--- !u!114 &1913973017
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1913973012}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d9b6e2d632e03543833ffcc8a21a03c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playClickSFX: 0
+  customClickSFX: 0
+  clickSFX:
+    Clips: []
+    Volume: 0
+  customHoverSFX: 0
+  enterSFX:
+    Clips: []
+    Volume: 0
+  exitSFX:
+    Clips: []
+    Volume: 0
 --- !u!1 &1923140365
 GameObject:
   m_ObjectHideFlags: 0
@@ -20823,6 +21633,7 @@ GameObject:
   - component: {fileID: 1937197749}
   - component: {fileID: 1937197751}
   - component: {fileID: 1937197750}
+  - component: {fileID: 1937197752}
   m_Layer: 5
   m_Name: TransitionTradeUI
   m_TagString: Untagged
@@ -21868,6 +22679,26 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   feedbackName: TransitionTradeUI
+--- !u!114 &1937197752
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1937197748}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 82dbcdc4c400e004d9ab9a65a7336151, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playPanelSFX: 1
+  playCustomSFX: 0
+  playClips:
+    Clips: []
+    Volume: 0
+  playInReverseClips:
+    Clips: []
+    Volume: 0
 --- !u!1 &1964967657
 GameObject:
   m_ObjectHideFlags: 0
@@ -22411,6 +23242,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2038748272}
   - component: {fileID: 2038748273}
+  - component: {fileID: 2038748274}
   m_Layer: 5
   m_Name: SettingsTransition
   m_TagString: Untagged
@@ -22836,6 +23668,26 @@ MonoBehaviour:
         StateOnSkip: 1
         SetStateOnPlayerComplete: 0
         StateOnPlayerComplete: 1
+--- !u!114 &2038748274
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2038748271}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 82dbcdc4c400e004d9ab9a65a7336151, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playPanelSFX: 1
+  playCustomSFX: 0
+  playClips:
+    Clips: []
+    Volume: 0
+  playInReverseClips:
+    Clips: []
+    Volume: 0
 --- !u!1 &2040577009
 GameObject:
   m_ObjectHideFlags: 0
@@ -22964,6 +23816,35 @@ Camera:
   m_OcclusionCulling: 0
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
+--- !u!1 &2048472325 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3603089762851596920, guid: 92f0b9e7a08d80f478363eab821f4196, type: 3}
+  m_PrefabInstance: {fileID: 348425308}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2048472330
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2048472325}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d9b6e2d632e03543833ffcc8a21a03c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playClickSFX: 0
+  customClickSFX: 0
+  clickSFX:
+    Clips: []
+    Volume: 0
+  customHoverSFX: 0
+  enterSFX:
+    Clips: []
+    Volume: 0
+  exitSFX:
+    Clips: []
+    Volume: 0
 --- !u!1 &2062844397
 GameObject:
   m_ObjectHideFlags: 0
@@ -23190,7 +24071,7 @@ MonoBehaviour:
   m_fontColor32:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:

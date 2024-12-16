@@ -32,6 +32,10 @@ public class StraightShootBehavior : MonoBehaviour, IAttacker {
     [SerializeField] private bool hasWeapon;
     [ConditionalHide("hasWeapon")][SerializeField] private Animator weaponAnim;
 
+    [Header("SFX")]
+    [SerializeField] private bool customSFX;
+    [ConditionalHide("customSFX")][SerializeField] private AudioClips shootSFX;
+
     private TimedActionBehavior timedActionBehavior;
 
     private void Awake() {
@@ -105,9 +109,20 @@ public class StraightShootBehavior : MonoBehaviour, IAttacker {
         float dmg = overrideDamage ? damage : hasStats.GetStats().Damage;
         newProjectile.GetComponent<DamageOnContact>().Setup(dmg, hasStats.GetStats().KnockbackStrength);
 
+        PlaySFX();
+
         InvokeShootDirectionEvent(shootDirection.normalized);
         InvokeShootProjectileEvent(newProjectile.gameObject);
         InvokeAttackEvent();
+    }
+
+    protected void PlaySFX() {
+        if (customSFX) {
+            AudioManager.Instance.PlaySound(shootSFX);
+        }
+        else {
+            AudioManager.Instance.PlaySound(AudioManager.Instance.AudioClips.BasicEnemyShoot);
+        }
     }
 
     // methods needed for ShootStraightSpreadBehavior

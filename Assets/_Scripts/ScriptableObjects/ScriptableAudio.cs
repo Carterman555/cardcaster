@@ -16,10 +16,19 @@ public class ScriptableAudio : ScriptableObject {
     [SerializeField] private AudioClips dash;
     public AudioClips Dash => dash;
 
+    [SerializeField] private AudioClips collectEssence;
+    public AudioClips CollectEssence => collectEssence;
+
     [Header("Enemies")]
 
-    [SerializeField] private AudioClips damageEnemy;
-    public AudioClips DamageEnemy => damageEnemy;
+    [SerializeField] private AudioClips basicEnemyShoot;
+    public AudioClips BasicEnemyShoot => basicEnemyShoot;
+
+    [SerializeField] private AudioClips spawnEnemy;
+    public AudioClips SpawnEnemy => spawnEnemy;
+
+    [SerializeField] private AudioClips merge;
+    public AudioClips Merge => merge;
 
     [Header("Cards")]
 
@@ -63,6 +72,7 @@ public class ScriptableAudio : ScriptableObject {
 
     [Header("UI")]
 
+
     [SerializeField] private AudioClips openPanel;
     public AudioClips OpenPanel => openPanel;
 
@@ -71,4 +81,21 @@ public class ScriptableAudio : ScriptableObject {
 
     [SerializeField] private AudioClips buttonClick;
     public AudioClips ButtonClick => buttonClick;
+
+    [SerializeField] private AudioClips buttonEnter;
+    public AudioClips ButtonEnter => buttonEnter;
+
+    [SerializeField] private AudioClips buttonExit;
+    public AudioClips ButtonExit => buttonExit;
+
+    [Header("Misc")]
+
+    [SerializeField] private AudioClips damaged;
+    public AudioClips Damaged => damaged;
+
+    [SerializeField] private AudioClips teleport;
+    public AudioClips Teleport => teleport;
+
+    [SerializeField] private AudioClips explode;
+    public AudioClips Explode => explode;
 }

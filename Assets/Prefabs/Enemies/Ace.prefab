@@ -248,6 +248,11 @@ MonoBehaviour:
   attackCooldownMult: 1
   anim: {fileID: 7812749826847277617}
   specialAttack: 0
+  customSFX: 1
+  shootSFX:
+    Clips:
+    - {fileID: 8300000, guid: fd8cdc818b06d82468168cdc5fef2e4a, type: 3}
+    Volume: 1
 --- !u!95 &7812749826847277617 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 621019451974682374, guid: d26e40392c042dc4d8c237ede2183746, type: 3}

@@ -13,6 +13,10 @@ public class SpawnEnemyBehavior : MonoBehaviour {
     private IHasStats hasStats;
     private TimedActionBehavior timedActionBehavior;
 
+    [Header("SFX")]
+    [SerializeField] private bool customSFX;
+    [ConditionalHide("customSFX")][SerializeField] private AudioClips spawnSFX;
+
     private void Awake() {
 
         hasStats = GetComponent<IHasStats>();
@@ -46,5 +50,12 @@ public class SpawnEnemyBehavior : MonoBehaviour {
     // played by animation
     public void SpawnEnemy() {
         Enemy spawnedEnemy = enemyToSpawn.Spawn(spawnPoint.position, Containers.Instance.Enemies);
+
+        if (customSFX) {
+            AudioManager.Instance.PlaySound(spawnSFX);
+        }
+        else {
+            AudioManager.Instance.PlaySound(AudioManager.Instance.AudioClips.SpawnEnemy);
+        }
     }
 }

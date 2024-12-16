@@ -50,6 +50,8 @@ public class WarningPopup : MonoBehaviour, IInitializable {
 
         transform.localScale = Vector3.zero;
         transform.DOScale(1, duration: 0.3f).SetUpdate(true);
+
+        AudioManager.Instance.PlaySound(AudioManager.Instance.AudioClips.OpenPanel);
     }
 
     public void CloseWarning() {
@@ -59,5 +61,7 @@ public class WarningPopup : MonoBehaviour, IInitializable {
             gameObject.SetActive(false);
             canvasGroupToDisable.interactable = true;
         });
+
+        AudioManager.Instance.PlaySound(AudioManager.Instance.AudioClips.ClosePanel);
     }
 }

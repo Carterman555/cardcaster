@@ -124,6 +124,8 @@ public class MergeBehavior : MonoBehaviour {
             Vector2 mergedEnemyPos = (transform.position + mergingPartner.transform.position) / 2;
             mergedEnemyPrefab.Spawn(mergedEnemyPos, Containers.Instance.Enemies);
 
+            AudioManager.Instance.PlaySound(AudioManager.Instance.AudioClips.Merge);
+
             OnLeaderMerged?.Invoke();
         }
 

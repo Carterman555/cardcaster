@@ -68,6 +68,8 @@ public class DarkPhantom : Enemy {
 
     private void Teleport() {
 
+        AudioManager.Instance.PlaySound(AudioManager.Instance.AudioClips.Teleport);
+
         float duration = 0.3f;
         visual.DOFade(0, duration).SetEase(Ease.InSine).OnComplete(() => {
             teleportBehavior.Teleport(PlayerMovement.Instance.transform.position, teleportDistanceFromPlayer);

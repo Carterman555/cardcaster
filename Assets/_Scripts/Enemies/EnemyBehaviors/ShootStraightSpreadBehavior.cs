@@ -24,6 +24,8 @@ public class ShootStraightSpreadBehavior : StraightShootBehavior {
             InvokeShootProjectileEvent(newProjectile.gameObject);
         }
 
+        PlaySFX();
+
         InvokeShootDirectionEvent(toTarget.normalized);
         InvokeAttackEvent();
     }

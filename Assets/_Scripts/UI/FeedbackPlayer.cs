@@ -1,4 +1,5 @@
 using MoreMountains.Feedbacks;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,6 +13,21 @@ public class FeedbackPlayer : MonoBehaviour {
         feedbackPlayers = new();
     }
 
+    public static MMF_Player GetPlayer(string feedbackName) {
+        return feedbackPlayers[feedbackName].GetPlayer();
+    }
+
+    public static void Play(string feedbackName) {
+        feedbackPlayers[feedbackName].Play();
+    }
+    public static void PlayInReverse(string popupName) {
+        feedbackPlayers[popupName].PlayInReverse();
+    }
+
+
+    public event Action OnPlayNormal;
+    public event Action OnPlayInReverse;
+
     [SerializeField] private string feedbackName;
     private MMF_Player MMFPlayer;
 
@@ -24,18 +40,6 @@ public class FeedbackPlayer : MonoBehaviour {
     private void OnDestroy() {
         feedbackPlayers.Remove(feedbackName);
     }
-
-    public static MMF_Player GetPlayer(string feedbackName) {
-        return feedbackPlayers[feedbackName].GetPlayer();
-    }
-
-    public static void Play(string feedbackName) {
-        feedbackPlayers[feedbackName].Play();
-    }
-    public static void PlayInReverse(string popupName) {
-        feedbackPlayers[popupName].PlayInReverse();
-    }
-
     
     public MMF_Player GetPlayer() {
         return MMFPlayer;
@@ -44,8 +48,12 @@ public class FeedbackPlayer : MonoBehaviour {
     public void Play() {
         MMFPlayer.SetDirectionTopToBottom();
         MMFPlayer.PlayFeedbacks();
+
+        OnPlayNormal?.Invoke();
     }
     public void PlayInReverse() {
         MMFPlayer.PlayFeedbacksInReverse();
+
+        OnPlayInReverse?.Invoke();
     }
 }

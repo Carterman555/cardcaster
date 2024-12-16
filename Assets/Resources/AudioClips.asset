@@ -32,13 +32,24 @@ MonoBehaviour:
     Clips:
     - {fileID: 8300000, guid: 1d2d3942243d0fd489108777c40650ee, type: 3}
     Volume: 0.472
-  damageEnemy:
+  collectEssence:
     Clips:
-    - {fileID: 8300000, guid: 1c53814b1a25d164aad9d8a0cdf40178, type: 3}
-    - {fileID: 8300000, guid: a7e908566c9938f41b1d16a9c59a405f, type: 3}
-    - {fileID: 8300000, guid: 757648662577dc9438834753ed98d96e, type: 3}
-    - {fileID: 8300000, guid: ef467b4e05b04fe4fbeb0aa3e66e5af2, type: 3}
-    Volume: 0.2
+    - {fileID: 8300000, guid: 7692a2f1dfff59c4faa8e5e0eacc76b0, type: 3}
+    Volume: 0.3
+  basicEnemyShoot:
+    Clips:
+    - {fileID: 8300000, guid: 1c392d540fc5d924994810b617eef041, type: 3}
+    - {fileID: 8300000, guid: 59cedaab524a5a74886df7cf7918038b, type: 3}
+    - {fileID: 8300000, guid: 10519916e4ce45046a1a5a6792d7dd7c, type: 3}
+    - {fileID: 8300000, guid: 88d5d242a4f96324bae41f204ca38250, type: 3}
+    Volume: 0.5
+  spawnEnemy:
+    Clips: []
+    Volume: 0
+  merge:
+    Clips:
+    - {fileID: 8300000, guid: 5e4e91980cfc9b44ba9536ec9d6c2282, type: 3}
+    Volume: 0.546
   drawCard:
     Clips:
     - {fileID: 8300000, guid: e9abfb5e1aad99a41b61898d1c0923d0, type: 3}
@@ -88,12 +99,35 @@ MonoBehaviour:
     Volume: 0.3
   openPanel:
     Clips:
-    - {fileID: 8300000, guid: b565964301fd81843824121dbf2709f8, type: 3}
+    - {fileID: 8300000, guid: b85ddf9d5f6edcf4894f2aff08f3a4cf, type: 3}
     Volume: 0.5
   closePanel:
     Clips:
-    - {fileID: 8300000, guid: b565964301fd81843824121dbf2709f8, type: 3}
+    - {fileID: 8300000, guid: b85ddf9d5f6edcf4894f2aff08f3a4cf, type: 3}
     Volume: 0.5
   buttonClick:
     Clips: []
-    Volume: 0
+    Volume: 1
+  buttonEnter:
+    Clips:
+    - {fileID: 8300000, guid: 22cf4120c8989514aa5b4dbbd29eee54, type: 3}
+    Volume: 0.3
+  buttonExit:
+    Clips:
+    - {fileID: 8300000, guid: 22cf4120c8989514aa5b4dbbd29eee54, type: 3}
+    Volume: 0.3
+  damaged:
+    Clips:
+    - {fileID: 8300000, guid: 1c53814b1a25d164aad9d8a0cdf40178, type: 3}
+    - {fileID: 8300000, guid: a7e908566c9938f41b1d16a9c59a405f, type: 3}
+    - {fileID: 8300000, guid: 757648662577dc9438834753ed98d96e, type: 3}
+    - {fileID: 8300000, guid: ef467b4e05b04fe4fbeb0aa3e66e5af2, type: 3}
+    Volume: 0.399
+  teleport:
+    Clips:
+    - {fileID: 8300000, guid: a6c0aca13b83f6e4e88bd1c73308564d, type: 3}
+    Volume: 1
+  explode:
+    Clips:
+    - {fileID: 8300000, guid: c9afb7bf845b08e4f95dd08c57ebc073, type: 3}
+    Volume: 1

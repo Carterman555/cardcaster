@@ -51,6 +51,8 @@ public class ExplodeBehavior : MonoBehaviour, ITargetAttacker {
             CameraShaker.Instance.ShakeCamera(0.3f);
         }
 
+        AudioManager.Instance.PlaySound(AudioManager.Instance.AudioClips.Explode);
+
         // invoke events
         OnAttack?.Invoke();
         foreach (Collider2D col in damagedColliders) {

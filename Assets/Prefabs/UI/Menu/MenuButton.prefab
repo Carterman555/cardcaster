@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 7746341288175886164}
   - component: {fileID: 7546568927440928143}
   - component: {fileID: 1801474627705183629}
+  - component: {fileID: 8116721211774601241}
   m_Layer: 0
   m_Name: MenuButton
   m_TagString: Untagged
@@ -137,6 +138,30 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   interactVisual: {fileID: 8556145279354413283}
   visualWidth: 15
+--- !u!114 &8116721211774601241
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 449837644924952168}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d9b6e2d632e03543833ffcc8a21a03c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playClickSFX: 0
+  customClickSFX: 0
+  clickSFX:
+    Clips: []
+    Volume: 0
+  customHoverSFX: 0
+  enterSFX:
+    Clips: []
+    Volume: 0
+  exitSFX:
+    Clips: []
+    Volume: 0
 --- !u!1 &3364276439836063205
 GameObject:
   m_ObjectHideFlags: 0

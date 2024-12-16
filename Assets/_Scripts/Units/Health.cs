@@ -45,7 +45,7 @@ public class Health : MonoBehaviour, IDamagable {
 
         health -= damage;
 
-        AudioManager.Instance.PlaySound(AudioManager.Instance.AudioClips.DamageEnemy);
+        AudioManager.Instance.PlaySound(AudioManager.Instance.AudioClips.Damaged);
 
         OnHealthChanged_HealthProportion?.Invoke(health/maxHealth);
         damagedEventTrigger?.Invoke();

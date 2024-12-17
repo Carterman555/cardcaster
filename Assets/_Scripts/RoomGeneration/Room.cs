@@ -183,7 +183,7 @@ public class Room : MonoBehaviour {
         LevelMapIcons.Instance.ShowMapIcon(mapIcon);
 
         exitTrigger.OnEnterContact += OnExitRoom;
-        CheckRoomCleared.OnEnemiesCleared += SetRoomCleared;
+        CheckEnemiesCleared.OnEnemiesCleared += SetRoomCleared;
 
         RoomGenerator.OnCompleteGeneration -= OnEnterRoom;
         enterTrigger.OnEnterContact -= OnEnterRoom;
@@ -198,7 +198,7 @@ public class Room : MonoBehaviour {
         enterTrigger.OnEnterContact += OnEnterRoom;
 
         exitTrigger.OnEnterContact -= OnExitRoom;
-        CheckRoomCleared.OnEnemiesCleared -= SetRoomCleared;
+        CheckEnemiesCleared.OnEnemiesCleared -= SetRoomCleared;
 
         OnAnyRoomExit_Room?.Invoke(this);
     }

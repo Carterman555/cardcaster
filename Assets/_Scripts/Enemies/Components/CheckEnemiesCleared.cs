@@ -5,7 +5,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.Rendering;
 
-public class CheckRoomCleared : MonoBehaviour {
+public class CheckEnemiesCleared : MonoBehaviour {
 
     public static event Action OnEnemiesCleared;
     private static bool isOnCooldown = false;
@@ -14,7 +14,9 @@ public class CheckRoomCleared : MonoBehaviour {
         if (Helpers.GameStopping()) {
             return;
         }
-        EnemySpawnerOld.Instance.StartCoroutine(CheckIfEnemiesCleared());
+
+        //... needs outside behaviour to start it because this is disabled
+        EnemySpawner.Instance.StartCoroutine(CheckIfEnemiesCleared());
     }
 
     private IEnumerator CheckIfEnemiesCleared() {
@@ -22,14 +24,22 @@ public class CheckRoomCleared : MonoBehaviour {
         yield return null;
         bool anyAliveEnemies = Containers.Instance.Enemies.GetComponentsInChildren<Health>().Any(health => !health.IsDead());
 
-        if (!anyAliveEnemies && !EnemySpawner.Instance.SpawningEnemies() && !isOnCooldown) {
-            isOnCooldown = true;
-            OnEnemiesCleared?.Invoke();
+        if (!anyAliveEnemies && !isOnCooldown) {
 
-            // cooldown so OnEnemiesCleared is only invoked once when multiple enemies die at the same time
-            float cooldownDuration = 0.25f;
-            yield return new WaitForSeconds(cooldownDuration);
-            isOnCooldown = false;
+            //... if the room was cleared
+            if (EnemySpawner.Instance.SpawnedAllWaves()) {
+                isOnCooldown = true;
+                OnEnemiesCleared?.Invoke();
+
+                // cooldown so OnEnemiesCleared is only invoked once when multiple enemies die at the same time
+                float cooldownDuration = 0.25f;
+                yield return new WaitForSeconds(cooldownDuration);
+                isOnCooldown = false;
+            }
+            //... if another wave
+            else {
+                EnemySpawner.Instance.SpawnCurrentWave();
+            }
         }
     }
 
@@ -38,7 +48,7 @@ public class CheckRoomCleared : MonoBehaviour {
         if (!isOnCooldown) {
             isOnCooldown = true;
             OnEnemiesCleared?.Invoke();
-            EnemySpawnerOld.Instance.StartCoroutine(ResetCooldown());
+            EnemySpawner.Instance.StartCoroutine(ResetCooldown());
         }
     }
 

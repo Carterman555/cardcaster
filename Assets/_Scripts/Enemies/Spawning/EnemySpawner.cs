@@ -1,19 +1,19 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
 
 public class EnemySpawner : StaticInstance<EnemySpawner> {
 
-    private bool spawningEnemies;
-
     private ScriptableEnemyComposition currentEnemyComposition;
 
-    private List<Enemy> enemiesLeftToSpawn = new();
+    private int currentWaveIndex;
 
-    public bool SpawningEnemies() {
-        return spawningEnemies;
+    public bool SpawnedAllWaves() {
+        int totalWaves = currentEnemyComposition.EnemyWaves.Count();
+        return currentWaveIndex >= totalWaves;
     }
 
     private void OnEnable() {
@@ -36,56 +36,85 @@ public class EnemySpawner : StaticInstance<EnemySpawner> {
         }
 
         currentEnemyComposition = room.GetScriptableRoom().ScriptableEnemyComposition;
+        currentWaveIndex = 0;
 
-        SpawnInitialEnemies();
-
-        if (currentEnemyComposition.SpawnTimedEnemies) {
-            SetEnemiesToSpawnList();
-            StartCoroutine(SpawnTimedEnemiesCor());
-        }
+        SpawnCurrentWave();
     }
 
-    private void SpawnInitialEnemies() {
-        foreach (EnemyAmount enemyAmount in currentEnemyComposition.InitialEnemyAmounts) {
+    public void SpawnCurrentWave() {
+
+        if (SpawnedAllWaves()) {
+            Debug.LogWarning("Trying to spawn current wave, but all waves were spawned!");
+            return;
+        }
+
+        EnemyWave currentWave = currentEnemyComposition.EnemyWaves[currentWaveIndex];
+
+        List<ScriptableEnemy> enemiesInWave = GetEnemiesInWave(currentWave);
+        Vector2[] enemyPositions = GetRandomPositions(enemiesInWave.Count);
+
+        bool firstWave = currentWaveIndex == 0;
+        if (firstWave) {
+            SpawnEnemies(enemiesInWave);
+        }
+        else {
+            CreateSpawnEffects(enemyPositions);
+        }
+
+        currentWaveIndex++;
+    }
+
+    private List<ScriptableEnemy> GetEnemiesInWave(EnemyWave currentWave) {
+        List<ScriptableEnemy> enemies = new List<ScriptableEnemy>();
+
+        foreach (EnemyAmount enemyAmount in currentWave.EnemyAmounts) {
             enemyAmount.Amount.Randomize();
             for (int i = 0; i < enemyAmount.Amount.Value; i++) {
-                SpawnEnemy(enemyAmount.ScriptableEnemy.Prefab);
+                enemies.Add(enemyAmount.ScriptableEnemy);
             }
+        }
+
+        return enemies;
+    }
+
+    private Vector2[] GetRandomPositions(int amount) {
+        Vector2[] enemySpawnPositions = new Vector2[amount];
+
+        for (int i = 0; i < amount; i++) {
+            float avoidRadius = 2f;
+            Vector2 position = new RoomPositionHelper().GetRandomRoomPos(PlayerMovement.Instance.transform.position, avoidRadius);
+            enemySpawnPositions[i] = position;
+        }
+
+        return enemySpawnPositions;
+    }
+
+    [SerializeField] private SpawnInEffect spawnInEffectPrefab;
+
+    private void CreateSpawnEffects(Vector2[] positions) {
+        foreach (Vector2 position in positions) {
+            SpawnInEffect spawnInEffect = spawnInEffectPrefab.Spawn(position, Containers.Instance.Effects);
+            spawnInEffect.Grow();
         }
     }
 
-    private void SetEnemiesToSpawnList() {
-        enemiesLeftToSpawn.Clear();
-
-        foreach (EnemyAmount enemyAmount in currentEnemyComposition.TimedEnemyAmounts) {
-            int chosenAmount = enemyAmount.Amount.Randomize();
-            for (int i = 0; i < chosenAmount; i++) {
-                enemiesLeftToSpawn.Add(enemyAmount.ScriptableEnemy.Prefab);
-            }
+    private void SpawnEnemies(List<ScriptableEnemy> enemies) {
+        foreach (ScriptableEnemy enemy in enemies) {
+            SpawnEnemy(enemy.Prefab);
         }
-    }
-
-    private IEnumerator SpawnTimedEnemiesCor() {
-
-        spawningEnemies = true;
-
-        yield return new WaitForSeconds(currentEnemyComposition.AfterInitialEnemiesDelay);
-
-        while (enemiesLeftToSpawn.Count > 0) {
-            yield return new WaitForSeconds(currentEnemyComposition.BetweenEnemyDelay.Randomize());
-
-            Enemy randomEnemy = enemiesLeftToSpawn.RandomItem();
-            SpawnEnemy(randomEnemy);
-
-            enemiesLeftToSpawn.Remove(randomEnemy);
-        }
-
-        spawningEnemies = false;
     }
 
     private void SpawnEnemy(Enemy enemyPrefab) {
         float avoidRadius = 2f;
         Vector2 position = new RoomPositionHelper().GetRandomRoomPos(PlayerMovement.Instance.transform.position, avoidRadius);
         enemyPrefab.Spawn(position, Containers.Instance.Enemies);
+    }
+
+    private void SpawnEnemy(Enemy enemyPrefab, Vector2 pos) {
+        enemyPrefab.Spawn(pos, Containers.Instance.Enemies);
+    }
+
+    public void StopSpawningInRoom() {
+
     }
 }

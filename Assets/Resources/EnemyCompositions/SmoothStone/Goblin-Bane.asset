@@ -12,22 +12,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c96040730651ab4482ffa55bdb9b4a3, type: 3}
   m_Name: Goblin-Bane
   m_EditorClassIdentifier: 
-  initialEnemyAmounts:
-  - ScriptableEnemy: {fileID: 11400000, guid: 15bf6efdef5dc8f43a322a1f9752c22b, type: 2}
-    Amount:
-      MinValue: 3
-      MaxValue: 4
-  - ScriptableEnemy: {fileID: 11400000, guid: aafd561a49975e04e8bdb25c998e7dfa, type: 2}
-    Amount:
-      MinValue: 2
-      MaxValue: 3
-  spawnTimedEnemies: 1
-  afterInitialEnemiesDelay: 12
-  timedEnemyAmounts:
-  - ScriptableEnemy: {fileID: 11400000, guid: 15bf6efdef5dc8f43a322a1f9752c22b, type: 2}
-    Amount:
-      MinValue: 3
-      MaxValue: 5
-  betweenEnemyDelay:
-    MinValue: 1.5
-    MaxValue: 2.5
+  enemyWaves:
+  - EnemyAmounts:
+    - ScriptableEnemy: {fileID: 11400000, guid: 15bf6efdef5dc8f43a322a1f9752c22b, type: 2}
+      Amount:
+        MinValue: 3
+        MaxValue: 4
+    - ScriptableEnemy: {fileID: 11400000, guid: aafd561a49975e04e8bdb25c998e7dfa, type: 2}
+      Amount:
+        MinValue: 2
+        MaxValue: 3
+  - EnemyAmounts:
+    - ScriptableEnemy: {fileID: 11400000, guid: 15bf6efdef5dc8f43a322a1f9752c22b, type: 2}
+      Amount:
+        MinValue: 1
+        MaxValue: 2
+    - ScriptableEnemy: {fileID: 11400000, guid: aafd561a49975e04e8bdb25c998e7dfa, type: 2}
+      Amount:
+        MinValue: 3
+        MaxValue: 4

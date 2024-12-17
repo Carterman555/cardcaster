@@ -15,10 +15,10 @@ public class RewardSpawner : MonoBehaviour {
     [SerializeField] private Campfire campfirePrefab;
 
     private void OnEnable() {
-        CheckRoomCleared.OnEnemiesCleared += TrySpawnReward;
+        CheckEnemiesCleared.OnEnemiesCleared += TrySpawnReward;
     }
     private void OnDisable() {
-        CheckRoomCleared.OnEnemiesCleared -= TrySpawnReward;
+        CheckEnemiesCleared.OnEnemiesCleared -= TrySpawnReward;
     }
 
     private void TrySpawnReward() {

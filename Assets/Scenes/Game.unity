@@ -7539,7 +7539,6 @@ GameObject:
   m_Component:
   - component: {fileID: 516767147}
   - component: {fileID: 516767150}
-  - component: {fileID: 516767149}
   m_Layer: 0
   m_Name: EnemySpawner
   m_TagString: Untagged
@@ -7562,37 +7561,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1213286439}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &516767149
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 516767146}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 08a9f4affe3541d419f089de5fe66215, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  basicEnemies:
-  - {fileID: 11400000, guid: dfa83f16e97604842935ba03e3930a17, type: 2}
-  - {fileID: 11400000, guid: 3cd631a20674cc24ca0da76c02764620, type: 2}
-  complexEnemies:
-  - {fileID: 11400000, guid: aafd561a49975e04e8bdb25c998e7dfa, type: 2}
-  - {fileID: 11400000, guid: 130afc106dca5024e9ef1e18926c8af8, type: 2}
-  - {fileID: 11400000, guid: 28ab70d53bb38f1438ba032fa2d10710, type: 2}
-  - {fileID: 11400000, guid: abca1f878073ca54f9e2e60c297ac778, type: 2}
-  - {fileID: 11400000, guid: aa3136f2fce2e9648be10e6567a5ec98, type: 2}
-  - {fileID: 11400000, guid: 3a6707c361bdb3f4f98392113232b349, type: 2}
-  - {fileID: 11400000, guid: 7d6a5e0b5ae736842a1118bfe8f20905, type: 2}
-  - {fileID: 11400000, guid: 15bf6efdef5dc8f43a322a1f9752c22b, type: 2}
-  complexChance: 0.2
-  spawnAmount:
-    MinValue: 10
-    MaxValue: 20
-  spawnCooldown:
-    MinValue: 1
-    MaxValue: 2
 --- !u!114 &516767150
 MonoBehaviour:
   m_ObjectHideFlags: 0

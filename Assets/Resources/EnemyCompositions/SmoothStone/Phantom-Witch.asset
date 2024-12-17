@@ -12,22 +12,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c96040730651ab4482ffa55bdb9b4a3, type: 3}
   m_Name: Phantom-Witch
   m_EditorClassIdentifier: 
-  initialEnemyAmounts:
-  - ScriptableEnemy: {fileID: 11400000, guid: 28ab70d53bb38f1438ba032fa2d10710, type: 2}
-    Amount:
-      MinValue: 1
-      MaxValue: 2
-  - ScriptableEnemy: {fileID: 11400000, guid: 130afc106dca5024e9ef1e18926c8af8, type: 2}
-    Amount:
-      MinValue: 2
-      MaxValue: 2
-  spawnTimedEnemies: 1
-  afterInitialEnemiesDelay: 12
-  timedEnemyAmounts:
-  - ScriptableEnemy: {fileID: 11400000, guid: 28ab70d53bb38f1438ba032fa2d10710, type: 2}
-    Amount:
-      MinValue: 2
-      MaxValue: 2
-  betweenEnemyDelay:
-    MinValue: 4
-    MaxValue: 4
+  enemyWaves:
+  - EnemyAmounts:
+    - ScriptableEnemy: {fileID: 11400000, guid: 28ab70d53bb38f1438ba032fa2d10710, type: 2}
+      Amount:
+        MinValue: 1
+        MaxValue: 2
+    - ScriptableEnemy: {fileID: 11400000, guid: 130afc106dca5024e9ef1e18926c8af8, type: 2}
+      Amount:
+        MinValue: 2
+        MaxValue: 2
+  - EnemyAmounts:
+    - ScriptableEnemy: {fileID: 11400000, guid: 28ab70d53bb38f1438ba032fa2d10710, type: 2}
+      Amount:
+        MinValue: 2
+        MaxValue: 2
+    - ScriptableEnemy: {fileID: 11400000, guid: 130afc106dca5024e9ef1e18926c8af8, type: 2}
+      Amount:
+        MinValue: 1
+        MaxValue: 2

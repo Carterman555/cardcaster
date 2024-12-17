@@ -24,6 +24,9 @@ public class ScriptableAudio : ScriptableObject {
     [SerializeField] private AudioClips basicEnemyShoot;
     public AudioClips BasicEnemyShoot => basicEnemyShoot;
 
+    [SerializeField] private AudioClips startSpawnEnemy;
+    public AudioClips StartSpawnEnemy => startSpawnEnemy;
+
     [SerializeField] private AudioClips spawnEnemy;
     public AudioClips SpawnEnemy => spawnEnemy;
 

@@ -1,3 +1,4 @@
+using QFSW.QC;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -34,7 +35,7 @@ public class EnemySpawner : StaticInstance<EnemySpawner> {
         if (room.IsRoomCleared()) {
             return;
         }
-
+        
         currentEnemyComposition = room.GetScriptableRoom().ScriptableEnemyComposition;
         currentWaveIndex = 0;
 
@@ -50,68 +51,37 @@ public class EnemySpawner : StaticInstance<EnemySpawner> {
 
         EnemyWave currentWave = currentEnemyComposition.EnemyWaves[currentWaveIndex];
 
-        List<ScriptableEnemy> enemiesInWave = GetEnemiesInWave(currentWave);
-        Vector2[] enemyPositions = GetRandomPositions(enemiesInWave.Count);
-
-        bool firstWave = currentWaveIndex == 0;
-        if (firstWave) {
-            SpawnEnemies(enemiesInWave);
-        }
-        else {
-            CreateSpawnEffects(enemyPositions);
+        foreach (EnemyAmount enemyAmount in currentWave.EnemyAmounts) {
+            enemyAmount.Amount.Randomize();
+            for (int i = 0; i < enemyAmount.Amount.Value; i++) {
+                bool firstWave = currentWaveIndex == 0;
+                SpawnEnemy(enemyAmount.ScriptableEnemy.Prefab, createSpawnEffect: !firstWave);
+            }
         }
 
         currentWaveIndex++;
     }
 
-    private List<ScriptableEnemy> GetEnemiesInWave(EnemyWave currentWave) {
-        List<ScriptableEnemy> enemies = new List<ScriptableEnemy>();
+    [SerializeField] private SpawnEffect spawnEffectPrefab;
 
-        foreach (EnemyAmount enemyAmount in currentWave.EnemyAmounts) {
-            enemyAmount.Amount.Randomize();
-            for (int i = 0; i < enemyAmount.Amount.Value; i++) {
-                enemies.Add(enemyAmount.ScriptableEnemy);
-            }
-        }
-
-        return enemies;
-    }
-
-    private Vector2[] GetRandomPositions(int amount) {
-        Vector2[] enemySpawnPositions = new Vector2[amount];
-
-        for (int i = 0; i < amount; i++) {
-            float avoidRadius = 2f;
-            Vector2 position = new RoomPositionHelper().GetRandomRoomPos(PlayerMovement.Instance.transform.position, avoidRadius);
-            enemySpawnPositions[i] = position;
-        }
-
-        return enemySpawnPositions;
-    }
-
-    [SerializeField] private SpawnInEffect spawnInEffectPrefab;
-
-    private void CreateSpawnEffects(Vector2[] positions) {
-        foreach (Vector2 position in positions) {
-            SpawnInEffect spawnInEffect = spawnInEffectPrefab.Spawn(position, Containers.Instance.Effects);
-            spawnInEffect.Grow();
-        }
-    }
-
-    private void SpawnEnemies(List<ScriptableEnemy> enemies) {
-        foreach (ScriptableEnemy enemy in enemies) {
-            SpawnEnemy(enemy.Prefab);
-        }
-    }
-
-    private void SpawnEnemy(Enemy enemyPrefab) {
+    private void SpawnEnemy(Enemy enemyPrefab, bool createSpawnEffect = true) {
         float avoidRadius = 2f;
         Vector2 position = new RoomPositionHelper().GetRandomRoomPos(PlayerMovement.Instance.transform.position, avoidRadius);
-        enemyPrefab.Spawn(position, Containers.Instance.Enemies);
+
+        if (createSpawnEffect) {
+            SpawnEffect spawnEffect = spawnEffectPrefab.Spawn(position, Containers.Instance.Effects);
+            spawnEffect.Setup(enemyPrefab);
+        }
+        else {
+            enemyPrefab.Spawn(position, Containers.Instance.Enemies);
+        }
     }
 
-    private void SpawnEnemy(Enemy enemyPrefab, Vector2 pos) {
-        enemyPrefab.Spawn(pos, Containers.Instance.Enemies);
+    //debug
+    [Command]
+    private void SpawnEnemy(string name, bool spawnEffect = false) {
+        ScriptableEnemy enemy = ResourceSystem.Instance.GetAllEnemies().FirstOrDefault(e => e.name == name);
+        SpawnEnemy(enemy.Prefab, spawnEffect);
     }
 
     public void StopSpawningInRoom() {

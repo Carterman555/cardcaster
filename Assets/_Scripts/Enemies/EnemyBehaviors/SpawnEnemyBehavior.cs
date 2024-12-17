@@ -55,7 +55,7 @@ public class SpawnEnemyBehavior : MonoBehaviour {
             AudioManager.Instance.PlaySound(spawnSFX);
         }
         else {
-            AudioManager.Instance.PlaySound(AudioManager.Instance.AudioClips.SpawnEnemy);
+            AudioManager.Instance.PlaySound(AudioManager.Instance.AudioClips.StartSpawnEnemy);
         }
     }
 }

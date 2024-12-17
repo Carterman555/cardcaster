@@ -18,11 +18,11 @@ public class FadeSprite : MonoBehaviour {
         spriteRenderer.Fade(originalFade);
     }
 
-    public void FadeOut(float duration = 0.2f) {
+    public void FadeOut(float duration = 0.3f) {
         spriteRenderer.DOFade(0f, duration);
     }
 
-    public void FadeIn(float duration = 0.2f) {
+    public void FadeIn(float duration = 0.3f) {
         spriteRenderer.DOFade(originalFade, duration);
     }
 }

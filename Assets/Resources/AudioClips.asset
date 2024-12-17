@@ -35,7 +35,7 @@ MonoBehaviour:
   collectEssence:
     Clips:
     - {fileID: 8300000, guid: 7692a2f1dfff59c4faa8e5e0eacc76b0, type: 3}
-    Volume: 0.3
+    Volume: 0.106
   basicEnemyShoot:
     Clips:
     - {fileID: 8300000, guid: 1c392d540fc5d924994810b617eef041, type: 3}
@@ -43,9 +43,14 @@ MonoBehaviour:
     - {fileID: 8300000, guid: 10519916e4ce45046a1a5a6792d7dd7c, type: 3}
     - {fileID: 8300000, guid: 88d5d242a4f96324bae41f204ca38250, type: 3}
     Volume: 0.5
-  spawnEnemy:
-    Clips: []
+  startSpawnEnemy:
+    Clips:
+    - {fileID: 8300000, guid: 53423fa0a1a5c3f41984051a43d843d2, type: 3}
     Volume: 0
+  spawnEnemy:
+    Clips:
+    - {fileID: 8300000, guid: b12831aaf50176e44aff2855c4d21dea, type: 3}
+    Volume: 0.25
   merge:
     Clips:
     - {fileID: 8300000, guid: 5e4e91980cfc9b44ba9536ec9d6c2282, type: 3}

@@ -2799,7 +2799,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &283659733
 Transform:
   m_ObjectHideFlags: 0
@@ -7573,6 +7573,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e688671859d20f489f71df8273c0dc2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spawnEffectPrefab: {fileID: 79959556585073480, guid: d98627d6f97826a4ba7211369893f91c, type: 3}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -24588,7 +24589,7 @@ PrefabInstance:
       objectReference: {fileID: 1224761863}
     - target: {fileID: 889627672505186333, guid: 58f2feb7fcdece146b937d87594495b2, type: 3}
       propertyPath: m_Volume
-      value: 0.5
+      value: 0.75
       objectReference: {fileID: 0}
     - target: {fileID: 889627672505186333, guid: 58f2feb7fcdece146b937d87594495b2, type: 3}
       propertyPath: m_PlayOnAwake
@@ -24612,7 +24613,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9035486063100275501, guid: 58f2feb7fcdece146b937d87594495b2, type: 3}
       propertyPath: m_Volume
-      value: 0.5
+      value: 0.75
       objectReference: {fileID: 0}
     - target: {fileID: 9035486063100275501, guid: 58f2feb7fcdece146b937d87594495b2, type: 3}
       propertyPath: m_audioClip

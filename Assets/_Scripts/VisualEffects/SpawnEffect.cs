@@ -12,12 +12,12 @@ public class SpawnEffect : MonoBehaviour {
     }
 
     public void Setup(Enemy enemyToSpawn) {
-        this.enemyPrefab = enemyToSpawn;
+        enemyPrefab = enemyToSpawn;
         Grow();
 
         StartCoroutine(SpawnEnemyDelayed());
 
-        AudioManager.Instance.PlaySingleSound(AudioManager.Instance.AudioClips.StartSpawnEnemy);
+        AudioManager.Instance.PlaySingleSound(AudioManager.Instance.AudioClips.SpawnEnemy);
     }
     
     private void Grow() {
@@ -36,8 +36,6 @@ public class SpawnEffect : MonoBehaviour {
 
     private void SpawnEnemy() {
         enemyPrefab.Spawn(transform.position, Containers.Instance.Enemies);
-
-        AudioManager.Instance.PlaySingleSound(AudioManager.Instance.AudioClips.SpawnEnemy);
     }
 
     private void FadeOut() {

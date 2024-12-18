@@ -5,6 +5,14 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "AudioClips", menuName = "AudioClips")]
 public class ScriptableAudio : ScriptableObject {
 
+    [Header("Music")]
+
+    [SerializeField] private AudioClips defaultMusic;
+    public AudioClips DefaultMusic => defaultMusic;
+
+    [SerializeField] private AudioClips bossMusic;
+    public AudioClips BossMusic => bossMusic;
+
     [Header("Player")]
 
     [SerializeField] private AudioClips playerStep;
@@ -23,9 +31,6 @@ public class ScriptableAudio : ScriptableObject {
 
     [SerializeField] private AudioClips basicEnemyShoot;
     public AudioClips BasicEnemyShoot => basicEnemyShoot;
-
-    [SerializeField] private AudioClips startSpawnEnemy;
-    public AudioClips StartSpawnEnemy => startSpawnEnemy;
 
     [SerializeField] private AudioClips spawnEnemy;
     public AudioClips SpawnEnemy => spawnEnemy;

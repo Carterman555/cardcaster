@@ -15,6 +15,10 @@ public class ShootTargetProjectileBehavior : MonoBehaviour {
 
     private TimedActionBehavior timedActionBehavior;
 
+    [Header("SFX")]
+    [SerializeField] private bool customSFX;
+    [ConditionalHide("customSFX")][SerializeField] private AudioClips shootSFX;
+
     private void Awake() {
 
         hasStats = GetComponent<IHasStats>();
@@ -51,6 +55,13 @@ public class ShootTargetProjectileBehavior : MonoBehaviour {
         ITargetProjectileMovement newProjectile = newProjectileObject.GetComponent<ITargetProjectileMovement>();
         newProjectile.Setup(PlayerMovement.Instance.transform);
         newProjectileObject.GetComponent<DamageOnContact>().Setup(hasStats.GetStats().Damage, hasStats.GetStats().KnockbackStrength);
+
+        if (customSFX) {
+            AudioManager.Instance.PlaySound(shootSFX);
+        }
+        else {
+            AudioManager.Instance.PlaySound(AudioManager.Instance.AudioClips.BasicEnemyShoot);
+        }
 
         OnShoot?.Invoke();
     }

@@ -12,6 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1dcc6f87abbf43c49bce1556774f1271, type: 3}
   m_Name: AudioClips
   m_EditorClassIdentifier: 
+  defaultMusic:
+    Clips: []
+    Volume: 0
+  bossMusic:
+    Clips: []
+    Volume: 0
   playerStep:
     Clips:
     - {fileID: 8300000, guid: cdf3c10dd73de7142886c59dbd7ae7b4, type: 3}
@@ -34,23 +40,19 @@ MonoBehaviour:
     Volume: 0.472
   collectEssence:
     Clips:
-    - {fileID: 8300000, guid: 7692a2f1dfff59c4faa8e5e0eacc76b0, type: 3}
-    Volume: 0.106
+    - {fileID: 8300000, guid: db50167e15a947449a16b292e4ecaeed, type: 3}
+    Volume: 0.537
   basicEnemyShoot:
     Clips:
     - {fileID: 8300000, guid: 1c392d540fc5d924994810b617eef041, type: 3}
     - {fileID: 8300000, guid: 59cedaab524a5a74886df7cf7918038b, type: 3}
     - {fileID: 8300000, guid: 10519916e4ce45046a1a5a6792d7dd7c, type: 3}
     - {fileID: 8300000, guid: 88d5d242a4f96324bae41f204ca38250, type: 3}
-    Volume: 0.5
-  startSpawnEnemy:
-    Clips:
-    - {fileID: 8300000, guid: 53423fa0a1a5c3f41984051a43d843d2, type: 3}
-    Volume: 0
+    Volume: 0.231
   spawnEnemy:
     Clips:
-    - {fileID: 8300000, guid: b12831aaf50176e44aff2855c4d21dea, type: 3}
-    Volume: 0.25
+    - {fileID: 8300000, guid: b56551c8b3ae66042a20290191db8ad8, type: 3}
+    Volume: 1
   merge:
     Clips:
     - {fileID: 8300000, guid: 5e4e91980cfc9b44ba9536ec9d6c2282, type: 3}

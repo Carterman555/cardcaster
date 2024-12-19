@@ -13,8 +13,9 @@ MonoBehaviour:
   m_Name: AudioClips
   m_EditorClassIdentifier: 
   defaultMusic:
-    Clips: []
-    Volume: 0
+    Clips:
+    - {fileID: 8300000, guid: 6404002b61cf70f4e9acc2e98f154096, type: 3}
+    Volume: 0.5
   bossMusic:
     Clips: []
     Volume: 0

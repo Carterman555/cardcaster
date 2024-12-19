@@ -1168,7 +1168,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1216023820124552131}
   - component: {fileID: 786225616771886887}
-  - component: {fileID: 8030308155814490402}
   m_Layer: 0
   m_Name: Light 2D
   m_TagString: Untagged
@@ -1241,51 +1240,6 @@ MonoBehaviour:
   - {x: 3, y: -1.5, z: 0}
   - {x: 3, y: 2.5, z: 0}
   - {x: -3, y: 2.5, z: 0}
---- !u!61 &8030308155814490402
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4049246470561188074}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ForceSendLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ForceReceiveLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ContactCaptureLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_CallbackLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0.03733194, y: 0.27998674}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 7.0103827, y: 2.6052573}
-  m_EdgeRadius: 0
 --- !u!1 &4826184055570307737
 GameObject:
   m_ObjectHideFlags: 0
@@ -1836,6 +1790,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8927245960358128749}
   - component: {fileID: 2761239655702280936}
+  - component: {fileID: 5102952185578995108}
   m_Layer: 0
   m_Name: HorizontalHallwayBase
   m_TagString: Untagged
@@ -1877,6 +1832,51 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hallwayLight: {fileID: 786225616771886887}
   mapIconToSpawn: {fileID: 5558854447716997659}
+--- !u!61 &5102952185578995108
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5523412247354549612}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.03733194, y: 0.27998674}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 7.0103827, y: 2.6052573}
+  m_EdgeRadius: 0
 --- !u!1 &8479680024734866578
 GameObject:
   m_ObjectHideFlags: 0

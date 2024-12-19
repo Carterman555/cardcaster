@@ -10,9 +10,8 @@ public class AudioManager : StaticInstance<AudioManager> {
     [SerializeField] private ScriptableAudio audioClips;
     public ScriptableAudio AudioClips => audioClips;
 
-    public void PlayMusic(AudioClip clip) {
-        musicSource.clip = clip;
-        musicSource.Play();
+    private void Start() {
+        PlaySound(AudioClips.DefaultMusic);
     }
 
     public void PlaySound(AudioClip audioClip, float vol) {

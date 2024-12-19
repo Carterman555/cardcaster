@@ -9,7 +9,8 @@ public enum RoomType {
     Boss,
     Shop,
     Entrance,
-    Exit
+    Exit,
+    Training
 }
 
 public enum EnvironmentType {

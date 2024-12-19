@@ -6,6 +6,8 @@ using QFSW.QC;
 
 public class Enemy : MonoBehaviour, IHasEnemyStats, IEffectable {
 
+    public static event Action<Enemy> OnAnySpawn;
+
     protected Health health;
 
     protected virtual void Awake() {
@@ -16,6 +18,7 @@ public class Enemy : MonoBehaviour, IHasEnemyStats, IEffectable {
     protected virtual void OnEnable() {
         SubToPlayerTriggerEvents();
         playerTracker.GetComponent<CircleCollider2D>().radius = stats.AttackRange;
+        OnAnySpawn?.Invoke(this);
     }
 
     protected virtual void OnDisable() {

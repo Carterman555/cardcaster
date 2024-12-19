@@ -32,9 +32,6 @@ public class Hallway : MonoBehaviour {
     // rooms and hallways
     private void SetupMapIcon() {
         mapIcon = mapIconToSpawn.Spawn(mapIconToSpawn.transform.position, Containers.Instance.LevelMapIcons);
-        //miniMapIcon.Fade(0f);
-        mapIcon.Fade(1f);
-
         mapIconToSpawn.enabled = false;
     }
 

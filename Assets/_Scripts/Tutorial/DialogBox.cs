@@ -23,14 +23,17 @@ public class DialogBox : MonoBehaviour, IInitializable {
     #endregion
 
     [SerializeField] private TextMeshProUGUI dialogText;
+    [SerializeField] private TextMeshProUGUI enterText;
 
-    public void ShowText(string text) {
+    public void ShowText(string text, bool showEnterText = true) {
         if (!gameObject.activeSelf) {
             FeedbackPlayer.Play("DialogBox");
         }
 
         dialogText.text = text;
         dialogText.GetComponent<TypewriterByCharacter>().StartShowingText();
+
+        enterText.enabled = showEnterText;
     }
 
     public void HideBox() {

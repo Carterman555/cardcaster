@@ -2,9 +2,11 @@ using System;
 using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.InputSystem;
 
 public class PlayerMovement : StaticInstance<PlayerMovement>, IHasStats, IChangesFacing {
+
 
     [SerializeField] private InputActionReference moveInput;
 
@@ -55,8 +57,8 @@ public class PlayerMovement : StaticInstance<PlayerMovement>, IHasStats, IChange
         }
 
         moveDirection = moveInput.action.ReadValue<Vector2>();
-
-        if (dashAction.action.triggered && !isDashing && !knockback.IsApplyingKnockback()) {
+        
+        if (dashAction.action.triggered && !isDashing && !knockback.IsApplyingKnockback() && moveDirection.magnitude > 0f) {
             StartCoroutine(Dash());
         }
 
@@ -105,6 +107,8 @@ public class PlayerMovement : StaticInstance<PlayerMovement>, IHasStats, IChange
 
     #region Dash
 
+    public UnityEvent OnDash;
+
     [SerializeField] private InputActionReference dashAction;
 
     private bool isDashing;
@@ -114,6 +118,8 @@ public class PlayerMovement : StaticInstance<PlayerMovement>, IHasStats, IChange
         rb.velocity = moveDirection.normalized * stats.DashSpeed;
 
         AudioManager.Instance.PlaySound(AudioManager.Instance.AudioClips.Dash);
+
+        OnDash?.Invoke();
 
         yield return new WaitForSeconds(stats.DashTime);
         isDashing = false;

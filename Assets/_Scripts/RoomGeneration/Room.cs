@@ -118,6 +118,7 @@ public class Room : MonoBehaviour {
         roomLight.intensity = 0;
 
         SetupMapIcon();
+        CopyColliderToCameraConfiner();
     }
     private void OnDisable() {
         exitTrigger.OnEnterContact -= OnEnterRoom;
@@ -132,8 +133,9 @@ public class Room : MonoBehaviour {
         mapIconToSpawn.enabled = false;
     }
 
-    public void CopyColliderToCameraConfiner(GameObject cameraConfinerComposite) {
+    public void CopyColliderToCameraConfiner() {
 
+        GameObject cameraConfinerComposite = ReferenceSystem.Instance.CameraConfiner;
         PolygonCollider2D targetCollider = cameraConfinerComposite.AddComponent<PolygonCollider2D>();
 
         targetCollider.usedByComposite = true;

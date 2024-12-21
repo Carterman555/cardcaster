@@ -25,6 +25,8 @@ public class DialogBox : MonoBehaviour, IInitializable {
     [SerializeField] private TextMeshProUGUI dialogText;
     [SerializeField] private TextMeshProUGUI enterText;
 
+    private bool showing;
+
     public void ShowText(string text, bool showEnterText = true) {
         if (!gameObject.activeSelf) {
             FeedbackPlayer.Play("DialogBox");
@@ -36,7 +38,9 @@ public class DialogBox : MonoBehaviour, IInitializable {
         enterText.enabled = showEnterText;
     }
 
-    public void HideBox() {
-        FeedbackPlayer.PlayInReverse("DialogBox");
+    public void Hide() {
+        if (gameObject.activeSelf) {
+            FeedbackPlayer.PlayInReverse("DialogBox");
+        }
     }
 }

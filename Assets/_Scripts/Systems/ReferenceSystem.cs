@@ -11,4 +11,8 @@ public class ReferenceSystem : StaticInstance<ReferenceSystem> {
 
     [SerializeField] private SpriteRenderer playerSwordVisual;
     public SpriteRenderer PlayerSwordVisual => playerSwordVisual;
+
+    [Header("Misc")]
+    [SerializeField] private GameObject cameraConfiner;
+    public GameObject CameraConfiner => cameraConfiner;
 }

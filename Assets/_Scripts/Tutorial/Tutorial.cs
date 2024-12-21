@@ -1,11 +1,16 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.InputSystem;
+using UnityEngine.Serialization;
 
 public class Tutorial : MonoBehaviour {
+
+    public static event Action OnTutorialRoomStart;
 
     [Header("Main")]
     [SerializeField] private TriggerContactTracker startTutorialTrigger;
@@ -18,7 +23,20 @@ public class Tutorial : MonoBehaviour {
     private bool tutorialActive;
 
     [Header("Dialog Steps")]
-    [SerializeField] private InputActionReference nextDialogInput;
+    [SerializeField] private InputActionReference nextStepInput;
+
+    private string welcomeText = "Hello, I am The Dealer. I normally trade cards, but for now will guide you.";
+    private string combatText = "In the Card Dungeon, you need to fight off enemies. I'll spawn one in for you," +
+        " so you can learn. Left click to swing your sword and kill him!";
+    private string card1Text = "Good. In the card dungeon, you will find magical cards. I will give a teleport card." +
+        " Drag it on the other side of this wall to the right to teleport there.";
+    private string card2Text = "You can also hold the hotkey (1), and release where you want to teleport. These are" +
+        " simple instructions. If you fail, I will get angry.";
+    private string dashText = "Nice. You can also dash with right click, which can be a useful way to move around. Try it.";
+    private string modify1CardText = "Some cards have the magical power to modify other cards that perform abilities.";
+    private string modify2CardText = "Play the fire card I give you then the swing sword ability, and watch what happens.";
+    private string essenceText = "You might have noticed that cards cost essence. Enemies drop essence and I'll give you" +
+        " some now to make sure you what they look like. Pick them all up.";
 
     [Header("Combat Step")]
     [SerializeField] private ScriptableEnemy practiceEnemy;
@@ -27,11 +45,28 @@ public class Tutorial : MonoBehaviour {
     [Header("Dash Step")]
     [SerializeField] private InputActionReference dashInput;
 
+    [Header("Teleport Step")]
+    [SerializeField] private ScriptableCardBase teleportCard;
+    [SerializeField] private TriggerContactTracker roomTwoTrigger;
+
+    [Header("Modify Step")]
+    [SerializeField] private ScriptableModifierCardBase modifierCard;
+    [SerializeField] private ScriptableAbilityCardBase abilityCard;
+    [SerializeField] private Transform[] modifyEnemySpawnPoints;
+
+    [Header("Essence Step")]
+    [SerializeField] private EssenceDrop essencePrefab;
+    [SerializeField] private Transform[] essenceSpawnPoints;
+
     private void OnEnable() {
         startTutorialTrigger.OnEnterContact += TryStartTutorial;
     }
     private void OnDisable() {
         startTutorialTrigger.OnEnterContact -= TryStartTutorial;
+    }
+
+    private void Start() {
+        OnTutorialRoomStart?.Invoke();
     }
 
     private void TryStartTutorial() {
@@ -43,8 +78,18 @@ public class Tutorial : MonoBehaviour {
     private void StartTutorial() {
 
         tutorialSteps = new BaseTutorialStep[] {
-            new WelcomeStep(nextDialogInput), new TeachCombatStep(nextDialogInput), new SpawnEnemyStep(practiceEnemy, enemySpawnPoint),
-            new DashStep(dashInput), new CardDialogStep1(nextDialogInput), new CardDialogStep2(nextDialogInput),
+            //new DialogStep(nextStepInput, welcomeText),
+            //new DialogStep(nextStepInput, combatText),
+            //new SpawnEnemyStep(practiceEnemy, enemySpawnPoint),
+            //new EventDialogStep(PlayerMovement.Instance.OnDash, dashText),
+            //new DialogStep(nextStepInput, card1Text),
+            //new DialogStep(nextStepInput, card2Text),
+            new GiveTeleportCardStep(teleportCard, roomTwoTrigger),
+            new DialogStep(nextStepInput, modify1CardText),
+            new DialogStep(nextStepInput, modify2CardText),
+            new GiveModifyCardStep(modifierCard, abilityCard),
+            new CombatModifyCardStep(practiceEnemy, modifyEnemySpawnPoints),
+            new PickupEssenceStep(essencePrefab, essenceSpawnPoints, essenceText),
         };
         currentStepIndex = 0;
 
@@ -54,7 +99,7 @@ public class Tutorial : MonoBehaviour {
 
         tutorialActive = true;
     }
-    
+
     private void NextTutorialStep() {
 
         // unsub from previous step and sub to new step
@@ -73,6 +118,12 @@ public class Tutorial : MonoBehaviour {
         CurrentTutorialStep.OnStepCompleted += NextTutorialStep;
         CurrentTutorialStep.OnEnterStep();
     }
+
+    private void Update() {
+        if (tutorialActive) {
+            CurrentTutorialStep.Update();
+        }
+    }
 }
 
 public class BaseTutorialStep {
@@ -83,54 +134,60 @@ public class BaseTutorialStep {
 
     }
 
+    public virtual void Update() {
+
+    }
+
     protected virtual void CompleteStep() {
         OnStepCompleted?.Invoke();
     }
 }
 
-public class WelcomeStep : BaseTutorialStep {
+public class DialogStep : BaseTutorialStep {
 
-    private InputActionReference nextDialogInput;
+    private InputActionReference nextStepInput;
+    private string dialog;
 
-    public WelcomeStep(InputActionReference nextDialogInput) {
-        this.nextDialogInput = nextDialogInput;
+    public DialogStep(InputActionReference nextStepInput, string dialog) {
+        this.nextStepInput = nextStepInput;
+        this.dialog = dialog;
     }
 
     public override void OnEnterStep() {
         base.OnEnterStep();
 
-        string welcomeText = "Hello, I am The Dealer. I normally trade cards, but for now will guide you.";
-        DialogBox.Instance.ShowText(welcomeText);
+        DialogBox.Instance.ShowText(dialog);
 
-        nextDialogInput.action.performed += CompleteStep;
+        nextStepInput.action.performed += CompleteStep;
     }
 
     private void CompleteStep(InputAction.CallbackContext context) {
-        nextDialogInput.action.performed -= CompleteStep;
+        nextStepInput.action.performed -= CompleteStep;
 
         CompleteStep();
     }
 }
 
-public class TeachCombatStep : BaseTutorialStep {
+public class EventDialogStep : BaseTutorialStep {
 
-    private InputActionReference nextDialogInput;
+    private UnityEvent nextStepEvent;
+    private string dialog;
 
-    public TeachCombatStep(InputActionReference nextDialogInput) {
-        this.nextDialogInput = nextDialogInput;
+    public EventDialogStep(UnityEvent nextStepEvent, string dialog) {
+        this.nextStepEvent = nextStepEvent;
+        this.dialog = dialog;
     }
 
     public override void OnEnterStep() {
         base.OnEnterStep();
 
-        string combatText = "In the Card Dungeon, you need to fight off enemies. I'll spawn one in for you, so you can learn. Left click to swing your sword and kill him!";
-        DialogBox.Instance.ShowText(combatText);
+        DialogBox.Instance.ShowText(dialog, showEnterText: false);
 
-        nextDialogInput.action.performed += CompleteStep;
+        nextStepEvent.AddListener(CompleteStep);
     }
 
-    private void CompleteStep(InputAction.CallbackContext context) {
-        nextDialogInput.action.performed -= CompleteStep;
+    protected override void CompleteStep() {
+        nextStepEvent.RemoveListener(CompleteStep);
 
         base.CompleteStep();
     }
@@ -149,7 +206,7 @@ public class SpawnEnemyStep : BaseTutorialStep {
 
     public override void OnEnterStep() {
         base.OnEnterStep();
-        DialogBox.Instance.HideBox();
+        DialogBox.Instance.Hide();
 
         EnemySpawner.Instance.SpawnEnemy(practiceEnemy.Prefab, enemySpawnPoint.position);
 
@@ -173,93 +230,167 @@ public class SpawnEnemyStep : BaseTutorialStep {
 
 }
 
-public class DashStep : BaseTutorialStep {
-    private InputActionReference dashInput;
+public class GiveTeleportCardStep : BaseTutorialStep {
 
-    public DashStep(InputActionReference dashInput) {
-        this.dashInput = dashInput;
+    private ScriptableCardBase teleportCard;
+    private TriggerContactTracker roomTwoTrigger;
+
+    public GiveTeleportCardStep(ScriptableCardBase teleportCard, TriggerContactTracker roomTwoTrigger) {
+        this.teleportCard = teleportCard;
+        this.roomTwoTrigger = roomTwoTrigger;
     }
 
     public override void OnEnterStep() {
         base.OnEnterStep();
 
-        string dashText = "Nice. You can also dash with right click, which can be a useful way to move around. Try it.";
-        DialogBox.Instance.ShowText(dashText, showEnterText: false);
+        DialogBox.Instance.Hide();
 
-        dashInput.action.performed += CompleteStep;
+        DeckManager.Instance.GainCard(teleportCard);
+
+        roomTwoTrigger.OnEnterContact += CompleteStep;
     }
 
-    private void CompleteStep(InputAction.CallbackContext context) {
-        dashInput.action.performed -= CompleteStep;
+    protected override void CompleteStep() {
+        roomTwoTrigger.OnEnterContact -= CompleteStep;
+
+        Trainer.Instance.TeleportToNextRoom();
 
         base.CompleteStep();
     }
 }
 
-public class CardDialogStep1 : BaseTutorialStep {
+public class GiveModifyCardStep : BaseTutorialStep {
 
-    private InputActionReference nextDialogInput;
+    private ScriptableModifierCardBase modifierCard;
+    private ScriptableAbilityCardBase abilityCard;
 
-    public CardDialogStep1(InputActionReference nextDialogInput) {
-        this.nextDialogInput = nextDialogInput;
+    private bool modifierPlayed;
+
+    public GiveModifyCardStep(ScriptableModifierCardBase modifierCard, ScriptableAbilityCardBase abilityCard) {
+        this.modifierCard = modifierCard;
+        this.abilityCard = abilityCard;
+
+        modifierPlayed = false;
     }
 
     public override void OnEnterStep() {
         base.OnEnterStep();
 
-        string combatText = "Good. In the card dungeon, you will find magical cards. I will give a teleport card. Drag it" +
-            "on the other side of this wall to the right to teleport there. You can also hold the hotkey (1), and release where" +
-            "you want to teleport.";
-        DialogBox.Instance.ShowText(combatText);
+        DialogBox.Instance.Hide();
 
-        nextDialogInput.action.performed += CompleteStep;
+        GiveCards();
     }
 
-    private void CompleteStep(InputAction.CallbackContext context) {
-        nextDialogInput.action.performed -= CompleteStep;
+    private void GiveCards() {
+        DeckManager.Instance.GainCard(modifierCard);
+        DeckManager.Instance.GainCard(abilityCard);
+    }
+
+    public override void Update() {
+        base.Update();
+
+        // once the modifier card is played, the step will complete whent he modifier is applied
+        if (AbilityManager.Instance.IsModifierActive(modifierCard) && !modifierPlayed) {
+            modifierPlayed = true;
+
+            AbilityManager.OnApplyModifiers += CompleteStep;
+        }
+    }
+
+    protected override void CompleteStep() {
+        AbilityManager.OnApplyModifiers -= CompleteStep;
 
         base.CompleteStep();
     }
 }
 
-public class CardDialogStep2 : BaseTutorialStep {
-    private InputActionReference nextDialogInput;
+public class CombatModifyCardStep : BaseTutorialStep {
 
-    public CardDialogStep2(InputActionReference nextDialogInput) {
-        this.nextDialogInput = nextDialogInput;
+    private ScriptableEnemy scriptableEnemy;
+    private Transform[] enemySpawnPoints;
+    private Enemy[] enemyInstances;
+
+    public CombatModifyCardStep(ScriptableEnemy scriptableEnemy, Transform[] enemySpawnPoints) {
+
+        this.scriptableEnemy = scriptableEnemy;
+        this.enemySpawnPoints = enemySpawnPoints;
+
+        enemyInstances = new Enemy[enemySpawnPoints.Length];
     }
 
     public override void OnEnterStep() {
         base.OnEnterStep();
 
-        string combatText = "These are simple instructions. If you fail, I will get angry.";
-        DialogBox.Instance.ShowText(combatText);
+        SpawnEnemies();
 
-        nextDialogInput.action.performed += CompleteStep;
+        foreach (var enemyInstance in enemyInstances) {
+            enemyInstance.GetComponent<Health>().OnDeath += TryCompleteStep;
+        }
     }
 
-    private void CompleteStep(InputAction.CallbackContext context) {
-        nextDialogInput.action.performed -= CompleteStep;
+    private void SpawnEnemies() {
+        for (int enemyIndex = 0; enemyIndex < enemySpawnPoints.Length; enemyIndex++) {
+            Transform spawnPoint = enemySpawnPoints[enemyIndex];
+            enemyInstances[enemyIndex] = scriptableEnemy.Prefab.Spawn(spawnPoint.position, Containers.Instance.Enemies);
+        }
+    }
 
-        base.CompleteStep();
+    private void TryCompleteStep() {
+        bool anyAlive = enemyInstances.Any(e => !e.GetComponent<Health>().IsDead());
+
+        if (!anyAlive) {
+            foreach (var enemyInstance in enemyInstances) {
+                enemyInstance.GetComponent<Health>().OnDeath -= TryCompleteStep;
+            }
+
+            base.CompleteStep();
+        }
     }
 }
 
-public class Step4 : BaseTutorialStep {
+public class PickupEssenceStep : BaseTutorialStep {
 
+    private EssenceDrop essencePrefab;
+    private Transform[] essenceSpawnPoints;
+
+    private EssenceDrop[] essenceInstances;
+
+    private string dialog;
+
+    public PickupEssenceStep(EssenceDrop essencePrefab, Transform[] essenceSpawnPoints, string dialog) {
+        this.essencePrefab = essencePrefab;
+        this.essenceSpawnPoints = essenceSpawnPoints;
+        this.dialog = dialog;
+
+        essenceInstances = new EssenceDrop[essenceSpawnPoints.Length];
+    }
+
+    public override void OnEnterStep() {
+        base.OnEnterStep();
+
+        DialogBox.Instance.ShowText(dialog, showEnterText: false);
+
+        DropEssence();
+
+        DeckManager.OnEssenceChanged_Amount += TryCompleteStep;
+    }
+
+    private void DropEssence() {
+        for (int i = 0; i < essenceSpawnPoints.Length; i++) {
+            essenceInstances[i] = essencePrefab.Spawn(essenceSpawnPoints[i].position, Containers.Instance.Drops);
+        }
+    }
+
+    private void TryCompleteStep(float n) {
+        bool anyEssenceLeft = essenceInstances.Any(e => e.isActiveAndEnabled);
+        if (!anyEssenceLeft) {
+            DeckManager.OnEssenceChanged_Amount -= TryCompleteStep;
+
+            base.CompleteStep();
+        }
+    }
 }
 
-
-public class Step5 : BaseTutorialStep {
-
-}
-
-
-public class Step6 : BaseTutorialStep {
-
-}
-
-
-public class Step7 : BaseTutorialStep {
+public class Step9 : BaseTutorialStep {
 
 }

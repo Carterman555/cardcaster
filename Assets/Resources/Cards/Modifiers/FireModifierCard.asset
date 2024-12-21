@@ -19,7 +19,7 @@ MonoBehaviour:
   rarity: 1
   minLevel: 1
   canStackWithSelf: 0
-  startUnlocked: 0
+  startUnlocked: 1
   abilityAttributes: 1
   abilityStatsModifierPercentage:
     Damage: 0

@@ -47,10 +47,6 @@ public class RoomGenerator : StaticInstance<RoomGenerator> {
 
         isGeneratingRooms = false;
         OnCompleteGeneration?.Invoke();
-
-        yield return new WaitForSeconds(0.3f);
-
-        RemoveConfinerBoxCollider();
     }
 
     #region Generate Layout
@@ -213,9 +209,6 @@ public class RoomGenerator : StaticInstance<RoomGenerator> {
 
     [Header("Spawn Rooms")]
     [SerializeField] private DoorwayTileDestroyer doorwayTileReplacer;
-    [SerializeField] private GameObject cameraConfiner;
-
-    
 
     private Dictionary<RoomOverlapChecker, Room> spawnRoomsDict = new();
 
@@ -250,13 +243,11 @@ public class RoomGenerator : StaticInstance<RoomGenerator> {
     // the first room sets up differently because it doesn't have a connecting room
     private void SetupFirstRoom(Room newRoom, RoomOverlapChecker roomOverlapChecker) {
         newRoom.SetRoomNum(1);
-        newRoom.CopyColliderToCameraConfiner(cameraConfiner);
     }
 
     private void SetupRoom(Room newRoom, RoomOverlapChecker roomOverlapChecker, int roomNumber) {
 
         newRoom.SetRoomNum(roomNumber);
-        newRoom.CopyColliderToCameraConfiner(cameraConfiner);
 
         //... get the connecting room through the dictionary
         Room connectingRoom = spawnRoomsDict[roomOverlapChecker.GetParentChecker()];
@@ -383,9 +374,4 @@ public class RoomGenerator : StaticInstance<RoomGenerator> {
         roomOverlapCheckers.Clear();
     }
 
-    // it needs a box collider to prevent the camera from glitch when the rooms get spawned, but it needs to be destroyed to confine the
-    // camera properly
-    private void RemoveConfinerBoxCollider() {
-        Destroy(cameraConfiner.GetComponent<BoxCollider2D>());
-    }
 }

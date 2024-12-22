@@ -6,6 +6,8 @@ public class Health : MonoBehaviour, IDamagable {
 
     public event Action OnDeath;
     public event Action<float> OnHealthChanged_HealthProportion;
+
+    public event Action OnDamaged;
     public event Action<float, bool> OnDamaged_Damage_Shared;
 
     [SerializeField] private UnityEvent damagedEventTrigger;
@@ -49,6 +51,8 @@ public class Health : MonoBehaviour, IDamagable {
 
         OnHealthChanged_HealthProportion?.Invoke(health/maxHealth);
         damagedEventTrigger?.Invoke();
+
+        OnDamaged?.Invoke();
         OnDamaged_Damage_Shared?.Invoke(damage, shared);
 
         if (health <= 0) {

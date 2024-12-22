@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class SharedHealth : MonoBehaviour, IDamagable {
 
+    public event Action OnDamaged;
     public event Action<float, bool> OnDamaged_Damage_Shared;
 
     private Health health;
@@ -16,6 +17,7 @@ public class SharedHealth : MonoBehaviour, IDamagable {
     public void Damage(float damage, bool shared = false) {
         health.Damage(damage, shared: true);
 
+        OnDamaged?.Invoke();
         OnDamaged_Damage_Shared?.Invoke(damage, shared);
     }
 }

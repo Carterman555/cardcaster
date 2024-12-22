@@ -1,3 +1,4 @@
+using Mono.CSharp;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -37,6 +38,7 @@ public class Tutorial : MonoBehaviour {
     private string modify2CardText = "Play the fire card I give you then the swing sword ability, and watch what happens.";
     private string essenceText = "You might have noticed that cards cost essence. Enemies drop essence and I'll give you" +
         " some now to make sure you what they look like. Pick them all up.";
+    private string holeText = "See this hole I created? You should fall into it.";
 
     [Header("Combat Step")]
     [SerializeField] private ScriptableEnemy practiceEnemy;
@@ -58,6 +60,10 @@ public class Tutorial : MonoBehaviour {
     [SerializeField] private EssenceDrop essencePrefab;
     [SerializeField] private Transform[] essenceSpawnPoints;
 
+    [Header("Hole Step")]
+    [SerializeField] private GameObject hole;
+    [SerializeField] private ParticleSystem createHoleParticles;
+
     private void OnEnable() {
         startTutorialTrigger.OnEnterContact += TryStartTutorial;
     }
@@ -78,18 +84,19 @@ public class Tutorial : MonoBehaviour {
     private void StartTutorial() {
 
         tutorialSteps = new BaseTutorialStep[] {
-            //new DialogStep(nextStepInput, welcomeText),
-            //new DialogStep(nextStepInput, combatText),
-            //new SpawnEnemyStep(practiceEnemy, enemySpawnPoint),
-            //new EventDialogStep(PlayerMovement.Instance.OnDash, dashText),
-            //new DialogStep(nextStepInput, card1Text),
-            //new DialogStep(nextStepInput, card2Text),
+            new DialogStep(nextStepInput, welcomeText),
+            new DialogStep(nextStepInput, combatText),
+            new SpawnEnemyStep(practiceEnemy, enemySpawnPoint),
+            new EventDialogStep(PlayerMovement.Instance.OnDash, dashText),
+            new DialogStep(nextStepInput, card1Text),
+            new DialogStep(nextStepInput, card2Text),
             new GiveTeleportCardStep(teleportCard, roomTwoTrigger),
             new DialogStep(nextStepInput, modify1CardText),
             new DialogStep(nextStepInput, modify2CardText),
             new GiveModifyCardStep(modifierCard, abilityCard),
             new CombatModifyCardStep(practiceEnemy, modifyEnemySpawnPoints),
             new PickupEssenceStep(essencePrefab, essenceSpawnPoints, essenceText),
+            new HoleStep(hole, createHoleParticles, holeText)
         };
         currentStepIndex = 0;
 
@@ -325,6 +332,10 @@ public class CombatModifyCardStep : BaseTutorialStep {
 
         foreach (var enemyInstance in enemyInstances) {
             enemyInstance.GetComponent<Health>().OnDeath += TryCompleteStep;
+
+            //... so enemy doesn't invoke enemies cleared when killed because classes that take that event are not setup and ready
+            //... to have it invoked
+            enemyInstance.GetComponent<CheckEnemiesCleared>().enabled = false;
         }
     }
 
@@ -381,7 +392,13 @@ public class PickupEssenceStep : BaseTutorialStep {
         }
     }
 
-    private void TryCompleteStep(float n) {
+    private void TryCompleteStep(float n) => DeckManager.Instance.StartCoroutine(TryCompleteStep());
+
+    private IEnumerator TryCompleteStep() {
+
+        //... wait a frame for essence that just got picked up to get disabled
+        yield return null;
+
         bool anyEssenceLeft = essenceInstances.Any(e => e.isActiveAndEnabled);
         if (!anyEssenceLeft) {
             DeckManager.OnEssenceChanged_Amount -= TryCompleteStep;
@@ -391,6 +408,35 @@ public class PickupEssenceStep : BaseTutorialStep {
     }
 }
 
-public class Step9 : BaseTutorialStep {
+public class HoleStep : BaseTutorialStep {
 
+    private GameObject hole;
+    private ParticleSystem createHoleParticles;
+
+    private string dialog;
+
+    public HoleStep(GameObject hole, ParticleSystem createHoleParticles, string dialog) {
+        this.hole = hole;
+        this.createHoleParticles = createHoleParticles;
+
+        this.dialog = dialog;
+    }
+
+    public override void OnEnterStep() {
+        base.OnEnterStep();
+
+        DialogBox.Instance.ShowText(dialog);
+
+        createHoleParticles.Play();
+
+        DialogBox.Instance.StartCoroutine(ActivateHole());
+    }
+
+    private IEnumerator ActivateHole() {
+
+        float activateHoleDelay = 0.1f;
+        yield return new WaitForSeconds(activateHoleDelay);
+
+        hole.SetActive(true);
+    }
 }

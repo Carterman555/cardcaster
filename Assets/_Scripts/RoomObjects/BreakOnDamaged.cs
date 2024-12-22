@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class BreakOnDamaged : MonoBehaviour, IDamagable {
 
+    public event Action OnDamaged;
     public event Action<float, bool> OnDamaged_Damage_Shared;
 
     private Animator anim;
@@ -23,6 +24,7 @@ public class BreakOnDamaged : MonoBehaviour, IDamagable {
 
         AudioManager.Instance.PlaySound(AudioManager.Instance.AudioClips.BreakBarrel);
 
+        OnDamaged?.Invoke();
         OnDamaged_Damage_Shared?.Invoke(damage, shared);
     }
 }

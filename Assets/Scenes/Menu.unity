@@ -2147,7 +2147,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1fc4ab0b26b4d21449f81a0487c62a47, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startTutorial: 0
+  tutorialButton: 0
 --- !u!4 &1030655492 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2245722157079849748, guid: 480f308bd60ae164a96ad60ab357ab8b, type: 3}
@@ -2377,7 +2377,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1fc4ab0b26b4d21449f81a0487c62a47, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startTutorial: 1
+  tutorialButton: 1
 --- !u!1 &1465337533
 GameObject:
   m_ObjectHideFlags: 0

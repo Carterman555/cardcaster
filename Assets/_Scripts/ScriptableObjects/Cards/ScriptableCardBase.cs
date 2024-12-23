@@ -1,8 +1,11 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public abstract class ScriptableCardBase : ScriptableObject, ICollectable {
+
+    public static event Action<ScriptableCardBase> OnPlayCard;
 
     [Header("Basic Info")]
     [SerializeField] private CardType cardType;
@@ -37,7 +40,7 @@ public abstract class ScriptableCardBase : ScriptableObject, ICollectable {
     }
 
     protected virtual void Play(Vector2 position) {
-
+        OnPlayCard?.Invoke(this);
     }
 }
 

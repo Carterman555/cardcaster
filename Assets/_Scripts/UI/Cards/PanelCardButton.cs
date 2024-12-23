@@ -73,7 +73,7 @@ public class PanelCardButton : GameButton {
             yield return null;
         }
 
-        FeedbackPlayer.PlayInReverse("OpenAllCardsPanel");
+        FeedbackPlayerOld.PlayInReverse("OpenAllCardsPanel");
     }
 
     #endregion

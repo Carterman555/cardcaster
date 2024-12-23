@@ -88,7 +88,6 @@ public class Tutorial : StaticInstance<Tutorial> {
         PlayerMovement.Instance.GetComponent<Health>().OnDeath -= OnPlayerDeath;
 
         playerDied = true;
-        print("player died true");
 
         GameSceneManager.Instance.LoadTutorial();
     }
@@ -124,8 +123,6 @@ public class Tutorial : StaticInstance<Tutorial> {
 
         Vector2 playerTutorialPos = new Vector2(-6f, 0);
         PlayerMovement.Instance.transform.position = playerTutorialPos;
-
-
     }
 
     private void NextTutorialStep() {
@@ -138,7 +135,7 @@ public class Tutorial : StaticInstance<Tutorial> {
         bool noMoreSteps = currentStepIndex >= tutorialSteps.Length;
         if (noMoreSteps) {
             tutorialActive = false;
-            print("tutorial complete");
+            PlayerPrefs.SetInt("TutorialCompleted", 1);
             return;
         }
 
@@ -155,7 +152,6 @@ public class Tutorial : StaticInstance<Tutorial> {
 
     public static void ResetPlayerDied() {
         playerDied = false;
-        print("player died false");
     }
 }
 
@@ -286,7 +282,7 @@ public class GiveTeleportCardStep : BaseTutorialStep {
     protected override void CompleteStep() {
         roomTwoTrigger.OnEnterContact -= CompleteStep;
 
-        Trainer.Instance.TeleportToNextRoom();
+        Trainer.Instance.TeleportToRoomTwo();
 
         base.CompleteStep();
     }
@@ -451,11 +447,13 @@ public class HoleStep : BaseTutorialStep {
     public override void OnEnterStep() {
         base.OnEnterStep();
 
-        DialogBox.Instance.ShowText(dialog);
+        DialogBox.Instance.ShowText(dialog, showEnterText: false);
 
         createHoleParticles.Play();
 
         DialogBox.Instance.StartCoroutine(ActivateHole());
+
+        NextLevelHole.OnFallInHole += CompleteStep;
     }
 
     private IEnumerator ActivateHole() {
@@ -464,5 +462,11 @@ public class HoleStep : BaseTutorialStep {
         yield return new WaitForSeconds(activateHoleDelay);
 
         hole.SetActive(true);
+    }
+
+    protected override void CompleteStep() {
+        NextLevelHole.OnFallInHole -= CompleteStep;
+
+        base.CompleteStep();
     }
 }

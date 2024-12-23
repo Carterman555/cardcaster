@@ -57,7 +57,7 @@ public class ShopUIManager : StaticInstance<ShopUIManager>, IInitializable {
     }
 
     private void ShowTradeUI(PanelCardButton panelCard) {
-        FeedbackPlayer.Play("TransitionTradeUI");
+        FeedbackPlayerOld.Play("TransitionTradeUI");
 
         currentCard = panelCard.GetCard();
         currentCardLocation = panelCard.GetCardLocation();
@@ -88,7 +88,7 @@ public class ShopUIManager : StaticInstance<ShopUIManager>, IInitializable {
 
     private void OnTradeButtonClicked() {
         SwapIcons().OnComplete(() => {
-            FeedbackPlayer.Play("CloseTradeUI");
+            FeedbackPlayerOld.Play("CloseTradeUI");
 
             // replace the shop item with player's card
             shopItem.SetCard(currentCard);

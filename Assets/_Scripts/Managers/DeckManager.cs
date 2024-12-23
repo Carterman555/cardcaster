@@ -113,6 +113,15 @@ public class DeckManager : Singleton<DeckManager> {
 
     #region Basic Deck Methods
 
+    public void ClearDeck() {
+        cardsInHand = new ScriptableCardBase[maxHandSize];
+        cardsInDeck.Clear();
+        cardsInDiscard.Clear();
+        cardsInModifierStack.Clear();
+
+        print("clear deck");
+    }
+
     public void DiscardStackedCards() {
         cardsInDiscard.AddRange(cardsInModifierStack);
         cardsInModifierStack.Clear();
@@ -133,7 +142,7 @@ public class DeckManager : Singleton<DeckManager> {
         bool cardLocked = !ResourceSystem.Instance.GetUnlockedCardsUpToLevel(99).Contains(card);
         if (cardLocked) {
             ResourceSystem.Instance.UnlockCard(card);
-            FeedbackPlayer.Play("NewCardUnlocked");
+            FeedbackPlayerOld.Play("NewCardUnlocked");
             NewCardUnlockedPanel.Instance.Setup(card);
         }
     }

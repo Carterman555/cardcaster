@@ -38,7 +38,7 @@ public class ShopCard : MonoBehaviour {
     }
 
     private void OpenAllCardsUI() {
-        FeedbackPlayer.Play("OpenAllCardsPanel");
+        FeedbackPlayerOld.Play("OpenAllCardsPanel");
         ShopUIManager.Instance.Activate(card, this);
     }
 }

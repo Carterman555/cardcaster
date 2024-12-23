@@ -212,7 +212,7 @@ public class HandCard : MonoBehaviour, IPointerDownHandler {
         playingAnyCard = true;
 
         // show cancel card panel
-        FeedbackPlayer.Play("CancelCard");
+        FeedbackPlayerOld.Play("CancelCard");
 
         // show the player this will be wasted if the modifier's already active
         TryShowWarning();
@@ -232,7 +232,7 @@ public class HandCard : MonoBehaviour, IPointerDownHandler {
         playFeedbackOnHover.Enable();
 
         // hide cancel card panel
-        FeedbackPlayer.PlayInReverse("CancelCard");
+        FeedbackPlayerOld.PlayInReverse("CancelCard");
     }
 
     private void PlayCard() {

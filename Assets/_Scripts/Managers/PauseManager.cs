@@ -28,27 +28,27 @@ public class PauseManager : StaticInstance<PauseManager> {
 
     public void TryPauseGame() {
 
-        if (FeedbackPlayer.GetPlayer("PausePanel").IsPlaying) {
+        if (FeedbackPlayerOld.GetPlayer("PausePanel").IsPlaying) {
             return;
         }
 
         paused = true;
         Time.timeScale = 0f;
 
-        FeedbackPlayer.Play("PausePanel");
+        FeedbackPlayerOld.Play("PausePanel");
 
     }
 
     public void TryUnpauseGame() {
 
-        if (FeedbackPlayer.GetPlayer("PausePanel").IsPlaying) {
+        if (FeedbackPlayerOld.GetPlayer("PausePanel").IsPlaying) {
             return;
         }
 
         paused = false;
         Time.timeScale = 1f;
 
-        FeedbackPlayer.PlayInReverse("PausePanel");
+        FeedbackPlayerOld.PlayInReverse("PausePanel");
 
         AudioManager.Instance.PlaySound(AudioManager.Instance.AudioClips.ClosePanel);
     }

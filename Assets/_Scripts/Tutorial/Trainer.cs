@@ -27,25 +27,37 @@ public class Trainer : StaticInstance<Trainer> {
 
         swordRotate.gameObject.SetActive(false);
         inRage = false;
+
+        SubToRageEvents();
+    }
+
+    private void OnDisable() {
+        UnsubFromRageEvents();
     }
 
     #region Teleport to next room
 
     [Header("Teleport")]
-    [SerializeField] private Transform teleportPoint;
+    [SerializeField] private Transform roomOneTeleportPoint;
+    [SerializeField] private Transform roomTwoTeleportPoint;
     private float originalFade;
 
     private void SetOriginalFade() {
         originalFade = visual.color.a;
     }
 
-    public void TeleportToNextRoom() {
+    public void TeleportToRoomTwo() {
+        TeleportToPoint(roomTwoTeleportPoint);
+    }
 
+    private void TeleportToPoint(Transform teleportPoint) {
         AudioManager.Instance.PlaySound(AudioManager.Instance.AudioClips.Teleport);
 
         float duration = 0.3f;
+        agent.enabled = false; // agent messes with teleport so disable it
         visual.DOFade(0, duration).SetEase(Ease.InSine).OnComplete(() => {
             transform.position = teleportPoint.position;
+            agent.enabled = true;
 
             visual.DOFade(originalFade, duration).SetEase(Ease.InSine);
         });
@@ -55,6 +67,7 @@ public class Trainer : StaticInstance<Trainer> {
 
     #region Rage
 
+    [Header("Rage")]
     [SerializeField] private MMAutoRotate swordRotate;
 
     [SerializeField] private Material redMaterial;
@@ -68,16 +81,75 @@ public class Trainer : StaticInstance<Trainer> {
 
     private bool inRage;
 
+    [SerializeField] private TriggerContactTracker roomTwoTrigger;
+    private bool enteredRoomTwo;
+
     private void SetOriginalMaterial() {
         originalMaterial = visual.material;
     }
 
-    private void Start() {
+    private void SubToRageEvents() {
+        // enter rage if break barrel
         barrels = FindObjectsOfType<BreakOnDamaged>().Where(b => b.name.StartsWith("Barrel")).ToArray();
-
         foreach (BreakOnDamaged barrel in barrels) {
-            barrel.OnDamaged += EnterRage;
+            barrel.OnDamaged += OnBreakBarrel;
         }
+
+        ScriptableCardBase.OnPlayCard += EnterRageIfWrongTeleport;
+
+        roomTwoTrigger.OnEnterContact += OnEnteredRoomTwo;
+        roomTwoTrigger.OnExitContact += EnterRageTeleportOut;
+
+    }
+
+    private void UnsubFromRageEvents() {
+        foreach (BreakOnDamaged barrel in barrels) {
+            barrel.OnDamaged -= OnBreakBarrel;
+        }
+
+        ScriptableCardBase.OnPlayCard -= EnterRageIfWrongTeleport;
+
+        roomTwoTrigger.OnEnterContact -= OnEnteredRoomTwo;
+        roomTwoTrigger.OnExitContact -= EnterRageTeleportOut;
+    }
+
+    private void OnBreakBarrel() {
+        DialogBox.Instance.ShowText("DO NOT BREAK MY BARRELS!!!", showEnterText: false);
+        EnterRage();
+    }
+
+    // enter rage if don't teleport into next room
+    private void EnterRageIfWrongTeleport(ScriptableCardBase playedCard) => StartCoroutine(EnterRageIfWrongTeleportCor(playedCard));
+    private IEnumerator EnterRageIfWrongTeleportCor(ScriptableCardBase playedCard) {
+
+        if (enteredRoomTwo) {
+            yield break; // exit coroutine
+        }
+
+        //... wait for trigger to detect player entering next room
+        yield return null;
+
+        bool playerInRoomTwo = roomTwoTrigger.HasContact();
+
+        if (playedCard is ScriptableTeleportCard && !playerInRoomTwo) {
+            DialogBox.Instance.ShowText("YOU WERE SUPPOSED TO TELEPORT TO THE NEXT ROOM ON THE RIGHT!!", showEnterText: false);
+            EnterRage();
+            print("wrong teleport");
+        }
+    }
+
+    private void OnEnteredRoomTwo() {
+        enteredRoomTwo = true;
+    }
+
+    // enter rage if the player teleports out of the second room
+    private void EnterRageTeleportOut() {
+        DialogBox.Instance.ShowText("I'M TRYING TO TEACH YOU! DON'T LEAVE THAT ROOM!!!", showEnterText: false);
+
+        TeleportToPoint(roomOneTeleportPoint);
+
+        EnterRage();
+        print("exit room");
     }
 
     private void EnterRage() {
@@ -85,10 +157,6 @@ public class Trainer : StaticInstance<Trainer> {
 
         StartCoroutine(FadeInRed());
         SetupSword();
-
-        agent.isStopped = false;
-
-        DialogBox.Instance.ShowText("DO NOT BREAK MY BARRELS!!!", showEnterText: false);
     }
 
     private IEnumerator FadeInRed() {
@@ -123,7 +191,8 @@ public class Trainer : StaticInstance<Trainer> {
 
     private void Update() {
         if (inRage) {
-            if (PlayerMeleeAttack.Instance != null) {
+            if (PlayerMeleeAttack.Instance != null && agent.enabled) {
+                agent.isStopped = false;
                 agent.SetDestination(PlayerMeleeAttack.Instance.transform.position);
             }
         }

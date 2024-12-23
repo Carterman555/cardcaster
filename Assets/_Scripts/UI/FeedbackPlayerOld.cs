@@ -4,9 +4,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FeedbackPlayer : MonoBehaviour {
+public class FeedbackPlayerOld : MonoBehaviour {
 
-    public static Dictionary<string, FeedbackPlayer> feedbackPlayers = new();
+    public static Dictionary<string, FeedbackPlayerOld> feedbackPlayers = new();
 
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
     private static void Init() {
@@ -20,6 +20,13 @@ public class FeedbackPlayer : MonoBehaviour {
     public static void Play(string feedbackName) {
         feedbackPlayers[feedbackName].Play();
     }
+    public static void PlayInReverse(string popupName) {
+        feedbackPlayers[popupName].PlayInReverse();
+    }
+
+
+    public event Action OnPlayNormal;
+    public event Action OnPlayInReverse;
 
     [SerializeField] private string feedbackName;
     private MMF_Player MMFPlayer;
@@ -39,6 +46,14 @@ public class FeedbackPlayer : MonoBehaviour {
     }
 
     public void Play() {
+        MMFPlayer.SetDirectionTopToBottom();
         MMFPlayer.PlayFeedbacks();
+
+        OnPlayNormal?.Invoke();
+    }
+    public void PlayInReverse() {
+        MMFPlayer.PlayFeedbacksInReverse();
+
+        OnPlayInReverse?.Invoke();
     }
 }

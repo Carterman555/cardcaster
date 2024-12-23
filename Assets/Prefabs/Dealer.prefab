@@ -74,7 +74,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -210121459
-  m_SortingLayer: 3
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_Sprite: {fileID: 1272138823, guid: 69966788419efdc42bb837a861e7e5eb, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -96,7 +96,7 @@ SortingGroup:
   m_GameObject: {fileID: 2377991788734503665}
   m_Enabled: 1
   m_SortingLayerID: -210121459
-  m_SortingLayer: 3
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_SortAtRoot: 1
 --- !u!95 &8853749596032064667
@@ -146,7 +146,7 @@ GameObject:
   - component: {fileID: 3479090457998286546}
   - component: {fileID: 2652095348903409236}
   - component: {fileID: 609454383976437220}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: Dealer
   m_TagString: Untagged
   m_Icon: {fileID: 0}

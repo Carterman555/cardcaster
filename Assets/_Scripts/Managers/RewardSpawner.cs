@@ -59,7 +59,7 @@ public class RewardSpawner : MonoBehaviour {
     [Command]
     private void SpawnBossLoot(Vector2 spawnPoint) {
 
-        int currentLevel = LevelManager.Instance.GetLevel();
+        int currentLevel = GameSceneManager.Instance.GetLevel();
         List<ScriptableCardBase> possibleCardsToSpawn = ResourceSystem.Instance.GetAllCardsWithLevel(currentLevel);
 
         if (bossAlwaysUnlocksCard) {

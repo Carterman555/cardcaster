@@ -9,7 +9,7 @@ using UnityEngine.Events;
 using UnityEngine.InputSystem;
 using UnityEngine.Serialization;
 
-public class Tutorial : MonoBehaviour {
+public class Tutorial : StaticInstance<Tutorial> {
 
     public static event Action OnTutorialRoomStart;
 
@@ -22,6 +22,8 @@ public class Tutorial : MonoBehaviour {
     private BaseTutorialStep CurrentTutorialStep => tutorialSteps[currentStepIndex];
 
     private bool tutorialActive;
+
+    private static bool playerDied;
 
     [Header("Dialog Steps")]
     [SerializeField] private InputActionReference nextStepInput;
@@ -66,6 +68,7 @@ public class Tutorial : MonoBehaviour {
 
     private void OnEnable() {
         startTutorialTrigger.OnEnterContact += TryStartTutorial;
+        PlayerMovement.Instance.GetComponent<Health>().OnDeath += OnPlayerDeath;
     }
     private void OnDisable() {
         startTutorialTrigger.OnEnterContact -= TryStartTutorial;
@@ -81,7 +84,22 @@ public class Tutorial : MonoBehaviour {
         }
     }
 
+    private void OnPlayerDeath() {
+        PlayerMovement.Instance.GetComponent<Health>().OnDeath -= OnPlayerDeath;
+
+        playerDied = true;
+        print("player died true");
+
+        GameSceneManager.Instance.LoadTutorial();
+    }
+
     private void StartTutorial() {
+
+        tutorialActive = true;
+
+        if (playerDied) {
+            welcomeText = "Let's start this again, shall we. " + welcomeText;
+        }
 
         tutorialSteps = new BaseTutorialStep[] {
             new DialogStep(nextStepInput, welcomeText),
@@ -104,7 +122,10 @@ public class Tutorial : MonoBehaviour {
         CurrentTutorialStep.OnStepCompleted += NextTutorialStep;
         CurrentTutorialStep.OnEnterStep();
 
-        tutorialActive = true;
+        Vector2 playerTutorialPos = new Vector2(-6f, 0);
+        PlayerMovement.Instance.transform.position = playerTutorialPos;
+
+
     }
 
     private void NextTutorialStep() {
@@ -130,6 +151,11 @@ public class Tutorial : MonoBehaviour {
         if (tutorialActive) {
             CurrentTutorialStep.Update();
         }
+    }
+
+    public static void ResetPlayerDied() {
+        playerDied = false;
+        print("player died false");
     }
 }
 

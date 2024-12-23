@@ -29,7 +29,12 @@ public class RoomGenerator : StaticInstance<RoomGenerator> {
     }
 
     private void Start() {
-        GenerateRooms((EnvironmentType)LevelManager.Instance.GetLevel() - 1);
+        if (GameSceneManager.Instance.Tutorial) {
+            SpawnTrainingRoom();
+        }
+        else {
+            GenerateRooms((EnvironmentType)GameSceneManager.Instance.GetLevel() - 1);
+        }
     }
 
     public void GenerateRooms(EnvironmentType environmentType) {
@@ -128,7 +133,7 @@ public class RoomGenerator : StaticInstance<RoomGenerator> {
                 yield return StartCoroutine(TrySpawnRoomChecker(newRoomPrefab, subLayout.ParentRoomOverlapChecker, (success) => canSpawn = success));
             }
 
-            usedRooms[newRoomScriptable.RoomType].Add(newRoomScriptable); 
+            usedRooms[newRoomScriptable.RoomType].Add(newRoomScriptable);
 
             RoomOverlapChecker newRoomChecker = roomOverlapCheckers.Last();
             SetChildrensChecker(subLayout, newRoomChecker, newRoomPrefab);
@@ -209,6 +214,7 @@ public class RoomGenerator : StaticInstance<RoomGenerator> {
 
     [Header("Spawn Rooms")]
     [SerializeField] private DoorwayTileDestroyer doorwayTileReplacer;
+    [SerializeField] private Room trainingRoomPrefab;
 
     private Dictionary<RoomOverlapChecker, Room> spawnRoomsDict = new();
 
@@ -222,11 +228,10 @@ public class RoomGenerator : StaticInstance<RoomGenerator> {
         // setup first room seperately because the setup is different
         RoomOverlapChecker firstOverlapChecker = roomOverlapCheckers[0];
         Room firstRoom = firstOverlapChecker.GetRoomPrefab().Spawn(firstOverlapChecker.transform.position, Containers.Instance.Rooms);
-        SetupFirstRoom(firstRoom, firstOverlapChecker);
+        firstRoom.SetRoomNum(1);
         spawnRoomsDict.Add(firstOverlapChecker, firstRoom);
 
-
-        /// go through each room checker
+        // go through each room checker
         for (int roomIndex = 1; roomIndex < roomOverlapCheckers.Count; roomIndex++) {
 
             RoomOverlapChecker roomOverlapChecker = roomOverlapCheckers[roomIndex];
@@ -238,11 +243,6 @@ public class RoomGenerator : StaticInstance<RoomGenerator> {
             SetupRoom(newRoom, roomOverlapChecker, roomNumber);
             spawnRoomsDict.Add(roomOverlapChecker, newRoom);
         }
-    }
-
-    // the first room sets up differently because it doesn't have a connecting room
-    private void SetupFirstRoom(Room newRoom, RoomOverlapChecker roomOverlapChecker) {
-        newRoom.SetRoomNum(1);
     }
 
     private void SetupRoom(Room newRoom, RoomOverlapChecker roomOverlapChecker, int roomNumber) {
@@ -275,6 +275,10 @@ public class RoomGenerator : StaticInstance<RoomGenerator> {
         // create enter and exit triggers
         newRoom.CreateEnterAndExitTriggers(newDoorway);
         connectingRoom.CreateEnterAndExitTriggers(existingDoorway);
+    }
+
+    private void SpawnTrainingRoom() {
+        Room trainingRoom = trainingRoomPrefab.Spawn(Vector2.zero, Containers.Instance.Rooms);
     }
 
     #endregion

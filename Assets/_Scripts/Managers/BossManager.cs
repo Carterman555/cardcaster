@@ -77,7 +77,7 @@ public class BossManager : MonoBehaviour {
         boss.enabled = false;
 
         // hide healthbar
-        FeedbackPlayer.PlayInReverse("BossHealthPopup");
+        FeedbackPlayerOld.PlayInReverse("BossHealthPopup");
 
         bossHealth.OnDeath -= OnBossDefeated;
         playerHealth.OnDeath -= OnPlayerDefeated;

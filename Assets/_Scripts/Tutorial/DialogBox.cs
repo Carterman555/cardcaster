@@ -40,7 +40,7 @@ public class DialogBox : MonoBehaviour, IInitializable {
 
     public void Hide() {
         if (gameObject.activeSelf) {
-            FeedbackPlayer.PlayInReverse("DialogBox");
+            FeedbackPlayer.Play("DialogBox");
         }
     }
 }

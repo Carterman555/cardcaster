@@ -69,6 +69,7 @@ public class UnitTouchDamage : MonoBehaviour {
 
     // if attacking the target and not dead, stop the coroutine that's attacking
     private void HandleLeaveContact(GameObject target) {
+
         if (activeCoroutines.TryGetValue(target, out Coroutine coroutine) && !dead) {
             StopCoroutine(coroutine);
             activeCoroutines.Remove(target);

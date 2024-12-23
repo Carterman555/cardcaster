@@ -1,10 +1,16 @@
 using DG.Tweening;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class NextLevelHole : MonoBehaviour {
+
+    public static event Action OnFallInHole;
+
     [SerializeField] private SpriteMask spriteMask;
+
+    [SerializeField] private bool tutorialHole;
 
     private bool fallTriggered;
 
@@ -34,7 +40,14 @@ public class NextLevelHole : MonoBehaviour {
         float fallYPos = PlayerMovement.Instance.transform.position.y - fallDistance;
         PlayerMovement.Instance.transform.DOMoveY(fallYPos, duration: 0.5f).SetEase(Ease.InSine);
 
-        // load next level
-        GameSceneManager.Instance.NextLevel();
+        OnFallInHole?.Invoke();
+
+        if (!tutorialHole) {
+            GameSceneManager.Instance.NextLevel();
+        }
+        else {
+            //... go to first level if just finished tutorial
+            GameSceneManager.Instance.StartGame();
+        }
     }
 }

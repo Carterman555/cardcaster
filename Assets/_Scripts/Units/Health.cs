@@ -10,6 +10,7 @@ public class Health : MonoBehaviour, IDamagable {
     public event Action OnDamaged;
     public event Action<float, bool> OnDamaged_Damage_Shared;
 
+    [SerializeField] private UnityEvent deathEventTrigger;
     [SerializeField] private UnityEvent damagedEventTrigger;
 
     private float maxHealth;
@@ -63,6 +64,7 @@ public class Health : MonoBehaviour, IDamagable {
     public void Die() {
         dead = true;
 
+        deathEventTrigger?.Invoke();
         OnDeath?.Invoke();
         gameObject.ReturnToPool();
     }

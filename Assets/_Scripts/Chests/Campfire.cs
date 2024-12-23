@@ -21,7 +21,7 @@ public class Campfire : MonoBehaviour {
     }
 
     private void OpenTrashUI() {
-        FeedbackPlayer.Play("OpenAllCardsPanel");
+        FeedbackPlayerOld.Play("OpenAllCardsPanel");
         TrashCardManager.Instance.Activate();
 
         TrashCardManager.OnTrashCard += PutOutFire;

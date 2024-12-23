@@ -291,7 +291,9 @@ PolygonCollider2D:
     m_Paths:
     - - {x: 3.4314165, y: 3.8589337}
       - {x: -0.2560836, y: 0.6089337}
-      - {x: -0.2560836, y: -0.2660663}
+      - {x: -1.3545046, y: -0.75727916}
+      - {x: -1.6201508, y: -1.9250668}
+      - {x: -0.8460976, y: -1.8024127}
       - {x: 0.8689164, y: -0.2660663}
       - {x: 3.8689165, y: 3.1714337}
       - {x: 3.8689165, y: 3.8589337}
@@ -330,6 +332,7 @@ MonoBehaviour:
   damage: 10
   overrideKnockback: 1
   knockbackStrength: 1
+  debug: 0
 --- !u!1 &1982477827377252677
 GameObject:
   m_ObjectHideFlags: 0
@@ -424,6 +427,37 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 482047294104496901}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2932968740767105333
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8972499317932601254}
+  m_Layer: 0
+  m_Name: RoomOneTeleportPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 3306451490063965843, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8972499317932601254
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2932968740767105333}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.69, y: 2, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4706346033755580023}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3212256075493830871
 GameObject:
@@ -750,7 +784,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6646119364283304810}
   m_Layer: 0
-  m_Name: TeleportPoint
+  m_Name: RoomTwoTeleportPoint
   m_TagString: Untagged
   m_Icon: {fileID: 3306451490063965843, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -12694,6 +12728,9 @@ PrefabInstance:
       addedObject: {fileID: 2396587438255905468}
     - targetCorrespondingSourceObject: {fileID: 5378690074485086980, guid: 4723c0ded694bfb4b9bd66f2d1dae76b, type: 3}
       insertIndex: -1
+      addedObject: {fileID: 8972499317932601254}
+    - targetCorrespondingSourceObject: {fileID: 5378690074485086980, guid: 4723c0ded694bfb4b9bd66f2d1dae76b, type: 3}
+      insertIndex: -1
       addedObject: {fileID: 6646119364283304810}
     - targetCorrespondingSourceObject: {fileID: 5378690074485086980, guid: 4723c0ded694bfb4b9bd66f2d1dae76b, type: 3}
       insertIndex: -1
@@ -13067,6 +13104,10 @@ PrefabInstance:
       propertyPath: m_Offset.y
       value: 0.94627035
       objectReference: {fileID: 0}
+    - target: {fileID: 6303677656194196763, guid: 2b1af091dbe4b61469981465d17a3c4f, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7415264977654694977, guid: 2b1af091dbe4b61469981465d17a3c4f, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.8
@@ -13141,10 +13182,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   visual: {fileID: 4666587941214967871}
-  teleportPoint: {fileID: 6646119364283304810}
+  roomOneTeleportPoint: {fileID: 8972499317932601254}
+  roomTwoTeleportPoint: {fileID: 6646119364283304810}
   swordRotate: {fileID: 3454486277477866157}
   redMaterial: {fileID: 2100000, guid: 1ba86cbcf887f3a4684df6994dfaba5f, type: 2}
   swordRenderer: {fileID: 3785494310274579578}
+  roomTwoTrigger: {fileID: 6416161920389786675}
 --- !u!4 &8270976952741492673 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7415264977654694977, guid: 2b1af091dbe4b61469981465d17a3c4f, type: 3}
@@ -13390,6 +13433,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 4706346033755580023}
     m_Modifications:
+    - target: {fileID: 2515295604077795323, guid: 7aaca4b1a80f86f4aa93197f525c8162, type: 3}
+      propertyPath: tutorialHole
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4065107261601175884, guid: 7aaca4b1a80f86f4aa93197f525c8162, type: 3}
       propertyPath: m_LocalPosition.x
       value: 12.54

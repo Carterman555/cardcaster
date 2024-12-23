@@ -27,6 +27,5 @@ public class GameStateManager : StaticInstance<GameStateManager> {
 
 public enum GameState {
     Game,
-    Paused,
     CutScene
 }

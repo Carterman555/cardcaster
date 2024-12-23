@@ -22,6 +22,9 @@ public class UnitTouchDamage : MonoBehaviour {
     [SerializeField] private bool overrideDamage;
     [ConditionalHide("overrideDamage")][SerializeField] private float damage;
 
+    [SerializeField] private bool overrideKnockback;
+    [ConditionalHide("overrideKnockback")][SerializeField] private float knockbackStrength;
+
     private IHasStats hasStats;
 
     private void Awake() {
@@ -85,6 +88,10 @@ public class UnitTouchDamage : MonoBehaviour {
     private IEnumerator DamageOverTime(GameObject target) {
         while (true) {
 
+            if (target == null) {
+                yield break; // exit the coroutine
+            }
+
             // if the target becomes inactive, stop attacking
             if (!target.activeSelf) {
                 if (activeCoroutines.TryGetValue(target, out Coroutine coroutine)) {
@@ -94,10 +101,9 @@ public class UnitTouchDamage : MonoBehaviour {
             }
 
             float dmg = overrideDamage ? damage : hasStats.GetStats().Damage;
-            DamageDealer.TryDealDamage(target,
-                transform.position,
-                dmg,
-                hasStats.GetStats().KnockbackStrength);
+            float knockback = overrideKnockback ? knockbackStrength : hasStats.GetStats().KnockbackStrength;
+
+            DamageDealer.TryDealDamage(target, transform.position, dmg, knockback);
 
             yield return new WaitForSeconds(attackCooldown);
         }

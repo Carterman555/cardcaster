@@ -51,7 +51,7 @@ public class BossManager : MonoBehaviour {
     }
 
     private void SpawnBoss(Vector2 spawnPoint) {
-        int currentLevel = LevelManager.Instance.GetLevel();
+        int currentLevel = GameSceneManager.Instance.GetLevel();
         List<ScriptableBoss> possibleBosses = ResourceSystem.Instance.GetBosses(currentLevel);
         ScriptableBoss chosenBoss = possibleBosses.RandomItem();
 

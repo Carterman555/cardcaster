@@ -1,3 +1,4 @@
+using NavMeshPlus.Components;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -14,6 +15,7 @@ public class RandomlyActive : MonoBehaviour {
     }
 
     public void RandomizeActive() {
-        gameObject.SetActive(activeProbability > Random.Range(0f, 1f));
+        bool active = activeProbability > Random.Range(0f, 1f);
+        gameObject.SetActive(active);
     }
 }

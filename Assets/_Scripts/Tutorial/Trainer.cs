@@ -1,9 +1,11 @@
 using DG.Tweening;
 using Mono.CSharp;
+using MoreMountains.Tools;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class Trainer : StaticInstance<Trainer> {
 
@@ -14,6 +16,17 @@ public class Trainer : StaticInstance<Trainer> {
 
         SetOriginalFade();
         SetOriginalMaterial();
+
+        agent = GetComponent<NavMeshAgent>();
+        agent.updateRotation = false;
+        agent.updateUpAxis = false;
+    }
+
+    private void OnEnable() {
+        visual.Fade(originalFade);
+
+        swordRotate.gameObject.SetActive(false);
+        inRage = false;
     }
 
     #region Teleport to next room
@@ -24,10 +37,6 @@ public class Trainer : StaticInstance<Trainer> {
 
     private void SetOriginalFade() {
         originalFade = visual.color.a;
-    }
-
-    private void OnEnable() {
-        visual.Fade(originalFade);
     }
 
     public void TeleportToNextRoom() {
@@ -46,11 +55,18 @@ public class Trainer : StaticInstance<Trainer> {
 
     #region Rage
 
+    [SerializeField] private MMAutoRotate swordRotate;
+
     [SerializeField] private Material redMaterial;
+    [SerializeField] private SpriteRenderer swordRenderer;
     private Material redMaterialInstance;
     private Material originalMaterial;
 
     private BreakOnDamaged[] barrels;
+
+    private NavMeshAgent agent;
+
+    private bool inRage;
 
     private void SetOriginalMaterial() {
         originalMaterial = visual.material;
@@ -61,20 +77,24 @@ public class Trainer : StaticInstance<Trainer> {
 
         foreach (BreakOnDamaged barrel in barrels) {
             barrel.OnDamaged += EnterRage;
-            print("sub");
         }
     }
 
     private void EnterRage() {
-        print("enter rage");
-
-        redMaterialInstance = new Material(redMaterial);
-        visual.material = redMaterialInstance;
+        inRage = true;
 
         StartCoroutine(FadeInRed());
+        SetupSword();
+
+        agent.isStopped = false;
+
+        DialogBox.Instance.ShowText("DO NOT BREAK MY BARRELS!!!", showEnterText: false);
     }
 
     private IEnumerator FadeInRed() {
+
+        redMaterialInstance = new Material(redMaterial);
+        visual.material = redMaterialInstance;
 
         float glow = 0f;
 
@@ -86,6 +106,26 @@ public class Trainer : StaticInstance<Trainer> {
             glow += glowFadeSpeed * Time.deltaTime;
 
             yield return null;
+        }
+    }
+
+    private void SetupSword() {
+
+        swordRotate.gameObject.SetActive(true);
+
+        swordRotate.enabled = false;
+
+        swordRenderer.Fade(0f);
+        swordRenderer.DOFade(1f, duration: 0.3f).OnComplete(() => {
+            swordRotate.enabled = true;
+        });
+    }
+
+    private void Update() {
+        if (inRage) {
+            if (PlayerMeleeAttack.Instance != null) {
+                agent.SetDestination(PlayerMeleeAttack.Instance.transform.position);
+            }
         }
     }
 

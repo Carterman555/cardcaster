@@ -15,7 +15,7 @@ public class ShopRoom : MonoBehaviour {
         foreach (Transform spawnPoint in itemSpawnPoints) {
             ShopCard shopItem = shopItemPrefab.Spawn(spawnPoint.position, transform);
 
-            int currentLevel = LevelManager.Instance.GetLevel();
+            int currentLevel = GameSceneManager.Instance.GetLevel();
             List<ScriptableCardBase> possibleCards = ResourceSystem.Instance.GetUnlockedCardsUpToLevel(currentLevel);
             ScriptableCardBase randomCard = possibleCards.RandomItem();
 

@@ -35,6 +35,6 @@ public class NextLevelHole : MonoBehaviour {
         PlayerMovement.Instance.transform.DOMoveY(fallYPos, duration: 0.5f).SetEase(Ease.InSine);
 
         // load next level
-        LevelManager.Instance.NextLevel();
+        GameSceneManager.Instance.NextLevel();
     }
 }

@@ -17,6 +17,8 @@ public class HandCard : MonoBehaviour, IPointerDownHandler {
     public static event Action<ScriptableCardBase> OnAnyStartPlaying_Card;
     public static event Action<ScriptableCardBase> OnAnyCancel_Card;
 
+    public static event Action<ScriptableCardBase> OnCantAfford_Card;
+
     [SerializeField] private Vector2 cardStartPos;
 
     [Header("Feedback Players")]
@@ -186,6 +188,7 @@ public class HandCard : MonoBehaviour, IPointerDownHandler {
         else if (!CanAffordToPlay) {
             if (hotKeyDown) {
                 cantPlayShaker.Play();
+                OnCantAfford_Card?.Invoke(card);
             }
         }
     }
@@ -198,6 +201,7 @@ public class HandCard : MonoBehaviour, IPointerDownHandler {
 
         if (!CanAffordToPlay) {
             cantPlayShaker.Play();
+            OnCantAfford_Card?.Invoke(card);
             return;
         }
 

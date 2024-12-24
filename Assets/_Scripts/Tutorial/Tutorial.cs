@@ -9,7 +9,7 @@ using UnityEngine.Events;
 using UnityEngine.InputSystem;
 using UnityEngine.Serialization;
 
-public class Tutorial : StaticInstance<Tutorial> {
+public class Tutorial : MonoBehaviour {
 
     public static event Action OnTutorialRoomStart;
 
@@ -66,12 +66,19 @@ public class Tutorial : StaticInstance<Tutorial> {
     [SerializeField] private GameObject hole;
     [SerializeField] private ParticleSystem createHoleParticles;
 
+    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
+    public static void Init() {
+        playerDied = false;
+    }
+
     private void OnEnable() {
         startTutorialTrigger.OnEnterContact += TryStartTutorial;
+
         PlayerMovement.Instance.GetComponent<Health>().OnDeath += OnPlayerDeath;
     }
     private void OnDisable() {
         startTutorialTrigger.OnEnterContact -= TryStartTutorial;
+        CurrentTutorialStep.OnStepCompleted -= NextTutorialStep;
     }
 
     private void Start() {
@@ -101,12 +108,12 @@ public class Tutorial : StaticInstance<Tutorial> {
         }
 
         tutorialSteps = new BaseTutorialStep[] {
-            new DialogStep(nextStepInput, welcomeText),
-            new DialogStep(nextStepInput, combatText),
-            new SpawnEnemyStep(practiceEnemy, enemySpawnPoint),
-            new EventDialogStep(PlayerMovement.Instance.OnDash, dashText),
-            new DialogStep(nextStepInput, card1Text),
-            new DialogStep(nextStepInput, card2Text),
+            //new DialogStep(nextStepInput, welcomeText),
+            //new DialogStep(nextStepInput, combatText),
+            //new SpawnEnemyStep(practiceEnemy, enemySpawnPoint),
+            //new EventDialogStep(PlayerMovement.Instance.OnDash, dashText),
+            //new DialogStep(nextStepInput, card1Text),
+            //new DialogStep(nextStepInput, card2Text),
             new GiveTeleportCardStep(teleportCard, roomTwoTrigger),
             new DialogStep(nextStepInput, modify1CardText),
             new DialogStep(nextStepInput, modify2CardText),
@@ -152,6 +159,10 @@ public class Tutorial : StaticInstance<Tutorial> {
 
     public static void ResetPlayerDied() {
         playerDied = false;
+    }
+
+    public bool InGiveCardsStep() {
+        return CurrentTutorialStep is GiveModifyCardStep;
     }
 }
 

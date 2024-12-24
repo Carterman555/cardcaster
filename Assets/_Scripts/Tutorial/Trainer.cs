@@ -16,10 +16,6 @@ public class Trainer : StaticInstance<Trainer> {
 
         SetOriginalFade();
         SetOriginalMaterial();
-
-        agent = GetComponent<NavMeshAgent>();
-        agent.updateRotation = false;
-        agent.updateUpAxis = false;
     }
 
     private void OnEnable() {
@@ -54,10 +50,8 @@ public class Trainer : StaticInstance<Trainer> {
         AudioManager.Instance.PlaySound(AudioManager.Instance.AudioClips.Teleport);
 
         float duration = 0.3f;
-        agent.enabled = false; // agent messes with teleport so disable it
         visual.DOFade(0, duration).SetEase(Ease.InSine).OnComplete(() => {
             transform.position = teleportPoint.position;
-            agent.enabled = true;
 
             visual.DOFade(originalFade, duration).SetEase(Ease.InSine);
         });
@@ -77,12 +71,18 @@ public class Trainer : StaticInstance<Trainer> {
 
     private BreakOnDamaged[] barrels;
 
-    private NavMeshAgent agent;
-
     private bool inRage;
 
     [SerializeField] private TriggerContactTracker roomTwoTrigger;
     private bool enteredRoomTwo;
+
+    [SerializeField] private Tutorial tutorial;
+    [SerializeField] private ScriptableModifierCardBase fireCard;
+
+    [Header("Movement")]
+    [SerializeField] private float acceleration;
+    [SerializeField] private float maxSpeed;
+    private Rigidbody2D rb;
 
     private void SetOriginalMaterial() {
         originalMaterial = visual.material;
@@ -100,6 +100,7 @@ public class Trainer : StaticInstance<Trainer> {
         roomTwoTrigger.OnEnterContact += OnEnteredRoomTwo;
         roomTwoTrigger.OnExitContact += EnterRageTeleportOut;
 
+        HandCard.OnCantAfford_Card += EnterRageIfCantAfford;
     }
 
     private void UnsubFromRageEvents() {
@@ -111,9 +112,15 @@ public class Trainer : StaticInstance<Trainer> {
 
         roomTwoTrigger.OnEnterContact -= OnEnteredRoomTwo;
         roomTwoTrigger.OnExitContact -= EnterRageTeleportOut;
+
+        HandCard.OnCantAfford_Card -= EnterRageIfCantAfford;
     }
 
     private void OnBreakBarrel() {
+        if (inRage) {
+            return;
+        }
+
         DialogBox.Instance.ShowText("DO NOT BREAK MY BARRELS!!!", showEnterText: false);
         EnterRage();
     }
@@ -122,19 +129,19 @@ public class Trainer : StaticInstance<Trainer> {
     private void EnterRageIfWrongTeleport(ScriptableCardBase playedCard) => StartCoroutine(EnterRageIfWrongTeleportCor(playedCard));
     private IEnumerator EnterRageIfWrongTeleportCor(ScriptableCardBase playedCard) {
 
-        if (enteredRoomTwo) {
+        if (inRage || enteredRoomTwo) {
             yield break; // exit coroutine
         }
 
         //... wait for trigger to detect player entering next room
-        yield return null;
+        int framesToWait = 3;
+        yield return new WaitForSeconds(Time.deltaTime * framesToWait);
 
         bool playerInRoomTwo = roomTwoTrigger.HasContact();
 
         if (playedCard is ScriptableTeleportCard && !playerInRoomTwo) {
             DialogBox.Instance.ShowText("YOU WERE SUPPOSED TO TELEPORT TO THE NEXT ROOM ON THE RIGHT!!", showEnterText: false);
             EnterRage();
-            print("wrong teleport");
         }
     }
 
@@ -144,12 +151,31 @@ public class Trainer : StaticInstance<Trainer> {
 
     // enter rage if the player teleports out of the second room
     private void EnterRageTeleportOut() {
+
+        if (inRage) {
+            return;
+        }
+
         DialogBox.Instance.ShowText("I'M TRYING TO TEACH YOU! DON'T LEAVE THAT ROOM!!!", showEnterText: false);
 
         TeleportToPoint(roomOneTeleportPoint);
 
         EnterRage();
-        print("exit room");
+    }
+
+    // enter rage if the player uses up too many essence and can't afford to play the fire or swing card
+    private void EnterRageIfCantAfford(ScriptableCardBase card) {
+
+        if (inRage) {
+            return;
+        }
+
+        bool fireOrSwingCard = card == fireCard || card is ScriptableSwordSwingCard;
+
+        if (fireOrSwingCard && tutorial.InGiveCardsStep()) {
+            DialogBox.Instance.ShowText("YOU USED TOO MUCH ESSENCE, AND NOW YOU DON'T HAVE ENOUGH FOR ME TO TEACH YOU!", showEnterText: false);
+            EnterRage();
+        }
     }
 
     private void EnterRage() {
@@ -191,9 +217,8 @@ public class Trainer : StaticInstance<Trainer> {
 
     private void Update() {
         if (inRage) {
-            if (PlayerMeleeAttack.Instance != null && agent.enabled) {
-                agent.isStopped = false;
-                agent.SetDestination(PlayerMeleeAttack.Instance.transform.position);
+            if (PlayerMeleeAttack.Instance != null) {
+
             }
         }
     }

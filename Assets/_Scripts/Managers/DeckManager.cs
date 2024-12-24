@@ -76,13 +76,8 @@ public class DeckManager : Singleton<DeckManager> {
     protected override void Awake() {
         base.Awake();
         SetupEmptyHand();
-    }
-
-    private void Start() {
 
         essence = maxEssence;
-
-        OnEssenceChanged_Amount?.Invoke(essence);
     }
 
     private void SetupEmptyHand() {
@@ -113,13 +108,14 @@ public class DeckManager : Singleton<DeckManager> {
 
     #region Basic Deck Methods
 
-    public void ClearDeck() {
+    public void ResetDeckAndEssence() {
         cardsInHand = new ScriptableCardBase[maxHandSize];
         cardsInDeck.Clear();
         cardsInDiscard.Clear();
         cardsInModifierStack.Clear();
 
-        print("clear deck");
+        essence = maxEssence;
+        OnEssenceChanged_Amount?.Invoke(essence);
     }
 
     public void DiscardStackedCards() {

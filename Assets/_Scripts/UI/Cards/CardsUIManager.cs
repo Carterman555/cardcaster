@@ -66,8 +66,6 @@ public class CardsUIManager : StaticInstance<CardsUIManager> {
 
     // spawn in a new card and set it up
     private void DrawCard(int index) {
-        print("drawCard");
-
         ScriptableCardBase[] cardsInHand = DeckManager.Instance.GetCardsInHand();
 
         ScriptableCardBase card = cardsInHand[index];

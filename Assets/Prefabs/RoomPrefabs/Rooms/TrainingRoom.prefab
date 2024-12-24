@@ -332,7 +332,6 @@ MonoBehaviour:
   damage: 10
   overrideKnockback: 1
   knockbackStrength: 1
-  debug: 0
 --- !u!1 &1982477827377252677
 GameObject:
   m_ObjectHideFlags: 0
@@ -13188,6 +13187,8 @@ MonoBehaviour:
   redMaterial: {fileID: 2100000, guid: 1ba86cbcf887f3a4684df6994dfaba5f, type: 2}
   swordRenderer: {fileID: 3785494310274579578}
   roomTwoTrigger: {fileID: 6416161920389786675}
+  tutorial: {fileID: 2967748581344063859}
+  fireCard: {fileID: 11400000, guid: a1fc41ed7ac45a941a5123e05c429239, type: 2}
 --- !u!4 &8270976952741492673 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7415264977654694977, guid: 2b1af091dbe4b61469981465d17a3c4f, type: 3}

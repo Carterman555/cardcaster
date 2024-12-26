@@ -4,29 +4,10 @@ using System.Linq;
 using UnityEngine;
 
 public class AudioManager : Singleton<AudioManager> {
-    [SerializeField] private AudioSource musicSource;
     [SerializeField] private AudioSource SFXSource;
 
     [SerializeField] private ScriptableAudio audioClips;
     public ScriptableAudio AudioClips => audioClips;
-
-    private void Start() {
-        PlayMusic(AudioClips.DefaultMusic);
-    }
-
-    public void PlayMusic(AudioClips audioClips) {
-        if (audioClips.Clips == null || audioClips.Clips.Count() == 0) {
-            Debug.LogWarning("Tried playing music with no audio clips");
-            return;
-        }
-
-        AudioClip audioClip = audioClips.Clips.RandomItem();
-        PlayMusic(audioClip, audioClips.Volume);
-    }
-
-    public void PlayMusic(AudioClip audioClip, float vol) {
-        musicSource.PlayOneShot(audioClip, vol);
-    }
 
     public void PlaySound(AudioClips audioClips) {
 

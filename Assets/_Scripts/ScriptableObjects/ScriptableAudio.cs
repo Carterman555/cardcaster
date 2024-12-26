@@ -7,11 +7,8 @@ public class ScriptableAudio : ScriptableObject {
 
     [Header("Music")]
 
-    [SerializeField] private AudioClips defaultMusic;
-    public AudioClips DefaultMusic => defaultMusic;
-
-    [SerializeField] private AudioClips bossMusic;
-    public AudioClips BossMusic => bossMusic;
+    [SerializeField] private MusicClips[] music;
+    public MusicClips[] Music => music;
 
     [Header("Player")]
 

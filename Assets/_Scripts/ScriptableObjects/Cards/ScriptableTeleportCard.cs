@@ -25,11 +25,19 @@ public class ScriptableTeleportCard : ScriptableAbilityCardBase {
     protected override void DraggingUpdate(Vector2 cardposition) {
         base.DraggingUpdate(cardposition);
 
+        if (PlayerMovement.Instance == null) {
+            return;
+        }
+
         teleportPosVisual.position = RaycastToFindPosition(cardposition);
     }
 
     protected override void Play(Vector2 position) {
         base.Play(position);
+
+        if (PlayerMovement.Instance == null) {
+            return;
+        }
 
         teleportPosVisual.gameObject.ReturnToPool();
 
@@ -52,6 +60,7 @@ public class ScriptableTeleportCard : ScriptableAbilityCardBase {
     }
 
     private Vector2 RaycastToFindPosition(Vector2 targetPosition) {
+
         Vector2 playerPosition = PlayerMovement.Instance.transform.position;
         Vector2 toPlayerDirection = (playerPosition - targetPosition).normalized;
 

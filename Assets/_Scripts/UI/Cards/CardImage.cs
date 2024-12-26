@@ -29,7 +29,13 @@ public class CardImage : MonoBehaviour {
             typeText.text = "Modifier";
         }
 
-        iconImage.sprite = card.GetSprite();
+        try {
+            iconImage.sprite = card.GetSprite();
+        }
+        catch {
+            Debug.LogError($"Failed - iconImage: {iconImage}, card: {card}");
+        }
+
         SetupCostImages(card.GetCost());
         titleText.text = card.GetName();
         descriptionText.text = card.GetDescription();

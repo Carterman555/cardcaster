@@ -14,8 +14,6 @@ public class EssenceUIManager : MonoBehaviour {
 
     private void UpdateEssenceIcons(float essence) {
         
-        print("Update essence: " + essence);
-
         int fullEssence = (int)essence;
 
         for (int i = 0; i < fullEssence; i++) {

@@ -16,6 +16,8 @@ public class Trainer : StaticInstance<Trainer> {
 
         SetOriginalFade();
         SetOriginalMaterial();
+
+        rb = GetComponent<Rigidbody2D>();
     }
 
     private void OnEnable() {
@@ -216,10 +218,21 @@ public class Trainer : StaticInstance<Trainer> {
     }
 
     private void Update() {
-        if (inRage) {
-            if (PlayerMeleeAttack.Instance != null) {
 
-            }
+        if (PlayerMeleeAttack.Instance == null) {
+            rb.velocity = Vector2.zero;
+            return;
+        }
+
+        bool touchingPlayer = Vector2.Distance(PlayerMeleeAttack.Instance.transform.position, transform.position) < 0.05f;
+
+        if (inRage && !touchingPlayer) {
+            Vector2 toPlayerDirection = (PlayerMeleeAttack.Instance.transform.position - transform.position).normalized;
+            float speed = Mathf.MoveTowards(rb.velocity.magnitude, maxSpeed, acceleration * Time.deltaTime);
+            rb.velocity = toPlayerDirection * speed;
+        }
+        else {
+            rb.velocity = Vector2.zero;
         }
     }
 

@@ -108,12 +108,12 @@ public class Tutorial : MonoBehaviour {
         }
 
         tutorialSteps = new BaseTutorialStep[] {
-            //new DialogStep(nextStepInput, welcomeText),
-            //new DialogStep(nextStepInput, combatText),
-            //new SpawnEnemyStep(practiceEnemy, enemySpawnPoint),
-            //new EventDialogStep(PlayerMovement.Instance.OnDash, dashText),
-            //new DialogStep(nextStepInput, card1Text),
-            //new DialogStep(nextStepInput, card2Text),
+            new DialogStep(nextStepInput, welcomeText),
+            new DialogStep(nextStepInput, combatText),
+            new SpawnEnemyStep(practiceEnemy, enemySpawnPoint),
+            new EventDialogStep(PlayerMovement.Instance.OnDash, dashText),
+            new DialogStep(nextStepInput, card1Text),
+            new DialogStep(nextStepInput, card2Text),
             new GiveTeleportCardStep(teleportCard, roomTwoTrigger),
             new DialogStep(nextStepInput, modify1CardText),
             new DialogStep(nextStepInput, modify2CardText),

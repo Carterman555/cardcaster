@@ -11,11 +11,21 @@ public class AudioManager : Singleton<AudioManager> {
     public ScriptableAudio AudioClips => audioClips;
 
     private void Start() {
-        PlaySound(AudioClips.DefaultMusic);
+        PlayMusic(AudioClips.DefaultMusic);
     }
 
-    public void PlaySound(AudioClip audioClip, float vol) {
-        SFXSource.PlayOneShot(audioClip, vol);
+    public void PlayMusic(AudioClips audioClips) {
+        if (audioClips.Clips == null || audioClips.Clips.Count() == 0) {
+            Debug.LogWarning("Tried playing music with no audio clips");
+            return;
+        }
+
+        AudioClip audioClip = audioClips.Clips.RandomItem();
+        PlayMusic(audioClip, audioClips.Volume);
+    }
+
+    public void PlayMusic(AudioClip audioClip, float vol) {
+        musicSource.PlayOneShot(audioClip, vol);
     }
 
     public void PlaySound(AudioClips audioClips) {
@@ -27,6 +37,10 @@ public class AudioManager : Singleton<AudioManager> {
 
         AudioClip audioClip = audioClips.Clips.RandomItem();
         PlaySound(audioClip, audioClips.Volume);
+    }
+
+    public void PlaySound(AudioClip audioClip, float vol) {
+        SFXSource.PlayOneShot(audioClip, vol);
     }
 
     private List<AudioClipsTimer> audioClipsTimers = new();

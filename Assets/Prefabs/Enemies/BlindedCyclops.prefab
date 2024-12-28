@@ -45,6 +45,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -7604754236743832783, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
       propertyPath: dropAmount.MaxValue
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: -7604754236743832783, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
+      propertyPath: dropAmount.MinValue
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 226976224992304211, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
@@ -385,8 +389,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   projectilePrefab: {fileID: 6752470997021300203, guid: 5d4217c0350f5094e960fe01cc4084a0, type: 3}
-  projectileCount: 8
+  projectileCount: 4
   attackCooldownMult: 2
+  alternateShootDirection: 1
   anim: {fileID: 7812749826847277617}
   specialAttack: 1
   customSFX: 1

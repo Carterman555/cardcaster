@@ -24,18 +24,20 @@ public class CardDrop : MonoBehaviour {
         suckMovement = GetComponent<SuckMovement>();
 
         if (defaultCard != null) {
-            Setup(defaultCard);
+            SetCard(defaultCard);
         }
     }
 
     private void OnEnable() {
+        interactable.OnChangeCanInteract += SetShowCardInfo;
         interactable.OnInteract += OnInteract;
     }
     private void OnDisable() {
+        interactable.OnChangeCanInteract -= SetShowCardInfo;
         interactable.OnInteract -= OnInteract;
     }
 
-    public void Setup(ScriptableCardBase scriptableCard) {
+    public void SetCard(ScriptableCardBase scriptableCard) {
         this.scriptableCard = scriptableCard;
 
         spriteRenderer.sprite = scriptableCard.GetSprite();
@@ -49,6 +51,15 @@ public class CardDrop : MonoBehaviour {
         });
 
         changeShineColor.SetColor(scriptableCard.GetRarity());
+    }
+
+
+    private void SetShowCardInfo(bool show) {
+
+        if (show) {
+            ChestItemInfoUI.Instance.SetupCard(scriptableCard);
+        }
+
     }
 
     protected virtual void OnInteract() {

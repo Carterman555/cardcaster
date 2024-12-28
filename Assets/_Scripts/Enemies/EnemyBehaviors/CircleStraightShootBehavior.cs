@@ -7,6 +7,9 @@ public class CircleStraightShootBehavior : MonoBehaviour {
     [SerializeField] private int projectileCount;
     [SerializeField] private float attackCooldownMult = 1f;
 
+    [SerializeField] private bool alternateShootDirection;
+    private bool thisShotIsAlternate;
+
     private IHasStats hasStats;
 
     private TimedActionBehavior timedActionBehavior;
@@ -47,9 +50,18 @@ public class CircleStraightShootBehavior : MonoBehaviour {
 
     // played by animation
     public void CircleShoot() {
+
         // Calculate the angle between each shockwave
         float angleStep = 360f / projectileCount;
         float angle = 0f;
+
+        if (alternateShootDirection) {
+            if (thisShotIsAlternate) {
+                angle = angleStep * 0.5f;
+            }
+            thisShotIsAlternate = !thisShotIsAlternate;
+        }
+
         for (int i = 0; i < projectileCount; i++) {
             Vector2 projectileDirection = angle.RotationToDirection();
 

@@ -166,6 +166,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b436399d89bfd245b88204bdbc8ed47, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  deathEventTrigger:
+    m_PersistentCalls:
+      m_Calls: []
   damagedEventTrigger:
     m_PersistentCalls:
       m_Calls:
@@ -181,9 +184,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  hasDeathParticles: 1
-  deathParticles: {fileID: 198793636792726744, guid: 7325c4ae2260d9f46b182ff4f48ee9f2, type: 3}
-  deathParticlesColor: {r: 0.5268779, g: 0.56457186, b: 0.6037736, a: 1}
 --- !u!114 &5577381940195422070
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -239,7 +239,7 @@ MonoBehaviour:
   dropAmount:
     MinValue: 1
     MaxValue: 1
-  dropChance: 0.4
+  dropChance: 0.8
 --- !u!114 &-3599747744444464393
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -409,6 +409,8 @@ MonoBehaviour:
   health: {fileID: 5414848298468351723}
   overrideDamage: 1
   damage: 1
+  overrideKnockback: 0
+  knockbackStrength: 0
 --- !u!1 &4973828884281687063
 GameObject:
   m_ObjectHideFlags: 0

@@ -3,20 +3,17 @@ using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class ChestCard : CardDrop {
-
-    [SerializeField] private Vector2 positionOffset;
+public class ChestCard : CardDrop, IChestItem {
 
     private Chest chest;
     private int collectableIndex;
 
-    public void Setup(Chest chest, ScriptableCardBase scriptableCard, int collectableIndex) {
+    public void Setup(Chest chest, int collectableIndex, Vector2 position) {
         this.chest = chest;
         this.collectableIndex = collectableIndex;
-        Setup(scriptableCard);
 
         transform.position = chest.transform.position;
-        transform.DOLocalMove(positionOffset, duration: 0.3f).SetEase(Ease.OutSine);
+        transform.DOLocalMove(position, duration: 0.3f).SetEase(Ease.OutSine);
     }
 
     protected override void OnInteract() {

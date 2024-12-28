@@ -104,6 +104,7 @@ public static class ObjectPoolManager {
     }
 
     public static void ReturnToPool(this GameObject objectToReturn) {
+
         if (objectToReturn == null) {
             Debug.LogError("objectToReturn Is Null!");
             return;
@@ -155,6 +156,13 @@ public static class ObjectPoolManager {
     }
 
     public static bool IsReturned(this GameObject objectToCheck) {
+
+        // if the gameobject is not long enough it means it doesn't end in 'clone', so the object wasn't spawn in
+        // so just return whether it's active
+        if (objectToCheck.name.Length <= 7) {
+            return !objectToCheck.activeSelf;
+        }
+
         string goName = objectToCheck.name[..^7];
         PooledObjectInfo pool = ObjectPoolList.Find(p => p.LookupString == goName);
 

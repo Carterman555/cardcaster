@@ -8,6 +8,9 @@ using UnityEngine;
 
 public class BossManager : MonoBehaviour {
 
+    public static event Action OnStartBossFight;
+    public static event Action OnBossKilled;
+
     [SerializeField] private MMF_Player enterBossRoomPlayer;
     [SerializeField] private CinemachineVirtualCamera staticCamera;
     [SerializeField] private BossHealthUI bossHealthUI;
@@ -48,6 +51,8 @@ public class BossManager : MonoBehaviour {
         enterBossRoomPlayer.PlayFeedbacks();
 
         playerHealth.OnDeath += OnPlayerDefeated;
+
+        OnStartBossFight?.Invoke();
     }
 
     private void SpawnBoss(Vector2 spawnPoint) {
@@ -81,6 +86,8 @@ public class BossManager : MonoBehaviour {
 
         bossHealth.OnDeath -= OnBossDefeated;
         playerHealth.OnDeath -= OnPlayerDefeated;
+
+        OnBossKilled?.Invoke();
     }
 
     private void OnPlayerDefeated() {

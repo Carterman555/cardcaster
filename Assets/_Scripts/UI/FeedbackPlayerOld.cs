@@ -24,7 +24,6 @@ public class FeedbackPlayerOld : MonoBehaviour {
         feedbackPlayers[popupName].PlayInReverse();
     }
 
-
     public event Action OnPlayNormal;
     public event Action OnPlayInReverse;
 
@@ -45,6 +44,7 @@ public class FeedbackPlayerOld : MonoBehaviour {
         return MMFPlayer;
     }
 
+    [ContextMenu("Play")]
     public void Play() {
         MMFPlayer.SetDirectionTopToBottom();
         MMFPlayer.PlayFeedbacks();

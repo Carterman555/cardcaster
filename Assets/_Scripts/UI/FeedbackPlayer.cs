@@ -38,6 +38,7 @@ public class FeedbackPlayer : MonoBehaviour {
         return MMFPlayer;
     }
 
+    [ContextMenu("Play")]
     public void Play() {
         MMFPlayer.PlayFeedbacks();
     }

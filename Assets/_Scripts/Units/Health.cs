@@ -4,11 +4,15 @@ using UnityEngine.Events;
 
 public class Health : MonoBehaviour, IDamagable {
 
+    public static event Action<Health> OnAnyDeath;
+
     public event Action OnDeath;
     public event Action<float> OnHealthChanged_HealthProportion;
 
     public event Action OnDamaged;
     public event Action<float, bool> OnDamaged_Damage_Shared;
+
+    [SerializeField] private bool returnOnDeath = true;
 
     [SerializeField] private UnityEvent deathEventTrigger;
     [SerializeField] private UnityEvent damagedEventTrigger;
@@ -61,12 +65,17 @@ public class Health : MonoBehaviour, IDamagable {
         }
     }
 
+    [ContextMenu("Die")]
     public void Die() {
         dead = true;
 
         deathEventTrigger?.Invoke();
         OnDeath?.Invoke();
-        gameObject.ReturnToPool();
+        OnAnyDeath?.Invoke(this);
+
+        if (returnOnDeath) {
+            gameObject.ReturnToPool();
+        }
     }
 
     public void Heal(float amount) {

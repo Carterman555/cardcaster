@@ -7,7 +7,6 @@ using UnityEngine;
 
 public class RewardSpawner : MonoBehaviour {
 
-
     [SerializeField][Range(0f, 1f)] private float rewardOnClearChance;
     [SerializeField][Range(0f, 1f)] private float chestRewardChance;
 
@@ -35,11 +34,20 @@ public class RewardSpawner : MonoBehaviour {
         }
     }
 
+    [ContextMenu("Rewards")]
+    private void DebugSpawnReward() {
+        for (int i = 0; i < 100; i++)
+        {
+            SpawnReward();
+        }
+    }
+
     [Command]
     private void SpawnReward() {
 
         float avoidPlayerRadius = 2f;
-        Vector2 position = new RoomPositionHelper().GetRandomRoomPos(PlayerMovement.Instance.transform.position, avoidPlayerRadius);
+        float obstacleAvoidanceRadius = 3.5f;
+        Vector2 position = new RoomPositionHelper().GetRandomRoomPos(PlayerMovement.Instance.transform.position, avoidPlayerRadius, obstacleAvoidanceRadius);
 
         if (Random.value < chestRewardChance) {
             // Instantiate the chest instead of using the spawning pool because the item that gets chosen gets unparented. And it's easiest to
@@ -53,7 +61,7 @@ public class RewardSpawner : MonoBehaviour {
     }
 
     [Header("Boss Loot")]
-    [SerializeField] private bool bossAlwaysUnlocksCard;
+    [SerializeField] private bool bossUnlocksCardIfPossible = true;
     [SerializeField] private CardDrop cardDropPrefab;
 
     [Command]
@@ -62,7 +70,7 @@ public class RewardSpawner : MonoBehaviour {
         int currentLevel = GameSceneManager.Instance.GetLevel();
         List<ScriptableCardBase> possibleCardsToSpawn = ResourceSystem.Instance.GetAllCardsWithLevel(currentLevel);
 
-        if (bossAlwaysUnlocksCard) {
+        if (bossUnlocksCardIfPossible) {
 
             List<ScriptableCardBase> unlockedCards = ResourceSystem.Instance.GetUnlockedCardsWithLevel(currentLevel);
             bool unlockedAllCardsAtLevel = possibleCardsToSpawn.Count == unlockedCards.Count;
@@ -75,6 +83,6 @@ public class RewardSpawner : MonoBehaviour {
         CardDrop newCardDrop = cardDropPrefab.Spawn(spawnPoint, Containers.Instance.Drops);
 
         ScriptableCardBase scriptableCard = possibleCardsToSpawn.RandomItem();
-        newCardDrop.Setup(scriptableCard);
+        newCardDrop.SetCard(scriptableCard);
     }
 }

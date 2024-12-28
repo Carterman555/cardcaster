@@ -78,7 +78,8 @@ public class MusicManager : Singleton<MusicManager> {
             return;
         }
 
-        bool inCombat = !Room.GetCurrentRoom().IsRoomCleared();
+        bool playerInRoom = Room.GetCurrentRoom() != null;
+        bool inCombat = playerInRoom && !Room.GetCurrentRoom().IsRoomCleared();
         if (inCombat) {
             casualMusicTimer = 0;
             return;

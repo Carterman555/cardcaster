@@ -7,17 +7,17 @@ public class RoomPositionHelper {
     private float obstacleAvoidDistance = 0f;
     private bool mustBeOnGroundTile = true;
 
-    public Vector2 GetRandomRoomPos() {
+    public Vector2 GetRandomRoomPos(float obstacleAvoidanceRadius = 1f) {
         Vector2 randomPoint = new RoomPositionHelper()
-            .SetObstacleAvoidance(0.5f)
+            .SetObstacleAvoidance(obstacleAvoidanceRadius)
             .GetRandomPositionInCollider();
         return randomPoint;
     }
 
-    public Vector2 GetRandomRoomPos(Vector2 avoidCenter, float avoidRadius) {
+    public Vector2 GetRandomRoomPos(Vector2 avoidCenter, float avoidRadius, float obstacleAvoidanceRadius = 1f) {
         Vector2 randomPoint = new RoomPositionHelper()
             .SetAvoidArea(avoidCenter, avoidRadius)
-            .SetObstacleAvoidance(0.5f)
+            .SetObstacleAvoidance(obstacleAvoidanceRadius)
             .GetRandomPositionInCollider();
         return randomPoint;
     }

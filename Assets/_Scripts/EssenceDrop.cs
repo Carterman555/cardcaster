@@ -25,7 +25,7 @@ public class EssenceDrop : MonoBehaviour {
         float velocity = 0;
         float acceleration = 0.1f;
 
-        while (Vector2.Distance(player.position, transform.position) > 0.05f) {
+        while (Vector2.Distance(player.position, transform.position) > 0.5f) {
             velocity += acceleration * Time.deltaTime;
             transform.position = Vector2.MoveTowards(transform.position, player.position, velocity);
             yield return null;

@@ -12,13 +12,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1dcc6f87abbf43c49bce1556774f1271, type: 3}
   m_Name: AudioClips
   m_EditorClassIdentifier: 
-  defaultMusic:
-    Clips:
-    - {fileID: 8300000, guid: 6404002b61cf70f4e9acc2e98f154096, type: 3}
-    Volume: 0.5
-  bossMusic:
-    Clips: []
-    Volume: 0
+  music:
+  - MusicType: 0
+    AudioClips:
+      Clips:
+      - {fileID: 8300000, guid: 8e100f97eb80a544a8bf0bfb226bd3f6, type: 3}
+      - {fileID: 8300000, guid: 58a6faa979fb21d4eb87960c8f437936, type: 3}
+      - {fileID: 8300000, guid: 13bd98e33687c46458dcce547bc77400, type: 3}
+      - {fileID: 8300000, guid: 8501cd1b3e0d08c48a93e33159e1ec53, type: 3}
+      Volume: 0.5
+  - MusicType: 1
+    AudioClips:
+      Clips:
+      - {fileID: 8300000, guid: 92dfd03c4c6c13e448e61a6b78899175, type: 3}
+      - {fileID: 8300000, guid: fa7ae93127d317146bc02db816d2fc6a, type: 3}
+      - {fileID: 8300000, guid: 43fbb5753d3db6743bc61a7c1a27b7c8, type: 3}
+      - {fileID: 8300000, guid: f7482e4e2087a684aa81fce1767c2752, type: 3}
+      - {fileID: 8300000, guid: 2047ad58093082c488174262385ff371, type: 3}
+      - {fileID: 8300000, guid: a5567fa167f5eba4694d1e1dbd960428, type: 3}
+      Volume: 0.5
+  - MusicType: 2
+    AudioClips:
+      Clips:
+      - {fileID: 8300000, guid: b76041ef4dd54054dba14c56e7270377, type: 3}
+      - {fileID: 8300000, guid: aa7b7b6c6924aff4fbc12a9defef75f6, type: 3}
+      Volume: 0.5
   playerStep:
     Clips:
     - {fileID: 8300000, guid: cdf3c10dd73de7142886c59dbd7ae7b4, type: 3}
@@ -41,7 +59,7 @@ MonoBehaviour:
     Volume: 0.472
   collectEssence:
     Clips:
-    - {fileID: 8300000, guid: db50167e15a947449a16b292e4ecaeed, type: 3}
+    - {fileID: 8300000, guid: cfd8ee1d950c2e248a1127c74ca96b0b, type: 3}
     Volume: 0.537
   basicEnemyShoot:
     Clips:

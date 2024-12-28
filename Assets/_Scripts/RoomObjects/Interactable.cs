@@ -8,6 +8,8 @@ using UnityEngine.InputSystem;
 
 public class Interactable : MonoBehaviour {
 
+    public event Action<bool> OnChangeCanInteract;
+
     public event Action OnInteract;
 
     [SerializeField] private InputActionReference interactAction;
@@ -64,6 +66,8 @@ public class Interactable : MonoBehaviour {
         interactableText.transform.DOKill();
         interactableText.transform.localScale = Vector3.zero;
         interactableText.transform.DOScale(1, duration: 0.3f);
+
+        OnChangeCanInteract?.Invoke(true);
     }
 
     public void SetCantInteract() {
@@ -75,6 +79,8 @@ public class Interactable : MonoBehaviour {
         // shrink text
         interactableText.transform.DOKill();
         interactableText.transform.ShrinkThenDestroy();
+
+        OnChangeCanInteract?.Invoke(false);
     }
 
     private void OnDisable() {

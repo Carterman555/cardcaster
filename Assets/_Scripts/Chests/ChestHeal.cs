@@ -19,9 +19,11 @@ public class ChestHeal : MonoBehaviour, IChestItem {
     }
 
     private void OnEnable() {
+        interactable.OnChangeCanInteract += SetShowHealInfo;
         interactable.OnInteract += OnInteract;
     }
     private void OnDisable() {
+        interactable.OnChangeCanInteract -= SetShowHealInfo;
         interactable.OnInteract -= OnInteract;
     }
 
@@ -36,6 +38,15 @@ public class ChestHeal : MonoBehaviour, IChestItem {
         transform.DOScale(Vector2.one, duration: 0.3f).SetEase(Ease.OutSine).OnComplete(() => {
             interactable.enabled = true;
         });
+    }
+
+    private void SetShowHealInfo(bool show) {
+        if (show) {
+            ChestItemInfoUI.Instance.SetHealInfo();
+        }
+        else {
+            ChestItemInfoUI.Instance.RemoveInfo();
+        }
     }
 
     private void OnInteract() {

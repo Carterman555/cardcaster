@@ -55,11 +55,12 @@ public class CardDrop : MonoBehaviour {
 
 
     private void SetShowCardInfo(bool show) {
-
         if (show) {
-            ChestItemInfoUI.Instance.SetupCard(scriptableCard);
+            ChestItemInfoUI.Instance.SetCardInfo(scriptableCard);
         }
-
+        else {
+            ChestItemInfoUI.Instance.RemoveInfo();
+        }
     }
 
     protected virtual void OnInteract() {

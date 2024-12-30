@@ -14,6 +14,7 @@ public class SlashingWeapon : MonoBehaviour {
     [SerializeField] private float swingAcceleration;
     [SerializeField] private float afterSwingRotation;
 
+    [SerializeField] private GameObject unit;
     private IChangesFacing changesFacing;
 
     public bool InUpPos() {
@@ -82,6 +83,15 @@ public class SlashingWeapon : MonoBehaviour {
     }
 
     private void FixedUpdate() {
+
+        if (GameStateManager.Instance.GetCurrentState() != GameState.Game) {
+            return;
+        }
+
+        // don't move sword if attack is disabled
+        if (unit.TryGetComponent(out DisableAttack disableAttack)) {
+            return;
+        }
 
         // if the sword is not swinging, smoothly rotate it towards target rotation
         if (!swinging) {

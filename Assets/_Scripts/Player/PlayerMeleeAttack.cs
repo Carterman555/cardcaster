@@ -41,7 +41,8 @@ public class PlayerMeleeAttack : StaticInstance<PlayerMeleeAttack>, ITargetAttac
         attackTimer += Time.deltaTime;
         if (!Helpers.IsMouseOverUI() &&
             attackInput.action.triggered &&
-            attackTimer > stats.AttackCooldown) {
+            attackTimer > stats.AttackCooldown &&
+            !AttackDisabled()) {
 
             Attack();
             attackTimer = 0f;
@@ -59,6 +60,7 @@ public class PlayerMeleeAttack : StaticInstance<PlayerMeleeAttack>, ITargetAttac
     }
 
     private void Attack() {
+
         Vector2 toMouseDirection = MouseTracker.Instance.ToMouseDirection(transform.position);
 
         weapon.Swing();
@@ -98,14 +100,40 @@ public class PlayerMeleeAttack : StaticInstance<PlayerMeleeAttack>, ITargetAttac
     }
 
 
+    #region Disable Attack
+
+    private bool AttackDisabled() {
+        return TryGetComponent(out DisableAttack disableAttack);
+    }
+
+    // add DisableAttack component instead of just having a bool, so that when the attack is stopped in different ways
+    // at the same time, they don't interfere with eachother
+    public void DisableAttack() {
+        gameObject.AddComponent<DisableAttack>();
+    }
+
+    public void AllowAttack() {
+        if (TryGetComponent(out DisableAttack disableAttack)) {
+            Destroy(disableAttack);
+        }
+        else {
+            Debug.LogWarning("Tried allowing attack when already allowed!");
+        }
+    }
+
+    #endregion
+
     #region Effects and Feedbacks
 
     [Header("Effects and Feedbacks")]
+    [SerializeField] private MMF_Player attackFeedbacks;
     [SerializeField] private MMF_Player hitFeedbacks;
     [SerializeField] private ParticleSystem attackParticlesPrefab;
     [SerializeField] private Transform slashPrefab;
 
     private void PlayAttackFeedbacks(Collider2D[] targetCols) {
+
+        attackFeedbacks.PlayFeedbacks();
 
         // play feedbacks if hit something
         if (targetCols.Length > 0) {

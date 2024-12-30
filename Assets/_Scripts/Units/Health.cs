@@ -1,3 +1,4 @@
+using QFSW.QC;
 using System;
 using UnityEngine;
 using UnityEngine.Events;
@@ -66,6 +67,7 @@ public class Health : MonoBehaviour, IDamagable {
     }
 
     [ContextMenu("Die")]
+    [Command]
     public void Die() {
         dead = true;
 

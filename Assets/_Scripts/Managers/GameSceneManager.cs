@@ -1,3 +1,4 @@
+using Mono.CSharp;
 using QFSW.QC;
 using System;
 using System.Collections;
@@ -42,9 +43,22 @@ public class GameSceneManager : Singleton<GameSceneManager> {
         StartCoroutine(LoadGameScene());
     }
 
+    public void LoadMenu() {
+        StartCoroutine(LoadMenuScene());
+    }
+
     private IEnumerator LoadGameScene() {
         yield return StartCoroutine(SceneTransitionManager.Instance.PlayStartTransition());
         SceneManager.LoadScene("Game");
+
+        SceneTransitionManager.Instance.PlayEndTransition();
+    }
+
+    private IEnumerator LoadMenuScene() {
+        yield return StartCoroutine(SceneTransitionManager.Instance.PlayStartTransition());
+        SceneManager.LoadScene("Menu");
+
+        SceneTransitionManager.Instance.PlayEndTransition();
     }
 
     public int GetLevel() {

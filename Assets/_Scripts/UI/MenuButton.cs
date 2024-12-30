@@ -5,15 +5,20 @@ using UnityEngine.SceneManagement;
 
 public class MenuButton : GameButton {
 
-    [SerializeField] private CanvasGroup canvasGroupToDisable;
+    [SerializeField] private bool giveWarning;
+    [ConditionalHide("giveWarning")][SerializeField] private CanvasGroup canvasGroupToDisable;
 
     protected override void OnClick() {
         base.OnClick();
+        if (giveWarning) {
+            string warningText = "This will reset your progress. Are you sure you want to exit?";
+            WarningPopup.Instance.Setup(warningText, canvasGroupToDisable);
 
-        string warningText = "This will reset your progress. Are you sure you want to exit?";
-        WarningPopup.Instance.Setup(warningText, canvasGroupToDisable);
-
-        WarningPopup.Instance.OnAccepted += SwitchToMenuScene;
+            WarningPopup.Instance.OnAccepted += SwitchToMenuScene;
+        }
+        else {
+            SwitchToMenuScene();
+        }
     }
 
     private void SwitchToMenuScene() {
@@ -21,6 +26,6 @@ public class MenuButton : GameButton {
 
         Time.timeScale = 1f;
 
-        SceneManager.LoadScene("Menu");
+        GameSceneManager.Instance.LoadMenu();
     }
 }

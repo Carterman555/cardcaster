@@ -19,7 +19,7 @@ MonoBehaviour:
     MaxHealth: 12
     KnockbackResistance: 0.75
     MoveSpeed: 3
-    Damage: 1
+    Damage: 3
     AttackSpeed: 0.5
     KnockbackStrength: 1
     WalkSpeed: 0.5

@@ -1,4 +1,5 @@
 using MoreMountains.Feedbacks;
+using QFSW.QC;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -38,7 +39,6 @@ public class FeedbackPlayer : MonoBehaviour {
         return MMFPlayer;
     }
 
-    [ContextMenu("Play")]
     public void Play() {
         MMFPlayer.PlayFeedbacks();
     }

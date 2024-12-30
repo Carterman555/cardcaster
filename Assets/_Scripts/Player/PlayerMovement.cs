@@ -117,12 +117,16 @@ public class PlayerMovement : StaticInstance<PlayerMovement>, IHasStats, IChange
         isDashing = true;
         rb.velocity = moveDirection.normalized * stats.DashSpeed;
 
+        Invincibility dashInvincibility = gameObject.AddComponent<Invincibility>();
+
         AudioManager.Instance.PlaySound(AudioManager.Instance.AudioClips.Dash);
 
         OnDash?.Invoke();
 
         yield return new WaitForSeconds(stats.DashTime);
+
         isDashing = false;
+        Destroy(dashInvincibility);
     }
 
     #endregion

@@ -19,7 +19,7 @@ public class ScriptableSwordSwingCard : ScriptableAbilityCardBase {
     protected override void Play(Vector2 position) {
         base.Play(position);
 
-        PlayerMeleeAttack.Instance.enabled = false;
+        PlayerMeleeAttack.Instance.DisableAttack();
 
         // make sword autorotate
         ReferenceSystem.Instance.PlayerWeaponParent.GetComponent<SlashingWeapon>().enabled = false;
@@ -50,7 +50,7 @@ public class ScriptableSwordSwingCard : ScriptableAbilityCardBase {
     public override void Stop() {
         base.Stop();
 
-        PlayerMeleeAttack.Instance.enabled = true;
+        PlayerMeleeAttack.Instance.AllowAttack();
 
         // stop autorotate
         ReferenceSystem.Instance.PlayerWeaponParent.GetComponent<SlashingWeapon>().enabled = true;

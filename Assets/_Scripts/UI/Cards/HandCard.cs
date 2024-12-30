@@ -134,6 +134,10 @@ public class HandCard : MonoBehaviour, IPointerDownHandler {
     }
 
     public void OnUsedCard() {
+        if (GameStateManager.Instance.GetCurrentState() != GameState.Game) {
+            return;
+        }
+
         OnAnyCardUsed_ButtonAndCard?.Invoke(this, card);
         OnAnyCardUsed_Card?.Invoke(card);
         playingCard = false;
@@ -141,6 +145,10 @@ public class HandCard : MonoBehaviour, IPointerDownHandler {
     }
 
     private void Update() {
+
+        if (GameStateManager.Instance.GetCurrentState() != GameState.Game) {
+            return;
+        }
 
         bool hotKeyDown = Input.GetKeyDown(KeyCode.Alpha1) && cardIndex == 0 ||
                 Input.GetKeyDown(KeyCode.Alpha2) && cardIndex == 1 ||
@@ -194,6 +202,10 @@ public class HandCard : MonoBehaviour, IPointerDownHandler {
     }
 
     public void OnPointerDown(PointerEventData eventData) {
+
+        if (GameStateManager.Instance.GetCurrentState() != GameState.Game) {
+            return;
+        }
 
         if (playingAnyCard) {
             return;

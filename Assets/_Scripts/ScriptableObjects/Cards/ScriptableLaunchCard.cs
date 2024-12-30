@@ -77,8 +77,8 @@ public class ScriptableLaunchCard : ScriptableAbilityCardBase {
 
         Transform playerTransform = PlayerMovement.Instance.transform;
 
-        PlayerMovement.Instance.enabled = false;
-        PlayerMeleeAttack.Instance.enabled = false;
+        PlayerMovement.Instance.StopMovement();
+        PlayerMeleeAttack.Instance.DisableAttack();
 
         // launch player
         Rigidbody2D playerRb = playerTransform.GetComponent<Rigidbody2D>();
@@ -135,8 +135,8 @@ public class ScriptableLaunchCard : ScriptableAbilityCardBase {
 
         wallTrigger.OnEnterContact_GO -= TryStopLaunch;
 
-        PlayerMovement.Instance.enabled = true;
-        PlayerMeleeAttack.Instance.enabled = true;
+        PlayerMovement.Instance.AllowMovement();
+        PlayerMeleeAttack.Instance.AllowAttack();
 
         //... make player not move through objects and enemies
         Physics2D.IgnoreLayerCollision(GameLayers.PlayerLayer, GameLayers.RoomObjectLayer, false);

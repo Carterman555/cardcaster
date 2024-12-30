@@ -7,7 +7,6 @@ using UnityEngine.InputSystem;
 
 public class PlayerMovement : StaticInstance<PlayerMovement>, IHasStats, IChangesFacing {
 
-
     [SerializeField] private InputActionReference moveInput;
 
     private Rigidbody2D rb;
@@ -26,35 +25,29 @@ public class PlayerMovement : StaticInstance<PlayerMovement>, IHasStats, IChange
         base.Awake();
         rb = GetComponent<Rigidbody2D>();
         knockback = GetComponent<Knockback>();
-        attackMeleeAttack = GetComponent<PlayerMeleeAttack>();
 
         facingRight = true;
-        stoppedFromAttack = false;
     }
 
-    private void OnEnable() {
-        attackMeleeAttack.OnAttack += StopFromAttack;
-    }
     private void OnDisable() {
-        attackMeleeAttack.OnAttack -= StopFromAttack;
         rb.velocity = Vector2.zero;
     }
 
     private void Update() {
 
         if (GameStateManager.Instance.GetCurrentState() != GameState.Game) {
+            anim.SetBool("move", false);
             return;
         }
 
-        HandleStoppedFromAttack();
+        if (IsStopped()) {
+            anim.SetBool("move", false);
+            return;
+        }
 
         bool moving = rb.velocity.magnitude > 0;
 
         anim.SetBool("move", moving);
-
-        if (stoppedFromAttack) {
-            return;
-        }
 
         moveDirection = moveInput.action.ReadValue<Vector2>();
         
@@ -95,7 +88,7 @@ public class PlayerMovement : StaticInstance<PlayerMovement>, IHasStats, IChange
             return;
         }
 
-        if (stoppedFromAttack) {
+        if (IsStopped()) {
             rb.velocity = Vector2.zero;
             return;
         }
@@ -109,15 +102,20 @@ public class PlayerMovement : StaticInstance<PlayerMovement>, IHasStats, IChange
 
     public UnityEvent OnDash;
 
+    [Header("Dash")]
     [SerializeField] private InputActionReference dashAction;
+
+    private FadeEffect dashFade;
 
     private bool isDashing;
 
     private IEnumerator Dash() {
+
         isDashing = true;
         rb.velocity = moveDirection.normalized * stats.DashSpeed;
-
         Invincibility dashInvincibility = gameObject.AddComponent<Invincibility>();
+
+        dashFade = PlayerVisual.Instance.AddFadeEffect(0, 0.5f, 0.1f);
 
         AudioManager.Instance.PlaySound(AudioManager.Instance.AudioClips.Dash);
 
@@ -126,7 +124,10 @@ public class PlayerMovement : StaticInstance<PlayerMovement>, IHasStats, IChange
         yield return new WaitForSeconds(stats.DashTime);
 
         isDashing = false;
+
         Destroy(dashInvincibility);
+
+        PlayerVisual.Instance.RemoveFadeEffect(dashFade, 0.1f);
     }
 
     #endregion
@@ -157,23 +158,24 @@ public class PlayerMovement : StaticInstance<PlayerMovement>, IHasStats, IChange
 
     #endregion
 
-    #region Stop When Attacking
-
-    [SerializeField] private float attackStopDuration = 0.3f;
-    private float attackStopTimer;
-    private bool stoppedFromAttack;
-
-    private PlayerMeleeAttack attackMeleeAttack;
-
-    private void StopFromAttack() {
-        stoppedFromAttack = true;
-        attackStopTimer = 0;
+    #region Stop Movement
+    
+    private bool IsStopped() {
+        return TryGetComponent(out StopMovement stopMovement);
     }
 
-    private void HandleStoppedFromAttack() {
-        attackStopTimer += Time.deltaTime;
-        if (attackStopTimer > attackStopDuration) {
-            stoppedFromAttack = false;
+    // add stopmovement component instead of just having a bool, so that when the movement is stopped in different ways
+    // at the same time, they don't interfere with eachother
+    public void StopMovement() {
+        gameObject.AddComponent<StopMovement>();
+    }
+
+    public void AllowMovement() {
+        if (TryGetComponent(out StopMovement stopMovement)) {
+            Destroy(stopMovement);
+        }
+        else {
+            Debug.LogWarning("Tried allowing movement when already allowed!");
         }
     }
 

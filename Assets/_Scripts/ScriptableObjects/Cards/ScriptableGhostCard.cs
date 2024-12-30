@@ -12,9 +12,8 @@ public class ScriptableGhostCard : ScriptableStatsModifierCard {
 
     protected override void Play(Vector2 position) {
         base.Play(position);
-        
-        //... disable attack
-        PlayerMovement.Instance.GetComponent<PlayerMeleeAttack>().enabled = false;
+
+        PlayerMeleeAttack.Instance.DisableAttack();
 
         // ghost visuals
         float fadeAmount = 0.5f;
@@ -33,8 +32,7 @@ public class ScriptableGhostCard : ScriptableStatsModifierCard {
     public override void Stop() {
         base.Stop();
 
-        //... enable attack
-        PlayerMovement.Instance.GetComponent<PlayerMeleeAttack>().enabled = true;
+        PlayerMeleeAttack.Instance.AllowAttack();
 
         // revert ghost visuals
         float duration = 0.5f;

@@ -33,7 +33,7 @@ public class NextLevelHole : MonoBehaviour {
         spriteMask.enabled = true;
 
         //... disable movement
-        PlayerMovement.Instance.enabled = false;
+        PlayerMovement.Instance.StopMovement();
 
         // fall movement
         float fallDistance = 3.5f;

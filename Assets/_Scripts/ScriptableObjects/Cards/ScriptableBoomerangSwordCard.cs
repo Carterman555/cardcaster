@@ -20,7 +20,7 @@ public class ScriptableBoomerangSwordCard : ScriptableAbilityCardBase {
 
         base.Play(position);
 
-        PlayerMeleeAttack.Instance.enabled = false;
+        PlayerMeleeAttack.Instance.DisableAttack();
 
         //... make sword deal damage through touch
         SetupSwordTouchDamage();
@@ -73,7 +73,7 @@ public class ScriptableBoomerangSwordCard : ScriptableAbilityCardBase {
         boomerangMovement.OnReturn -= OnSwordReturn;
 
         // can attack normally again
-        PlayerMeleeAttack.Instance.enabled = true;
+        PlayerMeleeAttack.Instance.AllowAttack();
 
         Transform sword = ReferenceSystem.Instance.PlayerSword;
         Transform swordParent = ReferenceSystem.Instance.PlayerWeaponParent;

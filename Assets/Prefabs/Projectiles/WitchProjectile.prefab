@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 3342111309685746105}
   - component: {fileID: -331361753199417317}
   - component: {fileID: -3435810240837499298}
+  - component: {fileID: 5395876286696073750}
   m_Layer: 11
   m_Name: WitchProjectile
   m_TagString: Untagged
@@ -181,6 +182,18 @@ MonoBehaviour:
   hasDestroyParticles: 1
   destroyParticles: {fileID: 1709629989399924173, guid: 22a723bf7c529e44d9f1f2994fffe609, type: 3}
   destroyParticlesColor: {r: 0.8117647, g: 0.34117648, b: 0.23137255, a: 1}
+--- !u!114 &5395876286696073750
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6339056861437020777}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c90e38ee87878a448b05b9322c1ce06, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6837597791261253277
 GameObject:
   m_ObjectHideFlags: 0

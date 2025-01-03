@@ -14,8 +14,6 @@ public class SwordSlashBehavior : MonoBehaviour, IAttacker {
 
     private void Awake() {
         hasStats = GetComponent<IHasStats>();
-
-        weapon.SetTarget(FindObjectOfType<PlayerMeleeAttack>().transform);
     }
 
     private void OnEnable() {

@@ -9,7 +9,9 @@ public class SlashingWeapon : MonoBehaviour {
 
     private float targetRotation;
 
+    // can use target or direction for attacking, but not both at same time
     private Transform target;
+    private Vector2 attackDirection;
 
     [SerializeField] private float swingAcceleration;
     [SerializeField] private float afterSwingRotation;
@@ -40,6 +42,12 @@ public class SlashingWeapon : MonoBehaviour {
 
     public void SetTarget(Transform target) {
         this.target = target;
+        attackDirection = Vector2.zero;
+    }
+
+    public void SetAttackDirection(Vector2 direction) {
+        attackDirection = direction.normalized;
+        target = null;
     }
 
     private void Update() {
@@ -50,7 +58,17 @@ public class SlashingWeapon : MonoBehaviour {
     /// calculates the target angle of the sword based on the target position and if the sword is in the up or down position
     /// </summary>
     private void CalculateTargetAngle() {
-        Vector2 toTargetDirection = target.position - transform.position;
+
+        //... either uses target or direction to attack
+        bool useTarget = target != null;
+
+        Vector2 toTargetDirection;
+        if (useTarget) {
+            toTargetDirection = target.position - transform.position;
+        }
+        else {
+            toTargetDirection = attackDirection;
+        }
 
         float targetAngle = toTargetDirection.DirectionToRotation().eulerAngles.z;
 

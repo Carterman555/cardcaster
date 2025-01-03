@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,9 +7,28 @@ using UnityEngine.InputSystem;
 
 public class InputManager : StaticInstance<InputManager> {
 
+    [SerializeField] private PlayerInput playerInput;
+
+    #region InputScheme
+
+    public static event Action<ControlSchemeType> OnInputSchemeChanged;
+
+    public ControlSchemeType GetInputScheme() {
+
+        switch (playerInput.currentControlScheme) {
+            case "Keyboard":
+                return ControlSchemeType.Keyboard;
+            case "Controller":
+                return ControlSchemeType.Controller;
+        }
+
+        Debug.LogError("Could not find control scheme by string: " + playerInput.currentControlScheme);
+        return default;
+    }
+
+    #endregion
 
     #region Update Action Map
-    [SerializeField] private PlayerInput playerInput;
 
     private ActionMapUpdaterPanel[] actionMapUpdaters;
 
@@ -35,4 +55,9 @@ public class InputManager : StaticInstance<InputManager> {
         }
     }
     #endregion
+}
+
+public enum ControlSchemeType {
+    Keyboard = 0,
+    Controller = 1,
 }

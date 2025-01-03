@@ -12,8 +12,6 @@ public class MouseTracker : StaticInstance<MouseTracker> {
         UpdateHoveredObjects();
     }
 
-    
-
     public Vector2 ToMouseDirection(Vector2 origin) {
         Vector2 toMouseDirection = ((Vector2)transform.position - origin).normalized;
         return toMouseDirection;

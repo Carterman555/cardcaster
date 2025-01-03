@@ -1,4 +1,5 @@
 using MoreMountains.Feedbacks;
+using MoreMountains.Tools;
 using System;
 using System.Linq;
 using UnityEngine;
@@ -14,6 +15,7 @@ public class PlayerMeleeAttack : StaticInstance<PlayerMeleeAttack>, ITargetAttac
     [SerializeField] private LayerMask targetLayerMask;
 
     [SerializeField] private SlashingWeapon weapon;
+    [SerializeField] private SpriteRenderer hand;
 
     private float attackTimer;
 
@@ -26,13 +28,9 @@ public class PlayerMeleeAttack : StaticInstance<PlayerMeleeAttack>, ITargetAttac
         return stats.SwordSize * radiusMult + radiusAdd;
     }
 
-    [SerializeField] private SpriteRenderer hand;
-
-    private void Start() {
-        weapon.SetTarget(MouseTracker.Instance.transform);
-    }
-
     private void Update() {
+
+        HandleAttackDirection();
 
         if (GameStateManager.Instance.GetCurrentState() != GameState.Game) {
             return;
@@ -61,16 +59,14 @@ public class PlayerMeleeAttack : StaticInstance<PlayerMeleeAttack>, ITargetAttac
 
     private void Attack() {
 
-        Vector2 toMouseDirection = MouseTracker.Instance.ToMouseDirection(transform.position);
-
         weapon.Swing();
 
         // deal damage
-        Vector2 attackCenter = (Vector2)gameObject.transform.position + (toMouseDirection.normalized * GetAttackRadius());
+        Vector2 attackCenter = (Vector2)gameObject.transform.position + (GetAttackDirection() * GetAttackRadius());
         Collider2D[] targetCols = DamageDealer.DealCircleDamage(targetLayerMask, attackCenter, GetAttackRadius(), stats.Damage, stats.KnockbackStrength);
 
         PlayAttackFeedbacks(targetCols);
-        CreateSlashEffect(toMouseDirection);
+        CreateSlashEffect(GetAttackDirection());
 
         AudioManager.Instance.PlaySound(AudioManager.Instance.AudioClips.Swing);
 
@@ -146,23 +142,48 @@ public class PlayerMeleeAttack : StaticInstance<PlayerMeleeAttack>, ITargetAttac
         }
     }
 
-    private void CreateSlashEffect(Vector2 toMouseDirection) {
-        slashPrefab.Spawn(transform.position, toMouseDirection.DirectionToRotation(), Containers.Instance.Effects);
-
+    private void CreateSlashEffect(Vector2 attackDirection) {
+        slashPrefab.Spawn(transform.position, attackDirection.DirectionToRotation(), Containers.Instance.Effects);
     }
 
     #endregion
 
+    #region Attack Direction
+
+    [SerializeField] private InputActionReference aimSwordAction;
+
+    private Vector2 lastAimDirection; // that is not Vector2.zero
+
+    private void HandleAttackDirection() {
+        Vector2 aimDirection = aimSwordAction.action.ReadValue<Vector2>().normalized;
+        if (aimDirection != Vector2.zero) {
+            lastAimDirection = aimDirection;
+        }
+
+        weapon.SetAttackDirection(GetAttackDirection());
+    }
+
+    // aim the sword towards the mouse or with right joystick
+    public Vector2 GetAttackDirection() {
+        if (InputManager.Instance.GetInputScheme() == ControlSchemeType.Keyboard) {
+            return MouseTracker.Instance.ToMouseDirection(transform.position).normalized;
+        }
+        else if (InputManager.Instance.GetInputScheme() == ControlSchemeType.Controller) {
+            return lastAimDirection;
+        }
+
+        Debug.LogError($"ControlSchemeType not found: {InputManager.Instance.GetInputScheme()}!");
+        return Vector2.zero;
+    }
+
+    #endregion
 
     void OnDrawGizmos() {
         if (Application.isPlaying) {
             Gizmos.color = Color.red; // Choose a color for the circle
 
-            Vector2 toMouseDirection = MouseTracker.Instance.ToMouseDirection(transform.position);
-            Vector2 attackCenter = (Vector2)transform.position + (toMouseDirection * GetAttackRadius());
+            Vector2 attackCenter = (Vector2)transform.position + (GetAttackDirection() * GetAttackRadius());
             Gizmos.DrawWireSphere(attackCenter, GetAttackRadius());
         }
     }
-
-
 }

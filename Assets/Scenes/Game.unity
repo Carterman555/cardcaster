@@ -14759,6 +14759,7 @@ MonoBehaviour:
   hitFeedbacks: {fileID: 2088396820}
   attackParticlesPrefab: {fileID: 1709629989399924173, guid: 5ef67e035ca442147a4f694cd1554c59, type: 3}
   slashPrefab: {fileID: 6955697948194271802, guid: 03c80cdf0baa14c4da859810941a4405, type: 3}
+  aimSwordAction: {fileID: 3599336493557233551, guid: 50afa068aa51bd149a1f3d07794c53d5, type: 3}
 --- !u!114 &1214084861
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20885,6 +20886,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mouseInfluence: 3
+  joystickInfluence: 3
+  aimAction: {fileID: 3599336493557233551, guid: 50afa068aa51bd149a1f3d07794c53d5, type: 3}
 --- !u!114 &1606153970
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -22050,7 +22053,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: -58.8}
+  m_AnchoredPosition: {x: 0, y: -58.80005}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1743331900
@@ -26391,7 +26394,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_ActionEvents: []
-  m_NeverAutoSwitchControlSchemes: 1
+  m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Gameplay
   m_SplitScreenIndex: -1

@@ -55,7 +55,7 @@ public class PlayerMovement : StaticInstance<PlayerMovement>, IHasStats, IChange
             StartCoroutine(Dash());
         }
 
-        FaceTowardsMouse();
+        FaceAttackDirection();
 
         HandleStepSounds(moving);
     }
@@ -132,24 +132,24 @@ public class PlayerMovement : StaticInstance<PlayerMovement>, IHasStats, IChange
 
     #endregion
 
-    #region Face Towards Mouse
+    #region Face Towards Attack Direction
 
     public event Action<bool> OnChangedFacing; // bool: facing right
 
     private bool facingRight;
 
-    private void FaceTowardsMouse() {
+    private void FaceAttackDirection() {
 
-        float mouseXPos = Camera.main.ScreenToWorldPoint(Input.mousePosition).x;
+        float attackXPos = PlayerMeleeAttack.Instance.GetAttackDirection().x;
 
-        bool mouseToRight = mouseXPos > transform.position.x;
+        bool shouldFaceRight = attackXPos > 0;
 
-        if (!facingRight && mouseToRight) {
+        if (!facingRight && shouldFaceRight) {
             transform.rotation = Quaternion.Euler(new Vector3(transform.rotation.eulerAngles.x, 0f, transform.rotation.eulerAngles.z));
             facingRight = true;
             OnChangedFacing?.Invoke(facingRight);
         }
-        else if (facingRight && !mouseToRight) {
+        else if (facingRight && !shouldFaceRight) {
             transform.rotation = Quaternion.Euler(new Vector3(transform.rotation.eulerAngles.x, 180f, transform.rotation.eulerAngles.z));
             facingRight = false;
             OnChangedFacing?.Invoke(facingRight);

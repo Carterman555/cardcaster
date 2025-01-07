@@ -29,20 +29,33 @@ public class Tutorial : MonoBehaviour {
     [SerializeField] private InputActionReference nextStepInput;
 
     private string welcomeText = "Hello, I am The Dealer. I normally trade cards, but for now will guide you.";
+
     private string combatText = "In the Card Dungeon, you need to fight off enemies. I'll spawn one in for you," +
-        " so you can learn. Left click to swing your sword and kill him!";
-    private string card1Text = "Good. In the card dungeon, you will find magical cards. I will give a teleport card." +
+        " so you can learn. Press {ACTION} to swing your sword and kill him!";
+
+    private string card1TextKeyboard = "Good. In the card dungeon, you will find magical cards. I will give a teleport card." +
         " Drag it on the other side of this wall to the right to teleport there.";
-    private string card2Text = "You can also hold the hotkey (1), and release where you want to teleport. These are" +
+    private string card1TextController = "Good. In the card dungeon, you will find magical cards. I will give a teleport card." +
+        " Press {ACTION}, and use the right joystick to move the card to where you want to teleport.";
+
+    private string card2TextKeyboard = "You can also hold the hotkey ({ACTION}), and release where you want to teleport. These are" +
         " simple instructions. If you fail, I will get angry.";
-    private string dashText = "Nice. You can also dash with right click, which can be a useful way to move around. Try it.";
+    private string card2TextController = "Once it's in the correct position, press {ACTION} to teleport. These are" +
+        " simple instructions. If you fail, I will get angry.";
+
+    private string dashText = "Nice. You can also dash with {ACTION}, which can be a useful way to move around. Try it.";
+
     private string modify1CardText = "Some cards have the magical power to modify other cards that perform abilities.";
+
     private string modify2CardText = "Play the fire card I give you then the swing sword ability, and watch what happens.";
+
     private string essenceText = "You might have noticed that cards cost essence. Enemies drop essence and I'll give you" +
         " some now to make sure you what they look like. Pick them all up.";
+
     private string holeText = "See this hole I created? You should fall into it.";
 
     [Header("Combat Step")]
+    [SerializeField] private InputActionReference attackAction;
     [SerializeField] private ScriptableEnemy practiceEnemy;
     [SerializeField] private Transform enemySpawnPoint;
 
@@ -50,6 +63,7 @@ public class Tutorial : MonoBehaviour {
     [SerializeField] private InputActionReference dashInput;
 
     [Header("Teleport Step")]
+    [SerializeField] private InputActionReference firstCardInput;
     [SerializeField] private ScriptableCardBase teleportCard;
     [SerializeField] private TriggerContactTracker roomTwoTrigger;
 
@@ -109,11 +123,11 @@ public class Tutorial : MonoBehaviour {
 
         tutorialSteps = new BaseTutorialStep[] {
             new DialogStep(nextStepInput, welcomeText),
-            new DialogStep(nextStepInput, combatText),
+            new DialogStep(nextStepInput, combatText, attackAction),
             new SpawnEnemyStep(practiceEnemy, enemySpawnPoint),
-            new EventDialogStep(PlayerMovement.Instance.OnDash, dashText),
-            new DialogStep(nextStepInput, card1Text),
-            new DialogStep(nextStepInput, card2Text),
+            new EventDialogStep(PlayerMovement.Instance.OnDash, dashText, dashInput),
+            new DialogStep(nextStepInput, card1TextKeyboard, card1TextController, firstCardInput),
+            new DialogStep(nextStepInput, card1TextKeyboard, card1TextController, firstCardInput),
             new GiveTeleportCardStep(teleportCard, roomTwoTrigger),
             new DialogStep(nextStepInput, modify1CardText),
             new DialogStep(nextStepInput, modify2CardText),
@@ -187,14 +201,48 @@ public class DialogStep : BaseTutorialStep {
 
     private InputActionReference nextStepInput;
     private string dialog;
+    private InputActionReference dialogAction;
 
-    public DialogStep(InputActionReference nextStepInput, string dialog) {
+    public DialogStep(InputActionReference nextStepInput, string dialog, InputActionReference dialogAction = null) {
         this.nextStepInput = nextStepInput;
         this.dialog = dialog;
+        this.dialogAction = dialogAction;
+
+        multipleDialogs = false;
+    }
+
+    private string keyboardDialog;
+    private string controllerDialog;
+    private bool multipleDialogs;
+
+    public DialogStep(InputActionReference nextStepInput, string keyboardDialog, string controllerDialog, InputActionReference dialogAction = null) {
+        this.nextStepInput = nextStepInput;
+        this.keyboardDialog = keyboardDialog;
+        this.controllerDialog = controllerDialog;
+        this.dialogAction = dialogAction;
+
+        multipleDialogs = true;
     }
 
     public override void OnEnterStep() {
         base.OnEnterStep();
+
+        if (multipleDialogs) {
+            if (InputManager.Instance.GetInputScheme() == ControlSchemeType.Keyboard) {
+                dialog = keyboardDialog;
+            }
+            else if (InputManager.Instance.GetInputScheme() == ControlSchemeType.Controller) {
+                dialog = controllerDialog;
+            }
+            else {
+                Debug.LogError("Could not find input scheme: " + InputManager.Instance.GetInputScheme());
+            }
+        }
+
+        if (dialogAction != null) {
+            string actionText = InputManager.Instance.GetBindingText(dialogAction);
+            dialog = dialog.Replace("{ACTION}", actionText);
+        }
 
         DialogBox.Instance.ShowText(dialog);
 
@@ -212,14 +260,21 @@ public class EventDialogStep : BaseTutorialStep {
 
     private UnityEvent nextStepEvent;
     private string dialog;
+    private InputActionReference dialogAction;
 
-    public EventDialogStep(UnityEvent nextStepEvent, string dialog) {
+    public EventDialogStep(UnityEvent nextStepEvent, string dialog, InputActionReference dialogAction = null) {
         this.nextStepEvent = nextStepEvent;
         this.dialog = dialog;
+        this.dialogAction = dialogAction;
     }
 
     public override void OnEnterStep() {
         base.OnEnterStep();
+
+        if (dialogAction != null) {
+            string actionText = InputManager.Instance.GetBindingText(dialogAction);
+            dialog = dialog.Replace("{ACTION}", actionText);
+        }
 
         DialogBox.Instance.ShowText(dialog, showEnterText: false);
 

@@ -55,6 +55,34 @@ public class InputManager : StaticInstance<InputManager> {
         }
     }
     #endregion
+
+    public string GetBindingText(InputAction action) {
+
+        string displayString;
+
+        if (GetInputScheme() == ControlSchemeType.Keyboard) {
+            displayString = action.bindings[0].ToDisplayString();
+        }
+        else if (GetInputScheme() == ControlSchemeType.Controller) {
+            displayString = action.bindings[1].ToDisplayString();
+        }
+        else {
+            Debug.LogError("Could not find input scheme: " + GetInputScheme());
+            return null;
+        }
+
+        Dictionary<string, string> actionReplaceDict = new() {
+            { "LMB", "left click" },
+            { "RMB", "right click" },
+        };
+
+        if (actionReplaceDict.ContainsKey(displayString)) {
+            return actionReplaceDict[displayString];
+        }
+        else {
+            return displayString;
+        }
+    }
 }
 
 public enum ControlSchemeType {

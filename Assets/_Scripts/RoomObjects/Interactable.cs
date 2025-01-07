@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -19,7 +20,7 @@ public class Interactable : MonoBehaviour {
     [SerializeField] private TextMeshPro interactableTextPrefab;
     private TextMeshPro interactableText;
     [SerializeField] private Vector2 textPosition;
-    [SerializeField] private string text = "E";
+    [SerializeField] private string text;
 
     [Header("Outline")]
     private Material originalMaterial;
@@ -60,7 +61,8 @@ public class Interactable : MonoBehaviour {
 
         interactableText = interactableTextPrefab.Spawn((Vector2)transform.position + textPosition, transform);
 
-        interactableText.text = text;
+        string interactInputText = InputManager.Instance.GetBindingText(interactAction.action);
+        interactableText.text = text + " (" + interactInputText + ")";
 
         // grow text
         interactableText.transform.DOKill();

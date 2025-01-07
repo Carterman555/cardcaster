@@ -21,29 +21,29 @@ public abstract class ScriptableAbilityCardBase : ScriptableCardBase {
         return (abilityAttributes & modifier.AbilityAttributes) != 0;
     }
 
-    private Coroutine draggingCardCoroutine;
+    private Coroutine positioningCardCoroutine;
 
-    public virtual void OnStartDraggingCard(Transform cardTransform) {
-        draggingCardCoroutine = AbilityManager.Instance.StartCoroutine(DraggingCard(cardTransform));
+    public virtual void OnStartPositioningCard(Transform cardTransform) {
+        positioningCardCoroutine = AbilityManager.Instance.StartCoroutine(PositioningCard(cardTransform));
     }
 
-    private IEnumerator DraggingCard(Transform cardTransform) {
+    private IEnumerator PositioningCard(Transform cardTransform) {
         while (true) {
             yield return null;
-            DraggingUpdate(Camera.main.ScreenToWorldPoint(cardTransform.position));
+            PositioningUpdate(Camera.main.ScreenToWorldPoint(cardTransform.position));
         }
     }
 
-    protected virtual void DraggingUpdate(Vector2 cardposition) { }
+    protected virtual void PositioningUpdate(Vector2 cardposition) { }
 
-    public virtual void OnStopDraggingCard() {
+    public virtual void OnStopPositioningCard() {
 
     }
 
     public override void TryPlay(Vector2 position) {
         base.TryPlay(position);
 
-        OnStopDraggingCard();
+        OnStopPositioningCard();
 
         // if multiple can't play at the same time, cancel the current one playing
         if (CanStackWithSelf || !AbilityManager.Instance.IsAbilityActive(this, out ScriptableAbilityCardBase alreadyActiveAbility)) {
@@ -57,8 +57,8 @@ public abstract class ScriptableAbilityCardBase : ScriptableCardBase {
     protected override void Play(Vector2 position) {
         base.Play(position);
 
-        if (draggingCardCoroutine != null) {
-            AbilityManager.Instance.StopCoroutine(draggingCardCoroutine);
+        if (positioningCardCoroutine != null) {
+            AbilityManager.Instance.StopCoroutine(positioningCardCoroutine);
         }
 
         if (IsModifiable) {
@@ -94,8 +94,8 @@ public abstract class ScriptableAbilityCardBase : ScriptableCardBase {
     // of just extending the duration
     public void ResetDuration() {
 
-        if (draggingCardCoroutine != null) {
-            AbilityManager.Instance.StopCoroutine(draggingCardCoroutine);
+        if (positioningCardCoroutine != null) {
+            AbilityManager.Instance.StopCoroutine(positioningCardCoroutine);
         }
 
         if (IsModifiable) {

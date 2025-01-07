@@ -2,11 +2,10 @@ using DG.Tweening;
 using MoreMountains.Feedbacks;
 using MoreMountains.Tools;
 using System;
-using System.Runtime.CompilerServices;
 using TMPro;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 public class HandCard : MonoBehaviour, IPointerDownHandler {
@@ -20,6 +19,12 @@ public class HandCard : MonoBehaviour, IPointerDownHandler {
     public static event Action<ScriptableCardBase> OnCantAfford_Card;
 
     [SerializeField] private Vector2 cardStartPos;
+
+    [Header("Play Card Inputs")]
+    [SerializeField] private InputActionReference playFirstCardInput;
+    [SerializeField] private InputActionReference playSecondCardInput;
+    [SerializeField] private InputActionReference playThirdCardInput;
+    private InputActionReference playInput;
 
     [Header("Feedback Players")]
     [SerializeField] private MMF_Player hoverPlayer;
@@ -78,6 +83,7 @@ public class HandCard : MonoBehaviour, IPointerDownHandler {
     public void SetCardIndex(int cardIndex) {
         this.cardIndex = cardIndex;
         SetHotkeyTextToNum();
+        SetPlayInput();
     }
 
     // to move to after done moving to hand
@@ -150,13 +156,17 @@ public class HandCard : MonoBehaviour, IPointerDownHandler {
             return;
         }
 
-        bool hotKeyDown = Input.GetKeyDown(KeyCode.Alpha1) && cardIndex == 0 ||
-                Input.GetKeyDown(KeyCode.Alpha2) && cardIndex == 1 ||
-                Input.GetKeyDown(KeyCode.Alpha3) && cardIndex == 2;
+        if (InputManager.Instance.GetInputScheme() == ControlSchemeType.Keyboard) {
+            HandleKeyboardInput();
+        }
+        else if (InputManager.Instance.GetInputScheme() == ControlSchemeType.Controller) {
+            HandleControllerInput();
+        }
+    }
 
-        bool hotKeyUp = Input.GetKeyUp(KeyCode.Alpha1) && cardIndex == 0 ||
-                Input.GetKeyUp(KeyCode.Alpha2) && cardIndex == 1 ||
-                Input.GetKeyUp(KeyCode.Alpha3) && cardIndex == 2;
+    private void HandleKeyboardInput() {
+        bool hotKeyDown = playInput.action.WasPerformedThisFrame();
+        bool hotKeyUp = playInput.action.WasReleasedThisFrame();
 
         if (CanAffordToPlay) {
 
@@ -195,6 +205,53 @@ public class HandCard : MonoBehaviour, IPointerDownHandler {
         }
         else if (!CanAffordToPlay) {
             if (hotKeyDown) {
+                cantPlayShaker.Play();
+                OnCantAfford_Card?.Invoke(card);
+            }
+        }
+    }
+
+    private void HandleControllerInput() {
+        bool playInputDown = playInput.action.WasPerformedThisFrame();
+        bool playInputUp = playInput.action.WasReleasedThisFrame();
+
+        if (CanAffordToPlay) {
+
+            // start playing card if hotkey is down and not playing another card
+            if (playInputDown && !playingAnyCard) {
+
+                OnStartPlayingCard();
+
+                playFeedbackOnHover.Disable();
+
+                // if the card is positional, the hotkey makes it follow the mouse
+                if (card is ScriptableAbilityCardBase abilityCard && abilityCard.IsPositional) {
+                    FollowMouse();
+                }
+
+                // if the card is not positional, the hotkey just raises the card
+                else {
+                    hoverPlayer.SetDirectionTopToBottom();
+                    hoverPlayer.PlayFeedbacks();
+                }
+            }
+
+            if (playInputUp && playingCard) {
+                TryPlayCard();
+            }
+
+            // the reason for this instead of using on mouse click is because this:
+            //      the player can be dragging the card, then quickly mouse the mouse and release and it won't count a click
+            //      because the mouse is not on the card
+            if (mouseDownOnCard) {
+                if (Input.GetMouseButtonUp(0)) {
+                    TryPlayCard();
+                    mouseDownOnCard = false;
+                }
+            }
+        }
+        else if (!CanAffordToPlay) {
+            if (playInputDown) {
                 cantPlayShaker.Play();
                 OnCantAfford_Card?.Invoke(card);
             }
@@ -251,10 +308,8 @@ public class HandCard : MonoBehaviour, IPointerDownHandler {
         FeedbackPlayerOld.PlayInReverse("CancelCard");
     }
 
-    private void PlayCard() {
-
-        Vector2 mouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        card.TryPlay(mouseWorldPos);
+    private void PlayCard(Vector2 playPosition) {
+        card.TryPlay(playPosition);
         useCardPlayer.PlayFeedbacks();
 
         if (card is ScriptableAbilityCardBase) {
@@ -272,7 +327,7 @@ public class HandCard : MonoBehaviour, IPointerDownHandler {
         playFeedbackOnHover.Disable();
 
         if (card is ScriptableAbilityCardBase abilityCard) {
-            abilityCard.OnStartDraggingCard(transform);
+            abilityCard.OnStartPositioningCard(transform);
         }
     }
 
@@ -280,6 +335,21 @@ public class HandCard : MonoBehaviour, IPointerDownHandler {
         followMouse.enabled = false;
         playFeedbackOnHover.Enable();
         SetHotkeyTextToNum();
+    }
+
+    private void SetPlayInput() {
+        if (cardIndex == 0) {
+            playInput = playFirstCardInput;
+        }
+        else if (cardIndex == 1) {
+            playInput = playSecondCardInput;
+        }
+        else if (cardIndex == 2) {
+            playInput = playThirdCardInput;
+        }
+        else {
+            Debug.LogError("cardIndex not supported: " + cardIndex);
+        }
     }
 
     #region Visuals
@@ -362,7 +432,7 @@ public class HandCard : MonoBehaviour, IPointerDownHandler {
         cardImage.GetComponent<Image>().Fade(hoverAlpha);
 
         if (card is ScriptableAbilityCardBase abilityCard) {
-            abilityCard.OnStopDraggingCard();
+            abilityCard.OnStopPositioningCard();
         }
 
         AudioManager.Instance.PlaySound(AudioManager.Instance.AudioClips.CancelCard);

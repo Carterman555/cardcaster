@@ -16,14 +16,14 @@ public class ScriptableTeleportCard : ScriptableAbilityCardBase {
     [SerializeField] private Transform teleportPosVisualPrefab;
     private Transform teleportPosVisual;
 
-    public override void OnStartDraggingCard(Transform cardTransform) {
-        base.OnStartDraggingCard(cardTransform);
+    public override void OnStartPositioningCard(Transform cardTransform) {
+        base.OnStartPositioningCard(cardTransform);
 
         teleportPosVisual = teleportPosVisualPrefab.Spawn(Containers.Instance.Effects);
     }
 
-    protected override void DraggingUpdate(Vector2 cardposition) {
-        base.DraggingUpdate(cardposition);
+    protected override void PositioningUpdate(Vector2 cardposition) {
+        base.PositioningUpdate(cardposition);
 
         if (PlayerMovement.Instance == null) {
             return;

@@ -109,7 +109,7 @@ MonoBehaviour:
   interactAction: {fileID: -6811146151478928456, guid: 50afa068aa51bd149a1f3d07794c53d5, type: 3}
   interactableTextPrefab: {fileID: 9084209149797969205, guid: a643d41c5c0620048bcb91e7ddbffcec, type: 3}
   textPosition: {x: 0, y: 1.4}
-  text: Burn Card (E)
+  text: Burn Card
   spriteRenderer: {fileID: 4638059093303010787}
   outlineMaterial: {fileID: 2100000, guid: f635e5ceac75c8040924988bacd9af07, type: 2}
 --- !u!114 &-7337060429072082821

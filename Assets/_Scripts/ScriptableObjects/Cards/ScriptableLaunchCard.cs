@@ -36,14 +36,14 @@ public class ScriptableLaunchCard : ScriptableAbilityCardBase {
     [SerializeField] private ParticleSystem launchEffectsPrefab;
     private ParticleSystem launchEffects;
 
-    public override void OnStartDraggingCard(Transform cardTransform) {
-        base.OnStartDraggingCard(cardTransform);
+    public override void OnStartPositioningCard(Transform cardTransform) {
+        base.OnStartPositioningCard(cardTransform);
 
         pathVisual = pathVisualPrefab.Spawn(PlayerMovement.Instance.transform.position, PlayerMovement.Instance.transform);
     }
 
-    protected override void DraggingUpdate(Vector2 cardposition) {
-        base.DraggingUpdate(cardposition);
+    protected override void PositioningUpdate(Vector2 cardposition) {
+        base.PositioningUpdate(cardposition);
 
         Vector2 toMouseDirection = MouseTracker.Instance.ToMouseDirection(pathVisual.transform.position);
 
@@ -66,8 +66,8 @@ public class ScriptableLaunchCard : ScriptableAbilityCardBase {
         }
     }
 
-    public override void OnStopDraggingCard() {
-        base.OnStopDraggingCard();
+    public override void OnStopPositioningCard() {
+        base.OnStopPositioningCard();
 
         pathVisual.gameObject.ReturnToPool();
     }

@@ -8,9 +8,9 @@ using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
-public class HandCard : MonoBehaviour {
+public class HandCardOld : MonoBehaviour, IPointerDownHandler {
 
-    public static event Action<HandCard, ScriptableCardBase> OnAnyCardUsed_ButtonAndCard;
+    public static event Action<HandCardOld, ScriptableCardBase> OnAnyCardUsed_ButtonAndCard;
     public static event Action<ScriptableCardBase> OnAnyCardUsed_Card;
 
     public static event Action<ScriptableCardBase> OnAnyStartPlaying_Card;
@@ -27,32 +27,41 @@ public class HandCard : MonoBehaviour {
     private InputActionReference playInput;
 
     [Header("Feedback Players")]
-    [SerializeField] protected MMF_Player showCardPlayer;
+    [SerializeField] private MMF_Player hoverPlayer;
     [SerializeField] private MMF_Player toHandPlayer;
     [SerializeField] private MMF_Player useCardPlayer;
     [SerializeField] private MMRotationShaker cantPlayShaker;
 
+    // follow mouse
+    private MMFollowTarget followMouse;
+    private PlayFeedbackOnHover playFeedbackOnHover;
+    private bool mouseDownOnCard;
+
     private ScriptableCardBase card;
     private int cardIndex;
 
-    protected static bool playingAnyCard;
-    protected bool playingCard;
+    private static bool playingAnyCard;
+    private bool playingCard;
 
-    protected bool CanAffordToPlay => DeckManager.Instance.GetEssence() >= card.GetCost();
+    private bool CanAffordToPlay => DeckManager.Instance.GetEssence() >= card.GetCost();
 
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
     private static void Init() {
         playingAnyCard = false;
     }
 
-    protected virtual void Awake() {
+    private void Awake() {
+        followMouse = GetComponent<MMFollowTarget>();
+        playFeedbackOnHover = GetComponent<PlayFeedbackOnHover>();
     }
 
-    protected virtual void Start() {
+    private void Start() {
+        followMouse.Target = UIFollowMouse.Instance.transform;
+
         useCardPlayer.Events.OnComplete.AddListener(OnUsedCard);
     }
 
-    public virtual void Setup(Transform deckTransform, ScriptableCardBase card) {
+    public void Setup(Transform deckTransform, ScriptableCardBase card) {
         playingCard = false;
 
         MMF_Position toHandFeedback = toHandPlayer.GetFeedbackOfType<MMF_Position>("Move To Hand");
@@ -62,7 +71,7 @@ public class HandCard : MonoBehaviour {
         //... pos
         Invoke(nameof(PlayHandFeedback), Time.deltaTime);
 
-        ShowPlayInput();
+        StopFollowingMouse();
 
         SetCard(card);
     }
@@ -73,7 +82,8 @@ public class HandCard : MonoBehaviour {
 
     public void SetCardIndex(int cardIndex) {
         this.cardIndex = cardIndex;
-        ShowPlayInput();
+        SetHotkeyTextToNum();
+        SetPlayInput();
     }
 
     // to move to after done moving to hand
@@ -84,7 +94,7 @@ public class HandCard : MonoBehaviour {
     public void SetCardPosition(Vector3 position) {
 
         // set positions of movement feedbacks
-        MMF_Position hoverMoveFeedback = showCardPlayer.GetFeedbackOfType<MMF_Position>("Move");
+        MMF_Position hoverMoveFeedback = hoverPlayer.GetFeedbackOfType<MMF_Position>("Move");
         hoverMoveFeedback.InitialPosition = position;
         hoverMoveFeedback.DestinationPosition = new Vector3(position.x, hoverMoveFeedback.DestinationPosition.y);
 
@@ -129,7 +139,7 @@ public class HandCard : MonoBehaviour {
         useCardPlayer.Events.OnComplete.RemoveListener(OnUsedCard);
     }
 
-    private void OnUsedCard() {
+    public void OnUsedCard() {
         if (GameStateManager.Instance.GetCurrentState() != GameState.Game) {
             return;
         }
@@ -140,10 +150,86 @@ public class HandCard : MonoBehaviour {
         playingAnyCard = false;
     }
 
-    protected void OnStartPlayingCard() {
+    private void Update() {
+
+        if (GameStateManager.Instance.GetCurrentState() != GameState.Game) {
+            return;
+        }
+
+        bool hotKeyDown = playInput.action.WasPerformedThisFrame();
+        bool hotKeyUp = playInput.action.WasReleasedThisFrame();
+
+        if (CanAffordToPlay) {
+
+            // start playing card if hotkey is down and not playing another card
+            if (hotKeyDown && !playingAnyCard) {
+
+                OnStartPlayingCard();
+
+                playFeedbackOnHover.Disable();
+
+                // if the card is positional, the hotkey makes it follow the mouse
+                if (card is ScriptableAbilityCardBase abilityCard && abilityCard.IsPositional) {
+                    FollowMouse();
+                }
+
+                // if the card is not positional, the hotkey just raises the card
+                else {
+                    hoverPlayer.SetDirectionTopToBottom();
+                    hoverPlayer.PlayFeedbacks();
+                }
+            }
+
+            if (hotKeyUp && playingCard) {
+                TryPlayCard();
+            }
+
+            // the reason for this instead of using on mouse click is because this:
+            //      the player can be dragging the card, then quickly mouse the mouse and release and it won't count a click
+            //      because the mouse is not on the card
+            if (mouseDownOnCard) {
+                if (Input.GetMouseButtonUp(0)) {
+                    TryPlayCard();
+                    mouseDownOnCard = false;
+                }
+            }
+        }
+        else if (!CanAffordToPlay) {
+            if (hotKeyDown) {
+                cantPlayShaker.Play();
+                OnCantAfford_Card?.Invoke(card);
+            }
+        }
+    }
+
+    public void OnPointerDown(PointerEventData eventData) {
+
+        if (GameStateManager.Instance.GetCurrentState() != GameState.Game) {
+            return;
+        }
+
+        if (playingAnyCard) {
+            return;
+        }
+
+        if (!CanAffordToPlay) {
+            cantPlayShaker.Play();
+            OnCantAfford_Card?.Invoke(card);
+            return;
+        }
+
+        FollowMouse();
+        OnStartPlayingCard();
+        mouseDownOnCard = true;
+    }
+
+    private void OnStartPlayingCard() {
 
         playingCard = true;
         playingAnyCard = true;
+
+        // show cancel card panel
+        FeedbackPlayerOld.Play("CancelCard");
 
         // show the player this will be wasted if the modifier's already active
         TryShowWarning();
@@ -151,8 +237,23 @@ public class HandCard : MonoBehaviour {
         OnAnyStartPlaying_Card?.Invoke(card);
     }
 
-    protected void PlayCard(Vector2 playPosition) {
-        card.TryPlay(playPosition);
+    private void TryPlayCard() {
+
+        if (setToCancel) {
+            CancelCard();
+        }
+        else {
+            PlayCard();
+        }
+
+        playFeedbackOnHover.Enable();
+
+        // hide cancel card panel
+        FeedbackPlayerOld.PlayInReverse("CancelCard");
+    }
+
+    private void PlayCard() {
+        card.TryPlay(MouseTracker.Instance.transform.position);
         useCardPlayer.PlayFeedbacks();
 
         if (card is ScriptableAbilityCardBase) {
@@ -165,19 +266,33 @@ public class HandCard : MonoBehaviour {
         AudioManager.Instance.PlaySound(AudioManager.Instance.AudioClips.PlayCard);
     }
 
-    protected InputAction GetPlayInput() {
+    public void FollowMouse() {
+        followMouse.enabled = true;
+        playFeedbackOnHover.Disable();
+
+        if (card is ScriptableAbilityCardBase abilityCard) {
+            abilityCard.OnStartPositioningCard(transform);
+        }
+    }
+
+    public void StopFollowingMouse() {
+        followMouse.enabled = false;
+        playFeedbackOnHover.Enable();
+        SetHotkeyTextToNum();
+    }
+
+    private void SetPlayInput() {
         if (cardIndex == 0) {
-            return playFirstCardInput.action;
+            playInput = playFirstCardInput;
         }
         else if (cardIndex == 1) {
-            return playSecondCardInput.action;
+            playInput = playSecondCardInput;
         }
         else if (cardIndex == 2) {
-            return playThirdCardInput.action;
+            playInput = playThirdCardInput;
         }
         else {
             Debug.LogError("cardIndex not supported: " + cardIndex);
-            return null;
         }
     }
 
@@ -190,11 +305,13 @@ public class HandCard : MonoBehaviour {
     [SerializeField] private Sprite abilityCardBack;
     [SerializeField] private Sprite modifierCardBack;
 
-    [SerializeField] protected TextMeshProUGUI hotkeyText;
+    [SerializeField] private TextMeshProUGUI hotkeyText;
 
     public void SetCard(ScriptableCardBase card) {
         this.card = card;
         cardImage.Setup(card);
+
+        SetHotkeyTextToNum();
 
         if (card is ScriptableAbilityCardBase) {
             backImage.sprite = abilityCardBack;
@@ -204,13 +321,8 @@ public class HandCard : MonoBehaviour {
         }
     }
 
-    protected void CantPlayShake() {
-        cantPlayShaker.Play();
-        OnCantAfford_Card?.Invoke(card);
-    }
-
-    protected virtual void ShowPlayInput() {
-       
+    private void SetHotkeyTextToNum() {
+        hotkeyText.text = (cardIndex + 1).ToString();
     }
 
     private void TryShowWarning() {
@@ -225,12 +337,35 @@ public class HandCard : MonoBehaviour {
 
     #region Handle Cancelling
 
+    private bool setToCancel;
+
+    private void OnEnable() {
+        CancelCardPanel.OnSetToCancel += SetToCancel;
+        CancelCardPanel.OnSetToPlay += SetToPlay;
+    }
+
+    private void OnDisable() {
+        CancelCardPanel.OnSetToCancel -= SetToCancel;
+        CancelCardPanel.OnSetToPlay -= SetToPlay;
+    }
+
+    private void SetToCancel() {
+        setToCancel = true;
+    }
+
+    private void SetToPlay() {
+        setToCancel = false;
+    }
+
     private Vector2 handPosition;
 
-    protected void CancelCard() {
+    private void CancelCard() {
 
         playingCard = false;
         playingAnyCard = false;
+
+        // move back to hand
+        StopFollowingMouse();
 
         float duration = 0.3f;
         transform.DOKill();
@@ -257,9 +392,5 @@ public class HandCard : MonoBehaviour {
 
     public int GetIndex() {
         return cardIndex;
-    }
-
-    protected ScriptableCardBase GetCard() {
-        return card;
     }
 }

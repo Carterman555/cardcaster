@@ -2300,7 +2300,7 @@ GameObject:
   - component: {fileID: 1965548948347846251}
   - component: {fileID: 1507770246064602376}
   m_Layer: 0
-  m_Name: HoverPlayer
+  m_Name: ShowCardPlayer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2965,14 +2965,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 7920905463347926927}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e1cb4247d3ba53c4d9fe38cbfd1824e0, type: 3}
+  m_Script: {fileID: 11500000, guid: 53e05899dd1576c4f93bd9e1226f0df1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   cardStartPos: {x: 120, y: 115}
   playFirstCardInput: {fileID: 5962943595717837552, guid: 50afa068aa51bd149a1f3d07794c53d5, type: 3}
   playSecondCardInput: {fileID: 5805402075545936634, guid: 50afa068aa51bd149a1f3d07794c53d5, type: 3}
   playThirdCardInput: {fileID: -8723412899392237460, guid: 50afa068aa51bd149a1f3d07794c53d5, type: 3}
-  hoverPlayer: {fileID: 1507770246064602376}
+  showCardPlayer: {fileID: 1507770246064602376}
   toHandPlayer: {fileID: 8445676972534443276}
   useCardPlayer: {fileID: 2697354873728968971}
   cantPlayShaker: {fileID: 3920663030056354911}

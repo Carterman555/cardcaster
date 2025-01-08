@@ -28870,7 +28870,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2160644947781835856, guid: 58f2feb7fcdece146b937d87594495b2, type: 3}
       propertyPath: debugStartTutorial
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3553269437776827935, guid: 58f2feb7fcdece146b937d87594495b2, type: 3}
       propertyPath: playerSword

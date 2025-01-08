@@ -8,29 +8,44 @@ using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
-public class HandCardKeyboard : HandCard, IPointerDownHandler {
+public class CardKeyboardInput : MonoBehaviour, IPointerDownHandler {
 
+    private HandCard handCard;
     private MMFollowTarget followMouse;
     private PlayFeedbackOnHover playFeedbackOnHover;
 
     private bool mouseDownOnCard;
 
-    protected override void Awake() {
-        base.Awake();
+    [SerializeField] protected MMF_Player showCardPlayer;
+
+    [Header("Input Actions")]
+    [SerializeField] private InputActionReference playFirstCardInput;
+    [SerializeField] private InputActionReference playSecondCardInput;
+    [SerializeField] private InputActionReference playThirdCardInput;
+    private InputActionReference playInput;
+
+    private void Awake() {
+        handCard = GetComponent<HandCard>();
         followMouse = GetComponent<MMFollowTarget>();
         playFeedbackOnHover = GetComponent<PlayFeedbackOnHover>();
     }
 
-    protected override void Start() {
-        base.Start();
+    private void Start() {
         followMouse.Target = UIFollowMouse.Instance.transform;
     }
 
-    public override void Setup(Transform deckTransform, ScriptableCardBase card) {
-        base.Setup(deckTransform, card);
+    private void OnEnable() {
+        SubCancelMethods();
 
         //... make sure not following the mouse
         StopFollowingMouse();
+        print("stop following mouse: this should play each time a card is setup");
+
+        ShowPlayInput();
+    }
+
+    private void OnDisable() {
+        UnsubCancelMethods();
     }
 
     private void Update() {
@@ -42,46 +57,43 @@ public class HandCardKeyboard : HandCard, IPointerDownHandler {
         bool hotKeyDown = GetPlayInput().WasPerformedThisFrame();
         bool hotKeyUp = GetPlayInput().WasReleasedThisFrame();
 
-        if (CanAffordToPlay) {
-
-            // start playing card if hotkey is down and not playing another card
-            if (hotKeyDown && !playingAnyCard) {
-
-                OnStartPlayingCard();
-
-                //... show cancel card panel
-                FeedbackPlayerOld.Play("CancelCard");
-
-                playFeedbackOnHover.Disable();
-
-                // if the card is positional, the hotkey makes it follow the mouse
-                if (GetCard() is ScriptableAbilityCardBase abilityCard && abilityCard.IsPositional) {
-                    FollowMouse();
-                }
-
-                // if the card is not positional, the hotkey just raises the card
-                else {
-                    showCardPlayer.SetDirectionTopToBottom();
-                    showCardPlayer.PlayFeedbacks();
-                }
-            }
-
-            if (hotKeyUp && playingCard) {
-                TryPlayCard();
-            }
-
-            
-        }
-        else if (!CanAffordToPlay) {
+        if (!handCard.CanAffordToPlay()) {
             if (hotKeyDown) {
-                CantPlayShake();
+                handCard.CantPlayShake();
             }
+            return;
+        }
+
+        // start playing card if hotkey is down and not playing a card
+        if (hotKeyDown && !HandCard.IsPlayingAnyCard()) {
+
+            handCard.OnStartPlayingCard();
+
+            //... show cancel card panel
+            FeedbackPlayerOld.Play("CancelCard");
+
+            playFeedbackOnHover.Disable();
+
+            // if the card is positional, the hotkey makes it follow the mouse
+            if (handCard.GetCard() is ScriptableAbilityCardBase abilityCard && abilityCard.IsPositional) {
+                FollowMouse();
+            }
+
+            // if the card is not positional, the hotkey just raises the card
+            else {
+                showCardPlayer.SetDirectionTopToBottom();
+                showCardPlayer.PlayFeedbacks();
+            }
+        }
+
+        if (hotKeyUp && handCard.IsPlayingCard()) {
+            TryPlayCard();
         }
     }
 
     private void HandleMouseInput() {
 
-        if (CanAffordToPlay) {
+        if (handCard.CanAffordToPlay()) {
             // the reason for this instead of using on mouse click is because this:
             //      the player can be dragging the card, then quickly mouse the mouse and release and it won't count a click
             //      because the mouse is not on the card
@@ -100,17 +112,17 @@ public class HandCardKeyboard : HandCard, IPointerDownHandler {
             return;
         }
 
-        if (playingAnyCard) {
+        if (HandCard.IsPlayingAnyCard()) {
             return;
         }
 
-        if (!CanAffordToPlay) {
-            CantPlayShake();
+        if (!handCard.CanAffordToPlay()) {
+            handCard.CantPlayShake();
             return;
         }
 
         FollowMouse();
-        OnStartPlayingCard();
+        handCard.OnStartPlayingCard();
         mouseDownOnCard = true;
 
         //... show cancel card panel
@@ -121,7 +133,7 @@ public class HandCardKeyboard : HandCard, IPointerDownHandler {
         followMouse.enabled = true;
         playFeedbackOnHover.Disable();
 
-        if (GetCard() is ScriptableAbilityCardBase abilityCard) {
+        if (handCard.GetCard() is ScriptableAbilityCardBase abilityCard) {
             abilityCard.OnStartPositioningCard(transform);
         }
     }
@@ -134,13 +146,13 @@ public class HandCardKeyboard : HandCard, IPointerDownHandler {
 
     private void TryPlayCard() {
         if (setToCancel) {
-            CancelCard();
+            handCard.CancelCard();
 
             //... move back to hand
             StopFollowingMouse();
         }
         else {
-            PlayCard(MouseTracker.Instance.transform.position);
+            handCard.PlayCard(MouseTracker.Instance.transform.position);
         }
 
         playFeedbackOnHover.Enable();
@@ -149,16 +161,35 @@ public class HandCardKeyboard : HandCard, IPointerDownHandler {
         FeedbackPlayerOld.PlayInReverse("CancelCard");
     }
 
+    private InputAction GetPlayInput() {
+        int cardIndex = handCard.GetIndex();
+        if (cardIndex == 0) {
+            return playFirstCardInput.action;
+        }
+        else if (cardIndex == 1) {
+            return playSecondCardInput.action;
+        }
+        else if (cardIndex == 2) {
+            return playThirdCardInput.action;
+        }
+        else {
+            Debug.LogError("cardIndex not supported: " + cardIndex);
+            return null;
+        }
+    }
+
     #region Cancelling
+
+    [SerializeField] private TextMeshProUGUI hotkeyText;
 
     private bool setToCancel;
 
-    private void OnEnable() {
+    private void SubCancelMethods() {
         CancelCardPanel.OnSetToCancel += SetToCancel;
         CancelCardPanel.OnSetToPlay += SetToPlay;
     }
 
-    private void OnDisable() {
+    private void UnsubCancelMethods() {
         CancelCardPanel.OnSetToCancel -= SetToCancel;
         CancelCardPanel.OnSetToPlay -= SetToPlay;
     }
@@ -175,10 +206,11 @@ public class HandCardKeyboard : HandCard, IPointerDownHandler {
 
     #region Visual
 
-    protected override void ShowPlayInput() {
-        base.ShowPlayInput();
-        hotkeyText.text = (GetIndex() + 1).ToString();
+    private void ShowPlayInput() {
+        hotkeyText.text = (handCard.GetIndex() + 1).ToString();
     }
 
     #endregion Visual
+
+
 }

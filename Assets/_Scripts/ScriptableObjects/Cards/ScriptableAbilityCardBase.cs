@@ -45,7 +45,7 @@ public abstract class ScriptableAbilityCardBase : ScriptableCardBase {
 
         OnStopPositioningCard();
 
-        // if multiple can't play at the same time, cancel the current one playing
+        // if multiple can't play at the same time, reset the duration of the current one playing
         if (CanStackWithSelf || !AbilityManager.Instance.IsAbilityActive(this, out ScriptableAbilityCardBase alreadyActiveAbility)) {
             Play(position);
         }

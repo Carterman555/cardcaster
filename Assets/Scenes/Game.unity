@@ -4191,7 +4191,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8bb66fdc57ddcb44bf14ce4039c408f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cardButtonPrefab: {fileID: 677690741969955083, guid: f47a0a159c3128e47bcd766f261d7383, type: 3}
+  cardButtonPrefab: {fileID: 0}
   deckButtonTransform: {fileID: 1608221473}
   cardYPos: -5
   cardSpacing: 225

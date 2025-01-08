@@ -94,6 +94,24 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "CancelCard",
+                    "type": "Button",
+                    "id": "26c32f48-b9db-43a5-9402-6120e48a1173",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "MoveCard",
+                    "type": "PassThrough",
+                    "id": "53738ace-f480-41ef-b80b-4b3c0b7fd88e",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -386,7 +404,7 @@
                 {
                     "name": "",
                     "id": "35b3f66d-d161-4a0d-a581-8468a935eb9b",
-                    "path": "<Gamepad>/buttonWest",
+                    "path": "<Gamepad>/dpad/left",
                     "interactions": "",
                     "processors": "",
                     "groups": "Controller",
@@ -408,7 +426,7 @@
                 {
                     "name": "",
                     "id": "c4af511b-eeb2-4c63-a6cd-230f3115721e",
-                    "path": "<Gamepad>/buttonSouth",
+                    "path": "<Gamepad>/dpad/up",
                     "interactions": "",
                     "processors": "",
                     "groups": "Controller",
@@ -430,13 +448,79 @@
                 {
                     "name": "",
                     "id": "7d3ceef7-89f5-4ce1-af4b-9cabb642db76",
-                    "path": "<Gamepad>/buttonEast",
+                    "path": "<Gamepad>/dpad/right",
                     "interactions": "",
                     "processors": "",
                     "groups": "Controller",
                     "action": "PlayThirdCard",
                     "isComposite": false,
                     "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "0c06f8eb-e32b-4a10-b1c8-ee80242cef42",
+                    "path": "<Gamepad>/dpad/down",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Controller",
+                    "action": "CancelCard",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "Right Joystick",
+                    "id": "df6625c5-6aa5-4fb6-a8e9-47884564aca5",
+                    "path": "2DVector",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "MoveCard",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "up",
+                    "id": "c090c7ed-5318-4ffd-80c8-1a3c6ba4e8e0",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "MoveCard",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "down",
+                    "id": "0a24fb6c-233a-4541-908d-70d876b223a8",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "MoveCard",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "left",
+                    "id": "e323a0c1-240b-469f-9c84-16179eb8c8de",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "MoveCard",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "right",
+                    "id": "aa6487a0-49d9-4aaa-af8d-43a91ff1dbed",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "MoveCard",
+                    "isComposite": false,
+                    "isPartOfComposite": true
                 }
             ]
         },

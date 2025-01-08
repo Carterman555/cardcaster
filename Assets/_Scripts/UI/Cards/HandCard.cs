@@ -20,14 +20,8 @@ public class HandCard : MonoBehaviour {
 
     [SerializeField] private Vector2 cardStartPos;
 
-    [Header("Play Card Inputs")]
-    [SerializeField] private InputActionReference playFirstCardInput;
-    [SerializeField] private InputActionReference playSecondCardInput;
-    [SerializeField] private InputActionReference playThirdCardInput;
-    private InputActionReference playInput;
-
     [Header("Feedback Players")]
-    [SerializeField] protected MMF_Player showCardPlayer;
+    [SerializeField] private MMF_Player showCardPlayer;
     [SerializeField] private MMF_Player toHandPlayer;
     [SerializeField] private MMF_Player useCardPlayer;
     [SerializeField] private MMRotationShaker cantPlayShaker;
@@ -35,24 +29,20 @@ public class HandCard : MonoBehaviour {
     private ScriptableCardBase card;
     private int cardIndex;
 
-    protected static bool playingAnyCard;
-    protected bool playingCard;
+    private static bool playingAnyCard;
+    private bool playingCard;
 
-    protected bool CanAffordToPlay => DeckManager.Instance.GetEssence() >= card.GetCost();
 
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
     private static void Init() {
         playingAnyCard = false;
     }
 
-    protected virtual void Awake() {
-    }
-
-    protected virtual void Start() {
+    private void Start() {
         useCardPlayer.Events.OnComplete.AddListener(OnUsedCard);
     }
 
-    public virtual void Setup(Transform deckTransform, ScriptableCardBase card) {
+    public void Setup(Transform deckTransform, ScriptableCardBase card) {
         playingCard = false;
 
         MMF_Position toHandFeedback = toHandPlayer.GetFeedbackOfType<MMF_Position>("Move To Hand");
@@ -61,8 +51,6 @@ public class HandCard : MonoBehaviour {
         //... need to wait a frame after setting to hand position before playing feedback for it to go to that
         //... pos
         Invoke(nameof(PlayHandFeedback), Time.deltaTime);
-
-        ShowPlayInput();
 
         SetCard(card);
     }
@@ -73,7 +61,6 @@ public class HandCard : MonoBehaviour {
 
     public void SetCardIndex(int cardIndex) {
         this.cardIndex = cardIndex;
-        ShowPlayInput();
     }
 
     // to move to after done moving to hand
@@ -140,7 +127,7 @@ public class HandCard : MonoBehaviour {
         playingAnyCard = false;
     }
 
-    protected void OnStartPlayingCard() {
+    public void OnStartPlayingCard() {
 
         playingCard = true;
         playingAnyCard = true;
@@ -151,7 +138,7 @@ public class HandCard : MonoBehaviour {
         OnAnyStartPlaying_Card?.Invoke(card);
     }
 
-    protected void PlayCard(Vector2 playPosition) {
+    public void PlayCard(Vector2 playPosition) {
         card.TryPlay(playPosition);
         useCardPlayer.PlayFeedbacks();
 
@@ -165,22 +152,6 @@ public class HandCard : MonoBehaviour {
         AudioManager.Instance.PlaySound(AudioManager.Instance.AudioClips.PlayCard);
     }
 
-    protected InputAction GetPlayInput() {
-        if (cardIndex == 0) {
-            return playFirstCardInput.action;
-        }
-        else if (cardIndex == 1) {
-            return playSecondCardInput.action;
-        }
-        else if (cardIndex == 2) {
-            return playThirdCardInput.action;
-        }
-        else {
-            Debug.LogError("cardIndex not supported: " + cardIndex);
-            return null;
-        }
-    }
-
     #region Visuals
 
     [Header("Visual")]
@@ -190,7 +161,7 @@ public class HandCard : MonoBehaviour {
     [SerializeField] private Sprite abilityCardBack;
     [SerializeField] private Sprite modifierCardBack;
 
-    [SerializeField] protected TextMeshProUGUI hotkeyText;
+    [SerializeField] private TextMeshProUGUI hotkeyText;
 
     public void SetCard(ScriptableCardBase card) {
         this.card = card;
@@ -204,13 +175,9 @@ public class HandCard : MonoBehaviour {
         }
     }
 
-    protected void CantPlayShake() {
+    public void CantPlayShake() {
         cantPlayShaker.Play();
         OnCantAfford_Card?.Invoke(card);
-    }
-
-    protected virtual void ShowPlayInput() {
-       
     }
 
     private void TryShowWarning() {
@@ -227,7 +194,7 @@ public class HandCard : MonoBehaviour {
 
     private Vector2 handPosition;
 
-    protected void CancelCard() {
+    public void CancelCard() {
 
         playingCard = false;
         playingAnyCard = false;
@@ -255,11 +222,19 @@ public class HandCard : MonoBehaviour {
         return playingCard;
     }
 
+    public static bool IsPlayingAnyCard() {
+        return playingAnyCard;
+    }
+
     public int GetIndex() {
         return cardIndex;
     }
 
-    protected ScriptableCardBase GetCard() {
+    public ScriptableCardBase GetCard() {
         return card;
+    }
+
+    public bool CanAffordToPlay() {
+        return DeckManager.Instance.GetEssence() >= card.GetCost();
     }
 }

@@ -42,21 +42,21 @@ public class ScriptableLaunchCard : ScriptableAbilityCardBase {
         pathVisual = pathVisualPrefab.Spawn(PlayerMovement.Instance.transform.position, PlayerMovement.Instance.transform);
     }
 
-    protected override void PositioningUpdate(Vector2 cardposition) {
-        base.PositioningUpdate(cardposition);
+    protected override void PositioningUpdate(Vector2 cardPosition) {
+        base.PositioningUpdate(cardPosition);
 
-        Vector2 toMouseDirection = MouseTracker.Instance.ToMouseDirection(pathVisual.transform.position);
+        launchDirection = cardPosition - (Vector2)pathVisual.transform.position;
 
         //... point path towards mouse
-        pathVisual.transform.up = toMouseDirection;
+        pathVisual.transform.up = launchDirection;
 
         // scale path towards end of room
         float pathWidth = Stats.AreaSize * 2f;
 
         float checkDistance = 100f;
         float distanceFromPlayer = 1.5f;
-        Vector2 origin = (Vector2)pathVisual.transform.position + (toMouseDirection * distanceFromPlayer);
-        RaycastHit2D hit = Physics2D.BoxCast(origin, new Vector2(pathWidth * checkFactor, 1f), pathVisual.transform.eulerAngles.z, toMouseDirection, checkDistance, obstacleLayer);
+        Vector2 origin = (Vector2)pathVisual.transform.position + (launchDirection * distanceFromPlayer);
+        RaycastHit2D hit = Physics2D.BoxCast(origin, new Vector2(pathWidth * checkFactor, 1f), pathVisual.transform.eulerAngles.z, launchDirection, checkDistance, obstacleLayer);
 
         if (hit.collider == null) {
             Debug.LogError("Could Not Find Wall!");
@@ -83,9 +83,7 @@ public class ScriptableLaunchCard : ScriptableAbilityCardBase {
         // launch player
         Rigidbody2D playerRb = playerTransform.GetComponent<Rigidbody2D>();
         float launchFullSpeedTime = 0.5f;
-        Vector2 toMouseDirection = MouseTracker.Instance.ToMouseDirection(pathVisual.transform.position);
-        launchTween = DOTween.To(() => playerRb.velocity, x => playerRb.velocity = x, toMouseDirection * launchSpeed, launchFullSpeedTime);
-        launchDirection = toMouseDirection;
+        launchTween = DOTween.To(() => playerRb.velocity, x => playerRb.velocity = x, launchDirection * launchSpeed, launchFullSpeedTime);
 
         // make deal damage
         damageDealer = damageDealerPrefab.Spawn(playerTransform.position, playerTransform);
@@ -105,14 +103,14 @@ public class ScriptableLaunchCard : ScriptableAbilityCardBase {
         ReferenceSystem.Instance.PlayerWeaponParent.GetComponent<SlashingWeapon>().enabled = false;
 
         float rotOffset = -45f;
-        Vector3 rot = toMouseDirection.DirectionToRotation().eulerAngles + new Vector3(0, 0, rotOffset);
+        Vector3 rot = launchDirection.DirectionToRotation().eulerAngles + new Vector3(0, 0, rotOffset);
         ReferenceSystem.Instance.PlayerWeaponParent.transform.DORotate(rot, duration: 0.3f);
 
         //... make invincible
         playerInvincibility = playerTransform.AddComponent<Invincibility>();
 
         launchEffects = launchEffectsPrefab.Spawn(playerTransform.position, playerTransform);
-        launchEffects.transform.up = toMouseDirection;
+        launchEffects.transform.up = launchDirection;
     }
 
     // only stop the launch if the wall is in front of the player. This is to prevent the player from stopping

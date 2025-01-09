@@ -1,3 +1,4 @@
+
 using Mono.CSharp;
 using System.Collections;
 using System.Collections.Generic;
@@ -33,15 +34,14 @@ public class ScriptableDaggerShootCard : ScriptableAbilityCardBase {
         while (true) {
             yield return new WaitForSeconds(Stats.Cooldown);
 
-            // get direction to shoot (towards mouse
-            Vector2 toMouseDirection = MouseTracker.Instance.transform.position - PlayerMovement.Instance.transform.position;
-            toMouseDirection.Normalize();
-            Vector2 offset = spawnOffsetValue * toMouseDirection;
+            // get direction to shoot
+            Vector2 attackDirection = PlayerMeleeAttack.Instance.GetAttackDirection();
+            Vector2 offset = spawnOffsetValue * attackDirection;
             Vector2 spawnPos = (Vector2)PlayerMovement.Instance.transform.position + offset;
 
             // spawn and setup dagger
             StraightMovement straightMovement = daggerPrefab.Spawn(spawnPos, Containers.Instance.Projectiles);
-            straightMovement.Setup(toMouseDirection, Stats.ProjectileSpeed);
+            straightMovement.Setup(attackDirection, Stats.ProjectileSpeed);
             straightMovement.GetComponent<DamageOnContact>().Setup(Stats.Damage, Stats.KnockbackStrength);
 
             // apply effect

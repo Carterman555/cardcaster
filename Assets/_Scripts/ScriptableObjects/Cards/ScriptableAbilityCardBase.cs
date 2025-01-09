@@ -37,13 +37,11 @@ public abstract class ScriptableAbilityCardBase : ScriptableCardBase {
     protected virtual void PositioningUpdate(Vector2 cardposition) { }
 
     public virtual void OnStopPositioningCard() {
-
+        AbilityManager.Instance.StopCoroutine(positioningCardCoroutine);
     }
 
     public override void TryPlay(Vector2 position) {
         base.TryPlay(position);
-
-        OnStopPositioningCard();
 
         // if multiple can't play at the same time, reset the duration of the current one playing
         if (CanStackWithSelf || !AbilityManager.Instance.IsAbilityActive(this, out ScriptableAbilityCardBase alreadyActiveAbility)) {
@@ -58,7 +56,7 @@ public abstract class ScriptableAbilityCardBase : ScriptableCardBase {
         base.Play(position);
 
         if (positioningCardCoroutine != null) {
-            AbilityManager.Instance.StopCoroutine(positioningCardCoroutine);
+            OnStopPositioningCard();
         }
 
         if (IsModifiable) {
@@ -73,6 +71,12 @@ public abstract class ScriptableAbilityCardBase : ScriptableCardBase {
         bool hasDuration = abilityAttributes.HasFlag(AbilityAttribute.HasDuration);
         if (hasDuration) {
             durationStopCoroutine = AbilityManager.Instance.StartCoroutine(StopAfterDuration());
+        }
+    }
+
+    public void Cancel() {
+        if (positioningCardCoroutine != null) {
+            OnStopPositioningCard();
         }
     }
 

@@ -13,9 +13,12 @@ public class ScriptableSwordShootCard : ScriptableAbilityCardBase {
 
     private List<GameObject> abilityEffectPrefabs = new();
 
+    private Vector3 shootPos;
 
     protected override void Play(Vector2 position) {
         base.Play(position);
+
+        shootPos = position;
 
         ShootSword();
 
@@ -24,15 +27,15 @@ public class ScriptableSwordShootCard : ScriptableAbilityCardBase {
 
     private void ShootSword() {
 
-        // get direction to shoot (towards mouse)
-        Vector2 toMouseDirection = MouseTracker.Instance.transform.position - PlayerMovement.Instance.transform.position;
-        toMouseDirection.Normalize();
-        Vector2 offset = spawnOffsetValue * toMouseDirection;
+        // get direction to shoot
+        Vector2 toShootDirection = shootPos - PlayerMovement.Instance.transform.position;
+        toShootDirection.Normalize();
+        Vector2 offset = spawnOffsetValue * toShootDirection;
         Vector2 spawnPos = (Vector2)PlayerMovement.Instance.transform.position + offset;
 
         // spawn and setup dagger
         StraightMovement straightMovement = swordHologramPrefab.Spawn(spawnPos, Containers.Instance.Projectiles);
-        straightMovement.Setup(toMouseDirection, Stats.ProjectileSpeed);
+        straightMovement.Setup(toShootDirection, Stats.ProjectileSpeed);
         straightMovement.GetComponent<DamageOnContact>().Setup(Stats.Damage, Stats.KnockbackStrength);
 
         // apply effect

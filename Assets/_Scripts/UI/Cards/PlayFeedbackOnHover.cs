@@ -9,21 +9,12 @@ public class PlayFeedbackOnHover : MonoBehaviour, IPointerEnterHandler, IPointer
     [ConditionalHide("playSFX")][SerializeField] private AudioClips OnEnterClips;
     [ConditionalHide("playSFX")][SerializeField] private AudioClips OnExitClips;
 
-    private bool isEnabled;
-    public void Enable() {
-        isEnabled = true;
-    }
-    public void Disable() {
-        isEnabled = false;
-    }
-
-    private void Awake() {
-        Enable();
-    }
+    //... so component can be enabled and disabled
+    private void OnEnable() { }
 
     public void OnPointerEnter(PointerEventData eventData) {
 
-        if (!isEnabled) {
+        if (!enabled) {
             return;
         }
 
@@ -42,7 +33,7 @@ public class PlayFeedbackOnHover : MonoBehaviour, IPointerEnterHandler, IPointer
 
     public void OnPointerExit(PointerEventData eventData) {
 
-        if (!isEnabled) {
+        if (!enabled) {
             return;
         }
 

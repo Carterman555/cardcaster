@@ -1,5 +1,4 @@
 using DG.Tweening;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -32,14 +31,18 @@ public class ScriptableTeleportCard : ScriptableAbilityCardBase {
         teleportPosVisual.position = RaycastToFindPosition(cardposition);
     }
 
+    public override void OnStopPositioningCard() {
+        base.OnStopPositioningCard();
+
+        teleportPosVisual.gameObject.ReturnToPool();
+    }
+
     protected override void Play(Vector2 position) {
         base.Play(position);
 
         if (PlayerMovement.Instance == null) {
             return;
         }
-
-        teleportPosVisual.gameObject.ReturnToPool();
 
         // fade out instantly, then fade in with delay
         float duration = 0.5f;

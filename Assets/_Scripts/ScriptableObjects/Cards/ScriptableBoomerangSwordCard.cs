@@ -16,9 +16,13 @@ public class ScriptableBoomerangSwordCard : ScriptableAbilityCardBase {
     [SerializeField] private float rotateSpeed;
     private MMAutoRotate autoRotate;
 
+    private Vector3 attackPos;
+
     protected override void Play(Vector2 position) {
 
         base.Play(position);
+
+        attackPos = position;
 
         PlayerMeleeAttack.Instance.DisableAttack();
 
@@ -61,8 +65,8 @@ public class ScriptableBoomerangSwordCard : ScriptableAbilityCardBase {
 
         boomerangMovement = sword.AddComponent<BoomerangMovement>();
 
-        Vector2 toMouseDirection = MouseTracker.Instance.ToMouseDirection(sword.position);
-        boomerangMovement.Setup(toMouseDirection, Stats.ProjectileSpeed, acceleration);
+        Vector2 toAttackDirection = attackPos - sword.position;
+        boomerangMovement.Setup(toAttackDirection, Stats.ProjectileSpeed, acceleration);
 
         boomerangMovement.OnReturn += OnSwordReturn;
     }

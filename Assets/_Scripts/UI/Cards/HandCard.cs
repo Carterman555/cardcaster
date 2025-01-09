@@ -38,8 +38,20 @@ public class HandCard : MonoBehaviour {
         playingAnyCard = false;
     }
 
+    private void OnEnable() {
+        SubInputEvents();
+    }
+
+    private void OnDisable() {
+        UnsubInputEvents();
+    }
+
     private void Start() {
         useCardPlayer.Events.OnComplete.AddListener(OnUsedCard);
+    }
+
+    private void OnDestroy() {
+        useCardPlayer.Events.OnComplete.RemoveListener(OnUsedCard);
     }
 
     public void Setup(Transform deckTransform, ScriptableCardBase card) {
@@ -110,10 +122,6 @@ public class HandCard : MonoBehaviour {
         toMovePos = Vector3.zero;
         waitingForToHandToMove = false;
         toHandPlayer.Events.OnComplete.RemoveListener(MoveToPos);
-    }
-
-    private void OnDestroy() {
-        useCardPlayer.Events.OnComplete.RemoveListener(OnUsedCard);
     }
 
     private void OnUsedCard() {
@@ -199,6 +207,10 @@ public class HandCard : MonoBehaviour {
         playingCard = false;
         playingAnyCard = false;
 
+        if (card is ScriptableAbilityCardBase abilityCard) {
+            abilityCard.Cancel();
+        }
+
         float duration = 0.3f;
         transform.DOKill();
         transform.DOMove(handPosition, duration);
@@ -207,13 +219,48 @@ public class HandCard : MonoBehaviour {
         float hoverAlpha = 180f / 255f;
         cardImage.GetComponent<Image>().Fade(hoverAlpha);
 
-        if (card is ScriptableAbilityCardBase abilityCard) {
-            abilityCard.OnStopPositioningCard();
-        }
-
         AudioManager.Instance.PlaySound(AudioManager.Instance.AudioClips.CancelCard);
 
         OnAnyCancel_Card?.Invoke(card);
+    }
+
+    #endregion
+
+    #region Input
+
+    private CardKeyboardInput cardKeyboardInput;
+    private CardControllerInput cardControllerInput;
+
+    private void Awake() {
+        cardKeyboardInput = GetComponent<CardKeyboardInput>();
+        cardControllerInput = GetComponent<CardControllerInput>();
+    }
+
+    private void SubInputEvents() {
+        InputManager.OnControlsChanged += ControlsChanged;
+    }
+    private void UnsubInputEvents() {
+        InputManager.OnControlsChanged -= ControlsChanged;
+    }
+
+    private void ControlsChanged() {
+
+        if (playingCard) {
+            CancelCard();
+        }
+
+        ControlSchemeType controlSchemeType = InputManager.Instance.GetInputScheme();
+        if (controlSchemeType == ControlSchemeType.Keyboard) {
+            cardKeyboardInput.enabled = true;
+            cardControllerInput.enabled = false;
+        }
+        else if (controlSchemeType == ControlSchemeType.Controller) {
+            cardKeyboardInput.enabled = false;
+            cardControllerInput.enabled = true;
+        }
+        else {
+            Debug.LogError($"controlSchemeType not found: {controlSchemeType}");
+        }
     }
 
     #endregion

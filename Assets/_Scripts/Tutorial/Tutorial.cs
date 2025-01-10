@@ -40,7 +40,7 @@ public class Tutorial : MonoBehaviour {
 
     private string card2TextKeyboard = "You can also hold the hotkey ({ACTION}), and release where you want to teleport. These are" +
         " simple instructions. If you fail, I will get angry.";
-    private string card2TextController = "Once it's in the correct position, press {ACTION} to teleport. These are" +
+    private string card2TextController = "Once it's in the correct position, press {ACTION} again to teleport. These are" +
         " simple instructions. If you fail, I will get angry.";
 
     private string dashText = "Nice. You can also dash with {ACTION}, which can be a useful way to move around. Try it.";
@@ -127,7 +127,7 @@ public class Tutorial : MonoBehaviour {
             new SpawnEnemyStep(practiceEnemy, enemySpawnPoint),
             new EventDialogStep(PlayerMovement.Instance.OnDash, dashText, dashInput),
             new DialogStep(nextStepInput, card1TextKeyboard, card1TextController, firstCardInput),
-            new DialogStep(nextStepInput, card1TextKeyboard, card1TextController, firstCardInput),
+            new DialogStep(nextStepInput, card2TextKeyboard, card2TextController, firstCardInput),
             new GiveTeleportCardStep(teleportCard, roomTwoTrigger),
             new DialogStep(nextStepInput, modify1CardText),
             new DialogStep(nextStepInput, modify2CardText),
@@ -276,7 +276,7 @@ public class EventDialogStep : BaseTutorialStep {
             dialog = dialog.Replace("{ACTION}", actionText);
         }
 
-        DialogBox.Instance.ShowText(dialog, showEnterText: false);
+        DialogBox.Instance.ShowText(dialog, showNextDialogText: false);
 
         nextStepEvent.AddListener(CompleteStep);
     }
@@ -467,7 +467,7 @@ public class PickupEssenceStep : BaseTutorialStep {
     public override void OnEnterStep() {
         base.OnEnterStep();
 
-        DialogBox.Instance.ShowText(dialog, showEnterText: false);
+        DialogBox.Instance.ShowText(dialog, showNextDialogText: false);
 
         DropEssence();
 
@@ -513,7 +513,7 @@ public class HoleStep : BaseTutorialStep {
     public override void OnEnterStep() {
         base.OnEnterStep();
 
-        DialogBox.Instance.ShowText(dialog, showEnterText: false);
+        DialogBox.Instance.ShowText(dialog, showNextDialogText: false);
 
         createHoleParticles.Play();
 

@@ -251,7 +251,7 @@ MonoBehaviour:
   interactAction: {fileID: -6811146151478928456, guid: 50afa068aa51bd149a1f3d07794c53d5, type: 3}
   interactableTextPrefab: {fileID: 9084209149797969205, guid: a643d41c5c0620048bcb91e7ddbffcec, type: 3}
   textPosition: {x: 0, y: 1.4}
-  text: Open (E)
+  text: Open
   spriteRenderer: {fileID: 8716365102295414358}
   outlineMaterial: {fileID: 2100000, guid: 2fff2435ee99439438c463e2ce768283, type: 2}
 --- !u!114 &7542433000797141514

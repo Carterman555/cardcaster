@@ -61,7 +61,7 @@ public class Interactable : MonoBehaviour {
 
         interactableText = interactableTextPrefab.Spawn((Vector2)transform.position + textPosition, transform);
 
-        string interactInputText = InputManager.Instance.GetBindingText(interactAction.action);
+        string interactInputText = InputManager.Instance.GetBindingText(interactAction);
         interactableText.text = text + " (" + interactInputText + ")";
 
         // grow text

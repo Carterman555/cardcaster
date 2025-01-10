@@ -6,6 +6,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
+using UnityEngine.Rendering;
 using UnityEngine.UI;
 
 public class CardKeyboardInput : MonoBehaviour, IPointerDownHandler {
@@ -18,12 +19,6 @@ public class CardKeyboardInput : MonoBehaviour, IPointerDownHandler {
 
     [SerializeField] protected MMF_Player showCardPlayer;
 
-    [Header("Input Actions")]
-    [SerializeField] private InputActionReference playFirstCardInput;
-    [SerializeField] private InputActionReference playSecondCardInput;
-    [SerializeField] private InputActionReference playThirdCardInput;
-    private InputActionReference playInput;
-
     private void Awake() {
         handCard = GetComponent<HandCard>();
         followMouse = GetComponent<MMFollowTarget>();
@@ -35,16 +30,14 @@ public class CardKeyboardInput : MonoBehaviour, IPointerDownHandler {
     }
 
     private void OnEnable() {
-        SubCancelMethods();
+        SubCancelEvents();
 
         //... make sure not following the mouse
         StopFollowingMouse();
-
-        ShowPlayInput();
     }
 
     private void OnDisable() {
-        UnsubCancelMethods();
+        UnsubCancelEvents();
     }
 
     private void Update() {
@@ -53,8 +46,8 @@ public class CardKeyboardInput : MonoBehaviour, IPointerDownHandler {
     }
 
     private void HandleHotkeyInput() {
-        bool hotKeyDown = GetPlayInput().WasPerformedThisFrame();
-        bool hotKeyUp = GetPlayInput().WasReleasedThisFrame();
+        bool hotKeyDown = handCard.GetPlayInput().WasPerformedThisFrame();
+        bool hotKeyUp = handCard.GetPlayInput().WasReleasedThisFrame();
 
         if (!handCard.CanAffordToPlay()) {
             if (hotKeyDown) {
@@ -140,7 +133,7 @@ public class CardKeyboardInput : MonoBehaviour, IPointerDownHandler {
     private void StopFollowingMouse() {
         followMouse.enabled = false;
         playFeedbackOnHover.enabled = true;
-        ShowPlayInput();
+        handCard.ShowPlayInput();
     }
 
     private void TryPlayCard() {
@@ -160,35 +153,19 @@ public class CardKeyboardInput : MonoBehaviour, IPointerDownHandler {
         FeedbackPlayerOld.PlayInReverse("CancelCard");
     }
 
-    private InputAction GetPlayInput() {
-        int cardIndex = handCard.GetIndex();
-        if (cardIndex == 0) {
-            return playFirstCardInput.action;
-        }
-        else if (cardIndex == 1) {
-            return playSecondCardInput.action;
-        }
-        else if (cardIndex == 2) {
-            return playThirdCardInput.action;
-        }
-        else {
-            Debug.LogError("cardIndex not supported: " + cardIndex);
-            return null;
-        }
-    }
+    
 
     #region Cancelling
 
-    [SerializeField] private TextMeshProUGUI hotkeyText;
 
     private bool setToCancel;
 
-    private void SubCancelMethods() {
+    private void SubCancelEvents() {
         CancelCardPanel.OnSetToCancel += SetToCancel;
         CancelCardPanel.OnSetToPlay += SetToPlay;
     }
 
-    private void UnsubCancelMethods() {
+    private void UnsubCancelEvents() {
         CancelCardPanel.OnSetToCancel -= SetToCancel;
         CancelCardPanel.OnSetToPlay -= SetToPlay;
     }
@@ -202,14 +179,5 @@ public class CardKeyboardInput : MonoBehaviour, IPointerDownHandler {
     }
 
     #endregion
-
-    #region Visual
-
-    private void ShowPlayInput() {
-        hotkeyText.text = (handCard.GetIndex() + 1).ToString();
-    }
-
-    #endregion Visual
-
 
 }

@@ -123,7 +123,7 @@ public class Trainer : StaticInstance<Trainer> {
             return;
         }
 
-        DialogBox.Instance.ShowText("DO NOT BREAK MY BARRELS!!!", showEnterText: false);
+        DialogBox.Instance.ShowText("DO NOT BREAK MY BARRELS!!!", showNextDialogText: false);
         EnterRage();
     }
 
@@ -142,7 +142,7 @@ public class Trainer : StaticInstance<Trainer> {
         bool playerInRoomTwo = roomTwoTrigger.HasContact();
 
         if (playedCard is ScriptableTeleportCard && !playerInRoomTwo) {
-            DialogBox.Instance.ShowText("YOU WERE SUPPOSED TO TELEPORT TO THE NEXT ROOM ON THE RIGHT!!", showEnterText: false);
+            DialogBox.Instance.ShowText("YOU WERE SUPPOSED TO TELEPORT TO THE NEXT ROOM ON THE RIGHT!!", showNextDialogText: false);
             EnterRage();
         }
     }
@@ -158,7 +158,7 @@ public class Trainer : StaticInstance<Trainer> {
             return;
         }
 
-        DialogBox.Instance.ShowText("I'M TRYING TO TEACH YOU! DON'T LEAVE THAT ROOM!!!", showEnterText: false);
+        DialogBox.Instance.ShowText("I'M TRYING TO TEACH YOU! DON'T LEAVE THAT ROOM!!!", showNextDialogText: false);
 
         TeleportToPoint(roomOneTeleportPoint);
 
@@ -175,7 +175,7 @@ public class Trainer : StaticInstance<Trainer> {
         bool fireOrSwingCard = card == fireCard || card is ScriptableSwordSwingCard;
 
         if (fireOrSwingCard && tutorial.InGiveCardsStep()) {
-            DialogBox.Instance.ShowText("YOU USED TOO MUCH ESSENCE, AND NOW YOU DON'T HAVE ENOUGH FOR ME TO TEACH YOU!", showEnterText: false);
+            DialogBox.Instance.ShowText("YOU USED TOO MUCH ESSENCE, AND NOW YOU DON'T HAVE ENOUGH FOR ME TO TEACH YOU!", showNextDialogText: false);
             EnterRage();
         }
     }

@@ -18,7 +18,6 @@ public class CardControllerInput : MonoBehaviour {
     [SerializeField] private InputActionReference playFirstCardInput;
     [SerializeField] private InputActionReference playSecondCardInput;
     [SerializeField] private InputActionReference playThirdCardInput;
-    private InputActionReference playInput;
 
     [SerializeField] private InputActionReference cancelAction;
     [SerializeField] private InputActionReference moveCardAction;
@@ -48,7 +47,7 @@ public class CardControllerInput : MonoBehaviour {
     }
 
     private void HandleInput() {
-        bool playInputPressed = GetPlayInput().WasReleasedThisFrame();
+        bool playInputPressed = handCard.GetPlayInput().WasReleasedThisFrame();
 
         if (!handCard.CanAffordToPlay()) {
             if (playInputPressed) {
@@ -104,23 +103,6 @@ public class CardControllerInput : MonoBehaviour {
         transform.DOMove(screenCenterPos, duration: 0.2f).OnComplete(() => {
             movingCard = true; // allow player to move card after done moving to center
         });
-    }
-
-    private InputAction GetPlayInput() {
-        int cardIndex = handCard.GetIndex();
-        if (cardIndex == 0) {
-            return playFirstCardInput.action;
-        }
-        else if (cardIndex == 1) {
-            return playSecondCardInput.action;
-        }
-        else if (cardIndex == 2) {
-            return playThirdCardInput.action;
-        }
-        else {
-            Debug.LogError("cardIndex not supported: " + cardIndex);
-            return null;
-        }
     }
 
     private bool PressedOtherPlayInput() {

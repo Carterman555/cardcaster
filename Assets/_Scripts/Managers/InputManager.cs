@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using static UnityEditor.PlayerSettings;
@@ -67,13 +68,22 @@ public class InputManager : StaticInstance<InputManager> {
 
     public string GetBindingText(InputAction action) {
 
+        if (action == null) {
+            Debug.LogError("Action is null!");
+        }
+
         string displayString;
 
         if (GetInputScheme() == ControlSchemeType.Keyboard) {
-            displayString = action.bindings[0].ToDisplayString();
+
+            //... get the binding of the active control scheme
+            var binding = action.bindings
+                .FirstOrDefault(b => b.groups.Contains(playerInput.currentControlScheme));
+
+            displayString = binding.ToDisplayString(InputBinding.DisplayStringOptions.DontUseShortDisplayNames);
         }
         else if (GetInputScheme() == ControlSchemeType.Controller) {
-            displayString = action.bindings[1].ToDisplayString();
+            displayString = GetActionSpriteTag(action);
         }
         else {
             Debug.LogError("Could not find input scheme: " + GetInputScheme());
@@ -81,8 +91,7 @@ public class InputManager : StaticInstance<InputManager> {
         }
 
         Dictionary<string, string> actionReplaceDict = new() {
-            { "LMB", "left click" },
-            { "RMB", "right click" },
+            { "exm", "example" },
         };
 
         if (actionReplaceDict.ContainsKey(displayString)) {
@@ -156,6 +165,18 @@ public class InputManager : StaticInstance<InputManager> {
             return null;
         }
     }
+
+    public string GetActionSpriteTag(InputAction action) {
+
+        //... get the binding of the active control scheme
+        var binding = action.bindings
+            .FirstOrDefault(b => b.groups.Contains(playerInput.currentControlScheme));
+
+        string actionDisplayStr = binding.ToDisplayString(InputBinding.DisplayStringOptions.DontOmitDevice);
+        return $"<sprite name=\"{actionDisplayStr}\">";
+    }
+
+    #endregion
 }
 
 public enum ControlSchemeType {

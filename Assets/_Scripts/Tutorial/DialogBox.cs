@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class DialogBox : MonoBehaviour, IInitializable {
 
@@ -23,11 +24,13 @@ public class DialogBox : MonoBehaviour, IInitializable {
     #endregion
 
     [SerializeField] private TextMeshProUGUI dialogText;
-    [SerializeField] private TextMeshProUGUI enterText;
+    [SerializeField] private TextMeshProUGUI nextDialogText;
+
+    [SerializeField] private InputActionReference nextDialogAction;
 
     private bool showing;
 
-    public void ShowText(string text, bool showEnterText = true) {
+    public void ShowText(string text, bool showNextDialogText = true) {
         if (!gameObject.activeSelf) {
             FeedbackPlayer.Play("DialogBox");
         }
@@ -35,7 +38,10 @@ public class DialogBox : MonoBehaviour, IInitializable {
         dialogText.text = text;
         dialogText.GetComponent<TypewriterByCharacter>().StartShowingText();
 
-        enterText.enabled = showEnterText;
+        nextDialogText.text = "[" + InputManager.Instance.GetBindingText(nextDialogAction) + "]";
+        if (!showNextDialogText) {
+            nextDialogText.text = "";
+        }
     }
 
     public void Hide() {

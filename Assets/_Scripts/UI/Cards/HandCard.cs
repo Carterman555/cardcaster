@@ -26,6 +26,11 @@ public class HandCard : MonoBehaviour {
     [SerializeField] private MMF_Player useCardPlayer;
     [SerializeField] private MMRotationShaker cantPlayShaker;
 
+    [Header("Input Actions")]
+    [SerializeField] private InputActionReference playFirstCardInput;
+    [SerializeField] private InputActionReference playSecondCardInput;
+    [SerializeField] private InputActionReference playThirdCardInput;
+
     private ScriptableCardBase card;
     private int cardIndex;
 
@@ -40,6 +45,8 @@ public class HandCard : MonoBehaviour {
 
     private void OnEnable() {
         SubInputEvents();
+
+        ControlsChanged();
     }
 
     private void OnDisable() {
@@ -73,6 +80,8 @@ public class HandCard : MonoBehaviour {
 
     public void SetCardIndex(int cardIndex) {
         this.cardIndex = cardIndex;
+
+        ShowPlayInput();
     }
 
     // to move to after done moving to hand
@@ -188,6 +197,10 @@ public class HandCard : MonoBehaviour {
         OnCantAfford_Card?.Invoke(card);
     }
 
+    public void ShowPlayInput() {
+        hotkeyText.text = InputManager.Instance.GetBindingText(GetPlayInput());
+    }
+
     private void TryShowWarning() {
         if (card is ScriptableModifierCardBase modifier) {
             if (AbilityManager.Instance.IsModifierActive(modifier)) {
@@ -249,6 +262,8 @@ public class HandCard : MonoBehaviour {
             CancelCard();
         }
 
+        ShowPlayInput();
+
         ControlSchemeType controlSchemeType = InputManager.Instance.GetInputScheme();
         if (controlSchemeType == ControlSchemeType.Keyboard) {
             cardKeyboardInput.enabled = true;
@@ -275,6 +290,23 @@ public class HandCard : MonoBehaviour {
 
     public int GetIndex() {
         return cardIndex;
+    }
+
+    public InputAction GetPlayInput() {
+
+        if (cardIndex == 0) {
+            return playFirstCardInput.action;
+        }
+        else if (cardIndex == 1) {
+            return playSecondCardInput.action;
+        }
+        else if (cardIndex == 2) {
+            return playThirdCardInput.action;
+        }
+        else {
+            Debug.LogError("cardIndex not supported: " + cardIndex);
+            return null;
+        }
     }
 
     public ScriptableCardBase GetCard() {

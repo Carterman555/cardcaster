@@ -2975,6 +2975,9 @@ MonoBehaviour:
   toHandPlayer: {fileID: 8445676972534443276}
   useCardPlayer: {fileID: 2697354873728968971}
   cantPlayShaker: {fileID: 3920663030056354911}
+  playFirstCardInput: {fileID: 5962943595717837552, guid: 50afa068aa51bd149a1f3d07794c53d5, type: 3}
+  playSecondCardInput: {fileID: 5805402075545936634, guid: 50afa068aa51bd149a1f3d07794c53d5, type: 3}
+  playThirdCardInput: {fileID: -8723412899392237460, guid: 50afa068aa51bd149a1f3d07794c53d5, type: 3}
   cardImage: {fileID: 8781295295215984585}
   backImage: {fileID: 7720993515162781848}
   abilityCardBack: {fileID: -6947437304132239891, guid: a45140592a1d888479b60b8c14f31a24, type: 3}
@@ -3012,9 +3015,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   showCardPlayer: {fileID: 1507770246064602376}
-  playFirstCardInput: {fileID: 5962943595717837552, guid: 50afa068aa51bd149a1f3d07794c53d5, type: 3}
-  playSecondCardInput: {fileID: 5805402075545936634, guid: 50afa068aa51bd149a1f3d07794c53d5, type: 3}
-  playThirdCardInput: {fileID: -8723412899392237460, guid: 50afa068aa51bd149a1f3d07794c53d5, type: 3}
   hotkeyText: {fileID: 4834253411405777544}
 --- !u!114 &4856281349269943019
 MonoBehaviour:

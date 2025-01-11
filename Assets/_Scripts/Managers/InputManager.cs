@@ -66,7 +66,7 @@ public class InputManager : StaticInstance<InputManager> {
 
     #region Get Binding Text and Images
 
-    public string GetBindingText(InputAction action) {
+    public string GetBindingText(InputAction action, bool shortDisplayName = true) {
 
         if (action == null) {
             Debug.LogError("Action is null!");
@@ -80,7 +80,12 @@ public class InputManager : StaticInstance<InputManager> {
             var binding = action.bindings
                 .FirstOrDefault(b => b.groups.Contains(playerInput.currentControlScheme));
 
-            displayString = binding.ToDisplayString(InputBinding.DisplayStringOptions.DontUseShortDisplayNames);
+            if (shortDisplayName) {
+                displayString = binding.ToDisplayString();
+            }
+            else {
+                displayString = binding.ToDisplayString(InputBinding.DisplayStringOptions.DontUseShortDisplayNames);
+            }
         }
         else if (GetInputScheme() == ControlSchemeType.Controller) {
             displayString = GetActionSpriteTag(action);

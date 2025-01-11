@@ -38,7 +38,7 @@ public class DialogBox : MonoBehaviour, IInitializable {
         dialogText.text = text;
         dialogText.GetComponent<TypewriterByCharacter>().StartShowingText();
 
-        nextDialogText.text = "[" + InputManager.Instance.GetBindingText(nextDialogAction) + "]";
+        nextDialogText.text = "[" + InputManager.Instance.GetBindingText(nextDialogAction, shortDisplayName: false) + "]";
         if (!showNextDialogText) {
             nextDialogText.text = "";
         }

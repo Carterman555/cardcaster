@@ -240,7 +240,7 @@ public class DialogStep : BaseTutorialStep {
         }
 
         if (dialogAction != null) {
-            string actionText = InputManager.Instance.GetBindingText(dialogAction);
+            string actionText = InputManager.Instance.GetBindingText(dialogAction, shortDisplayName: false);
             dialog = dialog.Replace("{ACTION}", actionText);
         }
 
@@ -272,7 +272,7 @@ public class EventDialogStep : BaseTutorialStep {
         base.OnEnterStep();
 
         if (dialogAction != null) {
-            string actionText = InputManager.Instance.GetBindingText(dialogAction);
+            string actionText = InputManager.Instance.GetBindingText(dialogAction, shortDisplayName: false);
             dialog = dialog.Replace("{ACTION}", actionText);
         }
 

@@ -49,7 +49,8 @@ public class ChestItemInfoUI : MonoBehaviour, IInitializable {
 
         // everytime the card switches info, it has to be in the bottom pos
         bool hoveringItem = itemInfoToShow != null;
-        if (hoveringItem && PanelAtBottomPos()) {
+        bool panelAtBotPos = itemInfoPlayer.InFirstState();
+        if (hoveringItem && panelAtBotPos) {
             itemInfoPlayer.PlayFeedbacks();
             SetInfo(itemInfoToShow);
         }
@@ -64,7 +65,8 @@ public class ChestItemInfoUI : MonoBehaviour, IInitializable {
             }
 
             // if panel is at top, move the panel down by playing feedback (but don't set info yet, it will set at bottom pos)
-            if (PanelAtTopPos()) {
+            bool panelAtTopPos = itemInfoPlayer.InSecondState();
+            if (panelAtTopPos) {
                 itemInfoPlayer.PlayFeedbacks();
             }
         }
@@ -100,35 +102,6 @@ public class ChestItemInfoUI : MonoBehaviour, IInitializable {
         if (!itemInfo.Heal) {
             cardImage.Setup(itemInfo.Card);
         }
-    }
-
-
-    private bool PanelAtTopPos() {
-        MMF_Player itemInfoPlayer = FeedbackPlayer.GetPlayer("ChestItemInfoPopup");
-
-        if (itemInfoPlayer.IsPlaying) {
-            return false;
-        }
-
-        Vector2 topPos = itemInfoPlayer.GetFeedbackOfType<MMF_Position>().DestinationPosition;
-        Vector2 currentPos = GetComponent<RectTransform>().anchoredPosition;
-
-        bool inTopPos = Vector2.Distance(topPos, currentPos) < 0.05f;
-        return inTopPos;
-    }
-
-    private bool PanelAtBottomPos() {
-        MMF_Player itemInfoPlayer = FeedbackPlayer.GetPlayer("ChestItemInfoPopup");
-
-        if (itemInfoPlayer.IsPlaying) {
-            return false;
-        }
-
-        Vector2 botPos = itemInfoPlayer.GetFeedbackOfType<MMF_Position>().InitialPosition;
-        Vector2 currentPos = GetComponent<RectTransform>().anchoredPosition;
-
-        bool inBottomPos = Vector2.Distance(botPos, currentPos) < 0.05f;
-        return inBottomPos;
     }
 }
 

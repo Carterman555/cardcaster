@@ -10838,13 +10838,14 @@ GameObject:
   - component: {fileID: 761624297}
   - component: {fileID: 761624296}
   - component: {fileID: 761624295}
+  - component: {fileID: 761624298}
   m_Layer: 5
   m_Name: CancelCardText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &761624295
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10961,6 +10962,19 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 100}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &761624298
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 761624294}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 60d1ec92c6a157340b8e587d0cf8bf82, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cancelCardAction: {fileID: -355084504590373469, guid: 50afa068aa51bd149a1f3d07794c53d5, type: 3}
 --- !u!1 &770631013
 GameObject:
   m_ObjectHideFlags: 0
@@ -13838,7 +13852,7 @@ MonoBehaviour:
   AutoInitialization: 1
   SafeMode: 3
   Direction: 0
-  AutoChangeDirectionOnEnd: 0
+  AutoChangeDirectionOnEnd: 1
   AutoPlayOnStart: 0
   AutoPlayOnEnable: 0
   ForceTimescaleMode: 0
@@ -14006,7 +14020,7 @@ MonoBehaviour:
         DebugActive: 0
         AnimatePositionTarget: {fileID: 761624294}
         Mode: 0
-        Space: 1
+        Space: 2
         RandomizeRemap: 0
         AnimatePositionDuration: 0.3
         AnimatePositionTween:
@@ -14183,10 +14197,10 @@ MonoBehaviour:
             m_RotationOrder: 4
           Initialized: 0
         AllowAdditivePlays: 0
-        RelativePosition: 1
-        DeterminePositionsOnPlay: 1
-        InitialPosition: {x: 0, y: 0, z: 0}
-        DestinationPosition: {x: 0, y: -150, z: 0}
+        RelativePosition: 0
+        DeterminePositionsOnPlay: 0
+        InitialPosition: {x: 0, y: 100, z: 0}
+        DestinationPosition: {x: 0, y: -50, z: 0}
         InitialPositionTransform: {fileID: 0}
         DestinationPositionTransform: {fileID: 0}
         AnimatePositionCurveX:
@@ -14411,7 +14425,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1087560505}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1200cfd16001adb4688d40e825d278c1, type: 3}
+  m_Script: {fileID: 11500000, guid: 14cc3f23d078c204095470078904d1fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &1098323212 stripped
@@ -25636,6 +25650,63 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1885716300}
   m_CullTransparentMesh: 1
+--- !u!1001 &1895170964
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 5435557155981603943, guid: 215373478dbcd864e86d25584df971a6, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 1.561325
+      objectReference: {fileID: 0}
+    - target: {fileID: 5435557155981603943, guid: 215373478dbcd864e86d25584df971a6, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.48012984
+      objectReference: {fileID: 0}
+    - target: {fileID: 5435557155981603943, guid: 215373478dbcd864e86d25584df971a6, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5435557155981603943, guid: 215373478dbcd864e86d25584df971a6, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5435557155981603943, guid: 215373478dbcd864e86d25584df971a6, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5435557155981603943, guid: 215373478dbcd864e86d25584df971a6, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5435557155981603943, guid: 215373478dbcd864e86d25584df971a6, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5435557155981603943, guid: 215373478dbcd864e86d25584df971a6, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5435557155981603943, guid: 215373478dbcd864e86d25584df971a6, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5435557155981603943, guid: 215373478dbcd864e86d25584df971a6, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8696099311601879913, guid: 215373478dbcd864e86d25584df971a6, type: 3}
+      propertyPath: m_Name
+      value: Chest
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 215373478dbcd864e86d25584df971a6, type: 3}
 --- !u!1 &1895467990
 GameObject:
   m_ObjectHideFlags: 0
@@ -29904,3 +29975,4 @@ SceneRoots:
   - {fileID: 860838815}
   - {fileID: 1635037926}
   - {fileID: 882422893}
+  - {fileID: 1895170964}

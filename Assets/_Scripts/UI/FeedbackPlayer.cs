@@ -22,6 +22,14 @@ public class FeedbackPlayer : MonoBehaviour {
         feedbackPlayers[feedbackName].Play();
     }
 
+    public static void PlayIfNormal(string feedbackName) {
+        feedbackPlayers[feedbackName].GetPlayer().PlayFeedbacksOnlyIfNormalDirection();
+    }
+
+    public static void PlayIfReversed(string feedbackName) {
+        feedbackPlayers[feedbackName].GetPlayer().PlayFeedbacksOnlyIfReversed();
+    }
+
     [SerializeField] private string feedbackName;
     private MMF_Player MMFPlayer;
 

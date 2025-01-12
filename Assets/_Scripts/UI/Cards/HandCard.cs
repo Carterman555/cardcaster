@@ -35,12 +35,13 @@ public class HandCard : MonoBehaviour {
     private int cardIndex;
 
     private static bool playingAnyCard;
+    private static bool playingCardThisFrame;
     private bool playingCard;
-
 
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
     private static void Init() {
         playingAnyCard = false;
+        playingCardThisFrame = false;
     }
 
     private void OnEnable() {
@@ -142,12 +143,17 @@ public class HandCard : MonoBehaviour {
         OnAnyCardUsed_Card?.Invoke(card);
         playingCard = false;
         playingAnyCard = false;
+        print("playingAnyCard set false");
     }
 
     public void OnStartPlayingCard() {
 
         playingCard = true;
         playingAnyCard = true;
+        print("playingAnyCard set true: " + Time.frameCount);
+
+        playingCardThisFrame = true;
+        Invoke(nameof(SetPlayingCardThisFrameFalse), Time.deltaTime);
 
         // show the player this will be wasted if the modifier's already active
         TryShowWarning();
@@ -218,7 +224,13 @@ public class HandCard : MonoBehaviour {
     public void CancelCard() {
 
         playingCard = false;
-        playingAnyCard = false;
+
+        // sometimes a card is cancel and another started playing on the same frame, this sets playingAnyCard to false
+        // when a card is playing, so make sure a card was not set to playing this frame
+        if (!playingCardThisFrame) {
+            playingAnyCard = false;
+            print("playingAnyCard set false " + Time.frameCount);
+        }
 
         if (card is ScriptableAbilityCardBase abilityCard) {
             abilityCard.Cancel();
@@ -279,6 +291,11 @@ public class HandCard : MonoBehaviour {
     }
 
     #endregion
+
+    private void SetPlayingCardThisFrameFalse() {
+        playingCardThisFrame = false;
+        print("SetPlayingCardThisFrameFalse: " + Time.frameCount);
+    }
 
     public bool IsPlayingCard() {
         return playingCard;

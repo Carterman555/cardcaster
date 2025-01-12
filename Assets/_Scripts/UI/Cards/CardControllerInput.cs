@@ -12,7 +12,8 @@ public class CardControllerInput : MonoBehaviour {
 
     [SerializeField] private float cardMoveSpeed;
 
-    [SerializeField] protected MMF_Player showCardPlayer;
+    [SerializeField] private MMF_Player showCardPlayer;
+    private TwoStateFeedback showCancelTextFeedback;
 
     [Header("Input Actions")]
     [SerializeField] private InputActionReference playFirstCardInput;
@@ -37,9 +38,15 @@ public class CardControllerInput : MonoBehaviour {
         showOnHover.enabled = false;
     }
 
+    private void Start() {
+        showCancelTextFeedback = FeedbackPlayer.GetPlayer("CancelCardText").GetComponent<TwoStateFeedback>();
+    }
+
     private void OnDisable() {
         showing = false;
         movingCard = false;
+
+        showCancelTextFeedback.PlayIfInStateTwo();
     }
 
     private void Update() {
@@ -70,23 +77,42 @@ public class CardControllerInput : MonoBehaviour {
                 }
 
                 handCard.OnStartPlayingCard();
+
+                showCancelTextFeedback.PlayIfInStateOne(); // show if hiding
             }
             else if (showing || movingCard) {
                 Vector2 worldPos = Camera.main.ScreenToWorldPoint(transform.position);
                 handCard.PlayCard(worldPos);
+
+                showCancelTextFeedback.PlayIfInStateTwo(); // hide if showing
             }
         }
 
         bool pressedCancelInput = cancelAction.action.WasReleasedThisFrame();
         if (pressedCancelInput || PressedOtherPlayInput()) {
+
+            if (handCard.IsPlayingCard() && showCancelTextFeedback.IsPlaying()) {
+                showCancelTextFeedback.Revert();
+            }
+
             handCard.CancelCard();
             movingCard = false;
             showing = false;
+
+            //... wait a frame to see if should hide text to wait for play card input to see if any other card is playing
+            Invoke(nameof(HideIfNotPlayingCard), Time.deltaTime);
         }
 
         if (movingCard) {
             Vector3 direction = moveCardAction.action.ReadValue<Vector2>().normalized;
             transform.position += direction * cardMoveSpeed * Time.deltaTime;
+        }
+    }
+
+    private void HideIfNotPlayingCard() {
+        if (!HandCard.IsPlayingAnyCard()) {
+            showCancelTextFeedback.PlayIfInStateTwo(); // hide if showing
+            print("cancel - play if reversed");
         }
     }
 

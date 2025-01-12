@@ -7,6 +7,7 @@ using UnityEngine.UI;
 using TMPro;
 using DG.Tweening;
 using System.Linq;
+using MoreMountains.Feedbacks;
 
 /// <summary>
 /// A static class for general helpful methods
@@ -253,6 +254,50 @@ public static class Helpers {
             str += item + ", ";
         }
         Debug.Log(str);
+    }
+
+    // for feedbacks that toggle between 2 states (like 2 positions), this method will be true if the feedback is
+    // in the first state
+    public static bool InFirstState(this MMF_Player feedbackPlayer) {
+
+        if (!feedbackPlayer.AutoChangeDirectionOnEnd) {
+            Debug.LogWarning($"Tried checking if {feedbackPlayer.name} is in first state, but it doesn't auto change direction!");
+            return false;
+        }
+
+        if (feedbackPlayer.IsPlaying) {
+            return false;
+        }
+
+        // needed because the first time a feedback plays, it doesn't switch direction
+        if (feedbackPlayer.PlayCount == 0) {
+            return true;
+        }
+
+        bool inFirstState = feedbackPlayer.Direction == MMFeedbacks.Directions.BottomToTop;
+        return inFirstState;
+    }
+
+    // for feedbacks that toggle between 2 states (like 2 positions), this method will be true if the feedback is
+    // in the second state
+    public static bool InSecondState(this MMF_Player feedbackPlayer) {
+
+        if (!feedbackPlayer.AutoChangeDirectionOnEnd) {
+            Debug.LogWarning($"Tried checking if {feedbackPlayer.name} is in second state, but it doesn't auto change direction!");
+            return false;
+        }
+
+        if (feedbackPlayer.IsPlaying) {
+            return false;
+        }
+
+        // needed because the first time a feedback plays, it doesn't switch direction
+        if (feedbackPlayer.PlayCount == 0) {
+            return false;
+        }
+
+        bool inSecondState = feedbackPlayer.Direction == MMFeedbacks.Directions.TopToBottom;
+        return inSecondState;
     }
 
     // -------------- Game Specific --------------

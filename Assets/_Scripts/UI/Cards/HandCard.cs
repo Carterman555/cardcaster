@@ -143,14 +143,12 @@ public class HandCard : MonoBehaviour {
         OnAnyCardUsed_Card?.Invoke(card);
         playingCard = false;
         playingAnyCard = false;
-        print("playingAnyCard set false");
     }
 
     public void OnStartPlayingCard() {
 
         playingCard = true;
         playingAnyCard = true;
-        print("playingAnyCard set true: " + Time.frameCount);
 
         playingCardThisFrame = true;
         Invoke(nameof(SetPlayingCardThisFrameFalse), Time.deltaTime);
@@ -229,7 +227,6 @@ public class HandCard : MonoBehaviour {
         // when a card is playing, so make sure a card was not set to playing this frame
         if (!playingCardThisFrame) {
             playingAnyCard = false;
-            print("playingAnyCard set false " + Time.frameCount);
         }
 
         if (card is ScriptableAbilityCardBase abilityCard) {
@@ -294,7 +291,6 @@ public class HandCard : MonoBehaviour {
 
     private void SetPlayingCardThisFrameFalse() {
         playingCardThisFrame = false;
-        print("SetPlayingCardThisFrameFalse: " + Time.frameCount);
     }
 
     public bool IsPlayingCard() {

@@ -1,0 +1,28 @@
+using MoreMountains.Feedbacks;
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.InputSystem;
+
+public class PlayFeedbackOnAction : MonoBehaviour {
+
+    [SerializeField] private InputActionReference actionReference;
+
+    private MMF_Player feedbackPlayer;
+
+    private void Awake() {
+        feedbackPlayer = GetComponent<MMF_Player>();
+    }
+
+    private void OnEnable() {
+        actionReference.action.performed += OnActionPerformed;
+    }
+    private void OnDisable() {
+        actionReference.action.performed -= OnActionPerformed;
+    }
+
+    private void OnActionPerformed(InputAction.CallbackContext context) {
+        feedbackPlayer.PlayFeedbacks();
+    }
+}

@@ -5,6 +5,7 @@ using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 using static UnityEditor.PlayerSettings;
 
 public class InputManager : StaticInstance<InputManager> {
@@ -13,11 +14,15 @@ public class InputManager : StaticInstance<InputManager> {
 
     private void OnEnable() {
         ActionMapUpdaterPanel.OnAnyActiveChanged += UpdateActionMap;
+        SceneManager.sceneLoaded += UpdateGlobalActionMap;
+
         playerInput.controlsChangedEvent.AddListener(InvokeInputSchemeChangedEvent);
     }
 
     private void OnDisable() {
         ActionMapUpdaterPanel.OnAnyActiveChanged -= UpdateActionMap;
+        SceneManager.sceneLoaded -= UpdateGlobalActionMap;
+
         playerInput.controlsChangedEvent.RemoveListener(InvokeInputSchemeChangedEvent);
     }
 
@@ -44,7 +49,7 @@ public class InputManager : StaticInstance<InputManager> {
 
     #endregion
 
-    #region Update Action Map
+    #region Update Action Maps
 
     private ActionMapUpdaterPanel[] actionMapUpdaters;
 
@@ -52,6 +57,7 @@ public class InputManager : StaticInstance<InputManager> {
         actionMapUpdaters = FindObjectsOfType<ActionMapUpdaterPanel>(true);
     }
 
+    // there are different controls when UI is open
     private void UpdateActionMap() {
         bool anyActive = actionMapUpdaters.Any(u => u.isActiveAndEnabled);
 
@@ -62,6 +68,17 @@ public class InputManager : StaticInstance<InputManager> {
             playerInput.SwitchCurrentActionMap("Gameplay");
         }
     }
+
+    // I want the toggle map action (and maybe other actions) to be active whether UI is active or not, but not when in menu scene
+    private void UpdateGlobalActionMap(Scene scene, LoadSceneMode loadSceneMode) {
+        if (scene.name == "Game") {
+            playerInput.actions.FindActionMap("GameGlobal").Enable();
+        }
+        else if (scene.name == "Menu") {
+            playerInput.actions.FindActionMap("GameGlobal").Disable();
+        }
+    }
+
     #endregion
 
     #region Get Binding Text and Images

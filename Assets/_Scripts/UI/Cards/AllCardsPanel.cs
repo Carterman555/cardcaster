@@ -13,15 +13,20 @@ public class AllCardsPanel : StaticInstance<AllCardsPanel> {
     [SerializeField] private Transform discardCardsContainer;
     [SerializeField] private Transform handCardsContainer;
 
-    [SerializeField] private VerticalLayoutGroup verticalLayoutGroup;
-
-    private List<PanelCardButton> cardButtons = new();
-
     // played by popup feedback
-    public void UpdateCards() {
+    public void SetupCardPanel() {
+        UpdateCards();
+        TrySelectFirstCard();
+    }
+
+    private void UpdateCards() {
         SetCardsInContainer(deckCardsContainer, DeckManager.Instance.GetCardsInDeck(), CardLocation.Deck);
         SetCardsInContainer(discardCardsContainer, DeckManager.Instance.GetCardsInDiscard(), CardLocation.Discard);
         SetCardsInContainer(handCardsContainer, DeckManager.Instance.GetCardsInHand().ToList(), CardLocation.Hand);
+    }
+
+    private void TrySelectFirstCard() {
+        // TODO - finish
     }
 
     private void SetCardsInContainer(Transform container, List<ScriptableCardBase> cards, CardLocation cardLocation) {
@@ -37,8 +42,6 @@ public class AllCardsPanel : StaticInstance<AllCardsPanel> {
 
             PanelCardButton newCard = trashCardPrefab.Spawn(container);
             newCard.Setup(card, cardLocation, cardIndex);
-
-            cardButtons.Add(newCard);
         }
     }
 

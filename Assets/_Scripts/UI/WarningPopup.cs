@@ -29,10 +29,12 @@ public class WarningPopup : MonoBehaviour, IInitializable {
     [SerializeField] private TextMeshProUGUI warningText;
 
     private CanvasGroup canvasGroupToDisable;
+    private Button buttonToSelectOnClose;
 
-    public void Setup(string warningTextStr, CanvasGroup canvasGroupToDisable) {
+    public void Setup(string warningTextStr, CanvasGroup canvasGroupToDisable, Button buttonToSelectOnClose = null) {
         warningText.text = warningTextStr;
         this.canvasGroupToDisable = canvasGroupToDisable;
+        this.buttonToSelectOnClose = buttonToSelectOnClose;
 
         OpenWarning();
     }
@@ -60,6 +62,10 @@ public class WarningPopup : MonoBehaviour, IInitializable {
         transform.DOScale(0, duration: 0.3f).SetUpdate(true).OnComplete(() => {
             gameObject.SetActive(false);
             canvasGroupToDisable.interactable = true;
+
+            if (buttonToSelectOnClose != null) {
+                buttonToSelectOnClose.Select();
+            }
         });
 
         AudioManager.Instance.PlaySound(AudioManager.Instance.AudioClips.ClosePanel);

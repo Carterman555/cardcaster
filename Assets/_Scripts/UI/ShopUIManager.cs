@@ -1,4 +1,5 @@
 using DG.Tweening;
+using Mono.CSharp;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -18,8 +19,14 @@ public class ShopUIManager : StaticInstance<ShopUIManager>, IInitializable {
     private CardLocation currentCardLocation;
     private int currentCardIndex;
 
+    [SerializeField] private Button tradeButton;
+
     private ScriptableCardBase newCard;
     private ShopCard shopItem;
+
+    private bool active;
+
+    private PanelCardButton panelCardToTrade;
 
     #region Open Trade UI
 
@@ -30,7 +37,9 @@ public class ShopUIManager : StaticInstance<ShopUIManager>, IInitializable {
     }
 
     public void Activate(ScriptableCardBase newCard, ShopCard shopItem) {
-        PanelCardButton.OnClicked_PanelCard += ShowSelectButton;
+        active = true;
+
+        PanelCardButton.OnClicked_PanelCard += OnCardClicked;
         SelectButton.OnSelect_PanelCard += ShowTradeUI;
 
         tradeButton.onClick.AddListener(OnTradeButtonClicked);
@@ -41,12 +50,34 @@ public class ShopUIManager : StaticInstance<ShopUIManager>, IInitializable {
         newCardIcon.sprite = newCard.GetSprite();
 
         DisableLesserRarities(newCard.GetRarity());
+
+        //... can select cards if trading card
+        AllCardsPanel.Instance.TrySetupControllerCardSelection();
     }
+
     public void Deactivate() {
-        PanelCardButton.OnClicked_PanelCard -= ShowSelectButton;
+        active = false;
+
+        PanelCardButton.OnClicked_PanelCard -= OnCardClicked;
         SelectButton.OnSelect_PanelCard -= ShowTradeUI;
 
         tradeButton.onClick.RemoveListener(OnTradeButtonClicked);
+    }
+
+    public bool IsActive() {
+        return active;
+    }
+
+    private void OnCardClicked(PanelCardButton panelCard) {
+        // if clicked the card for the first time
+        if (panelCardToTrade != panelCard) {
+            panelCardToTrade = panelCard;
+            ShowSelectButton(panelCard);
+        }
+        // if clicked the card a second time, trade it
+        else {
+            ShowTradeUI(panelCard);
+        }
     }
 
     private void ShowSelectButton(PanelCardButton panelCard) {
@@ -57,7 +88,13 @@ public class ShopUIManager : StaticInstance<ShopUIManager>, IInitializable {
     }
 
     private void ShowTradeUI(PanelCardButton panelCard) {
-        FeedbackPlayerOld.Play("TransitionTradeUI");
+        FeedbackPlayer.Play("TransitionTradeUI");
+
+        SelectButton.Instance.Hide();
+
+        if (InputManager.Instance.GetInputScheme() == ControlSchemeType.Controller) {
+            tradeButton.Select();
+        }
 
         currentCard = panelCard.GetCard();
         currentCardLocation = panelCard.GetCardLocation();
@@ -84,7 +121,6 @@ public class ShopUIManager : StaticInstance<ShopUIManager>, IInitializable {
 
     #endregion
 
-    [SerializeField] private Button tradeButton;
 
     private void OnTradeButtonClicked() {
         SwapIcons().OnComplete(() => {

@@ -8,21 +8,41 @@ public class TrashCardManager : StaticInstance<TrashCardManager> {
 
     public static event Action OnTrashCard;
 
+    private bool active;
+
+    private PanelCardButton panelCardToTrash;
+
     public void Activate() {
-        PanelCardButton.OnClicked_PanelCard += ShowSelectButton;
+        active = true;
+
+        PanelCardButton.OnClicked_PanelCard += OnCardClicked;
         SelectButton.OnSelect_PanelCard += TrashCard;
+
+        //... can select cards if trashing card
+        AllCardsPanel.Instance.TrySetupControllerCardSelection();
     }
     public void Deactivate() {
-        PanelCardButton.OnClicked_PanelCard -= ShowSelectButton;
+        active = false;
+
+        PanelCardButton.OnClicked_PanelCard -= OnCardClicked;
         SelectButton.OnSelect_PanelCard -= TrashCard;
     }
 
-    private void TrashCard(PanelCardButton panelCard) {
-        panelCard.Trash();
+    public bool IsActive() {
+        return active;
+    }
 
-        AudioManager.Instance.PlaySound(AudioManager.Instance.AudioClips.BurnCard);
+    private void OnCardClicked(PanelCardButton panelCard) {
 
-        OnTrashCard?.Invoke();
+        // if clicked the card for the first time
+        if (panelCardToTrash != panelCard) {
+            panelCardToTrash = panelCard;
+            ShowSelectButton(panelCard);
+        }
+        // if clicked the card a second time, trash it
+        else {
+            TrashCard(panelCard);
+        }
     }
 
     private void ShowSelectButton(PanelCardButton panelCard) {
@@ -30,5 +50,15 @@ public class TrashCardManager : StaticInstance<TrashCardManager> {
         Vector2 position = (Vector2)panelCard.transform.position + offset;
 
         SelectButton.Instance.Show("Burn", position, panelCard);
+    }
+
+    private void TrashCard(PanelCardButton panelCard) {
+        panelCard.Trash();
+
+        SelectButton.Instance.Hide();
+
+        AudioManager.Instance.PlaySound(AudioManager.Instance.AudioClips.BurnCard);
+
+        OnTrashCard?.Invoke();
     }
 }

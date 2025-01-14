@@ -7,26 +7,37 @@ using System.Linq;
 
 public class AllCardsPanel : StaticInstance<AllCardsPanel> {
 
-    [SerializeField] private PanelCardButton trashCardPrefab;
+    [SerializeField] private PanelCardButton panelCardPrefab;
 
     [SerializeField] private Transform deckCardsContainer;
     [SerializeField] private Transform discardCardsContainer;
     [SerializeField] private Transform handCardsContainer;
 
-    // played by popup feedback
-    public void SetupCardPanel() {
+    private List<PanelCardButton> panelCardButtons = new();
+
+
+    private void OnEnable() {
         UpdateCards();
-        TrySelectFirstCard();
+
+        if (toSetupControllerInput) {
+            TrySetupControllerCardSelection();
+        }
+    }
+
+    // deactivate on the managers related to the AllCardsPanel that are possibly active. one is sometimes activated
+    // when the AllCardsPanel is activated depending on why the AllCardsPanel is activated. (if to trash a card, the
+    // trash manager is activated for example)
+    private void OnDisable() {
+        TrashCardManager.Instance.Deactivate();
+        ShopUIManager.Instance.Deactivate();
+
+        toSetupControllerInput = false;
     }
 
     private void UpdateCards() {
         SetCardsInContainer(deckCardsContainer, DeckManager.Instance.GetCardsInDeck(), CardLocation.Deck);
         SetCardsInContainer(discardCardsContainer, DeckManager.Instance.GetCardsInDiscard(), CardLocation.Discard);
         SetCardsInContainer(handCardsContainer, DeckManager.Instance.GetCardsInHand().ToList(), CardLocation.Hand);
-    }
-
-    private void TrySelectFirstCard() {
-        // TODO - finish
     }
 
     private void SetCardsInContainer(Transform container, List<ScriptableCardBase> cards, CardLocation cardLocation) {
@@ -40,16 +51,46 @@ public class AllCardsPanel : StaticInstance<AllCardsPanel> {
                 continue;
             }
 
-            PanelCardButton newCard = trashCardPrefab.Spawn(container);
+            PanelCardButton newCard = panelCardPrefab.Spawn(container);
             newCard.Setup(card, cardLocation, cardIndex);
+
+            panelCardButtons.Add(newCard);
         }
     }
 
-    // deactivate on the managers related to the AllCardsPanel that are possibly active. one is sometimes activated
-    // when the AllCardsPanel is activated depending on why the AllCardsPanel is activated. (if to trash a card, the
-    // trash manager is activated for example)
-    private void OnDisable() {
-        TrashCardManager.Instance.Deactivate();
-        ShopUIManager.Instance.Deactivate();
+    #region Controller Input
+
+    [SerializeField] private PanUI panUI;
+
+    private bool toSetupControllerInput;
+
+    // played by outside script and in setup, so can be play after or before the cards are setup and it'll still work
+    public void TrySetupControllerCardSelection() {
+
+        // only setup card if using controller
+        if (InputManager.Instance.GetInputScheme() != ControlSchemeType.Controller) {
+            return;
+        }
+
+        if (panelCardButtons.Count > 0) {
+            SetupControllerCardSelection();
+
+        }
+        else {
+            toSetupControllerInput = true;
+        }
     }
+
+    private void SetupControllerCardSelection() {
+
+        //... select the first card
+        panelCardButtons[0].GetComponent<Button>().Select();
+
+        //... the scroll will be controlled by which card is selected so disable the other way to scroll
+        panUI.enabled = false;
+
+
+    }
+
+    #endregion
 }

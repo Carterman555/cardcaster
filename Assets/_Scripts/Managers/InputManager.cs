@@ -8,7 +8,7 @@ using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using static UnityEditor.PlayerSettings;
 
-public class InputManager : StaticInstance<InputManager> {
+public class InputManager : Singleton<InputManager> {
 
     [SerializeField] private PlayerInput playerInput;
 

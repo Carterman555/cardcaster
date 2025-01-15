@@ -62,6 +62,8 @@ public class ShopUIManager : StaticInstance<ShopUIManager>, IInitializable {
         SelectButton.OnSelect_PanelCard -= ShowTradeUI;
 
         tradeButton.onClick.RemoveListener(OnTradeButtonClicked);
+
+        panelCardToTrade = null;
     }
 
     public bool IsActive() {
@@ -91,6 +93,8 @@ public class ShopUIManager : StaticInstance<ShopUIManager>, IInitializable {
         FeedbackPlayer.Play("TransitionTradeUI");
 
         SelectButton.Instance.Hide();
+
+        panelCardToTrade = null;
 
         if (InputManager.Instance.GetInputScheme() == ControlSchemeType.Controller) {
             tradeButton.Select();
@@ -123,6 +127,10 @@ public class ShopUIManager : StaticInstance<ShopUIManager>, IInitializable {
 
 
     private void OnTradeButtonClicked() {
+
+        //... can't close the trade when already started, the player is set to can play in the CloseTradeUI player
+        FeedbackPlayer.GetPlayer("TransitionTradeUI").CanPlay = false;
+
         SwapIcons().OnComplete(() => {
             FeedbackPlayerOld.Play("CloseTradeUI");
 

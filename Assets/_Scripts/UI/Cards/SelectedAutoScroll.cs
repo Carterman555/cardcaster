@@ -5,9 +5,58 @@ using UnityEngine.EventSystems;
 
 public class SelectedAutoScroll : MonoBehaviour
 {
+    [SerializeField] private RectTransform viewport;
     [SerializeField] private RectTransform content;
 
+    [SerializeField] private float spacing = 30f;
+
     private void Update() {
+
+        if (InputManager.Instance.GetInputScheme() != ControlSchemeType.Controller) {
+            return;
+        }
+
+        if (EventSystem.current.currentSelectedGameObject == null) {
+            return;
+        }
+
+        HandleScrollDown();
+        HandleScrollUp();
+    }
+
+    private void HandleScrollDown() {
+
+        //... the viewport.position.y is the y pos of the top of the viewport
+        float viewBottomYPos = viewport.position.y - viewport.rect.height;
+
         RectTransform selectedTransform = EventSystem.current.currentSelectedGameObject.GetComponent<RectTransform>();
+
+        //... the minimum y value that needs to be showing in the scroll view. Comes from bottom of selectedTransform
+        float selectedBottomYPos = selectedTransform.position.y - (selectedTransform.rect.height / 2f);
+
+        //... positive when selected button is below viewport, then the content should move up
+        float difference = viewBottomYPos - (selectedBottomYPos - spacing);
+
+        if (difference > 0) {
+            content.position += Vector3.up * difference;
+        }
+    }
+
+    private void HandleScrollUp() {
+
+        //... the viewport.position.y is the y pos of the top of the viewport
+        float viewTopYPos = viewport.position.y;
+
+        RectTransform selectedTransform = EventSystem.current.currentSelectedGameObject.GetComponent<RectTransform>();
+
+        //... the max y value that needs to be showing in the scroll view. Comes from top of selectedTransform (pos + half of height)
+        float selectedTopYPos = selectedTransform.position.y + (selectedTransform.rect.height / 2f);
+
+        //... negative when selected button is above viewport, then the content should move down
+        float difference = viewTopYPos - (selectedTopYPos + spacing);
+
+        if (difference < 0) {
+            content.position += Vector3.up * difference;
+        }
     }
 }

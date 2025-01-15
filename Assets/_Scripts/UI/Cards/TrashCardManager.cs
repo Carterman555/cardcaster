@@ -26,6 +26,8 @@ public class TrashCardManager : StaticInstance<TrashCardManager> {
 
         PanelCardButton.OnClicked_PanelCard -= OnCardClicked;
         SelectButton.OnSelect_PanelCard -= TrashCard;
+
+        panelCardToTrash = null;
     }
 
     public bool IsActive() {
@@ -54,6 +56,8 @@ public class TrashCardManager : StaticInstance<TrashCardManager> {
 
     private void TrashCard(PanelCardButton panelCard) {
         panelCard.Trash();
+
+        panelCardToTrash = null;
 
         SelectButton.Instance.Hide();
 

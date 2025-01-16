@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
@@ -30,6 +29,9 @@ public class InputManager : Singleton<InputManager> {
     #region InputScheme
 
     public static event Action OnControlsChanged;
+    public static event Action OnControlSchemeChanged;
+
+    private ControlSchemeType currentControlScheme;
 
     public ControlSchemeType GetInputScheme() {
 
@@ -47,7 +49,11 @@ public class InputManager : Singleton<InputManager> {
     private void InvokeInputSchemeChangedEvent(PlayerInput playerInput) {
         if (GetInputScheme() == ControlSchemeType.Keyboard) {
             EventSystem.current.SetSelectedGameObject(null);
-            print($"Deselect");
+        }
+
+        if (GetInputScheme() != currentControlScheme) {
+            currentControlScheme = GetInputScheme();
+            OnControlSchemeChanged?.Invoke();
         }
 
         OnControlsChanged?.Invoke();

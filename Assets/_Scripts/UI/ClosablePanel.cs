@@ -15,6 +15,7 @@ public class ClosablePanel : MonoBehaviour {
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
     public static void Init() {
         activeClosables = new();
+        closingAllowed = true;
     }
 
     [SerializeField] private InputActionReference closeInput;
@@ -33,10 +34,24 @@ public class ClosablePanel : MonoBehaviour {
 
     private void Update() {
 
-        if (ThisIsInstanceToClose()) {
-            if (closeInput.action.triggered) {
+        if (!closingAllowed) {
+            return;
+        }
+
+        if (closeInput.action.triggered) {
+            if (ThisIsInstanceToClose()) {
                 onClose?.Invoke();
             }
         }
+    }
+
+    private static bool closingAllowed;
+
+    public static void DisallowClosing() {
+        closingAllowed = false;
+    }
+
+    public static void AllowClosing() {
+        closingAllowed = true;
     }
 }

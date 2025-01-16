@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using static UnityEditor.PlayerSettings;
@@ -44,6 +45,11 @@ public class InputManager : Singleton<InputManager> {
     }
 
     private void InvokeInputSchemeChangedEvent(PlayerInput playerInput) {
+        if (GetInputScheme() == ControlSchemeType.Keyboard) {
+            EventSystem.current.SetSelectedGameObject(null);
+            print($"Deselect");
+        }
+
         OnControlsChanged?.Invoke();
     }
 
@@ -51,14 +57,9 @@ public class InputManager : Singleton<InputManager> {
 
     #region Update Action Maps
 
-    private ActionMapUpdaterPanel[] actionMapUpdaters;
-
-    private void Start() {
-        actionMapUpdaters = FindObjectsOfType<ActionMapUpdaterPanel>(true);
-    }
-
     // there are different controls when UI is open
     private void UpdateActionMap() {
+        ActionMapUpdaterPanel[] actionMapUpdaters = FindObjectsOfType<ActionMapUpdaterPanel>(true);
         bool anyActive = actionMapUpdaters.Any(u => u.isActiveAndEnabled);
 
         if (anyActive) {

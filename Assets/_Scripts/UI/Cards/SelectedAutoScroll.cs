@@ -26,8 +26,8 @@ public class SelectedAutoScroll : MonoBehaviour
 
     private void HandleScrollDown() {
 
-        //... the viewport.position.y is the y pos of the top of the viewport
-        float viewBottomYPos = viewport.position.y - viewport.rect.height;
+        float viewHeightFromBottom = viewport.rect.height * viewport.pivot.y;
+        float viewBottomYPos = viewport.position.y - viewHeightFromBottom;
 
         RectTransform selectedTransform = EventSystem.current.currentSelectedGameObject.GetComponent<RectTransform>();
 
@@ -44,8 +44,8 @@ public class SelectedAutoScroll : MonoBehaviour
 
     private void HandleScrollUp() {
 
-        //... the viewport.position.y is the y pos of the top of the viewport
-        float viewTopYPos = viewport.position.y;
+        float viewHeightFromTop = viewport.rect.height * (1 - viewport.pivot.y);
+        float viewTopYPos = viewport.position.y + viewHeightFromTop;
 
         RectTransform selectedTransform = EventSystem.current.currentSelectedGameObject.GetComponent<RectTransform>();
 

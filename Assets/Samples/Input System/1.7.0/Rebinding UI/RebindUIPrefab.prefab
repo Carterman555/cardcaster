@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 7894754972980758727}
   - component: {fileID: 4997300647705143695}
   - component: {fileID: 5024266567257472466}
+  - component: {fileID: 307785581794891099}
   m_Layer: 5
   m_Name: ResetToDefaultButton
   m_TagString: Untagged
@@ -98,10 +99,10 @@ MonoBehaviour:
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
   m_Colors:
-    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_NormalColor: {r: 0.77254903, g: 0.77254903, b: 0.77254903, a: 1}
+    m_HighlightedColor: {r: 1, g: 1, b: 1, a: 1}
+    m_PressedColor: {r: 1, g: 1, b: 1, a: 1}
+    m_SelectedColor: {r: 1, g: 1, b: 1, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
@@ -133,6 +134,30 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &307785581794891099
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 723199622616807248}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d9b6e2d632e03543833ffcc8a21a03c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playClickSFX: 0
+  customClickSFX: 0
+  clickSFX:
+    Clips: []
+    Volume: 0
+  customHoverSFX: 0
+  enterSFX:
+    Clips: []
+    Volume: 0
+  exitSFX:
+    Clips: []
+    Volume: 0
 --- !u!1 &731473608444823109
 GameObject:
   m_ObjectHideFlags: 0
@@ -731,6 +756,7 @@ GameObject:
   - component: {fileID: 3573462795036708828}
   - component: {fileID: 6562243507651565417}
   - component: {fileID: 4168522202458225171}
+  - component: {fileID: 2655292409988786166}
   m_Layer: 5
   m_Name: TriggerRebindButton
   m_TagString: Untagged
@@ -818,10 +844,10 @@ MonoBehaviour:
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
   m_Colors:
-    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_NormalColor: {r: 0.77254903, g: 0.77254903, b: 0.77254903, a: 1}
+    m_HighlightedColor: {r: 1, g: 1, b: 1, a: 1}
+    m_PressedColor: {r: 1, g: 1, b: 1, a: 1}
+    m_SelectedColor: {r: 1, g: 1, b: 1, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
@@ -853,3 +879,27 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &2655292409988786166
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8384654220190448158}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d9b6e2d632e03543833ffcc8a21a03c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playClickSFX: 0
+  customClickSFX: 0
+  clickSFX:
+    Clips: []
+    Volume: 0
+  customHoverSFX: 0
+  enterSFX:
+    Clips: []
+    Volume: 0
+  exitSFX:
+    Clips: []
+    Volume: 0

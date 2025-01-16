@@ -5,7 +5,7 @@ using System.Security.Cryptography;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class MenuButtonInteractVisual : GameButton, IPointerEnterHandler, IPointerExitHandler {
+public class MenuButtonInteractVisual : GameButton, IPointerEnterHandler, IPointerExitHandler, ISelectHandler, IDeselectHandler {
 
     [SerializeField] private Transform interactVisual;
     [SerializeField] private float visualWidth;
@@ -15,14 +15,27 @@ public class MenuButtonInteractVisual : GameButton, IPointerEnterHandler, IPoint
     }
 
     public void OnPointerEnter(PointerEventData eventData) {
+        ShowUnderline();
+    }
+    public void OnPointerExit(PointerEventData eventData) {
+        HideUnderline();
+    }
+
+    public void OnSelect(BaseEventData eventData) {
+        ShowUnderline();
+    }
+
+    public void OnDeselect(BaseEventData eventData) {
+        HideUnderline();
+    }
+
+    private void ShowUnderline() {
         interactVisual.DOScaleX(visualWidth, duration: 0.1f).SetUpdate(true).SetEase(Ease.InFlash);
     }
 
-    public void OnPointerExit(PointerEventData eventData) {
+    private void HideUnderline() {
         interactVisual.DOScaleX(0, duration: 0.1f).SetUpdate(true).SetEase(Ease.OutFlash);
     }
 
-    private void OnSelected() {
-        interactVisual.DOScaleX(visualWidth, duration: 0.1f).SetUpdate(true).SetEase(Ease.InFlash);
-    }
+    
 }

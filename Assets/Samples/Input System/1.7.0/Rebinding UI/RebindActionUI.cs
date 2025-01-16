@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine.Events;
 using UnityEngine.UI;
+using UnityEngine;
 
 ////TODO: localization support
 
@@ -194,15 +195,6 @@ namespace UnityEngine.InputSystem.Samples.RebindUI {
                 return;
 
             ResetBinding(action, bindingIndex);
-
-            //if (action.bindings[bindingIndex].isComposite) {
-            //    // It's a composite. Remove overrides from part bindings.
-            //    for (var i = bindingIndex + 1; i < action.bindings.Count && action.bindings[i].isPartOfComposite; ++i)
-            //        action.RemoveBindingOverride(i);
-            //}
-            //else {
-            //    action.RemoveBindingOverride(bindingIndex);
-            //}
             UpdateBindingDisplay();
         }
 
@@ -230,11 +222,21 @@ namespace UnityEngine.InputSystem.Samples.RebindUI {
             }
         }
 
+        private bool waitForButtonRelease;
+
         /// <summary>
         /// Initiate an interactive rebind that lets the player actuate a control to choose a new binding
         /// for the action.
         /// </summary>
         public void StartInteractiveRebind() {
+
+            // check if pressing down "A" on controller, because that is the binding to press the button to start
+            // rebinding. If it is, wait until it's released to start waiting for input
+            if (m_ClickInput.action.inProgress) {
+                waitForButtonRelease = true;
+                return;
+            }
+
             if (!ResolveActionAndBinding(out var action, out var bindingIndex))
                 return;
 
@@ -249,6 +251,15 @@ namespace UnityEngine.InputSystem.Samples.RebindUI {
             }
         }
 
+
+        private void Update() {
+            // wait until press button input "A" is released to start waiting for input
+            if (waitForButtonRelease && m_ClickInput.action.WasReleasedThisFrame()) {
+                waitForButtonRelease = false;
+                StartInteractiveRebind();
+            }
+        }
+
         private void PerformInteractiveRebind(InputAction action, int bindingIndex, bool allCompositeParts = false) {
             m_RebindOperation?.Cancel(); // Will null out m_RebindOperation.
 
@@ -260,14 +271,19 @@ namespace UnityEngine.InputSystem.Samples.RebindUI {
             // disable the action before use to prevent errors
             action.Disable();
 
+            PlayerInput playerInput = FindAnyObjectByType<PlayerInput>();
+            string cancelInput = playerInput.currentControlScheme == "Keyboard" ? "<Keyboard>/escape" : "<Gamepad>/start";
+
             // Configure the rebind.
             m_RebindOperation = action.PerformInteractiveRebinding(bindingIndex)
-                .WithCancelingThrough("<Keyboard>/escape")
+                .WithCancelingThrough(cancelInput)
                 .OnCancel(
                     operation => {
                         action.Enable();
                         m_RebindStopEvent?.Invoke(this, operation);
                         m_RebindOverlay?.SetActive(false);
+
+                        HideFailedRebindText();
                         UpdateBindingDisplay();
                         CleanUp();
                     })
@@ -277,13 +293,15 @@ namespace UnityEngine.InputSystem.Samples.RebindUI {
                         m_RebindOverlay?.SetActive(false);
                         m_RebindStopEvent?.Invoke(this, operation);
 
-                        if (CheckDuplicateBindings(action, bindingIndex, allCompositeParts)) {
+                        if (CheckDuplicateBindings(action, bindingIndex, out InputBinding duplicateBinding, allCompositeParts)) {
                             action.RemoveBindingOverride(bindingIndex);
                             CleanUp();
                             PerformInteractiveRebind(action, bindingIndex, allCompositeParts);
+                            ShowFailedRebindText(duplicateBinding);
                             return;
                         }
 
+                        HideFailedRebindText();
                         UpdateBindingDisplay();
                         CleanUp();
 
@@ -321,7 +339,7 @@ namespace UnityEngine.InputSystem.Samples.RebindUI {
             m_RebindOperation.Start();
         }
 
-        private bool CheckDuplicateBindings(InputAction action, int bindingIndex, bool allCompositeParts = false) {
+        private bool CheckDuplicateBindings(InputAction action, int bindingIndex, out InputBinding duplicateBinding, bool allCompositeParts = false) {
             InputBinding newBinding = action.bindings[bindingIndex];
 
             foreach (InputBinding binding in action.actionMap.bindings) {
@@ -330,7 +348,7 @@ namespace UnityEngine.InputSystem.Samples.RebindUI {
                 }
 
                 if (binding.effectivePath == newBinding.effectivePath) {
-                    Debug.Log("Duplicate binding found: " + newBinding.effectivePath);
+                    duplicateBinding = newBinding;
                     return true;
                 }
             }
@@ -338,13 +356,23 @@ namespace UnityEngine.InputSystem.Samples.RebindUI {
             if (allCompositeParts) {
                 for (int i = 1; i < bindingIndex; i++) { // starts at i = 1
                     if (action.bindings[i].effectivePath == newBinding.effectivePath) {
-                        Debug.Log("Duplicate binding found: " + newBinding.effectivePath);
+                        duplicateBinding = newBinding;
                         return true;
                     }
                 }
             }
 
+            duplicateBinding = default;
             return false;
+        }
+
+        private void ShowFailedRebindText(InputBinding attemptedBinding) {
+            string actionStr = attemptedBinding.effectivePath;
+            m_FailedRebindText.text = $"{actionStr} is already being used";
+        }
+
+        private void HideFailedRebindText() {
+            m_FailedRebindText.text = string.Empty;
         }
 
         protected void OnEnable() {
@@ -417,6 +445,12 @@ namespace UnityEngine.InputSystem.Samples.RebindUI {
         [Tooltip("Optional text label that will be updated with prompt for user input.")]
         [SerializeField]
         private TMPro.TextMeshProUGUI m_RebindText;
+
+        [SerializeField]
+        private TMPro.TextMeshProUGUI m_FailedRebindText;
+
+        [SerializeField]
+        private InputActionReference m_ClickInput;
 
         [Tooltip("Optional bool field which allows you to override the action label with your own text")]
         public bool m_OverRideActionLabel;

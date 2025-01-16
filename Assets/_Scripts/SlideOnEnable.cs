@@ -33,7 +33,7 @@ public class SlideOnEnable : MonoBehaviour {
 
     public void Slide() {
         rectTransform.anchoredPosition = startPos;
-        DOTween.To(() => rectTransform.anchoredPosition, x => rectTransform.anchoredPosition = x, targetPos, duration).SetEase(ease);
+        DOTween.To(() => rectTransform.anchoredPosition, x => rectTransform.anchoredPosition = x, targetPos, duration).SetEase(ease).SetUpdate(true);
     }
 
     [Header("Slide Back")]
@@ -44,6 +44,6 @@ public class SlideOnEnable : MonoBehaviour {
         Ease currentEase = differentSlideBackEase ? slideBackEase : ease;
 
         rectTransform.anchoredPosition = targetPos;
-        DOTween.To(() => rectTransform.anchoredPosition, x => rectTransform.anchoredPosition = x, startPos, duration).SetEase(ease);
+        DOTween.To(() => rectTransform.anchoredPosition, x => rectTransform.anchoredPosition = x, startPos, duration).SetEase(ease).SetUpdate(true);
     }
 }

@@ -14,17 +14,16 @@ public class StartSelected : MonoBehaviour {
     private void OnEnable() {
         TrySelect();
 
-        InputManager.OnControlsChanged += TrySelect;
+        InputManager.OnControlSchemeChanged += TrySelect;
     }
 
     private void OnDisable() {
-        InputManager.OnControlsChanged -= TrySelect;
+        InputManager.OnControlSchemeChanged -= TrySelect;
     }
 
     private void TrySelect() {
         if (InputManager.Instance.GetInputScheme() == ControlSchemeType.Controller) {
             selectable.Select();
-            print($"Select: {name}");
         }
     }
 }

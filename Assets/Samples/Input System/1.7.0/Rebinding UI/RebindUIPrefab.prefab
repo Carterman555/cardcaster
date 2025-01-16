@@ -599,6 +599,8 @@ MonoBehaviour:
   m_BindingText: {fileID: 7330992257258493064}
   m_RebindOverlay: {fileID: 0}
   m_RebindText: {fileID: 0}
+  m_FailedRebindText: {fileID: 0}
+  m_ClickInput: {fileID: 392368643174621059, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
   m_OverRideActionLabel: 0
   m_ActionLabelString: 
   m_UpdateBindingUIEvent:

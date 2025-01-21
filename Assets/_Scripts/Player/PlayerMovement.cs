@@ -40,6 +40,10 @@ public class PlayerMovement : StaticInstance<PlayerMovement>, IHasStats, IChange
             return;
         }
 
+        if (InputDisabled()) {
+            return;
+        }
+
         if (IsStopped()) {
             anim.SetBool("move", false);
             return;
@@ -50,7 +54,7 @@ public class PlayerMovement : StaticInstance<PlayerMovement>, IHasStats, IChange
         anim.SetBool("move", moving);
 
         moveDirection = moveInput.action.ReadValue<Vector2>();
-        
+
         if (dashAction.action.triggered && !isDashing && !knockback.IsApplyingKnockback() && moveDirection.magnitude > 0f) {
             StartCoroutine(Dash());
         }
@@ -85,6 +89,10 @@ public class PlayerMovement : StaticInstance<PlayerMovement>, IHasStats, IChange
 
         if (GameStateManager.Instance.GetCurrentState() != GameState.Game) {
             rb.velocity = Vector2.zero;
+            return;
+        }
+
+        if (InputDisabled()) {
             return;
         }
 
@@ -159,7 +167,7 @@ public class PlayerMovement : StaticInstance<PlayerMovement>, IHasStats, IChange
     #endregion
 
     #region Stop Movement
-    
+
     private bool IsStopped() {
         return TryGetComponent(out StopMovement stopMovement);
     }
@@ -176,6 +184,23 @@ public class PlayerMovement : StaticInstance<PlayerMovement>, IHasStats, IChange
         }
         else {
             Debug.LogWarning("Tried allowing movement when already allowed!");
+        }
+    }
+
+    private bool InputDisabled() {
+        return TryGetComponent(out DisableMoveInput disableInput);
+    }
+
+    public void DisableMoveInput() {
+        gameObject.AddComponent<DisableMoveInput>();
+    }
+
+    public void AllowMoveInput() {
+        if (TryGetComponent(out DisableMoveInput disableInput)) {
+            Destroy(disableInput);
+        }
+        else {
+            Debug.LogWarning("Tried allowing move input when already allowed!");
         }
     }
 

@@ -45,7 +45,7 @@ public class ScriptableLaunchCard : ScriptableAbilityCardBase {
     protected override void PositioningUpdate(Vector2 cardPosition) {
         base.PositioningUpdate(cardPosition);
 
-        launchDirection = cardPosition - (Vector2)pathVisual.transform.position;
+        launchDirection = (cardPosition - (Vector2)pathVisual.transform.position).normalized;
 
         //... point path towards mouse
         pathVisual.transform.up = launchDirection;
@@ -77,13 +77,14 @@ public class ScriptableLaunchCard : ScriptableAbilityCardBase {
 
         Transform playerTransform = PlayerMovement.Instance.transform;
 
-        PlayerMovement.Instance.StopMovement();
+        PlayerMovement.Instance.DisableMoveInput();
         PlayerMeleeAttack.Instance.DisableAttack();
 
         // launch player
         Rigidbody2D playerRb = playerTransform.GetComponent<Rigidbody2D>();
         float launchFullSpeedTime = 0.5f;
         launchTween = DOTween.To(() => playerRb.velocity, x => playerRb.velocity = x, launchDirection * launchSpeed, launchFullSpeedTime);
+        Debug.Log($"launchDirection: {launchDirection}");
 
         // make deal damage
         damageDealer = damageDealerPrefab.Spawn(playerTransform.position, playerTransform);
@@ -133,7 +134,7 @@ public class ScriptableLaunchCard : ScriptableAbilityCardBase {
 
         wallTrigger.OnEnterContact_GO -= TryStopLaunch;
 
-        PlayerMovement.Instance.AllowMovement();
+        PlayerMovement.Instance.AllowMoveInput();
         PlayerMeleeAttack.Instance.AllowAttack();
 
         //... make player not move through objects and enemies

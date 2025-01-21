@@ -17,9 +17,6 @@ public class SlideOnEnable : MonoBehaviour {
 
     private void Awake() {
         rectTransform = GetComponent<RectTransform>();
-    }
-
-    private void OnEnable() {
 
         if (defaultPosIsStart) {
             startPos = rectTransform.anchoredPosition;
@@ -27,7 +24,9 @@ public class SlideOnEnable : MonoBehaviour {
         else {
             targetPos = rectTransform.anchoredPosition;
         }
+    }
 
+    private void OnEnable() {
         Slide();
     }
 

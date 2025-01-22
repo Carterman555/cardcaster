@@ -43,7 +43,7 @@ public class ChestItemInfoUI : MonoBehaviour, IInitializable {
 
     private void Update() {
 
-        MMF_Player itemInfoPlayer = FeedbackPlayer.GetPlayer("ChestItemInfoPopup");
+        MMF_Player itemInfoPlayer = FeedbackPlayerReference.GetPlayer("ChestItemInfoPopup");
 
         bool panelMoving = itemInfoPlayer.IsPlaying;
 

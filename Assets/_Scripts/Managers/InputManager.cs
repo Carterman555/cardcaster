@@ -17,6 +17,9 @@ public class InputManager : Singleton<InputManager> {
         SceneManager.sceneLoaded += UpdateGlobalActionMap;
 
         playerInput.controlsChangedEvent.AddListener(InvokeInputSchemeChangedEvent);
+
+        playerInput.deviceLostEvent.AddListener(TryPauseGame);
+        playerInput.deviceRegainedEvent.AddListener(TryUnpauseGame);
     }
 
     private void OnDisable() {
@@ -24,6 +27,9 @@ public class InputManager : Singleton<InputManager> {
         SceneManager.sceneLoaded -= UpdateGlobalActionMap;
 
         playerInput.controlsChangedEvent.RemoveListener(InvokeInputSchemeChangedEvent);
+
+        playerInput.deviceLostEvent.RemoveListener(TryPauseGame);
+        playerInput.deviceRegainedEvent.RemoveListener(TryUnpauseGame);
     }
 
     #region InputScheme
@@ -203,6 +209,28 @@ public class InputManager : Singleton<InputManager> {
 
         string actionDisplayStr = binding.ToDisplayString(InputBinding.DisplayStringOptions.DontOmitDevice);
         return $"<sprite name=\"{actionDisplayStr}\">";
+    }
+
+    #endregion
+
+
+    #region Controller Disconnect Pause
+
+    private bool pausedFromDisconnect;
+
+    private void TryPauseGame(PlayerInput playerInput) {
+        if (!PauseManager.Instance.IsPaused()) {
+            pausedFromDisconnect = true;
+            PauseManager.Instance.PauseGame();
+        }
+    }
+
+    private void TryUnpauseGame(PlayerInput playerInput) {
+        if (pausedFromDisconnect) {
+            PauseManager.Instance.UnpauseGame();
+        }
+
+        pausedFromDisconnect = false;
     }
 
     #endregion

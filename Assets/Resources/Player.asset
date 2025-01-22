@@ -19,6 +19,6 @@ MonoBehaviour:
     Damage: 5
     AttackSpeed: 3
     KnockbackStrength: 1
-    SwordSize: 1
+    SwordSize: 2
     DashSpeed: 15
     DashTime: 0.3

@@ -32,7 +32,7 @@ public class DialogBox : MonoBehaviour, IInitializable {
 
     public void ShowText(string text, bool showNextDialogText = true) {
         if (!gameObject.activeSelf) {
-            FeedbackPlayer.Play("DialogBox");
+            FeedbackPlayerReference.Play("DialogBox");
         }
 
         dialogText.text = text;
@@ -46,7 +46,7 @@ public class DialogBox : MonoBehaviour, IInitializable {
 
     public void Hide() {
         if (gameObject.activeSelf) {
-            FeedbackPlayer.Play("DialogBox");
+            FeedbackPlayerReference.Play("DialogBox");
         }
     }
 }

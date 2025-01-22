@@ -6,9 +6,9 @@ using UnityEngine.UI;
 
 public class CardImage : MonoBehaviour {
 
-    private Image cardImage;
-    [SerializeField] private Sprite abilityCardFront;
-    [SerializeField] private Sprite modifierCardFront;
+    [SerializeField] private Image cardTypeImage;
+    [SerializeField] private Color abilityTypeColor;
+    [SerializeField] private Color modifierTypeColor;
 
     [SerializeField] private Image iconImage;
     [SerializeField] private Image[] essenceImages;
@@ -19,22 +19,16 @@ public class CardImage : MonoBehaviour {
 
     public void Setup(ScriptableCardBase card) {
 
-        cardImage = GetComponent<Image>();
         if (card is ScriptableAbilityCardBase) {
-            cardImage.sprite = abilityCardFront;
+            cardTypeImage.color = abilityTypeColor;
             typeText.text = "Ability";
         }
         else if (card is ScriptableModifierCardBase) {
-            cardImage.sprite = modifierCardFront;
+            cardTypeImage.color = modifierTypeColor;
             typeText.text = "Modifier";
         }
 
-        try {
-            iconImage.sprite = card.GetSprite();
-        }
-        catch {
-            Debug.LogError($"Failed - iconImage: {iconImage}, card: {card}");
-        }
+        iconImage.sprite = card.GetSprite();
 
         SetupCostImages(card.GetCost());
         titleText.text = card.GetName();

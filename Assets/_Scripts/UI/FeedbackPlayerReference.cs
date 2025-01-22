@@ -5,9 +5,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FeedbackPlayer : MonoBehaviour {
+public class FeedbackPlayerReference : MonoBehaviour {
 
-    public static Dictionary<string, FeedbackPlayer> feedbackPlayers = new();
+    public static Dictionary<string, FeedbackPlayerReference> feedbackPlayers = new();
 
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
     private static void Init() {

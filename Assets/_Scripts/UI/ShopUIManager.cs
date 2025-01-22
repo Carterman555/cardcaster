@@ -90,7 +90,7 @@ public class ShopUIManager : StaticInstance<ShopUIManager>, IInitializable {
     }
 
     private void ShowTradeUI(PanelCardButton panelCard) {
-        FeedbackPlayer.Play("TransitionTradeUI");
+        FeedbackPlayerReference.Play("TransitionTradeUI");
 
         SelectButton.Instance.Hide();
 
@@ -129,7 +129,7 @@ public class ShopUIManager : StaticInstance<ShopUIManager>, IInitializable {
     private void OnTradeButtonClicked() {
 
         //... can't close the trade when already started, the player is set to can play in the CloseTradeUI player
-        FeedbackPlayer.GetPlayer("TransitionTradeUI").CanPlay = false;
+        FeedbackPlayerReference.GetPlayer("TransitionTradeUI").CanPlay = false;
 
         SwapIcons().OnComplete(() => {
             FeedbackPlayerOld.Play("CloseTradeUI");

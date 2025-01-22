@@ -30,13 +30,13 @@ public class LevelMapIcons : StaticInstance<LevelMapIcons> {
         }
 
         mapIcon.gameObject.SetActive(true);
-        mapIcon.DOFade(1f, duration: 0.5f);
+        mapIcon.DOFade(1f, duration: 0.5f).SetUpdate(true);
 
         string outlineName = mapIcon.name + "Outline";
         foreach (Transform child in transform) {
             if (child.name == outlineName) {
                 child.gameObject.SetActive(true);
-                child.GetComponent<SpriteRenderer>().DOFade(1f, duration: 0.5f);
+                child.GetComponent<SpriteRenderer>().DOFade(1f, duration: 0.5f).SetUpdate(true);
             }
         }
     }

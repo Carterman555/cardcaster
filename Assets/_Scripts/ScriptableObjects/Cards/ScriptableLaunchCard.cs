@@ -84,7 +84,6 @@ public class ScriptableLaunchCard : ScriptableAbilityCardBase {
         Rigidbody2D playerRb = playerTransform.GetComponent<Rigidbody2D>();
         float launchFullSpeedTime = 0.5f;
         launchTween = DOTween.To(() => playerRb.velocity, x => playerRb.velocity = x, launchDirection * launchSpeed, launchFullSpeedTime);
-        Debug.Log($"launchDirection: {launchDirection}");
 
         // make deal damage
         damageDealer = damageDealerPrefab.Spawn(playerTransform.position, playerTransform);

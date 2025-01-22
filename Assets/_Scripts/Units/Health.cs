@@ -23,6 +23,10 @@ public class Health : MonoBehaviour, IDamagable {
 
     private bool dead;
 
+    [SerializeField] private bool increaseHealthPerLevel;
+    [ConditionalHide("increaseHealthPerLevel")]
+    [SerializeField] private float perLevelProportionToIncrease;
+
     public bool IsDead() {
         return dead;
     }
@@ -34,8 +38,14 @@ public class Health : MonoBehaviour, IDamagable {
 
     private void Awake() {
         Stats stats = GetComponent<IHasStats>().GetStats();
+
         maxHealth = stats.MaxHealth;
-        health = stats.MaxHealth;
+        if (increaseHealthPerLevel) {
+            float proportionIncrease = perLevelProportionToIncrease * (GameSceneManager.Instance.GetLevel() - 1);
+            maxHealth = stats.MaxHealth + (stats.MaxHealth * proportionIncrease);
+        }
+
+        health = maxHealth;
     }
 
     private void OnEnable() {

@@ -178,22 +178,11 @@ public class HandCard : MonoBehaviour {
     [Header("Visual")]
     [SerializeField] private CardImage cardImage;
 
-    [SerializeField] private Image backImage;
-    [SerializeField] private Sprite abilityCardBack;
-    [SerializeField] private Sprite modifierCardBack;
-
     [SerializeField] private TextMeshProUGUI hotkeyText;
 
     public void SetCard(ScriptableCardBase card) {
         this.card = card;
         cardImage.Setup(card);
-
-        if (card is ScriptableAbilityCardBase) {
-            backImage.sprite = abilityCardBack;
-        }
-        else if (card is ScriptableModifierCardBase) {
-            backImage.sprite = modifierCardBack;
-        }
     }
 
     public void CantPlayShake() {

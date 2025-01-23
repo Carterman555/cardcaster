@@ -122,63 +122,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1001 &13351988
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 5435557155981603943, guid: 215373478dbcd864e86d25584df971a6, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 3.17
-      objectReference: {fileID: 0}
-    - target: {fileID: 5435557155981603943, guid: 215373478dbcd864e86d25584df971a6, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 1.96
-      objectReference: {fileID: 0}
-    - target: {fileID: 5435557155981603943, guid: 215373478dbcd864e86d25584df971a6, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5435557155981603943, guid: 215373478dbcd864e86d25584df971a6, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5435557155981603943, guid: 215373478dbcd864e86d25584df971a6, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5435557155981603943, guid: 215373478dbcd864e86d25584df971a6, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5435557155981603943, guid: 215373478dbcd864e86d25584df971a6, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5435557155981603943, guid: 215373478dbcd864e86d25584df971a6, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5435557155981603943, guid: 215373478dbcd864e86d25584df971a6, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5435557155981603943, guid: 215373478dbcd864e86d25584df971a6, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8696099311601879913, guid: 215373478dbcd864e86d25584df971a6, type: 3}
-      propertyPath: m_Name
-      value: Chest
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 215373478dbcd864e86d25584df971a6, type: 3}
 --- !u!1 &25915426
 GameObject:
   m_ObjectHideFlags: 0
@@ -1069,6 +1012,7 @@ MonoBehaviour:
     Clips:
     - {fileID: 8300000, guid: 6e4ea726a30ff5a4e9a667aceb1dde66, type: 3}
     Volume: 1
+  uiSFX: 1
 --- !u!114 &56763346
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4914,6 +4858,7 @@ MonoBehaviour:
   playInReverseClips:
     Clips: []
     Volume: 0
+  uiSFX: 1
 --- !u!114 &316220185
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11275,7 +11220,7 @@ Transform:
   - {fileID: 1214084856}
   - {fileID: 389897624}
   - {fileID: 1510841269}
-  - {fileID: 1804460412}
+  - {fileID: 1882843367}
   - {fileID: 381458667}
   - {fileID: 963057815}
   - {fileID: 1599748274}
@@ -11303,7 +11248,8 @@ MonoBehaviour:
   <Projectiles>k__BackingField: {fileID: 1599748274}
   <Drops>k__BackingField: {fileID: 1298785245}
   <Rooms>k__BackingField: {fileID: 389897624}
-  <MapIcons>k__BackingField: {fileID: 1804460412}
+  <MapIcons>k__BackingField: {fileID: 1882843367}
+  <RoomMapIcons>k__BackingField: {fileID: 1804460412}
   <Hallways>k__BackingField: {fileID: 1510841269}
   <RoomOverlapCheckers>k__BackingField: {fileID: 381458667}
   <EnvironmentObjects>k__BackingField: {fileID: 644522583}
@@ -17874,6 +17820,7 @@ MonoBehaviour:
   playInReverseClips:
     Clips: []
     Volume: 0
+  uiSFX: 1
 --- !u!114 &1302724875
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -24208,7 +24155,7 @@ GameObject:
   - component: {fileID: 1804460413}
   - component: {fileID: 1804460415}
   m_Layer: 0
-  m_Name: MapIcons
+  m_Name: RoomIcons
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -24222,12 +24169,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1804460411}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 860838815}
+  m_Father: {fileID: 1882843367}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1804460413
 MonoBehaviour:
@@ -24812,6 +24759,38 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7325c4ae2260d9f46b182ff4f48ee9f2, type: 3}
+--- !u!1 &1882843366
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1882843367}
+  m_Layer: 0
+  m_Name: MapIcons
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1882843367
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1882843366}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1804460412}
+  m_Father: {fileID: 860838815}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1885716300
 GameObject:
   m_ObjectHideFlags: 0
@@ -26417,6 +26396,7 @@ MonoBehaviour:
   playInReverseClips:
     Clips: []
     Volume: 0
+  uiSFX: 1
 --- !u!114 &1937197754
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -27798,6 +27778,7 @@ MonoBehaviour:
   playInReverseClips:
     Clips: []
     Volume: 0
+  uiSFX: 1
 --- !u!1 &2040577009
 GameObject:
   m_ObjectHideFlags: 0
@@ -29261,4 +29242,3 @@ SceneRoots:
   - {fileID: 860838815}
   - {fileID: 1635037926}
   - {fileID: 882422893}
-  - {fileID: 13351988}

@@ -170,7 +170,7 @@ public class HandCard : MonoBehaviour {
             DeckManager.Instance.OnUseModifierCard(cardIndex);
         }
 
-        AudioManager.Instance.PlaySound(AudioManager.Instance.AudioClips.PlayCard);
+        AudioManager.Instance.PlaySound(AudioManager.Instance.AudioClips.PlayCard, uiSound: false);
     }
 
     #region Visuals

@@ -53,10 +53,12 @@ public class RewardSpawner : MonoBehaviour {
             // Instantiate the chest instead of using the spawning pool because the item that gets chosen gets unparented. And it's easiest to
             // just reset the chest by instantiating and destroying
             Chest chest = Instantiate(chestPrefab, position, Quaternion.identity, Containers.Instance.Drops);
+            chest.GetComponent<CreateMapIcon>().ShowMapIcon();
         }
         else {
             // spawn campfire
             Campfire campfire = campfirePrefab.Spawn(position, Containers.Instance.Drops);
+            campfire.GetComponent<CreateMapIcon>().ShowMapIcon();
         }
     }
 

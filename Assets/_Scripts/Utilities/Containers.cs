@@ -9,7 +9,7 @@ public class Containers : StaticInstance<Containers> {
     [field: SerializeField] public Transform Projectiles { get; private set; }
     [field: SerializeField] public Transform Drops { get; private set; }
     [field: SerializeField] public Transform Rooms { get; private set; }
-    [field: SerializeField] public Transform LevelMapIcons { get; private set; }
+    [field: SerializeField] public Transform MapIcons { get; private set; }
     [field: SerializeField] public Transform Hallways { get; private set; }
     [field: SerializeField] public Transform RoomOverlapCheckers { get; private set; }
     [field: SerializeField] public Transform EnvironmentObjects { get; private set; }
@@ -30,7 +30,7 @@ public class Containers : StaticInstance<Containers> {
             case Container.Rooms:
                 return Rooms;
             case Container.LevelMapIcons:
-                return LevelMapIcons;
+                return MapIcons;
             case Container.Hallways:
                 return Hallways;
             case Container.RoomOverlapCheckers:

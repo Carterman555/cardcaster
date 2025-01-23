@@ -31,7 +31,7 @@ public class Hallway : MonoBehaviour {
     // spawn the map icon as a child of LevelMapIcons so LevelMapIcons can create a unified outline around all the
     // rooms and hallways
     private void SetupMapIcon() {
-        mapIcon = mapIconToSpawn.Spawn(mapIconToSpawn.transform.position, Containers.Instance.LevelMapIcons);
+        mapIcon = mapIconToSpawn.Spawn(mapIconToSpawn.transform.position, Containers.Instance.MapIcons);
         mapIconToSpawn.enabled = false;
     }
 

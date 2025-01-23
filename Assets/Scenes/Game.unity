@@ -8318,7 +8318,7 @@ MonoBehaviour:
   unlimitedEssence: 0
   noEnemies: 0
   printMouseOver: 0
-  startingCards: 00000000
+  startingCards: 0000000001000000020000000300000004000000050000000600000007000000090000000a0000000b0000000c0000000d0000000e0000000f0000001000000011000000
   spawnAtBossRoom: 0
 --- !u!1 &623848812
 GameObject:
@@ -11252,8 +11252,6 @@ GameObject:
   m_Component:
   - component: {fileID: 860838815}
   - component: {fileID: 860838816}
-  - component: {fileID: 860838818}
-  - component: {fileID: 860838817}
   m_Layer: 0
   m_Name: Environment
   m_TagString: Untagged
@@ -11305,7 +11303,7 @@ MonoBehaviour:
   <Projectiles>k__BackingField: {fileID: 1599748274}
   <Drops>k__BackingField: {fileID: 1298785245}
   <Rooms>k__BackingField: {fileID: 389897624}
-  <LevelMapIcons>k__BackingField: {fileID: 1804460412}
+  <MapIcons>k__BackingField: {fileID: 1804460412}
   <Hallways>k__BackingField: {fileID: 1510841269}
   <RoomOverlapCheckers>k__BackingField: {fileID: 381458667}
   <EnvironmentObjects>k__BackingField: {fileID: 644522583}
@@ -11313,109 +11311,6 @@ MonoBehaviour:
   <HUD>k__BackingField: {fileID: 1385328025}
   <ActiveModifierImages>k__BackingField: {fileID: 692143009}
   <WorldUI>k__BackingField: {fileID: 1038470028}
---- !u!114 &860838817
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 860838814}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1554ad3bc2245e64bbf7cf0a29ed7fa0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  GridWidth: {x: 50, y: 50}
-  GridHeight: {x: 50, y: 50}
-  Layers:
-    array:
-    - Name: Layer
-      Active: 1
-      TargetTilemap: {fileID: 0}
-      Tile: {fileID: 0}
-      OverrideGridSize: 0
-      GridWidth: 50
-      GridHeight: 50
-      GenerateMethod: 1
-      DoNotUseGlobalSeed: 0
-      RandomizeSeed: 1
-      Seed: 123456789
-      Smooth: 0
-      InvertGrid: 0
-      FusionMode: 0
-      FullGenerationFilled: 1
-      RandomFillPercentage: 50
-      RandomWalkGroundMinHeightDifference: 1
-      RandomWalkGroundMaxHeightDifference: 3
-      RandomWalkGroundMinFlatDistance: 1
-      RandomWalkGroundMaxFlatDistance: 3
-      RandomWalkGroundMaxHeight: 8
-      RandomWalkPercent: 50
-      RandomWalkStartingPoint: {x: 0, y: 0}
-      RandomWalkMaxIterations: 1500
-      RandomWalkAvoiderPercent: 50
-      RandomWalkAvoiderStartingPoint: {x: 0, y: 0}
-      RandomWalkAvoiderObstaclesTilemap: {fileID: 0}
-      RandomWalkAvoiderObstaclesDistance: 1
-      RandomWalkAvoiderMaxIterations: 100
-      PathStartPosition: {x: 0, y: 0}
-      PathDirection: 1
-      PathMinWidth: 2
-      PathMaxWidth: 4
-      PathDirectionChangeDistance: 2
-      PathWidthChangePercentage: 50
-      PathDirectionChangePercentage: 50
-      CopyTilemap: {fileID: 0}
-      BoundsTop: 0
-      BoundsBottom: 0
-      BoundsLeft: 0
-      BoundsRight: 0
-      SafeSpots: []
-      Initialized: 1
-  GlobalSeed: 0
-  RandomizeGlobalSeed: 1
-  SlowRender: 0
-  SlowRenderDuration: 1
-  SlowRenderTweenType:
-    MMTweenDefinitionType: 0
-    MMTweenCurve: 6
-    Curve:
-      serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 3
-        time: 0
-        value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      - serializedVersion: 3
-        time: 1
-        value: 1
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    Initialized: 0
---- !u!114 &860838818
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 860838814}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 71bd7b8dc6ab21844b34803a4084a56e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &865682720
 GameObject:
   m_ObjectHideFlags: 0
@@ -13178,63 +13073,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1082548684}
   m_CullTransparentMesh: 1
---- !u!1001 &1084865809
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 5435557155981603943, guid: 215373478dbcd864e86d25584df971a6, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -1.97
-      objectReference: {fileID: 0}
-    - target: {fileID: 5435557155981603943, guid: 215373478dbcd864e86d25584df971a6, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 2.12
-      objectReference: {fileID: 0}
-    - target: {fileID: 5435557155981603943, guid: 215373478dbcd864e86d25584df971a6, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5435557155981603943, guid: 215373478dbcd864e86d25584df971a6, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5435557155981603943, guid: 215373478dbcd864e86d25584df971a6, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5435557155981603943, guid: 215373478dbcd864e86d25584df971a6, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5435557155981603943, guid: 215373478dbcd864e86d25584df971a6, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5435557155981603943, guid: 215373478dbcd864e86d25584df971a6, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5435557155981603943, guid: 215373478dbcd864e86d25584df971a6, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5435557155981603943, guid: 215373478dbcd864e86d25584df971a6, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8696099311601879913, guid: 215373478dbcd864e86d25584df971a6, type: 3}
-      propertyPath: m_Name
-      value: Chest_1
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 215373478dbcd864e86d25584df971a6, type: 3}
 --- !u!1 &1087560505
 GameObject:
   m_ObjectHideFlags: 0
@@ -24370,7 +24208,7 @@ GameObject:
   - component: {fileID: 1804460413}
   - component: {fileID: 1804460415}
   m_Layer: 0
-  m_Name: LevelMapIcons
+  m_Name: MapIcons
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -29424,4 +29262,3 @@ SceneRoots:
   - {fileID: 1635037926}
   - {fileID: 882422893}
   - {fileID: 13351988}
-  - {fileID: 1084865809}

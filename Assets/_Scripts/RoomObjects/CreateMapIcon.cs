@@ -1,26 +1,65 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class CreateMapIcon : MonoBehaviour {
 
-    [SerializeField] private Sprite iconSprite;
-    [SerializeField] private Material iconMaterial;
-    [SerializeField] private float size = 8f;
+    [SerializeField] private SpriteRenderer chestIconPrefab;
+    private SpriteRenderer mapIcon;
 
-    private GameObject mapIcon;
+    private bool showingMapIcon;
+
+    private bool childOfRoom;
+    private int roomNum;
 
     private void OnEnable() {
-
-        mapIcon = new GameObject().Spawn(transform.position, Containers.Instance.MapIcons);
-        mapIcon.name = "ChestIcon";
-        mapIcon.layer = GameLayers.MapLayer;
-        mapIcon.transform.localScale = Vector3.one * size;
-
-        SpriteRenderer iconSpriteRenderer = mapIcon.AddComponent<SpriteRenderer>();
-        iconSpriteRenderer.sprite = iconSprite;
-        iconSpriteRenderer.material = iconMaterial;
-        iconSpriteRenderer.sortingOrder = 1;
+        StartCoroutine(SetRoomNum());
     }
 
+    private void OnDisable() {
+
+        if (Helpers.GameStopping()) {
+            return;
+        }
+
+        HideMapIcon();
+    }
+
+    private IEnumerator SetRoomNum() {
+
+        //... wait a frame for the room to get setup
+        yield return null;
+
+        Room room = GetComponentInParent<Room>(true);
+        childOfRoom = room != null;
+
+        if (childOfRoom) {
+            roomNum = room.GetRoomNum();
+            Room.OnAnyRoomEnter_Room += TryShowMapIcon;
+        }
+    }
+
+    private void TryShowMapIcon(Room room) {
+        //... if entered the room this object is in
+        if (room.GetRoomNum() == roomNum) {
+            ShowMapIcon();
+
+            Room.OnAnyRoomEnter_Room -= TryShowMapIcon;
+        }
+    }
+
+    public void ShowMapIcon() {
+        if (!showingMapIcon) {
+            showingMapIcon = true;
+            mapIcon = chestIconPrefab.Spawn(transform.position, Containers.Instance.MapIcons);
+        }
+    }
+
+    public void HideMapIcon() {
+        if (showingMapIcon) {
+            showingMapIcon = false;
+            mapIcon.gameObject.ReturnToPool();
+        }
+    }
 }

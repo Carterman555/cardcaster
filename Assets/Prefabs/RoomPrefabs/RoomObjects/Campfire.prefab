@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 1296630484762602501}
   - component: {fileID: 8160879553328499664}
   - component: {fileID: -7337060429072082821}
+  - component: {fileID: 3490117106250514611}
   m_Layer: 0
   m_Name: Campfire
   m_TagString: Untagged
@@ -124,6 +125,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0c8cc3b7b271484c84a48ecc9ceba9d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &3490117106250514611
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8638158404008627114}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db31cb68110f1814dbb19a9c4619ef7c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  chestIconPrefab: {fileID: 3823268717416569964, guid: 0acd516ef83dea547b6478d2eb4de394, type: 3}
 --- !u!1 &8990063016616871222
 GameObject:
   m_ObjectHideFlags: 0

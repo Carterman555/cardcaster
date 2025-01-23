@@ -30,6 +30,8 @@ public class Campfire : MonoBehaviour {
     private void PutOutFire() {
         TrashCardManager.OnTrashCard -= PutOutFire;
 
+        GetComponent<CreateMapIcon>().HideMapIcon();
+
         anim.SetTrigger("use");
 
         interactable.OnInteract -= OpenTrashUI;

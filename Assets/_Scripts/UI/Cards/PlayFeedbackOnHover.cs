@@ -27,7 +27,7 @@ public class PlayFeedbackOnHover : MonoBehaviour, IPointerEnterHandler, IPointer
         }
 
         if (playSFX) {
-            AudioManager.Instance.PlaySound(OnEnterClips);
+            AudioManager.Instance.PlaySound(OnEnterClips, uiSound: true);
         }
     }
 

@@ -279,6 +279,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db31cb68110f1814dbb19a9c4619ef7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  iconSprite: {fileID: 21300000, guid: 61ea63386f6b5a34bae4a36619403afa, type: 3}
-  iconMaterial: {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
-  size: 8
+  chestIconPrefab: {fileID: 3823268717416569964, guid: acc1902acbc09e849b267114b2b1bf35, type: 3}

@@ -31,10 +31,10 @@ public class ButtonAudio : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         }
 
         if (customClickSFX) {
-            AudioManager.Instance.PlaySound(clickSFX);
+            AudioManager.Instance.PlaySound(clickSFX, uiSound: true);
         }
         else {
-            AudioManager.Instance.PlaySound(AudioManager.Instance.AudioClips.ButtonClick);
+            AudioManager.Instance.PlaySound(AudioManager.Instance.AudioClips.ButtonClick, uiSound: true);
         }
     }
 

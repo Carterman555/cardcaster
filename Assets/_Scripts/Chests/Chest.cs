@@ -117,6 +117,8 @@ public class Chest : MonoBehaviour {
 
     public IEnumerator OnSelectCollectable(int selectedCollectableIndex) {
 
+        GetComponent<CreateMapIcon>().HideMapIcon();
+
         float duration = 0.5f;
 
         // hide other collectables in chest

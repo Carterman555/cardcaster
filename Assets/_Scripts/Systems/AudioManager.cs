@@ -5,38 +5,12 @@ using UnityEngine;
 
 public class AudioManager : Singleton<AudioManager> {
     [SerializeField] private AudioSource SFXSource;
+    [SerializeField] private AudioSource UISource;
 
     [SerializeField] private ScriptableAudio audioClips;
     public ScriptableAudio AudioClips => audioClips;
 
-    public void PlaySound(AudioClips audioClips) {
-
-        if (audioClips.Clips == null || audioClips.Clips.Count() == 0) {
-            Debug.LogWarning("Tried playing sound with no audio clips");
-            return;
-        }
-
-        AudioClip audioClip = audioClips.Clips.RandomItem();
-        PlaySound(audioClip, audioClips.Volume);
-    }
-
-    public void PlaySound(AudioClip audioClip, float vol) {
-        SFXSource.PlayOneShot(audioClip, vol);
-    }
-
     private List<AudioClipsTimer> audioClipsTimers = new();
-
-    // when multiple of the same sound are played at the same time, ignore all but the first one
-    public void PlaySingleSound(AudioClips audioClips, float ignoreTime = 0.1f) {
-
-        if (audioClipsTimers.Any(x => x.Clips == audioClips)) {
-            return;
-        }
-
-        PlaySound(audioClips);
-
-        audioClipsTimers.Add(new AudioClipsTimer(audioClips, ignoreTime));
-    }
 
     private void Update() {
         for (int i = 0; i < audioClipsTimers.Count; i++) {
@@ -47,6 +21,43 @@ public class AudioManager : Singleton<AudioManager> {
                 i--;
             }
         }
+    }
+
+    public void PlaySound(AudioClips audioClips, bool uiSound = false) {
+
+        if (audioClips.Clips == null || audioClips.Clips.Count() == 0) {
+            Debug.LogWarning("Tried playing sound with no audio clips");
+            return;
+        }
+
+        AudioClip audioClip = audioClips.Clips.RandomItem();
+
+        if (uiSound) {
+            PlayUISound(audioClip, audioClips.Volume);
+        }
+        else {
+            PlaySFX(audioClip, audioClips.Volume);
+        }
+    }
+
+    // when multiple of the same sound are played at the same time, ignore all but the first one
+    public void PlaySingleSound(AudioClips audioClips, float ignoreTime = 0.1f, bool uiSound = false) {
+
+        if (audioClipsTimers.Any(x => x.Clips == audioClips)) {
+            return;
+        }
+
+        PlaySound(audioClips, uiSound);
+
+        audioClipsTimers.Add(new AudioClipsTimer(audioClips, ignoreTime));
+    }
+
+    public void PlaySFX(AudioClip audioClip, float vol) {
+        SFXSource.PlayOneShot(audioClip, vol);
+    }
+
+    public void PlayUISound(AudioClip audioClip, float vol) {
+        UISource.PlayOneShot(audioClip, vol);
     }
 }
 

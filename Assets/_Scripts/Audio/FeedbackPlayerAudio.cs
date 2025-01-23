@@ -14,6 +14,8 @@ public class FeedbackPlayerAudio : MonoBehaviour {
     [ConditionalHide("playCustomSFX")][SerializeField] private AudioClips playClips;
     [ConditionalHide("playCustomSFX")][SerializeField] private AudioClips playInReverseClips;
 
+    [SerializeField] private bool uiSFX = true;
+
     private void Awake() {
         feedbackPlayer = GetComponent<MMF_Player>();
     }
@@ -36,19 +38,19 @@ public class FeedbackPlayerAudio : MonoBehaviour {
 
     private void PlayNormalSFX() {
         if (playPanelSFX) {
-            AudioManager.Instance.PlaySound(AudioManager.Instance.AudioClips.OpenPanel);
+            AudioManager.Instance.PlaySound(AudioManager.Instance.AudioClips.OpenPanel, uiSound: uiSFX);
         }
         else if (playCustomSFX) {
-            AudioManager.Instance.PlaySound(playClips);
+            AudioManager.Instance.PlaySound(playClips, uiSound: uiSFX);
         }
     }
 
     private void PlayInReverseSFX() {
         if (playPanelSFX) {
-            AudioManager.Instance.PlaySound(AudioManager.Instance.AudioClips.ClosePanel);
+            AudioManager.Instance.PlaySound(AudioManager.Instance.AudioClips.ClosePanel, uiSound: uiSFX);
         }
         else if (playCustomSFX) {
-            AudioManager.Instance.PlaySound(playInReverseClips);
+            AudioManager.Instance.PlaySound(playInReverseClips, uiSound: uiSFX);
         }
     }
 }

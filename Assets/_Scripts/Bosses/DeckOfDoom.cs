@@ -39,7 +39,6 @@ public class DeckOfDoom : MonoBehaviour, IHasStats, IBoss {
     }
 
     private void OnEnable() {
-        //ChangeState(DeckOfDoomState.Spin);
         ChangeState(DeckOfDoomState.BetweenStates);
 
         stateTimer = 0f;
@@ -51,8 +50,7 @@ public class DeckOfDoom : MonoBehaviour, IHasStats, IBoss {
         if (stateTimer > stateDurations[currentState].Value) {
 
             if (currentState == DeckOfDoomState.BetweenStates) {
-                //ChangeToRandomState(previousActionState);
-                ChangeState(DeckOfDoomState.Spin);
+                ChangeToRandomState(previousActionState);
             }
             else {
                 ChangeState(DeckOfDoomState.BetweenStates);

@@ -159,7 +159,12 @@ public class HandCard : MonoBehaviour {
         OnAnyStartPlaying_Card?.Invoke(card);
     }
 
-    public void PlayCard(Vector2 playPosition) {
+    public void TryPlayCard(Vector2 playPosition) {
+
+        if (!card.CanPlay()) {
+            return;
+        }
+
         card.TryPlay(playPosition);
         useCardPlayer.PlayFeedbacks();
 

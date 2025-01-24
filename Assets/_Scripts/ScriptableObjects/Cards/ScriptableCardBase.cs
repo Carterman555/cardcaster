@@ -29,18 +29,22 @@ public abstract class ScriptableCardBase : ScriptableObject, ICollectable {
     public int MinLevel => minLevel;
 
     [Header("Advanced Info")]
-    [SerializeField] private bool canStackWithSelf;
-    public bool CanStackWithSelf => canStackWithSelf;
+    [SerializeField] private StackType stackType;
+    public StackType StackType => stackType;
 
     [SerializeField] private bool startUnlocked;
     public bool StartUnlocked => startUnlocked;
 
     public virtual void TryPlay(Vector2 position) {
-
     }
 
     protected virtual void Play(Vector2 position) {
         OnPlayCard?.Invoke(this);
+    }
+
+    
+    public virtual bool CanPlay() {
+        return true;
     }
 }
 
@@ -64,4 +68,11 @@ public enum CardType {
     Ricochet,
     Magnetify,
     DyingRage,
+}
+
+// what to do when play again while already playing
+public enum StackType {
+    Stackable,
+    ResetDuration,
+    NotStackable
 }

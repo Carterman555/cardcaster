@@ -43,12 +43,23 @@ public abstract class ScriptableAbilityCardBase : ScriptableCardBase {
     public override void TryPlay(Vector2 position) {
         base.TryPlay(position);
 
-        // if multiple can't play at the same time, reset the duration of the current one playing
-        if (CanStackWithSelf || !AbilityManager.Instance.IsAbilityActive(this, out ScriptableAbilityCardBase alreadyActiveAbility)) {
+        bool alreadyActive = AbilityManager.Instance.IsAbilityActive(this);
+
+        if (!alreadyActive) {
+            Play(position);
+            return;
+        }
+
+        // if multiple can't play at the same time, reset the duration of the current one playing or don't allow playing
+        if (StackType == StackType.Stackable) {
             Play(position);
         }
-        else {
+        else if (StackType == StackType.ResetDuration) {
+            AbilityManager.Instance.IsAbilityActive(this, out ScriptableAbilityCardBase alreadyActiveAbility);
             alreadyActiveAbility.ResetDuration();
+        }
+        else if (StackType == StackType.NotStackable) {
+            // don't play
         }
     }
 
@@ -72,6 +83,15 @@ public abstract class ScriptableAbilityCardBase : ScriptableCardBase {
         if (hasDuration) {
             durationStopCoroutine = AbilityManager.Instance.StartCoroutine(StopAfterDuration());
         }
+    }
+
+    // checks if this card is compatible to play with cards that are currently active. Well, right now it 
+    // only checks if can stack with self and it's active (not other cards yet)
+    public override bool CanPlay() {
+        bool canStack = StackType != StackType.NotStackable;
+        bool alreadyActive = AbilityManager.Instance.IsAbilityActive(this);
+
+        return canStack || !alreadyActive;
     }
 
     public void Cancel() {

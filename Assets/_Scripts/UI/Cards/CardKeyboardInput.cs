@@ -49,7 +49,7 @@ public class CardKeyboardInput : MonoBehaviour, IPointerDownHandler {
         bool hotKeyDown = handCard.GetPlayInput().WasPerformedThisFrame();
         bool hotKeyUp = handCard.GetPlayInput().WasReleasedThisFrame();
 
-        if (!handCard.CanAffordToPlay()) {
+        if (!handCard.CanAffordToPlay() || !handCard.GetCard().CanPlay()) {
             if (hotKeyDown) {
                 handCard.CantPlayShake();
             }
@@ -144,7 +144,7 @@ public class CardKeyboardInput : MonoBehaviour, IPointerDownHandler {
             StopFollowingMouse();
         }
         else {
-            handCard.PlayCard(MouseTracker.Instance.transform.position);
+            handCard.TryPlayCard(MouseTracker.Instance.transform.position);
         }
 
         playFeedbackOnHover.enabled = true;

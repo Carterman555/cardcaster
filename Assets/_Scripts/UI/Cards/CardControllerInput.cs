@@ -49,7 +49,7 @@ public class CardControllerInput : MonoBehaviour {
     private void HandleInput() {
         bool playInputPressed = handCard.GetPlayInput().WasReleasedThisFrame();
 
-        if (!handCard.CanAffordToPlay()) {
+        if (!handCard.CanAffordToPlay() || !handCard.GetCard().CanPlay()) {
             if (playInputPressed) {
                 handCard.CantPlayShake();
             }
@@ -73,7 +73,7 @@ public class CardControllerInput : MonoBehaviour {
             }
             else if (showing || movingCard) {
                 Vector2 worldPos = Camera.main.ScreenToWorldPoint(transform.position);
-                handCard.PlayCard(worldPos);
+                handCard.TryPlayCard(worldPos);
             }
         }
 

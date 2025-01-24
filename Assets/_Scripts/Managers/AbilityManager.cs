@@ -28,6 +28,10 @@ public class AbilityManager : StaticInstance<AbilityManager> {
         return alreadyActiveAbility != null;
     }
 
+    public bool IsAbilityActive(ScriptableAbilityCardBase ability) {
+        return activeAbilities.Any(a => a.GetType().Equals(ability.GetType()));
+    }
+
     #endregion
 
     #region Modifiers
@@ -46,7 +50,7 @@ public class AbilityManager : StaticInstance<AbilityManager> {
     }
 
     public void AddModifier(ScriptableModifierCardBase modifier) {
-        if (modifier.CanStackWithSelf || !IsModifierActive(modifier)) {
+        if (modifier.StackType == StackType.Stackable || !IsModifierActive(modifier)) {
             activeModifiers.Add(modifier);
         }
     }

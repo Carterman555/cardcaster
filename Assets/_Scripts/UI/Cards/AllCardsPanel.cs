@@ -29,7 +29,7 @@ public class AllCardsPanel : StaticInstance<AllCardsPanel> {
     // trash manager is activated for example)
     private void OnDisable() {
         TrashCardManager.Instance.Deactivate();
-        ShopUIManager.Instance.Deactivate();
+        TradeUIManager.Instance.Deactivate();
 
         toSetupControllerInput = false;
     }

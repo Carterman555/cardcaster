@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ShopUIManager : StaticInstance<ShopUIManager>, IInitializable {
+public class TradeUIManager : StaticInstance<TradeUIManager>, IInitializable {
 
     public void Initialize() => Instance = this;
 
@@ -143,6 +143,9 @@ public class ShopUIManager : StaticInstance<ShopUIManager>, IInitializable {
     }
 
     private Tween SwapIcons() {
+
+        AudioManager.Instance.PlaySound(AudioManager.Instance.AudioClips.GainChestCard);
+
         float swapDuration = 0.5f;
         currentCardIcon.transform.DOLocalMove(newCardLocalPosition, swapDuration).SetUpdate(true);
         return newCardIcon.transform.DOLocalMove(currentCardLocalPosition, swapDuration).SetUpdate(true);

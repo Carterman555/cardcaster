@@ -24,6 +24,9 @@ public class CreateMapIcon : MonoBehaviour {
         }
 
         HideMapIcon();
+
+        Room.OnAnyRoomEnter_Room -= TryShowMapIcon;
+        print($"{gameObject.GetInstanceID()}: Disable so usub to show map icon");
     }
 
     private IEnumerator SetRoomNum() {
@@ -37,6 +40,7 @@ public class CreateMapIcon : MonoBehaviour {
         if (childOfRoom) {
             roomNum = room.GetRoomNum();
             Room.OnAnyRoomEnter_Room += TryShowMapIcon;
+            print($"{gameObject.GetInstanceID()}: Sub to show map icon when enter room");
         }
     }
 
@@ -46,10 +50,14 @@ public class CreateMapIcon : MonoBehaviour {
             ShowMapIcon();
 
             Room.OnAnyRoomEnter_Room -= TryShowMapIcon;
+            print($"{gameObject.GetInstanceID()}: Showed map icon so usub to show map icon");
         }
     }
 
     public void ShowMapIcon() {
+
+        print($"{gameObject.GetInstanceID()}: Show map icon");
+
         if (!showingMapIcon) {
             showingMapIcon = true;
             mapIcon = chestIconPrefab.Spawn(transform.position, Containers.Instance.MapIcons);

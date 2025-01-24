@@ -71,7 +71,6 @@ public class SettingsManager : MonoBehaviour {
     public void OnMusicVolumeSliderChanged(float value) {
         currentSettings.MusicVolume = value;
         audioMixer.SetFloat("MusicVolume", SliderValueToDecibels(value));
-        print($"Set music to {SliderValueToDecibels(value)}");
         OnSettingsChanged?.Invoke();
     }
 

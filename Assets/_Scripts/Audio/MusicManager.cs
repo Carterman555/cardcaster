@@ -10,7 +10,7 @@ public class MusicManager : Singleton<MusicManager> {
     [SerializeField] private ScriptableAudio audioClips;
     [SerializeField] private List<MusicSource> musicSources;
 
-    private MusicType activeMusicType;
+    private MusicType activeMusicType = MusicType.None;
 
     private float musicFadeDuration = 2f;
 
@@ -98,11 +98,18 @@ public class MusicManager : Singleton<MusicManager> {
         MusicType oldMusicType = activeMusicType;
         activeMusicType = newMusicType;
 
+        // don't change song if tried transitioning to music type that is already playing
+        if (oldMusicType == newMusicType) {
+            return;
+        }
+
         // fade out old music
-        AudioSource oldAudioSource = musicSources.First(s => s.MusicType == oldMusicType).AudioSource;
-        oldAudioSource.DOFade(0f, duration: musicFadeDuration).OnComplete(() => {
-            if (stopOldSource) oldAudioSource.Stop();
-        });
+        if (oldMusicType != MusicType.None) {
+            AudioSource oldAudioSource = musicSources.First(s => s.MusicType == oldMusicType).AudioSource;
+            oldAudioSource.DOFade(0f, duration: musicFadeDuration).OnComplete(() => {
+                if (stopOldSource) oldAudioSource.Stop();
+            });
+        }
 
         // fade in new music
         GetActiveMusicSource().volume = 0f;
@@ -129,7 +136,7 @@ public class MusicManager : Singleton<MusicManager> {
     }
 }
 
-public enum MusicType { Casual, Combat, Boss }
+public enum MusicType { Casual, Combat, Boss, None }
 
 [Serializable]
 public struct MusicSource {

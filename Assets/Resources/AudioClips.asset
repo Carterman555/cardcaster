@@ -132,12 +132,13 @@ MonoBehaviour:
     - {fileID: 8300000, guid: b85ddf9d5f6edcf4894f2aff08f3a4cf, type: 3}
     Volume: 0.5
   buttonClick:
-    Clips: []
-    Volume: 1
+    Clips:
+    - {fileID: 8300000, guid: 22cf4120c8989514aa5b4dbbd29eee54, type: 3}
+    Volume: 0.44
   buttonEnter:
     Clips:
     - {fileID: 8300000, guid: 22cf4120c8989514aa5b4dbbd29eee54, type: 3}
-    Volume: 0.3
+    Volume: 0.247
   buttonExit:
     Clips:
     - {fileID: 8300000, guid: 22cf4120c8989514aa5b4dbbd29eee54, type: 3}

@@ -15,6 +15,22 @@ public class GameStateManager : StaticInstance<GameStateManager> {
         currentState = GameState.Game;
     }
 
+    private void OnEnable() {
+        InputManager.OnActionMapChanged += OnActionMapChanged;
+    }
+    private void OnDisable() {
+        InputManager.OnActionMapChanged -= OnActionMapChanged;
+    }
+
+    private void OnActionMapChanged(string mapActionName) {
+        if (mapActionName == "UI") {
+            SetGameState(GameState.UI);
+        }
+        else if (mapActionName == "Gameplay") {
+            SetGameState(GameState.Game);
+        }
+    }
+
     public GameState GetCurrentState() {
         return currentState;
     }
@@ -27,5 +43,6 @@ public class GameStateManager : StaticInstance<GameStateManager> {
 
 public enum GameState {
     Game,
-    CutScene
+    CutScene,
+    UI
 }

@@ -379,6 +379,10 @@ MonoBehaviour:
   shootPoint: {fileID: 4789020986000077722}
   specialAttack: 0
   anim: {fileID: 7812749826847277617}
+  customSFX: 0
+  shootSFX:
+    Clips: []
+    Volume: 0
 --- !u!114 &6153550554082725706
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -398,6 +402,11 @@ MonoBehaviour:
   enemyToSpawn: {fileID: -4002794726442658036, guid: 3036b955ca9649d4fbe1dcae34658259, type: 3}
   spawnPoint: {fileID: 4789020986000077722}
   anim: {fileID: 7812749826847277617}
+  customSFX: 1
+  spawnSFX:
+    Clips:
+    - {fileID: 8300000, guid: 5e4e91980cfc9b44ba9536ec9d6c2282, type: 3}
+    Volume: 0.5
 --- !u!95 &7812749826847277617 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 621019451974682374, guid: d26e40392c042dc4d8c237ede2183746, type: 3}

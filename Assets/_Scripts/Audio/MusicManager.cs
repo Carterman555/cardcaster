@@ -42,7 +42,7 @@ public class MusicManager : Singleton<MusicManager> {
     }
 
     private void Start() {
-        TransitionMusic(MusicType.Casual, stopOldSource: false);
+        TransitionMusic(MusicType.Casual);
     }
 
     private void TryTransitionToCombatMusic(Room room) {
@@ -60,15 +60,13 @@ public class MusicManager : Singleton<MusicManager> {
     }
 
     private void Update() {
-
         HandleMusicLooping();
         HandleCasualTransition();
-
     }
 
     private void HandleMusicLooping() {
         if (!GetActiveMusicSource().isPlaying) {
-            TransitionMusic(activeMusicType, false);
+            PlayRandomActiveSong();
         }
     }
 
@@ -93,7 +91,7 @@ public class MusicManager : Singleton<MusicManager> {
         }
     }
 
-    private void TransitionMusic(MusicType newMusicType, bool stopOldSource = true) {
+    private void TransitionMusic(MusicType newMusicType) {
 
         MusicType oldMusicType = activeMusicType;
         activeMusicType = newMusicType;
@@ -106,16 +104,21 @@ public class MusicManager : Singleton<MusicManager> {
         // fade out old music
         if (oldMusicType != MusicType.None) {
             AudioSource oldAudioSource = musicSources.First(s => s.MusicType == oldMusicType).AudioSource;
+            oldAudioSource.DOKill();
             oldAudioSource.DOFade(0f, duration: musicFadeDuration).OnComplete(() => {
-                if (stopOldSource) oldAudioSource.Stop();
+                oldAudioSource.Stop();
             });
         }
 
-        // fade in new music
-        GetActiveMusicSource().volume = 0f;
+        // fade in and play new music
+        PlayRandomActiveSong();
+    }
 
-        float volume = SettingsManager.GetSettings().MusicVolume;
-        GetActiveMusicSource().DOFade(volume, duration: musicFadeDuration);
+    private void PlayRandomActiveSong() {
+
+        // fade in new music
+        GetActiveMusicSource().DOKill();
+        GetActiveMusicSource().DOFade(1f, duration: musicFadeDuration);
 
         //... set the song on the new audio source
         PlayMusic(GetActiveMusicClips());

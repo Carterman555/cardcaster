@@ -14,19 +14,23 @@ public class DeathParticles : MonoBehaviour {
     [SerializeField] private bool hasParticlePoint;
     [ConditionalHide("hasParticlePoint")][SerializeField] private Transform particlePoint;
 
+    [SerializeField] private bool playOnDeathEvent = true;
+
     private void Awake() {
         health = GetComponent<Health>();
     }
 
     private void OnEnable() {
-        health.OnDeath += GenerateParticles;
+        if (playOnDeathEvent) {
+            health.OnDeath += GenerateParticles;
+        }
     }
 
     private void OnDisable() {
         health.OnDeath -= GenerateParticles;
     }
 
-    private void GenerateParticles() {
+    public void GenerateParticles() {
         Vector2 pos = hasParticlePoint ? particlePoint.position : transform.position;
         deathParticlesPrefab.CreateColoredParticles(pos, deathParticlesColor);
     }

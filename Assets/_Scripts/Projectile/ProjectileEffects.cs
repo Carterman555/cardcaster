@@ -1,6 +1,7 @@
 using UnityEngine;
 
 public class ProjectileEffects : MonoBehaviour {
+
     [SerializeField] private bool hasSpawnParticles;
     [ConditionalHide("hasSpawnParticles")]
     [SerializeField] private ParticleSystem spawnParticles;
@@ -19,18 +20,23 @@ public class ProjectileEffects : MonoBehaviour {
     [ConditionalHide("hasDestroyParticles")]
     [SerializeField] private Color destroyParticlesColor;
 
+    [SerializeField] private bool hasParticlePoint;
+    [ConditionalHide("hasParticlePoint")][SerializeField] private Transform particlePoint;
+
+    public Vector3 ParticleSpawnPoint => hasParticlePoint ? particlePoint.position : transform.position;
+
     private void OnEnable() {
         if (hasHitParticles && TryGetComponent(out IAttacker attacker)) {
             attacker.OnAttack += CreateHitTargetParticles;
         }
         if (hasSpawnParticles) {
-            spawnParticles.CreateColoredParticles(transform.position, spawnParticlesColor);
+            spawnParticles.CreateColoredParticles(ParticleSpawnPoint, spawnParticlesColor);
         }
     }
 
     private void CreateHitTargetParticles() {
         if (hasHitParticles) {
-            hitTargetParticles.CreateColoredParticles(transform.position, hitTargetParticlesColor);
+            hitTargetParticles.CreateColoredParticles(ParticleSpawnPoint, hitTargetParticlesColor);
         }
     }
 
@@ -48,7 +54,7 @@ public class ProjectileEffects : MonoBehaviour {
         }
 
         if (hasDestroyParticles) {
-            destroyParticles.CreateColoredParticles(transform.position, destroyParticlesColor);
+            destroyParticles.CreateColoredParticles(ParticleSpawnPoint, destroyParticlesColor);
         }
         if (hasHitParticles && TryGetComponent(out IAttacker attacker)) {
             attacker.OnAttack -= CreateHitTargetParticles;

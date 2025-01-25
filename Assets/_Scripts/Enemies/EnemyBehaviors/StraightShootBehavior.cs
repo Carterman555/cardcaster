@@ -101,7 +101,7 @@ public class StraightShootBehavior : MonoBehaviour, IAttacker {
 
         if (hasShootVariation) {
             float randomAngle = UnityEngine.Random.Range(-shootVariation, shootVariation);
-            shootDirection = shootDirection.RotateDirection(randomAngle);
+            shootDirection.RotateDirection(randomAngle);
         }
 
         newProjectile.Setup(shootDirection.normalized);

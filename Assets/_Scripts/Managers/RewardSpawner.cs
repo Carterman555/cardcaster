@@ -15,29 +15,15 @@ public class RewardSpawner : MonoBehaviour {
 
     private void OnEnable() {
         CheckEnemiesCleared.OnEnemiesCleared += TrySpawnReward;
+        BossManager.OnBossKilled += SpawnBossReward;
     }
     private void OnDisable() {
         CheckEnemiesCleared.OnEnemiesCleared -= TrySpawnReward;
+        BossManager.OnBossKilled -= SpawnBossReward;
     }
 
     private void TrySpawnReward() {
-
-        bool clearedBossRoom = Room.GetCurrentRoom().TryGetComponent(out BossRoom bossRoom);
-
-        if (!clearedBossRoom) {
-            if (Random.value < rewardOnClearChance) {
-                SpawnReward();
-            }
-        }
-        else {
-            SpawnBossLoot(bossRoom.GetBossSpawnPoint().position);
-        }
-    }
-
-    [ContextMenu("Rewards")]
-    private void DebugSpawnReward() {
-        for (int i = 0; i < 100; i++)
-        {
+        if (Random.value < rewardOnClearChance) {
             SpawnReward();
         }
     }
@@ -67,7 +53,12 @@ public class RewardSpawner : MonoBehaviour {
     [SerializeField] private CardDrop cardDropPrefab;
 
     [Command]
-    private void SpawnBossLoot(Vector2 spawnPoint) {
+    private void SpawnBossReward() {
+        bool inBossRoom = Room.GetCurrentRoom().TryGetComponent(out BossRoom bossRoom);
+        if (!inBossRoom) {
+            Debug.LogError("Tried spawning boss reward while not in boss room!");
+            return;
+        }
 
         int currentLevel = GameSceneManager.Instance.GetLevel();
         List<ScriptableCardBase> possibleCardsToSpawn = ResourceSystem.Instance.GetAllCardsWithLevel(currentLevel);
@@ -82,7 +73,7 @@ public class RewardSpawner : MonoBehaviour {
             }
         }
 
-        CardDrop newCardDrop = cardDropPrefab.Spawn(spawnPoint, Containers.Instance.Drops);
+        CardDrop newCardDrop = cardDropPrefab.Spawn(bossRoom.GetBossSpawnPoint().position, Containers.Instance.Drops);
 
         ScriptableCardBase scriptableCard = possibleCardsToSpawn.RandomItem();
         newCardDrop.SetCard(scriptableCard);

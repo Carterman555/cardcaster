@@ -75,7 +75,7 @@ MonoBehaviour:
   merge:
     Clips:
     - {fileID: 8300000, guid: 5e4e91980cfc9b44ba9536ec9d6c2282, type: 3}
-    Volume: 0.546
+    Volume: 0.5
   drawCard:
     Clips:
     - {fileID: 8300000, guid: e9abfb5e1aad99a41b61898d1c0923d0, type: 3}

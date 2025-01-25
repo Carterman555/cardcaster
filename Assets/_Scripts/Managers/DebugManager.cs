@@ -44,7 +44,8 @@ public class DebugManager : StaticInstance<DebugManager> {
         }
 
         if (spawnAtBossRoom) {
-            TeleportToBossRoom();
+            //... wait a frame to teleport, so boss room gets entered after starting room does
+            Invoke(nameof(TeleportToBossRoom), Time.deltaTime);
         }
     }
 

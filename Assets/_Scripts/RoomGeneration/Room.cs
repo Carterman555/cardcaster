@@ -90,6 +90,10 @@ public class Room : MonoBehaviour {
 
     #endregion
 
+    public void SetRoomCleared() {
+        roomCleared = true;
+    }
+
     public void AddCreatedDoorway(PossibleDoorway possibleDoorway) {
         createdDoorways.Add(possibleDoorway);
     }
@@ -185,7 +189,9 @@ public class Room : MonoBehaviour {
         LevelMapIcons.Instance.ShowMapIcon(mapIcon);
 
         exitTrigger.OnEnterContact += OnExitRoom;
+
         CheckEnemiesCleared.OnEnemiesCleared += SetRoomCleared;
+        BossManager.OnBossKilled += SetRoomCleared;
 
         RoomGenerator.OnCompleteGeneration -= OnEnterRoom;
         enterTrigger.OnEnterContact -= OnEnterRoom;
@@ -200,7 +206,9 @@ public class Room : MonoBehaviour {
         enterTrigger.OnEnterContact += OnEnterRoom;
 
         exitTrigger.OnEnterContact -= OnExitRoom;
+
         CheckEnemiesCleared.OnEnemiesCleared -= SetRoomCleared;
+        BossManager.OnBossKilled -= SetRoomCleared;
 
         OnAnyRoomExit_Room?.Invoke(this);
     }
@@ -221,7 +229,5 @@ public class Room : MonoBehaviour {
         }
     }
 
-    public void SetRoomCleared() {
-        roomCleared = true;
-    }
+    
 }

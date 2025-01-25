@@ -31,9 +31,11 @@ public class DoorBlocker : MonoBehaviour {
 
     private void OnEnable() {
         CheckEnemiesCleared.OnEnemiesCleared += Open;
+        BossManager.OnBossKilled += Open;
     }
     private void OnDisable() {
         CheckEnemiesCleared.OnEnemiesCleared -= Open;
+        BossManager.OnBossKilled -= Open;
     }
 
     private void Open() {

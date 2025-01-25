@@ -20,6 +20,8 @@ public class BossManager : MonoBehaviour {
 
     private Health playerHealth;
 
+    private Room room;
+
     private void Awake() {
         playerHealth = PlayerMovement.Instance.GetComponent<Health>();
     }
@@ -32,6 +34,7 @@ public class BossManager : MonoBehaviour {
     }
 
     private void TryStartBossFight(Room room) {
+        this.room = room;
 
         bool isBossRoom = room.TryGetComponent(out BossRoom bossRoom);
 

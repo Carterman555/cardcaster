@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3011047724568233012}
   - component: {fileID: 1727303866139851955}
   - component: {fileID: 7604278803096048823}
-  - component: {fileID: 5736202852365760215}
+  - component: {fileID: -792089271919812125}
   - component: {fileID: 2621830293063425681}
   - component: {fileID: 7842081825320602579}
   - component: {fileID: 3351410608047035514}
@@ -134,8 +134,8 @@ MonoBehaviour:
   stateDurationsList:
   - State: 0
     Duration:
-      MinValue: 5
-      MaxValue: 5
+      MinValue: 1.5
+      MaxValue: 2.5
   - State: 1
     Duration:
       MinValue: 12
@@ -155,7 +155,7 @@ MonoBehaviour:
   cardSurgePrefab: {fileID: 1953470431834479791, guid: f1d2c1f3d8c52194b86ed3706fcd13dc, type: 3}
   surgeCooldown: 1
   targetPlayerProbability: 0.3
---- !u!114 &5736202852365760215
+--- !u!114 &-792089271919812125
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -164,21 +164,20 @@ MonoBehaviour:
   m_GameObject: {fileID: 1338195640233062225}
   m_Enabled: 0
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8f1ed07a53aae3c4ea9936ddb76a99aa, type: 3}
+  m_Script: {fileID: 11500000, guid: 099967e1a732aea449dd72c894f406a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  projectilePrefab: {fileID: -1897301476388012080, guid: 886ea9feca7e4b0429b1c2fb5e25b809, type: 3}
   shootPoint: {fileID: 7974871295546649947}
   overrideDamage: 1
   damage: 2
-  hasShootVariation: 0
-  shootVariation: 10
-  hasShootAnim: 0
-  specialAttack: 0
-  stopAimingOnAnimStart: 0
-  enemyAnim: {fileID: 4039351960834069205}
-  hasWeapon: 0
-  weaponAnim: {fileID: 0}
+  customSFX: 0
+  shootSFX:
+    Clips: []
+    Volume: 0
+  projectilePrefab: {fileID: -1897301476388012080, guid: 5812694bf7d1a7644a5c346ff24b30ea, type: 3}
+  shootDirectionAmount: 3
+  spiralSpeed: -60
+  distanceFromShootPoint: 2.5
 --- !u!114 &2621830293063425681
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -209,12 +208,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b436399d89bfd245b88204bdbc8ed47, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  returnOnDeath: 0
+  deathEventTrigger:
+    m_PersistentCalls:
+      m_Calls: []
   damagedEventTrigger:
     m_PersistentCalls:
       m_Calls: []
-  hasDeathParticles: 1
-  deathParticles: {fileID: 6065135645941821456, guid: 9d414eb7344541344b030026510edc40, type: 3}
-  deathParticlesColor: {r: 0.1254902, g: 0.18039216, b: 0.21568629, a: 1}
+  increaseHealthPerLevel: 0
+  perLevelProportionToIncrease: 0
 --- !u!114 &3351410608047035514
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -276,6 +278,7 @@ MonoBehaviour:
   deathParticlesColor: {r: 0.1254902, g: 0.18039216, b: 0.21568628, a: 1}
   hasParticlePoint: 1
   particlePoint: {fileID: 2512676828727106287}
+  playOnDeathEvent: 0
 --- !u!1 &2675290753206742061
 GameObject:
   m_ObjectHideFlags: 0
@@ -641,6 +644,8 @@ MonoBehaviour:
   health: {fileID: 7842081825320602579}
   overrideDamage: 1
   damage: 1
+  overrideKnockback: 0
+  knockbackStrength: 0
 --- !u!1 &7511841342980834600
 GameObject:
   m_ObjectHideFlags: 0

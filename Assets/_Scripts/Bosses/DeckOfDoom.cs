@@ -23,12 +23,13 @@ public class DeckOfDoom : MonoBehaviour, IHasStats, IBoss {
 
     [SerializeField] private Animator anim;
 
+    private Health health;
+
     private void Awake() {
         InitializeDurationDict();
 
-        shootBehavior = GetComponent<StraightShootBehavior>();
-        shootBehavior.SetShootTarget(StraightShootBehavior.ShootTarget.Random);
-
+        health = GetComponent<Health>();
+        shootBehavior = GetComponent<SpiralShootBehaviour>();
         bounceMoveBehavior = GetComponent<BounceMoveBehaviour>();
     }
 
@@ -42,6 +43,12 @@ public class DeckOfDoom : MonoBehaviour, IHasStats, IBoss {
         ChangeState(DeckOfDoomState.BetweenStates);
 
         stateTimer = 0f;
+
+        health.OnDeath += OnDeath;
+    }
+
+    private void OnDisable() {
+        health.OnDeath -= OnDeath;
     }
 
     private void Update() {
@@ -62,6 +69,20 @@ public class DeckOfDoom : MonoBehaviour, IHasStats, IBoss {
         DeckOfDoomState[] availableStates = actionStates.Where(s => s != stateToAvoid).ToArray();
         DeckOfDoomState newState = availableStates.RandomItem();
         ChangeState(newState);
+    }
+
+    private void OnDeath() {
+        StartCoroutine(OnDeathCor());
+    }
+    private IEnumerator OnDeathCor() {
+        ChangeState(DeckOfDoomState.BetweenStates);
+
+        float delay = 1f;
+        yield return new WaitForSeconds(delay);
+
+        GetComponent<DeathParticles>().GenerateParticles();
+
+        gameObject.ReturnToPool();
     }
 
     private void ChangeState(DeckOfDoomState newState) {
@@ -113,7 +134,7 @@ public class DeckOfDoom : MonoBehaviour, IHasStats, IBoss {
     #region Spin
 
     [Header("Spin State")]
-    private StraightShootBehavior shootBehavior;
+    private SpiralShootBehaviour shootBehavior;
 
     [SerializeField] private float shootDelay;
 

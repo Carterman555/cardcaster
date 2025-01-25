@@ -99,8 +99,9 @@ public static class Helpers {
         return Quaternion.Euler(0, 0, degrees) * Vector2.up;
     }
 
-    public static Vector2 RotateDirection(this Vector2 direction, float degrees) {
-        return Quaternion.Euler(0, 0, degrees) * direction;
+    public static Vector2 RotateDirection(ref this Vector2 direction, float degrees) {
+        direction = Quaternion.Euler(0, 0, degrees) * direction;
+        return direction;
     }
 
     public static float GetClosestDirection(Vector3 dir1, Vector3 dir2) {

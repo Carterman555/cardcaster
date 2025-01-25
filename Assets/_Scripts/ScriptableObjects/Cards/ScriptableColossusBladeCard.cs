@@ -5,7 +5,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "MassiveSwordCard", menuName = "Cards/Massive Sword Card")]
-public class ScriptableMassiveSwordCard : ScriptableStatsModifierCard {
+public class ScriptableColossusBladeCard : ScriptableStatsModifierCard {
 
     [Header("Visual")]
     [SerializeField] private Sprite bigSwordSprite;

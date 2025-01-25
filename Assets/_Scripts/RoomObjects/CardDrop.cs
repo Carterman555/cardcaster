@@ -15,6 +15,7 @@ public class CardDrop : MonoBehaviour {
     protected SuckMovement suckMovement;
 
     [SerializeField] private ChangeColorFromRarity changeShineColor;
+    [SerializeField] private Transform shine;
 
     [SerializeField] private ScriptableCardBase defaultCard; // for testing
 
@@ -44,9 +45,12 @@ public class CardDrop : MonoBehaviour {
 
         interactable.enabled = false;
 
-        float duration = 0.3f;
-        transform.localScale = Vector2.zero;
-        transform.DOScale(Vector2.one, duration).SetEase(Ease.OutSine).OnComplete(() => {
+        // spawn visual
+        shine.localScale = Vector3.zero;
+        shine.DOScale(1f, duration: 1.5f);
+
+        spriteRenderer.Fade(0f);
+        spriteRenderer.DOFade(1f, duration: 1.5f).OnComplete(() => {
             interactable.enabled = true;
         });
 

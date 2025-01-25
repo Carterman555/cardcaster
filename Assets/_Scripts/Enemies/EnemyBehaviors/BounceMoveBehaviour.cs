@@ -56,7 +56,7 @@ public class BounceMoveBehaviour : MonoBehaviour, IEffectable, IEnemyMovement {
         velocity = Vector2.up * hasStats.GetStats().MoveSpeed;
 
         float randomDegrees = UnityEngine.Random.Range(0f, 360f);
-        velocity = velocity.RotateDirection(randomDegrees);
+        velocity.RotateDirection(randomDegrees);
 
         UpdateFacing(velocity);
     }
@@ -126,7 +126,8 @@ public class BounceMoveBehaviour : MonoBehaviour, IEffectable, IEnemyMovement {
             }
         }
         else {
-            Vector2 faceDirection = velocity.normalized.RotateDirection(facingAngleOffset);
+            Vector2 faceDirection = velocity.normalized;
+            faceDirection.RotateDirection(facingAngleOffset);
             transform.up = faceDirection;
         }
     }

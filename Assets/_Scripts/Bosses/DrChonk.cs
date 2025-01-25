@@ -165,7 +165,7 @@ public class DrChonk : MonoBehaviour, IHasStats, IBoss {
 
         for (int i = 0; i < startingMinionAmount; i++) {
 
-            spawnDirection = spawnDirection.RotateDirection(rotationBetweenMinions);
+            spawnDirection.RotateDirection(rotationBetweenMinions);
 
             Vector2 pos = (Vector2)centerPoint.position + (spawnDirection * startingHealersDistance);
             healerMinionPrefab.Spawn(pos, Containers.Instance.Enemies);

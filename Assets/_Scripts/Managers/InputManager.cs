@@ -69,16 +69,24 @@ public class InputManager : Singleton<InputManager> {
 
     #region Update Action Maps
 
+    public static event Action<string> OnActionMapChanged;
+
     // there are different controls when UI is open
     private void UpdateActionMap() {
         ActionMapUpdaterPanel[] actionMapUpdaters = FindObjectsOfType<ActionMapUpdaterPanel>(true);
-        bool anyActive = actionMapUpdaters.Any(u => u.isActiveAndEnabled);
+        bool anyUIActive = actionMapUpdaters.Any(u => u.isActiveAndEnabled);
 
-        if (anyActive) {
-            playerInput.SwitchCurrentActionMap("UI");
+        if (anyUIActive) {
+            if (playerInput.currentActionMap.name != "UI") {
+                playerInput.SwitchCurrentActionMap("UI");
+                OnActionMapChanged?.Invoke("UI");
+            }
         }
         else {
-            playerInput.SwitchCurrentActionMap("Gameplay");
+            if (playerInput.currentActionMap.name != "Gameplay") {
+                playerInput.SwitchCurrentActionMap("Gameplay");
+                OnActionMapChanged?.Invoke("Gameplay");
+            }
         }
     }
 

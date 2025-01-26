@@ -25,6 +25,9 @@ public class DeckOfDoom : MonoBehaviour, IHasStats, IBoss {
 
     private Health health;
 
+    [SerializeField] private bool debugState;
+    [ConditionalHide("debugState")][SerializeField] private DeckOfDoomState stateToDebug;
+
     private void Awake() {
         InitializeDurationDict();
 
@@ -57,7 +60,12 @@ public class DeckOfDoom : MonoBehaviour, IHasStats, IBoss {
         if (stateTimer > stateDurations[currentState].Value) {
 
             if (currentState == DeckOfDoomState.BetweenStates) {
-                ChangeToRandomState(previousActionState);
+                if (!debugState) {
+                    ChangeToRandomState(previousActionState);
+                }
+                else {
+                    ChangeState(stateToDebug);
+                }
             }
             else {
                 ChangeState(DeckOfDoomState.BetweenStates);

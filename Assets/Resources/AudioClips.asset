@@ -55,12 +55,19 @@ MonoBehaviour:
     Volume: 0.25
   dash:
     Clips:
-    - {fileID: 8300000, guid: 1d2d3942243d0fd489108777c40650ee, type: 3}
-    Volume: 0.472
+    - {fileID: 8300000, guid: e162347363c88a94f8f2a0cb1616fab7, type: 3}
+    - {fileID: 8300000, guid: 81a6581a13b155f4faea97910cdbeead, type: 3}
+    - {fileID: 8300000, guid: a5065fe71125987438215875ec5c8a4e, type: 3}
+    Volume: 0.125
   collectEssence:
     Clips:
     - {fileID: 8300000, guid: cfd8ee1d950c2e248a1127c74ca96b0b, type: 3}
     Volume: 0.537
+  playerDie:
+    Clips:
+    - {fileID: 8300000, guid: de727d66df43d2f4abab243c84af7ef4, type: 3}
+    - {fileID: 8300000, guid: f60b0a0169eb57c4bb48ea6c803b7b6a, type: 3}
+    Volume: 0.5
   basicEnemyShoot:
     Clips:
     - {fileID: 8300000, guid: 1c392d540fc5d924994810b617eef041, type: 3}

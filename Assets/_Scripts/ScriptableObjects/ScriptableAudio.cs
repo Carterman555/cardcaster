@@ -24,6 +24,9 @@ public class ScriptableAudio : ScriptableObject {
     [SerializeField] private AudioClips collectEssence;
     public AudioClips CollectEssence => collectEssence;
 
+    [SerializeField] private AudioClips playerDie;
+    public AudioClips PlayerDie => playerDie;
+
     [Header("Enemies")]
 
     [SerializeField] private AudioClips basicEnemyShoot;

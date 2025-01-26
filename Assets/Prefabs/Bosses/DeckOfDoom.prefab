@@ -149,6 +149,8 @@ MonoBehaviour:
       MinValue: 8
       MaxValue: 15
   anim: {fileID: 4039351960834069205}
+  debugState: 1
+  stateToDebug: 1
   shootDelay: 3
   deckSplitPrefab: {fileID: -4080490040357254744, guid: a778576d5c747a44aa3fe3811a42b366, type: 3}
   numOfSplits: 3

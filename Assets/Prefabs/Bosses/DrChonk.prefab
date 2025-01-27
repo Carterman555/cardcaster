@@ -1,5 +1,133 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1408979523398616955
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 835945119654018768}
+  - component: {fileID: 5246072219642168108}
+  m_Layer: 0
+  m_Name: SuckAudioSource
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &835945119654018768
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1408979523398616955}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1044121333785347722}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!82 &5246072219642168108
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1408979523398616955}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: -3165942800488051908, guid: ef2408d8f75d35a4ea4318ca3057a79d, type: 2}
+  m_audioClip: {fileID: 8300000, guid: 2e90746af7dd2de43b2296b1f99b0656, type: 3}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 1
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &2507343656468495622
 GameObject:
   m_ObjectHideFlags: 0
@@ -226,6 +354,7 @@ Transform:
   - {fileID: 7243959844192712482}
   - {fileID: 1340306799450584447}
   - {fileID: 7714839109663644078}
+  - {fileID: 835945119654018768}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!58 &736498432054221567
@@ -322,14 +451,17 @@ MonoBehaviour:
       MaxValue: 10
   centerPoint: {fileID: 1044121333785347722}
   anim: {fileID: 4239218035097059229}
+  debugState: 0
+  stateToDebug: 1
   healerMinionPrefab: {fileID: 7481704768261658980, guid: df1e1c62ee40e4144a5ec062019e6f03, type: 3}
   startingHealersDistance: 3
   suckMinionTrigger: {fileID: 8748015086365348856}
   eatMinionTrigger: {fileID: 6312044565954755361}
   suckCenter: {fileID: 7243959844192712482}
-  eatMinionHealAmount: 10
+  eatMinionHealAmount: 25
   suckEffect: {fileID: 3018741404148966375}
   healEffectPrefab: {fileID: 3584148575357233728, guid: d49a2ca160ad56c4a9e99a79dccf6d26, type: 3}
+  suckAudioSource: {fileID: 5246072219642168108}
 --- !u!114 &-1558523491058040561
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -342,12 +474,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b436399d89bfd245b88204bdbc8ed47, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  returnOnDeath: 1
+  deathEventTrigger:
+    m_PersistentCalls:
+      m_Calls: []
   damagedEventTrigger:
     m_PersistentCalls:
       m_Calls: []
-  hasDeathParticles: 1
-  deathParticles: {fileID: 6065135645941821456, guid: 9d414eb7344541344b030026510edc40, type: 3}
-  deathParticlesColor: {r: 0.17221434, g: 0.8113208, b: 0.24007843, a: 1}
+  increaseHealthPerLevel: 0
+  perLevelProportionToIncrease: 0
 --- !u!114 &512004819037131981
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -380,6 +515,11 @@ MonoBehaviour:
   bounceVariation: 5
   twoWayFacing: 0
   facingAngleOffset: 180
+  hasSFX: 1
+  bounceSFX:
+    Clips:
+    - {fileID: 8300000, guid: 5984f15de97c0b6478d317fe12977891, type: 3}
+    Volume: 0.524
 --- !u!114 &8987095808021778562
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -404,6 +544,10 @@ MonoBehaviour:
   enemyAnim: {fileID: 4239218035097059229}
   hasWeapon: 0
   weaponAnim: {fileID: 0}
+  customSFX: 0
+  shootSFX:
+    Clips: []
+    Volume: 0
 --- !u!114 &-2327778949296054411
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -451,6 +595,11 @@ MonoBehaviour:
   deathParticlesColor: {r: 0.17254902, g: 0.8117647, b: 0.23921569, a: 1}
   hasParticlePoint: 0
   particlePoint: {fileID: 0}
+  playOnDeathEvent: 1
+  playSFX: 0
+  deathSFX:
+    Clips: []
+    Volume: 0
 --- !u!1 &5270044504826222362
 GameObject:
   m_ObjectHideFlags: 0
@@ -1273,6 +1422,8 @@ MonoBehaviour:
   health: {fileID: -1558523491058040561}
   overrideDamage: 1
   damage: 1
+  overrideKnockback: 0
+  knockbackStrength: 0
 --- !u!1 &7863116739850602512
 GameObject:
   m_ObjectHideFlags: 0

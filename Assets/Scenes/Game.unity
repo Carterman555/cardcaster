@@ -1008,10 +1008,12 @@ MonoBehaviour:
     Clips:
     - {fileID: 8300000, guid: 6e4ea726a30ff5a4e9a667aceb1dde66, type: 3}
     Volume: 1
+    PitchVariation: 0
   playInReverseClips:
     Clips:
     - {fileID: 8300000, guid: 6e4ea726a30ff5a4e9a667aceb1dde66, type: 3}
     Volume: 1
+    PitchVariation: 0
   uiSFX: 1
 --- !u!114 &56763346
 MonoBehaviour:
@@ -1471,13 +1473,16 @@ MonoBehaviour:
   clickSFX:
     Clips: []
     Volume: 0
+    PitchVariation: 0
   customHoverSFX: 0
   enterSFX:
     Clips: []
     Volume: 0
+    PitchVariation: 0
   exitSFX:
     Clips: []
     Volume: 0
+    PitchVariation: 0
 --- !u!1 &115132051
 GameObject:
   m_ObjectHideFlags: 0
@@ -3307,13 +3312,16 @@ MonoBehaviour:
   clickSFX:
     Clips: []
     Volume: 0
+    PitchVariation: 0
   customHoverSFX: 0
   enterSFX:
     Clips: []
     Volume: 0
+    PitchVariation: 0
   exitSFX:
     Clips: []
     Volume: 0
+    PitchVariation: 0
 --- !u!1 &285116020
 GameObject:
   m_ObjectHideFlags: 0
@@ -4855,9 +4863,11 @@ MonoBehaviour:
   playClips:
     Clips: []
     Volume: 0
+    PitchVariation: 0
   playInReverseClips:
     Clips: []
     Volume: 0
+    PitchVariation: 0
   uiSFX: 1
 --- !u!114 &316220185
 MonoBehaviour:
@@ -5186,13 +5196,16 @@ MonoBehaviour:
   clickSFX:
     Clips: []
     Volume: 0
+    PitchVariation: 0
   customHoverSFX: 0
   enterSFX:
     Clips: []
     Volume: 0
+    PitchVariation: 0
   exitSFX:
     Clips: []
     Volume: 0
+    PitchVariation: 0
 --- !u!1001 &340746300
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7785,13 +7798,16 @@ MonoBehaviour:
   clickSFX:
     Clips: []
     Volume: 0
+    PitchVariation: 0
   customHoverSFX: 0
   enterSFX:
     Clips: []
     Volume: 0
+    PitchVariation: 0
   exitSFX:
     Clips: []
     Volume: 0
+    PitchVariation: 0
 --- !u!1 &579103065
 GameObject:
   m_ObjectHideFlags: 0
@@ -8462,13 +8478,16 @@ MonoBehaviour:
   clickSFX:
     Clips: []
     Volume: 0
+    PitchVariation: 0
   customHoverSFX: 0
   enterSFX:
     Clips: []
     Volume: 0
+    PitchVariation: 0
   exitSFX:
     Clips: []
     Volume: 0
+    PitchVariation: 0
 --- !u!114 &625466820
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8549,6 +8568,54 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &651113383
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 651113384}
+  - component: {fileID: 651113385}
+  m_Layer: 0
+  m_Name: MMSoundManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &651113384
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 651113383}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1213286439}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &651113385
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 651113383}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 614edb33c38bcf949846d5675f29f9fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AutomaticallyUnparentOnAwake: 1
+  settingsSo: {fileID: 11400000, guid: 07ea3ff88e1ecb84d91f58aa804badc6, type: 2}
+  AudioSourcePoolSize: 50
+  PoolCanExpand: 1
 --- !u!1 &666102773
 GameObject:
   m_ObjectHideFlags: 0
@@ -9323,13 +9390,16 @@ MonoBehaviour:
   clickSFX:
     Clips: []
     Volume: 0
+    PitchVariation: 0
   customHoverSFX: 0
   enterSFX:
     Clips: []
     Volume: 0
+    PitchVariation: 0
   exitSFX:
     Clips: []
     Volume: 0
+    PitchVariation: 0
 --- !u!114 &718251494
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9347,13 +9417,16 @@ MonoBehaviour:
   clickSFX:
     Clips: []
     Volume: 0
+    PitchVariation: 0
   customHoverSFX: 0
   enterSFX:
     Clips: []
     Volume: 0
+    PitchVariation: 0
   exitSFX:
     Clips: []
     Volume: 0
+    PitchVariation: 0
 --- !u!114 &718251495
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11049,13 +11122,16 @@ MonoBehaviour:
   clickSFX:
     Clips: []
     Volume: 0
+    PitchVariation: 0
   customHoverSFX: 0
   enterSFX:
     Clips: []
     Volume: 0
+    PitchVariation: 0
   exitSFX:
     Clips: []
     Volume: 0
+    PitchVariation: 0
 --- !u!114 &816439842
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14039,13 +14115,16 @@ MonoBehaviour:
   clickSFX:
     Clips: []
     Volume: 0
+    PitchVariation: 0
   customHoverSFX: 0
   enterSFX:
     Clips: []
     Volume: 0
+    PitchVariation: 0
   exitSFX:
     Clips: []
     Volume: 0
+    PitchVariation: 0
 --- !u!1 &1151150774
 GameObject:
   m_ObjectHideFlags: 0
@@ -14508,6 +14587,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 651113384}
   - {fileID: 1109127639}
   - {fileID: 623848813}
   - {fileID: 1794461942}
@@ -15633,13 +15713,16 @@ MonoBehaviour:
   clickSFX:
     Clips: []
     Volume: 0
+    PitchVariation: 0
   customHoverSFX: 0
   enterSFX:
     Clips: []
     Volume: 0
+    PitchVariation: 0
   exitSFX:
     Clips: []
     Volume: 0
+    PitchVariation: 0
 --- !u!114 &1233444605
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16699,13 +16782,16 @@ MonoBehaviour:
   clickSFX:
     Clips: []
     Volume: 0
+    PitchVariation: 0
   customHoverSFX: 0
   enterSFX:
     Clips: []
     Volume: 0
+    PitchVariation: 0
   exitSFX:
     Clips: []
     Volume: 0
+    PitchVariation: 0
 --- !u!114 &1266595925
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17862,9 +17948,11 @@ MonoBehaviour:
   playClips:
     Clips: []
     Volume: 0
+    PitchVariation: 0
   playInReverseClips:
     Clips: []
     Volume: 0
+    PitchVariation: 0
   uiSFX: 1
 --- !u!114 &1302724875
 MonoBehaviour:
@@ -18754,13 +18842,16 @@ MonoBehaviour:
   clickSFX:
     Clips: []
     Volume: 0
+    PitchVariation: 0
   customHoverSFX: 0
   enterSFX:
     Clips: []
     Volume: 0
+    PitchVariation: 0
   exitSFX:
     Clips: []
     Volume: 0
+    PitchVariation: 0
 --- !u!1 &1452584354
 GameObject:
   m_ObjectHideFlags: 0
@@ -19985,13 +20076,16 @@ MonoBehaviour:
   clickSFX:
     Clips: []
     Volume: 0
+    PitchVariation: 0
   customHoverSFX: 0
   enterSFX:
     Clips: []
     Volume: 0
+    PitchVariation: 0
   exitSFX:
     Clips: []
     Volume: 0
+    PitchVariation: 0
 --- !u!1001 &1543931917
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -21318,13 +21412,16 @@ MonoBehaviour:
   clickSFX:
     Clips: []
     Volume: 0
+    PitchVariation: 0
   customHoverSFX: 0
   enterSFX:
     Clips: []
     Volume: 0
+    PitchVariation: 0
   exitSFX:
     Clips: []
     Volume: 0
+    PitchVariation: 0
 --- !u!1 &1609445167
 GameObject:
   m_ObjectHideFlags: 0
@@ -22885,13 +22982,16 @@ MonoBehaviour:
   clickSFX:
     Clips: []
     Volume: 0
+    PitchVariation: 0
   customHoverSFX: 0
   enterSFX:
     Clips: []
     Volume: 0
+    PitchVariation: 0
   exitSFX:
     Clips: []
     Volume: 0
+    PitchVariation: 0
 --- !u!114 &1779925643
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -23056,13 +23156,16 @@ MonoBehaviour:
   clickSFX:
     Clips: []
     Volume: 0
+    PitchVariation: 0
   customHoverSFX: 0
   enterSFX:
     Clips: []
     Volume: 0
+    PitchVariation: 0
   exitSFX:
     Clips: []
     Volume: 0
+    PitchVariation: 0
 --- !u!114 &1780111837
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -23449,13 +23552,16 @@ MonoBehaviour:
   clickSFX:
     Clips: []
     Volume: 0
+    PitchVariation: 0
   customHoverSFX: 0
   enterSFX:
     Clips: []
     Volume: 0
+    PitchVariation: 0
   exitSFX:
     Clips: []
     Volume: 0
+    PitchVariation: 0
 --- !u!1 &1794461941
 GameObject:
   m_ObjectHideFlags: 0
@@ -25785,13 +25891,16 @@ MonoBehaviour:
   clickSFX:
     Clips: []
     Volume: 0
+    PitchVariation: 0
   customHoverSFX: 0
   enterSFX:
     Clips: []
     Volume: 0
+    PitchVariation: 0
   exitSFX:
     Clips: []
     Volume: 0
+    PitchVariation: 0
 --- !u!1 &1923140365
 GameObject:
   m_ObjectHideFlags: 0
@@ -26983,9 +27092,11 @@ MonoBehaviour:
   playClips:
     Clips: []
     Volume: 0
+    PitchVariation: 0
   playInReverseClips:
     Clips: []
     Volume: 0
+    PitchVariation: 0
   uiSFX: 1
 --- !u!114 &1937197754
 MonoBehaviour:
@@ -28365,9 +28476,11 @@ MonoBehaviour:
   playClips:
     Clips: []
     Volume: 0
+    PitchVariation: 0
   playInReverseClips:
     Clips: []
     Volume: 0
+    PitchVariation: 0
   uiSFX: 1
 --- !u!1 &2040577009
 GameObject:
@@ -29751,6 +29864,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 109205197263078993, guid: 58f2feb7fcdece146b937d87594495b2, type: 3}
+      propertyPath: uiMixerGroup
+      value: 
+      objectReference: {fileID: -3783893103257190392, guid: ef2408d8f75d35a4ea4318ca3057a79d, type: 2}
+    - target: {fileID: 109205197263078993, guid: 58f2feb7fcdece146b937d87594495b2, type: 3}
+      propertyPath: sfxMixerGroup
+      value: 
+      objectReference: {fileID: -3165942800488051908, guid: ef2408d8f75d35a4ea4318ca3057a79d, type: 2}
+    - target: {fileID: 109205197263078993, guid: 58f2feb7fcdece146b937d87594495b2, type: 3}
+      propertyPath: audioSourcePrefab
+      value: 
+      objectReference: {fileID: 4524052130237312768, guid: e748de1c25b5d194fb2ecefaaf4a1e0c, type: 3}
+    - target: {fileID: 3164699630191233039, guid: 58f2feb7fcdece146b937d87594495b2, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3553269437776827935, guid: 58f2feb7fcdece146b937d87594495b2, type: 3}
       propertyPath: playerSword
       value: 

@@ -1,11 +1,16 @@
+using MoreMountains.Tools;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Audio;
 
 public class AudioManager : Singleton<AudioManager> {
-    [SerializeField] private AudioSource SFXSource;
-    [SerializeField] private AudioSource UISource;
+    [SerializeField] private GameObject audioSourcePrefab;
+    [SerializeField] private AudioMixerGroup sfxMixerGroup;
+    [SerializeField] private AudioMixerGroup uiMixerGroup;
 
     [SerializeField] private ScriptableAudio audioClips;
     public ScriptableAudio AudioClips => audioClips;
@@ -23,7 +28,7 @@ public class AudioManager : Singleton<AudioManager> {
         }
     }
 
-    public void PlaySound(AudioClips audioClips, bool uiSound = false) {
+    public void PlaySound(AudioClips audioClips, bool uiSound = false, float pitchVariation = 0f) {
 
         if (audioClips.Clips == null || audioClips.Clips.Count() == 0) {
             Debug.LogWarning("Tried playing sound with no audio clips");
@@ -31,13 +36,10 @@ public class AudioManager : Singleton<AudioManager> {
         }
 
         AudioClip audioClip = audioClips.Clips.RandomItem();
+        AudioMixerGroup audioMixerGroup = uiSound ? uiMixerGroup : sfxMixerGroup;
+        float pitch = 1f + UnityEngine.Random.Range(-pitchVariation, pitchVariation);
 
-        if (uiSound) {
-            PlayUISound(audioClip, audioClips.Volume);
-        }
-        else {
-            PlaySFX(audioClip, audioClips.Volume);
-        }
+        PlaySound(audioClip, audioMixerGroup, audioClips.Volume, pitch);
     }
 
     // when multiple of the same sound are played at the same time, ignore all but the first one
@@ -52,12 +54,24 @@ public class AudioManager : Singleton<AudioManager> {
         audioClipsTimers.Add(new AudioClipsTimer(audioClips, ignoreTime));
     }
 
-    public void PlaySFX(AudioClip audioClip, float vol) {
-        SFXSource.PlayOneShot(audioClip, vol);
+    public void PlaySound(AudioClip audioClip, AudioMixerGroup audioMixerGroup, float vol, float pitch = 1f) {
+        GameObject audioSourceGO = audioSourcePrefab.Spawn(transform);
+        AudioSource audioSource = audioSourceGO.GetComponent<AudioSource>();
+
+        audioSource.clip = audioClip;
+        audioSource.outputAudioMixerGroup = audioMixerGroup;
+        audioSource.volume = vol;
+        audioSource.pitch = pitch;
+
+        audioSource.Play();
+
+        StartCoroutine(ReturnOnComplete(audioSourceGO, audioClip.length));
     }
 
-    public void PlayUISound(AudioClip audioClip, float vol) {
-        UISource.PlayOneShot(audioClip, vol);
+    private IEnumerator ReturnOnComplete(GameObject audioSourceGO, float clipLength) {
+        yield return new WaitForSeconds(clipLength);
+
+        audioSourceGO.ReturnToPool();
     }
 }
 
@@ -65,6 +79,7 @@ public class AudioManager : Singleton<AudioManager> {
 public struct AudioClips {
     public AudioClip[] Clips;
     [Range(0f, 1f)] public float Volume;
+    public float PitchVariation;
 
     // Overriding Equals method
     public override bool Equals(object obj) {

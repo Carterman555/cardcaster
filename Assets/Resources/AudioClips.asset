@@ -21,6 +21,7 @@ MonoBehaviour:
       - {fileID: 8300000, guid: 13bd98e33687c46458dcce547bc77400, type: 3}
       - {fileID: 8300000, guid: 8501cd1b3e0d08c48a93e33159e1ec53, type: 3}
       Volume: 0.5
+      PitchVariation: 0
   - MusicType: 1
     AudioClips:
       Clips:
@@ -31,12 +32,14 @@ MonoBehaviour:
       - {fileID: 8300000, guid: 2047ad58093082c488174262385ff371, type: 3}
       - {fileID: 8300000, guid: a5567fa167f5eba4694d1e1dbd960428, type: 3}
       Volume: 0.5
+      PitchVariation: 0
   - MusicType: 2
     AudioClips:
       Clips:
       - {fileID: 8300000, guid: b76041ef4dd54054dba14c56e7270377, type: 3}
       - {fileID: 8300000, guid: aa7b7b6c6924aff4fbc12a9defef75f6, type: 3}
       Volume: 0.5
+      PitchVariation: 0
   playerStep:
     Clips:
     - {fileID: 8300000, guid: cdf3c10dd73de7142886c59dbd7ae7b4, type: 3}
@@ -44,7 +47,8 @@ MonoBehaviour:
     - {fileID: 8300000, guid: 369b9f5ed0430e047b1d9b1ccb154007, type: 3}
     - {fileID: 8300000, guid: 3d521fc055eadb142825ab1278b1486f, type: 3}
     - {fileID: 8300000, guid: 14927c23c79ae7946b99084518e78307, type: 3}
-    Volume: 0.05
+    Volume: 0.2
+    PitchVariation: 0
   swing:
     Clips:
     - {fileID: 8300000, guid: 4267915e1b8c2144abe1f9299d467768, type: 3}
@@ -52,22 +56,26 @@ MonoBehaviour:
     - {fileID: 8300000, guid: 38c6b89bfeb013942bdd1d87536309db, type: 3}
     - {fileID: 8300000, guid: 768efb4945ae119419da2e486da37038, type: 3}
     - {fileID: 8300000, guid: bc615eeb0da36ae4ab8a8aaa46510b7d, type: 3}
-    Volume: 0.25
+    Volume: 0.4
+    PitchVariation: 0
   dash:
     Clips:
     - {fileID: 8300000, guid: e162347363c88a94f8f2a0cb1616fab7, type: 3}
     - {fileID: 8300000, guid: 81a6581a13b155f4faea97910cdbeead, type: 3}
     - {fileID: 8300000, guid: a5065fe71125987438215875ec5c8a4e, type: 3}
-    Volume: 0.125
+    Volume: 0.4
+    PitchVariation: 0
   collectEssence:
     Clips:
     - {fileID: 8300000, guid: cfd8ee1d950c2e248a1127c74ca96b0b, type: 3}
     Volume: 0.537
+    PitchVariation: 0
   playerDie:
     Clips:
     - {fileID: 8300000, guid: de727d66df43d2f4abab243c84af7ef4, type: 3}
     - {fileID: 8300000, guid: f60b0a0169eb57c4bb48ea6c803b7b6a, type: 3}
-    Volume: 0.5
+    Volume: 0.762
+    PitchVariation: 0
   basicEnemyShoot:
     Clips:
     - {fileID: 8300000, guid: 1c392d540fc5d924994810b617eef041, type: 3}
@@ -75,89 +83,121 @@ MonoBehaviour:
     - {fileID: 8300000, guid: 10519916e4ce45046a1a5a6792d7dd7c, type: 3}
     - {fileID: 8300000, guid: 88d5d242a4f96324bae41f204ca38250, type: 3}
     Volume: 0.231
+    PitchVariation: 0
   spawnEnemy:
     Clips:
     - {fileID: 8300000, guid: b56551c8b3ae66042a20290191db8ad8, type: 3}
     Volume: 1
+    PitchVariation: 0
   merge:
     Clips:
     - {fileID: 8300000, guid: 5e4e91980cfc9b44ba9536ec9d6c2282, type: 3}
     Volume: 0.5
+    PitchVariation: 0
   deckOfDoomSplit:
     Clips:
-    - {fileID: 8300000, guid: eacf0ac01a64c154eacab1d94b3021a3, type: 3}
-    Volume: 1
+    - {fileID: 8300000, guid: 6f7d9f8d6875fd14dbdeea9b79d7aff6, type: 3}
+    Volume: 0.35
+    PitchVariation: 0
   deckOfDoomSurge:
     Clips:
     - {fileID: 8300000, guid: 7a987160ed5a7e749bfff7dc4d6ee966, type: 3}
     Volume: 0.781
+    PitchVariation: 0
+  drChonkEat:
+    Clips:
+    - {fileID: 8300000, guid: 90f2cb03e105f3d439ac87db9f4a2ac5, type: 3}
+    Volume: 1
+    PitchVariation: 0
+  drChonkHeal:
+    Clips:
+    - {fileID: 8300000, guid: f11ea60fd259cad4e820d3eaf8f0a5cc, type: 3}
+    Volume: 1
+    PitchVariation: 0
   drawCard:
     Clips:
     - {fileID: 8300000, guid: e9abfb5e1aad99a41b61898d1c0923d0, type: 3}
     Volume: 0.8
+    PitchVariation: 0
   hoverCard:
     Clips:
     - {fileID: 8300000, guid: 411b0a572862f474f8d4dafaa1b1c09f, type: 3}
     Volume: 0.2
+    PitchVariation: 0
   playCard:
     Clips:
     - {fileID: 8300000, guid: db34bae08a4b59b47b24d97db0857231, type: 3}
     Volume: 1
+    PitchVariation: 0
   cancelCard:
     Clips:
     - {fileID: 8300000, guid: d220ecc004ebc0a4e84d2c4a6dde2d53, type: 3}
     Volume: 0.733
+    PitchVariation: 0
   burnCard:
     Clips:
     - {fileID: 8300000, guid: 93521d69466bf984592a3cc3f273b889, type: 3}
     Volume: 1
+    PitchVariation: 0
   openDoor:
     Clips:
     - {fileID: 8300000, guid: 6e7f495bda3eb0646873170c39fdf419, type: 3}
     Volume: 1
+    PitchVariation: 0
   closeDoor:
     Clips:
     - {fileID: 8300000, guid: 6e7f495bda3eb0646873170c39fdf419, type: 3}
     Volume: 1
+    PitchVariation: 0
   openDoorBlocker:
     Clips: []
     Volume: 0
+    PitchVariation: 0
   closeDoorBlocker:
     Clips:
     - {fileID: 8300000, guid: 141b7047c9cd8da4b8d495af50d4cb1f, type: 3}
     Volume: 1
+    PitchVariation: 0
   openChest:
     Clips:
     - {fileID: 8300000, guid: aa24bd8556aa091409e3fd563573d67a, type: 3}
     Volume: 1
+    PitchVariation: 0
   gainChestCard:
     Clips:
     - {fileID: 8300000, guid: f3f70106499a4294cb6baface6151c67, type: 3}
     Volume: 1
+    PitchVariation: 0
   breakBarrel:
     Clips:
     - {fileID: 8300000, guid: e1f7eb8f3f55b7448a607918caecb355, type: 3}
     Volume: 0.3
+    PitchVariation: 0
   openPanel:
     Clips:
     - {fileID: 8300000, guid: b85ddf9d5f6edcf4894f2aff08f3a4cf, type: 3}
     Volume: 0.5
+    PitchVariation: 0
   closePanel:
     Clips:
     - {fileID: 8300000, guid: b85ddf9d5f6edcf4894f2aff08f3a4cf, type: 3}
     Volume: 0.5
+    PitchVariation: 0
   buttonClick:
     Clips:
     - {fileID: 8300000, guid: 22cf4120c8989514aa5b4dbbd29eee54, type: 3}
     Volume: 0.44
+    PitchVariation: 0
   buttonEnter:
     Clips:
     - {fileID: 8300000, guid: 22cf4120c8989514aa5b4dbbd29eee54, type: 3}
     Volume: 0.247
+    PitchVariation: 0
   buttonExit:
     Clips:
     - {fileID: 8300000, guid: 22cf4120c8989514aa5b4dbbd29eee54, type: 3}
     Volume: 0.3
+    PitchVariation: 0
   damaged:
     Clips:
     - {fileID: 8300000, guid: 1c53814b1a25d164aad9d8a0cdf40178, type: 3}
@@ -165,11 +205,14 @@ MonoBehaviour:
     - {fileID: 8300000, guid: 757648662577dc9438834753ed98d96e, type: 3}
     - {fileID: 8300000, guid: ef467b4e05b04fe4fbeb0aa3e66e5af2, type: 3}
     Volume: 0.399
+    PitchVariation: 0
   teleport:
     Clips:
     - {fileID: 8300000, guid: a6c0aca13b83f6e4e88bd1c73308564d, type: 3}
     Volume: 1
+    PitchVariation: 0
   explode:
     Clips:
     - {fileID: 8300000, guid: c9afb7bf845b08e4f95dd08c57ebc073, type: 3}
     Volume: 1
+    PitchVariation: 0

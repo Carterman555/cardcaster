@@ -26,6 +26,9 @@ public class DrChonk : MonoBehaviour, IHasStats, IBoss {
 
     [SerializeField] private Animator anim;
 
+    [SerializeField] private bool debugState;
+    [ConditionalHide("debugState")] [SerializeField] private DrChonkState stateToDebug;
+
     private void Awake() {
         health = GetComponent<Health>();
         bounceMoveBehaviour = GetComponent<BounceMoveBehaviour>();
@@ -72,7 +75,12 @@ public class DrChonk : MonoBehaviour, IHasStats, IBoss {
         if (stateTimer > stateDurations[currentState].Value) {
 
             if (currentState == DrChonkState.BetweenStates) {
-                ChangeToRandomState(previousActionState);
+                if (debugState) {
+                    ChangeState(stateToDebug);
+                }
+                else {
+                    ChangeToRandomState(previousActionState);
+                }
             }
             else {
                 ChangeState(DrChonkState.BetweenStates);
@@ -116,6 +124,8 @@ public class DrChonk : MonoBehaviour, IHasStats, IBoss {
             // close mouth
             anim.SetBool("mouthOpen", false);
             suckEffect.SetActive(false);
+
+            suckAudioSource.Stop();
         }
         else if (previousState == DrChonkState.Roll) {
             bounceMoveBehaviour.enabled = false;
@@ -137,6 +147,8 @@ public class DrChonk : MonoBehaviour, IHasStats, IBoss {
             // open mouth
             anim.SetBool("mouthOpen", true);
             suckEffect.SetActive(true);
+
+            suckAudioSource.Play();
         }
         else if (newState == DrChonkState.Roll) {
             bounceMoveBehaviour.enabled = true;
@@ -185,6 +197,8 @@ public class DrChonk : MonoBehaviour, IHasStats, IBoss {
     [SerializeField] private GameObject suckEffect;
     [SerializeField] private ParticleSystem healEffectPrefab;
 
+    [SerializeField] private AudioSource suckAudioSource;
+
     private Health health;
 
     private void SubEatMinionMethods() {
@@ -217,6 +231,9 @@ public class DrChonk : MonoBehaviour, IHasStats, IBoss {
 
                 // heal effect
                 healEffectPrefab.Spawn(centerPoint.position, Containers.Instance.Effects);
+
+                AudioManager.Instance.PlaySound(AudioManager.Instance.AudioClips.DrChonkEat);
+                AudioManager.Instance.PlaySound(AudioManager.Instance.AudioClips.DrChonkHeal);
             }
         }
     }

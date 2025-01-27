@@ -83,6 +83,14 @@ MonoBehaviour:
     Clips:
     - {fileID: 8300000, guid: 5e4e91980cfc9b44ba9536ec9d6c2282, type: 3}
     Volume: 0.5
+  deckOfDoomSplit:
+    Clips:
+    - {fileID: 8300000, guid: eacf0ac01a64c154eacab1d94b3021a3, type: 3}
+    Volume: 1
+  deckOfDoomSurge:
+    Clips:
+    - {fileID: 8300000, guid: 7a987160ed5a7e749bfff7dc4d6ee966, type: 3}
+    Volume: 0.781
   drawCard:
     Clips:
     - {fileID: 8300000, guid: e9abfb5e1aad99a41b61898d1c0923d0, type: 3}

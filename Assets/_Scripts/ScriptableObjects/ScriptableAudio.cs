@@ -38,6 +38,14 @@ public class ScriptableAudio : ScriptableObject {
     [SerializeField] private AudioClips merge;
     public AudioClips Merge => merge;
 
+    [Header("Bosses")]
+
+    [SerializeField] private AudioClips deckOfDoomSplit;
+    public AudioClips DeckOfDoomSplit => deckOfDoomSplit;
+
+    [SerializeField] private AudioClips deckOfDoomSurge;
+    public AudioClips DeckOfDoomSurge => deckOfDoomSurge;
+
     [Header("Cards")]
 
     [SerializeField] private AudioClips drawCard;

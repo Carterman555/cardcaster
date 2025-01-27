@@ -110,6 +110,8 @@ public class DeckOfDoom : MonoBehaviour, IHasStats, IBoss {
         else if (previousState == DeckOfDoomState.Spin) {
             shootBehavior.enabled = false;
             anim.SetBool("spinning", false);
+
+            spinAudioSource.Stop();
         }
         else if (previousState == DeckOfDoomState.Split) {
             anim.SetBool("deckSplitFace", false);
@@ -127,6 +129,8 @@ public class DeckOfDoom : MonoBehaviour, IHasStats, IBoss {
             //... start shooting after shoot delay
             Invoke(nameof(EnableShooting), shootDelay);
             anim.SetBool("spinning", true);
+
+            spinAudioSource.Play();
         }
         else if (newState == DeckOfDoomState.Split) {
             SpawnSplits();
@@ -144,6 +148,7 @@ public class DeckOfDoom : MonoBehaviour, IHasStats, IBoss {
     [Header("Spin State")]
     private SpiralShootBehaviour shootBehavior;
 
+    [SerializeField] private AudioSource spinAudioSource;
     [SerializeField] private float shootDelay;
 
     // to have delay before shooting
@@ -173,6 +178,8 @@ public class DeckOfDoom : MonoBehaviour, IHasStats, IBoss {
 
             splits[i] = deckSplit;
         }
+
+        AudioManager.Instance.PlaySound(AudioManager.Instance.AudioClips.DeckOfDoomSplit);
     }
 
     private void RejoinSplits() {
@@ -182,6 +189,8 @@ public class DeckOfDoom : MonoBehaviour, IHasStats, IBoss {
                 split.gameObject.ReturnToPool();
             });
         }
+
+        AudioManager.Instance.PlaySound(AudioManager.Instance.AudioClips.DeckOfDoomSplit);
     }
 
 

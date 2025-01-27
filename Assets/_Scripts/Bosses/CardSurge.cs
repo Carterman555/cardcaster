@@ -67,6 +67,8 @@ public class CardSurge : MonoBehaviour {
 
         Vector2 direction = transform.eulerAngles.z.RotationToDirection();
         cardProjectile.Setup(direction);
+
+        AudioManager.Instance.PlaySound(AudioManager.Instance.AudioClips.DeckOfDoomSurge);
     }
 }
 

@@ -16,6 +16,9 @@ public class DeathParticles : MonoBehaviour {
 
     [SerializeField] private bool playOnDeathEvent = true;
 
+    [SerializeField] private bool playSFX;
+    [ConditionalHide("playSFX")] [SerializeField] private AudioClips deathSFX;
+
     private void Awake() {
         health = GetComponent<Health>();
     }
@@ -33,5 +36,9 @@ public class DeathParticles : MonoBehaviour {
     public void GenerateParticles() {
         Vector2 pos = hasParticlePoint ? particlePoint.position : transform.position;
         deathParticlesPrefab.CreateColoredParticles(pos, deathParticlesColor);
+
+        if (playSFX) {
+            AudioManager.Instance.PlaySound(deathSFX);
+        }
     }
 }

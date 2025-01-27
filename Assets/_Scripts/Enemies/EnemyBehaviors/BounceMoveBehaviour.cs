@@ -28,6 +28,9 @@ public class BounceMoveBehaviour : MonoBehaviour, IEffectable, IEnemyMovement {
     [SerializeField] private bool twoWayFacing = true;
     [ConditionalHideReversed("twoWayFacing")] [SerializeField] private float facingAngleOffset;
 
+    [SerializeField] private bool hasSFX;
+    [ConditionalHide("hasSFX")] [SerializeField] private AudioClips bounceSFX;
+
     private void Awake() {
         rb = GetComponent<Rigidbody2D>();
         knockback = GetComponent<Knockback>();
@@ -109,6 +112,10 @@ public class BounceMoveBehaviour : MonoBehaviour, IEffectable, IEnemyMovement {
         velocity = reflectDir.normalized * velocity.magnitude; // Preserve the speed
 
         UpdateFacing(velocity);
+
+        if (hasSFX) {
+            AudioManager.Instance.PlaySound(bounceSFX);
+        }
 
         OnBounce?.Invoke();
     }

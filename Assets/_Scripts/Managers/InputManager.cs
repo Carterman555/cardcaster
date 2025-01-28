@@ -32,6 +32,10 @@ public class InputManager : Singleton<InputManager> {
         playerInput.deviceRegainedEvent.RemoveListener(TryUnpauseGame);
     }
 
+    private void Update() {
+        print($"Selected: {EventSystem.current.currentSelectedGameObject}");
+    }
+
     #region InputScheme
 
     public static event Action OnControlsChanged;

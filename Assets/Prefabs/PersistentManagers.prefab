@@ -1365,8 +1365,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c5194355284d9d48be0a4745354dcdf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SFXSource: {fileID: 9035486063100275501}
-  UISource: {fileID: 7479953332363824542}
+  audioSourcePrefab: {fileID: 4524052130237312768, guid: e748de1c25b5d194fb2ecefaaf4a1e0c, type: 3}
+  sfxMixerGroup: {fileID: -3165942800488051908, guid: ef2408d8f75d35a4ea4318ca3057a79d, type: 2}
+  uiMixerGroup: {fileID: -3783893103257190392, guid: ef2408d8f75d35a4ea4318ca3057a79d, type: 2}
   audioClips: {fileID: 11400000, guid: 58f10c23f7294374b8dd9330832e9cb6, type: 2}
 --- !u!114 &3164699630191233039
 MonoBehaviour:

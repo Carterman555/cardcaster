@@ -1,3 +1,4 @@
+using DG.Tweening;
 using MoreMountains.Tools;
 using System;
 using System.Collections;
@@ -26,7 +27,11 @@ public class AudioManager : Singleton<AudioManager> {
                 i--;
             }
         }
+
+        HandleSFXFadeFromUI();
     }
+
+    
 
     public void PlaySound(AudioClips audioClips, bool uiSound = false, float pitchVariation = 0f) {
 
@@ -72,6 +77,58 @@ public class AudioManager : Singleton<AudioManager> {
         yield return new WaitForSeconds(clipLength);
 
         audioSourceGO.ReturnToPool();
+    }
+
+    #region Stop SFX When In UI
+
+    private Tween volumeFade;
+    private float sfxVolume;
+
+    private void OnEnable() {
+        InputManager.OnActionMapChanged += OnActionMapChanged;
+    }
+
+    private void OnDisable() {
+        InputManager.OnActionMapChanged -= OnActionMapChanged;
+    }
+
+    // if the controls changed to gameplay, fade the sfx volume to the value set in settings. If the controls change to UI, fade the sfx
+    // volume to 0. There shouldn't be sfx playing when ui is open
+    private void OnActionMapChanged(string actionMap) {
+        if (actionMap == "Gameplay") {
+            sfxMixerGroup.audioMixer.GetFloat("SfxVolume", out sfxVolume);
+
+            float targetVolume = SliderValueToDecibels(SettingsManager.GetSettings().SFXVolume);
+
+            volumeFade = DOTween.To(() => sfxVolume, v => sfxVolume = v, targetVolume, duration: 0.5f).SetUpdate(true);
+        }
+        else if (actionMap == "UI") {
+            sfxMixerGroup.audioMixer.GetFloat("SfxVolume", out sfxVolume);
+            volumeFade = DOTween.To(() => sfxVolume, v => sfxVolume = v, -80f, duration: 0.5f).SetUpdate(true);
+        }
+    }
+
+    private void HandleSFXFadeFromUI() {
+        if (volumeFade != null && volumeFade.IsActive() && volumeFade.IsPlaying()) {
+            sfxMixerGroup.audioMixer.SetFloat("SfxVolume", sfxVolume);
+        }
+    }
+
+    #endregion
+
+    public static float SliderValueToDecibels(float sliderValue, float maxDB = 0f) {
+        //... Clamp and prepare slider input
+        sliderValue = Mathf.Clamp01(sliderValue);
+
+        // Calculate amplitude range
+        float minAmplitude = 0.0001f; // -80dB
+        float maxAmplitude = Mathf.Pow(10f, maxDB / 20f); // Convert maxDB to amplitude
+
+        //... Map slider to amplitude range
+        float amplitude = Mathf.Lerp(minAmplitude, maxAmplitude, sliderValue);
+
+        //... Convert to dB
+        return Mathf.Log10(amplitude) * 20f;
     }
 }
 

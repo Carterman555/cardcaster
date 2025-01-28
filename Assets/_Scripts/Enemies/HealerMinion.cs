@@ -21,7 +21,7 @@ public class HealerMinion : Enemy {
         gettingSucked = false;
     }
 
-    [Header("Geting Sucked")]
+    [Header("Getting Sucked")]
     private Vector2 suckCenter;
     private bool gettingSucked;
     [SerializeField] private float suckAcceleration;
@@ -32,6 +32,15 @@ public class HealerMinion : Enemy {
 
         this.suckCenter = suckCenter;
         gettingSucked = true;
+
+        GetComponentInChildren<SpriteRenderer>().sortingOrder = 1;
+    }
+
+    public void StopSuck() {
+        bounceMoveBehaviour.enabled = true;
+        gettingSucked = false;
+
+        GetComponentInChildren<SpriteRenderer>().sortingOrder = 0;
     }
 
     private void FixedUpdate() {

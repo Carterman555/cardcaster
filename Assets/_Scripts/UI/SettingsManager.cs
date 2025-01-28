@@ -1,17 +1,22 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.UI;
 using static UnityEngine.InputManagerEntry;
 
-public class SettingsManager : MonoBehaviour {
+public class SettingsManager : MonoBehaviour, IInitializable {
 
     public static event Action OnSettingsChanged;
 
     [Header("General")]
     [SerializeField] private Slider cameraShakeSlider;
+
+    [Header("Video")]
+    [SerializeField] private Toggle vSyncToggle;
+    [SerializeField] private TMP_Dropdown displayModeDropDown;
 
     [Header("Audio")]
     [SerializeField] private AudioMixer audioMixer;
@@ -24,6 +29,9 @@ public class SettingsManager : MonoBehaviour {
     [Serializable]
     public class GameSettings {
         public float CameraShake = 0.5f;
+
+        public bool vSync = true;
+        public DisplayMode displayMode = default;
 
         public float SFXVolume = 0.5f;
         public float UIVolume = 0.5f;
@@ -38,6 +46,17 @@ public class SettingsManager : MonoBehaviour {
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
     public static void Init() {
         currentSettings = new();
+    }
+
+    public void Initialize() {
+        AudioManager.Instance.StartCoroutine(SetMixerVolumes());
+    }
+
+    private IEnumerator SetMixerVolumes() {
+        yield return null; // delay to wait for mixers to setup
+        audioMixer.SetFloat("SfxVolume", AudioManager.SliderValueToDecibels(currentSettings.SFXVolume));
+        audioMixer.SetFloat("UiVolume", AudioManager.SliderValueToDecibels(currentSettings.UIVolume));
+        audioMixer.SetFloat("MusicVolume", AudioManager.SliderValueToDecibels(currentSettings.MusicVolume, maxDB: -6f));
     }
 
     private void OnEnable() {
@@ -56,21 +75,40 @@ public class SettingsManager : MonoBehaviour {
         OnSettingsChanged?.Invoke();
     }
 
+    public void OnVSyncToggled(bool active) {
+        QualitySettings.vSyncCount = active ? 1 : 0;
+        OnSettingsChanged?.Invoke();
+    }
+
+    public void OnScreenModeChanged(int screenModeInt) {
+        currentSettings.displayMode = (DisplayMode) screenModeInt;
+
+        if (currentSettings.displayMode == DisplayMode.FullScreen) {
+            Screen.fullScreenMode = FullScreenMode.ExclusiveFullScreen;
+        }
+        else if (currentSettings.displayMode == DisplayMode.Windowed) {
+            Screen.fullScreenMode = FullScreenMode.Windowed;
+        }
+
+        OnSettingsChanged?.Invoke();
+    }
+
+    // dont set audioMixer of sfx yet because sfx should be quiet when ui is open, the sfx volume is set in audiomanager
     public void OnSFXVolumeSliderChanged(float value) {
         currentSettings.SFXVolume = value;
-        audioMixer.SetFloat("SfxVolume", SliderValueToDecibels(value));
         OnSettingsChanged?.Invoke();
     }
 
     public void OnUIVolumeSliderChanged(float value) {
         currentSettings.UIVolume = value;
-        audioMixer.SetFloat("UiVolume", SliderValueToDecibels(value));
+        audioMixer.SetFloat("UiVolume", AudioManager.SliderValueToDecibels(value));
         OnSettingsChanged?.Invoke();
     }
 
     public void OnMusicVolumeSliderChanged(float value) {
         currentSettings.MusicVolume = value;
-        audioMixer.SetFloat("MusicVolume", SliderValueToDecibels(value));
+        //... make max db -6 to make music quieter
+        audioMixer.SetFloat("MusicVolume", AudioManager.SliderValueToDecibels(value, maxDB: -6f));
         OnSettingsChanged?.Invoke();
     }
 
@@ -81,18 +119,6 @@ public class SettingsManager : MonoBehaviour {
         OnSettingsChanged?.Invoke();
     }
 
-    #region Audio Conversion
-
-    // changing the decibels in the audio mixers is nonlinear with how loud the volume is
-
-    private float SliderValueToDecibels(float sliderValue) {
-
-        //... the logarithmic conversion will not work correctly at zero
-        sliderValue = Mathf.Max(0.0001f, sliderValue);
-
-        float dB = Mathf.Log10(sliderValue) * 20;
-        return dB;
-    }
-
-    #endregion
+    public enum DisplayMode { FullScreen, Windowed }
+    
 }

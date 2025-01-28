@@ -451,8 +451,8 @@ MonoBehaviour:
       MaxValue: 10
   centerPoint: {fileID: 1044121333785347722}
   anim: {fileID: 4239218035097059229}
-  debugState: 0
-  stateToDebug: 1
+  debugState: 1
+  stateToDebug: 2
   healerMinionPrefab: {fileID: 7481704768261658980, guid: df1e1c62ee40e4144a5ec062019e6f03, type: 3}
   startingHealersDistance: 3
   suckMinionTrigger: {fileID: 8748015086365348856}
@@ -515,11 +515,17 @@ MonoBehaviour:
   bounceVariation: 5
   twoWayFacing: 0
   facingAngleOffset: 180
-  hasSFX: 1
+  hasMoveSFX: 0
+  moveSFX:
+    Clips: []
+    Volume: 0
+    PitchVariation: 0
+  hasBounceSFX: 1
   bounceSFX:
     Clips:
-    - {fileID: 8300000, guid: 5984f15de97c0b6478d317fe12977891, type: 3}
+    - {fileID: 8300000, guid: c9de4fa3776654342b339bd770f34a03, type: 3}
     Volume: 0.524
+    PitchVariation: 0.1
 --- !u!114 &8987095808021778562
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -548,6 +554,7 @@ MonoBehaviour:
   shootSFX:
     Clips: []
     Volume: 0
+    PitchVariation: 0
 --- !u!114 &-2327778949296054411
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -600,6 +607,7 @@ MonoBehaviour:
   deathSFX:
     Clips: []
     Volume: 0
+    PitchVariation: 0
 --- !u!1 &5270044504826222362
 GameObject:
   m_ObjectHideFlags: 0

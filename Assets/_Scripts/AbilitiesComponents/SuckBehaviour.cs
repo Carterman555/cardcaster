@@ -95,7 +95,8 @@ public class SuckBehaviour : MonoBehaviour {
             rb.velocity = Vector2.MoveTowards(rb.velocity, suckVelocity, suckSpeed * Time.fixedDeltaTime);
         }
     }
-
+    
+    // stop movement of objects that are very close to stop jittering
     private void TryStopMovementOfTouching(GameObject objectTouching) {
         if (objectTouching.TryGetComponent(out IEffectable effectable)) {
             if (stopMovementEffect == null) {
@@ -105,6 +106,8 @@ public class SuckBehaviour : MonoBehaviour {
         }
     }
 
+    // if the object that was touching is no longer touching, remove the stop movement because 
+    // doesn't need to stop jittering anymore
     private void CheckTouchingEffectable() {
 
         if (stopMovementEffect == null) {

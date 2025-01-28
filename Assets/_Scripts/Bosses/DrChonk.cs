@@ -121,6 +121,8 @@ public class DrChonk : MonoBehaviour, IHasStats, IBoss {
         }
         else if (previousState == DrChonkState.EatMinions) {
 
+            OnStopSucking();
+
             // close mouth
             anim.SetBool("mouthOpen", false);
             suckEffect.SetActive(false);
@@ -199,6 +201,8 @@ public class DrChonk : MonoBehaviour, IHasStats, IBoss {
 
     [SerializeField] private AudioSource suckAudioSource;
 
+    private List<HealerMinion> healersSucking = new();
+
     private Health health;
 
     private void SubEatMinionMethods() {
@@ -216,11 +220,12 @@ public class DrChonk : MonoBehaviour, IHasStats, IBoss {
             if (collisionObject.TryGetComponent(out HealerMinion healerMinion)) {
                 // suck in minion
                 healerMinion.SuckToChonk(suckCenter.position);
+                healersSucking.Add(healerMinion);
             }
         }
     }
 
-    public void TryEatMinion(GameObject collisionObject) {
+    private void TryEatMinion(GameObject collisionObject) {
         if (currentState == DrChonkState.EatMinions) {
             if (collisionObject.TryGetComponent(out HealerMinion healerMinion)) {
                 // eat minion
@@ -232,10 +237,19 @@ public class DrChonk : MonoBehaviour, IHasStats, IBoss {
                 // heal effect
                 healEffectPrefab.Spawn(centerPoint.position, Containers.Instance.Effects);
 
+                healersSucking.Remove(healerMinion);
+
                 AudioManager.Instance.PlaySound(AudioManager.Instance.AudioClips.DrChonkEat);
                 AudioManager.Instance.PlaySound(AudioManager.Instance.AudioClips.DrChonkHeal);
             }
         }
+    }
+
+    private void OnStopSucking() {
+        foreach (HealerMinion minion in healersSucking) {
+            minion.StopSuck();
+        }
+        healersSucking.Clear();
     }
 
     #endregion

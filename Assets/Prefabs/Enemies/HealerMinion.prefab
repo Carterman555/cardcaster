@@ -420,12 +420,18 @@ MonoBehaviour:
   bounceVariation: 0
   twoWayFacing: 1
   facingAngleOffset: 0
-  hasSFX: 1
+  hasMoveSFX: 1
+  moveSFX:
+    Clips:
+    - {fileID: 8300000, guid: d9ee927252e66b742a690e4fd83231a7, type: 3}
+    Volume: 0.099
+    PitchVariation: 0.2
+  hasBounceSFX: 1
   bounceSFX:
     Clips:
     - {fileID: 8300000, guid: d9ee927252e66b742a690e4fd83231a7, type: 3}
     Volume: 0.242
-    PitchVariation: 0.1
+    PitchVariation: 0.2
 --- !u!95 &7812749826847277617 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 621019451974682374, guid: d26e40392c042dc4d8c237ede2183746, type: 3}

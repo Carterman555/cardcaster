@@ -28,8 +28,13 @@ public class BounceMoveBehaviour : MonoBehaviour, IEffectable, IEnemyMovement {
     [SerializeField] private bool twoWayFacing = true;
     [ConditionalHideReversed("twoWayFacing")] [SerializeField] private float facingAngleOffset;
 
-    [SerializeField] private bool hasSFX;
-    [ConditionalHide("hasSFX")] [SerializeField] private AudioClips bounceSFX;
+    [SerializeField] private bool hasMoveSFX;
+    [ConditionalHide("hasMoveSFX")][SerializeField] private AudioClips moveSFX;
+
+    [SerializeField] private bool hasBounceSFX;
+    [ConditionalHide("hasBounceSFX")] [SerializeField] private AudioClips bounceSFX;
+
+    private Coroutine moveSFXCoroutine;
 
     private void Awake() {
         rb = GetComponent<Rigidbody2D>();
@@ -43,6 +48,10 @@ public class BounceMoveBehaviour : MonoBehaviour, IEffectable, IEnemyMovement {
         RandomizeDirection();
 
         emergencyBounceTimer = 0;
+
+        if (hasMoveSFX) {
+            moveSFXCoroutine = StartCoroutine(MoveSFX());
+        }
     }
     private void OnDisable() {
         bounceTrigger.OnEnterContact_GO -= Bounce;
@@ -53,6 +62,10 @@ public class BounceMoveBehaviour : MonoBehaviour, IEffectable, IEnemyMovement {
         }
 
         rb.velocity = Vector2.zero;
+
+        if (moveSFXCoroutine != null) {
+            StopCoroutine(moveSFXCoroutine);
+        }
     }
 
     private void RandomizeDirection() {
@@ -113,7 +126,7 @@ public class BounceMoveBehaviour : MonoBehaviour, IEffectable, IEnemyMovement {
 
         UpdateFacing(velocity);
 
-        if (hasSFX) {
+        if (hasBounceSFX) {
             AudioManager.Instance.PlaySound(bounceSFX);
         }
 
@@ -145,6 +158,13 @@ public class BounceMoveBehaviour : MonoBehaviour, IEffectable, IEnemyMovement {
 
     private void FaceLeft() {
         transform.rotation = Quaternion.Euler(new Vector3(transform.rotation.eulerAngles.x, 180f, transform.rotation.eulerAngles.z));
+    }
+
+    private IEnumerator MoveSFX() {
+        while (true) {
+            yield return new WaitForSeconds(0.5f + UnityEngine.Random.Range(-0.05f, 0.05f));
+            AudioManager.Instance.PlaySingleSound(moveSFX);
+        }
     }
 
     public void OnAddEffect(UnitEffect unitEffect) {

@@ -6,7 +6,6 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
-using static UnityEditor.PlayerSettings;
 
 public class InputManager : Singleton<InputManager> {
 
@@ -30,10 +29,6 @@ public class InputManager : Singleton<InputManager> {
 
         playerInput.deviceLostEvent.RemoveListener(TryPauseGame);
         playerInput.deviceRegainedEvent.RemoveListener(TryUnpauseGame);
-    }
-
-    private void Update() {
-        print($"Selected: {EventSystem.current.currentSelectedGameObject}");
     }
 
     #region InputScheme

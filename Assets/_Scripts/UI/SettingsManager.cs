@@ -1,11 +1,11 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.UI;
-using static UnityEngine.InputManagerEntry;
 
 public class SettingsManager : MonoBehaviour, IInitializable {
 
@@ -17,6 +17,10 @@ public class SettingsManager : MonoBehaviour, IInitializable {
     [Header("Video")]
     [SerializeField] private Toggle vSyncToggle;
     [SerializeField] private TMP_Dropdown displayModeDropDown;
+    [SerializeField] private TMP_Dropdown resolutionDropDown;
+    [SerializeField] private TextMeshProUGUI currentResolutionText;
+    [SerializeField] private Vector2Int[] resolutions;
+    private Vector2Int currentResolution;
 
     [Header("Audio")]
     [SerializeField] private AudioMixer audioMixer;
@@ -31,7 +35,7 @@ public class SettingsManager : MonoBehaviour, IInitializable {
         public float CameraShake = 0.5f;
 
         public bool vSync = true;
-        public DisplayMode displayMode = default;
+        public FullScreenMode fullScreenMode = FullScreenMode.ExclusiveFullScreen;
 
         public float SFXVolume = 0.5f;
         public float UIVolume = 0.5f;
@@ -49,7 +53,7 @@ public class SettingsManager : MonoBehaviour, IInitializable {
     }
 
     public void Initialize() {
-        AudioManager.Instance.StartCoroutine(SetMixerVolumes());
+        ScriptInitializer.Instance.StartCoroutine(SetMixerVolumes());
     }
 
     private IEnumerator SetMixerVolumes() {
@@ -60,14 +64,38 @@ public class SettingsManager : MonoBehaviour, IInitializable {
     }
 
     private void OnEnable() {
-        UpdateSliders();
+        UpdateUI();
     }
 
-    private void UpdateSliders() {
+    private void Update() {
+        bool screenResolutionChanged = currentResolution.x != Screen.width || currentResolution.y != Screen.height;
+        if (screenResolutionChanged) {
+            currentResolutionText.text = $"{Screen.width}x{Screen.height}";
+
+            UpdateResolutionDropdown();
+        }
+    }
+
+    private void UpdateUI() {
         cameraShakeSlider.value = currentSettings.CameraShake;
         SFXVolumeSlider.value = currentSettings.SFXVolume;
         UIVolumeSlider.value = currentSettings.UIVolume;
         musicVolumeSlider.value = currentSettings.MusicVolume;
+
+        UpdateResolutionDropdown();
+    }
+
+    private void UpdateResolutionDropdown() {
+        Vector2Int currentResolution = new Vector2Int(Screen.width, Screen.height);
+
+        if (resolutions.Contains(currentResolution)) {
+            int resolutionIndex = Array.IndexOf(resolutions, currentResolution);
+            resolutionDropDown.value = resolutionIndex;
+        }
+        else {
+            //... make dropdown have "-"
+            resolutionDropDown.value = resolutions.Length;
+        }
     }
 
     public void OnCameraShakerChanged(float value) {
@@ -80,15 +108,32 @@ public class SettingsManager : MonoBehaviour, IInitializable {
         OnSettingsChanged?.Invoke();
     }
 
-    public void OnScreenModeChanged(int screenModeInt) {
-        currentSettings.displayMode = (DisplayMode) screenModeInt;
+    public void OnScreenModeChanged(int screenModeValue) {
 
-        if (currentSettings.displayMode == DisplayMode.FullScreen) {
-            Screen.fullScreenMode = FullScreenMode.ExclusiveFullScreen;
+        if (screenModeValue == 0) {
+            currentSettings.fullScreenMode = FullScreenMode.ExclusiveFullScreen;
         }
-        else if (currentSettings.displayMode == DisplayMode.Windowed) {
-            Screen.fullScreenMode = FullScreenMode.Windowed;
+        else if (screenModeValue == 1) {
+            currentSettings.fullScreenMode = FullScreenMode.FullScreenWindow;
         }
+        else if (screenModeValue == 2) {
+            currentSettings.fullScreenMode = FullScreenMode.Windowed;
+        }
+
+        Screen.fullScreenMode = currentSettings.fullScreenMode;
+
+        OnSettingsChanged?.Invoke();
+    }
+
+    public void OnResolutionChanged(int dropdownValue) {
+
+        bool valueOutsideRange = dropdownValue > resolutions.Length - 1;
+        if (valueOutsideRange) {
+            return;
+        }
+
+        Vector2Int selectedResolution = resolutions[dropdownValue];
+        Screen.SetResolution(selectedResolution.x, selectedResolution.y, currentSettings.fullScreenMode);
 
         OnSettingsChanged?.Invoke();
     }
@@ -114,11 +159,8 @@ public class SettingsManager : MonoBehaviour, IInitializable {
 
     public void ResetToDefaults() {
         currentSettings = new GameSettings();
-        UpdateSliders();
+        UpdateUI();
 
         OnSettingsChanged?.Invoke();
     }
-
-    public enum DisplayMode { FullScreen, Windowed }
-    
 }

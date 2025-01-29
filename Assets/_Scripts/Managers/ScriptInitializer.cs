@@ -4,9 +4,11 @@ using System.Linq;
 using UnityEngine;
 
 // initialized scripts that can't run the code by themselves because they start out inactive
-public class ScriptInitializer : MonoBehaviour {
+public class ScriptInitializer : StaticInstance<ScriptInitializer> {
 
-    private void Awake() {
+    protected override void Awake() {
+        base.Awake();
+
         IInitializable[] initializables = FindObjectsOfType<MonoBehaviour>(true).OfType<IInitializable>().ToArray();
 
         foreach (var initializable in initializables) {

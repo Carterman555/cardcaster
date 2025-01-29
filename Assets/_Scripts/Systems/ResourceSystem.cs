@@ -1,3 +1,4 @@
+using QFSW.QC;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,6 +24,10 @@ public class ResourceSystem : StaticInstance<ResourceSystem>
         AssembleResources();
     }
 
+    private void Start() {
+        LoadResources();
+    }
+
     private void AssembleResources() {
         LevelLayouts = Resources.LoadAll<ScriptableLevelLayout>("Layouts").ToList();
 
@@ -34,7 +39,15 @@ public class ResourceSystem : StaticInstance<ResourceSystem>
         Bosses = Resources.LoadAll<ScriptableBoss>("Bosses").ToList();
 
         AllCards = Resources.LoadAll<ScriptableCardBase>("Cards").ToList();
-        UnlockedCards = AllCards.Where(c => c.StartUnlocked).ToList();
+    }
+
+    private void LoadResources() {
+        List<ScriptableCardBase> defaultUnlockedCards = AllCards.Where(c => c.StartUnlocked).ToList();
+        UnlockedCards = ES3.Load("UnlockedCards", defaultUnlockedCards);
+
+        foreach (ScriptableCardBase card in UnlockedCards) {
+            print(card);
+        }
     }
 
     public ScriptableLevelLayout GetRandomLayout() => LevelLayouts.RandomItem();
@@ -51,6 +64,7 @@ public class ResourceSystem : StaticInstance<ResourceSystem>
     public ScriptableCardBase GetCard(CardType cardType) => AllCards.FirstOrDefault(c => c.CardType == cardType);
     public ScriptableCardBase GetCard(string cardName) => AllCards.FirstOrDefault(c => c.name == cardName);
 
+    [Command]
     public void UnlockCard(ScriptableCardBase cardToUnlock) {
 
         if (UnlockedCards.Contains(cardToUnlock)) {
@@ -58,5 +72,10 @@ public class ResourceSystem : StaticInstance<ResourceSystem>
         }
 
         UnlockedCards.Add(cardToUnlock);
+    }
+
+    protected override void OnApplicationQuit() {
+        base.OnApplicationQuit();
+        ES3.Save("UnlockedCards", UnlockedCards);
     }
 }   

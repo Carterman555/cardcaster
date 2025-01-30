@@ -44,10 +44,6 @@ public class ResourceSystem : StaticInstance<ResourceSystem>
     private void LoadResources() {
         List<ScriptableCardBase> defaultUnlockedCards = AllCards.Where(c => c.StartUnlocked).ToList();
         UnlockedCards = ES3.Load("UnlockedCards", defaultUnlockedCards);
-
-        foreach (ScriptableCardBase card in UnlockedCards) {
-            print(card);
-        }
     }
 
     public ScriptableLevelLayout GetRandomLayout() => LevelLayouts.RandomItem();

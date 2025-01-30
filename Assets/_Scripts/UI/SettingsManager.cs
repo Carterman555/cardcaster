@@ -1,3 +1,4 @@
+using QFSW.QC.Actions;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -20,7 +21,6 @@ public class SettingsManager : MonoBehaviour, IInitializable {
     [SerializeField] private TMP_Dropdown resolutionDropDown;
     [SerializeField] private TextMeshProUGUI currentResolutionText;
     [SerializeField] private Vector2Int[] resolutions;
-    private Vector2Int currentResolution;
 
     [Header("Audio")]
     [SerializeField] private AudioMixer audioMixer;
@@ -35,7 +35,8 @@ public class SettingsManager : MonoBehaviour, IInitializable {
         public float CameraShake = 0.5f;
 
         public bool vSync = true;
-        public FullScreenMode fullScreenMode = FullScreenMode.ExclusiveFullScreen;
+        public FullScreenMode FullScreenMode = FullScreenMode.ExclusiveFullScreen;
+        public Vector2Int Resolution = new Vector2Int(1920, 1080);
 
         public float SFXVolume = 0.5f;
         public float UIVolume = 0.5f;
@@ -53,6 +54,7 @@ public class SettingsManager : MonoBehaviour, IInitializable {
     }
 
     public void Initialize() {
+        LoadSettings();
         ScriptInitializer.Instance.StartCoroutine(SetMixerVolumes());
     }
 
@@ -66,10 +68,14 @@ public class SettingsManager : MonoBehaviour, IInitializable {
     private void OnEnable() {
         UpdateUI();
     }
+    private void OnDisable() {
+        SaveSettings();
+    }
 
     private void Update() {
-        bool screenResolutionChanged = currentResolution.x != Screen.width || currentResolution.y != Screen.height;
+        bool screenResolutionChanged = currentSettings.Resolution.x != Screen.width || currentSettings.Resolution.y != Screen.height;
         if (screenResolutionChanged) {
+            currentSettings.Resolution = new(Screen.width, Screen.height);
             currentResolutionText.text = $"{Screen.width}x{Screen.height}";
 
             UpdateResolutionDropdown();
@@ -82,14 +88,25 @@ public class SettingsManager : MonoBehaviour, IInitializable {
         UIVolumeSlider.value = currentSettings.UIVolume;
         musicVolumeSlider.value = currentSettings.MusicVolume;
 
+        UpdateFullScreenModeDropdown();
         UpdateResolutionDropdown();
     }
 
-    private void UpdateResolutionDropdown() {
-        Vector2Int currentResolution = new Vector2Int(Screen.width, Screen.height);
+    private void UpdateFullScreenModeDropdown() {
+        if (currentSettings.FullScreenMode == FullScreenMode.ExclusiveFullScreen) {
+            displayModeDropDown.value = 0;
+        }
+        else if (currentSettings.FullScreenMode == FullScreenMode.FullScreenWindow) {
+            displayModeDropDown.value = 1;
+        }
+        else if (currentSettings.FullScreenMode == FullScreenMode.Windowed) {
+            displayModeDropDown.value = 2;
+        }
+    }
 
-        if (resolutions.Contains(currentResolution)) {
-            int resolutionIndex = Array.IndexOf(resolutions, currentResolution);
+    private void UpdateResolutionDropdown() {
+        if (resolutions.Contains(currentSettings.Resolution)) {
+            int resolutionIndex = Array.IndexOf(resolutions, currentSettings.Resolution);
             resolutionDropDown.value = resolutionIndex;
         }
         else {
@@ -97,6 +114,8 @@ public class SettingsManager : MonoBehaviour, IInitializable {
             resolutionDropDown.value = resolutions.Length;
         }
     }
+
+    #region On Settings Changed Methods
 
     public void OnCameraShakerChanged(float value) {
         currentSettings.CameraShake = value;
@@ -111,16 +130,16 @@ public class SettingsManager : MonoBehaviour, IInitializable {
     public void OnScreenModeChanged(int screenModeValue) {
 
         if (screenModeValue == 0) {
-            currentSettings.fullScreenMode = FullScreenMode.ExclusiveFullScreen;
+            currentSettings.FullScreenMode = FullScreenMode.ExclusiveFullScreen;
         }
         else if (screenModeValue == 1) {
-            currentSettings.fullScreenMode = FullScreenMode.FullScreenWindow;
+            currentSettings.FullScreenMode = FullScreenMode.FullScreenWindow;
         }
         else if (screenModeValue == 2) {
-            currentSettings.fullScreenMode = FullScreenMode.Windowed;
+            currentSettings.FullScreenMode = FullScreenMode.Windowed;
         }
 
-        Screen.fullScreenMode = currentSettings.fullScreenMode;
+        Screen.fullScreenMode = currentSettings.FullScreenMode;
 
         OnSettingsChanged?.Invoke();
     }
@@ -132,8 +151,7 @@ public class SettingsManager : MonoBehaviour, IInitializable {
             return;
         }
 
-        Vector2Int selectedResolution = resolutions[dropdownValue];
-        Screen.SetResolution(selectedResolution.x, selectedResolution.y, currentSettings.fullScreenMode);
+        Screen.SetResolution(resolutions[dropdownValue].x, resolutions[dropdownValue].y, currentSettings.FullScreenMode);
 
         OnSettingsChanged?.Invoke();
     }
@@ -163,4 +181,42 @@ public class SettingsManager : MonoBehaviour, IInitializable {
 
         OnSettingsChanged?.Invoke();
     }
+
+    #endregion
+
+    #region Save and Load Settings
+
+    private void SaveSettings() {
+        PlayerPrefs.SetFloat("CameraShake", currentSettings.CameraShake);
+
+        PlayerPrefs.SetInt("vSync", currentSettings.vSync ? 1 : 0); // use 0 as false and 1 as true
+        PlayerPrefs.SetInt("FullScreenMode", (int)currentSettings.FullScreenMode);
+
+        PlayerPrefs.SetInt("ResolutionX", currentSettings.Resolution.x);
+        PlayerPrefs.SetInt("ResolutionY", currentSettings.Resolution.y);
+
+        PlayerPrefs.SetFloat("SFXVolume", currentSettings.SFXVolume);
+        PlayerPrefs.SetFloat("UIVolume", currentSettings.UIVolume);
+        PlayerPrefs.SetFloat("MusicVolume", currentSettings.MusicVolume);
+    }
+
+    private void LoadSettings() {
+        currentSettings.CameraShake = PlayerPrefs.GetFloat("CameraShake", currentSettings.CameraShake);
+
+        currentSettings.vSync = PlayerPrefs.GetInt("vSync", currentSettings.vSync ? 1 : 0) == 1; // use 0 as false and 1 as true
+        currentSettings.FullScreenMode = (FullScreenMode)PlayerPrefs.GetInt("FullScreenMode", (int)currentSettings.FullScreenMode);
+
+        int resolutionX = PlayerPrefs.GetInt("ResolutionX", currentSettings.Resolution.x);
+        int resolutionY = PlayerPrefs.GetInt("ResolutionY", currentSettings.Resolution.y);
+        currentSettings.Resolution = new Vector2Int(resolutionX, resolutionY);
+
+        currentSettings.SFXVolume = PlayerPrefs.GetFloat("SFXVolume", currentSettings.SFXVolume);
+        currentSettings.UIVolume = PlayerPrefs.GetFloat("UIVolume", currentSettings.UIVolume);
+        currentSettings.MusicVolume = PlayerPrefs.GetFloat("MusicVolume", currentSettings.MusicVolume);
+    }
+    #endregion
 }
+
+
+
+

@@ -136,7 +136,7 @@ public class DeckManager : Singleton<DeckManager> {
 
         // if gains a locked card, unlock it
         bool cardLocked = !ResourceSystem.Instance.GetUnlockedCardsUpToLevel(99).Contains(card);
-        if (cardLocked) {
+        if (cardLocked && NewCardUnlockedPanel.Instance != null) {
             ResourceSystem.Instance.UnlockCard(card);
             FeedbackPlayerOld.Play("NewCardUnlocked");
             NewCardUnlockedPanel.Instance.Setup(card);

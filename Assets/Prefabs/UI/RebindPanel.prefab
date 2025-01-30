@@ -651,6 +651,7 @@ GameObject:
   - component: {fileID: 8842095964630475142}
   - component: {fileID: 5935384933290648381}
   - component: {fileID: 395647463240885100}
+  - component: {fileID: 2480871751026385732}
   m_Layer: 5
   m_Name: RebindPanel
   m_TagString: Untagged
@@ -723,6 +724,19 @@ MonoBehaviour:
   viewport: {fileID: 1574259828136410028}
   content: {fileID: 5293779368854750145}
   spacing: 300
+--- !u!114 &2480871751026385732
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5103352940857708159}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b6c2da2db9374dada6761b5e35121c8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  actions: {fileID: -944628639613478452, guid: 50afa068aa51bd149a1f3d07794c53d5, type: 3}
 --- !u!1 &5989453196390431797
 GameObject:
   m_ObjectHideFlags: 0
@@ -1115,13 +1129,16 @@ MonoBehaviour:
   clickSFX:
     Clips: []
     Volume: 0
+    PitchVariation: 0
   customHoverSFX: 0
   enterSFX:
     Clips: []
     Volume: 0
+    PitchVariation: 0
   exitSFX:
     Clips: []
     Volume: 0
+    PitchVariation: 0
 --- !u!1001 &1420090063614715161
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1275,13 +1292,16 @@ MonoBehaviour:
   clickSFX:
     Clips: []
     Volume: 0
+    PitchVariation: 0
   customHoverSFX: 0
   enterSFX:
     Clips: []
     Volume: 0
+    PitchVariation: 0
   exitSFX:
     Clips: []
     Volume: 0
+    PitchVariation: 0
 --- !u!224 &5692557239336210224 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6680292650503350825, guid: f25dcd618d3acd64795bf8bb32edb6c9, type: 3}
@@ -1320,13 +1340,16 @@ MonoBehaviour:
   clickSFX:
     Clips: []
     Volume: 0
+    PitchVariation: 0
   customHoverSFX: 0
   enterSFX:
     Clips: []
     Volume: 0
+    PitchVariation: 0
   exitSFX:
     Clips: []
     Volume: 0
+    PitchVariation: 0
 --- !u!1001 &2499576606124312635
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1618,13 +1641,16 @@ MonoBehaviour:
   clickSFX:
     Clips: []
     Volume: 0
+    PitchVariation: 0
   customHoverSFX: 0
   enterSFX:
     Clips: []
     Volume: 0
+    PitchVariation: 0
   exitSFX:
     Clips: []
     Volume: 0
+    PitchVariation: 0
 --- !u!1 &5534855274469735834 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 723199622616807248, guid: f25dcd618d3acd64795bf8bb32edb6c9, type: 3}
@@ -1647,13 +1673,16 @@ MonoBehaviour:
   clickSFX:
     Clips: []
     Volume: 0
+    PitchVariation: 0
   customHoverSFX: 0
   enterSFX:
     Clips: []
     Volume: 0
+    PitchVariation: 0
   exitSFX:
     Clips: []
     Volume: 0
+    PitchVariation: 0
 --- !u!1001 &5828647305705598223
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1977,13 +2006,16 @@ MonoBehaviour:
   clickSFX:
     Clips: []
     Volume: 0
+    PitchVariation: 0
   customHoverSFX: 0
   enterSFX:
     Clips: []
     Volume: 0
+    PitchVariation: 0
   exitSFX:
     Clips: []
     Volume: 0
+    PitchVariation: 0
 --- !u!1 &6362491857020740312 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 723199622616807248, guid: f25dcd618d3acd64795bf8bb32edb6c9, type: 3}
@@ -2006,13 +2038,16 @@ MonoBehaviour:
   clickSFX:
     Clips: []
     Volume: 0
+    PitchVariation: 0
   customHoverSFX: 0
   enterSFX:
     Clips: []
     Volume: 0
+    PitchVariation: 0
   exitSFX:
     Clips: []
     Volume: 0
+    PitchVariation: 0
 --- !u!1001 &7673383177124131449
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2174,13 +2209,16 @@ MonoBehaviour:
   clickSFX:
     Clips: []
     Volume: 0
+    PitchVariation: 0
   customHoverSFX: 0
   enterSFX:
     Clips: []
     Volume: 0
+    PitchVariation: 0
   exitSFX:
     Clips: []
     Volume: 0
+    PitchVariation: 0
 --- !u!224 &3947545388849207376 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6680292650503350825, guid: f25dcd618d3acd64795bf8bb32edb6c9, type: 3}
@@ -2208,13 +2246,16 @@ MonoBehaviour:
   clickSFX:
     Clips: []
     Volume: 0
+    PitchVariation: 0
   customHoverSFX: 0
   enterSFX:
     Clips: []
     Volume: 0
+    PitchVariation: 0
   exitSFX:
     Clips: []
     Volume: 0
+    PitchVariation: 0
 --- !u!1001 &8023044332663441607
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2376,13 +2417,16 @@ MonoBehaviour:
   clickSFX:
     Clips: []
     Volume: 0
+    PitchVariation: 0
   customHoverSFX: 0
   enterSFX:
     Clips: []
     Volume: 0
+    PitchVariation: 0
   exitSFX:
     Clips: []
     Volume: 0
+    PitchVariation: 0
 --- !u!224 &3738760190338147054 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6680292650503350825, guid: f25dcd618d3acd64795bf8bb32edb6c9, type: 3}
@@ -2410,13 +2454,16 @@ MonoBehaviour:
   clickSFX:
     Clips: []
     Volume: 0
+    PitchVariation: 0
   customHoverSFX: 0
   enterSFX:
     Clips: []
     Volume: 0
+    PitchVariation: 0
   exitSFX:
     Clips: []
     Volume: 0
+    PitchVariation: 0
 --- !u!1001 &9101083478899917072
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2570,13 +2617,16 @@ MonoBehaviour:
   clickSFX:
     Clips: []
     Volume: 0
+    PitchVariation: 0
   customHoverSFX: 0
   enterSFX:
     Clips: []
     Volume: 0
+    PitchVariation: 0
   exitSFX:
     Clips: []
     Volume: 0
+    PitchVariation: 0
 --- !u!224 &2519942051393841977 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6680292650503350825, guid: f25dcd618d3acd64795bf8bb32edb6c9, type: 3}
@@ -2615,10 +2665,13 @@ MonoBehaviour:
   clickSFX:
     Clips: []
     Volume: 0
+    PitchVariation: 0
   customHoverSFX: 0
   enterSFX:
     Clips: []
     Volume: 0
+    PitchVariation: 0
   exitSFX:
     Clips: []
     Volume: 0
+    PitchVariation: 0

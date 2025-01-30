@@ -10,15 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ef84e9e24d1d4e94488281e532532049, type: 3}
-  m_Name: DaggerShootCard
+  m_Name: DaggerstormCard
   m_EditorClassIdentifier: 
   cardType: 1
   description: Rapid fire daggers
   sprite: {fileID: -2141203052, guid: d638d131cac6f4d45aeb96fc55848241, type: 3}
   cost: 2
-  rarity: 1
+  rarity: 2
   minLevel: 1
-  canStackWithSelf: 1
+  stackType: 0
   startUnlocked: 1
   abilityAttributes: 29
   abilityStats:

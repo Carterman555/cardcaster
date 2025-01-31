@@ -10,7 +10,7 @@ using UnityEngine;
 /// I make this a MonoBehaviour as sometimes I add some debug/development references in the editor.
 /// If you don't feel free to make this a standard class
 /// </summary>
-public class ResourceSystem : StaticInstance<ResourceSystem>
+public class ResourceSystem : Singleton<ResourceSystem>
 {
     public List<ScriptableLevelLayout> LevelLayouts { get; private set; }
     public Dictionary<RoomType, ScriptableRoom[]> Rooms { get; private set; }

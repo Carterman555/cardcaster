@@ -1,4 +1,5 @@
 using Mono.CSharp;
+using MoreMountains.Feedbacks;
 using QFSW.QC;
 using System;
 using System.Collections;
@@ -19,6 +20,8 @@ public class GameSceneManager : Singleton<GameSceneManager> {
 
     private const int LEVELS_PER_ENVIRONMENT = 2;
 
+    private MMF_Player sceneLoadPlayer;
+
     // needed only for when starting game in game scene
     protected override void Awake() {
         base.Awake();
@@ -26,6 +29,8 @@ public class GameSceneManager : Singleton<GameSceneManager> {
         level = 1;
         currentEnvironment = EnvironmentType.Stone;
         Tutorial = debugStartTutorial;
+
+        sceneLoadPlayer = GetComponent<MMF_Player>();
     }
 
     public void StartGame(bool tutorial = false) {
@@ -33,7 +38,7 @@ public class GameSceneManager : Singleton<GameSceneManager> {
         currentEnvironment = EnvironmentType.Stone;
         Tutorial = tutorial;
 
-        StartCoroutine(LoadGameScene());
+        LoadGameScene();
 
         OnStartGame?.Invoke();
     }
@@ -42,30 +47,23 @@ public class GameSceneManager : Singleton<GameSceneManager> {
     public void NextLevel() {
         level++;
         UpdateEnvironmentType();
-        StartCoroutine(LoadGameScene());
+        LoadGameScene();
     }
 
     public void LoadTutorial() {
         Tutorial = true;
-        StartCoroutine(LoadGameScene());
+        LoadGameScene();
     }
 
     public void LoadMenu() {
-        StartCoroutine(LoadMenuScene());
+        LoadMenuScene();
     }
 
-    private IEnumerator LoadGameScene() {
-        yield return StartCoroutine(SceneTransitionManager.Instance.PlayStartTransition());
-        SceneManager.LoadScene("Game");
-
-        SceneTransitionManager.Instance.PlayEndTransition();
+    private void LoadGameScene() {
+        sceneLoadPlayer.PlayFeedbacks();
     }
 
-    private IEnumerator LoadMenuScene() {
-        yield return StartCoroutine(SceneTransitionManager.Instance.PlayStartTransition());
-        SceneManager.LoadScene("Menu");
-
-        SceneTransitionManager.Instance.PlayEndTransition();
+    private void LoadMenuScene() {
     }
 
     private void UpdateEnvironmentType() {

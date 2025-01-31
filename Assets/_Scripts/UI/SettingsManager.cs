@@ -4,9 +4,11 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.UI;
+using static UnityEngine.Rendering.DebugUI;
 
 public class SettingsManager : MonoBehaviour, IInitializable {
 
@@ -84,6 +86,9 @@ public class SettingsManager : MonoBehaviour, IInitializable {
 
     private void UpdateUI() {
         cameraShakeSlider.value = currentSettings.CameraShake;
+
+        vSyncToggle.isOn = currentSettings.vSync;
+
         SFXVolumeSlider.value = currentSettings.SFXVolume;
         UIVolumeSlider.value = currentSettings.UIVolume;
         musicVolumeSlider.value = currentSettings.MusicVolume;
@@ -177,6 +182,13 @@ public class SettingsManager : MonoBehaviour, IInitializable {
 
     public void ResetToDefaults() {
         currentSettings = new GameSettings();
+
+        QualitySettings.vSyncCount = currentSettings.vSync ? 1 : 0;
+        Screen.SetResolution(currentSettings.Resolution.x, currentSettings.Resolution.y, currentSettings.FullScreenMode);
+
+        audioMixer.SetFloat("UiVolume", AudioManager.SliderValueToDecibels(currentSettings.UIVolume));
+        audioMixer.SetFloat("MusicVolume", AudioManager.SliderValueToDecibels(currentSettings.MusicVolume, maxDB: -6f));
+
         UpdateUI();
 
         OnSettingsChanged?.Invoke();

@@ -105,7 +105,7 @@ public class MusicManager : Singleton<MusicManager> {
         if (oldMusicType != MusicType.None) {
             AudioSource oldAudioSource = musicSources.First(s => s.MusicType == oldMusicType).AudioSource;
             oldAudioSource.DOKill();
-            oldAudioSource.DOFade(0f, duration: musicFadeDuration).OnComplete(() => {
+            oldAudioSource.DOFade(0f, duration: musicFadeDuration).SetUpdate(true).OnComplete(() => {
                 oldAudioSource.Stop();
             });
         }
@@ -118,7 +118,7 @@ public class MusicManager : Singleton<MusicManager> {
 
         // fade in new music
         GetActiveMusicSource().DOKill();
-        GetActiveMusicSource().DOFade(1f, duration: musicFadeDuration);
+        GetActiveMusicSource().DOFade(1f, duration: musicFadeDuration).SetUpdate(true);
 
         //... set the song on the new audio source
         PlayMusic(GetActiveMusicClips());

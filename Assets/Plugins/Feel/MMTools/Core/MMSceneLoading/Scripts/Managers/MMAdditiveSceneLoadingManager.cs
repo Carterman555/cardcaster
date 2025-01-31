@@ -174,6 +174,8 @@ namespace MoreMountains.Tools
 		protected const float _asyncProgressLimit = 0.9f;
 		protected MMSceneLoadingAntiSpill _antiSpill = new MMSceneLoadingAntiSpill();
 		protected static string _antiSpillSceneName = "";
+		protected static bool _waitToUnload = false;
+		protected static bool _unloadAllowed = false;
 		
 		/// <summary>
 		/// Statics initialization to support enter play modes
@@ -197,7 +199,9 @@ namespace MoreMountains.Tools
 			_scenesInBuild = new List<string>();
 			_initialScenes = null;
 			_antiSpillSceneName = "";
-		}
+			_waitToUnload = false;
+			_unloadAllowed = false;
+        }
 
 		/// <summary>
 		/// Call this static method to load a scene from anywhere (packed settings signature)
@@ -206,7 +210,7 @@ namespace MoreMountains.Tools
 		/// <param name="settings"></param>
 		public static void LoadScene(string sceneToLoadName, MMAdditiveSceneLoadingManagerSettings settings)
 		{
-			LoadScene(sceneToLoadName, settings.LoadingSceneName, settings.ThreadPriority, settings.SecureLoad, settings.InterpolateProgress,
+			LoadScene(sceneToLoadName, settings.LoadingSceneName, settings.ThreadPriority, settings.SecureLoad, false, settings.InterpolateProgress,
 				settings.BeforeEntryFadeDelay, settings.EntryFadeDuration, settings.AfterEntryFadeDelay, settings.BeforeExitFadeDelay,
 				settings.ExitFadeDuration, settings.EntryFadeTween, settings.ExitFadeTween, settings.ProgressBarSpeed, settings.FadeMode, settings.UnloadMethod, settings.AntiSpillSceneName,
 				settings.SpeedIntervals);
@@ -217,7 +221,7 @@ namespace MoreMountains.Tools
 		/// </summary>
 		/// <param name="sceneToLoadName">Level name.</param>
 		public static void LoadScene(string sceneToLoadName, string loadingSceneName = "MMAdditiveLoadingScreen", 
-			ThreadPriority threadPriority = ThreadPriority.High, bool secureLoad = true,
+			ThreadPriority threadPriority = ThreadPriority.High, bool secureLoad = true, bool waitToUnload = false,
 			bool interpolateProgress = true,
 			float beforeEntryFadeDelay = 0f,
 			float entryFadeDuration = 0.25f,
@@ -282,7 +286,9 @@ namespace MoreMountains.Tools
 			_fadeMode = fadeMode;
 			_interpolateProgress = interpolateProgress;
 			_antiSpillSceneName = antiSpillSceneName;
-			_speedIntervals = speedIntervals;
+			_waitToUnload = waitToUnload;
+			_unloadAllowed = false;
+            _speedIntervals = speedIntervals;
 
 			SceneManager.LoadScene(_loadingScreenSceneName, LoadSceneMode.Additive);
 		}
@@ -394,6 +400,10 @@ namespace MoreMountains.Tools
 			return _progressInterpolationSpeed;
 		}
 
+		public static void AllowUnload() {
+			_unloadAllowed = true;
+        }
+
 		/// <summary>
 		/// Loads the scene to load asynchronously.
 		/// </summary>
@@ -407,8 +417,14 @@ namespace MoreMountains.Tools
 			yield return UnloadOriginScenes();
 			yield return LoadDestinationScene();
 			yield return ProcessDelayBeforeExitFade();
-			yield return DestinationSceneActivation();
-			yield return ExitFade();
+            yield return DestinationSceneActivation();
+
+            // so I can keep the loading screen until the game screen is done loading
+            while (_waitToUnload && !_unloadAllowed) {
+                yield return null;
+            }
+
+            yield return ExitFade();
 			yield return UnloadSceneLoader();
 		}
 

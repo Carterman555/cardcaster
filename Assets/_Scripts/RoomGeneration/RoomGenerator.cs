@@ -1,4 +1,5 @@
 using DG.Tweening;
+using MoreMountains.Tools;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -51,6 +52,9 @@ public class RoomGenerator : StaticInstance<RoomGenerator> {
         yield return null;
 
         isGeneratingRooms = false;
+
+        MMAdditiveSceneLoadingManager.AllowUnload();
+
         OnCompleteGeneration?.Invoke();
     }
 

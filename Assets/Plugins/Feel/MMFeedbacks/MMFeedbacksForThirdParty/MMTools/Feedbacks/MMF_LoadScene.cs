@@ -67,8 +67,10 @@ namespace MoreMountains.Feedbacks
 		         "If left empty, that scene will be automatically created, but you can specify any scene to use for that. Usually you'll want your own anti spill scene to be just an empty scene, but you can customize its lighting settings for example.")]
 		[MMFEnumCondition("LoadingMode", (int)LoadingModes.MMAdditiveSceneLoadingManager)]
 		public string AntiSpillSceneName = "";
-		
-		[MMFInspectorGroup("Loading Scene Delays", true, 58)] 
+
+        public bool WaitForMethodCallToUnload = false;
+
+        [MMFInspectorGroup("Loading Scene Delays", true, 58)] 
 		/// a delay (in seconds) to apply before the first fade plays
 		[Tooltip("a delay (in seconds) to apply before the first fade plays")]
 		public float BeforeEntryFadeDelay = 0f;
@@ -131,7 +133,7 @@ namespace MoreMountains.Feedbacks
 					break;
 				case LoadingModes.MMAdditiveSceneLoadingManager:
 					MMAdditiveSceneLoadingManager.LoadScene(DestinationSceneName, LoadingSceneName, 
-						Priority, SecureLoad, InterpolateProgress, 
+						Priority, SecureLoad, InterpolateProgress, WaitForMethodCallToUnload,
 						BeforeEntryFadeDelay, EntryFadeDuration,
 						AfterEntryFadeDelay,
 						BeforeExitFadeDelay, ExitFadeDuration,

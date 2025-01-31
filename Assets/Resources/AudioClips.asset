@@ -47,7 +47,7 @@ MonoBehaviour:
     - {fileID: 8300000, guid: 369b9f5ed0430e047b1d9b1ccb154007, type: 3}
     - {fileID: 8300000, guid: 3d521fc055eadb142825ab1278b1486f, type: 3}
     - {fileID: 8300000, guid: 14927c23c79ae7946b99084518e78307, type: 3}
-    Volume: 0.2
+    Volume: 0.07
     PitchVariation: 0
   swing:
     Clips:

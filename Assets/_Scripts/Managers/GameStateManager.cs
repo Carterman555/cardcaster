@@ -12,14 +12,22 @@ public class GameStateManager : StaticInstance<GameStateManager> {
     protected override void Awake() {
         base.Awake();
 
-        currentState = GameState.Game;
+        //... the game is loading until the room is generated
+        currentState = GameState.Loading;
     }
 
     private void OnEnable() {
+        RoomGenerator.OnCompleteGeneration += OnRoomGeneration;
         InputManager.OnActionMapChanged += OnActionMapChanged;
     }
+
     private void OnDisable() {
+        RoomGenerator.OnCompleteGeneration -= OnRoomGeneration;
         InputManager.OnActionMapChanged -= OnActionMapChanged;
+    }
+
+    private void OnRoomGeneration() {
+        currentState = GameState.Game;
     }
 
     private void OnActionMapChanged(string mapActionName) {
@@ -44,5 +52,6 @@ public class GameStateManager : StaticInstance<GameStateManager> {
 public enum GameState {
     Game,
     CutScene,
-    UI
+    UI,
+    Loading
 }

@@ -11,7 +11,7 @@ public class PlayGameButton : GameButton {
     protected override void OnClick() {
         base.OnClick();
 
-        bool startTutorial = tutorialButton || PlayerPrefs.GetInt("TutorialCompleted") == 0;
+        bool startTutorial = tutorialButton || ES3.Load<bool>("TutorialCompleted");
 
         if (noTutorialDebug) {
             startTutorial = false;

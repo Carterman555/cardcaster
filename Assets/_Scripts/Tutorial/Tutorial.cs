@@ -156,7 +156,7 @@ public class Tutorial : MonoBehaviour {
         bool noMoreSteps = currentStepIndex >= tutorialSteps.Length;
         if (noMoreSteps) {
             tutorialActive = false;
-            PlayerPrefs.SetInt("TutorialCompleted", 1);
+            ES3.Save("TutorialCompleted", true);
             return;
         }
 

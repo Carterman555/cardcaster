@@ -16,7 +16,6 @@ public class ChasePlayerBehavior : MonoBehaviour, IEffectable, IEnemyMovement {
         agent = GetComponent<NavMeshAgent>();
         agent.updateRotation = false;
         agent.updateUpAxis = false;
-        agent.isStopped = false;
 
         knockback = GetComponent<Knockback>();
     }
@@ -30,6 +29,10 @@ public class ChasePlayerBehavior : MonoBehaviour, IEffectable, IEnemyMovement {
         agent.isStopped = false;
         agent.speed = hasStats.GetStats().MoveSpeed;
         agent.SetDestination(PlayerMovement.Instance.transform.position);
+    }
+
+    private void OnEnable() {
+        agent.isStopped = false; // moved from awake: might cause bugs
     }
 
     private void OnDisable() {

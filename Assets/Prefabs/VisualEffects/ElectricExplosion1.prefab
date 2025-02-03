@@ -4914,7 +4914,7 @@ GameObject:
   - component: {fileID: 292279507781135857}
   - component: {fileID: 7380045598531030640}
   m_Layer: 0
-  m_Name: ElectricExplosion
+  m_Name: ElectricExplosion1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

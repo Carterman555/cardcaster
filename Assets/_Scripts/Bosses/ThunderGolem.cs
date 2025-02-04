@@ -158,6 +158,8 @@ public class ThunderGolem : MonoBehaviour, IHasStats, IBoss {
 
         var emissionModule = electricFieldParticles.emission;
 
+        AudioManager.Instance.PlaySound(AudioManager.Instance.AudioClips.ThunderGolemCharging);
+
         while (currentState == GolemState.Charge) {
 
             //... ranges from 0 to 1 depending on how long golem has been in charge state
@@ -194,6 +196,8 @@ public class ThunderGolem : MonoBehaviour, IHasStats, IBoss {
             projectile.Setup(randomDirection, projectileSpeed.Randomize());
             projectile.GetComponent<DamageOnContact>().Setup(GetStats().Damage, GetStats().KnockbackStrength);
         }
+
+        AudioManager.Instance.PlaySound(AudioManager.Instance.AudioClips.ThunderGolemExplode);
     }
 
     #endregion

@@ -40,15 +40,6 @@ MonoBehaviour:
       - {fileID: 8300000, guid: aa7b7b6c6924aff4fbc12a9defef75f6, type: 3}
       Volume: 0.5
       PitchVariation: 0
-  playerStep:
-    Clips:
-    - {fileID: 8300000, guid: cdf3c10dd73de7142886c59dbd7ae7b4, type: 3}
-    - {fileID: 8300000, guid: fdebae1212f7b44499c5bcbf1440c310, type: 3}
-    - {fileID: 8300000, guid: 369b9f5ed0430e047b1d9b1ccb154007, type: 3}
-    - {fileID: 8300000, guid: 3d521fc055eadb142825ab1278b1486f, type: 3}
-    - {fileID: 8300000, guid: 14927c23c79ae7946b99084518e78307, type: 3}
-    Volume: 0.07
-    PitchVariation: 0
   swing:
     Clips:
     - {fileID: 8300000, guid: 4267915e1b8c2144abe1f9299d467768, type: 3}
@@ -113,6 +104,20 @@ MonoBehaviour:
     Clips:
     - {fileID: 8300000, guid: f11ea60fd259cad4e820d3eaf8f0a5cc, type: 3}
     Volume: 1
+    PitchVariation: 0
+  thunderGolemCharging:
+    Clips:
+    - {fileID: 8300000, guid: 834b6b676fdaa6e41832bf70349f7030, type: 3}
+    Volume: 1
+    PitchVariation: 0
+  thunderGolemExplode:
+    Clips:
+    - {fileID: 8300000, guid: 834b6b676fdaa6e41832bf70349f7030, type: 3}
+    Volume: 0
+    PitchVariation: 0
+  thunderGolemArea:
+    Clips: []
+    Volume: 0
     PitchVariation: 0
   drawCard:
     Clips:

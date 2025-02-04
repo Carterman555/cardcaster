@@ -60,29 +60,6 @@ public class PlayerMovement : StaticInstance<PlayerMovement>, IHasStats, IChange
         }
 
         FaceAttackDirection();
-
-        HandleStepSounds(moving);
-    }
-
-    private bool wasMoving;
-
-    private void HandleStepSounds(bool moving) {
-
-        bool startedMoving = !wasMoving && moving;
-        wasMoving = moving;
-
-        if (startedMoving) {
-            stepTimer = 1f;
-        }
-
-        if (moving) {
-            float stepCooldown = 0.2f;
-            stepTimer += Time.deltaTime;
-            if (stepTimer > stepCooldown) {
-                AudioManager.Instance.PlaySound(AudioManager.Instance.AudioClips.PlayerStep);
-                stepTimer = 0;
-            }
-        }
     }
 
     private void FixedUpdate() {

@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 6963393436620422442}
   - component: {fileID: -738669564614439550}
   - component: {fileID: -714925471667397057}
+  - component: {fileID: 7783729541228564949}
   m_Layer: 7
   m_Name: ThunderGolem
   m_TagString: Untagged
@@ -174,7 +175,7 @@ MonoBehaviour:
   anim: {fileID: 4039351960834069205}
   centerPoint: {fileID: 2512676828727106287}
   debugState: 1
-  stateToDebug: 3
+  stateToDebug: 1
   visual: {fileID: 1823223821966942030}
   electricFieldParticles: {fileID: 6796057639315721125}
   electricExplosionPrefab: {fileID: 961277298218184562, guid: cfad7ede2d9eb544f90e3117018e4f7a, type: 3}
@@ -334,11 +335,33 @@ MonoBehaviour:
   enemyAnim: {fileID: 0}
   hasWeapon: 0
   weaponAnim: {fileID: 0}
-  customSFX: 0
+  customSFX: 1
   shootSFX:
-    Clips: []
-    Volume: 0
-    PitchVariation: 0
+    Clips:
+    - {fileID: 8300000, guid: c8dd825771242bb4da94ccfd3abafbab, type: 3}
+    Volume: 0.2
+    PitchVariation: 0.1
+--- !u!114 &7783729541228564949
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1338195640233062225}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2a1fc403f7bcb24e9580d9e05ee5e89, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  walkClips:
+    Clips:
+    - {fileID: 8300000, guid: 4761f3afb7e86144789cd8fa6f231ff1, type: 3}
+    - {fileID: 8300000, guid: c2645e99858ff294a91003ca135b7370, type: 3}
+    - {fileID: 8300000, guid: 4ae09a6d50beff14ea3fb342690b1889, type: 3}
+    - {fileID: 8300000, guid: 8285606f73c2001488a18f94d14ab962, type: 3}
+    Volume: 0.2
+    PitchVariation: 0.15
+  stepCooldown: 0.4
 --- !u!1 &4662255200744270860
 GameObject:
   m_ObjectHideFlags: 0
@@ -437,7 +460,7 @@ Animator:
   m_GameObject: {fileID: 4662255200744270860}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: f2091890c208a9b40b0f229cc70dce09, type: 2}
+  m_Controller: {fileID: 9100000, guid: 4993d1ae721ebdc40b094248c84e65c6, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

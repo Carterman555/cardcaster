@@ -12,9 +12,6 @@ public class ScriptableAudio : ScriptableObject {
 
     [Header("Player")]
 
-    [SerializeField] private AudioClips playerStep;
-    public AudioClips PlayerStep => playerStep;
-
     [SerializeField] private AudioClips swing;
     public AudioClips Swing => swing;
 
@@ -51,6 +48,15 @@ public class ScriptableAudio : ScriptableObject {
 
     [SerializeField] private AudioClips drChonkHeal;
     public AudioClips DrChonkHeal => drChonkHeal;
+
+    [SerializeField] private AudioClips thunderGolemCharging;
+    public AudioClips ThunderGolemCharging => thunderGolemCharging;
+
+    [SerializeField] private AudioClips thunderGolemExplode;
+    public AudioClips ThunderGolemExplode => thunderGolemExplode;
+
+    [SerializeField] private AudioClips thunderGolemArea;
+    public AudioClips ThunderGolemArea => thunderGolemArea;
 
     [Header("Cards")]
 

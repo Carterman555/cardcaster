@@ -265,13 +265,23 @@ public class ThunderGolem : MonoBehaviour, IHasStats, IBoss {
     [SerializeField] private ElectricArea electricAreaPrefab;
     [SerializeField] private RandomFloat areaSpawnCooldown;
 
+    [SerializeField][Range(0f, 1f)] private float spawnOnPlayerProbability;
+
     private IEnumerator SpawnElectricAreas() {
 
         while (currentState == GolemState.Areas) {
 
             yield return new WaitForSeconds(areaSpawnCooldown.Randomize());
 
-            electricAreaPrefab.Spawn(new RoomPositionHelper().GetRandomRoomPos());
+            Vector2 spawnPosition;
+            if (UnityEngine.Random.value < spawnOnPlayerProbability) {
+                spawnPosition = PlayerMovement.Instance.transform.position;
+            }
+            else {
+                spawnPosition = new RoomPositionHelper().GetRandomRoomPos(obstacleAvoidanceRadius: 0f, wallAvoidDistance: 3f);
+            }
+
+            electricAreaPrefab.Spawn(spawnPosition, Containers.Instance.Projectiles);
         }
 
     }

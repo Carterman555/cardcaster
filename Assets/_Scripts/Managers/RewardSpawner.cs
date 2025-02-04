@@ -73,9 +73,15 @@ public class RewardSpawner : MonoBehaviour {
             }
         }
 
-        CardDrop newCardDrop = cardDropPrefab.Spawn(bossRoom.GetBossSpawnPoint().position, Containers.Instance.Drops);
+        StartCoroutine(SpawnBossCardCor(bossRoom.GetBossSpawnPoint().position, possibleCardsToSpawn.RandomItem()));
+    }
 
-        ScriptableCardBase scriptableCard = possibleCardsToSpawn.RandomItem();
+    private IEnumerator SpawnBossCardCor(Vector2 position, ScriptableCardBase scriptableCard) {
+
+        float spawnBossLootDelay = 1.5f;
+        yield return new WaitForSeconds(spawnBossLootDelay);
+
+        CardDrop newCardDrop = cardDropPrefab.Spawn(position, Containers.Instance.Drops);
         newCardDrop.SetCard(scriptableCard);
     }
 }

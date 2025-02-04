@@ -31,6 +31,8 @@ public class ElectricArea : MonoBehaviour {
         electricParticles.Stop();
 
         active = false;
+        warningTimer = 0;
+        activeTimer = 0;
     }
 
     private void Update() {
@@ -49,6 +51,8 @@ public class ElectricArea : MonoBehaviour {
             activeTimer += Time.deltaTime;
             if (activeTimer > activeTime) {
                 electricParticles.Stop();
+
+                activeTimer = 0f;
 
                 visual.DOFade(0f, duration: 0.3f).OnComplete(() => {
                     gameObject.ReturnToPool();

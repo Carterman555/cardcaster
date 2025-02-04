@@ -5,19 +5,22 @@ public class RoomPositionHelper {
     private Vector2 avoidCenter = Vector2.zero;
     private float avoidRadius = 0f;
     private float obstacleAvoidDistance = 0f;
+    private float wallAvoidDistance = 0f;
     private bool mustBeOnGroundTile = true;
 
-    public Vector2 GetRandomRoomPos(float obstacleAvoidanceRadius = 1f) {
+    public Vector2 GetRandomRoomPos(float obstacleAvoidanceRadius = 1f, float wallAvoidDistance = 1f) {
         Vector2 randomPoint = new RoomPositionHelper()
             .SetObstacleAvoidance(obstacleAvoidanceRadius)
+            .SetWallAvoidance(wallAvoidDistance)
             .GetRandomPositionInCollider();
         return randomPoint;
     }
 
-    public Vector2 GetRandomRoomPos(Vector2 avoidCenter, float avoidRadius, float obstacleAvoidanceRadius = 1f) {
+    public Vector2 GetRandomRoomPos(Vector2 avoidCenter, float avoidRadius, float obstacleAvoidDistance = 1f, float wallAvoidDistance = 1f) {
         Vector2 randomPoint = new RoomPositionHelper()
             .SetAvoidArea(avoidCenter, avoidRadius)
-            .SetObstacleAvoidance(obstacleAvoidanceRadius)
+            .SetObstacleAvoidance(obstacleAvoidDistance)
+            .SetWallAvoidance(wallAvoidDistance)
             .GetRandomPositionInCollider();
         return randomPoint;
     }
@@ -32,6 +35,11 @@ public class RoomPositionHelper {
 
     public RoomPositionHelper SetObstacleAvoidance(float distance) {
         this.obstacleAvoidDistance = distance;
+        return this;
+    }
+
+    public RoomPositionHelper SetWallAvoidance(float distance) {
+        this.wallAvoidDistance = distance;
         return this;
     }
 
@@ -67,6 +75,9 @@ public class RoomPositionHelper {
         if (obstacleAvoidDistance > 0 && IsNearObstacle(point, obstacleAvoidDistance))
             return false;
 
+        if (wallAvoidDistance > 0 && IsNearWall(point, wallAvoidDistance))
+            return false;
+
         return true;
     }
 
@@ -96,6 +107,10 @@ public class RoomPositionHelper {
 
     private bool IsNearObstacle(Vector2 point, float obstacleAvoidanceRadius = 1f) {
         return Physics2D.OverlapCircle(point, obstacleAvoidanceRadius, GameLayers.ObstacleLayerMask);
+    }
+
+    private bool IsNearWall(Vector2 point, float wallAvoidanceRadius = 1f) {
+        return Physics2D.OverlapCircle(point, wallAvoidanceRadius, GameLayers.WallLayerMask);
     }
 
     #endregion

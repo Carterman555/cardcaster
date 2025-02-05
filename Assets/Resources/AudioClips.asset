@@ -105,20 +105,16 @@ MonoBehaviour:
     - {fileID: 8300000, guid: f11ea60fd259cad4e820d3eaf8f0a5cc, type: 3}
     Volume: 1
     PitchVariation: 0
-  thunderGolemCharging:
+  thunderGolemCharge:
     Clips:
-    - {fileID: 8300000, guid: 834b6b676fdaa6e41832bf70349f7030, type: 3}
-    Volume: 1
-    PitchVariation: 0
-  thunderGolemExplode:
-    Clips:
-    - {fileID: 8300000, guid: 834b6b676fdaa6e41832bf70349f7030, type: 3}
-    Volume: 0
+    - {fileID: 8300000, guid: 6b7c97e36dd8cb0419a0c694e1f166dc, type: 3}
+    Volume: 0.682
     PitchVariation: 0
   thunderGolemArea:
-    Clips: []
-    Volume: 0
-    PitchVariation: 0
+    Clips:
+    - {fileID: 8300000, guid: 13249c99cb198f94a8e4792a7fa4f6d6, type: 3}
+    Volume: 0.15
+    PitchVariation: 0.3
   drawCard:
     Clips:
     - {fileID: 8300000, guid: e9abfb5e1aad99a41b61898d1c0923d0, type: 3}

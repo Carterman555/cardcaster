@@ -19,10 +19,11 @@ public class RoomCreatorWindow : EditorWindow {
     private RoomTilemapCreator roomTilemapCreator;
     private EnvironmentType environmentType;
 
-    private PolygonCollider2D roomCollider;
-    private PolygonCollider2D camConfinerCollider;
-
-    private Light2D roomLight;
+    // objects
+    private GameObject torchPrefab;
+    private GameObject torch1;
+    private GameObject torch2;
+    private float approxSpacing;
 
     // setup multiple lights
     private ScriptableRoomColliders scriptableRoomColliders;
@@ -78,14 +79,19 @@ public class RoomCreatorWindow : EditorWindow {
 
         GUILayout.Space(5);
         headerRect = GUILayoutUtility.GetRect(0, height: 30, GUILayout.ExpandWidth(true));
-        EditorGUI.LabelField(headerRect, "Collider Setup");
+        EditorGUI.LabelField(headerRect, "Setup");
         GUILayout.Space(5);
 
-        roomCollider = EditorGUILayout.ObjectField("Room Collider", roomCollider, typeof(PolygonCollider2D), true) as PolygonCollider2D;
-        camConfinerCollider = EditorGUILayout.ObjectField("Camera Confiner Collider", camConfinerCollider, typeof(PolygonCollider2D), true) as PolygonCollider2D;
-
-        if (ConditionalButton("Setup Polygon Colliders", mainRoom != null && roomCollider != null && camConfinerCollider != null)) {
+        if (ConditionalButton("Setup Polygon Colliders", mainRoom != null)) {
             SetTilemaps();
+
+            PolygonCollider2D roomCollider = mainRoom.GetComponent<PolygonCollider2D>();
+            Transform camConfiner = mainRoom.transform.Find("CameraConfiner");
+            if (camConfiner == null) {
+                Debug.LogError("Could not find object with name 'CameraConfiner'!");
+                return;
+            }
+            PolygonCollider2D camConfinerCollider = camConfiner.GetComponent<PolygonCollider2D>();
 
             // Start undo recording for this object
             Undo.RecordObject(roomCollider, "Setup Room Collider");
@@ -96,14 +102,62 @@ public class RoomCreatorWindow : EditorWindow {
             roomColliderMatcher.SetupCamConfinerCollider();
         }
 
-        roomLight = EditorGUILayout.ObjectField("Room Light", roomLight, typeof(Light2D), true) as Light2D;
+        if (ConditionalButton("Setup Light Shape", mainRoom != null)) {
 
-        if (ConditionalButton("Setup Light Shape", roomCollider != null && roomLight != null)) {
+            PolygonCollider2D roomCollider = mainRoom.GetComponent<PolygonCollider2D>();
+
+            Transform roomLightTransform = mainRoom.transform.Find("RoomLight");
+            if (roomLightTransform == null) {
+                Debug.LogError("Could not find object with name 'RoomLight'!");
+                return;
+            }
+            Light2D roomLight = roomLightTransform.GetComponent<Light2D>();
+
             Undo.RecordObject(roomLight, "Setup Light Shape");
 
             RoomLightShapeMatcher roomLightShapeMatcher = new();
             roomLightShapeMatcher.MatchLightShape(roomLight, roomCollider);
         }
+
+        if (ConditionalButton("Create Minimap Sprite", mainRoom != null)) {
+            SetupMinimapSprite(mainRoom);
+        }
+
+        GUILayout.Space(5);
+        headerRect = GUILayoutUtility.GetRect(0, height: 30, GUILayout.ExpandWidth(true));
+        EditorGUI.LabelField(headerRect, "Objects");
+        GUILayout.Space(5);
+
+        torchPrefab = EditorGUILayout.ObjectField("Torch Prefab", torchPrefab, typeof(GameObject), true) as GameObject;
+        torch1 = EditorGUILayout.ObjectField("Torch 1", torch1, typeof(GameObject), true) as GameObject;
+        torch2 = EditorGUILayout.ObjectField("Torch 2", torch2, typeof(GameObject), true) as GameObject;
+        approxSpacing = EditorGUILayout.FloatField("Approx Spacing", approxSpacing);
+
+        if (ConditionalButton("Create Torches", mainRoom != null && torchPrefab != null && torch1 != null && torch2 != null)) {
+
+            Undo.RecordObject(mainRoom, "Create Torches");
+
+            Vector2 startPos = torch1.transform.position;
+            Vector2 endPos = torch2.transform.position;
+
+            float distance = Vector2.Distance(startPos, endPos);
+
+            int amount = Mathf.RoundToInt(distance / approxSpacing);
+            float actualSpacing = distance / amount;
+
+            Vector2 currentPos = startPos;
+            for (int i = 0; i < amount - 1; i++) {
+                currentPos = Vector2.MoveTowards(currentPos, endPos, actualSpacing);
+                GameObject newTorch = (GameObject)PrefabUtility.InstantiatePrefab(torchPrefab);
+                newTorch.transform.SetPositionAndRotation(currentPos, Quaternion.identity);
+                newTorch.transform.SetParent(mainRoom.transform);
+            }
+        }
+
+        GUILayout.Space(5);
+        headerRect = GUILayoutUtility.GetRect(0, height: 30, GUILayout.ExpandWidth(true));
+        EditorGUI.LabelField(headerRect, "Multiple Room Setup");
+        GUILayout.Space(5);
 
         scriptableRoomColliders = EditorGUILayout.ObjectField("Room Colliders", scriptableRoomColliders, typeof(ScriptableRoomColliders), true) as ScriptableRoomColliders;
 
@@ -116,16 +170,7 @@ public class RoomCreatorWindow : EditorWindow {
             }
         }
 
-        GUILayout.Space(5);
-        headerRect = GUILayoutUtility.GetRect(0, height: 30, GUILayout.ExpandWidth(true));
-        EditorGUI.LabelField(headerRect, "Minimap Sprite");
-        GUILayout.Space(5);
-
         scriptableRooms = EditorGUILayout.ObjectField("Rooms", scriptableRooms, typeof(ScriptableRooms), true) as ScriptableRooms;
-
-        if (ConditionalButton("Create Minimap Sprite", mainRoom != null)) {
-            SetupMinimapSprite(mainRoom);
-        }
 
         if (ConditionalButton("Create All Minimap Sprites", scriptableRooms != null)) {
             foreach (GameObject room in scriptableRooms.Rooms) {

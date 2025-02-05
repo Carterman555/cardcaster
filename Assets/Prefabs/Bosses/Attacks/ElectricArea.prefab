@@ -5143,6 +5143,7 @@ MonoBehaviour:
   activeTime: 3
   activeFadeAmount: 0.3
   electricParticles: {fileID: 7199695468161049478}
+  touchDamageTrigger: {fileID: 5029711992518534004}
 --- !u!1 &4375084583155844625
 GameObject:
   m_ObjectHideFlags: 0

@@ -33,18 +33,18 @@ public class AudioManager : Singleton<AudioManager> {
 
     
 
-    public void PlaySound(AudioClips audioClips, bool uiSound = false, float pitchVariation = 0f) {
+    public GameObject PlaySound(AudioClips audioClips, bool uiSound = false, bool loop = false) {
 
         if (audioClips.Clips == null || audioClips.Clips.Count() == 0) {
             Debug.LogWarning("Tried playing sound with no audio clips");
-            return;
+            return null;
         }
 
         AudioClip audioClip = audioClips.Clips.RandomItem();
         AudioMixerGroup audioMixerGroup = uiSound ? uiMixerGroup : sfxMixerGroup;
-        float pitch = 1f + UnityEngine.Random.Range(-pitchVariation, pitchVariation);
+        float pitch = 1f + UnityEngine.Random.Range(-audioClips.PitchVariation, audioClips.PitchVariation);
 
-        PlaySound(audioClip, audioMixerGroup, audioClips.Volume, pitch);
+        return PlaySound(audioClip, audioMixerGroup, audioClips.Volume, pitch, loop);
     }
 
     // when multiple of the same sound are played at the same time, ignore all but the first one
@@ -59,7 +59,7 @@ public class AudioManager : Singleton<AudioManager> {
         audioClipsTimers.Add(new AudioClipsTimer(audioClips, ignoreTime));
     }
 
-    public void PlaySound(AudioClip audioClip, AudioMixerGroup audioMixerGroup, float vol, float pitch = 1f) {
+    public GameObject PlaySound(AudioClip audioClip, AudioMixerGroup audioMixerGroup, float vol, float pitch = 1f, bool loop = false) {
         GameObject audioSourceGO = audioSourcePrefab.Spawn(transform);
         AudioSource audioSource = audioSourceGO.GetComponent<AudioSource>();
 
@@ -67,10 +67,15 @@ public class AudioManager : Singleton<AudioManager> {
         audioSource.outputAudioMixerGroup = audioMixerGroup;
         audioSource.volume = vol;
         audioSource.pitch = pitch;
+        audioSource.loop = loop;
 
         audioSource.Play();
 
-        StartCoroutine(ReturnOnComplete(audioSourceGO, audioClip.length));
+        if (!loop) {
+            StartCoroutine(ReturnOnComplete(audioSourceGO, audioClip.length));
+        }
+
+        return audioSourceGO;
     }
 
     private IEnumerator ReturnOnComplete(GameObject audioSourceGO, float clipLength) {

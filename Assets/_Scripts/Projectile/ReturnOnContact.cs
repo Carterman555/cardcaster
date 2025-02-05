@@ -8,15 +8,21 @@ public class ReturnOnContact : MonoBehaviour {
     [SerializeField] private LayerMask layerMask;
 
     [SerializeField] private bool returnOther;
-    [SerializeField] [ConditionalHide("returnOther")] private GameObject returnTarget;
+    [SerializeField, ConditionalHide("returnOther")] private GameObject returnTarget;
 
-    // so this script can be disabled
-    private void OnEnable() { }
+    // because sometimes trigger gets triggered by 2 objects that would return it in the same frame, and
+    // only 1 of them should return the object to pool
+    private bool returned;
+
+    private void OnEnable() {
+        returned = false;
+    }
 
     private void OnTriggerEnter2D(Collider2D collision) {
-        if (layerMask.ContainsLayer(collision.gameObject.layer) && enabled) {
+        if (layerMask.ContainsLayer(collision.gameObject.layer) && enabled && !returned) {
             if (!returnOther) {
                 gameObject.ReturnToPool();
+                returned = true;
             }
             else {
                 returnTarget.ReturnToPool();

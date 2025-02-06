@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f39f8fa72b60e1341889981f5fd9c4a8, type: 3}
-  m_Name: BasicRoom3-BlueStone
+  m_Name: CardLibrary1-BlueStone
   m_EditorClassIdentifier: 
   roomType: 0
   environmentType: 2
-  roomPrefab: {fileID: 3084685571954290978, guid: 381e20d602b6e9a4baaec66f035c1061, type: 3}
+  roomPrefab: {fileID: 3084685571954290978, guid: b13956cf2981d194f99e0b721731c16c, type: 3}
   noEnemies: 0
   scriptableEnemyComposition: {fileID: 0}

@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f39f8fa72b60e1341889981f5fd9c4a8, type: 3}
+  m_Name: BasicRoom4-SmoothStone
+  m_EditorClassIdentifier: 
+  roomType: 0
+  environmentType: 1
+  roomPrefab: {fileID: 3084685571954290978, guid: f430c1a81ffb2e047a52f0574c2485c7, type: 3}
+  noEnemies: 0
+  scriptableEnemyComposition: {fileID: 11400000, guid: 567c9daa1688ffd42849474142ebe3ff, type: 2}

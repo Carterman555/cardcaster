@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 1553045839660891999}
   - component: {fileID: -535809885505538932}
   - component: {fileID: 3918379502621676688}
+  - component: {fileID: 7940325038454631888}
   m_Layer: 10
   m_Name: Forge
   m_TagString: Untagged
@@ -165,3 +166,19 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 2.7507915, y: 0.8955711}
   m_EdgeRadius: 0
+--- !u!114 &7940325038454631888
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8853365288736932361}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9809bf1345abc5648af68b3a82653f08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_OverrideArea: 1
+  m_Area: 1
+  m_IgnoreFromBuild: 0
+  m_AffectedAgents: ffffffff

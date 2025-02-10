@@ -1042,7 +1042,7 @@ TextureImporter:
         width: 40
         height: 31
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -1050,6 +1050,27 @@ TextureImporter:
       bones: []
       spriteID: 10a02f40ed74f0d46a45d0c748cc269f
       internalID: -1975879975
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: paper
+      rect:
+        serializedVersion: 2
+        x: 86
+        y: 22
+        width: 6
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: aa14f5718e0936340b4ff401f82b2d79
+      internalID: -1864030139
       vertices: []
       indices: 
       edges: []
@@ -1110,6 +1131,7 @@ TextureImporter:
       objects-tilemap_7: 1389965165
       objects-tilemap_8: 1254425672
       objects-tilemap_9: -1015562037
+      paper: -1864030139
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

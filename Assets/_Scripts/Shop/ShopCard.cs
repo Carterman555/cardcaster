@@ -34,6 +34,8 @@ public class ShopCard : MonoBehaviour {
         this.card = card;
 
         spriteRenderer.sprite = card.GetSprite();
+        print($"{card.name}: set sprite: {card.GetSprite()}");
+
         changeShineColor.SetColor(card.GetRarity());
     }
 

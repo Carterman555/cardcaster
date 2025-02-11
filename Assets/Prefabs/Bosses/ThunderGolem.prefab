@@ -174,8 +174,8 @@ MonoBehaviour:
       MaxValue: 12
   anim: {fileID: 4039351960834069205}
   centerPoint: {fileID: 2512676828727106287}
-  debugState: 0
-  stateToDebug: 1
+  debugState: 1
+  stateToDebug: 0
   visual: {fileID: 1823223821966942030}
   electricFieldParticles: {fileID: 6796057639315721125}
   electricExplosionPrefab: {fileID: 961277298218184562, guid: cfad7ede2d9eb544f90e3117018e4f7a, type: 3}
@@ -646,7 +646,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2512676828727106287}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: CenterPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}

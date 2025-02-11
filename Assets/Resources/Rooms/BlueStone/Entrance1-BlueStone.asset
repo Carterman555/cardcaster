@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f39f8fa72b60e1341889981f5fd9c4a8, type: 3}
-  m_Name: ChestRoom-Stone-d
+  m_Name: Entrance1-BlueStone
   m_EditorClassIdentifier: 
-  roomType: 2
-  environmentType: 1
-  roomPrefab: {fileID: 3084685571954290978, guid: 97219980dd8738042ae64ced56a1adea, type: 3}
+  roomType: 5
+  environmentType: 2
+  roomPrefab: {fileID: 3084685571954290978, guid: e2597bd1690d51447a99b18291f75383, type: 3}
   noEnemies: 1
-  scriptableEnemyComposition: {fileID: 0}
+  scriptableEnemyComposition: {fileID: 11400000, guid: e19c93c0c43290b478f6319885f1b4e0, type: 2}

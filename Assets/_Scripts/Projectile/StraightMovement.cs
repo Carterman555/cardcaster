@@ -11,13 +11,13 @@ public class StraightMovement : MonoBehaviour {
     }
 
     public void Setup(Vector2 direction) {
-        transform.up = direction;
-        rb.velocity = direction * moveSpeed;
+        transform.up = direction.normalized;
+        rb.velocity = direction.normalized * moveSpeed;
     }
 
     public void Setup(Vector2 direction, float moveSpeed) {
-        transform.up = direction;
+        transform.up = direction.normalized;
         this.moveSpeed = moveSpeed;
-        rb.velocity = direction * moveSpeed;
+        rb.velocity = direction.normalized * moveSpeed;
     }
 }

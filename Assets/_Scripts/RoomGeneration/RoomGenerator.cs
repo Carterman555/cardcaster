@@ -40,6 +40,9 @@ public class RoomGenerator : StaticInstance<RoomGenerator> {
 
     public void GenerateRooms(EnvironmentType environmentType) {
         currentEnvironmentType = environmentType;
+
+        currentEnvironmentType = EnvironmentType.BlueStone;
+
         StartCoroutine(GenerateRoomsCor());
     }
 
@@ -111,9 +114,11 @@ public class RoomGenerator : StaticInstance<RoomGenerator> {
     }
 
     private IEnumerator SpawnRoomCheckers(RoomConnection layout) {
+        Debug.Log($"Starting SpawnRoomCheckers for layout with {layout.connectedRooms.Count} connected rooms");
 
         // Recursively go through each room type in layout
         foreach (RoomConnection subLayout in layout.connectedRooms) {
+            Debug.Log($"Processing subLayout of type {subLayout.roomType}");
             bool canSpawn = false;
             ScriptableRoom newRoomScriptable = null;
             Room newRoomPrefab = null;
@@ -122,27 +127,32 @@ public class RoomGenerator : StaticInstance<RoomGenerator> {
 
             // Until it spawns a room that can be spawned
             while (!canSpawn) {
+                Debug.Log($"Attempt #{tryRoomCounter} to spawn room of type {subLayout.roomType}");
 
                 tryRoomCounter++;
                 int tryRoomAmount = 15;
                 if (tryRoomCounter > tryRoomAmount) {
                     failedRoomCreation = true;
+                    Debug.LogError($"Failed to create room after {tryRoomAmount} attempts");
                     yield break; // exits method
                 }
 
                 newRoomScriptable = GetRandomUniqueRoom(subLayout.roomType);
                 newRoomPrefab = newRoomScriptable.Prefab;
+                Debug.Log($"Selected room: {newRoomScriptable.name}");
 
                 // Try to spawn this room
                 yield return StartCoroutine(TrySpawnRoomChecker(newRoomPrefab, subLayout.ParentRoomOverlapChecker, (success) => canSpawn = success));
             }
 
             usedRooms[newRoomScriptable.RoomType].Add(newRoomScriptable);
+            Debug.Log($"Successfully spawned room: {newRoomScriptable.name}");
 
             RoomOverlapChecker newRoomChecker = roomOverlapCheckers.Last();
             SetChildrensChecker(subLayout, newRoomChecker, newRoomPrefab);
 
             if (!failedRoomCreation) {
+                Debug.Log("Starting recursive spawn for connected rooms");
                 yield return StartCoroutine(SpawnRoomCheckers(subLayout)); // Recursive spawn
             }
         }
@@ -150,6 +160,7 @@ public class RoomGenerator : StaticInstance<RoomGenerator> {
 
     // Choose random unique room with matching type
     private ScriptableRoom GetRandomUniqueRoom(RoomType roomType) {
+        Debug.Log($"Getting random room of type {roomType}");
         ScriptableRoom newRoomScriptable;
         List<ScriptableRoom> availableRooms = ResourceSystem.Instance.GetRooms(roomType)
             .Where(room => room.EnvironmentType == currentEnvironmentType)
@@ -167,6 +178,7 @@ public class RoomGenerator : StaticInstance<RoomGenerator> {
             Debug.LogError("There are no rooms of type " + roomType + " available!");
         }
 
+        Debug.Log($"Found {availableRooms.Count} available rooms of type {roomType}");
         newRoomScriptable = availableRooms.RandomItem();
         return newRoomScriptable;
     }
@@ -182,11 +194,13 @@ public class RoomGenerator : StaticInstance<RoomGenerator> {
     /// then return the position where the connection can be made
     /// </summary>
     private IEnumerator TrySpawnRoomChecker(Room newRoomPrefab, RoomOverlapChecker existingRoomChecker, Action<bool> callback) {
+        Debug.Log($"Attempting to spawn room checker for {newRoomPrefab.name}");
 
         RoomOverlapChecker newRoomChecker = roomOverlapCheckerPrefab.Spawn(Containers.Instance.RoomOverlapCheckers);
         newRoomChecker.Setup(newRoomPrefab, existingRoomChecker);
 
         foreach (PossibleDoorway existingDoorway in existingRoomChecker.GetPossibleDoorways()) {
+            Debug.Log($"Checking doorway compatibility for {existingDoorway.GetSide()}");
 
             if (newRoomChecker.CanConnectToDoorwaySide(existingDoorway.GetSide())) {
 
@@ -197,6 +211,8 @@ public class RoomGenerator : StaticInstance<RoomGenerator> {
                 yield return null;
 
                 if (!newRoomChecker.OverlapsWithRoomChecker(roomOverlapCheckers)) {
+                    Debug.Log($"Successfully found valid position for {newRoomPrefab.name}");
+
                     roomOverlapCheckers.Add(newRoomChecker);
 
                     newRoomChecker.AddCreatedDoorway(newRoomDoorway, existingRoomChecker);
@@ -205,9 +221,11 @@ public class RoomGenerator : StaticInstance<RoomGenerator> {
                     callback(true);
                     yield break;
                 }
+                Debug.Log("Room overlaps with existing rooms, trying next doorway");
             }
         }
 
+        Debug.Log($"Failed to find valid position for {newRoomPrefab.name}");
         newRoomChecker.gameObject.ReturnToPool();
         callback(false);
     }

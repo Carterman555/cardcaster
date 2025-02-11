@@ -238,24 +238,6 @@ public class ThunderGolem : MonoBehaviour, IHasStats, IBoss {
             // minus glowDuration so glowing effect doesn't add to shoot cooldown
             yield return new WaitForSeconds(GetStats().AttackCooldown - glowDuration);
 
-            //float maxGlow = 5f;
-            //float glowTimer = 0f;
-            //while (glowTimer < glowDuration) {
-
-            //    //... ranges from 0 to 1
-            //    float normalizedTimer = glowTimer / glowDuration;
-
-            //    float glow = Mathf.Lerp(0, maxGlow, normalizedTimer);
-            //    visual.material.SetFloat("_Glow", glow);
-
-            //    glowTimer += Time.deltaTime;
-
-            //    yield return null;
-            //}
-
-            //visual.material.SetFloat("_Glow", 0f);
-
-            //smallElectricExplosionPrefab.Spawn(centerPoint.position, Containers.Instance.Effects);
             shootBehavior.ShootProjectile();
         }
     }

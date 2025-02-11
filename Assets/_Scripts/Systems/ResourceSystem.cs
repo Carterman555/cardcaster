@@ -24,10 +24,6 @@ public class ResourceSystem : Singleton<ResourceSystem>
         AssembleResources();
     }
 
-    private void Start() {
-        LoadResources();
-    }
-
     private void AssembleResources() {
         LevelLayouts = Resources.LoadAll<ScriptableLevelLayout>("Layouts").ToList();
 
@@ -39,11 +35,11 @@ public class ResourceSystem : Singleton<ResourceSystem>
         Bosses = Resources.LoadAll<ScriptableBoss>("Bosses").ToList();
 
         AllCards = Resources.LoadAll<ScriptableCardBase>("Cards").ToList();
-    }
 
-    private void LoadResources() {
-        List<ScriptableCardBase> defaultUnlockedCards = AllCards.Where(c => c.StartUnlocked).ToList();
-        UnlockedCards = ES3.Load("UnlockedCards", defaultUnlockedCards);
+        // convert to card type list in order to load and save the cards
+        List<CardType> defaultUnlockedCardTypes = AllCards.Where(c => c.StartUnlocked).Select(c => c.CardType).ToList();
+        List<CardType> unlockedCardTypes = ES3.Load("UnlockedCardTypes", defaultUnlockedCardTypes);
+        UnlockedCards = AllCards.Where(c => unlockedCardTypes.Contains(c.CardType)).ToList();
     }
 
     public ScriptableLevelLayout GetRandomLayout() => LevelLayouts.RandomItem();
@@ -72,6 +68,8 @@ public class ResourceSystem : Singleton<ResourceSystem>
 
     protected override void OnApplicationQuit() {
         base.OnApplicationQuit();
-        ES3.Save("UnlockedCards", UnlockedCards);
+
+        //... convert to card type list in order to load and save the cards
+        ES3.Save("UnlockedCardTypes", UnlockedCards.Select(c => c.CardType).ToList());
     }
 }   

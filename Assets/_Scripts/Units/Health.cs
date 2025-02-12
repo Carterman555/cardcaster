@@ -36,6 +36,10 @@ public class Health : MonoBehaviour, IDamagable {
         return isInvincible;
     }
 
+    public float GetHealthProportion() {
+        return health / maxHealth;
+    }
+
     private void Awake() {
         Stats stats = GetComponent<IHasStats>().GetStats();
 

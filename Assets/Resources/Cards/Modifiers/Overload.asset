@@ -18,9 +18,9 @@ MonoBehaviour:
   cost: 1
   rarity: 1
   minLevel: 1
-  canStackWithSelf: 1
+  stackType: 0
   startUnlocked: 1
-  abilityAttributes: 5
+  abilityAttributes: 1
   abilityStatsModifierPercentage:
     Damage: 50
     KnockbackStrength: 0

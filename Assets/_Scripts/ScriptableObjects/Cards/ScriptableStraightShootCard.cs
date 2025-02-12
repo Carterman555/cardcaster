@@ -5,10 +5,10 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.VFX;
 
-[CreateAssetMenu(fileName = "SwordShootCard", menuName = "Cards/Sword Shoot Card")]
-public class ScriptableSwordShootCard : ScriptableAbilityCardBase {
+[CreateAssetMenu(fileName = "StraightShootCard", menuName = "Cards/Straight Shoot Card")]
+public class ScriptableStraightShootCard : ScriptableAbilityCardBase {
 
-    [SerializeField] private StraightMovement swordHologramPrefab;
+    [SerializeField] private StraightMovement projectilePrefab;
     [SerializeField] private float spawnOffsetValue;
 
     private List<GameObject> abilityEffectPrefabs = new();
@@ -20,12 +20,12 @@ public class ScriptableSwordShootCard : ScriptableAbilityCardBase {
 
         shootPos = position;
 
-        ShootSword();
+        Shoot();
 
         Stop();
     }
 
-    private void ShootSword() {
+    private void Shoot() {
 
         // get direction to shoot
         Vector2 toShootDirection = shootPos - PlayerMovement.Instance.transform.position;
@@ -33,8 +33,8 @@ public class ScriptableSwordShootCard : ScriptableAbilityCardBase {
         Vector2 offset = spawnOffsetValue * toShootDirection;
         Vector2 spawnPos = (Vector2)PlayerMovement.Instance.transform.position + offset;
 
-        // spawn and setup dagger
-        StraightMovement straightMovement = swordHologramPrefab.Spawn(spawnPos, Containers.Instance.Projectiles);
+        // spawn and setup projectile
+        StraightMovement straightMovement = projectilePrefab.Spawn(spawnPos, Containers.Instance.Projectiles);
         straightMovement.Setup(toShootDirection, Stats.ProjectileSpeed);
         straightMovement.GetComponent<DamageOnContact>().Setup(Stats.Damage, Stats.KnockbackStrength);
 

@@ -57,7 +57,7 @@ public enum CardType {
     SpinningFury,
     Launch,
     Boomerblade,
-    BLANK1,
+    Might,
     Bomb,
     SpectralBlade,
     ColossusBlade,
@@ -68,6 +68,8 @@ public enum CardType {
     Ricochet,
     Magnetify,
     DyingRage,
+    Sustain,
+    ThrowingKnife
 }
 
 // what to do when play again while already playing

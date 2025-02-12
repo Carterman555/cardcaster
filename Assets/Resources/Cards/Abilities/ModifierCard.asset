@@ -10,17 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ddceab62dd8231248bd8d7581dfc91e1, type: 3}
-  m_Name: MagnetifyCard
+  m_Name: ModifierCard
   m_EditorClassIdentifier: 
-  cardType: 17
-  description: Add a magnetic field to your abilities to draw enemies in
-  sprite: {fileID: 800488395, guid: d638d131cac6f4d45aeb96fc55848241, type: 3}
-  cost: 1
+  cardType: 0
+  description: 
+  sprite: {fileID: 0}
+  cost: 0
   rarity: 0
   minLevel: 1
   stackType: 0
-  startUnlocked: 1
-  abilityAttributes: 1
+  startUnlocked: 0
+  abilityAttributes: 0
   abilityStatsModifierPercentage:
     Damage: 0
     KnockbackStrength: 0
@@ -28,6 +28,6 @@ MonoBehaviour:
     Duration: 0
     ProjectileSpeed: 0
     Cooldown: 0
-  modifierImagePrefab: {fileID: -2071319084836149, guid: c6d28b118b972a744a66d705262b19cd, type: 3}
-  appliesEffect: 1
-  effectPrefab: {fileID: 79529023155393847, guid: 465b7af3edfec044f86658ea6c23b9e9, type: 3}
+  modifierImagePrefab: {fileID: 0}
+  appliesEffect: 0
+  effectPrefab: {fileID: 0}

@@ -10,25 +10,25 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: eededd394710dab42b626bc9c95a70ef, type: 3}
-  m_Name: SpectralBladeCard
+  m_Name: ThrowingKnifeCard
   m_EditorClassIdentifier: 
-  cardType: 10
-  description: Shoot a hologram of your sword
-  sprite: {fileID: -277019040, guid: d638d131cac6f4d45aeb96fc55848241, type: 3}
-  cost: 2
-  rarity: 1
+  cardType: 20
+  description: Throw a knife
+  sprite: {fileID: 1376469280, guid: d638d131cac6f4d45aeb96fc55848241, type: 3}
+  cost: 1
+  rarity: 0
   minLevel: 1
   stackType: 0
   startUnlocked: 1
   abilityAttributes: 9
   abilityStats:
     Damage: 15
-    KnockbackStrength: 1
+    KnockbackStrength: 1.25
     AreaSize: 0
     Duration: 0
-    ProjectileSpeed: 10
+    ProjectileSpeed: 15
     Cooldown: 0
   <IsPositional>k__BackingField: 1
   <IsModifiable>k__BackingField: 1
-  projectilePrefab: {fileID: 7351622199640359484, guid: 5ae316a57acdce24899fb301ed3c1b69, type: 3}
+  projectilePrefab: {fileID: 712133601725730603, guid: d716733ca4d8a4341a71e831dda4daa3, type: 3}
   spawnOffsetValue: 1

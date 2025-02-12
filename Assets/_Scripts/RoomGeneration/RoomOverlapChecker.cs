@@ -111,16 +111,16 @@ public class RoomOverlapChecker : MonoBehaviour {
         return possibleConnection;
     }
 
-    public PossibleDoorway GetRandomConnectingDoorway(DoorwaySide connectingDoorwaySide) {
+    public PossibleDoorway[] GetConnectingDoorways(DoorwaySide connectingDoorwaySide) {
         if (!CanConnectToDoorwaySide(connectingDoorwaySide)) {
             return null;
         }
 
-        List<PossibleDoorway> connectableDoorways = possibleDoorways
+        PossibleDoorway[] connectableDoorways = possibleDoorways
             .Where(doorway => GetOppositeSide(doorway.GetSide()) == connectingDoorwaySide)
-            .ToList();
+            .ToArray();
 
-        return connectableDoorways.RandomItem();
+        return connectableDoorways;
     }
 
     private DoorwaySide GetOppositeSide(DoorwaySide currentSide) {

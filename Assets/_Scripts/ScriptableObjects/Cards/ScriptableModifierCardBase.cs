@@ -26,7 +26,7 @@ public class ScriptableModifierCardBase : ScriptableCardBase {
     protected override void Play(Vector2 position) {
         base.Play(position);
 
-        if (!AbilityManager.Instance.IsModifierActive(this)) {
+        if (StackType == StackType.Stackable || !AbilityManager.Instance.IsModifierActive(this)) {
             Vector2 canvasPos = Camera.main.WorldToScreenPoint(position);
             ModifierImage modifierImage = modifierImagePrefab.Spawn(canvasPos, Containers.Instance.HUD);
             modifierImage.Setup(this);

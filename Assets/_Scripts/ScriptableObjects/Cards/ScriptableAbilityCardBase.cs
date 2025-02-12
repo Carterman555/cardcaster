@@ -5,14 +5,17 @@ using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public abstract class ScriptableAbilityCardBase : ScriptableCardBase {
 
     [SerializeField] private AbilityAttribute abilityAttributes;
     public AbilityAttribute AbilityAttributes => abilityAttributes;
 
-    [SerializeField] private AbilityStats abilityStats;
-    public AbilityStats Stats => abilityStats;
+    [FormerlySerializedAs("abilityStats")]
+    [SerializeField] private AbilityStats baseAbilityStats;
+    private AbilityStats stats;
+    public AbilityStats Stats => stats;
 
     [field: SerializeField] public bool IsPositional { get; private set; }
     [field: SerializeField] public bool IsModifiable { get; private set; } = true;
@@ -66,6 +69,8 @@ public abstract class ScriptableAbilityCardBase : ScriptableCardBase {
     protected override void Play(Vector2 position) {
         base.Play(position);
 
+        stats = baseAbilityStats;
+
         if (positioningCardCoroutine != null) {
             OnStopPositioningCard();
         }
@@ -101,7 +106,7 @@ public abstract class ScriptableAbilityCardBase : ScriptableCardBase {
     }
 
     private IEnumerator StopAfterDuration() {
-        yield return new WaitForSeconds(abilityStats.Duration);
+        yield return new WaitForSeconds(Stats.Duration);
         Stop();
     }
 

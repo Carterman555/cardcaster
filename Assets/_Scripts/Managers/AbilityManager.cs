@@ -59,6 +59,7 @@ public class AbilityManager : StaticInstance<AbilityManager> {
         foreach (var modifier in activeModifiers) {
             if (card.IsCompatible(modifier)) {
                 modifier.ApplyToAbility(card);
+                print($"Apply {modifier.name}");
             }
         }
         activeModifiers.Clear();

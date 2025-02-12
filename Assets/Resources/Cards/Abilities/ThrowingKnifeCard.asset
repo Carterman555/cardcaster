@@ -21,9 +21,9 @@ MonoBehaviour:
   stackType: 0
   startUnlocked: 1
   abilityAttributes: 9
-  abilityStats:
+  baseAbilityStats:
     Damage: 15
-    KnockbackStrength: 1.25
+    KnockbackStrength: 1
     AreaSize: 0
     Duration: 0
     ProjectileSpeed: 15

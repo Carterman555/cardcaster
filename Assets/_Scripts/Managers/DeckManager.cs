@@ -15,12 +15,15 @@ public class DeckManager : Singleton<DeckManager> {
 
     public static event Action<float> OnEssenceChanged_Amount;
 
+    [SerializeField] private int startingCardAmount;
     [SerializeField] private int maxHandSize;
 
     private List<ScriptableCardBase> cardsInDeck = new();
     private List<ScriptableCardBase> cardsInDiscard = new();
     private ScriptableCardBase[] cardsInHand;
     private List<ScriptableCardBase> cardsInModifierStack = new();
+
+    [SerializeField] private CardAmount[] startingCardPool;
 
     [SerializeField] private int maxEssence;
     private float essence;
@@ -75,13 +78,36 @@ public class DeckManager : Singleton<DeckManager> {
 
     protected override void Awake() {
         base.Awake();
-        SetupEmptyHand();
+
+        cardsInHand = new ScriptableCardBase[maxHandSize];
+        GiveStartingCards();
 
         essence = maxEssence;
     }
 
-    private void SetupEmptyHand() {
-        cardsInHand = new ScriptableCardBase[maxHandSize];
+    private void GiveStartingCards() {
+
+        //... availableCards has multiple copies of same cardtypes unlike startingCardPool which has the amounts as ints
+        List<CardType> availableCards = new();
+
+        foreach (CardAmount cardAmount in startingCardPool) {
+            for (int i = 0; i < cardAmount.Amount; i++) {
+                availableCards.Add(cardAmount.CardType);
+            }
+        }
+
+        if (availableCards.Count < startingCardAmount) {
+            Debug.LogWarning($"Not enough cards in pool! Available: {availableCards.Count}, Required: {startingCardAmount}");
+            startingCardAmount = availableCards.Count;
+        }
+
+
+        // choose random cards from the pool and add them to the deck
+        for (int i = 0; i < startingCardAmount; i++) {
+            CardType choosenCardType = availableCards.RandomItem();
+            availableCards.Remove(choosenCardType);
+            GainCard(ResourceSystem.Instance.GetCard(choosenCardType));
+        }
     }
 
     public void OnUseAbilityCard(int indexInHand) {
@@ -286,4 +312,10 @@ public enum CardLocation {
     Discard,
     Hand,
     ModifierStack
+}
+
+[Serializable]
+public struct CardAmount {
+    public CardType CardType;
+    public int Amount;
 }

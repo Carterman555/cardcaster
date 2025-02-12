@@ -384,7 +384,7 @@ public class GiveModifyCardStep : BaseTutorialStep {
     public override void Update() {
         base.Update();
 
-        // once the modifier card is played, the step will complete whent he modifier is applied
+        // once the modifier card is played, the step will complete when the modifier is applied
         if (AbilityManager.Instance.IsModifierActive(modifierCard) && !modifierPlayed) {
             modifierPlayed = true;
 

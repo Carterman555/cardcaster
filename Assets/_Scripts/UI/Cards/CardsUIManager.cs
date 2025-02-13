@@ -4,12 +4,14 @@ using System.Collections.Generic;
 using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class CardsUIManager : StaticInstance<CardsUIManager> {
 
-    [SerializeField] private HandCard cardButtonPrefab;
-    private List<HandCard> cardButtons = new();
+    [FormerlySerializedAs("cardButtonPrefab")]
+    [SerializeField] private HandCard handCardPrefab;
+    private List<HandCard> handCards = new();
 
     private void OnEnable() {
         HandCard.OnAnyCardUsed_ButtonAndCard += OnCardUsed;
@@ -17,6 +19,7 @@ public class CardsUIManager : StaticInstance<CardsUIManager> {
         DeckManager.OnGainCardToHand += DrawCardToEnd;
         DeckManager.OnTrashCardInHand += UpdateCardButtons;
         DeckManager.OnReplaceCardInHand += UpdateCardButtons;
+        DeckManager.OnClearCards += OnClearCards;
 
         DrawCardsOnNewLevel();
     }
@@ -26,6 +29,7 @@ public class CardsUIManager : StaticInstance<CardsUIManager> {
         DeckManager.OnGainCardToHand -= DrawCardToEnd;
         DeckManager.OnTrashCardInHand -= UpdateCardButtons;
         DeckManager.OnReplaceCardInHand -= UpdateCardButtons;
+        DeckManager.OnClearCards -= OnClearCards;
     }
 
     private void DrawCardsOnNewLevel() {
@@ -38,26 +42,33 @@ public class CardsUIManager : StaticInstance<CardsUIManager> {
     }
 
     private void DrawCardToEnd() {
-        int index = cardButtons.Count;
+        int index = handCards.Count;
         DrawCard(index);
 
         UpdateCardButtons();
+    }
+
+    private void OnClearCards() {
+        foreach (HandCard handCard in handCards) {
+            handCard.gameObject.ReturnToPool();
+        }
+        handCards.Clear();
     }
 
     private void OnCardUsed(HandCard cardButton, ScriptableCardBase cardUsed) {
 
         // return the card button
         cardButton.gameObject.ReturnToPool();
-        cardButtons.Remove(cardButton);
+        handCards.Remove(cardButton);
 
         // respawn the card button if it was replaced (most likely will)
-        if (GetHandSize() > cardButtons.Count) {
+        if (GetHandSize() > handCards.Count) {
             DrawCard(cardButton.GetIndex());
         }
 
         // spawn more cards to end. This happens when modifier cards are used on an ability and so they all
         // become available to be drawn to the deck
-        while (GetHandSize() > cardButtons.Count) {
+        while (GetHandSize() > handCards.Count) {
             DrawCardToEnd();
         }
 
@@ -69,12 +80,12 @@ public class CardsUIManager : StaticInstance<CardsUIManager> {
         ScriptableCardBase[] cardsInHand = DeckManager.Instance.GetCardsInHand();
 
         ScriptableCardBase card = cardsInHand[index];
-        HandCard cardButton = cardButtonPrefab.Spawn(transform);
+        HandCard cardButton = handCardPrefab.Spawn(transform);
 
         cardButton.Setup(deckButtonTransform, card);
 
         // add to list at correct index
-        cardButtons.Insert(index, cardButton);
+        handCards.Insert(index, cardButton);
 
         UpdateCardPositions();
 
@@ -90,14 +101,14 @@ public class CardsUIManager : StaticInstance<CardsUIManager> {
     private void UpdateScriptableCards() {
         ScriptableCardBase[] cardsInHand = DeckManager.Instance.GetCardsInHand();
 
-        for (int i = 0; i < cardButtons.Count; i++) {
-            cardButtons[i].SetCard(cardsInHand[i]);
+        for (int i = 0; i < handCards.Count; i++) {
+            handCards[i].SetCard(cardsInHand[i]);
         }
     }
 
     private void UpdateCardIndexes() {
-        for (int i = 0; i < cardButtons.Count; i++) {
-            cardButtons[i].SetCardIndex(i);
+        for (int i = 0; i < handCards.Count; i++) {
+            handCards[i].SetCardIndex(i);
         }
     }
 
@@ -125,9 +136,9 @@ public class CardsUIManager : StaticInstance<CardsUIManager> {
     private void UpdateCardPositions() {
         ScriptableCardBase[] cardsInHand = DeckManager.Instance.GetCardsInHand();
 
-        for (int cardButtonIndex = 0; cardButtonIndex < cardButtons.Count; cardButtonIndex++) {
+        for (int cardButtonIndex = 0; cardButtonIndex < handCards.Count; cardButtonIndex++) {
             Vector2 pos = GetCardPos(cardButtonIndex, GetHandSize(), cardsInHand.Length);
-            cardButtons[cardButtonIndex].SetCardPosition(pos);
+            handCards[cardButtonIndex].SetCardPosition(pos);
         }
     }
 }

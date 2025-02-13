@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEditor;
 using UnityEngine;
+using static Cinemachine.DocumentationSortingAttribute;
 
 /// <summary>
 /// One repository for all scriptable objects. Create your query methods here to keep your business logic clean.
@@ -17,7 +18,7 @@ public class ResourceSystem : Singleton<ResourceSystem>
     public List<ScriptableEnemy> Enemies { get; private set; }
     public List<ScriptableBoss> Bosses { get; private set; }
     public List<ScriptableCardBase> AllCards { get; private set; }
-    public List<ScriptableCardBase> UnlockedCards { get; private set; }
+    public List<CardType> UnlockedCards { get; private set; }
 
     protected override void Awake() {
         base.Awake();
@@ -37,9 +38,8 @@ public class ResourceSystem : Singleton<ResourceSystem>
         AllCards = Resources.LoadAll<ScriptableCardBase>("Cards").ToList();
 
         // convert to card type list in order to load and save the cards
-        List<CardType> defaultUnlockedCardTypes = AllCards.Where(c => c.StartUnlocked).Select(c => c.CardType).ToList();
-        List<CardType> unlockedCardTypes = ES3.Load("UnlockedCardTypes", defaultUnlockedCardTypes);
-        UnlockedCards = AllCards.Where(c => unlockedCardTypes.Contains(c.CardType)).ToList();
+        List<CardType> defaultUnlockedCards = AllCards.Where(c => c.StartUnlocked).Select(c => c.CardType).ToList();
+        UnlockedCards = ES3.Load("UnlockedCardTypes", defaultUnlockedCards);
     }
 
     public ScriptableLevelLayout GetRandomLayout() => LevelLayouts.RandomItem();
@@ -47,17 +47,30 @@ public class ResourceSystem : Singleton<ResourceSystem>
     public List<ScriptableEnemy> GetAllEnemies() => Enemies;
     public List<ScriptableBoss> GetBosses(int level) => Bosses.Where(b => b.PossibleLevels.Contains(level)).ToList();
 
-    public List<ScriptableCardBase> GetAllCardsWithLevel(int level) => AllCards.Where(c => c.MinLevel == level).ToList();
-    public List<ScriptableCardBase> GetAllCardsUpToLevel(int level) => AllCards.Where(c => c.MinLevel <= level).ToList();
+    public List<CardType> GetAllCards() => AllCards.Select(c => c.CardType).ToList();
+    public List<CardType> GetAllCardsWithLevel(int level) => GetAllCards().Where(c => AllCards.FirstOrDefault(c => c.CardType == c.CardType).MinLevel == level).ToList();
 
-    public List<ScriptableCardBase> GetUnlockedCardsWithLevel(int level) => UnlockedCards.Where(c => c.MinLevel == level).ToList();
-    public List<ScriptableCardBase> GetUnlockedCardsUpToLevel(int level) => UnlockedCards.Where(c => c.MinLevel <= level).ToList();
+    public List<CardType> GetAllCardsUpToLevel(int level) => GetAllCards().Where(c => AllCards.FirstOrDefault(c => c.CardType == c.CardType).MinLevel <= level).ToList();
 
-    public ScriptableCardBase GetCard(CardType cardType) => AllCards.FirstOrDefault(c => c.CardType == cardType);
-    public ScriptableCardBase GetCard(string cardName) => AllCards.FirstOrDefault(c => c.name == cardName);
+    public List<CardType> GetUnlockedCards() => GetAllCards().Where(c => UnlockedCards.Contains(c)).ToList();
+    public List<CardType> GetUnlockedCardsWithLevel(int level) => GetAllCardsWithLevel(level).Where(c => UnlockedCards.Contains(c)).ToList();
+    public List<CardType> GetUnlockedCardsUpToLevel(int level) => GetAllCardsUpToLevel(level).Where(c => UnlockedCards.Contains(c)).ToList();
+
+    public ScriptableCardBase GetCardInstance(CardType cardType) => CloneCard(AllCards.FirstOrDefault(c => c.CardType == cardType));
+    public ScriptableCardBase GetCardInstance(string cardName) => CloneCard(AllCards.FirstOrDefault(c => c.name == cardName));
+
+    private ScriptableCardBase CloneCard(ScriptableCardBase original) {
+        if (original == null) return null;
+
+        // Use the actual type of the card for proper instantiation
+        ScriptableCardBase instance = ScriptableObject.CreateInstance(original.GetType()) as ScriptableCardBase;
+
+        JsonUtility.FromJsonOverwrite(JsonUtility.ToJson(original), instance);
+        return instance;
+    }
 
     [Command]
-    public void UnlockCard(ScriptableCardBase cardToUnlock) {
+    public void UnlockCard(CardType cardToUnlock) {
 
         if (UnlockedCards.Contains(cardToUnlock)) {
             Debug.LogWarning("Trying to unlock card that is already unlocked");
@@ -70,6 +83,6 @@ public class ResourceSystem : Singleton<ResourceSystem>
         base.OnApplicationQuit();
 
         //... convert to card type list in order to load and save the cards
-        ES3.Save("UnlockedCardTypes", UnlockedCards.Select(c => c.CardType).ToList());
+        ES3.Save("UnlockedCardTypes", UnlockedCards);
     }
 }   

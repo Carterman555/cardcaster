@@ -27,8 +27,6 @@ public class Room : MonoBehaviour {
     [SerializeField] private Tilemap botColliderTilemap;
     [SerializeField] private Tilemap colliderTilemap;
 
-    [SerializeField] private PolygonCollider2D cameraConfiner;
-
     [SerializeField] private TriggerContactTracker enterTrigger;
     [SerializeField] private TriggerContactTracker exitTrigger;
     [SerializeField] private DoorBlocker doorBlockerPrefab;
@@ -52,7 +50,7 @@ public class Room : MonoBehaviour {
 
     public List<PossibleDoorway> GetPossibleDoorways() {
 
-        //... assign it if it's null
+        //... assign it if possibleDoorways is null
         possibleDoorways ??= transform.GetComponentsInChildren<PossibleDoorway>().ToList();
 
         return possibleDoorways;
@@ -122,7 +120,6 @@ public class Room : MonoBehaviour {
         roomLight.intensity = 0;
 
         SetupMapIcon();
-        CopyColliderToCameraConfiner();
     }
     private void OnDisable() {
         exitTrigger.OnEnterContact -= OnEnterRoom;
@@ -135,24 +132,6 @@ public class Room : MonoBehaviour {
     private void SetupMapIcon() {
         mapIcon = mapIconToSpawn.Spawn(mapIconToSpawn.transform.position, Containers.Instance.RoomMapIcons);
         mapIconToSpawn.enabled = false;
-    }
-
-    public void CopyColliderToCameraConfiner() {
-
-        GameObject cameraConfinerComposite = ReferenceSystem.Instance.CameraConfiner;
-        PolygonCollider2D targetCollider = cameraConfinerComposite.AddComponent<PolygonCollider2D>();
-
-        targetCollider.usedByComposite = true;
-        targetCollider.offset = cameraConfiner.offset;
-
-        targetCollider.pathCount = cameraConfiner.pathCount;
-        for (int i = 0; i < cameraConfiner.pathCount; i++) {
-            Vector2[] path = cameraConfiner.GetPath(i);
-            targetCollider.SetPath(i, path);
-        }
-
-        // Adjust for different positions if needed
-        targetCollider.offset += (Vector2)(cameraConfiner.transform.position - cameraConfinerComposite.transform.position);
     }
 
     public void CreateEnterAndExitTriggers(PossibleDoorway doorway) {

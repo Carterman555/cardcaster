@@ -95,18 +95,16 @@ public class DebugManager : StaticInstance<DebugManager> {
         }
     }
 
-    [SerializeField] private bool customStartingCards;
-
-    [SerializeField, ConditionalHide("customStartingCards")] private List<CardType> startingCards;
+    [SerializeField] private List<CardType> startingCards;
 
     private void GiveStartingCards() {
-        if (customStartingCards) {
+        if (startingCards.Count > 0) {
 
             //... remove current starting cards
             DeckManager.Instance.ResetDeckAndEssence();
 
             foreach (CardType cardType in startingCards) {
-                ScriptableCardBase card = ResourceSystem.Instance.GetCard(cardType);
+                ScriptableCardBase card = ResourceSystem.Instance.GetCardInstance(cardType);
                 DeckManager.Instance.GainCard(card);
             }
         }

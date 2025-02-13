@@ -23,7 +23,7 @@ public class ShopCard : MonoBehaviour {
         interactable.OnInteract += OpenAllCardsUI;
 
         if (debugCard) {
-            SetCard(defaultCard);
+            SetCard(defaultCard.CloneScriptableObject());
         }
     }
     private void OnDisable() {

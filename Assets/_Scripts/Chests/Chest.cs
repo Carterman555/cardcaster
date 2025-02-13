@@ -14,7 +14,7 @@ public class Chest : MonoBehaviour {
     [SerializeField] private ChestHeal chestHealPrefab;
     private List<IChestItem> chestItems = new();
 
-    private List<ScriptableCardBase> remainPossibleCards;
+    private List<CardType> remainingPossibleCards;
 
     private bool opened;
 
@@ -44,10 +44,10 @@ public class Chest : MonoBehaviour {
     private void SetupRemainCardsList() {
 
         int currentLevel = GameSceneManager.Instance.GetLevel();
-        remainPossibleCards = ResourceSystem.Instance.GetUnlockedCardsUpToLevel(currentLevel);
+        remainingPossibleCards = ResourceSystem.Instance.GetUnlockedCardsUpToLevel(currentLevel);
 
         // Check if we have enough cards to choose from
-        if (remainPossibleCards.Count < ITEM_AMOUNT) {
+        if (remainingPossibleCards.Count < ITEM_AMOUNT) {
             Debug.LogError("Not enough cards to choose from.");
         }
     }
@@ -96,9 +96,9 @@ public class Chest : MonoBehaviour {
                 ChestCard chestCard = chestCardPrefab.Spawn(transform.position, chestItemContainer);
                 chestCard.Setup(this, itemIndex, GetItemPosition(itemIndex));
 
-                ScriptableCardBase chosenCard = remainPossibleCards.RandomItem();
-                remainPossibleCards.Remove(chosenCard); // so won't choose two of the same card
-                chestCard.SetCard(chosenCard);
+                CardType chosenCardType = remainingPossibleCards.RandomItem();
+                remainingPossibleCards.Remove(chosenCardType); // so won't choose two of the same card
+                chestCard.SetCard(ResourceSystem.Instance.GetCardInstance(chosenCardType));
 
                 chestItems.Add(chestCard);
             }

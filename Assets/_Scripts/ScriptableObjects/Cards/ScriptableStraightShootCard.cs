@@ -38,8 +38,6 @@ public class ScriptableStraightShootCard : ScriptableAbilityCardBase {
         straightMovement.Setup(toShootDirection, Stats.ProjectileSpeed);
         straightMovement.GetComponent<DamageOnContact>().Setup(Stats.Damage, Stats.KnockbackStrength);
 
-        Debug.Log(Stats.Damage);
-
         // apply effect
         ApplyEffects(straightMovement);
     }

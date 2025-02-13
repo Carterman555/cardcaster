@@ -12,6 +12,7 @@ public class DeckManager : Singleton<DeckManager> {
     public static event Action OnGainCardToHand;
     public static event Action OnTrashCardInHand;
     public static event Action OnReplaceCardInHand;
+    public static event Action OnClearCards;
 
     public static event Action<float> OnEssenceChanged_Amount;
 
@@ -106,7 +107,7 @@ public class DeckManager : Singleton<DeckManager> {
         for (int i = 0; i < startingCardAmount; i++) {
             CardType choosenCardType = availableCards.RandomItem();
             availableCards.Remove(choosenCardType);
-            GainCard(ResourceSystem.Instance.GetCard(choosenCardType));
+            GainCard(ResourceSystem.Instance.GetCardInstance(choosenCardType));
         }
     }
 
@@ -136,9 +137,12 @@ public class DeckManager : Singleton<DeckManager> {
 
     public void ResetDeckAndEssence() {
         cardsInHand = new ScriptableCardBase[maxHandSize];
+
         cardsInDeck.Clear();
         cardsInDiscard.Clear();
         cardsInModifierStack.Clear();
+
+        OnClearCards?.Invoke();
 
         essence = maxEssence;
         OnEssenceChanged_Amount?.Invoke(essence);
@@ -161,9 +165,9 @@ public class DeckManager : Singleton<DeckManager> {
 
 
         // if gains a locked card, unlock it
-        bool cardLocked = !ResourceSystem.Instance.GetUnlockedCardsUpToLevel(99).Contains(card);
+        bool cardLocked = !ResourceSystem.Instance.GetUnlockedCards().Any(c => c == card.CardType);
         if (cardLocked && NewCardUnlockedPanel.Instance != null) {
-            ResourceSystem.Instance.UnlockCard(card);
+            ResourceSystem.Instance.UnlockCard(card.CardType);
             FeedbackPlayerOld.Play("NewCardUnlocked");
             NewCardUnlockedPanel.Instance.Setup(card);
         }
@@ -288,7 +292,7 @@ public class DeckManager : Singleton<DeckManager> {
 
     [Command]
     private void GainCard(string cardName) {
-        ScriptableCardBase card = ResourceSystem.Instance.GetCard(cardName);
+        ScriptableCardBase card = ResourceSystem.Instance.GetCardInstance(cardName);
 
         if (card == null) {
             Debug.LogWarning("Card Not Found!");
@@ -296,15 +300,6 @@ public class DeckManager : Singleton<DeckManager> {
 
         GainCard(card);
     }
-
-    [Command]
-    private void GainRandomCards() {
-        for (int i = 0; i < 15; i++) {
-            ScriptableCardBase card = ResourceSystem.Instance.GetAllCardsUpToLevel(99).RandomItem();
-            GainCard(card);
-        }
-    }
-
 }
 
 public enum CardLocation {

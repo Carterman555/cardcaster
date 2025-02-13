@@ -8,4 +8,21 @@ public class BossRoom : MonoBehaviour {
     public Transform GetBossSpawnPoint() {
         return bossSpawnPoint;
     }
+
+    private void OnEnable() {
+        CreateBossIcons();
+    }
+
+    #region Boss Icon
+
+    private List<BossIcon> bossIcons = new();
+
+    [SerializeField] private BossIcon verticalBossIcon;
+    [SerializeField] private BossIcon horizontalBossIcon;
+
+    private void CreateBossIcons() {
+
+    }
+
+    #endregion
 }

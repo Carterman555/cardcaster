@@ -25,7 +25,7 @@ public class CardDrop : MonoBehaviour {
         suckMovement = GetComponent<SuckMovement>();
 
         if (defaultCard != null) {
-            SetCard(defaultCard);
+            SetCard(defaultCard.CloneScriptableObject());
         }
     }
 

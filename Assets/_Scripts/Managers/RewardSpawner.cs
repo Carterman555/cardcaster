@@ -61,11 +61,11 @@ public class RewardSpawner : MonoBehaviour {
         }
 
         int currentLevel = GameSceneManager.Instance.GetLevel();
-        List<ScriptableCardBase> possibleCardsToSpawn = ResourceSystem.Instance.GetAllCardsWithLevel(currentLevel);
+        List<CardType> possibleCardsToSpawn = ResourceSystem.Instance.GetAllCardsWithLevel(currentLevel);
 
         if (bossUnlocksCardIfPossible) {
 
-            List<ScriptableCardBase> unlockedCards = ResourceSystem.Instance.GetUnlockedCardsWithLevel(currentLevel);
+            List<CardType> unlockedCards = ResourceSystem.Instance.GetUnlockedCardsWithLevel(currentLevel);
             bool unlockedAllCardsAtLevel = possibleCardsToSpawn.Count == unlockedCards.Count;
 
             if (!unlockedAllCardsAtLevel) {
@@ -73,7 +73,8 @@ public class RewardSpawner : MonoBehaviour {
             }
         }
 
-        StartCoroutine(SpawnBossCardCor(bossRoom.GetBossSpawnPoint().position, possibleCardsToSpawn.RandomItem()));
+        CardType choosenCardType = possibleCardsToSpawn.RandomItem();
+        StartCoroutine(SpawnBossCardCor(bossRoom.GetBossSpawnPoint().position, ResourceSystem.Instance.GetCardInstance(choosenCardType)));
     }
 
     private IEnumerator SpawnBossCardCor(Vector2 position, ScriptableCardBase scriptableCard) {

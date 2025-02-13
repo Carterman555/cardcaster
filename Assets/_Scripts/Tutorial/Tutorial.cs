@@ -340,7 +340,7 @@ public class GiveTeleportCardStep : BaseTutorialStep {
 
         DialogBox.Instance.Hide();
 
-        DeckManager.Instance.GainCard(teleportCard);
+        DeckManager.Instance.GainCard(teleportCard.CloneScriptableObject());
 
         roomTwoTrigger.OnEnterContact += CompleteStep;
     }

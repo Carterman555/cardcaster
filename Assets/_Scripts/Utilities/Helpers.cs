@@ -226,6 +226,14 @@ public static class Helpers {
 #endif
     }
 
+    public static T CloneScriptableObject<T>(this T original) where T : ScriptableObject {
+        if (original == null) return null;
+
+        T instance = ScriptableObject.CreateInstance<T>();
+        JsonUtility.FromJsonOverwrite(JsonUtility.ToJson(original), instance);
+        return instance;
+    }
+
     public static void DrawRectangle(Vector3 center, Vector2 size) {
         float halfWidth = size.x / 2f;
         float halfHeight = size.y / 2f;

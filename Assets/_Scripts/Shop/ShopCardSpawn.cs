@@ -15,8 +15,8 @@ public class ShopCardSpawn : MonoBehaviour {
         ShopCard shopItem = shopItemPrefab.Spawn(transform.position, transform);
 
         int currentLevel = GameSceneManager.Instance.GetLevel();
-        List<ScriptableCardBase> possibleCards = ResourceSystem.Instance.GetUnlockedCardsUpToLevel(currentLevel);
-        ScriptableCardBase randomCard = possibleCards.RandomItem();
+        List<CardType> possibleCards = ResourceSystem.Instance.GetUnlockedCardsUpToLevel(currentLevel);
+        ScriptableCardBase randomCard = ResourceSystem.Instance.GetCardInstance(possibleCards.RandomItem());
 
         shopItem.SetCard(randomCard);
     }

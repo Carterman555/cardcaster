@@ -166,6 +166,7 @@ public class HandCard : MonoBehaviour {
         }
 
         card.TryPlay(playPosition);
+
         useCardPlayer.PlayFeedbacks();
 
         if (card is ScriptableAbilityCardBase) {

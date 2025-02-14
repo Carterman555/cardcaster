@@ -405,11 +405,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 38e9c250821dd684880f7914de8d26bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  essencePrefab: {fileID: 8034270738103182623, guid: 12e28bcb234b1b548ae2d9e6745360a6, type: 3}
+  essencePrefab: {fileID: 3327677883894410736, guid: 12e28bcb234b1b548ae2d9e6745360a6, type: 3}
   dropAmount:
     MinValue: 1
     MaxValue: 1
   dropChancePerDmg: 0.03
+  ease: 0
+  duration: 0
 --- !u!114 &7558040409948274480
 MonoBehaviour:
   m_ObjectHideFlags: 0

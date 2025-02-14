@@ -1,4 +1,5 @@
 using DG.Tweening;
+using MoreMountains.Feedbacks;
 using QFSW.QC.Utilities;
 using System.Collections;
 using System.Collections.Generic;
@@ -11,6 +12,7 @@ public class EssenceDrop : MonoBehaviour {
 
     private void Awake() {
         bobMovement = GetComponent<BobMovement>();
+        launchPlayer = GetComponent<MMF_Player>();
     }
 
     private void OnTriggerEnter2D(Collider2D collision) {
@@ -20,7 +22,7 @@ public class EssenceDrop : MonoBehaviour {
     }
 
     private IEnumerator MoveToPlayer(Transform player) {
-        bobMovement.StopBobbing();
+        bobMovement.enabled = false;
 
         float velocity = 0;
         float acceleration = 0.1f;
@@ -36,4 +38,26 @@ public class EssenceDrop : MonoBehaviour {
 
         AudioManager.Instance.PlaySound(AudioManager.Instance.AudioClips.CollectEssence);
     }
+
+    #region Launch
+
+    private MMF_Player launchPlayer;
+
+    public void Launch() {
+
+        bobMovement.enabled = false;
+
+        launchPlayer.PlayFeedbacks();
+
+        launchPlayer.Events.OnComplete.AddListener(StartBobbing);
+
+    }
+
+    private void StartBobbing() {
+        bobMovement.enabled = true;
+
+        launchPlayer.Events.OnComplete.RemoveListener(StartBobbing);
+    }
+
+    #endregion
 }

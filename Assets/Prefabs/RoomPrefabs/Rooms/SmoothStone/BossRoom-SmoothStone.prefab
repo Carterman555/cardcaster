@@ -43271,6 +43271,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bossSpawnPoint: {fileID: 2514517623704718360}
+  verticalBossIconPrefab: {fileID: 5227046422976471169, guid: e13248507938cae4092e25594bcd11cf, type: 3}
+  horizontalBossIconPrefab: {fileID: 5227046422976471169, guid: 2ceaf6d4c9b2d7547a6f3acdb10abf2b, type: 3}
 --- !u!4 &4070943357736046014 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3713881456626135245, guid: 4723c0ded694bfb4b9bd66f2d1dae76b, type: 3}

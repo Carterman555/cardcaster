@@ -11,20 +11,29 @@ public class BossIcon : MonoBehaviour {
         bossIcon.enabled = false;
 
         showIconTrigger.OnEnterContact += ShowIcon;
+        Room.OnAnyRoomEnter_Room += TryHideIcon;
     }
 
     private void OnDisable() {
         showIconTrigger.OnEnterContact -= ShowIcon;
+        Room.OnAnyRoomEnter_Room -= TryHideIcon;
+    }
+
+    private void TryHideIcon(Room room) {
+        if (room.TryGetComponent(out BossRoom bossRoom)) {
+            HideIcon();
+        }
     }
 
     private void ShowIcon() {
-        showIconTrigger.OnEnterContact -= ShowIcon;
-
         bossIcon.enabled = true;
+        showIconTrigger.OnEnterContact -= ShowIcon;
     }
 
-    private void OnBossRoomEntered() {
+    private void HideIcon() {
         bossIcon.enabled = false;
+
         showIconTrigger.OnEnterContact -= ShowIcon;
+        Room.OnAnyRoomEnter_Room -= TryHideIcon;
     }
 }

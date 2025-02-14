@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4c96040730651ab4482ffa55bdb9b4a3, type: 3}
-  m_Name: Witch-Goblin-FireMinion
+  m_Name: Witch-Goblin-Minion
   m_EditorClassIdentifier: 
   enemyWaves:
   - EnemyAmounts:

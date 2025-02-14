@@ -66,6 +66,11 @@ public class Room : MonoBehaviour {
         return GetPossibleDoorways().Where(d => d.name == name).FirstOrDefault();
     }
 
+    // for boss room to show boss icon before entering room
+    public List<PossibleDoorway> GetCreateDoorways() {
+        return createdDoorways;
+    }
+
     public Tilemap GetGroundTilemap() {
         return groundTilemap;
     }

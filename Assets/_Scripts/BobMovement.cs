@@ -17,7 +17,7 @@ public class BobMovement : MonoBehaviour {
         StopBobbing();
     }
 
-    public void StartBobbing() {
+    private void StartBobbing() {
         Vector2 targetPosition = (Vector2)transform.position + amount;
 
         bobTween = transform.DOMove(targetPosition, duration)
@@ -25,7 +25,7 @@ public class BobMovement : MonoBehaviour {
             .SetEase(Ease.InOutSine);
     }
 
-    public void StopBobbing() {
+    private void StopBobbing() {
         bobTween.Kill();
     }
 }

@@ -153,8 +153,6 @@ public class CardKeyboardInput : MonoBehaviour, IPointerDownHandler {
         FeedbackPlayerOld.PlayInReverse("CancelCard");
     }
 
-    
-
     #region Cancelling
 
 

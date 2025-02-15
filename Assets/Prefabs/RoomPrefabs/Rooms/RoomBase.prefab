@@ -1097,7 +1097,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   layerFilter:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 16448
 --- !u!50 &463525309795635995
 Rigidbody2D:
   serializedVersion: 4
@@ -1556,7 +1556,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   layerFilter:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 16448
 --- !u!50 &8202733970934674028
 Rigidbody2D:
   serializedVersion: 4

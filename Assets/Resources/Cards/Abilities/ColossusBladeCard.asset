@@ -18,10 +18,10 @@ MonoBehaviour:
   cost: 2
   rarity: 3
   minLevel: 1
-  stackType: 0
+  stackType: 1
   startUnlocked: 1
   abilityAttributes: 5
-  abilityStats:
+  baseStats:
     Damage: -1
     KnockbackStrength: -1
     AreaSize: 0

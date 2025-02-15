@@ -81,7 +81,7 @@ public class ModifierImage : MonoBehaviour {
     // if an ability card that is not compatible with the modifier this image is showing, show a red x
     private void CheckToShowX(ScriptableCardBase card) {
         if (card is ScriptableAbilityCardBase ability) {
-            if (!ability.IsCompatible(modifier)) {
+            if (!ability.IsCompatibleWithModifier(modifier)) {
                 SwitchToRedX();
             }
         }
@@ -109,7 +109,7 @@ public class ModifierImage : MonoBehaviour {
 
     private void TryShowModifierImage(ScriptableCardBase card) {
         if (card is ScriptableAbilityCardBase ability) {
-            if (!ability.IsCompatible(modifier)) {
+            if (!ability.IsCompatibleWithModifier(modifier)) {
                 SwitchToModifierImage();
             }
         }

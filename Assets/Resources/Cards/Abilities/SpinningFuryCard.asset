@@ -18,10 +18,10 @@ MonoBehaviour:
   cost: 2
   rarity: 1
   minLevel: 1
-  stackType: 0
+  stackType: 1
   startUnlocked: 1
   abilityAttributes: 5
-  abilityStats:
+  baseStats:
     Damage: -1
     KnockbackStrength: -1
     AreaSize: 0
@@ -30,6 +30,7 @@ MonoBehaviour:
     Cooldown: 0
   <IsPositional>k__BackingField: 0
   <IsModifiable>k__BackingField: 1
+  incompatibleAbilities: 02000000
   swingSpeed: 1000
   playerTouchDamagePrefab: {fileID: 6934243973706104934, guid: 8f7f3a14b56d08b49adfce4774b17f00, type: 3}
   swingSwordEffectsPrefab: {fileID: 6374651499721630456, guid: 3fb6c8d220ffaa74d9b087f68296c1b9, type: 3}

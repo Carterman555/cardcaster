@@ -18,7 +18,7 @@ MonoBehaviour:
   cost: 1
   rarity: 2
   minLevel: 1
-  stackType: 0
+  stackType: 2
   startUnlocked: 1
   abilityAttributes: 1
   abilityStatsModifierPercentage:

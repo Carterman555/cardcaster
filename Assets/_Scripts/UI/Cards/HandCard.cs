@@ -201,10 +201,15 @@ public class HandCard : MonoBehaviour {
     }
 
     private void TryShowWarning() {
-        if (card is ScriptableModifierCardBase modifier) {
-            if (modifier.StackType == StackType.NotStackable && AbilityManager.Instance.IsModifierActive(modifier)) {
-                hotkeyText.text = "<color=\"red\">Won't Apply!\r\n<size=30>Modifier Already Active</size>";
+
+        if (card is ScriptableModifierCardBase modifierCard) {
+            if (modifierCard.StackType == StackType.NotStackable && AbilityManager.Instance.IsModifierActive(modifierCard)) {
+                hotkeyText.text = "<color=\"red\">Won't Apply!\r\n<size=20>Modifier Already Active</size>";
             }
+        }
+
+        if (card is ScriptableAbilityCardBase abilityCard) {
+
         }
     }
 

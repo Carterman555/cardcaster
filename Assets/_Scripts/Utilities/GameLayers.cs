@@ -11,6 +11,7 @@ public class GameLayers {
     public static int DoorBlockerLayer => 9;
     public static int RoomObjectLayer => 10;
     public static int MapLayer => 13;
+    public static int PlayerDashingLayer => 14;
 
     public static LayerMask EnemyLayerMask => 1 << EnemyLayer;
     public static LayerMask PlayerLayerMask => 1 << PlayerLayer;

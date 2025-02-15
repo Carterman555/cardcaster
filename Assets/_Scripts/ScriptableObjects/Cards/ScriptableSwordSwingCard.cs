@@ -13,8 +13,13 @@ public class ScriptableSwordSwingCard : ScriptableAbilityCardBase {
     [SerializeField] private PlayerTouchDamage playerTouchDamagePrefab;
     private PlayerTouchDamage playerTouchDamage;
 
+    private BoxCollider2D prefabCol;
+    private BoxCollider2D instanceCol;
+
     [SerializeField] private ParticleSystem swingSwordEffectsPrefab;
     private ParticleSystem swingSwordEffects;
+
+    private Coroutine updateCor;
 
     protected override void Play(Vector2 position) {
         base.Play(position);
@@ -31,20 +36,25 @@ public class ScriptableSwordSwingCard : ScriptableAbilityCardBase {
         Quaternion damageRotation = Quaternion.Euler(0, 0, sword.eulerAngles.z + 65f);
         playerTouchDamage = playerTouchDamagePrefab.Spawn(sword.position, damageRotation, sword);
 
-        BoxCollider2D prefabCol = playerTouchDamagePrefab.GetComponent<BoxCollider2D>();
-        BoxCollider2D instanceCol = playerTouchDamage.GetComponent<BoxCollider2D>();
+        prefabCol = playerTouchDamagePrefab.GetComponent<BoxCollider2D>();
+        instanceCol = playerTouchDamage.GetComponent<BoxCollider2D>();
 
-        //. update collider size to match sword size
-        float swordSize = StatsManager.Instance.GetPlayerStats().SwordSize;
-
-        instanceCol.size = new Vector2(prefabCol.size.x * swordSize, prefabCol.size.y);
-
-        //... only increase the offset by half
-        float offsetMult = ((swordSize - 1) * 0.5f) + 1;
-        instanceCol.offset = new Vector2(prefabCol.offset.x * offsetMult, prefabCol.offset.y);
+        updateCor = AbilityManager.Instance.StartCoroutine(UpdateCor());
 
         // effects
         swingSwordEffects = swingSwordEffectsPrefab.Spawn(sword.position, sword);
+    }
+
+    // use update cor because sword size could change while sword is swinging
+    private IEnumerator UpdateCor() {
+        while (true) {
+            yield return null;
+
+            // update collider size to match sword size
+            float swordSize = StatsManager.Instance.GetPlayerStats().SwordSize;
+            instanceCol.size = new Vector2(prefabCol.size.x * swordSize, prefabCol.size.y);
+            instanceCol.offset = new Vector2(prefabCol.offset.x * swordSize, prefabCol.offset.y);
+        }
     }
 
     public override void Stop() {
@@ -58,6 +68,7 @@ public class ScriptableSwordSwingCard : ScriptableAbilityCardBase {
 
         // stop dealing damage through touch
         playerTouchDamage.gameObject.ReturnToPool();
+        AbilityManager.Instance.StopCoroutine(updateCor);
 
         // remove visual effects
         swingSwordEffects.gameObject.ReturnToPool();

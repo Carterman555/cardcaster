@@ -26,10 +26,12 @@ public class ScriptableBoomerangSwordCard : ScriptableAbilityCardBase {
 
         PlayerMeleeAttack.Instance.DisableAttack();
 
+        // need to setup boomerang movement before setting up sword touch damage. I think because when setting up boomerang
+        // movement, it changes the parent and that effects the rotation of the sword touch damage. I don't know why
+        SetupBoomerangMovement();
+
         //... make sword deal damage through touch
         SetupSwordTouchDamage();
-
-        SetupBoomerangMovement();
 
         // make sword autorotate
         autoRotate = ReferenceSystem.Instance.PlayerSword.AddComponent<MMAutoRotate>();
@@ -61,7 +63,7 @@ public class ScriptableBoomerangSwordCard : ScriptableAbilityCardBase {
         originalLocalPos = sword.localPosition;
 
         // change parent to move independently of player
-        sword.SetParent(Containers.Instance.Projectiles);
+        sword.SetParent(Containers.Instance.Projectiles, false);
 
         boomerangMovement = sword.AddComponent<BoomerangMovement>();
 

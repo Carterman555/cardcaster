@@ -2220,7 +2220,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 1
+  m_text: 0
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: d6fd8257d87b2374f8d84cb7d78d8392, type: 2}
   m_sharedMaterial: {fileID: 3955962077340898542, guid: d6fd8257d87b2374f8d84cb7d78d8392, type: 2}
@@ -2259,7 +2259,7 @@ MonoBehaviour:
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
-  m_lineSpacing: 0
+  m_lineSpacing: 30
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
@@ -2979,9 +2979,6 @@ MonoBehaviour:
   playSecondCardInput: {fileID: 5805402075545936634, guid: 50afa068aa51bd149a1f3d07794c53d5, type: 3}
   playThirdCardInput: {fileID: -8723412899392237460, guid: 50afa068aa51bd149a1f3d07794c53d5, type: 3}
   cardImage: {fileID: 8781295295215984585}
-  backImage: {fileID: 7720993515162781848}
-  abilityCardBack: {fileID: -6947437304132239891, guid: a45140592a1d888479b60b8c14f31a24, type: 3}
-  modifierCardBack: {fileID: 7757724108563442073, guid: a45140592a1d888479b60b8c14f31a24, type: 3}
   hotkeyText: {fileID: 4834253411405777544}
 --- !u!114 &1003905658556653661
 MonoBehaviour:
@@ -3033,10 +3030,12 @@ MonoBehaviour:
     Clips:
     - {fileID: 8300000, guid: 411b0a572862f474f8d4dafaa1b1c09f, type: 3}
     Volume: 1
+    PitchVariation: 0
   OnExitClips:
     Clips:
     - {fileID: 8300000, guid: 411b0a572862f474f8d4dafaa1b1c09f, type: 3}
     Volume: 1
+    PitchVariation: 0
 --- !u!114 &7931190331796627173
 MonoBehaviour:
   m_ObjectHideFlags: 0

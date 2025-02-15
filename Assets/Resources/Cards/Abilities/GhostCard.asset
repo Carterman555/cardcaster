@@ -18,10 +18,10 @@ MonoBehaviour:
   cost: 1
   rarity: 0
   minLevel: 1
-  canStackWithSelf: 0
+  stackType: 1
   startUnlocked: 1
   abilityAttributes: 4
-  abilityStats:
+  baseStats:
     Damage: 0
     KnockbackStrength: 0
     AreaSize: 0
@@ -30,6 +30,7 @@ MonoBehaviour:
     Cooldown: 0
   <IsPositional>k__BackingField: 0
   <IsModifiable>k__BackingField: 0
+  incompatibleAbilities: 05000000
   statsModifier:
     MaxHealthPercent: 0
     KnockbackResistancePercent: 0

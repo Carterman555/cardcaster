@@ -24,12 +24,16 @@ public class AbilityManager : StaticInstance<AbilityManager> {
     }
 
     public bool IsAbilityActive(ScriptableAbilityCardBase ability, out ScriptableAbilityCardBase alreadyActiveAbility) {
-        alreadyActiveAbility = activeAbilities.FirstOrDefault(a => a.GetType().Equals(ability.GetType()));
+        alreadyActiveAbility = activeAbilities.FirstOrDefault(a => a.CardType == ability.CardType);
         return alreadyActiveAbility != null;
     }
 
     public bool IsAbilityActive(ScriptableAbilityCardBase ability) {
-        return activeAbilities.Any(a => a.GetType().Equals(ability.GetType()));
+        return IsAbilityActive(ability.CardType);
+    }
+
+    public bool IsAbilityActive(CardType cardType) {
+        return activeAbilities.Any(a => a.CardType == cardType);
     }
 
     #endregion
@@ -57,7 +61,7 @@ public class AbilityManager : StaticInstance<AbilityManager> {
 
     public void ApplyModifiers(ScriptableAbilityCardBase card) {
         foreach (var modifier in activeModifiers) {
-            if (card.IsCompatible(modifier)) {
+            if (card.IsCompatibleWithModifier(modifier)) {
                 modifier.ApplyToAbility(card);
             }
         }

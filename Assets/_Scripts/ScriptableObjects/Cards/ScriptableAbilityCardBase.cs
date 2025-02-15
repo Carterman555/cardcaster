@@ -13,14 +13,24 @@ public abstract class ScriptableAbilityCardBase : ScriptableCardBase {
     public AbilityAttribute AbilityAttributes => abilityAttributes;
 
     [FormerlySerializedAs("abilityStats")]
-    [SerializeField] private AbilityStats baseAbilityStats;
+    [SerializeField] private AbilityStats baseStats;
     private AbilityStats stats;
-    public AbilityStats Stats => stats;
+    public AbilityStats Stats {
+        get {
+            if (stats == null) {
+                stats = baseStats.Clone();
+            }
+            return stats;
+        }
+    }
 
     [field: SerializeField] public bool IsPositional { get; private set; }
     [field: SerializeField] public bool IsModifiable { get; private set; } = true;
 
-    public bool IsCompatible(ScriptableModifierCardBase modifier) {
+    [SerializeField] private CardType[] incompatibleAbilities;
+    public CardType[] IncompatibleAbilities => incompatibleAbilities;
+
+    public bool IsCompatibleWithModifier(ScriptableModifierCardBase modifier) {
         return (abilityAttributes & modifier.AbilityAttributes) != 0;
     }
 
@@ -46,30 +56,32 @@ public abstract class ScriptableAbilityCardBase : ScriptableCardBase {
     public override void TryPlay(Vector2 position) {
         base.TryPlay(position);
 
+        if (!CanPlay()) {
+            return;
+        }
+
         bool alreadyActive = AbilityManager.Instance.IsAbilityActive(this);
 
         if (!alreadyActive) {
             Play(position);
-            return;
         }
+        else if (alreadyActive) {
 
-        // if multiple can't play at the same time, reset the duration of the current one playing or don't allow playing
-        if (StackType == StackType.Stackable) {
-            Play(position);
-        }
-        else if (StackType == StackType.ResetDuration) {
-            AbilityManager.Instance.IsAbilityActive(this, out ScriptableAbilityCardBase alreadyActiveAbility);
-            alreadyActiveAbility.ResetDuration();
-        }
-        else if (StackType == StackType.NotStackable) {
-            // don't play
+            // if multiple can't play at the same time, reset the duration of the current one playing or don't allow playing
+            if (StackType == StackType.Stackable) {
+                Play(position);
+            }
+            else if (StackType == StackType.ResetDuration) {
+                AbilityManager.Instance.IsAbilityActive(this, out ScriptableAbilityCardBase alreadyActiveAbility);
+                alreadyActiveAbility.ResetDuration();
+            }
         }
     }
 
     protected override void Play(Vector2 position) {
         base.Play(position);
 
-        stats = baseAbilityStats;
+        stats = baseStats.Clone();
 
         if (positioningCardCoroutine != null) {
             OnStopPositioningCard();
@@ -93,10 +105,25 @@ public abstract class ScriptableAbilityCardBase : ScriptableCardBase {
     // checks if this card is compatible to play with cards that are currently active. Well, right now it 
     // only checks if can stack with self and it's active (not other cards yet)
     public override bool CanPlay() {
+
+        if (IsIncompatibleAbilityActive()) {
+            return false;
+        }
+
         bool canStack = StackType != StackType.NotStackable;
         bool alreadyActive = AbilityManager.Instance.IsAbilityActive(this);
 
         return canStack || !alreadyActive;
+    }
+
+    private bool IsIncompatibleAbilityActive() {
+        foreach (CardType cardType in incompatibleAbilities) {
+            bool incompatibleAbilityActive = AbilityManager.Instance.IsAbilityActive(cardType);
+            if (incompatibleAbilityActive) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public void Cancel() {
@@ -166,6 +193,17 @@ public class AbilityStats {
 
     [ConditionalHideFlag("abilityAttributes", AbilityAttribute.HasCooldown)]
     public float Cooldown;
+
+    public AbilityStats Clone() {
+        return new AbilityStats {
+            Damage = Damage,
+            KnockbackStrength = KnockbackStrength,
+            AreaSize = AreaSize,
+            Duration = Duration,
+            ProjectileSpeed = ProjectileSpeed,
+            Cooldown = Cooldown
+        };
+    }
 
     public void ApplyModifier(AbilityStats statsModifierPercentage, AbilityAttribute abilityAttributesToModify) {
         if (abilityAttributesToModify.HasFlag(AbilityAttribute.DealsDamage)) {

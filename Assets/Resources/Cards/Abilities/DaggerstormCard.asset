@@ -21,7 +21,7 @@ MonoBehaviour:
   stackType: 0
   startUnlocked: 1
   abilityAttributes: 29
-  abilityStats:
+  baseStats:
     Damage: 2
     KnockbackStrength: 0.25
     AreaSize: 0

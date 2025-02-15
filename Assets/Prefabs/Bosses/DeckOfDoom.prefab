@@ -410,8 +410,7 @@ MonoBehaviour:
     MinValue: 1
     MaxValue: 1
   dropChancePerDmg: 0.03
-  ease: 0
-  duration: 0
+  yVariation: 2
 --- !u!114 &7558040409948274480
 MonoBehaviour:
   m_ObjectHideFlags: 0

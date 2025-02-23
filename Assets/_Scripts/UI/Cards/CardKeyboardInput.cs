@@ -78,7 +78,7 @@ public class CardKeyboardInput : MonoBehaviour, IPointerDownHandler {
             }
         }
 
-        if (hotKeyUp && handCard.IsPlayingCard()) {
+        if (hotKeyUp && handCard.GetCardState() == HandCard.CardState.Playing) {
             TryPlayCard();
         }
     }

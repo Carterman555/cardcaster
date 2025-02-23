@@ -3,10 +3,12 @@ using MoreMountains.Feedbacks;
 using MoreMountains.Tools;
 using System;
 using TMPro;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
+using static HandCard;
 
 public class HandCard : MonoBehaviour {
 
@@ -36,7 +38,11 @@ public class HandCard : MonoBehaviour {
 
     private static bool playingAnyCard;
     private static bool playingCardThisFrame;
-    private bool playingCard;
+    private CardState cardState;
+
+    [SerializeField] private TextMeshProUGUI incompatitableText;
+
+    public enum CardState { Moving, ReadyToPlay, Playing, Played }
 
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
     private static void Init() {
@@ -63,10 +69,13 @@ public class HandCard : MonoBehaviour {
     }
 
     public void Setup(Transform deckTransform, ScriptableCardBase card) {
-        playingCard = false;
+
+        cardState = CardState.Moving;
 
         MMF_Position toHandFeedback = toHandPlayer.GetFeedbackOfType<MMF_Position>("Move To Hand");
         toHandFeedback.InitialPosition = cardStartPos;
+
+        toHandPlayer.Events.OnComplete.AddListener(SetStateToReady);
 
         //... need to wait a frame after setting to hand position before playing feedback for it to go to that
         //... pos
@@ -79,6 +88,11 @@ public class HandCard : MonoBehaviour {
         toHandPlayer.PlayFeedbacks();
     }
 
+    private void SetStateToReady() {
+        cardState = CardState.ReadyToPlay;
+        toHandPlayer.Events.OnComplete.RemoveListener(SetStateToReady);
+    }
+
     public void SetCardIndex(int cardIndex) {
         this.cardIndex = cardIndex;
 
@@ -87,7 +101,6 @@ public class HandCard : MonoBehaviour {
 
     // to move to after done moving to hand
     private Vector3 toMovePos;
-
     private bool waitingForToHandToMove;
 
     public void SetCardPosition(Vector3 position) {
@@ -102,36 +115,40 @@ public class HandCard : MonoBehaviour {
 
         handPosition = position;
 
-        // move to that position, if not playing the card
-        if (!playingCard) {
+        // move to that position, if not playing the card and card is not moving
+        if (cardState == CardState.ReadyToPlay) {
+            cardState = CardState.Moving;
 
-            // move right away if in hand pos
-            if (!toHandFeedback.IsPlaying) {
-                transform.DOKill();
-                transform.DOMove(position, duration: 0.2f);
-            }
+            transform.DOKill();
+            transform.DOMove(position, duration: 0.2f).OnComplete(() => {
+                cardState = CardState.ReadyToPlay;
+            });
+        }
 
-            // wait to move until after done moving to hand
-            else {
+        // wait to move until after done moving to hand
+        else if (cardState == CardState.Moving) {
+            toMovePos = position;
 
-                toMovePos = position;
-
-                // if not already waiting for the hand player to move the card
-                if (!waitingForToHandToMove) {
-                    toHandPlayer.Events.OnComplete.AddListener(MoveToPos);
-                    waitingForToHandToMove = true;
-                }
+            // if not already waiting for the hand player to move the card
+            if (!waitingForToHandToMove) {
+                toHandPlayer.Events.OnComplete.AddListener(MoveToPos);
+                toHandPlayer.Events.OnComplete.RemoveListener(SetStateToReady);
+                waitingForToHandToMove = true;
             }
         }
     }
 
     private void MoveToPos() {
+        waitingForToHandToMove = false;
+        cardState = CardState.Moving;
+        toHandPlayer.Events.OnComplete.RemoveListener(MoveToPos);
+
         transform.DOKill();
-        transform.DOMove(toMovePos, duration: 0.2f);
+        transform.DOMove(toMovePos, duration: 0.2f).OnComplete(() => {
+            cardState = CardState.ReadyToPlay;
+        });
 
         toMovePos = Vector3.zero;
-        waitingForToHandToMove = false;
-        toHandPlayer.Events.OnComplete.RemoveListener(MoveToPos);
     }
 
     private void OnUsedCard() {
@@ -141,13 +158,12 @@ public class HandCard : MonoBehaviour {
 
         OnAnyCardUsed_ButtonAndCard?.Invoke(this, card);
         OnAnyCardUsed_Card?.Invoke(card);
-        playingCard = false;
         playingAnyCard = false;
     }
 
     public void OnStartPlayingCard() {
 
-        playingCard = true;
+        cardState = CardState.Playing;
         playingAnyCard = true;
 
         playingCardThisFrame = true;
@@ -166,6 +182,8 @@ public class HandCard : MonoBehaviour {
         }
 
         card.TryPlay(playPosition);
+
+        cardState = CardState.Played;
 
         useCardPlayer.PlayFeedbacks();
 
@@ -221,7 +239,7 @@ public class HandCard : MonoBehaviour {
 
     public void CancelCard() {
 
-        playingCard = false;
+        cardState = CardState.Moving;
 
         // sometimes a card is cancel and another started playing on the same frame, this sets playingAnyCard to false
         // when a card is playing, so make sure a card was not set to playing this frame
@@ -235,7 +253,9 @@ public class HandCard : MonoBehaviour {
 
         float duration = 0.3f;
         transform.DOKill();
-        transform.DOMove(handPosition, duration);
+        transform.DOMove(handPosition, duration).OnComplete(() => {
+            cardState = CardState.ReadyToPlay;
+        });
 
         // fade out
         float hoverAlpha = 180f / 255f;
@@ -267,7 +287,7 @@ public class HandCard : MonoBehaviour {
 
     private void ControlsChanged() {
 
-        if (playingCard) {
+        if (cardState == CardState.Playing) {
             CancelCard();
         }
 
@@ -293,8 +313,8 @@ public class HandCard : MonoBehaviour {
         playingCardThisFrame = false;
     }
 
-    public bool IsPlayingCard() {
-        return playingCard;
+    public CardState GetCardState() {
+        return cardState;
     }
 
     public static bool IsPlayingAnyCard() {

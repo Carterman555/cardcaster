@@ -31,6 +31,10 @@ public class GameSceneManager : Singleton<GameSceneManager> {
         Tutorial = debugStartTutorial;
 
         sceneLoadPlayer = GetComponent<MMF_Player>();
+
+        if (SceneManager.GetActiveScene() == SceneManager.GetSceneByName("Game")) {
+            OnStartGame?.Invoke();
+        }
     }
 
     public void StartGame(bool tutorial = false) {

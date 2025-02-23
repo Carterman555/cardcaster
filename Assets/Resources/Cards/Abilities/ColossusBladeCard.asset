@@ -17,9 +17,9 @@ MonoBehaviour:
   sprite: {fileID: -903462562, guid: d638d131cac6f4d45aeb96fc55848241, type: 3}
   cost: 2
   rarity: 3
-  minLevel: 1
+  minLevel: 3
   stackType: 1
-  startUnlocked: 1
+  startUnlocked: 0
   abilityAttributes: 5
   baseStats:
     Damage: -1
@@ -30,6 +30,7 @@ MonoBehaviour:
     Cooldown: 0
   <IsPositional>k__BackingField: 0
   <IsModifiable>k__BackingField: 1
+  incompatibleAbilities: 
   statsModifier:
     MaxHealthPercent: 0
     KnockbackResistancePercent: 100

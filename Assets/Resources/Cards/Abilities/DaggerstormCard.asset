@@ -17,7 +17,7 @@ MonoBehaviour:
   sprite: {fileID: -2141203052, guid: d638d131cac6f4d45aeb96fc55848241, type: 3}
   cost: 2
   rarity: 2
-  minLevel: 1
+  minLevel: 2
   stackType: 0
   startUnlocked: 1
   abilityAttributes: 29
@@ -30,5 +30,6 @@ MonoBehaviour:
     Cooldown: 0.25
   <IsPositional>k__BackingField: 0
   <IsModifiable>k__BackingField: 1
+  incompatibleAbilities: 
   daggerPrefab: {fileID: 712133601725730603, guid: d716733ca4d8a4341a71e831dda4daa3, type: 3}
   spawnOffsetValue: 1

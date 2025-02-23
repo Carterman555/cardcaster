@@ -19,9 +19,9 @@ MonoBehaviour:
   rarity: 1
   minLevel: 1
   stackType: 0
-  startUnlocked: 1
+  startUnlocked: 0
   abilityAttributes: 7
-  abilityStats:
+  baseStats:
     Damage: 1
     KnockbackStrength: 0
     AreaSize: 5
@@ -30,4 +30,5 @@ MonoBehaviour:
     Cooldown: 0
   <IsPositional>k__BackingField: 1
   <IsModifiable>k__BackingField: 1
+  incompatibleAbilities: 
   objectToSpawn: {fileID: 4761673276867612884, guid: 1a00541d362654946a17d40ef06aadef, type: 3}

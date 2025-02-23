@@ -19,9 +19,9 @@ MonoBehaviour:
   rarity: 1
   minLevel: 1
   stackType: 0
-  startUnlocked: 1
+  startUnlocked: 0
   abilityAttributes: 9
-  abilityStats:
+  baseStats:
     Damage: 15
     KnockbackStrength: 1
     AreaSize: 0
@@ -30,5 +30,6 @@ MonoBehaviour:
     Cooldown: 0
   <IsPositional>k__BackingField: 1
   <IsModifiable>k__BackingField: 1
+  incompatibleAbilities: 
   projectilePrefab: {fileID: 7351622199640359484, guid: 5ae316a57acdce24899fb301ed3c1b69, type: 3}
   spawnOffsetValue: 1

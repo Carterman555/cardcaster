@@ -703,7 +703,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 491722c3c4d88f144beaeb39d41cfa05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  startingCardAmount: 15
   maxHandSize: 3
+  startingCardPool:
+  - CardType: 2
+    Amount: 7
+  - CardType: 3
+    Amount: 7
+  - CardType: 20
+    Amount: 7
+  - CardType: 8
+    Amount: 7
+  - CardType: 19
+    Amount: 7
   maxEssence: 6
 --- !u!1 &3718070589907718167
 GameObject:
@@ -1246,6 +1258,7 @@ MonoBehaviour:
         SecureLoad: 1
         UnloadMethod: 2
         AntiSpillSceneName: 
+        WaitForMethodCallToUnload: 1
         BeforeEntryFadeDelay: 0
         EntryFadeDuration: 0.2
         AfterEntryFadeDelay: 0

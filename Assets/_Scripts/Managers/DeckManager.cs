@@ -77,13 +77,33 @@ public class DeckManager : Singleton<DeckManager> {
         OnEssenceChanged_Amount?.Invoke(essence);
     }
 
-    protected override void Awake() {
-        base.Awake();
+    private void OnEnable() {
+        GameSceneManager.OnStartGame += OnStartGame;
 
+        ClearDeckAndEssence();
+    }
+    private void OnDisable() {
+        GameSceneManager.OnStartGame -= OnStartGame;
+    }
+
+    private void OnStartGame() {
+        if (!GameSceneManager.Instance.Tutorial) {
+            ClearDeckAndEssence();
+            GiveStartingCards();
+        }
+    }
+
+    public void ClearDeckAndEssence() {
         cardsInHand = new ScriptableCardBase[maxHandSize];
-        GiveStartingCards();
+
+        cardsInDeck.Clear();
+        cardsInDiscard.Clear();
+        cardsInModifierStack.Clear();
+
+        OnClearCards?.Invoke(); // clears handcards
 
         essence = maxEssence;
+        OnEssenceChanged_Amount?.Invoke(essence);
     }
 
     private void GiveStartingCards() {
@@ -134,19 +154,6 @@ public class DeckManager : Singleton<DeckManager> {
     }
 
     #region Basic Deck Methods
-
-    public void ResetDeckAndEssence() {
-        cardsInHand = new ScriptableCardBase[maxHandSize];
-
-        cardsInDeck.Clear();
-        cardsInDiscard.Clear();
-        cardsInModifierStack.Clear();
-
-        OnClearCards?.Invoke();
-
-        essence = maxEssence;
-        OnEssenceChanged_Amount?.Invoke(essence);
-    }
 
     public void DiscardStackedCards() {
         cardsInDiscard.AddRange(cardsInModifierStack);
@@ -277,7 +284,12 @@ public class DeckManager : Singleton<DeckManager> {
     private void PrintCards(List<ScriptableCardBase> cards, string startingText = "") {
         string whole = startingText;
         foreach (var card in cards) {
-            whole += card.GetName() + ", ";
+            if (card != null) {
+                whole += card.GetName() + ", ";
+            }
+            else {
+                whole += "Null";
+            }
         }
         Debug.Log(whole);
     }
@@ -285,7 +297,12 @@ public class DeckManager : Singleton<DeckManager> {
     private void PrintCards(ScriptableCardBase[] cards, string startingText = "") {
         string whole = startingText;
         foreach (var card in cards) {
-            whole += card.GetName() + ", ";
+            if (card != null) {
+                whole += card.GetName() + ", ";
+            }
+            else {
+                whole += "Null, ";
+            }
         }
         Debug.Log(whole);
     }

@@ -18,7 +18,7 @@ public class GameSceneManager : Singleton<GameSceneManager> {
     private EnvironmentType currentEnvironment;
     private int level;
 
-    private const int LEVELS_PER_ENVIRONMENT = 2;
+    private const int LEVELS_PER_ENVIRONMENT = 1;
 
     private MMF_Player sceneLoadPlayer;
 
@@ -60,10 +60,19 @@ public class GameSceneManager : Singleton<GameSceneManager> {
     }
 
     private void LoadGameScene() {
+        MMF_LoadScene loadSceneFeedback = sceneLoadPlayer.GetFeedbackOfType<MMF_LoadScene>();
+        loadSceneFeedback.DestinationSceneName = "Game";
+        loadSceneFeedback.WaitForMethodCallToUnload = true; // wait for room generation to complete before transitioning to game scene
+
         sceneLoadPlayer.PlayFeedbacks();
     }
 
     private void LoadMenuScene() {
+        MMF_LoadScene loadSceneFeedback = sceneLoadPlayer.GetFeedbackOfType<MMF_LoadScene>();
+        loadSceneFeedback.DestinationSceneName = "Menu";
+        loadSceneFeedback.WaitForMethodCallToUnload = false;
+
+        sceneLoadPlayer.PlayFeedbacks();
     }
 
     private void UpdateEnvironmentType() {

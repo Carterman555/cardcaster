@@ -101,7 +101,7 @@ public class DebugManager : StaticInstance<DebugManager> {
         if (startingCards.Count > 0) {
 
             //... remove current starting cards
-            DeckManager.Instance.ResetDeckAndEssence();
+            DeckManager.Instance.ClearDeckAndEssence();
 
             foreach (CardType cardType in startingCards) {
                 ScriptableCardBase card = ResourceSystem.Instance.GetCardInstance(cardType);

@@ -23,11 +23,14 @@ public class CheckEnemiesCleared : MonoBehaviour {
         // wait because some enemies spawn more on death and it needs to register those
         yield return null;
         bool anyAliveEnemies = Containers.Instance.Enemies.GetComponentsInChildren<Health>().Any(health => !health.IsDead());
+        print($"CheckIfEnemiesCleared - anyAliveEnemies: {anyAliveEnemies}");
 
         if (!anyAliveEnemies && !isOnCooldown) {
 
             //... if the room was cleared
             if (EnemySpawner.Instance.SpawnedAllWaves()) {
+                print("Cleared");
+
                 isOnCooldown = true;
                 OnEnemiesCleared?.Invoke();
 

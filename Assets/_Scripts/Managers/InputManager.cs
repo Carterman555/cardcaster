@@ -133,7 +133,8 @@ public class InputManager : Singleton<InputManager> {
         }
 
         Dictionary<string, string> actionReplaceDict = new() {
-            { "exm", "example" },
+            { "Right Button", "Right Click" },
+            { "Left Button", "Left Click" },
         };
 
         if (actionReplaceDict.ContainsKey(displayString)) {

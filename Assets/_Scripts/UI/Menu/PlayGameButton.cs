@@ -11,7 +11,11 @@ public class PlayGameButton : GameButton {
     protected override void OnClick() {
         base.OnClick();
 
-        bool startTutorial = tutorialButton || ES3.Load<bool>("TutorialCompleted");
+        if (!ES3.KeyExists("TutorialCompleted")) {
+            ES3.Save("TutorialCompleted", false);
+        }
+
+        bool startTutorial = tutorialButton || !ES3.Load<bool>("TutorialCompleted");
 
         if (noTutorialDebug) {
             startTutorial = false;

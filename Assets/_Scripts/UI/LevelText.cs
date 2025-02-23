@@ -13,7 +13,9 @@ public class LevelText : MonoBehaviour {
 
     private void OnEnable() {
         string environmentName = GameSceneManager.Instance.GetEnvironment().ToPrettyString();
-        int subLevel = GameSceneManager.Instance.GetSubLevel();
-        text.text = environmentName + " - " + subLevel;
+        text.text = environmentName;
+
+        //int subLevel = GameSceneManager.Instance.GetSubLevel();
+        //text.text = environmentName + " - " + subLevel;
     }
 }

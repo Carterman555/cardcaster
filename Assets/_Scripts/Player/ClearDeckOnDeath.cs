@@ -20,6 +20,6 @@ public class ClearDeckOnDeath : MonoBehaviour {
     }
 
     private void ClearDeck() {
-        DeckManager.Instance.ResetDeckAndEssence();
+        DeckManager.Instance.ClearDeckAndEssence();
     }
 }

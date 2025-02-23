@@ -133,7 +133,7 @@ namespace MoreMountains.Feedbacks
 					break;
 				case LoadingModes.MMAdditiveSceneLoadingManager:
 					MMAdditiveSceneLoadingManager.LoadScene(DestinationSceneName, LoadingSceneName, 
-						Priority, SecureLoad, InterpolateProgress, WaitForMethodCallToUnload,
+						Priority, SecureLoad, WaitForMethodCallToUnload, InterpolateProgress,
 						BeforeEntryFadeDelay, EntryFadeDuration,
 						AfterEntryFadeDelay,
 						BeforeExitFadeDelay, ExitFadeDuration,

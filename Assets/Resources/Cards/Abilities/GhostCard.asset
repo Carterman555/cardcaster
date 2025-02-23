@@ -25,7 +25,7 @@ MonoBehaviour:
     Damage: 0
     KnockbackStrength: 0
     AreaSize: 0
-    Duration: 6.9
+    Duration: 4
     ProjectileSpeed: 0
     Cooldown: 0
   <IsPositional>k__BackingField: 0

@@ -33,6 +33,8 @@ public class Tutorial : MonoBehaviour {
     private string combatText = "In the Card Dungeon, you need to fight off enemies. I'll spawn one in for you," +
         " so you can learn. Press {ACTION} to swing your sword and kill him!";
 
+    private string dashText = "Nice. You can also dash with {ACTION}, which can be a useful way to move around. Try it.";
+
     private string card1TextKeyboard = "Good. In the card dungeon, you will find magical cards. I will give a teleport card." +
         " Drag it on the other side of this wall to the right to teleport there.";
     private string card1TextController = "Good. In the card dungeon, you will find magical cards. I will give a teleport card." +
@@ -43,11 +45,10 @@ public class Tutorial : MonoBehaviour {
     private string card2TextController = "Once it's in the correct position, press {ACTION} again to teleport. These are" +
         " simple instructions. If you fail, I will get angry.";
 
-    private string dashText = "Nice. You can also dash with {ACTION}, which can be a useful way to move around. Try it.";
 
     private string modify1CardText = "Some cards have the magical power to modify other cards that perform abilities.";
 
-    private string modify2CardText = "Play the fire card I give you then the swing sword ability, and watch what happens.";
+    private string modify2CardText = "Play Scorch then Spinning Fury, and watch what happens.";
 
     private string essenceText = "You might have noticed that cards cost essence. Enemies drop essence and I'll give you" +
         " some now to make sure you what they look like. Pick them all up.";
@@ -64,12 +65,12 @@ public class Tutorial : MonoBehaviour {
 
     [Header("Teleport Step")]
     [SerializeField] private InputActionReference firstCardInput;
-    [SerializeField] private ScriptableCardBase teleportCard;
+    [SerializeField] private ScriptableTeleportCard teleportCard;
     [SerializeField] private TriggerContactTracker roomTwoTrigger;
 
     [Header("Modify Step")]
     [SerializeField] private ScriptableModifierCardBase modifierCard;
-    [SerializeField] private ScriptableAbilityCardBase abilityCard;
+    [SerializeField] private ScriptableSwordSwingCard abilityCard;
     [SerializeField] private Transform[] modifyEnemySpawnPoints;
 
     [Header("Essence Step")]
@@ -92,7 +93,10 @@ public class Tutorial : MonoBehaviour {
     }
     private void OnDisable() {
         startTutorialTrigger.OnEnterContact -= TryStartTutorial;
-        CurrentTutorialStep.OnStepCompleted -= NextTutorialStep;
+
+        if (tutorialActive) {
+            CurrentTutorialStep.OnStepCompleted -= NextTutorialStep;
+        }
     }
 
     private void Start() {
@@ -157,6 +161,7 @@ public class Tutorial : MonoBehaviour {
         if (noMoreSteps) {
             tutorialActive = false;
             ES3.Save("TutorialCompleted", true);
+
             return;
         }
 
@@ -327,10 +332,10 @@ public class SpawnEnemyStep : BaseTutorialStep {
 
 public class GiveTeleportCardStep : BaseTutorialStep {
 
-    private ScriptableCardBase teleportCard;
+    private ScriptableTeleportCard teleportCard;
     private TriggerContactTracker roomTwoTrigger;
 
-    public GiveTeleportCardStep(ScriptableCardBase teleportCard, TriggerContactTracker roomTwoTrigger) {
+    public GiveTeleportCardStep(ScriptableTeleportCard teleportCard, TriggerContactTracker roomTwoTrigger) {
         this.teleportCard = teleportCard;
         this.roomTwoTrigger = roomTwoTrigger;
     }
@@ -357,11 +362,11 @@ public class GiveTeleportCardStep : BaseTutorialStep {
 public class GiveModifyCardStep : BaseTutorialStep {
 
     private ScriptableModifierCardBase modifierCard;
-    private ScriptableAbilityCardBase abilityCard;
+    private ScriptableSwordSwingCard abilityCard;
 
     private bool modifierPlayed;
 
-    public GiveModifyCardStep(ScriptableModifierCardBase modifierCard, ScriptableAbilityCardBase abilityCard) {
+    public GiveModifyCardStep(ScriptableModifierCardBase modifierCard, ScriptableSwordSwingCard abilityCard) {
         this.modifierCard = modifierCard;
         this.abilityCard = abilityCard;
 
@@ -377,8 +382,8 @@ public class GiveModifyCardStep : BaseTutorialStep {
     }
 
     private void GiveCards() {
-        DeckManager.Instance.GainCard(modifierCard);
-        DeckManager.Instance.GainCard(abilityCard);
+        DeckManager.Instance.GainCard(modifierCard.CloneScriptableObject());
+        DeckManager.Instance.GainCard(abilityCard.CloneScriptableObject());
     }
 
     public override void Update() {

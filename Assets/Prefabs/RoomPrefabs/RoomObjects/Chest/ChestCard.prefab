@@ -176,6 +176,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   selectAction: {fileID: -1946564365313720924, guid: 7dead05c54ca85b4681351aafd8bd03a, type: 3}
   changeShineColor: {fileID: 5758296489837778740}
+  shine: {fileID: 193460525127211652}
   defaultCard: {fileID: 0}
 --- !u!114 &8305092476999919952
 MonoBehaviour:

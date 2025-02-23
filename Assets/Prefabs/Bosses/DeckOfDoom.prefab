@@ -279,7 +279,7 @@ MonoBehaviour:
       MinValue: 8
       MaxValue: 15
   anim: {fileID: 4039351960834069205}
-  debugState: 1
+  debugState: 0
   stateToDebug: 2
   spinAudioSource: {fileID: 16486262209884157}
   shootDelay: 2

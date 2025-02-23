@@ -32,6 +32,9 @@ public class RoomGenerator : StaticInstance<RoomGenerator> {
     private void Start() {
         if (GameSceneManager.Instance.Tutorial) {
             SpawnTrainingRoom();
+
+            MMAdditiveSceneLoadingManager.AllowUnload();
+            OnCompleteGeneration?.Invoke();
         }
         else {
             GenerateRooms(GameSceneManager.Instance.GetEnvironment());
@@ -55,9 +58,7 @@ public class RoomGenerator : StaticInstance<RoomGenerator> {
         yield return null;
 
         isGeneratingRooms = false;
-
-        MMAdditiveSceneLoadingManager.AllowUnload();
-
+        
         OnCompleteGeneration?.Invoke();
     }
 

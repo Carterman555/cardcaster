@@ -30,6 +30,7 @@ MonoBehaviour:
     Cooldown: 0
   <IsPositional>k__BackingField: 1
   <IsModifiable>k__BackingField: 1
+  incompatibleAbilities: 07000000
   raycastStep: 0.1
   obstacleLayer:
     serializedVersion: 2

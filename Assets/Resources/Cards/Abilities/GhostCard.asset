@@ -30,7 +30,7 @@ MonoBehaviour:
     Cooldown: 0
   <IsPositional>k__BackingField: 0
   <IsModifiable>k__BackingField: 0
-  incompatibleAbilities: 05000000
+  incompatibleAbilities: 0500000007000000
   statsModifier:
     MaxHealthPercent: 0
     KnockbackResistancePercent: 0

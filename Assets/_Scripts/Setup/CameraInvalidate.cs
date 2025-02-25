@@ -24,7 +24,7 @@ public class CameraInvalidate : MonoBehaviour {
     private void InvalidateCache() {
         confiner.InvalidateCache();
 
-        print("InvalidateCache");
+        //print("InvalidateCache");
 
         RemoveConfinerBoxCollider();
 

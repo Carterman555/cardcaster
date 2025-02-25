@@ -52,6 +52,11 @@ public class CardKeyboardInput : MonoBehaviour, IPointerDownHandler {
         if (!handCard.CanAffordToPlay() || !handCard.GetCard().CanPlay()) {
             if (hotKeyDown) {
                 handCard.CantPlayShake();
+
+                // if tries to play a card that is incompatible with an active ability, show incompatible text
+                if (handCard.GetCard() is ScriptableAbilityCardBase abilityCard && abilityCard.IsIncompatibleAbilityActive()) {
+                    StartCoroutine(handCard.ShowIncompatibleText());
+                }
             }
             return;
         }

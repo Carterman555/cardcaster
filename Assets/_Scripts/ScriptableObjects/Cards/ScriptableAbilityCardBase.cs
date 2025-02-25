@@ -116,7 +116,7 @@ public abstract class ScriptableAbilityCardBase : ScriptableCardBase {
         return canStack || !alreadyActive;
     }
 
-    private bool IsIncompatibleAbilityActive() {
+    public bool IsIncompatibleAbilityActive() {
         foreach (CardType cardType in incompatibleAbilities) {
             bool incompatibleAbilityActive = AbilityManager.Instance.IsAbilityActive(cardType);
             if (incompatibleAbilityActive) {

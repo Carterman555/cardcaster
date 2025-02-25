@@ -51,9 +51,11 @@ public class ScriptableBoomerangSwordCard : ScriptableAbilityCardBase {
 
         instanceCol.size = new Vector2(prefabCol.size.x * swordSize, prefabCol.size.y);
 
-        //... only increase the offset by half
-        float offsetMult = ((swordSize - 1) * 0.5f) + 1;
+        //... this formula works because it does (It works with sword size 1 and 2.5 but idk about other sizes)
+        float offsetMult = ((swordSize - 1) * 1.5f) + 1;
         instanceCol.offset = new Vector2(prefabCol.offset.x * offsetMult, prefabCol.offset.y);
+
+        Debug.Log($"Sword Size: {swordSize}, Offset mult: {offsetMult}, X Offset: {instanceCol.offset.x}");
     }
 
     private void SetupBoomerangMovement() {
@@ -63,7 +65,7 @@ public class ScriptableBoomerangSwordCard : ScriptableAbilityCardBase {
         originalLocalPos = sword.localPosition;
 
         // change parent to move independently of player
-        sword.SetParent(Containers.Instance.Projectiles, false);
+        sword.SetParent(Containers.Instance.Projectiles, true);
 
         boomerangMovement = sword.AddComponent<BoomerangMovement>();
 
@@ -104,8 +106,7 @@ public class ScriptableBoomerangSwordCard : ScriptableAbilityCardBase {
 
     private void ResetSwordTransform() {
         Transform sword = ReferenceSystem.Instance.PlayerSword;
-        sword.localPosition = originalLocalPos;
-        sword.localRotation = Quaternion.identity;
+        sword.SetLocalPositionAndRotation(originalLocalPos, Quaternion.identity);
     }
 
     private List<GameObject> abilityEffects = new();

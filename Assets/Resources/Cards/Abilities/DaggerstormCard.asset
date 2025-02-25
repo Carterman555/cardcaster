@@ -22,7 +22,7 @@ MonoBehaviour:
   startUnlocked: 1
   abilityAttributes: 29
   baseStats:
-    Damage: 2
+    Damage: 4
     KnockbackStrength: 0.25
     AreaSize: 0
     Duration: 5

@@ -2,6 +2,7 @@ using DG.Tweening;
 using MoreMountains.Feedbacks;
 using MoreMountains.Tools;
 using System;
+using System.Collections;
 using TMPro;
 using UnityEditor;
 using UnityEngine;
@@ -39,8 +40,6 @@ public class HandCard : MonoBehaviour {
     private static bool playingAnyCard;
     private static bool playingCardThisFrame;
     private CardState cardState;
-
-    [SerializeField] private TextMeshProUGUI incompatitableText;
 
     public enum CardState { Moving, ReadyToPlay, Playing, Played }
 
@@ -229,6 +228,26 @@ public class HandCard : MonoBehaviour {
         if (card is ScriptableAbilityCardBase abilityCard) {
 
         }
+    }
+
+    [SerializeField] private TextMeshProUGUI incompatitableText;
+
+    [ContextMenu("Show Incompatible")]
+    public IEnumerator ShowIncompatibleText() {
+
+        incompatitableText.gameObject.SetActive(true);
+
+        Color fadedRed = Color.red;
+        fadedRed.a = 0f;
+        incompatitableText.color = fadedRed;
+        incompatitableText.DOFade(1f, duration: 0.2f);
+
+        float timeToShow = 1f;
+        yield return new WaitForSeconds(timeToShow);
+
+        incompatitableText.DOFade(0f, duration: 0.2f).OnComplete(() => {
+            incompatitableText.gameObject.SetActive(false);
+        });
     }
 
     #endregion

@@ -30,7 +30,7 @@ MonoBehaviour:
     Cooldown: 0
   <IsPositional>k__BackingField: 0
   <IsModifiable>k__BackingField: 1
-  incompatibleAbilities: 
+  incompatibleAbilities: 0200000006000000
   playerTouchDamagePrefab: {fileID: 6934243973706104934, guid: 8f7f3a14b56d08b49adfce4774b17f00, type: 3}
   acceleration: 50
   rotateSpeed: 500

@@ -41,8 +41,6 @@ public class DoorBlocker : MonoBehaviour {
     private void Open() {
         anim.SetTrigger("open");
 
-        print("Open");
-
         //AudioManager.Instance.PlaySingleSound(AudioManager.Instance.AudioClips.OpenDoorBlocker);
     }
 

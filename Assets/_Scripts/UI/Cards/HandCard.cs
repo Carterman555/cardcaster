@@ -83,6 +83,11 @@ public class HandCard : MonoBehaviour {
         SetCard(card);
     }
 
+    private void Update() {
+        incompatitableText.gameObject.SetActive(true);
+        incompatitableText.text = cardState.ToPrettyString();
+    }
+
     private void PlayHandFeedback() {
         toHandPlayer.PlayFeedbacks();
     }

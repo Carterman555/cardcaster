@@ -28,6 +28,8 @@ public class CameraInvalidate : MonoBehaviour {
 
         RemoveConfinerBoxCollider();
 
+        MMAdditiveSceneLoadingManager.AllowUnload();
+
     }
 
     // it needs a box collider to prevent the camera from glitch when the rooms get spawned, but it needs to be destroyed to confine the

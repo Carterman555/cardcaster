@@ -14,6 +14,11 @@ public class ChestCard : CardDrop, IChestItem {
 
         transform.position = chest.transform.position;
         transform.DOLocalMove(position, duration: 0.3f).SetEase(Ease.OutSine);
+
+        transform.localScale = Vector2.zero;
+        transform.DOScale(Vector2.one, duration: 0.3f).SetEase(Ease.OutSine).OnComplete(() => {
+            interactable.enabled = true;
+        });
     }
 
     protected override void OnInteract() {

@@ -32,16 +32,13 @@ public class Chest : MonoBehaviour {
         interactable.OnInteract += TryOpenChest;
 
         opened = false;
+        SetupRemainingCardsList();
     }
     private void OnDisable() {
         interactable.OnInteract -= TryOpenChest;
     }
 
-    private void Start() {
-        SetupRemainCardsList();
-    }
-
-    private void SetupRemainCardsList() {
+    private void SetupRemainingCardsList() {
 
         int currentLevel = GameSceneManager.Instance.GetLevel();
         remainingPossibleCards = ResourceSystem.Instance.GetUnlockedCardsUpToLevel(currentLevel);

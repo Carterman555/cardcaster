@@ -232,7 +232,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c6b19f2a297c734f93fd001011d852b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  healProbability: 1
+  healProbability: 0.5
   chestItemContainer: {fileID: 4745401347879017545}
   chestCardPrefab: {fileID: 508550145687220642, guid: c50f166591c4ff74a99a976c4b3d1b7a, type: 3}
   chestHealPrefab: {fileID: 7563766614002793911, guid: cd8f9b46b895baa4ab25008282d235e9, type: 3}

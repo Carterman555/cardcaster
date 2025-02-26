@@ -30,5 +30,5 @@ MonoBehaviour:
     Cooldown: 0
   <IsPositional>k__BackingField: 1
   <IsModifiable>k__BackingField: 1
-  incompatibleAbilities: 
+  incompatibleAbilities: 09000000
   objectToSpawn: {fileID: 4761673276867612884, guid: 1a00541d362654946a17d40ef06aadef, type: 3}

@@ -59,7 +59,10 @@ public class Interactable : MonoBehaviour {
 
         spriteRenderer.material = outlineMaterial;
 
-        interactableText = interactableTextPrefab.Spawn((Vector2)transform.position + textPosition, transform);
+        interactableText = interactableTextPrefab.Spawn(transform);
+
+        //... for some reason, there is a bug when setting pos in spawn method
+        interactableText.transform.position = (Vector2)transform.position + textPosition;
 
         string interactInputText = InputManager.Instance.GetBindingText(interactAction);
         interactableText.text = text + " (" + interactInputText + ")";

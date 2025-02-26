@@ -11,18 +11,17 @@ public class PlayFeedbackOnHover : MonoBehaviour, IPointerEnterHandler, IPointer
     [ConditionalHide("playSFX")][SerializeField] private AudioClips OnEnterClips;
     [ConditionalHide("playSFX")][SerializeField] private AudioClips OnExitClips;
 
-    private Queue<FeedbacksCommand> commands = new();
-
-    public enum FeedbacksCommand { PlayNormal, PlayReversed, RevertToNormal, RevertToReversed }
+    private bool shouldBeInFirstState;
+    private bool waitingToExecute;
+    private float executeTimer;
 
     private HandCard card;
 
     private void OnEnable() {
-        commands.Clear();
+        shouldBeInFirstState = true;
+        executeTimer = 0f;
 
         card = GetComponent<HandCard>();
-
-        StartCoroutine(ExecuteCommands());
     }
 
     public void OnPointerEnter(PointerEventData eventData) {
@@ -33,14 +32,7 @@ public class PlayFeedbackOnHover : MonoBehaviour, IPointerEnterHandler, IPointer
 
         print($"{card.GetCard().CardType}: OnPointEnter");
 
-        if (hoverFeedback.IsPlaying) {
-            commands.Enqueue(FeedbacksCommand.RevertToNormal);
-            print($"{card.GetCard().CardType}: Queue Revert");
-        }
-        else {
-            commands.Enqueue(FeedbacksCommand.PlayNormal);
-            print($"{card.GetCard().CardType}: Queue Play Normal");
-        }
+        DelayedExecute(false);
 
         if (playSFX) {
             AudioManager.Instance.PlaySound(OnEnterClips, uiSound: true);
@@ -55,76 +47,70 @@ public class PlayFeedbackOnHover : MonoBehaviour, IPointerEnterHandler, IPointer
 
         print($"{card.GetCard().CardType}: OnPointExit");
 
-
-        if (hoverFeedback.IsPlaying) {
-            commands.Enqueue(FeedbacksCommand.RevertToReversed);
-            print($"{card.GetCard().CardType}: Queue Revert");
-        }
-        else {
-            commands.Enqueue(FeedbacksCommand.PlayReversed);
-            print($"{card.GetCard().CardType}: Queue Play Reverse");
-        }
+        DelayedExecute(true);
 
         if (playSFX) {
             AudioManager.Instance.PlaySound(OnEnterClips);
         }
     }
 
-    private IEnumerator ExecuteCommands() {
+    /// <summary>
+    /// this method will execute the command instantly if not executed within delay prior to execution. If within delay of prior execution,
+    /// wait for delay timer to finish, then execute. If invoked while waiting for delay timer to finish, replace the previous command with 
+    /// the newest one (and still wait to execute).
+    /// </summary>
+    /// 
+    private void DelayedExecute(bool goToFirstState) {
 
-        while (enabled) {
+        shouldBeInFirstState = goToFirstState;
 
-            //while (commands.Count > 2) {
-            //    print($"Overload dequed: {commands.Dequeue()}");
+        if (!waitingToExecute) {
 
-            //}
+            executeTimer = 0;
 
-            if (commands.TryDequeue(out FeedbacksCommand command)) {
+            if (goToFirstState) {
+                if (hoverFeedback.IsPlaying) {
 
-                if (command == FeedbacksCommand.PlayNormal) {
-                    hoverFeedback.SetDirectionTopToBottom();
-                    hoverFeedback.PlayFeedbacks();
-
-                    print($"{card.GetCard().CardType}: Execute Play Normal");
+                    // if should be going to first, but going to second state, then revert
+                    if (hoverFeedback.Direction == MMFeedbacks.Directions.TopToBottom) {
+                        hoverFeedback.Revert();
+                    }
                 }
-                else if (command == FeedbacksCommand.PlayReversed) {
+                else {
+
+                    // if not playing, play to go to first state
                     hoverFeedback.SetDirectionBottomToTop();
                     hoverFeedback.PlayFeedbacks();
-
-                    print($"{card.GetCard().CardType}: Execute Play Reversed");
                 }
-                else if (command == FeedbacksCommand.RevertToNormal) {
-                    print($"{card.GetCard().CardType}: Execute Revert To Normal");
-
-                    if (hoverFeedback.IsPlaying) {
-                        hoverFeedback.Revert();
-                        print($"Reverted to {hoverFeedback.Direction}");
-                    }
-                    else {
-                        hoverFeedback.SetDirectionTopToBottom();
-                        hoverFeedback.PlayFeedbacks();
-                        print($"{card.GetCard().CardType}: Set direction to {hoverFeedback.Direction}");
-                    }
-                }
-                else if (command == FeedbacksCommand.RevertToReversed) {
-                    print($"{card.GetCard().CardType}: Execute Revert To Reversed");
-
-                    if (hoverFeedback.IsPlaying) {
-                        hoverFeedback.Revert();
-                        print($"{card.GetCard().CardType}: Reverted to {hoverFeedback.Direction}");
-                    }
-                    else {
-                        hoverFeedback.SetDirectionBottomToTop();
-                        hoverFeedback.PlayFeedbacks();
-                        print($"{card.GetCard().CardType}: Set direction to {hoverFeedback.Direction}");
-                    }
-                }
-
-                float executeCooldown = 0.1f;
-                yield return new WaitForSeconds(executeCooldown);
             }
+            else {
+                if (hoverFeedback.IsPlaying) {
 
-            yield return null;
+                    // if should be going to second, but going to first state, then revert
+                    if (hoverFeedback.Direction == MMFeedbacks.Directions.BottomToTop) {
+                        hoverFeedback.Revert();
+                    }
+                }
+                else {
+
+                    // if not playing, play to go to second state
+                    hoverFeedback.SetDirectionTopToBottom();
+                    hoverFeedback.PlayFeedbacks();
+                }
+            }
+        }
+    }
+
+    private void Update() {
+
+        if (waitingToExecute) {
+            executeTimer += Time.deltaTime;
+            float executeDelay = 0.1f;
+            if (executeTimer > executeDelay) {
+                executeTimer = float.NegativeInfinity;
+                DelayedExecute(shouldBeInFirstState);
+                waitingToExecute = false;
+            }
         }
     }
 }

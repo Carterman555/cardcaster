@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class RewardSpawner : MonoBehaviour {
 
@@ -46,6 +47,15 @@ public class RewardSpawner : MonoBehaviour {
             Campfire campfire = campfirePrefab.Spawn(position, Containers.Instance.Drops);
             campfire.GetComponent<CreateMapIcon>().ShowMapIcon();
         }
+    }
+
+    [Command]
+    private void SpawnChest() {
+        float avoidPlayerRadius = 2f;
+        float obstacleAvoidanceRadius = 3.5f;
+        Vector2 position = new RoomPositionHelper().GetRandomRoomPos(PlayerMovement.Instance.transform.position, avoidPlayerRadius, obstacleAvoidanceRadius);
+        Chest chest = Instantiate(chestPrefab, position, Quaternion.identity, Containers.Instance.Drops);
+        chest.GetComponent<CreateMapIcon>().ShowMapIcon();
     }
 
     [Header("Boss Loot")]

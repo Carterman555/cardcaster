@@ -5,8 +5,40 @@ using UnityEngine;
 
 public class AbilityManager : StaticInstance<AbilityManager> {
 
+    private void Start() {
+        EnsureAbilityIncompatibilitiesMatch();
+    }
 
     #region Abilities
+
+    private void EnsureAbilityIncompatibilitiesMatch() {
+
+        ScriptableAbilityCardBase[] allAbilityCards = ResourceSystem.Instance.AllCards
+            .Where(c => c is ScriptableAbilityCardBase abilityCard)
+            .Select(c => (ScriptableAbilityCardBase)c).ToArray();
+
+        List<ScriptableAbilityCardBase> remainingAbilityCards = allAbilityCards.ToList();
+        remainingAbilityCards.Reverse();
+
+        foreach (var abilityCard1 in allAbilityCards) {
+            foreach (var abilityCard2 in remainingAbilityCards) {
+                bool card1Contains2 = abilityCard1.IncompatibleAbilities != null && abilityCard1.IncompatibleAbilities.Contains(abilityCard2.CardType);
+                bool card2Contains1 = abilityCard2.IncompatibleAbilities != null && abilityCard2.IncompatibleAbilities.Contains(abilityCard1.CardType);
+
+                if (card1Contains2 && !card2Contains1) {
+                    Debug.LogWarning($"Ability Incompatibilities Mismatch: {abilityCard1.CardType} contains {abilityCard2.CardType}, " +
+                        $"but {abilityCard2.CardType} does not contain {abilityCard1.CardType}");
+                }
+
+                if (card2Contains1 && !card1Contains2) {
+                    Debug.LogWarning($"Ability Incompatibilities Mismatch: {abilityCard2.CardType} contains {abilityCard1.CardType}, " +
+                        $"but {abilityCard1.CardType} does not contain {abilityCard2.CardType}");
+                }
+            }
+
+            remainingAbilityCards.Remove(abilityCard1);
+        }
+    }
 
     private List<ScriptableAbilityCardBase> activeAbilities = new();
 
@@ -45,7 +77,7 @@ public class AbilityManager : StaticInstance<AbilityManager> {
     private List<ScriptableModifierCardBase> activeModifiers = new();
 
     public int ActiveModifierCount() {
-        return activeModifiers.Count; 
+        return activeModifiers.Count;
     }
 
     public bool IsModifierActive(ScriptableModifierCardBase modifier) {

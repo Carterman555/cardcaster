@@ -142,9 +142,7 @@ public class CardKeyboardInput : MonoBehaviour, IPointerDownHandler {
 
     private void TryPlayCard() {
         if (setToCancel) {
-            handCard.CancelCard();
-
-            //... move back to hand
+            handCard.CancelCard(followMouse.enabled);
             StopFollowingMouse();
         }
         else {

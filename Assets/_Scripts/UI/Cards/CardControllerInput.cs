@@ -84,7 +84,7 @@ public class CardControllerInput : MonoBehaviour {
 
         bool pressedCancelInput = cancelAction.action.WasReleasedThisFrame();
         if (pressedCancelInput || PressedOtherPlayInput()) {
-            handCard.CancelCard();
+            handCard.CancelCard(movingCard);
             movingCard = false;
             showing = false;
         }

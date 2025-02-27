@@ -3,12 +3,13 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem.LowLevel;
 using static ShowCardMovement;
 
 public class ShowCardMovement : MonoBehaviour {
 
 
-    public enum CommandType { MoveUp, MoveDown }
+    public enum CommandType { None, MoveUp, MoveDown }
 
     #region Test
 
@@ -70,59 +71,94 @@ public class ShowCardMovement : MonoBehaviour {
 
     [SerializeField] private MMF_Player hoverFeedback;
 
-    private CommandType previousCommand;
-
+    //private CommandType previousCommand;
+    private CommandType delayedCommand;
 
     private void OnEnable() {
-        //... starts in down pos
-        previousCommand = CommandType.MoveDown;
+        delayedCommand = CommandType.None;
+
+        if (hoverFeedback.PlayCount != 0) {
+            hoverFeedback.SetDirectionBottomToTop();
+        }
     }
 
-    // the moving up and down commands need to play the feedback if the feedback is not playing and revert it if it is playing.
-    // they might need to set the direction, or I might be able to have the direction set from the "reverse direction on play" bool.
-    // they need to store which pos the card is in by which command was played last (I need to make sure nothing external plays this
-    // feedback because that would mess this up). I could have an enum of different states, but I think a bool and then the isPlaying
-    // bool will work
-    // I think I also might need to make sure there is a delay between commands (I will test this).
-
     public void MoveUp() {
+
+        print("Move up");
 
         if (recordCommands) {
             RecordCommand(CommandType.MoveUp);
         }
 
-        if (!enabled || previousCommand == CommandType.MoveUp) {
+        if (!enabled) {
+            print("Disabled");
             return;
         }
 
         if (hoverFeedback.IsPlaying) {
-            hoverFeedback.Revert();
+            delayedCommand = CommandType.MoveUp;
+            return;
         }
-        else {
+
+        if (hoverFeedback.InFirstState()) {
+            print("Play Up");
             hoverFeedback.PlayFeedbacks();
         }
 
-        previousCommand = CommandType.MoveUp;
+        //previousCommand = CommandType.MoveUp;
     }
 
     public void MoveDown() {
+
+        print("Move up");
 
         if (recordCommands) {
             RecordCommand(CommandType.MoveDown);
         }
 
-        if (!enabled || previousCommand == CommandType.MoveDown) {
+        if (!enabled) {
+            print("Disabled");
             return;
         }
 
         if (hoverFeedback.IsPlaying) {
-            hoverFeedback.Revert();
+            delayedCommand = CommandType.MoveDown;
+            print("Is playing");
+            return;
         }
-        else {
+
+        if (hoverFeedback.InSecondState()) {
+            print("Play Down");
             hoverFeedback.PlayFeedbacks();
         }
-
-        previousCommand = CommandType.MoveDown;
     }
 
+    private void Update() {
+
+        if (delayedCommand != CommandType.None) {
+            if (!hoverFeedback.IsPlaying) {
+
+                if (delayedCommand == CommandType.MoveUp) {
+                    MoveUp();
+                }
+                else if (delayedCommand == CommandType.MoveDown) {
+                    MoveDown();
+                }
+
+                delayedCommand = CommandType.None;
+            }
+        }
+    }
+
+    private bool InDownPos() {
+        float downYPos = hoverFeedback.GetFeedbackOfType<MMF_Position>().InitialPosition.y;
+        bool inDownPos = Mathf.Abs(downYPos - transform.position.y) < 0.02f;
+        return inDownPos;
+    }
+
+    private bool InUpPos() {
+        float upYPos = hoverFeedback.GetFeedbackOfType<MMF_Position>().DestinationPosition.y;
+        bool inUpPos = Mathf.Abs(upYPos - transform.position.y) < 0.02f;
+        return inUpPos;
+    }
 }

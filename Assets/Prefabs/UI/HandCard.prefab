@@ -2520,7 +2520,7 @@ MonoBehaviour:
   CooldownDuration: 0
   InitialDelay: 0
   CanPlay: 1
-  CanPlayWhileAlreadyPlaying: 1
+  CanPlayWhileAlreadyPlaying: 0
   ChanceToPlay: 100
   FeedbacksIntensity: 1
   Events:
@@ -3161,12 +3161,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   testCommandSequence:
-  - DelayBefore: 1
-    CommandType: 0
-  - DelayBefore: 1
+  - DelayBefore: 0
     CommandType: 1
-  - DelayBefore: 1
-    CommandType: 0
+  - DelayBefore: 0.19
+    CommandType: 2
+  - DelayBefore: 0.19
+    CommandType: 1
+  - DelayBefore: 0.19
+    CommandType: 2
   recordedCommandSequence: []
   recordCommands: 1
   hoverFeedback: {fileID: 1507770246064602376}

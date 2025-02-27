@@ -22,6 +22,7 @@ public class HandCard : MonoBehaviour {
     public static event Action<ScriptableCardBase> OnCantAfford_Card;
 
     [SerializeField] private Vector2 cardStartPos;
+    private ShowCardMovement showCardMovement;
 
     [Header("Feedback Players")]
     [SerializeField] private MMF_Player showCardPlayer;
@@ -59,6 +60,13 @@ public class HandCard : MonoBehaviour {
         UnsubInputEvents();
     }
 
+    private void Awake() {
+        showCardMovement = GetComponent<ShowCardMovement>();
+
+        cardKeyboardInput = GetComponent<CardKeyboardInput>();
+        cardControllerInput = GetComponent<CardControllerInput>();
+    }
+
     private void Start() {
         useCardPlayer.Events.OnComplete.AddListener(OnUsedCard);
     }
@@ -94,7 +102,9 @@ public class HandCard : MonoBehaviour {
 
     private void SetStateToReady() {
         cardState = CardState.ReadyToPlay;
+
         toHandPlayer.Events.OnComplete.RemoveListener(SetStateToReady);
+        showCardPlayer.Events.OnComplete.RemoveListener(SetStateToReady);
     }
 
     public void SetCardIndex(int cardIndex) {
@@ -261,7 +271,7 @@ public class HandCard : MonoBehaviour {
 
     private Vector2 handPosition;
 
-    public void CancelCard() {
+    public void CancelCard(bool positioningCard) {
 
         cardState = CardState.Moving;
 
@@ -275,15 +285,20 @@ public class HandCard : MonoBehaviour {
             abilityCard.Cancel();
         }
 
-        float duration = 0.3f;
-        transform.DOKill();
-        transform.DOMove(handPosition, duration).OnComplete(() => {
-            cardState = CardState.ReadyToPlay;
-        });
+        if (positioningCard) {
+            float duration = 0.3f;
+            Vector2 showPos = showCardPlayer.GetFeedbackOfType<MMF_Position>().DestinationPosition;
 
-        // fade out
-        float hoverAlpha = 180f / 255f;
-        cardImage.GetComponent<Image>().Fade(hoverAlpha);
+            transform.DOKill();
+            transform.DOMove(showPos, duration).OnComplete(() => {
+                showCardMovement.MoveDown();
+                showCardPlayer.Events.OnComplete.AddListener(SetStateToReady);
+            });
+        }
+        else {
+            showCardMovement.MoveDown();
+            showCardPlayer.Events.OnComplete.AddListener(SetStateToReady);
+        }
 
         AudioManager.Instance.PlaySound(AudioManager.Instance.AudioClips.CancelCard);
 
@@ -297,11 +312,6 @@ public class HandCard : MonoBehaviour {
     private CardKeyboardInput cardKeyboardInput;
     private CardControllerInput cardControllerInput;
 
-    private void Awake() {
-        cardKeyboardInput = GetComponent<CardKeyboardInput>();
-        cardControllerInput = GetComponent<CardControllerInput>();
-    }
-
     private void SubInputEvents() {
         InputManager.OnControlsChanged += ControlsChanged;
     }
@@ -312,7 +322,7 @@ public class HandCard : MonoBehaviour {
     private void ControlsChanged() {
 
         if (cardState == CardState.Playing) {
-            CancelCard();
+            CancelCard(false);
         }
 
         ShowPlayInput();

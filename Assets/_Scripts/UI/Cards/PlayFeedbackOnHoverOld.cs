@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class PlayFeedbackOnHover : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler {
+public class PlayFeedbackOnHoverOld : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler {
     [SerializeField] private MMF_Player hoverFeedback;
 
     [SerializeField] private bool playSFX;

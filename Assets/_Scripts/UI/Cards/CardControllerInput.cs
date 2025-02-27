@@ -23,18 +23,18 @@ public class CardControllerInput : MonoBehaviour {
     [SerializeField] private InputActionReference moveCardAction;
 
     private HandCard handCard;
-    private PlayFeedbackOnHover showOnHover;
+    private ShowCardMovement showCardMovement;
 
     private bool movingCard; // true if able to move card with joystick
     private bool showing; // true if card is fully showing from pressing play action
 
     private void Awake() {
         handCard = GetComponent<HandCard>();
-        showOnHover = GetComponent<PlayFeedbackOnHover>();
+        showCardMovement = GetComponent<ShowCardMovement>();
     }
 
     private void OnEnable() {
-        showOnHover.enabled = false;
+        showCardMovement.enabled = false;
     }
 
     private void OnDisable() {

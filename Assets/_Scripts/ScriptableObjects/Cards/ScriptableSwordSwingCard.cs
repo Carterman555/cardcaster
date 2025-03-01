@@ -33,8 +33,8 @@ public class ScriptableSwordSwingCard : ScriptableAbilityCardBase {
 
         // make sword deal damage through touch
         Transform sword = ReferenceSystem.Instance.PlayerSword;
-        Quaternion damageRotation = Quaternion.Euler(0, 0, sword.eulerAngles.z + 65f);
-        playerTouchDamage = playerTouchDamagePrefab.Spawn(sword.position, damageRotation, sword);
+        playerTouchDamage = playerTouchDamagePrefab.Spawn(sword.position, sword);
+        playerTouchDamage.transform.localEulerAngles = new Vector3(0f, 0f, 65f);
 
         prefabCol = playerTouchDamagePrefab.GetComponent<BoxCollider2D>();
         instanceCol = playerTouchDamage.GetComponent<BoxCollider2D>();
@@ -52,8 +52,11 @@ public class ScriptableSwordSwingCard : ScriptableAbilityCardBase {
 
             // update collider size to match sword size
             float swordSize = StatsManager.Instance.GetPlayerStats().SwordSize;
-            instanceCol.size = new Vector2(prefabCol.size.x * swordSize, prefabCol.size.y);
-            instanceCol.offset = new Vector2(prefabCol.offset.x * swordSize, prefabCol.offset.y);
+            instanceCol.size = new Vector2(prefabCol.size.x * Stats.AreaSize * swordSize, prefabCol.size.y);
+
+            // increase/decrease the offset by half of what the size was changed by
+            float sizeChange = instanceCol.size.x - prefabCol.size.x;
+            instanceCol.offset = new Vector2(prefabCol.offset.x + sizeChange * 0.5f, prefabCol.offset.y);
         }
     }
 

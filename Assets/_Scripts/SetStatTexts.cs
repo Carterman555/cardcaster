@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class DeathScreen : MonoBehaviour {
+public class SetStatTexts : MonoBehaviour {
 
     [SerializeField] private TextMeshProUGUI killsText;
     [SerializeField] private TextMeshProUGUI levelText;

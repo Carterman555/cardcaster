@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: ExpanseCard
   m_EditorClassIdentifier: 
   cardType: 15
-  description: Increase the area of abilities by 50%
+  description: Increase the area of abilities by 50% (not projectiles)
   sprite: {fileID: 1724886251, guid: d638d131cac6f4d45aeb96fc55848241, type: 3}
   cost: 1
   rarity: 0

@@ -91,11 +91,6 @@ public class HandCard : MonoBehaviour {
         SetCard(card);
     }
 
-    private void Update() {
-        incompatitableText.gameObject.SetActive(true);
-        incompatitableText.text = cardState.ToPrettyString();
-    }
-
     private void PlayHandFeedback() {
         toHandPlayer.PlayFeedbacks();
     }
@@ -145,17 +140,23 @@ public class HandCard : MonoBehaviour {
 
             // if not already waiting for the hand player to move the card
             if (!waitingForToHandToMove) {
-                toHandPlayer.Events.OnComplete.AddListener(MoveToPos);
-                toHandPlayer.Events.OnComplete.RemoveListener(SetStateToReady);
+                StartCoroutine(MoveWhenReady());
                 waitingForToHandToMove = true;
             }
         }
     }
 
+    private IEnumerator MoveWhenReady() {
+        while (cardState != CardState.ReadyToPlay) {
+            yield return null;
+        }
+
+        MoveToPos();
+    }
+
     private void MoveToPos() {
         waitingForToHandToMove = false;
         cardState = CardState.Moving;
-        toHandPlayer.Events.OnComplete.RemoveListener(MoveToPos);
 
         transform.DOKill();
         transform.DOMove(toMovePos, duration: 0.2f).OnComplete(() => {

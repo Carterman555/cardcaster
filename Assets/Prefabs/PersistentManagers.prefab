@@ -1265,8 +1265,20 @@ MonoBehaviour:
         BeforeExitFadeDelay: 0
         ExitFadeDuration: 0.2
         InterpolateProgress: 1
-        ProgressInterpolationSpeed: 5
-        SpeedIntervals: []
+        ProgressInterpolationSpeed: 0.5
+        SpeedIntervals:
+        - Interval:
+            LowerBound: 0.17
+            UpperBound: 0.32
+            LowerBoundIntervalType: 0
+            UpperBoundIntervalType: 0
+          Speed: 0.25
+        - Interval:
+            LowerBound: 0.84
+            UpperBound: 1
+            LowerBoundIntervalType: 0
+            UpperBoundIntervalType: 0
+          Speed: 0.25
         FadeMode: 0
         EntryFadeTween:
           MMTweenDefinitionType: 1

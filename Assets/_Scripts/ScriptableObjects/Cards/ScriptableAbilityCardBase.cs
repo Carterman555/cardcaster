@@ -31,7 +31,19 @@ public abstract class ScriptableAbilityCardBase : ScriptableCardBase {
     public CardType[] IncompatibleAbilities => incompatibleAbilities;
 
     public bool IsCompatibleWithModifier(ScriptableModifierCardBase modifier) {
-        return (abilityAttributes & modifier.AbilityAttributes) != 0;
+
+        bool anyFlagsMatch = (abilityAttributes & modifier.AbilityAttributes) != 0;
+
+        // if the modifier effects a projectile, the ability must be a projectile for them to be compatible
+        bool abilityIsProjectile = (abilityAttributes & AbilityAttribute.IsProjectile) != 0;
+        bool modifierEffectsProjectile = (modifier.AbilityAttributes & AbilityAttribute.IsProjectile) != 0;
+
+        bool projectileCheck = true;
+        if (modifierEffectsProjectile) {
+            projectileCheck = abilityIsProjectile;
+        }
+
+        return anyFlagsMatch && projectileCheck;
     }
 
     private Coroutine positioningCardCoroutine;

@@ -16,7 +16,7 @@ TagManager:
   - Wall
   - DoorBlocker
   - RoomObject
-  - Projectiles
+  - Projectile
   - Trails
   - Map
   - PlayerDashing

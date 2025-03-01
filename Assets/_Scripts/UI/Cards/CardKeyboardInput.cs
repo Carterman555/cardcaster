@@ -49,41 +49,44 @@ public class CardKeyboardInput : MonoBehaviour, IPointerDownHandler {
         bool hotKeyDown = handCard.GetPlayInput().WasPerformedThisFrame();
         bool hotKeyUp = handCard.GetPlayInput().WasReleasedThisFrame();
 
-        if (!handCard.CanAffordToPlay() || !handCard.GetCard().CanPlay()) {
-            if (hotKeyDown) {
-                handCard.CantPlayShake();
+        if (handCard.GetCardState() == HandCard.CardState.ReadyToPlay) {
+            if (!handCard.CanAffordToPlay() || !handCard.GetCard().CanPlay()) {
+                if (hotKeyDown) {
+                    handCard.CantPlayShake();
 
-                // if tries to play a card that is incompatible with an active ability, show incompatible text
-                if (handCard.GetCard() is ScriptableAbilityCardBase abilityCard && abilityCard.IsIncompatibleAbilityActive()) {
-                    StartCoroutine(handCard.ShowIncompatibleText());
+                    // if tries to play a card that is incompatible with an active ability, show incompatible text
+                    if (handCard.GetCard() is ScriptableAbilityCardBase abilityCard && abilityCard.IsIncompatibleAbilityActive()) {
+                        StartCoroutine(handCard.ShowIncompatibleText());
+                    }
+                }
+                return;
+            }
+
+            // start playing card if hotkey is down and not playing a card
+            if (hotKeyDown && !HandCard.IsPlayingAnyCard()) {
+
+                handCard.OnStartPlayingCard();
+
+                //... show cancel card panel
+                FeedbackPlayerOld.Play("CancelCard");
+
+                showCardOnHover.enabled = false;
+
+                // if the card is positional, the hotkey makes it follow the mouse
+                if (handCard.GetCard() is ScriptableAbilityCardBase abilityCard && abilityCard.IsPositional) {
+                    FollowMouse();
+                }
+
+                // if the card is not positional, the hotkey just raises the card
+                else {
+                    showCardMovement.MoveUp();
                 }
             }
-            return;
         }
-
-        // start playing card if hotkey is down and not playing a card
-        if (hotKeyDown && !HandCard.IsPlayingAnyCard()) {
-
-            handCard.OnStartPlayingCard();
-
-            //... show cancel card panel
-            FeedbackPlayerOld.Play("CancelCard");
-
-            showCardOnHover.enabled = false;
-
-            // if the card is positional, the hotkey makes it follow the mouse
-            if (handCard.GetCard() is ScriptableAbilityCardBase abilityCard && abilityCard.IsPositional) {
-                FollowMouse();
+        else if (handCard.GetCardState() == HandCard.CardState.Playing) {
+            if (hotKeyUp) {
+                TryPlayCard();
             }
-
-            // if the card is not positional, the hotkey just raises the card
-            else {
-                showCardMovement.MoveUp();
-            }
-        }
-
-        if (hotKeyUp && handCard.GetCardState() == HandCard.CardState.Playing) {
-            TryPlayCard();
         }
     }
 
@@ -108,7 +111,7 @@ public class CardKeyboardInput : MonoBehaviour, IPointerDownHandler {
             return;
         }
 
-        if (HandCard.IsPlayingAnyCard()) {
+        if (HandCard.IsPlayingAnyCard() && handCard.GetCardState() == HandCard.CardState.ReadyToPlay) {
             return;
         }
 

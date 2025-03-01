@@ -5,21 +5,34 @@ using UnityEngine;
 
 public class BouncyProjectile : MonoBehaviour {
 
-    private ReturnOnContact returnOnContact;
+    private GameObject projectile;
     private BounceOnContact bounceOnContact;
 
     private void OnEnable() {
         // find the projectile object
-        returnOnContact = transform.parent.GetComponentInChildren<ReturnOnContact>();
+        projectile = null;
+        foreach (Transform child in transform.parent) {
+            if (child.gameObject.layer == GameLayers.ProjectileLayer) {
+                projectile = child.gameObject;
+            }
+        }
+
+        if (projectile == null) {
+            Debug.LogWarning("BouncyProjectile effect added but can't find projectile! Did you forget to change layer to projectile?");
+        }
 
         // make it bounce
-        returnOnContact.enabled = false;
-        bounceOnContact = returnOnContact.AddComponent<BounceOnContact>();
+        if (projectile.TryGetComponent(out ReturnOnContact returnOnContact)) {
+            returnOnContact.enabled = false;
+        }
+        bounceOnContact = projectile.AddComponent<BounceOnContact>();
     }
 
     private void OnDisable() {
         // disable the bounce
-        returnOnContact.enabled = true;
+        if (projectile.TryGetComponent(out ReturnOnContact returnOnContact)) {
+            returnOnContact.enabled = true;
+        }
         Destroy(bounceOnContact);
     }
 }

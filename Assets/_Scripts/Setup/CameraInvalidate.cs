@@ -24,12 +24,8 @@ public class CameraInvalidate : MonoBehaviour {
     private void InvalidateCache() {
         confiner.InvalidateCache();
 
-        //print("InvalidateCache");
-
         RemoveConfinerBoxCollider();
-
-        MMAdditiveSceneLoadingManager.AllowUnload();
-
+        StartCoroutine(LoadWhileBaking());
     }
 
     // it needs a box collider to prevent the camera from glitch when the rooms get spawned, but it needs to be destroyed to confine the
@@ -40,9 +36,25 @@ public class CameraInvalidate : MonoBehaviour {
 
     private IEnumerator LoadWhileBaking() {
 
-        yield return new WaitForSeconds(5f);
+        //... unnessecary i think, but just in case camera is close to player for the first few frames, before moving away
+        yield return new WaitForSeconds(0.1f);
+
+        // wait until camera gets close enough to player before unloading the scene
+        float distanceThreshold = 3;
+        float distanceThresholdSquared = distanceThreshold * distanceThreshold;
+
+        float xDiff = PlayerMovement.Instance.transform.position.x - Camera.main.transform.position.x;
+        float yDiff = PlayerMovement.Instance.transform.position.y - Camera.main.transform.position.y;
+        float distanceSquared = xDiff * xDiff + yDiff * yDiff;
+
+        while (distanceSquared > distanceThresholdSquared) {
+            yield return null;
+
+            xDiff = PlayerMovement.Instance.transform.position.x - Camera.main.transform.position.x;
+            yDiff = PlayerMovement.Instance.transform.position.y - Camera.main.transform.position.y;
+            distanceSquared = xDiff * xDiff + yDiff * yDiff;
+        }
 
         MMAdditiveSceneLoadingManager.AllowUnload();
-
     }
 }

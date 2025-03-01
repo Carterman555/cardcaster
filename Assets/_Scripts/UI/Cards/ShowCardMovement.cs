@@ -8,10 +8,7 @@ using static ShowCardMovement;
 
 public class ShowCardMovement : MonoBehaviour {
 
-
-    public enum CommandType { None, MoveUp, MoveDown }
-
-    #region Test
+    #region Test (delete)
 
     [SerializeField] private Command[] testCommandSequence;
     [SerializeField] private List<Command> recordedCommandSequence = new();
@@ -69,9 +66,10 @@ public class ShowCardMovement : MonoBehaviour {
 
     #endregion
 
+
     [SerializeField] private MMF_Player hoverFeedback;
 
-    //private CommandType previousCommand;
+    public enum CommandType { None, MoveUp, MoveDown }
     private CommandType delayedCommand;
 
     private void OnEnable() {
@@ -84,14 +82,11 @@ public class ShowCardMovement : MonoBehaviour {
 
     public void MoveUp() {
 
-        print("Move up");
-
         if (recordCommands) {
             RecordCommand(CommandType.MoveUp);
         }
 
         if (!enabled) {
-            print("Disabled");
             return;
         }
 
@@ -101,34 +96,26 @@ public class ShowCardMovement : MonoBehaviour {
         }
 
         if (hoverFeedback.InFirstState()) {
-            print("Play Up");
             hoverFeedback.PlayFeedbacks();
         }
-
-        //previousCommand = CommandType.MoveUp;
     }
 
     public void MoveDown() {
-
-        print("Move up");
 
         if (recordCommands) {
             RecordCommand(CommandType.MoveDown);
         }
 
         if (!enabled) {
-            print("Disabled");
             return;
         }
 
         if (hoverFeedback.IsPlaying) {
             delayedCommand = CommandType.MoveDown;
-            print("Is playing");
             return;
         }
 
         if (hoverFeedback.InSecondState()) {
-            print("Play Down");
             hoverFeedback.PlayFeedbacks();
         }
     }
@@ -148,17 +135,5 @@ public class ShowCardMovement : MonoBehaviour {
                 delayedCommand = CommandType.None;
             }
         }
-    }
-
-    private bool InDownPos() {
-        float downYPos = hoverFeedback.GetFeedbackOfType<MMF_Position>().InitialPosition.y;
-        bool inDownPos = Mathf.Abs(downYPos - transform.position.y) < 0.02f;
-        return inDownPos;
-    }
-
-    private bool InUpPos() {
-        float upYPos = hoverFeedback.GetFeedbackOfType<MMF_Position>().DestinationPosition.y;
-        bool inUpPos = Mathf.Abs(upYPos - transform.position.y) < 0.02f;
-        return inUpPos;
     }
 }

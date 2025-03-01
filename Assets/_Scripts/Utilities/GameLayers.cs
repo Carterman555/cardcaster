@@ -10,6 +10,7 @@ public class GameLayers {
     public static int WallLayer => 8;
     public static int DoorBlockerLayer => 9;
     public static int RoomObjectLayer => 10;
+    public static int ProjectileLayer => 11;
     public static int MapLayer => 13;
     public static int PlayerDashingLayer => 14;
 

@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 7351622199640359484}
   - component: {fileID: 8357028796175174944}
   - component: {fileID: 8094057064344473443}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: SpectralBlade
   m_TagString: Untagged
   m_Icon: {fileID: 0}

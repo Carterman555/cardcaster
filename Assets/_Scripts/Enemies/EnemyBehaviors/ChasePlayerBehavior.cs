@@ -37,8 +37,12 @@ public class ChasePlayerBehavior : MonoBehaviour, IEffectable, IEnemyMovement {
 
     private void OnDisable() {
 
+        if (Helpers.GameStopping() || GameSceneManager.Instance.IsSceneLoading()) {
+            return;
+        }
+
         // if disabled by enemy script, not from dying
-        if (!GetComponent<Health>().IsDead() && !Helpers.GameStopping()) {
+        if (!GetComponent<Health>().IsDead()) {
             agent.isStopped = true;
         }
     }

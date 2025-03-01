@@ -51,9 +51,9 @@ public class ScriptableBoomerangSwordCard : ScriptableAbilityCardBase {
 
         instanceCol.size = new Vector2(prefabCol.size.x * swordSize, prefabCol.size.y);
 
-        //... this formula works because it does (It works with sword size 1 and 2.5 but idk about other sizes)
-        float offsetMult = ((swordSize - 1) * 1.5f) + 1;
-        instanceCol.offset = new Vector2(prefabCol.offset.x * offsetMult, prefabCol.offset.y);
+        // increase/decrease the offset by half of what the size was changed by
+        float sizeChange = instanceCol.size.x - prefabCol.size.x;
+        instanceCol.offset = new Vector2(prefabCol.offset.x + sizeChange * 0.5f, prefabCol.offset.y);
     }
 
     private void SetupBoomerangMovement() {

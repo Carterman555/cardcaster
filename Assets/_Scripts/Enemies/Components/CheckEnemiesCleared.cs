@@ -20,7 +20,7 @@ public class CheckEnemiesCleared : MonoBehaviour {
     }
 
     private IEnumerator CheckIfEnemiesCleared() {
-        // wait because some enemies spawn more on death and it needs to register those
+        //... wait because some enemies spawn more on death and it needs to register those
         yield return null;
         bool anyAliveEnemies = Containers.Instance.Enemies.GetComponentsInChildren<Health>().Any(health => !health.IsDead());
 
@@ -28,19 +28,18 @@ public class CheckEnemiesCleared : MonoBehaviour {
 
             //... if the room was cleared
             if (EnemySpawner.Instance.SpawnedAllWaves()) {
-
                 isOnCooldown = true;
                 OnEnemiesCleared?.Invoke();
-
-                // cooldown so OnEnemiesCleared is only invoked once when multiple enemies die at the same time
-                float cooldownDuration = 0.25f;
-                yield return new WaitForSeconds(cooldownDuration);
-                isOnCooldown = false;
             }
             //... if another wave
             else {
                 EnemySpawner.Instance.SpawnCurrentWave();
             }
+
+            // cooldown so OnEnemiesCleared is only invoked once when multiple enemies die at the same time
+            float cooldownDuration = 0.25f;
+            yield return new WaitForSeconds(cooldownDuration);
+            isOnCooldown = false;
         }
     }
 

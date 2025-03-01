@@ -29602,7 +29602,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7104372755863850615, guid: cbe9d5233d6e2fb4ab8841b1f83fde7b, type: 3}
       propertyPath: maxDifficulty
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 7456050652385910532, guid: cbe9d5233d6e2fb4ab8841b1f83fde7b, type: 3}
       propertyPath: m_LocalPosition.x

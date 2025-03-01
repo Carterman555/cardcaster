@@ -315,6 +315,8 @@ public class SpawnEnemyStep : BaseTutorialStep {
     }
 
     private void OnEnemySpawn(Enemy enemy) {
+        Enemy.OnAnySpawn -= OnEnemySpawn;
+
         enemyInstance = enemy;
         enemy.GetComponent<Health>().OnDeath += CompleteStep;
 
@@ -328,7 +330,6 @@ public class SpawnEnemyStep : BaseTutorialStep {
 
         base.CompleteStep();
     }
-
 }
 
 public class GiveTeleportCardStep : BaseTutorialStep {
@@ -422,21 +423,15 @@ public class CombatModifyCardStep : BaseTutorialStep {
     public override void OnEnterStep() {
         base.OnEnterStep();
 
-        SpawnEnemies();
-
-        foreach (var enemyInstance in enemyInstances) {
-            enemyInstance.GetComponent<Health>().OnDeath += TryCompleteStep;
-
-            //... so enemy doesn't invoke enemies cleared when killed because classes that take that event are not setup and ready
-            //... to have it invoked
-            enemyInstance.GetComponent<CheckEnemiesCleared>().enabled = false;
-        }
-    }
-
-    private void SpawnEnemies() {
         for (int enemyIndex = 0; enemyIndex < enemySpawnPoints.Length; enemyIndex++) {
             Transform spawnPoint = enemySpawnPoints[enemyIndex];
             enemyInstances[enemyIndex] = scriptableEnemy.Prefab.Spawn(spawnPoint.position, Containers.Instance.Enemies);
+
+            enemyInstances[enemyIndex].GetComponent<Health>().OnDeath += TryCompleteStep;
+
+            //... so enemy doesn't invoke enemies cleared when killed because classes that take that event are not setup and ready
+            //... to have it invoked
+            enemyInstances[enemyIndex].GetComponent<CheckEnemiesCleared>().enabled = false;
         }
     }
 
@@ -447,7 +442,6 @@ public class CombatModifyCardStep : BaseTutorialStep {
             foreach (var enemyInstance in enemyInstances) {
                 enemyInstance.GetComponent<Health>().OnDeath -= TryCompleteStep;
             }
-
             base.CompleteStep();
         }
     }

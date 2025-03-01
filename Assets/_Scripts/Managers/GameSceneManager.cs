@@ -20,6 +20,8 @@ public class GameSceneManager : Singleton<GameSceneManager> {
 
     private const int LEVELS_PER_ENVIRONMENT = 1;
 
+    private const int MAX_LEVEL = 3;
+
     private MMF_Player sceneLoadPlayer;
 
     private bool isSceneLoading;
@@ -54,6 +56,13 @@ public class GameSceneManager : Singleton<GameSceneManager> {
     [Command]
     public void NextLevel() {
         level++;
+
+        if (level > MAX_LEVEL) {
+
+
+            return;
+        }
+
         UpdateEnvironmentType();
         LoadGameScene();
     }

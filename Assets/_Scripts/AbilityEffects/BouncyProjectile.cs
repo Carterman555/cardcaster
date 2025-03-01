@@ -11,10 +11,8 @@ public class BouncyProjectile : MonoBehaviour {
     private void OnEnable() {
         // find the projectile object
         projectile = null;
-        foreach (Transform child in transform.parent) {
-            if (child.gameObject.layer == GameLayers.ProjectileLayer) {
-                projectile = child.gameObject;
-            }
+        if (transform.parent.gameObject.layer == GameLayers.ProjectileLayer) {
+            projectile = transform.parent.gameObject;
         }
 
         if (projectile == null) {

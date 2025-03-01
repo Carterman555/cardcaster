@@ -55,7 +55,7 @@ public class MusicManager : Singleton<MusicManager> {
         TransitionMusic(MusicType.Boss);
     }
 
-    private void TransitionToCasualMusic() {
+    public void TransitionToCasualMusic() {
         TransitionMusic(MusicType.Casual);
     }
 

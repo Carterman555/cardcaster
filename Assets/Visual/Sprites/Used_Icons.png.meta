@@ -475,7 +475,7 @@ TextureImporter:
         width: 18
         height: 18
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -496,7 +496,7 @@ TextureImporter:
         width: 18
         height: 18
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -504,6 +504,27 @@ TextureImporter:
       bones: []
       spriteID: 5be1e78cdcc8c4d47821412d6b65d9d0
       internalID: -1739406215
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: player-head-icon
+      rect:
+        serializedVersion: 2
+        x: 73
+        y: 476
+        width: 17
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ccc4ae454bb438446afa596863cb363d
+      internalID: -826041440
       vertices: []
       indices: 
       edges: []
@@ -535,6 +556,7 @@ TextureImporter:
       magic-projectile1: 2020966142
       magic-projectile2: -1630129890
       magic-projectile3: -1045381893
+      player-head-icon: -826041440
       simple-bullet: 625216967
       skull1: -282540879
       skull2: -1739406215

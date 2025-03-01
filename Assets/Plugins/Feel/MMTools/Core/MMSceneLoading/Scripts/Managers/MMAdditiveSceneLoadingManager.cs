@@ -360,6 +360,13 @@ namespace MoreMountains.Tools {
         /// <param name="t"></param>
         /// <returns></returns>
         public static float ComputeInterpolationSpeed(float t) {
+
+            // so when the unload is allowed, finish the loading quickly
+            if (_waitToUnload && _unloadAllowed) {
+                float unloadAllowedSpeed = 20f;
+                return unloadAllowedSpeed;
+            }
+
             if ((_speedIntervals != null) && (_speedIntervals.Count > 0)) {
                 foreach (MMSceneLoadingSpeedInterval interval in _speedIntervals) {
                     if (interval.Interval.Contains(t)) {
@@ -518,6 +525,8 @@ namespace MoreMountains.Tools {
             if (_interpolateProgress) {
                 while (_interpolatedLoadProgress < 1f) {
                     yield return null;
+
+
                 }
             }
 

@@ -33,7 +33,8 @@ public class Tutorial : MonoBehaviour {
     private string combatText = "In the Card Dungeon, you need to fight off enemies. I'll spawn one in for you," +
         " so you can learn. Press {ACTION} to swing your sword and kill him!";
 
-    private string dashText = "Nice. You can also dash with {ACTION}, which can be a useful way to move around. Try it.";
+    private string dashText = "Nice. You can also dash with {ACTION}, which can be a useful way to move around. You're also " +
+        "invincible while dashing. Try it.";
 
     private string card1TextKeyboard = "Good. In the card dungeon, you will find magical cards. I will give a teleport card." +
         " Drag it on the other side of this wall to the right to teleport there.";

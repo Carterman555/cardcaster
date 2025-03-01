@@ -20,7 +20,7 @@ MonoBehaviour:
   minLevel: 1
   stackType: 0
   startUnlocked: 1
-  abilityAttributes: 1
+  abilityAttributes: 2
   abilityStatsModifierPercentage:
     Damage: 50
     KnockbackStrength: 0

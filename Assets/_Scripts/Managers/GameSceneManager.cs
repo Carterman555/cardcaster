@@ -59,7 +59,7 @@ public class GameSceneManager : Singleton<GameSceneManager> {
 
         if (level > MAX_LEVEL) {
 
-
+            FeedbackPlayerReference.Play("DemoComplete");
             return;
         }
 

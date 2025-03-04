@@ -10,6 +10,8 @@ using UnityEngine.SceneManagement;
 public class GameSceneManager : Singleton<GameSceneManager> {
 
     public static event Action OnStartGame;
+    public static event Action<int> OnLevelComplete;
+    public static event Action OnWinGame;
 
     [SerializeField] private bool debugStartTutorial;
 
@@ -55,10 +57,12 @@ public class GameSceneManager : Singleton<GameSceneManager> {
 
     [Command]
     public void NextLevel() {
+        OnLevelComplete?.Invoke(level);
+
         level++;
 
         if (level > MAX_LEVEL) {
-
+            OnWinGame?.Invoke();
             FeedbackPlayerReference.Play("DemoComplete");
             return;
         }

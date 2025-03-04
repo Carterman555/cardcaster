@@ -33,10 +33,6 @@ public class CardControllerInput : MonoBehaviour {
         showCardMovement = GetComponent<ShowCardMovement>();
     }
 
-    private void OnEnable() {
-        showCardMovement.enabled = false;
-    }
-
     private void OnDisable() {
         showing = false;
         movingCard = false;

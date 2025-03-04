@@ -90,7 +90,7 @@ public class Tutorial : MonoBehaviour {
     private void OnEnable() {
         startTutorialTrigger.OnEnterContact += TryStartTutorial;
 
-        PlayerMovement.Instance.GetComponent<Health>().OnDeath += OnPlayerDeath;
+        PlayerMovement.Instance.GetComponent<Health>().OnDeathAnimComplete += OnPlayerDeath;
     }
     private void OnDisable() {
         startTutorialTrigger.OnEnterContact -= TryStartTutorial;
@@ -111,7 +111,7 @@ public class Tutorial : MonoBehaviour {
     }
 
     private void OnPlayerDeath() {
-        PlayerMovement.Instance.GetComponent<Health>().OnDeath -= OnPlayerDeath;
+        PlayerMovement.Instance.GetComponent<Health>().OnDeathAnimComplete -= OnPlayerDeath;
 
         playerDied = true;
 

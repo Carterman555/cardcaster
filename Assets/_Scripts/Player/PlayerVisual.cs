@@ -34,12 +34,16 @@ public class PlayerVisual : StaticInstance<PlayerVisual> {
     public void RemoveFadeEffect(FadeEffect fadeEffect, float duration = 0f) {
 
         if (!fadeEffects.Contains(fadeEffect)) {
-            Debug.LogError("Trying to Remove Effect that isn't Active");
             return;
         }
         fadeEffects.Remove(fadeEffect);
 
         UpdateFade(duration);
+    }
+
+    public void RemoveAllFadeEffects() {
+        fadeEffects.Clear();
+        FadePlayer(1f, 0);
     }
 
     private void UpdateFade(float duration = 0f) {

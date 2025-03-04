@@ -8,6 +8,7 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using static HandCard;
 
@@ -50,6 +51,13 @@ public class HandCard : MonoBehaviour {
         playingCardThisFrame = false;
     }
 
+    private void Awake() {
+        showCardMovement = GetComponent<ShowCardMovement>();
+
+        cardKeyboardInput = GetComponent<CardKeyboardInput>();
+        cardControllerInput = GetComponent<CardControllerInput>();
+    }
+
     private void OnEnable() {
         SubInputEvents();
 
@@ -60,19 +68,14 @@ public class HandCard : MonoBehaviour {
         UnsubInputEvents();
     }
 
-    private void Awake() {
-        showCardMovement = GetComponent<ShowCardMovement>();
-
-        cardKeyboardInput = GetComponent<CardKeyboardInput>();
-        cardControllerInput = GetComponent<CardControllerInput>();
-    }
-
     private void Start() {
         useCardPlayer.Events.OnComplete.AddListener(OnUsedCard);
+        SceneManager.sceneLoaded += SetPlayingAnyCardFalse;
     }
 
     private void OnDestroy() {
         useCardPlayer.Events.OnComplete.RemoveListener(OnUsedCard);
+        SceneManager.sceneLoaded -= SetPlayingAnyCardFalse;
     }
 
     public void Setup(Transform deckTransform, ScriptableCardBase card) {
@@ -292,7 +295,9 @@ public class HandCard : MonoBehaviour {
 
             transform.DOKill();
             transform.DOMove(showPos, duration).OnComplete(() => {
+                showCardPlayer.SetDirectionTopToBottom();
                 showCardMovement.MoveDown();
+
                 showCardPlayer.Events.OnComplete.AddListener(SetStateToReady);
             });
         }
@@ -343,6 +348,10 @@ public class HandCard : MonoBehaviour {
     }
 
     #endregion
+
+    private void SetPlayingAnyCardFalse(Scene arg0, LoadSceneMode arg1) {
+        playingAnyCard = false;
+    }
 
     private void SetPlayingCardThisFrameFalse() {
         playingCardThisFrame = false;

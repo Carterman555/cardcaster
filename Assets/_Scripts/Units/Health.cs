@@ -8,6 +8,7 @@ public class Health : MonoBehaviour, IDamagable {
     public static event Action<Health> OnAnyDeath;
 
     public event Action OnDeath;
+    public event Action OnDeathAnimComplete; // only invokes for player right now from the deathfeedbacks
     public event Action<float> OnHealthChanged_HealthProportion;
 
     public event Action OnDamaged;
@@ -38,6 +39,10 @@ public class Health : MonoBehaviour, IDamagable {
 
     public float GetHealthProportion() {
         return health / maxHealth;
+    }
+
+    public float GetHealth() {
+        return health;
     }
 
     private void Awake() {
@@ -92,6 +97,10 @@ public class Health : MonoBehaviour, IDamagable {
         if (returnOnDeath) {
             gameObject.ReturnToPool();
         }
+    }
+
+    public void InvokeDeathAnimComplete() {
+        OnDeathAnimComplete?.Invoke();
     }
 
     public void Heal(float amount) {

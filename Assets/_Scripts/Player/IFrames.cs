@@ -41,4 +41,10 @@ public class IFrames : MonoBehaviour {
         //... remove player invincibility
         Destroy(playerInvincibility);
     }
+
+    private void OnDisable() {
+        if (playerInvincibility != null) {
+            Destroy(playerInvincibility);
+        }
+    }
 }

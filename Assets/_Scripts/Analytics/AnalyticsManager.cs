@@ -4,6 +4,7 @@ using UnityEngine;
 using Unity.Services.Analytics;
 using System;
 using Unity.Services.Core;
+using static Cinemachine.DocumentationSortingAttribute;
 
 public class AnalyticsManager : MonoBehaviour {
 
@@ -16,11 +17,107 @@ public class AnalyticsManager : MonoBehaviour {
         }
 
         AnalyticsService.Instance.StartDataCollection();
-
-        //CompleteGameEvent completeGameEvent = new() {
-        //    TimeToComplete = Time.time
-        //};
-
-        //AnalyticsService.Instance.RecordEvent(completeGameEvent);
     }
+
+    #region Record Events
+
+    private void OnEnable() {
+        GameSceneManager.OnStartGame += SetStartTimes;
+
+        playerHealth.OnDeath += RecordDeathEvent;
+
+        GameSceneManager.OnLevelComplete += RecordLevelCompleteEvent;
+
+        Room.OnAnyRoomEnter_Room += OnRoomEnter;
+        CheckEnemiesCleared.OnEnemiesCleared += RecordRoomEndEvent;
+        playerHealth.OnDeath += RecordRoomEndEvent;
+
+        GameSceneManager.OnWinGame += RecordCompleteGameEvent;
+    }
+
+    private void OnDisable() {
+        GameSceneManager.OnStartGame -= SetStartTimes;
+
+        playerHealth.OnDeath -= RecordDeathEvent;
+
+        GameSceneManager.OnLevelComplete -= RecordLevelCompleteEvent;
+
+        Room.OnAnyRoomEnter_Room -= OnRoomEnter;
+        CheckEnemiesCleared.OnEnemiesCleared -= RecordRoomEndEvent;
+        playerHealth.OnDeath -= RecordRoomEndEvent;
+
+        GameSceneManager.OnWinGame -= RecordCompleteGameEvent;
+    }
+
+    [SerializeField] private bool debug = true;
+
+    private float GameTime => Time.time - startRunTime;
+    private static float startRunTime; // static so doesn't reset on scene load
+
+    private void SetStartTimes() {
+        startRunTime = Time.time;
+        startLevelTime = Time.time;
+    }
+
+
+    [SerializeField] private Health playerHealth;
+
+    private void RecordDeathEvent() {
+        PlayerDeathEvent playerDeathEvent = new() {
+            RunTime = GameTime,
+            Room = Room.GetCurrentRoom().name,
+            Level = GameSceneManager.Instance.GetLevel()
+        };
+
+        AnalyticsService.Instance.RecordEvent(playerDeathEvent);
+        if (debug) print($"Record death: {GameTime}, {Room.GetCurrentRoom().name}, {GameSceneManager.Instance.GetLevel()}");
+    }
+
+
+    private static float startLevelTime; // static so doesn't reset on scene load
+
+    public void RecordLevelCompleteEvent(int level) {
+        LevelCompleteEvent levelCompleteEvent = new() {
+            TimeInLevel = Time.time - startLevelTime,
+            Level = level
+        };
+
+        AnalyticsService.Instance.RecordEvent(levelCompleteEvent);
+        if (debug) print($"Record level complete: {Time.time - startLevelTime}, {level}");
+        
+        startLevelTime = Time.time;
+    }
+
+
+    private float timeAtRoomEnter;
+    private float healthAtRoomEnter;
+
+    private void OnRoomEnter(Room room) {
+        timeAtRoomEnter = Time.time;
+        healthAtRoomEnter = playerHealth.GetHealth();
+    }
+
+    private void RecordRoomEndEvent() {
+        RoomEndEvent roomEndEvent = new() {
+            Room = Room.GetCurrentRoom().name,
+            TimeToEnd = Time.time - timeAtRoomEnter,
+            HealthLost = healthAtRoomEnter - playerHealth.GetHealth(),
+            Survived = !playerHealth.IsDead()
+        };
+
+        AnalyticsService.Instance.RecordEvent(roomEndEvent);
+        if (debug) print($"Record room end: Room = {Room.GetCurrentRoom().name} Time = {Time.time - timeAtRoomEnter}, Health lost = {healthAtRoomEnter - playerHealth.GetHealth()}, Survived = {!playerHealth.IsDead()}");
+    }
+
+
+    private void RecordCompleteGameEvent() {
+        CompleteGameEvent completeGameEvent = new() {
+            TimeToComplete = GameTime
+        };
+
+        AnalyticsService.Instance.RecordEvent(completeGameEvent);
+        if (debug) print($"Record game complete: {GameTime}");
+    }
+
+    #endregion
 }

@@ -55,7 +55,8 @@ public class PlayerMovement : StaticInstance<PlayerMovement>, IHasStats, IChange
 
         moveDirection = moveInput.action.ReadValue<Vector2>();
 
-        if (dashAction.action.triggered && !isDashing && !knockback.IsApplyingKnockback() && moveDirection.magnitude > 0f) {
+        dashTimer += Time.deltaTime;
+        if (dashAction.action.triggered && !isDashing && dashTimer > dashCooldown && !knockback.IsApplyingKnockback() && moveDirection.magnitude > 0f) {
             StartCoroutine(Dash());
         }
 
@@ -89,6 +90,8 @@ public class PlayerMovement : StaticInstance<PlayerMovement>, IHasStats, IChange
 
     [Header("Dash")]
     [SerializeField] private InputActionReference dashAction;
+    [SerializeField] private float dashCooldown;
+    private float dashTimer;
 
     private FadeEffect dashFade;
 
@@ -113,6 +116,7 @@ public class PlayerMovement : StaticInstance<PlayerMovement>, IHasStats, IChange
         gameObject.layer = GameLayers.PlayerLayer;
 
         isDashing = false;
+        dashTimer = 0f;
 
         Destroy(dashInvincibility);
 

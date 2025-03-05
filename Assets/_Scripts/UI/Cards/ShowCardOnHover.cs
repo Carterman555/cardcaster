@@ -19,13 +19,13 @@ public class ShowCardOnHover : MonoBehaviour, IPointerEnterHandler, IPointerExit
 
         if (!enabled) return;
 
-        showCardMovement.MoveUp();
+        showCardMovement.Show();
     }
 
     public void OnPointerExit(PointerEventData eventData) {
 
         if (!enabled) return;
 
-        showCardMovement.MoveDown();
+        showCardMovement.Hide();
     }
 }

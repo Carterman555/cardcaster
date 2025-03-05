@@ -2822,7 +2822,7 @@ MonoBehaviour:
         AllowAdditivePlays: 0
         RelativePosition: 0
         DeterminePositionsOnPlay: 1
-        InitialPosition: {x: 0, y: 0, z: 0}
+        InitialPosition: {x: 0, y: 900, z: 0}
         DestinationPosition: {x: 0, y: 200, z: 0}
         InitialPositionTransform: {fileID: 0}
         DestinationPositionTransform: {fileID: 0}
@@ -3130,7 +3130,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cardMoveSpeed: 1000
-  showCardPlayer: {fileID: 1507770246064602376}
   playFirstCardInput: {fileID: 5962943595717837552, guid: 50afa068aa51bd149a1f3d07794c53d5, type: 3}
   playSecondCardInput: {fileID: 5805402075545936634, guid: 50afa068aa51bd149a1f3d07794c53d5, type: 3}
   playThirdCardInput: {fileID: -8723412899392237460, guid: 50afa068aa51bd149a1f3d07794c53d5, type: 3}
@@ -3160,17 +3159,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 642ab5757e8ba2945a9c94ab42da78ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  testCommandSequence:
-  - DelayBefore: 0
-    CommandType: 1
-  - DelayBefore: 0.19
-    CommandType: 2
-  - DelayBefore: 0.19
-    CommandType: 1
-  - DelayBefore: 0.19
-    CommandType: 2
-  recordedCommandSequence: []
-  recordCommands: 1
   hoverFeedback: {fileID: 1507770246064602376}
 --- !u!114 &20667436114555738
 MonoBehaviour:

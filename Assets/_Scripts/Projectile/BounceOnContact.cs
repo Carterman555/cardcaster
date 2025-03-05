@@ -12,8 +12,6 @@ public class BounceOnContact : MonoBehaviour {
 
     private Rigidbody2D rb;
 
-    private bool returning;
-
     private Vector2 originalScale;
 
     private void Awake() {
@@ -23,19 +21,18 @@ public class BounceOnContact : MonoBehaviour {
 
     private void OnEnable() {
         bounces = 0;
-        returning = false;
         transform.localScale = originalScale;
     }
 
     private void OnTriggerEnter2D(Collider2D collision) {
 
-        bool bouncesLeft = bounces < maxBounces;
-        if (!bouncesLeft && !returning) {
-            gameObject.ReturnToPool();
-            return;
-        }
-
         if (bounceLayer.ContainsLayer(collision.gameObject.layer)) {
+            bool bouncesLeft = bounces < maxBounces;
+            if (!bouncesLeft) {
+                gameObject.ReturnToPool();
+                return;
+            }
+
             Bounce(collision);
         }
     }

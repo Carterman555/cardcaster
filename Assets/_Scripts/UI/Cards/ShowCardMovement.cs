@@ -16,12 +16,13 @@ public class ShowCardMovement : MonoBehaviour {
     private void OnEnable() {
         delayedCommand = CommandType.None;
 
-        if (hoverFeedback.PlayCount != 0) {
+        if (hoverFeedback.PlayCount > 0) {
             hoverFeedback.SetDirectionBottomToTop();
         }
     }
 
-    public void MoveUp() {
+    [ContextMenu("Show")]
+    public void Show() {
 
         if (!enabled) {
             return;
@@ -37,7 +38,8 @@ public class ShowCardMovement : MonoBehaviour {
         }
     }
 
-    public void MoveDown() {
+    [ContextMenu("Hide")]
+    public void Hide() {
 
         if (!enabled) {
             return;
@@ -48,7 +50,7 @@ public class ShowCardMovement : MonoBehaviour {
             return;
         }
 
-        if (hoverFeedback.InSecondState()) {
+        if (hoverFeedback.Direction == MMFeedbacks.Directions.TopToBottom) {
             hoverFeedback.PlayFeedbacks();
         }
     }
@@ -59,10 +61,10 @@ public class ShowCardMovement : MonoBehaviour {
             if (!hoverFeedback.IsPlaying) {
 
                 if (delayedCommand == CommandType.MoveUp) {
-                    MoveUp();
+                    Show();
                 }
                 else if (delayedCommand == CommandType.MoveDown) {
-                    MoveDown();
+                    Hide();
                 }
 
                 delayedCommand = CommandType.None;

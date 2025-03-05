@@ -8,6 +8,7 @@ using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.Rendering;
 using UnityEngine.UI;
+using static HandCard;
 
 public class CardKeyboardInput : MonoBehaviour, IPointerDownHandler {
 
@@ -37,6 +38,10 @@ public class CardKeyboardInput : MonoBehaviour, IPointerDownHandler {
     }
 
     private void OnDisable() {
+        if (handCard.GetCardState() == CardState.Playing) {
+            handCard.CancelCard(followMouse.enabled);
+        }
+
         UnsubCancelEvents();
     }
 
@@ -49,7 +54,7 @@ public class CardKeyboardInput : MonoBehaviour, IPointerDownHandler {
         bool hotKeyDown = handCard.GetPlayInput().WasPerformedThisFrame();
         bool hotKeyUp = handCard.GetPlayInput().WasReleasedThisFrame();
 
-        if (handCard.GetCardState() == HandCard.CardState.ReadyToPlay) {
+        if (handCard.GetCardState() == CardState.ReadyToPlay) {
             if (!handCard.CanAffordToPlay() || !handCard.GetCard().CanPlay()) {
                 if (hotKeyDown) {
                     handCard.CantPlayShake();
@@ -63,7 +68,7 @@ public class CardKeyboardInput : MonoBehaviour, IPointerDownHandler {
             }
 
             // start playing card if hotkey is down and not playing a card
-            if (hotKeyDown && !HandCard.IsPlayingAnyCard()) {
+            if (hotKeyDown && !IsPlayingAnyCard()) {
 
                 handCard.OnStartPlayingCard();
 
@@ -79,11 +84,11 @@ public class CardKeyboardInput : MonoBehaviour, IPointerDownHandler {
 
                 // if the card is not positional, the hotkey just raises the card
                 else {
-                    showCardMovement.MoveUp();
+                    showCardMovement.Show();
                 }
             }
         }
-        else if (handCard.GetCardState() == HandCard.CardState.Playing) {
+        else if (handCard.GetCardState() == CardState.Playing) {
             if (hotKeyUp) {
                 TryPlayCard();
             }
@@ -111,7 +116,7 @@ public class CardKeyboardInput : MonoBehaviour, IPointerDownHandler {
             return;
         }
 
-        if (HandCard.IsPlayingAnyCard() && handCard.GetCardState() == HandCard.CardState.ReadyToPlay) {
+        if (IsPlayingAnyCard() && handCard.GetCardState() == CardState.ReadyToPlay) {
             return;
         }
 

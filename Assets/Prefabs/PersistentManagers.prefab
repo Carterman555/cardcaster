@@ -703,7 +703,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 491722c3c4d88f144beaeb39d41cfa05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startingCardAmount: 15
+  startingCardAmount: 10
   maxHandSize: 3
   startingCardPool:
   - CardType: 2

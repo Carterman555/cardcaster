@@ -7,6 +7,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UIElements;
 using UnityEngine.Windows;
+using static HandCard;
 
 public class CardControllerInput : MonoBehaviour {
 
@@ -31,6 +32,10 @@ public class CardControllerInput : MonoBehaviour {
     }
 
     private void OnDisable() {
+        if (handCard.GetCardState() == CardState.Playing) {
+            handCard.CancelCard(movingCard);
+        }
+
         movingCard = false;
     }
 
@@ -54,21 +59,19 @@ public class CardControllerInput : MonoBehaviour {
         }
 
         if (playInputPressed) {
-            print(handCard.GetCardState());
-
-            if (handCard.GetCardState() == HandCard.CardState.ReadyToPlay) {
+            if (handCard.GetCardState() == CardState.ReadyToPlay) {
 
                 bool positionalCard = handCard.GetCard() is ScriptableAbilityCardBase abilityCard && abilityCard.IsPositional;
                 if (positionalCard) {
                     StartMovingCard();
                 }
                 else {
-                    showCardMovement.MoveUp();
+                    showCardMovement.Show();
                 }
 
                 handCard.OnStartPlayingCard();
             }
-            else if (handCard.GetCardState() == HandCard.CardState.Playing) {
+            else if (handCard.GetCardState() == CardState.Playing) {
                 Vector2 worldPos = Camera.main.ScreenToWorldPoint(transform.position);
                 handCard.TryPlayCard(worldPos);
             }
@@ -76,14 +79,29 @@ public class CardControllerInput : MonoBehaviour {
 
         bool pressedCancelInput = cancelAction.action.WasReleasedThisFrame();
         if (pressedCancelInput || PressedOtherPlayInput()) {
-            if (handCard.GetCardState() == HandCard.CardState.Playing) {
+            if (handCard.GetCardState() == CardState.Playing) {
                 handCard.CancelCard(movingCard);
             }
             movingCard = false;
         }
 
-        if (handCard.GetCardState() == HandCard.CardState.Playing && movingCard) {
+        if (handCard.GetCardState() == CardState.Playing && movingCard) {
             Vector3 direction = moveCardAction.action.ReadValue<Vector2>().normalized;
+
+            // can't move off screen
+            if (transform.position.x > Screen.width && direction.x > 0) {
+                direction.x = 0;
+            }
+            if (transform.position.x < 0 && direction.x < 0) {
+                direction.x = 0;
+            }
+            if (transform.position.y > Screen.height && direction.y > 0) {
+                direction.y = 0;
+            }
+            if (transform.position.y < 0 && direction.y < 0) {
+                direction.y = 0;
+            }
+
             transform.position += direction * cardMoveSpeed * Time.deltaTime;
         }
     }
@@ -98,13 +116,11 @@ public class CardControllerInput : MonoBehaviour {
 
     private void MoveToCenter() {
         movingCard = true;
-        handCard.SetCardState(HandCard.CardState.Moving);
-        print($"{handCard.GetCard().CardType} - MoveToCenter: set state to moving");
+        handCard.SetCardState(CardState.Moving);
 
         Vector2 screenCenterPos = new Vector2(Screen.width / 2f, Screen.height / 2f);
         transform.DOMove(screenCenterPos, duration: 0.2f).OnComplete(() => {
-            handCard.SetCardState(HandCard.CardState.Playing);
-            print($"{handCard.GetCard().CardType} - MoveToCenter: set state to playing");
+            handCard.SetCardState(CardState.Playing);
         });
     }
 

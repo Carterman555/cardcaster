@@ -452,6 +452,11 @@ MonoBehaviour:
   enemyAnim: {fileID: 7812749826847277617}
   hasWeapon: 0
   weaponAnim: {fileID: 3673410799856191900}
+  customSFX: 0
+  shootSFX:
+    Clips: []
+    Volume: 0
+    PitchVariation: 0
 --- !u!114 &2958357090058817775
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -466,7 +471,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sightLayerMask:
     serializedVersion: 2
-    m_Bits: 1856
+    m_Bits: 18240
   castRadius: 0.5
 --- !u!95 &7812749826847277617 stripped
 Animator:

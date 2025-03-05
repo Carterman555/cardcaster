@@ -81,6 +81,7 @@ public class HandCard : MonoBehaviour {
     public void Setup(Transform deckTransform, ScriptableCardBase card) {
 
         cardState = CardState.Moving;
+        print($"{card.CardType} - Setup: set state to moving");
 
         MMF_Position toHandFeedback = toHandPlayer.GetFeedbackOfType<MMF_Position>("Move To Hand");
         toHandFeedback.InitialPosition = cardStartPos;
@@ -100,6 +101,7 @@ public class HandCard : MonoBehaviour {
 
     private void SetStateToReady() {
         cardState = CardState.ReadyToPlay;
+        print($"{card.CardType} - SetStateToReady: set state to ready to play");
 
         toHandPlayer.Events.OnComplete.RemoveListener(SetStateToReady);
         showCardPlayer.Events.OnComplete.RemoveListener(SetStateToReady);
@@ -130,10 +132,12 @@ public class HandCard : MonoBehaviour {
         // move to that position, if not playing the card and card is not moving
         if (cardState == CardState.ReadyToPlay) {
             cardState = CardState.Moving;
+            print($"{card.CardType} - SetCardPosition: set state to moving");
 
             transform.DOKill();
             transform.DOMove(position, duration: 0.2f).OnComplete(() => {
                 cardState = CardState.ReadyToPlay;
+                print($"{card.CardType} - SetCardPosition: set state to ready to play");
             });
         }
 
@@ -160,10 +164,12 @@ public class HandCard : MonoBehaviour {
     private void MoveToPos() {
         waitingForToHandToMove = false;
         cardState = CardState.Moving;
+        print($"{card.CardType} - SetCardPosition: set state to moving");
 
         transform.DOKill();
         transform.DOMove(toMovePos, duration: 0.2f).OnComplete(() => {
             cardState = CardState.ReadyToPlay;
+            print($"{card.CardType} - SetCardPosition: set state to ready to play");
         });
 
         toMovePos = Vector3.zero;
@@ -278,6 +284,7 @@ public class HandCard : MonoBehaviour {
     public void CancelCard(bool positioningCard) {
 
         cardState = CardState.Moving;
+        print($"{card.CardType} - CancelCard: set state to moving");
 
         // sometimes a card is cancel and another started playing on the same frame, this sets playingAnyCard to false
         // when a card is playing, so make sure a card was not set to playing this frame
@@ -355,6 +362,10 @@ public class HandCard : MonoBehaviour {
 
     private void SetPlayingCardThisFrameFalse() {
         playingCardThisFrame = false;
+    }
+
+    public void SetCardState(CardState cardState) {
+        this.cardState = cardState;
     }
 
     public CardState GetCardState() {

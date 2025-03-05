@@ -12,8 +12,6 @@ public class CardControllerInput : MonoBehaviour {
 
     [SerializeField] private float cardMoveSpeed;
 
-    [SerializeField] private MMF_Player showCardPlayer;
-
     [Header("Input Actions")]
     [SerializeField] private InputActionReference playFirstCardInput;
     [SerializeField] private InputActionReference playSecondCardInput;
@@ -26,7 +24,6 @@ public class CardControllerInput : MonoBehaviour {
     private ShowCardMovement showCardMovement;
 
     private bool movingCard; // true if able to move card with joystick
-    private bool showing; // true if card is fully showing from pressing play action
 
     private void Awake() {
         handCard = GetComponent<HandCard>();
@@ -34,7 +31,6 @@ public class CardControllerInput : MonoBehaviour {
     }
 
     private void OnDisable() {
-        showing = false;
         movingCard = false;
     }
 
@@ -58,21 +54,21 @@ public class CardControllerInput : MonoBehaviour {
         }
 
         if (playInputPressed) {
-            if (!showing && !movingCard) {
+            print(handCard.GetCardState());
+
+            if (handCard.GetCardState() == HandCard.CardState.ReadyToPlay) {
 
                 bool positionalCard = handCard.GetCard() is ScriptableAbilityCardBase abilityCard && abilityCard.IsPositional;
-                if (!positionalCard) {
-                    showing = true;
-                    showCardPlayer.SetDirectionTopToBottom();
-                    showCardPlayer.PlayFeedbacks();
+                if (positionalCard) {
+                    StartMovingCard();
                 }
                 else {
-                    StartMovingCard();
+                    showCardMovement.MoveUp();
                 }
 
                 handCard.OnStartPlayingCard();
             }
-            else if (showing || movingCard) {
+            else if (handCard.GetCardState() == HandCard.CardState.Playing) {
                 Vector2 worldPos = Camera.main.ScreenToWorldPoint(transform.position);
                 handCard.TryPlayCard(worldPos);
             }
@@ -80,12 +76,13 @@ public class CardControllerInput : MonoBehaviour {
 
         bool pressedCancelInput = cancelAction.action.WasReleasedThisFrame();
         if (pressedCancelInput || PressedOtherPlayInput()) {
-            handCard.CancelCard(movingCard);
+            if (handCard.GetCardState() == HandCard.CardState.Playing) {
+                handCard.CancelCard(movingCard);
+            }
             movingCard = false;
-            showing = false;
         }
 
-        if (movingCard) {
+        if (handCard.GetCardState() == HandCard.CardState.Playing && movingCard) {
             Vector3 direction = moveCardAction.action.ReadValue<Vector2>().normalized;
             transform.position += direction * cardMoveSpeed * Time.deltaTime;
         }
@@ -100,9 +97,14 @@ public class CardControllerInput : MonoBehaviour {
     }
 
     private void MoveToCenter() {
+        movingCard = true;
+        handCard.SetCardState(HandCard.CardState.Moving);
+        print($"{handCard.GetCard().CardType} - MoveToCenter: set state to moving");
+
         Vector2 screenCenterPos = new Vector2(Screen.width / 2f, Screen.height / 2f);
         transform.DOMove(screenCenterPos, duration: 0.2f).OnComplete(() => {
-            movingCard = true; // allow player to move card after done moving to center
+            handCard.SetCardState(HandCard.CardState.Playing);
+            print($"{handCard.GetCard().CardType} - MoveToCenter: set state to playing");
         });
     }
 

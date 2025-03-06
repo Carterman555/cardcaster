@@ -10,12 +10,13 @@ using UnityEngine.Rendering;
 using UnityEngine.UI;
 using static HandCard;
 
-public class CardKeyboardInput : MonoBehaviour, IPointerDownHandler {
+public class CardKeyboardInput : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler {
 
     private HandCard handCard;
     private MMFollowTarget followMouse;
     private ShowCardMovement showCardMovement;
-    private ShowCardOnHover showCardOnHover;
+
+    private bool moveCardOnHover;
 
     private bool mouseDownOnCard;
 
@@ -23,7 +24,6 @@ public class CardKeyboardInput : MonoBehaviour, IPointerDownHandler {
         handCard = GetComponent<HandCard>();
         followMouse = GetComponent<MMFollowTarget>();
         showCardMovement = GetComponent<ShowCardMovement>();
-        showCardOnHover = GetComponent<ShowCardOnHover>();
     }
 
     private void Start() {
@@ -35,10 +35,12 @@ public class CardKeyboardInput : MonoBehaviour, IPointerDownHandler {
 
         //... make sure not following the mouse
         StopFollowingMouse();
+
+        moveCardOnHover = true;
     }
 
     private void OnDisable() {
-        if (handCard.GetCardState() == CardState.Playing) {
+        if (handCard.CurrentCardState == CardState.Playing) {
             handCard.CancelCard(followMouse.enabled);
         }
 
@@ -54,7 +56,7 @@ public class CardKeyboardInput : MonoBehaviour, IPointerDownHandler {
         bool hotKeyDown = handCard.GetPlayInput().WasPerformedThisFrame();
         bool hotKeyUp = handCard.GetPlayInput().WasReleasedThisFrame();
 
-        if (handCard.GetCardState() == CardState.ReadyToPlay) {
+        if (handCard.CurrentCardState == CardState.ReadyToPlay) {
             if (!handCard.CanAffordToPlay() || !handCard.GetCard().CanPlay()) {
                 if (hotKeyDown) {
                     handCard.CantPlayShake();
@@ -75,11 +77,12 @@ public class CardKeyboardInput : MonoBehaviour, IPointerDownHandler {
                 //... show cancel card panel
                 FeedbackPlayerOld.Play("CancelCard");
 
-                showCardOnHover.enabled = false;
+                moveCardOnHover = false;
 
                 // if the card is positional, the hotkey makes it follow the mouse
                 if (handCard.GetCard() is ScriptableAbilityCardBase abilityCard && abilityCard.IsPositional) {
                     FollowMouse();
+                    showCardMovement.OnPositioningCard();
                 }
 
                 // if the card is not positional, the hotkey just raises the card
@@ -88,7 +91,7 @@ public class CardKeyboardInput : MonoBehaviour, IPointerDownHandler {
                 }
             }
         }
-        else if (handCard.GetCardState() == CardState.Playing) {
+        else if (handCard.CurrentCardState == CardState.Playing) {
             if (hotKeyUp) {
                 TryPlayCard();
             }
@@ -110,13 +113,25 @@ public class CardKeyboardInput : MonoBehaviour, IPointerDownHandler {
         }
     }
 
+    public void OnPointerEnter(PointerEventData eventData) {
+        if (enabled && moveCardOnHover) {
+            showCardMovement.Show();
+        }
+    }
+
+    public void OnPointerExit(PointerEventData eventData) {
+        if (enabled && moveCardOnHover) {
+            showCardMovement.Hide();
+        }
+    }
+
     public void OnPointerDown(PointerEventData eventData) {
 
         if (GameStateManager.Instance.GetCurrentState() != GameState.Game) {
             return;
         }
 
-        if (IsPlayingAnyCard() && handCard.GetCardState() == CardState.ReadyToPlay) {
+        if (IsPlayingAnyCard() && handCard.CurrentCardState == CardState.ReadyToPlay) {
             return;
         }
 
@@ -135,7 +150,7 @@ public class CardKeyboardInput : MonoBehaviour, IPointerDownHandler {
 
     private void FollowMouse() {
         followMouse.enabled = true;
-        showCardOnHover.enabled = false;
+        moveCardOnHover = false;
 
         if (handCard.GetCard() is ScriptableAbilityCardBase abilityCard) {
             abilityCard.OnStartPositioningCard(transform);
@@ -144,7 +159,7 @@ public class CardKeyboardInput : MonoBehaviour, IPointerDownHandler {
 
     private void StopFollowingMouse() {
         followMouse.enabled = false;
-        showCardOnHover.enabled = true;
+        moveCardOnHover = true;
         handCard.ShowPlayInput();
     }
 
@@ -157,7 +172,7 @@ public class CardKeyboardInput : MonoBehaviour, IPointerDownHandler {
             handCard.TryPlayCard(MouseTracker.Instance.transform.position);
         }
 
-        showCardOnHover.enabled = true;
+        moveCardOnHover = true;
 
         //... hide cancel card panel
         FeedbackPlayerOld.PlayInReverse("CancelCard");

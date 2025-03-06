@@ -122,4 +122,19 @@ public class DebugManager : StaticInstance<DebugManager> {
         Vector3 offset = new Vector3(-5f, 0);
         PlayerMeleeAttack.Instance.transform.position = bossRoom.GetBossSpawnPoint().position + offset;
     }
+
+    [SerializeField] private bool spawnHealer;
+
+    [SerializeField] private HealerMinion healerMinionPrefab;
+    [SerializeField] private Vector3 spawnPos;
+    [SerializeField] private float startingDirection;
+
+    private void HandleSpawningHealer() {
+        if (spawnHealer) {
+            spawnHealer = false;
+
+            HealerMinion healerMinion = healerMinionPrefab.Spawn(spawnPos, Containers.Instance.Enemies);
+            healerMinion.GetComponent<BounceMoveBehaviour>().SetDirectionDebug(startingDirection);
+        }
+    }
 }

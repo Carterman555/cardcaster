@@ -22,11 +22,15 @@ public class HandCard : MonoBehaviour {
 
     public static event Action<ScriptableCardBase> OnCantAfford_Card;
 
+    public CardState CurrentCardState;
+    public enum CardState { Moving, ReadyToPlay, Playing, Played }
+
     [SerializeField] private Vector2 cardStartPos;
+
     private ShowCardMovement showCardMovement;
+    private Vector3 showPos;
 
     [Header("Feedback Players")]
-    [SerializeField] private MMF_Player showCardPlayer;
     [SerializeField] private MMF_Player toHandPlayer;
     [SerializeField] private MMF_Player useCardPlayer;
     [SerializeField] private MMRotationShaker cantPlayShaker;
@@ -41,9 +45,6 @@ public class HandCard : MonoBehaviour {
 
     private static bool playingAnyCard;
     private static bool playingCardThisFrame;
-    private CardState cardState;
-
-    public enum CardState { Moving, ReadyToPlay, Playing, Played }
 
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
     private static void Init() {
@@ -80,7 +81,7 @@ public class HandCard : MonoBehaviour {
 
     public void Setup(Transform deckTransform, ScriptableCardBase card) {
 
-        cardState = CardState.Moving;
+        CurrentCardState = CardState.Moving;
 
         MMF_Position toHandFeedback = toHandPlayer.GetFeedbackOfType<MMF_Position>("Move To Hand");
         toHandFeedback.InitialPosition = cardStartPos;
@@ -99,10 +100,9 @@ public class HandCard : MonoBehaviour {
     }
 
     private void SetStateToReady() {
-        cardState = CardState.ReadyToPlay;
+        CurrentCardState = CardState.ReadyToPlay;
 
         toHandPlayer.Events.OnComplete.RemoveListener(SetStateToReady);
-        showCardPlayer.Events.OnComplete.RemoveListener(SetStateToReady);
     }
 
     public void SetCardIndex(int cardIndex) {
@@ -117,28 +117,25 @@ public class HandCard : MonoBehaviour {
 
     public void SetCardPosition(Vector3 position) {
 
-        // set positions of movement feedbacks
-        MMF_Position hoverMoveFeedback = showCardPlayer.GetFeedbackOfType<MMF_Position>("Move");
-        hoverMoveFeedback.InitialPosition = position;
-        hoverMoveFeedback.DestinationPosition = new Vector3(position.x, hoverMoveFeedback.DestinationPosition.y);
+
+        showPos = new(position.x, 200f);
+        showCardMovement.Setup(position, showPos);
 
         MMF_Position toHandFeedback = toHandPlayer.GetFeedbackOfType<MMF_Position>("Move To Hand");
         toHandFeedback.DestinationPosition = position;
 
-        handPosition = position;
-
         // move to that position, if not playing the card and card is not moving
-        if (cardState == CardState.ReadyToPlay) {
-            cardState = CardState.Moving;
+        if (CurrentCardState == CardState.ReadyToPlay) {
+            CurrentCardState = CardState.Moving;
 
             transform.DOKill();
             transform.DOMove(position, duration: 0.2f).OnComplete(() => {
-                cardState = CardState.ReadyToPlay;
+                CurrentCardState = CardState.ReadyToPlay;
             });
         }
 
         // wait to move until after done moving to hand
-        else if (cardState == CardState.Moving) {
+        else if (CurrentCardState == CardState.Moving) {
             toMovePos = position;
 
             // if not already waiting for the hand player to move the card
@@ -150,7 +147,7 @@ public class HandCard : MonoBehaviour {
     }
 
     private IEnumerator MoveWhenReady() {
-        while (cardState != CardState.ReadyToPlay) {
+        while (CurrentCardState != CardState.ReadyToPlay) {
             yield return null;
         }
 
@@ -159,11 +156,11 @@ public class HandCard : MonoBehaviour {
 
     private void MoveToPos() {
         waitingForToHandToMove = false;
-        cardState = CardState.Moving;
+        CurrentCardState = CardState.Moving;
 
         transform.DOKill();
         transform.DOMove(toMovePos, duration: 0.2f).OnComplete(() => {
-            cardState = CardState.ReadyToPlay;
+            CurrentCardState = CardState.ReadyToPlay;
         });
 
         toMovePos = Vector3.zero;
@@ -181,7 +178,7 @@ public class HandCard : MonoBehaviour {
 
     public void OnStartPlayingCard() {
 
-        cardState = CardState.Playing;
+        CurrentCardState = CardState.Playing;
         playingAnyCard = true;
 
         playingCardThisFrame = true;
@@ -201,7 +198,7 @@ public class HandCard : MonoBehaviour {
 
         card.TryPlay(playPosition);
 
-        cardState = CardState.Played;
+        CurrentCardState = CardState.Played;
 
         useCardPlayer.PlayFeedbacks();
 
@@ -273,11 +270,9 @@ public class HandCard : MonoBehaviour {
 
     #region Handle Cancelling
 
-    private Vector2 handPosition;
-
     public void CancelCard(bool positioningCard) {
 
-        cardState = CardState.Moving;
+        CurrentCardState = CardState.Moving;
 
         // sometimes a card is cancel and another started playing on the same frame, this sets playingAnyCard to false
         // when a card is playing, so make sure a card was not set to playing this frame
@@ -291,19 +286,14 @@ public class HandCard : MonoBehaviour {
 
         if (positioningCard) {
             float duration = 0.3f;
-            Vector2 showPos = showCardPlayer.GetFeedbackOfType<MMF_Position>().DestinationPosition;
 
             transform.DOKill();
             transform.DOMove(showPos, duration).OnComplete(() => {
-                showCardPlayer.SetDirectionTopToBottom();
                 showCardMovement.Hide();
-
-                showCardPlayer.Events.OnComplete.AddListener(SetStateToReady);
             });
         }
         else {
             showCardMovement.Hide();
-            showCardPlayer.Events.OnComplete.AddListener(SetStateToReady);
         }
 
         AudioManager.Instance.PlaySound(AudioManager.Instance.AudioClips.CancelCard);
@@ -351,14 +341,6 @@ public class HandCard : MonoBehaviour {
 
     private void SetPlayingCardThisFrameFalse() {
         playingCardThisFrame = false;
-    }
-
-    public void SetCardState(CardState cardState) {
-        this.cardState = cardState;
-    }
-
-    public CardState GetCardState() {
-        return cardState;
     }
 
     public static bool IsPlayingAnyCard() {

@@ -1,3 +1,4 @@
+using DG.Tweening;
 using MoreMountains.Feedbacks;
 using System;
 using System.Collections;
@@ -8,17 +9,33 @@ using static ShowCardMovement;
 
 public class ShowCardMovement : MonoBehaviour {
 
-    [SerializeField] private MMF_Player hoverFeedback;
+    public enum ShowState { None, Hidden, Showing, Moving }
+    private ShowState showState;
+    private ShowState delayedCommand;
 
-    public enum CommandType { None, MoveUp, MoveDown }
-    private CommandType delayedCommand;
+    private Tween moveTween;
 
-    private void OnEnable() {
-        delayedCommand = CommandType.None;
+    private Vector2 hidePos, showPos;
 
-        if (hoverFeedback.PlayCount > 0) {
-            hoverFeedback.SetDirectionBottomToTop();
-        }
+    [SerializeField] private CanvasGroup canvasGroup;
+
+    private HandCard handCard;
+
+    const float duration = 0.2f;
+    const float fade = 0.7f;
+
+    private void Awake() {
+        handCard = GetComponent<HandCard>();
+    }
+
+    public void Setup(Vector2 hidePos, Vector2 showPos) {
+        this.hidePos = hidePos;
+        this.showPos = showPos;
+
+        delayedCommand = ShowState.None;
+        showState = ShowState.Hidden;
+
+        canvasGroup.alpha = fade;
     }
 
     [ContextMenu("Show")]
@@ -28,13 +45,16 @@ public class ShowCardMovement : MonoBehaviour {
             return;
         }
 
-        if (hoverFeedback.IsPlaying) {
-            delayedCommand = CommandType.MoveUp;
-            return;
-        }
+        if (showState == ShowState.Hidden) {
+            showState = ShowState.Moving;
 
-        if (hoverFeedback.InFirstState()) {
-            hoverFeedback.PlayFeedbacks();
+            moveTween = transform.DOMove(showPos, duration);
+            canvasGroup.DOFade(1f, duration).OnComplete(() => {
+                showState = ShowState.Showing;
+            });
+        }
+        else if (showState == ShowState.Moving) {
+            delayedCommand = ShowState.Showing;
         }
     }
 
@@ -45,29 +65,38 @@ public class ShowCardMovement : MonoBehaviour {
             return;
         }
 
-        if (hoverFeedback.IsPlaying) {
-            delayedCommand = CommandType.MoveDown;
-            return;
-        }
+        if (showState == ShowState.Showing) {
+            showState = ShowState.Moving;
 
-        if (hoverFeedback.Direction == MMFeedbacks.Directions.TopToBottom) {
-            hoverFeedback.PlayFeedbacks();
+            moveTween = transform.DOMove(hidePos, duration);
+            canvasGroup.DOFade(fade, duration).OnComplete(() => {
+                showState = ShowState.Hidden;
+                handCard.CurrentCardState = HandCard.CardState.ReadyToPlay;
+            });
+        }
+        else if (showState == ShowState.Moving) {
+            delayedCommand = ShowState.Hidden;
         }
     }
 
+    public void OnPositioningCard() {
+        showState = ShowState.Showing;
+        canvasGroup.DOFade(1f, duration);
+    }
+    
     private void Update() {
 
-        if (delayedCommand != CommandType.None) {
-            if (!hoverFeedback.IsPlaying) {
+        if (delayedCommand != ShowState.None) {
+            if (showState != ShowState.Moving) {
 
-                if (delayedCommand == CommandType.MoveUp) {
-                    Show();
-                }
-                else if (delayedCommand == CommandType.MoveDown) {
+                if (delayedCommand == ShowState.Hidden) {
                     Hide();
                 }
+                else if (delayedCommand == ShowState.Showing) {
+                    Show();
+                }
 
-                delayedCommand = CommandType.None;
+                delayedCommand = ShowState.None;
             }
         }
     }

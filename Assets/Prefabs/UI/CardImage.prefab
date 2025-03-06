@@ -147,6 +147,7 @@ GameObject:
   - component: {fileID: 5466343821612105132}
   - component: {fileID: -5029209581449810682}
   - component: {fileID: 4058689592740030879}
+  - component: {fileID: 3295787896524811907}
   m_Layer: 0
   m_Name: CardImage
   m_TagString: Untagged
@@ -265,6 +266,18 @@ MonoBehaviour:
   rareColor: {r: 0.427451, g: 0.80392164, b: 0.95294124, a: 1}
   epicColor: {r: 0.7254902, g: 0.43529415, b: 0.92549026, a: 1}
   mythicColor: {r: 0.9176471, g: 0.8078432, b: 0.27450982, a: 1}
+--- !u!225 &3295787896524811907
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 479060129788471932}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &1933626149731812347
 GameObject:
   m_ObjectHideFlags: 0

@@ -12830,6 +12830,7 @@ MonoBehaviour:
   attackAction: {fileID: -3307094415415247963, guid: 50afa068aa51bd149a1f3d07794c53d5, type: 3}
   practiceEnemy: {fileID: 11400000, guid: 15bf6efdef5dc8f43a322a1f9752c22b, type: 2}
   enemySpawnPoint: {fileID: 3748668267617628376}
+  faceInput: {fileID: 3599336493557233551, guid: 50afa068aa51bd149a1f3d07794c53d5, type: 3}
   dashInput: {fileID: 8946056656977092829, guid: 50afa068aa51bd149a1f3d07794c53d5, type: 3}
   firstCardInput: {fileID: 5962943595717837552, guid: 50afa068aa51bd149a1f3d07794c53d5, type: 3}
   teleportCard: {fileID: 11400000, guid: cf762b3577a5be84e8291f8e24709bd6, type: 2}

@@ -259,8 +259,8 @@ MonoBehaviour:
     m_Unicode: 65534
     m_GlyphIndex: 29
     m_Scale: 1.5
-    m_Name: RS [Gamepad]
-    m_HashCode: -598474180
+    m_Name: RS/Up [Gamepad]
+    m_HashCode: -1113051978
   - m_ElementType: 2
     m_Unicode: 65534
     m_GlyphIndex: 30

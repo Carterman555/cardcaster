@@ -49,6 +49,7 @@ public class WarningPopup : MonoBehaviour, IInitializable {
         gameObject.SetActive(true);
 
         canvasGroupToDisable.interactable = false;
+        canvasGroupToDisable.blocksRaycasts = false;
 
         transform.localScale = Vector3.zero;
         transform.DOScale(1, duration: 0.3f).SetUpdate(true);
@@ -62,6 +63,7 @@ public class WarningPopup : MonoBehaviour, IInitializable {
         transform.DOScale(0, duration: 0.3f).SetUpdate(true).OnComplete(() => {
             gameObject.SetActive(false);
             canvasGroupToDisable.interactable = true;
+            canvasGroupToDisable.blocksRaycasts = true;
 
             if (buttonToSelectOnClose != null) {
                 buttonToSelectOnClose.Select();

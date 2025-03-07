@@ -49,14 +49,25 @@ public class RoomPositionHelper {
     }
 
     public Vector2 GetRandomPositionInCollider() {
+
+        int breakoutCounter = 0;
+
         PolygonCollider2D col = Room.GetCurrentRoom().GetComponent<PolygonCollider2D>();
         Bounds bounds = col.bounds;
         Vector2 randomPoint;
+
         do {
             randomPoint = new Vector2(
                 Random.Range(bounds.min.x, bounds.max.x),
                 Random.Range(bounds.min.y, bounds.max.y)
             );
+
+            breakoutCounter++;
+            if (breakoutCounter > 1000) {
+                Debug.LogError("Could not find room position! Returned invalid Pos!");
+                return randomPoint;
+            }
+
         } while (!IsValidPosition(randomPoint));
 
         return randomPoint;

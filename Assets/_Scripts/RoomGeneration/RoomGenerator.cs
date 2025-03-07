@@ -57,7 +57,7 @@ public class RoomGenerator : StaticInstance<RoomGenerator> {
         yield return null;
 
         isGeneratingRooms = false;
-        
+
         OnCompleteGeneration?.Invoke();
     }
 
@@ -174,7 +174,7 @@ public class RoomGenerator : StaticInstance<RoomGenerator> {
         ScriptableRoom newRoomScriptable;
         List<ScriptableRoom> availableRooms = ResourceSystem.Instance.GetRooms(roomType)
             .Where(room => room.EnvironmentType == currentEnvironmentType)
-            //.Where(room => !usedRooms[roomType].Contains(room)) // commented to reuse same rooms because not enough yet
+            .Where(room => !usedRooms[roomType].Contains(room)) // comment to reuse same rooms because not enough yet
             .ToList();
 
         // doesn't need to be unique if reward room
@@ -213,7 +213,7 @@ public class RoomGenerator : StaticInstance<RoomGenerator> {
 
         foreach (PossibleDoorway existingDoorway in existingRoomChecker.GetPossibleDoorways()) {
             if (debug)
-                Debug.Log($"Checking doorway compatibility for {existingDoorway.GetSide()}");
+                Debug.Log($"Checking doorway compatibility for {existingDoorway.GetSide()} side of {existingRoomChecker.GetRoomPrefab().name}");
 
             if (newRoomChecker.CanConnectToDoorwaySide(existingDoorway.GetSide())) {
 
@@ -244,9 +244,6 @@ public class RoomGenerator : StaticInstance<RoomGenerator> {
 
                     if (debug) Debug.Log("Room overlaps with existing rooms, trying next doorway");
                 }
-
-
-                //Debug.Log("Room overlaps with existing rooms, trying next doorway");
             }
         }
 

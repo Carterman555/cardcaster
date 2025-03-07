@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class BounceOnContact : MonoBehaviour {
 
-    [SerializeField] private LayerMask bounceLayer = GameLayers.ObstacleLayerMask;
+    [SerializeField] private LayerMask bounceLayer = GameLayers.ObstacleLayerMask | GameLayers.EnemyLayerMask;
     [SerializeField] private int maxBounces = 3;
     private int bounces;
 

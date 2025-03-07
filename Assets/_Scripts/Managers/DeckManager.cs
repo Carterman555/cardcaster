@@ -87,8 +87,8 @@ public class DeckManager : Singleton<DeckManager> {
     }
 
     private void OnStartGame() {
+        ClearDeckAndEssence();
         if (!GameSceneManager.Instance.Tutorial) {
-            ClearDeckAndEssence();
             GiveStartingCards();
         }
     }

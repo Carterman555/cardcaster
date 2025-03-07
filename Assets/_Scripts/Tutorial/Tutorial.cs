@@ -30,6 +30,8 @@ public class Tutorial : MonoBehaviour {
 
     private string welcomeText = "Hello, I am The Dealer. I normally trade cards, but for now will guide you.";
 
+    private string faceText = "You can change the direction you are facing with {ACTION}.";
+
     private string combatText = "In the Card Dungeon, you need to fight off enemies. I'll spawn one in for you," +
         " so you can learn. Press {ACTION} to swing your sword and kill him!";
 
@@ -60,6 +62,9 @@ public class Tutorial : MonoBehaviour {
     [SerializeField] private InputActionReference attackAction;
     [SerializeField] private ScriptableEnemy practiceEnemy;
     [SerializeField] private Transform enemySpawnPoint;
+
+    [Header("Face Step")]
+    [SerializeField] private InputActionReference faceInput;
 
     [Header("Dash Step")]
     [SerializeField] private InputActionReference dashInput;
@@ -112,9 +117,9 @@ public class Tutorial : MonoBehaviour {
 
     private void OnPlayerDeath() {
         PlayerMovement.Instance.GetComponent<Health>().OnDeathAnimComplete -= OnPlayerDeath;
-
         playerDied = true;
 
+        DeckManager.Instance.ClearDeckAndEssence();
         GameSceneManager.Instance.LoadTutorial();
     }
 
@@ -128,6 +133,7 @@ public class Tutorial : MonoBehaviour {
 
         tutorialSteps = new BaseTutorialStep[] {
             new DialogStep(nextStepInput, welcomeText),
+            new DialogStep(nextStepInput, faceText, faceInput),
             new DialogStep(nextStepInput, combatText, attackAction),
             new SpawnEnemyStep(practiceEnemy, enemySpawnPoint),
             new EventDialogStep(PlayerMovement.Instance.OnDash, dashText, dashInput),

@@ -16,8 +16,6 @@ public class BounceMoveBehaviour : MonoBehaviour, IEffectable, IEnemyMovement {
 
     private Vector2 velocity;
 
-    private float emergencyBounceTimer;
-
     [SerializeField] private TriggerContactTracker bounceTrigger;
 
     [SerializeField] private Transform centerPoint;
@@ -36,8 +34,6 @@ public class BounceMoveBehaviour : MonoBehaviour, IEffectable, IEnemyMovement {
 
     private Coroutine moveSFXCoroutine;
 
-    private string debugStr;
-
     private void Awake() {
         rb = GetComponent<Rigidbody2D>();
         knockback = GetComponent<Knockback>();
@@ -45,21 +41,13 @@ public class BounceMoveBehaviour : MonoBehaviour, IEffectable, IEnemyMovement {
     }
 
     private void OnEnable() {
-        bounceTrigger.OnEnterContact_GO += Bounce;
-
-        //RandomizeDirection();
-
-        emergencyBounceTimer = 0;
+        RandomizeDirection();
 
         if (hasMoveSFX) {
             moveSFXCoroutine = StartCoroutine(MoveSFX());
         }
-
-        debugStr = "";
     }
     private void OnDisable() {
-        bounceTrigger.OnEnterContact_GO -= Bounce;
-
         // reset direction facing
         if (!twoWayFacing) {
             transform.rotation = Quaternion.identity;
@@ -70,12 +58,6 @@ public class BounceMoveBehaviour : MonoBehaviour, IEffectable, IEnemyMovement {
         if (moveSFXCoroutine != null) {
             StopCoroutine(moveSFXCoroutine);
         }
-    }
-
-    public void SetDirectionDebug(float degrees) {
-        velocity = Vector2.up * hasStats.GetStats().MoveSpeed;
-        velocity.RotateDirection(degrees);
-        UpdateFacing(velocity);
     }
 
     private void RandomizeDirection() {
@@ -93,34 +75,18 @@ public class BounceMoveBehaviour : MonoBehaviour, IEffectable, IEnemyMovement {
             return;
         }
 
-        // if the enemy is touching an obstacle for a certain amount of time then a
-        // glitch has occured and try to bounce away from the wall
-        //if (bounceTrigger.HasContact()) {
-        //    emergencyBounceTimer += Time.deltaTime;
-        //    float delayBeforeEmergencyBounce = 0.1f;
-        //    if (emergencyBounceTimer > delayBeforeEmergencyBounce) {
-        //        debugStr += "Emergency bounce, ";
-        //        Bounce(bounceTrigger.GetFirstContact());
-        //    }
-        //}
-        //else {
-        //    emergencyBounceTimer = 0;
-        //}
+        if (bounceTrigger.HasContact()) {
+            Bounce(bounceTrigger.GetFirstContact());
+        }
 
         rb.velocity = velocity;
     }
 
     private void Bounce(GameObject collisionObject) {
 
-        print("Try bounce");
-        debugStr += "Try bounce, ";
-
         // Calculate the reflection vector
         Vector2 normal = collisionObject.GetComponent<Collider2D>().ClosestPoint(centerPoint.position) - (Vector2)centerPoint.position;
-        print("normal: " + normal);
-
         Vector2 reflectDir = Vector2.Reflect(velocity, normal.normalized); // Reflect based on current velocity
-        print("reflectDir: " + reflectDir);
 
         // A safe guard because sometimes the bounce glitches and enemies bounce twice at the same time, causing the
         // enemy to bounce back into the wall.
@@ -128,25 +94,18 @@ public class BounceMoveBehaviour : MonoBehaviour, IEffectable, IEnemyMovement {
         if (verticalBounce) {
             bool bounceIntoWall = Mathf.Sign(normal.y) == Mathf.Sign(reflectDir.y);
             if (bounceIntoWall) {
-                print("Vertical safeguard: no bounce");
-                debugStr += "Vertical safeguard: no bounce, ";
                 return;
             }
         }
         else {
             bool bounceIntoWall = Mathf.Sign(normal.x) == Mathf.Sign(reflectDir.x);
             if (bounceIntoWall) {
-                print("Horizontal safeguard: no bounce");
-                debugStr += "Horizontal safeguard: no bounce, ";
                 return;
             }
         }
 
         // Set the new velocity
-        print("Before Bounce: " + velocity);
         velocity = reflectDir.normalized * velocity.magnitude; // Preserve the speed
-        print("Bounce: " + velocity);
-        debugStr += "Bounce, ";
 
         UpdateFacing(velocity);
 

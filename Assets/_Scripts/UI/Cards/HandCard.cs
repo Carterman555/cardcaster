@@ -27,6 +27,8 @@ public class HandCard : MonoBehaviour {
 
     [SerializeField] private Vector2 cardStartPos;
 
+    private RectTransform rectTransform;
+
     private ShowCardMovement showCardMovement;
     private Vector3 showPos;
 
@@ -53,6 +55,7 @@ public class HandCard : MonoBehaviour {
     }
 
     private void Awake() {
+        rectTransform = GetComponent<RectTransform>();
         showCardMovement = GetComponent<ShowCardMovement>();
 
         cardKeyboardInput = GetComponent<CardKeyboardInput>();
@@ -117,7 +120,6 @@ public class HandCard : MonoBehaviour {
 
     public void SetCardPosition(Vector3 position) {
 
-
         showPos = new(position.x, 200f);
         showCardMovement.Setup(position, showPos);
 
@@ -128,8 +130,8 @@ public class HandCard : MonoBehaviour {
         if (CurrentCardState == CardState.ReadyToPlay) {
             CurrentCardState = CardState.Moving;
 
-            transform.DOKill();
-            transform.DOMove(position, duration: 0.2f).OnComplete(() => {
+            rectTransform.DOKill();
+            rectTransform.DOAnchorPos(position, duration: 0.2f).OnComplete(() => {
                 CurrentCardState = CardState.ReadyToPlay;
             });
         }
@@ -158,8 +160,8 @@ public class HandCard : MonoBehaviour {
         waitingForToHandToMove = false;
         CurrentCardState = CardState.Moving;
 
-        transform.DOKill();
-        transform.DOMove(toMovePos, duration: 0.2f).OnComplete(() => {
+        rectTransform.DOKill();
+        rectTransform.DOAnchorPos(toMovePos, duration: 0.2f).OnComplete(() => {
             CurrentCardState = CardState.ReadyToPlay;
         });
 
@@ -287,8 +289,8 @@ public class HandCard : MonoBehaviour {
         if (positioningCard) {
             float duration = 0.3f;
 
-            transform.DOKill();
-            transform.DOMove(showPos, duration).OnComplete(() => {
+            rectTransform.DOKill();
+            rectTransform.DOAnchorPos(showPos, duration).OnComplete(() => {
                 showCardMovement.Hide();
             });
         }

@@ -48,10 +48,7 @@ public class TrashCardManager : StaticInstance<TrashCardManager> {
     }
 
     private void ShowSelectButton(PanelCardButton panelCard) {
-        Vector2 offset = new Vector2(0f, 205f);
-        Vector2 position = (Vector2)panelCard.transform.position + offset;
-
-        SelectButton.Instance.Show("Burn", position, panelCard);
+        SelectButton.Instance.Show("Burn", panelCard);
     }
 
     private void TrashCard(PanelCardButton panelCard) {

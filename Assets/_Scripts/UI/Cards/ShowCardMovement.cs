@@ -13,6 +13,8 @@ public class ShowCardMovement : MonoBehaviour {
     private ShowState showState;
     private ShowState delayedCommand;
 
+    private RectTransform rectTransform;
+
     private Tween moveTween;
 
     private Vector2 hidePos, showPos;
@@ -25,6 +27,7 @@ public class ShowCardMovement : MonoBehaviour {
     const float fade = 0.7f;
 
     private void Awake() {
+        rectTransform = GetComponent<RectTransform>();
         handCard = GetComponent<HandCard>();
     }
 
@@ -48,7 +51,7 @@ public class ShowCardMovement : MonoBehaviour {
         if (showState == ShowState.Hidden) {
             showState = ShowState.Moving;
 
-            moveTween = transform.DOMove(showPos, duration);
+            moveTween = rectTransform.DOAnchorPos(showPos, duration);
             canvasGroup.DOFade(1f, duration).OnComplete(() => {
                 showState = ShowState.Showing;
             });
@@ -68,7 +71,7 @@ public class ShowCardMovement : MonoBehaviour {
         if (showState == ShowState.Showing) {
             showState = ShowState.Moving;
 
-            moveTween = transform.DOMove(hidePos, duration);
+            moveTween = rectTransform.DOAnchorPos(hidePos, duration);
             canvasGroup.DOFade(fade, duration).OnComplete(() => {
                 showState = ShowState.Hidden;
                 handCard.CurrentCardState = HandCard.CardState.ReadyToPlay;

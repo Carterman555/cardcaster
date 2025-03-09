@@ -17,15 +17,16 @@ public class CardDrop : MonoBehaviour {
     [SerializeField] private ChangeColorFromRarity changeShineColor;
     [SerializeField] private Transform shine;
 
-    [SerializeField] private ScriptableCardBase defaultCard; // for testing
+    [SerializeField] private bool debugCard;
+    [ConditionalHide("debugCard")][SerializeField] private CardType defaultCard; // for testing
 
     private void Awake() {
         spriteRenderer = GetComponent<SpriteRenderer>();
         interactable = GetComponent<Interactable>();
         suckMovement = GetComponent<SuckMovement>();
 
-        if (defaultCard != null) {
-            SetCard(defaultCard.CloneScriptableObject());
+        if (debugCard) {
+            SetCard(ResourceSystem.Instance.GetCardInstance(defaultCard));
         }
     }
 

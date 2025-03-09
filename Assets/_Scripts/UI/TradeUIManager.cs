@@ -83,10 +83,7 @@ public class TradeUIManager : StaticInstance<TradeUIManager>, IInitializable {
     }
 
     private void ShowSelectButton(PanelCardButton panelCard) {
-        Vector2 offset = new Vector2(0f, 205f);
-        Vector2 position = (Vector2)panelCard.transform.position + offset;
-
-        SelectButton.Instance.Show("Trade", position, panelCard);
+        SelectButton.Instance.Show("Trade", panelCard);
     }
 
     private void ShowTradeUI(PanelCardButton panelCard) {

@@ -125,10 +125,7 @@ public class CardsUIManager : StaticInstance<CardsUIManager> {
 
     // this method returns the pos to center the cards in the bottom center
     private Vector2 GetCardPos(int index, int handSize, int maxHandSize) {
-
-        float screenXCenter = Screen.width / 2;
-
-        float firstCardXPos = screenXCenter - ((handSize - 1) * cardSpacing * 0.5f);
+        float firstCardXPos = -((handSize - 1) * cardSpacing * 0.5f);
         float thisCardXPos = firstCardXPos + (cardSpacing * index);
         return new Vector3(thisCardXPos, cardYPos);
     }

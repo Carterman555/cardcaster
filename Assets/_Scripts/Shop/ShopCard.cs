@@ -12,7 +12,7 @@ public class ShopCard : MonoBehaviour {
     [SerializeField] private ChangeColorFromRarity changeShineColor;
 
     [SerializeField] private bool debugCard;
-    [ConditionalHide("debugCard")] [SerializeField] private ScriptableCardBase defaultCard;
+    [ConditionalHide("debugCard")] [SerializeField] private CardType defaultCard;
 
     private void Awake() {
         interactable = GetComponent<Interactable>();
@@ -23,7 +23,7 @@ public class ShopCard : MonoBehaviour {
         interactable.OnInteract += OpenAllCardsUI;
 
         if (debugCard) {
-            SetCard(defaultCard.CloneScriptableObject());
+            SetCard(ResourceSystem.Instance.GetCardInstance(defaultCard));
         }
     }
     private void OnDisable() {

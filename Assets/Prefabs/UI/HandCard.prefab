@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2021175765737241630}
   - component: {fileID: 1598868234917812299}
   m_Layer: 0
-  m_Name: FeedbackPlayers
+  m_Name: Feedbacks
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2308,9 +2308,9 @@ RectTransform:
   - {fileID: 2021175765737241630}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 960, y: 540}
+  m_AnchorMin: {x: 0.5, y: 0}
+  m_AnchorMax: {x: 0.5, y: 0}
+  m_AnchoredPosition: {x: 0, y: 540}
   m_SizeDelta: {x: 200, y: 300}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6887981501281096572
@@ -2334,7 +2334,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CurrentCardState: 0
-  cardStartPos: {x: 0, y: 0}
+  cardStartPos: {x: 0, y: -300}
   toHandPlayer: {fileID: 8445676972534443276}
   useCardPlayer: {fileID: 2697354873728968971}
   cantPlayShaker: {fileID: 3920663030056354911}

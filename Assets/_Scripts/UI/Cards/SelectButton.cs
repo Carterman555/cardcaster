@@ -31,7 +31,7 @@ public class SelectButton : GameButton, IInitializable {
     private CardLocation cardLocation;
     private int cardIndex;
 
-    public void Show(string buttonText, Vector2 position, PanelCardButton panelCard) {
+    public void Show(string buttonText, PanelCardButton panelCard) {
         text.text = buttonText;
 
         this.panelCard = panelCard;
@@ -42,7 +42,9 @@ public class SelectButton : GameButton, IInitializable {
 
         //... parent it to card so it moves with scroll
         transform.SetParent(panelCard.transform, false);
-        transform.position = position;
+
+        Vector2 offset = new(0f, 230f);
+        GetComponent<RectTransform>().anchoredPosition = offset;
 
         button.interactable = true;
 
@@ -70,6 +72,4 @@ public class SelectButton : GameButton, IInitializable {
         button.interactable = false;
         Hide();
     }
-
-    
 }

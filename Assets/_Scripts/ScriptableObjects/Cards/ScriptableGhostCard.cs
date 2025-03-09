@@ -23,6 +23,7 @@ public class ScriptableGhostCard : ScriptableStatsModifierCard {
 
         //... set invincible
         playerInvincibility = PlayerMovement.Instance.AddComponent<Invincibility>();
+        PlayerMovement.Instance.gameObject.layer = GameLayers.InvinciblePlayerLayer;
 
         //... make it move through objects and enemies
         Physics2D.IgnoreLayerCollision(GameLayers.PlayerLayer, GameLayers.RoomObjectLayer, true);

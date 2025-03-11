@@ -92,7 +92,7 @@ public class ScriptableLaunchCard : ScriptableAbilityCardBase {
 
         //... make player move through objects
         Physics2D.IgnoreLayerCollision(GameLayers.PlayerLayer, GameLayers.RoomObjectLayer, true);
-        Physics2D.IgnoreLayerCollision(GameLayers.PlayerLayer, GameLayers.EnemyLayer, true);
+        Physics2D.IgnoreLayerCollision(GameLayers.InvinciblePlayerLayer, GameLayers.RoomObjectLayer, true);
 
         // make it stop when hit wall
         wallTrigger = wallTriggerPrefab.Spawn(playerTransform.position, playerTransform);
@@ -138,7 +138,7 @@ public class ScriptableLaunchCard : ScriptableAbilityCardBase {
 
         //... make player not move through objects and enemies
         Physics2D.IgnoreLayerCollision(GameLayers.PlayerLayer, GameLayers.RoomObjectLayer, false);
-        Physics2D.IgnoreLayerCollision(GameLayers.PlayerLayer, GameLayers.EnemyLayer, false);
+        Physics2D.IgnoreLayerCollision(GameLayers.InvinciblePlayerLayer, GameLayers.RoomObjectLayer, false);
 
         //... stop launch
         launchTween.Kill();

@@ -74,7 +74,6 @@ public class RewardSpawner : MonoBehaviour {
         List<CardType> possibleCardsToSpawn = ResourceSystem.Instance.GetAllCardsWithLevel(currentLevel);
 
         if (bossUnlocksCardIfPossible) {
-
             List<CardType> unlockedCards = ResourceSystem.Instance.GetUnlockedCardsWithLevel(currentLevel);
             bool unlockedAllCardsAtLevel = possibleCardsToSpawn.Count == unlockedCards.Count;
 

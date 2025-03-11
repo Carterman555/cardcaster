@@ -48,9 +48,9 @@ public class ResourceSystem : Singleton<ResourceSystem>
     public List<ScriptableBoss> GetBosses(int level) => Bosses.Where(b => b.PossibleLevels.Contains(level)).ToList();
 
     public List<CardType> GetAllCards() => AllCards.Select(c => c.CardType).ToList();
-    public List<CardType> GetAllCardsWithLevel(int level) => GetAllCards().Where(c => AllCards.FirstOrDefault(c => c.CardType == c.CardType).MinLevel == level).ToList();
+    public List<CardType> GetAllCardsWithLevel(int level) => AllCards.Where(c => c.MinLevel == level).Select(c => c.CardType).ToList();
 
-    public List<CardType> GetAllCardsUpToLevel(int level) => GetAllCards().Where(c => AllCards.FirstOrDefault(c => c.CardType == c.CardType).MinLevel <= level).ToList();
+    public List<CardType> GetAllCardsUpToLevel(int level) => AllCards.Where(c => c.MinLevel <= level).Select(c => c.CardType).ToList();
 
     public List<CardType> GetUnlockedCards() => GetAllCards().Where(c => UnlockedCards.Contains(c)).ToList();
     public List<CardType> GetUnlockedCardsWithLevel(int level) => GetAllCardsWithLevel(level).Where(c => UnlockedCards.Contains(c)).ToList();

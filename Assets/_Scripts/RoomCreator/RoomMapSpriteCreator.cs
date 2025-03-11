@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.Tilemaps;
 using UnityEditor;
 using System.Linq;
+using Mono.CSharp;
 
 public class RoomMapSpriteCreator {
 
@@ -29,29 +30,28 @@ public class RoomMapSpriteCreator {
 
         // Find the minimum and maximum points
         foreach (Tilemap tilemap in tilemaps) {
-            for (int x = 0; x < tilemap.size.x; x++) {
-                for (int y = 0; y < tilemap.size.y; y++) {
-                    Vector3Int pos = new(-x, -y, 0);
-                    if (tilemap.GetSprite(pos) != null) {
-                        if (minTileX > pos.x) {
+            for (int y = tilemap.size.y; y >= -tilemap.size.y; y--) {
+                for (int x = -tilemap.size.x; x <= tilemap.size.x; x++) {
+                    Vector3Int pos = new(x, y, 0);
+                    if (tilemap.GetTile(pos) != null) {
+
+                        if (pos.x < minTileX) {
                             minTileX = pos.x;
                         }
-                        if (minTileY > pos.y) {
+                        if (pos.y < minTileY) {
                             minTileY = pos.y;
                         }
-                    }
 
-                    pos = new Vector3Int(x, y, 0);
-                    if (tilemap.GetSprite(pos) != null) {
-                        if (maxTileX < pos.x) {
+                        if (pos.x > maxTileX) {
                             maxTileX = pos.x;
                         }
-                        if (maxTileY < pos.y) {
+                        if (pos.y > maxTileY) {
                             maxTileY = pos.y;
                         }
                     }
                 }
             }
+
         }
 
         minTileX--;

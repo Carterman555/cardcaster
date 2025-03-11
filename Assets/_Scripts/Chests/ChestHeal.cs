@@ -5,7 +5,7 @@ using UnityEngine;
 [RequireComponent(typeof(Interactable))]
 public class ChestHeal : MonoBehaviour, IChestItem {
 
-    [SerializeField] private float healAmount = 5f;
+    public static readonly float HealAmount = 10f;
 
     private Interactable interactable;
     private SuckMovement suckMovement;
@@ -74,7 +74,7 @@ public class ChestHeal : MonoBehaviour, IChestItem {
         suckMovement.OnReachTarget -= ShrinkAndHeal;
 
         transform.DOScale(Vector2.zero, duration: 0.2f).SetEase(Ease.InSine).OnComplete(() => {
-            PlayerMeleeAttack.Instance.GetComponent<Health>().Heal(healAmount);
+            PlayerMeleeAttack.Instance.GetComponent<Health>().Heal(HealAmount);
 
             transform.DOKill();
             gameObject.ReturnToPool();

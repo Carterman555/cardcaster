@@ -101,9 +101,7 @@ public class PlayerMovement : StaticInstance<PlayerMovement>, IHasStats, IChange
 
         isDashing = true;
         rb.velocity = moveDirection.normalized * stats.DashSpeed;
-        Invincibility dashInvincibility = gameObject.AddComponent<Invincibility>();
-
-        gameObject.layer = GameLayers.InvinciblePlayerLayer; // set player to different layer, so doesn't trigger projectiles
+        PlayerInvincibility dashInvincibility = gameObject.AddComponent<PlayerInvincibility>();
 
         dashFade = PlayerVisual.Instance.AddFadeEffect(0, 0.5f, 0.1f);
 
@@ -112,8 +110,6 @@ public class PlayerMovement : StaticInstance<PlayerMovement>, IHasStats, IChange
         OnDash?.Invoke();
 
         yield return new WaitForSeconds(stats.DashTime);
-
-        gameObject.layer = GameLayers.PlayerLayer;
 
         isDashing = false;
         dashTimer = 0f;

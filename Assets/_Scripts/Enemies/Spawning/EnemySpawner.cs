@@ -13,6 +13,11 @@ public class EnemySpawner : StaticInstance<EnemySpawner> {
     private int currentWaveIndex;
 
     public bool SpawnedAllWaves() {
+
+        if (currentEnemyComposition == null) {
+            return true;
+        }
+
         int totalWaves = currentEnemyComposition.EnemyWaves.Count();
         return currentWaveIndex >= totalWaves;
     }

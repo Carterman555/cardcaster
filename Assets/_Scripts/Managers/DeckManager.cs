@@ -170,10 +170,11 @@ public class DeckManager : Singleton<DeckManager> {
             OnGainCardToHand?.Invoke();
         }
 
-
         // if gains a locked card, unlock it
         bool cardLocked = !ResourceSystem.Instance.GetUnlockedCards().Any(c => c == card.CardType);
         if (cardLocked && NewCardUnlockedPanel.Instance != null) {
+            print("Unlock card");
+
             ResourceSystem.Instance.UnlockCard(card.CardType);
             FeedbackPlayerOld.Play("NewCardUnlocked");
             NewCardUnlockedPanel.Instance.Setup(card);

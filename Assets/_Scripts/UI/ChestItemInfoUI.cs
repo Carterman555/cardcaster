@@ -1,8 +1,8 @@
 using MoreMountains.Feedbacks;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
-using static UnityEngine.Rendering.DebugUI;
 
 public class ChestItemInfoUI : MonoBehaviour, IInitializable {
 
@@ -23,6 +23,7 @@ public class ChestItemInfoUI : MonoBehaviour, IInitializable {
 
     [SerializeField] private CardImage cardImage;
     [SerializeField] private GameObject heal;
+    [SerializeField] private TextMeshProUGUI healText;
 
     private ItemInfo itemInfoShowing;
     private ItemInfo itemInfoToShow;
@@ -35,6 +36,7 @@ public class ChestItemInfoUI : MonoBehaviour, IInitializable {
     public void SetHealInfo() {
         itemInfoToShow = new() { Heal = true, Card = null };
         gameObject.SetActive(true);
+        healText.text = $"Heal {ChestHeal.HealAmount}";
     }
 
     public void RemoveInfo() {

@@ -273,6 +273,12 @@ MonoBehaviour:
   deathParticlesColor: {r: 0.5254902, g: 0.5647059, b: 0.6039216, a: 1}
   hasParticlePoint: 0
   particlePoint: {fileID: 0}
+  playOnDeathEvent: 1
+  playSFX: 0
+  deathSFX:
+    Clips: []
+    Volume: 0
+    PitchVariation: 0
 --- !u!1 &2578162526222060076
 GameObject:
   m_ObjectHideFlags: 0

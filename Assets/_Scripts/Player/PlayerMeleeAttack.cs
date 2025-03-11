@@ -5,6 +5,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
+using UnityEngine.Rendering;
 
 public class PlayerMeleeAttack : StaticInstance<PlayerMeleeAttack>, ITargetAttacker, IHasStats {
 
@@ -15,7 +16,8 @@ public class PlayerMeleeAttack : StaticInstance<PlayerMeleeAttack>, ITargetAttac
     [SerializeField] private LayerMask targetLayerMask;
 
     [SerializeField] private SlashingWeapon weapon;
-    [SerializeField] private SpriteRenderer hand;
+
+    [SerializeField] private SortingGroup weaponGroup;
 
     private float attackTimer;
 
@@ -48,12 +50,10 @@ public class PlayerMeleeAttack : StaticInstance<PlayerMeleeAttack>, ITargetAttac
 
         // hide sword and hand behind player head
         if (weapon.InUpPos()) {
-            ReferenceSystem.Instance.PlayerSwordVisual.sortingOrder = 0;
-            hand.sortingOrder = 0;
+            weaponGroup.sortingOrder = -1;
         }
         else {
-            ReferenceSystem.Instance.PlayerSwordVisual.sortingOrder = 1;
-            hand.sortingOrder = 1;
+            weaponGroup.sortingOrder = 1;
         }
     }
 

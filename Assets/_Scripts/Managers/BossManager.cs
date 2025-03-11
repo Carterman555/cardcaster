@@ -90,6 +90,11 @@ public class BossManager : MonoBehaviour {
         bossHealth.OnDeath -= OnBossDefeated;
         playerHealth.OnDeath -= OnPlayerDefeated;
 
+        Health[] enemyHealths = Containers.Instance.Enemies.GetComponentsInChildren<Health>();
+        foreach (Health health in enemyHealths) {
+            health.Die();
+        }
+
         OnBossKilled?.Invoke();
     }
 

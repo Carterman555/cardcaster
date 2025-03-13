@@ -15,7 +15,7 @@ public class ControlCancelCardText : MonoBehaviour {
     private void Update() {
 
         // only show the cancel text if using controller
-        if (InputManager.Instance.GetInputScheme() == ControlSchemeType.Keyboard) {
+        if (InputManager.Instance.GetControlScheme() == ControlSchemeType.Keyboard) {
             bool showing = feedbackPlayer.InSecondState();
             if (showing) {
                 feedbackPlayer.PlayFeedbacks(); // hide

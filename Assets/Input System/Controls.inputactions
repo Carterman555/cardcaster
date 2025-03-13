@@ -545,6 +545,24 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "DeclineDataCollect",
+                    "type": "Button",
+                    "id": "1b8ece86-9afd-4116-aad6-fe4241db6bd9",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "AcceptDataCollect",
+                    "type": "Button",
+                    "id": "4c6e4d73-3b07-440a-9c77-58cb9d3c6f9d",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -690,6 +708,50 @@
                     "action": "PanUI",
                     "isComposite": false,
                     "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "7eaf0f19-e4f6-40c4-8d8d-98ea7b04b36c",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard",
+                    "action": "DeclineDataCollect",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "fe69863d-9ab1-4b45-af80-e4b9c8be93ec",
+                    "path": "<Gamepad>/buttonEast",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Controller",
+                    "action": "DeclineDataCollect",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "acc5576e-b77d-49d4-92ad-18c5dc22077c",
+                    "path": "<Keyboard>/a",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard",
+                    "action": "AcceptDataCollect",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "3cf8d68c-9c8e-4ac1-8de7-4b31ab1bfaab",
+                    "path": "<Gamepad>/buttonSouth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Controller",
+                    "action": "AcceptDataCollect",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         },

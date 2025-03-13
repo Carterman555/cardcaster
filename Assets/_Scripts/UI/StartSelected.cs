@@ -22,7 +22,7 @@ public class StartSelected : MonoBehaviour {
     }
 
     private void TrySelect() {
-        if (InputManager.Instance.GetInputScheme() == ControlSchemeType.Controller) {
+        if (InputManager.Instance.GetControlScheme() == ControlSchemeType.Controller) {
             selectable.Select();
         }
     }

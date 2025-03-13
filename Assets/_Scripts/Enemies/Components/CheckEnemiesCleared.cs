@@ -28,7 +28,6 @@ public class CheckEnemiesCleared : MonoBehaviour {
 
             //... if the room was cleared
             if (EnemySpawner.Instance.SpawnedAllWaves()) {
-                isOnCooldown = true;
                 OnEnemiesCleared?.Invoke();
             }
             //... if another wave
@@ -37,6 +36,7 @@ public class CheckEnemiesCleared : MonoBehaviour {
             }
 
             // cooldown so OnEnemiesCleared is only invoked once when multiple enemies die at the same time
+            isOnCooldown = true;
             float cooldownDuration = 0.25f;
             yield return new WaitForSeconds(cooldownDuration);
             isOnCooldown = false;

@@ -88,6 +88,11 @@ public class Health : MonoBehaviour, IDamagable {
     [ContextMenu("Die")]
     [Command]
     public void Die() {
+
+        if (dead) {
+            return;
+        }
+
         dead = true;
 
         deathEventTrigger?.Invoke();

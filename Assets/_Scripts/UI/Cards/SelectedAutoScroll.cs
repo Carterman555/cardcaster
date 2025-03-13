@@ -12,7 +12,7 @@ public class SelectedAutoScroll : MonoBehaviour
 
     private void Update() {
 
-        if (InputManager.Instance.GetInputScheme() != ControlSchemeType.Controller) {
+        if (InputManager.Instance.GetControlScheme() != ControlSchemeType.Controller) {
             return;
         }
 

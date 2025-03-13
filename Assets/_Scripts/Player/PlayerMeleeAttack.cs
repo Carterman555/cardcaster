@@ -165,14 +165,14 @@ public class PlayerMeleeAttack : StaticInstance<PlayerMeleeAttack>, ITargetAttac
 
     // aim the sword towards the mouse or with right joystick
     public Vector2 GetAttackDirection() {
-        if (InputManager.Instance.GetInputScheme() == ControlSchemeType.Keyboard) {
+        if (InputManager.Instance.GetControlScheme() == ControlSchemeType.Keyboard) {
             return MouseTracker.Instance.ToMouseDirection(transform.position).normalized;
         }
-        else if (InputManager.Instance.GetInputScheme() == ControlSchemeType.Controller) {
+        else if (InputManager.Instance.GetControlScheme() == ControlSchemeType.Controller) {
             return lastAimDirection;
         }
 
-        Debug.LogError($"ControlSchemeType not found: {InputManager.Instance.GetInputScheme()}!");
+        Debug.LogError($"ControlSchemeType not found: {InputManager.Instance.GetControlScheme()}!");
         return Vector2.zero;
     }
 

@@ -2,9 +2,7 @@ using QFSW.QC;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.InteropServices;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class DeckManager : Singleton<DeckManager> {
 
@@ -172,9 +170,7 @@ public class DeckManager : Singleton<DeckManager> {
 
         // if gains a locked card, unlock it
         bool cardLocked = !ResourceSystem.Instance.GetUnlockedCards().Any(c => c == card.CardType);
-        if (cardLocked && NewCardUnlockedPanel.Instance != null) {
-            print("Unlock card");
-
+        if (cardLocked && !GameSceneManager.Instance.Tutorial) {
             ResourceSystem.Instance.UnlockCard(card.CardType);
             FeedbackPlayerOld.Play("NewCardUnlocked");
             NewCardUnlockedPanel.Instance.Setup(card);

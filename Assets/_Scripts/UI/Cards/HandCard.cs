@@ -321,7 +321,7 @@ public class HandCard : MonoBehaviour {
 
         ShowPlayInput();
 
-        ControlSchemeType controlSchemeType = InputManager.Instance.GetInputScheme();
+        ControlSchemeType controlSchemeType = InputManager.Instance.GetControlScheme();
         if (controlSchemeType == ControlSchemeType.Keyboard) {
             cardKeyboardInput.enabled = true;
             cardControllerInput.enabled = false;

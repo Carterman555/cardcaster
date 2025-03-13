@@ -30,8 +30,8 @@ public class Tutorial : MonoBehaviour {
 
     private string welcomeText = "Hello, I am The Dealer. I normally trade cards, but for now will guide you.";
 
-    private string faceTextKeyboard = "You can change the direction you are facing and aim your sword with your mouse position.";
-    private string faceTextController = "You can change the direction you are facing with {ACTION}.";
+    private string faceTextKeyboard = "First I will teach you that you can change the direction you are facing and aim your sword with your mouse position.";
+    private string faceTextController = "First I will teach you that you can change the direction you are facing with {ACTION}.";
 
     private string combatText = "In the Card Dungeon, you need to fight off enemies. I'll spawn one in for you," +
         " so you can learn. Press {ACTION} to swing your sword and kill him!";
@@ -241,14 +241,14 @@ public class DialogStep : BaseTutorialStep {
         base.OnEnterStep();
 
         if (multipleDialogs) {
-            if (InputManager.Instance.GetInputScheme() == ControlSchemeType.Keyboard) {
+            if (InputManager.Instance.GetControlScheme() == ControlSchemeType.Keyboard) {
                 dialog = keyboardDialog;
             }
-            else if (InputManager.Instance.GetInputScheme() == ControlSchemeType.Controller) {
+            else if (InputManager.Instance.GetControlScheme() == ControlSchemeType.Controller) {
                 dialog = controllerDialog;
             }
             else {
-                Debug.LogError("Could not find input scheme: " + InputManager.Instance.GetInputScheme());
+                Debug.LogError("Could not find input scheme: " + InputManager.Instance.GetControlScheme());
             }
         }
 

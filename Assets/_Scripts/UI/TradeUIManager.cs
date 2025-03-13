@@ -93,7 +93,7 @@ public class TradeUIManager : StaticInstance<TradeUIManager>, IInitializable {
 
         panelCardToTrade = null;
 
-        if (InputManager.Instance.GetInputScheme() == ControlSchemeType.Controller) {
+        if (InputManager.Instance.GetControlScheme() == ControlSchemeType.Controller) {
             tradeButton.Select();
         }
 

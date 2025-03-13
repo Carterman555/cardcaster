@@ -68,7 +68,7 @@ public class AllCardsPanel : StaticInstance<AllCardsPanel> {
     public void TrySetupControllerCardSelection() {
 
         // only setup card if using controller
-        if (InputManager.Instance.GetInputScheme() != ControlSchemeType.Controller) {
+        if (InputManager.Instance.GetControlScheme() != ControlSchemeType.Controller) {
             return;
         }
 

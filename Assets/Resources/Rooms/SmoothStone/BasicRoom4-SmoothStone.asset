@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f39f8fa72b60e1341889981f5fd9c4a8, type: 3}
   m_Name: BasicRoom4-SmoothStone
   m_EditorClassIdentifier: 
-  roomType: 0
+  roomType: 1
   environmentType: 1
   roomPrefab: {fileID: 3084685571954290978, guid: f430c1a81ffb2e047a52f0574c2485c7, type: 3}
   noEnemies: 0

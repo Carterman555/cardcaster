@@ -18,14 +18,14 @@ public class CameraLookInfluence : MonoBehaviour {
     void Update() {
         
         Vector2 offset = Vector2.zero;
-        if (InputManager.Instance.GetInputScheme() == ControlSchemeType.Keyboard) {
+        if (InputManager.Instance.GetControlScheme() == ControlSchemeType.Keyboard) {
             offset = GetMouseOffset();
         }
-        else if (InputManager.Instance.GetInputScheme() == ControlSchemeType.Controller) {
+        else if (InputManager.Instance.GetControlScheme() == ControlSchemeType.Controller) {
             offset = GetJoystickOffset();
         }
         else {
-            Debug.LogWarning($"ControlSchemeType not found {InputManager.Instance.GetInputScheme()}!");
+            Debug.LogWarning($"ControlSchemeType not found {InputManager.Instance.GetControlScheme()}!");
         }
 
         framingTransposer.m_TrackedObjectOffset = new Vector3(Mathf.Abs(offset.x), offset.y, 0f);

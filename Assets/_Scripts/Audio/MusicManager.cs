@@ -41,7 +41,15 @@ public class MusicManager : Singleton<MusicManager> {
         BossManager.OnBossKilled -= TransitionToCasualMusic;
     }
 
-    private void Start() {
+    private IEnumerator Start() {
+        TransitionMusic(MusicType.Casual);
+
+        yield return null;
+
+        TransitionMusic(MusicType.Combat);
+
+        yield return null;
+
         TransitionMusic(MusicType.Casual);
     }
 
@@ -135,6 +143,7 @@ public class MusicManager : Singleton<MusicManager> {
     }
 
     private void PlayMusic(AudioClip audioClip, float vol) {
+        GetActiveMusicSource().Stop();
         GetActiveMusicSource().PlayOneShot(audioClip, vol);
     }
 }

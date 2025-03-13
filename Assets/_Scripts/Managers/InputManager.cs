@@ -15,7 +15,7 @@ public class InputManager : Singleton<InputManager> {
         ActionMapUpdaterPanel.OnAnyActiveChanged += UpdateActionMap;
         SceneManager.sceneLoaded += UpdateGlobalActionMap;
 
-        playerInput.controlsChangedEvent.AddListener(InvokeInputSchemeChangedEvent);
+        playerInput.controlsChangedEvent.AddListener(InvokeControlSchemeChangedEvent);
 
         playerInput.deviceLostEvent.AddListener(TryPauseGame);
         playerInput.deviceRegainedEvent.AddListener(TryUnpauseGame);
@@ -25,20 +25,20 @@ public class InputManager : Singleton<InputManager> {
         ActionMapUpdaterPanel.OnAnyActiveChanged -= UpdateActionMap;
         SceneManager.sceneLoaded -= UpdateGlobalActionMap;
 
-        playerInput.controlsChangedEvent.RemoveListener(InvokeInputSchemeChangedEvent);
+        playerInput.controlsChangedEvent.RemoveListener(InvokeControlSchemeChangedEvent);
 
         playerInput.deviceLostEvent.RemoveListener(TryPauseGame);
         playerInput.deviceRegainedEvent.RemoveListener(TryUnpauseGame);
     }
 
-    #region InputScheme
+    #region Control Scheme
 
     public static event Action OnControlsChanged;
     public static event Action OnControlSchemeChanged;
 
     private ControlSchemeType currentControlScheme;
 
-    public ControlSchemeType GetInputScheme() {
+    public ControlSchemeType GetControlScheme() {
 
         switch (playerInput.currentControlScheme) {
             case "Keyboard":
@@ -51,13 +51,13 @@ public class InputManager : Singleton<InputManager> {
         return default;
     }
 
-    private void InvokeInputSchemeChangedEvent(PlayerInput playerInput) {
-        if (GetInputScheme() == ControlSchemeType.Keyboard) {
+    private void InvokeControlSchemeChangedEvent(PlayerInput playerInput) {
+        if (GetControlScheme() == ControlSchemeType.Keyboard) {
             EventSystem.current.SetSelectedGameObject(null);
         }
 
-        if (GetInputScheme() != currentControlScheme) {
-            currentControlScheme = GetInputScheme();
+        if (GetControlScheme() != currentControlScheme) {
+            currentControlScheme = GetControlScheme();
             OnControlSchemeChanged?.Invoke();
         }
 
@@ -111,7 +111,7 @@ public class InputManager : Singleton<InputManager> {
 
         string displayString;
 
-        if (GetInputScheme() == ControlSchemeType.Keyboard) {
+        if (GetControlScheme() == ControlSchemeType.Keyboard) {
 
             //... get the binding of the active control scheme
             var binding = action.bindings
@@ -124,11 +124,11 @@ public class InputManager : Singleton<InputManager> {
                 displayString = binding.ToDisplayString(InputBinding.DisplayStringOptions.DontUseShortDisplayNames);
             }
         }
-        else if (GetInputScheme() == ControlSchemeType.Controller) {
+        else if (GetControlScheme() == ControlSchemeType.Controller) {
             displayString = GetActionSpriteTag(action);
         }
         else {
-            Debug.LogError("Could not find input scheme: " + GetInputScheme());
+            Debug.LogError("Could not find input scheme: " + GetControlScheme());
             return null;
         }
 

@@ -312,14 +312,6 @@ public class DrChonk : MonoBehaviour, IHasStats, IBoss {
     #endregion
 
     private void OnDefeated() {
-        // kill all enemies
-        foreach (Transform enemy in Containers.Instance.Enemies) {
-            Health enemyHealth = enemy.GetComponent<Health>();
-            if (!enemyHealth.IsDead()) {
-                enemyHealth.Die();
-            }
-        }
-
         DisableSpawnOnProjectiles();
     }
 }

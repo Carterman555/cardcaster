@@ -603,10 +603,11 @@ MonoBehaviour:
   hasParticlePoint: 0
   particlePoint: {fileID: 0}
   playOnDeathEvent: 1
-  playSFX: 0
+  playSFX: 1
   deathSFX:
-    Clips: []
-    Volume: 0
+    Clips:
+    - {fileID: 8300000, guid: 22f2f14b01f3b1c4cbc4a0431ad50b7f, type: 3}
+    Volume: 0.964
     PitchVariation: 0
 --- !u!1 &5270044504826222362
 GameObject:

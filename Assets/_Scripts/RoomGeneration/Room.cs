@@ -49,9 +49,9 @@ public class Room : MonoBehaviour {
     }
 
     public List<PossibleDoorway> GetPossibleDoorways() {
-
-        //... assign it if possibleDoorways is null
-        possibleDoorways ??= transform.GetComponentsInChildren<PossibleDoorway>().ToList();
+        if (possibleDoorways == null || possibleDoorways.Count == 0) {
+            possibleDoorways = transform.GetComponentsInChildren<PossibleDoorway>().ToList();
+        }
 
         return possibleDoorways;
     }

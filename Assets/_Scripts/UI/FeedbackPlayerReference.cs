@@ -3,6 +3,7 @@ using QFSW.QC;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class FeedbackPlayerReference : MonoBehaviour {
@@ -15,7 +16,7 @@ public class FeedbackPlayerReference : MonoBehaviour {
     }
 
     public static MMF_Player GetPlayer(string feedbackName) {
-        return feedbackPlayers[feedbackName].GetPlayer();
+        return feedbackPlayers[feedbackName].MMFPlayer;
     }
 
     public static void Play(string feedbackName) {
@@ -23,15 +24,15 @@ public class FeedbackPlayerReference : MonoBehaviour {
     }
 
     public static void PlayIfNormal(string feedbackName) {
-        feedbackPlayers[feedbackName].GetPlayer().PlayFeedbacksOnlyIfNormalDirection();
+        feedbackPlayers[feedbackName].MMFPlayer.PlayFeedbacksOnlyIfNormalDirection();
     }
 
     public static void PlayIfReversed(string feedbackName) {
-        feedbackPlayers[feedbackName].GetPlayer().PlayFeedbacksOnlyIfReversed();
+        feedbackPlayers[feedbackName].MMFPlayer.PlayFeedbacksOnlyIfReversed();
     }
 
     [SerializeField] private string feedbackName;
-    private MMF_Player MMFPlayer;
+    public MMF_Player MMFPlayer { get; private set; }
 
     private void Awake() {
         MMFPlayer = GetComponent<MMF_Player>();
@@ -43,10 +44,6 @@ public class FeedbackPlayerReference : MonoBehaviour {
         feedbackPlayers.Remove(feedbackName);
     }
     
-    public MMF_Player GetPlayer() {
-        return MMFPlayer;
-    }
-
     public void Play() {
         MMFPlayer.PlayFeedbacks();
     }

@@ -38,6 +38,13 @@ public class ShopCard : MonoBehaviour {
     }
 
     private void OpenAllCardsUI() {
+
+        // make sure the player is set to the correct direction to open
+        bool played = FeedbackPlayerReference.GetPlayer("OpenAllCardsPanel").PlayCount > 0;
+        if (played) {
+            FeedbackPlayerReference.GetPlayer("OpenAllCardsPanel").SetDirectionBottomToTop();
+        }
+
         FeedbackPlayerReference.Play("OpenAllCardsPanel");
         TradeUIManager.Instance.Activate(card, this);
     }

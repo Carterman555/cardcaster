@@ -44,7 +44,6 @@ public class RoomGenerator : StaticInstance<RoomGenerator> {
     public void GenerateRooms(EnvironmentType environmentType) {
         currentEnvironmentType = environmentType;
         //currentEnvironmentType = EnvironmentType.BlueStone;
-
         StartCoroutine(GenerateRoomsCor());
     }
 

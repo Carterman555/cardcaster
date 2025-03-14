@@ -46,14 +46,6 @@ public class DeckManager : Singleton<DeckManager> {
         return handSize;
     }
 
-    public List<ScriptableCardBase> GetAllCards() {
-        List<ScriptableCardBase> allCards = new();
-        allCards.AddRange(cardsInDeck);
-        allCards.AddRange(cardsInDiscard);
-        allCards.AddRange(cardsInHand);
-        return allCards;
-    }
-
     public float GetEssence() {
         return essence;
     }
@@ -77,9 +69,11 @@ public class DeckManager : Singleton<DeckManager> {
 
     private void OnEnable() {
         GameSceneManager.OnStartGame += OnStartGame;
+        GameSceneManager.OnLevelComplete += OnLevelComplete;
 
         ClearDeckAndEssence();
     }
+
     private void OnDisable() {
         GameSceneManager.OnStartGame -= OnStartGame;
     }
@@ -89,6 +83,12 @@ public class DeckManager : Singleton<DeckManager> {
         if (!GameSceneManager.Instance.Tutorial) {
             GiveStartingCards();
         }
+    }
+
+    private void OnLevelComplete(int obj) {
+        // discard active modifier cards
+        cardsInDiscard.AddRange(cardsInModifierStack);
+        cardsInModifierStack.Clear();
     }
 
     public void ClearDeckAndEssence() {
@@ -274,8 +274,14 @@ public class DeckManager : Singleton<DeckManager> {
 
     // debugging
 
+    [Command]
     public void PrintAllCards(string startingText = "") {
-        PrintCards(GetAllCards(), startingText);
+        List<ScriptableCardBase> allCards = new();
+        allCards.AddRange(cardsInDeck);
+        allCards.AddRange(cardsInDiscard);
+        allCards.AddRange(cardsInHand);
+        allCards.AddRange(cardsInModifierStack);
+        PrintCards(allCards, startingText);
     }
 
     private void PrintCards(List<ScriptableCardBase> cards, string startingText = "") {
@@ -285,7 +291,7 @@ public class DeckManager : Singleton<DeckManager> {
                 whole += card.GetName() + ", ";
             }
             else {
-                whole += "Null";
+                whole += "Null, ";
             }
         }
         Debug.Log(whole);

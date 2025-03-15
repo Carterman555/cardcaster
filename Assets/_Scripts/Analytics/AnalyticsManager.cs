@@ -94,19 +94,19 @@ public class AnalyticsManager : MonoBehaviour {
 
     private void OnRoomEnter(Room room) {
         timeAtRoomEnter = Time.time;
-        healthAtRoomEnter = playerHealth.GetHealth();
+        healthAtRoomEnter = playerHealth.CurrentHealth;
     }
 
     private void RecordRoomEndEvent() {
         RoomEndEvent roomEndEvent = new() {
             Room = Room.GetCurrentRoom().name,
             TimeToEnd = Time.time - timeAtRoomEnter,
-            HealthLost = healthAtRoomEnter - playerHealth.GetHealth(),
+            HealthLost = healthAtRoomEnter - playerHealth.CurrentHealth,
             Survived = !playerHealth.IsDead()
         };
 
         AnalyticsService.Instance.RecordEvent(roomEndEvent);
-        if (debug) print($"Record room end: Room = {Room.GetCurrentRoom().name} Time = {Time.time - timeAtRoomEnter}, Health lost = {healthAtRoomEnter - playerHealth.GetHealth()}, Survived = {!playerHealth.IsDead()}");
+        if (debug) print($"Record room end: Room = {Room.GetCurrentRoom().name} Time = {Time.time - timeAtRoomEnter}, Health lost = {healthAtRoomEnter - playerHealth.CurrentHealth}, Survived = {!playerHealth.IsDead()}");
     }
 
 

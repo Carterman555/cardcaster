@@ -21,6 +21,15 @@ public class Health : MonoBehaviour, IDamagable {
 
     private float maxHealth;
     private float health;
+    public float CurrentHealth {
+        get {
+            return health;
+        }
+        set {
+            health = value;
+            OnHealthChanged_HealthProportion?.Invoke(GetHealthProportion());
+        }
+    }
 
     private bool dead;
 
@@ -33,16 +42,11 @@ public class Health : MonoBehaviour, IDamagable {
     }
 
     public bool IsInvincible() {
-        bool isInvincible = TryGetComponent(out Invincibility invincibility);
-        return isInvincible;
+        return TryGetComponent(out Invincibility invincibility);
     }
 
     public float GetHealthProportion() {
         return health / maxHealth;
-    }
-
-    public float GetHealth() {
-        return health;
     }
 
     private void Awake() {

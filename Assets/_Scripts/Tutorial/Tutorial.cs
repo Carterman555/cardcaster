@@ -487,7 +487,7 @@ public class PickupEssenceStep : BaseTutorialStep {
         }
     }
 
-    private void TryCompleteStep(float n) => DeckManager.Instance.StartCoroutine(TryCompleteStep());
+    private void TryCompleteStep(int n) => DeckManager.Instance.StartCoroutine(TryCompleteStep());
 
     private IEnumerator TryCompleteStep() {
 

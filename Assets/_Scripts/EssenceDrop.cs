@@ -15,8 +15,17 @@ public class EssenceDrop : MonoBehaviour {
         launchPlayer = GetComponent<MMF_Player>();
     }
 
+    private void Start() {
+        float radius = GetComponent<CircleCollider2D>().radius;
+        Collider2D[] cols = Physics2D.OverlapCircleAll(transform.position, radius, GameLayers.PlayerLayerMask);
+        bool touchingPlayer = cols.Length > 0;
+        if (touchingPlayer) {
+            StartCoroutine(MoveToPlayer(cols[0].transform));
+        }
+    }
+
     private void OnTriggerEnter2D(Collider2D collision) {
-        if (collision.gameObject.layer == GameLayers.PlayerLayer) {
+        if (GameLayers.PlayerLayerMask.ContainsLayer(collision.gameObject.layer)) {
             StartCoroutine(MoveToPlayer(collision.transform));
         }
     }

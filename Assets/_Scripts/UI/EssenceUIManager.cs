@@ -12,20 +12,12 @@ public class EssenceUIManager : MonoBehaviour {
         DeckManager.OnEssenceChanged_Amount -= UpdateEssenceIcons;
     }
 
-    private void UpdateEssenceIcons(float essence) {
-        
-        int fullEssence = (int)essence;
-
-        for (int i = 0; i < fullEssence; i++) {
+    private void UpdateEssenceIcons(int essence) {
+        for (int i = 0; i < essence; i++) {
             essenceFillImages[i].fillAmount = 1;
         }
 
-        if (fullEssence < essenceFillImages.Length) {
-            float remainingEssence = essence - fullEssence;
-            essenceFillImages[fullEssence].fillAmount = remainingEssence;
-        }
-
-        for (int i = fullEssence + 1; i < essenceFillImages.Length; i++) {
+        for (int i = essence; i < essenceFillImages.Length; i++) {
             essenceFillImages[i].fillAmount = 0;
         }
     }

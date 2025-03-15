@@ -12,7 +12,7 @@ public class DeckManager : Singleton<DeckManager> {
     public static event Action OnReplaceCardInHand;
     public static event Action OnClearCards;
 
-    public static event Action<float> OnEssenceChanged_Amount;
+    public static event Action<int> OnEssenceChanged_Amount;
 
     [SerializeField] private int startingCardAmount;
     [SerializeField] private int maxHandSize;
@@ -25,7 +25,7 @@ public class DeckManager : Singleton<DeckManager> {
     [SerializeField] private CardAmount[] startingCardPool;
 
     [SerializeField] private int maxEssence;
-    private float essence;
+    private int essence;
 
     #region Get Methods
 
@@ -56,13 +56,13 @@ public class DeckManager : Singleton<DeckManager> {
         maxEssence += amount;
     }
 
-    public void ChangeEssenceAmount(float amount) {
+    public void ChangeEssenceAmount(int amount) {
 
         if (DebugManager.Instance.UnlimitedEssence) { // for debugging
             return;
         }
 
-        essence = Mathf.MoveTowards(essence, maxEssence, amount);
+        essence = Mathf.Clamp(essence + amount, 0, maxEssence);
 
         OnEssenceChanged_Amount?.Invoke(essence);
     }

@@ -1,4 +1,5 @@
 using MoreMountains.Feedbacks;
+using QFSW.QC;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -8,6 +9,7 @@ using UnityEngine.InputSystem;
 public class PlayFeedbackOnAction : MonoBehaviour {
 
     [SerializeField] private InputActionReference actionReference;
+    [SerializeField] private QuantumConsole quantumConsole;
 
     private MMF_Player feedbackPlayer;
 
@@ -23,6 +25,11 @@ public class PlayFeedbackOnAction : MonoBehaviour {
     }
 
     private void OnActionPerformed(InputAction.CallbackContext context) {
+
+        if (quantumConsole.IsActive) {
+            return;
+        }
+
         feedbackPlayer.PlayFeedbacks();
     }
 }

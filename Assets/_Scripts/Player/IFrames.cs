@@ -4,18 +4,18 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-[RequireComponent(typeof(PlayerVisual))]
+[RequireComponent(typeof(PlayerFadeManager))]
 public class IFrames : MonoBehaviour {
 
     [SerializeField] private float flashDelay;
     [SerializeField] private int flashAmount;
 
-    private PlayerVisual playerVisual;
+    private PlayerFadeManager playerVisual;
 
     private Invincibility playerInvincibility;
 
     private void Awake() {
-        playerVisual = GetComponent<PlayerVisual>();
+        playerVisual = GetComponent<PlayerFadeManager>();
     }
 
     [Command]
@@ -29,11 +29,11 @@ public class IFrames : MonoBehaviour {
         playerInvincibility = PlayerMeleeAttack.Instance.AddComponent<Invincibility>();
 
         for (int i = 0; i < flashAmount; i++) {
-            FadeEffect fadeEffect = playerVisual.AddFadeEffect(10, 0);
+            PlayerFade playerFade = playerVisual.AddFadeEffect(10, 0);
 
             yield return new WaitForSeconds(flashDelay);
 
-            playerVisual.RemoveFadeEffect(fadeEffect);
+            playerVisual.RemoveFadeEffect(playerFade);
 
             yield return new WaitForSeconds(flashDelay);
         }

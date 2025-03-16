@@ -82,26 +82,27 @@ public class ModifierImage : MonoBehaviour {
     private void CheckToShowX(ScriptableCardBase card) {
         if (card is ScriptableAbilityCardBase ability) {
             if (!ability.IsCompatibleWithModifier(modifier)) {
-                SwitchToRedX();
+
+                // switch to red x
+                float scaleDuration = 0.15f;
+
+                transform.DOKill();
+                transform.DOScale(0, scaleDuration).OnComplete(() => {
+                    image.sprite = xSprite;
+                    transform.DOScale(1, scaleDuration);
+                });
             }
         }
-    }
-
-    private void SwitchToRedX() {
-        float scaleDuration = 0.15f;
-
-        transform.DOKill();
-        transform.DOScale(0, scaleDuration).OnComplete(() => {
-            image.sprite = xSprite;
-            transform.DOScale(1, scaleDuration);
-        });
     }
 
     // switch this image back to modifier image if a nonmodifiable ability card is used because the card doesn't use
     // the modifier, but is still shows a red x when trying to play
     private void OnCardUsed(ScriptableCardBase card) {
+        print("OnCardUsed: " + card.GetName());
         if (card is ScriptableAbilityCardBase ability) {
+            print("Card Used Was Ability");
             if (!ability.IsModifiable) {
+                print("Card Used Was Not Modifiable");
                 SwitchToModifierImage();
             }
         }

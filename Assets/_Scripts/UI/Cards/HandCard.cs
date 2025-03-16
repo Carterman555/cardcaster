@@ -14,7 +14,7 @@ using static HandCard;
 
 public class HandCard : MonoBehaviour {
 
-    public static event Action<HandCard, ScriptableCardBase> OnAnyCardUsed_ButtonAndCard;
+    public static event Action<HandCard> OnAnyCardUsed_Button;
     public static event Action<ScriptableCardBase> OnAnyCardUsed_Card;
 
     public static event Action<ScriptableCardBase> OnAnyStartPlaying_Card;
@@ -173,8 +173,10 @@ public class HandCard : MonoBehaviour {
             return;
         }
 
-        OnAnyCardUsed_ButtonAndCard?.Invoke(this, card);
+        print("On Used Card: " + card.GetName());
+
         OnAnyCardUsed_Card?.Invoke(card);
+        OnAnyCardUsed_Button?.Invoke(this);
         playingAnyCard = false;
     }
 

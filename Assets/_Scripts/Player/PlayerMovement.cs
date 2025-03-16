@@ -93,7 +93,7 @@ public class PlayerMovement : StaticInstance<PlayerMovement>, IHasStats, IChange
     [SerializeField] private float dashCooldown;
     private float dashTimer;
 
-    private FadeEffect dashFade;
+    private PlayerFade dashFade;
 
     private bool isDashing;
 
@@ -103,7 +103,7 @@ public class PlayerMovement : StaticInstance<PlayerMovement>, IHasStats, IChange
         rb.velocity = moveDirection.normalized * stats.DashSpeed;
         PlayerInvincibility dashInvincibility = gameObject.AddComponent<PlayerInvincibility>();
 
-        dashFade = PlayerVisual.Instance.AddFadeEffect(0, 0.5f, 0.1f);
+        dashFade = PlayerFadeManager.Instance.AddFadeEffect(0, 0.5f);
 
         AudioManager.Instance.PlaySound(AudioManager.Instance.AudioClips.Dash);
 
@@ -116,7 +116,7 @@ public class PlayerMovement : StaticInstance<PlayerMovement>, IHasStats, IChange
 
         Destroy(dashInvincibility);
 
-        PlayerVisual.Instance.RemoveFadeEffect(dashFade, 0.1f);
+        PlayerFadeManager.Instance.RemoveFadeEffect(dashFade);
     }
 
     #endregion

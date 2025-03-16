@@ -45,9 +45,8 @@ public class ScriptableTeleportCard : ScriptableAbilityCardBase {
         }
 
         // fade out instantly, then fade in with delay
-        float duration = 0.5f;
-        FadeEffect fadeEffect = PlayerVisual.Instance.AddFadeEffect(0, 0f);
-        PlayerVisual.Instance.RemoveFadeEffect(fadeEffect, duration);
+        PlayerFade playerFade = PlayerFadeManager.Instance.AddFadeEffect(0, 0f);
+        PlayerFadeManager.Instance.RemoveFadeEffect(playerFade);
 
         CreateVisualClone(PlayerMovement.Instance.transform.position);
 

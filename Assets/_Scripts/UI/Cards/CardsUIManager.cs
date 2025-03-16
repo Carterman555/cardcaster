@@ -14,7 +14,7 @@ public class CardsUIManager : StaticInstance<CardsUIManager> {
     private List<HandCard> handCards = new();
 
     private void OnEnable() {
-        HandCard.OnAnyCardUsed_ButtonAndCard += OnCardUsed;
+        HandCard.OnAnyCardUsed_Button += OnCardUsed;
 
         DeckManager.OnGainCardToHand += DrawCardToEnd;
         DeckManager.OnTrashCardInHand += UpdateCardButtons;
@@ -24,7 +24,7 @@ public class CardsUIManager : StaticInstance<CardsUIManager> {
         DrawCardsOnNewLevel();
     }
     private void OnDisable() {
-        HandCard.OnAnyCardUsed_ButtonAndCard -= OnCardUsed;
+        HandCard.OnAnyCardUsed_Button -= OnCardUsed;
 
         DeckManager.OnGainCardToHand -= DrawCardToEnd;
         DeckManager.OnTrashCardInHand -= UpdateCardButtons;
@@ -55,7 +55,7 @@ public class CardsUIManager : StaticInstance<CardsUIManager> {
         handCards.Clear();
     }
 
-    private void OnCardUsed(HandCard cardButton, ScriptableCardBase cardUsed) {
+    private void OnCardUsed(HandCard cardButton) {
 
         // return the card button
         cardButton.gameObject.ReturnToPool();

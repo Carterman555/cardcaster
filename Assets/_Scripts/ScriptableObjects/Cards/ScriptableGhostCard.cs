@@ -7,7 +7,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "GhostCard", menuName = "Cards/Ghost Card")]
 public class ScriptableGhostCard : ScriptableStatsModifierCard {
 
-    private FadeEffect ghostFadeEffect;
+    private PlayerFade ghostFadeEffect;
 
     private PlayerInvincibility playerInvincibility;
 
@@ -18,8 +18,7 @@ public class ScriptableGhostCard : ScriptableStatsModifierCard {
 
         // ghost visuals
         float fadeAmount = 0.5f;
-        float duration = 0.5f;
-        ghostFadeEffect = PlayerVisual.Instance.AddFadeEffect(1, fadeAmount, duration);
+        ghostFadeEffect = PlayerFadeManager.Instance.AddFadeEffect(1, fadeAmount);
         ReferenceSystem.Instance.PlayerSwordVisual.enabled = false;
 
         //... set invincible
@@ -35,8 +34,7 @@ public class ScriptableGhostCard : ScriptableStatsModifierCard {
         PlayerMeleeAttack.Instance.AllowAttack();
 
         // revert ghost visuals
-        float duration = 0.5f;
-        PlayerVisual.Instance.RemoveFadeEffect(ghostFadeEffect, duration);
+        PlayerFadeManager.Instance.RemoveFadeEffect(ghostFadeEffect);
         ReferenceSystem.Instance.PlayerSwordVisual.enabled = true;
 
         //... set not invincible

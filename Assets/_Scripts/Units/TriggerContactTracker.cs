@@ -42,7 +42,7 @@ public class TriggerContactTracker : MonoBehaviour {
 
     private void RemoveDisabled() {
         for (int i = contacts.Count - 1; i >= 0; i--) {
-            if (contacts[i] == null || !contacts[i].activeSelf) {
+            if (contacts[i] == null || !contacts[i].activeSelf || !layerFilter.ContainsLayer(contacts[i].layer)) {
                 OnExitContact_GO?.Invoke(contacts[i]);
                 contacts.RemoveAt(i);
             }

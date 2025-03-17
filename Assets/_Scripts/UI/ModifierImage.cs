@@ -98,11 +98,8 @@ public class ModifierImage : MonoBehaviour {
     // switch this image back to modifier image if a nonmodifiable ability card is used because the card doesn't use
     // the modifier, but is still shows a red x when trying to play
     private void OnCardUsed(ScriptableCardBase card) {
-        print("OnCardUsed: " + card.GetName());
         if (card is ScriptableAbilityCardBase ability) {
-            print("Card Used Was Ability");
             if (!ability.IsModifiable) {
-                print("Card Used Was Not Modifiable");
                 SwitchToModifierImage();
             }
         }

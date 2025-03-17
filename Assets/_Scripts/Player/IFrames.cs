@@ -10,6 +10,7 @@ public class IFrames : MonoBehaviour {
     [SerializeField] private float flashDelay;
     [SerializeField] private int flashAmount;
 
+    [SerializeField] private Health playerHealth;
     private PlayerFadeManager playerVisual;
 
     private Invincibility playerInvincibility;
@@ -24,6 +25,12 @@ public class IFrames : MonoBehaviour {
     }
 
     private IEnumerator Flash() {
+
+        yield return null; // wait a frame to see if dead
+
+        if (playerHealth.Dead) {
+            yield break;
+        }
 
         //... set player invincible
         playerInvincibility = PlayerMeleeAttack.Instance.AddComponent<Invincibility>();

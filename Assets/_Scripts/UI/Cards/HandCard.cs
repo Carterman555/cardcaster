@@ -173,8 +173,6 @@ public class HandCard : MonoBehaviour {
             return;
         }
 
-        print("On Used Card: " + card.GetName());
-
         OnAnyCardUsed_Card?.Invoke(card);
         OnAnyCardUsed_Button?.Invoke(this);
         playingAnyCard = false;

@@ -5,12 +5,13 @@ using UnityEngine;
 
 public class EnemySpawnVisual : MonoBehaviour {
 
+    private List<Tween> fadeTweens;
 
     private void OnEnable() {
-        FadeIn();
-    }
 
-    private void FadeIn() {
+        // Fade in
+        fadeTweens = new();
+
         SpriteRenderer[] spriteRenderers = GetComponentsInChildren<SpriteRenderer>();
         foreach (SpriteRenderer spriteRenderer in spriteRenderers) {
             float originalAlpha = spriteRenderer.color.a;
@@ -18,18 +19,14 @@ public class EnemySpawnVisual : MonoBehaviour {
             spriteRenderer.Fade(0);
 
             float fadeDuration = 0.5f;
-            spriteRenderer.DOFade(originalAlpha, fadeDuration);
+            fadeTweens.Add(spriteRenderer.DOFade(originalAlpha, fadeDuration));
         }
     }
 
-
-    [SerializeField] private Material spawnMaterial;
-
-    private void DissolveIn() {
-        SpriteRenderer[] spriteRenderers = GetComponentsInChildren<SpriteRenderer>();
-        float dissolveSpeed = 0.5f;
-        DissolverVisual dissolverVisual = new DissolverVisual(spawnMaterial, spriteRenderers, dissolveSpeed);
-
-        StartCoroutine(dissolverVisual.DissolveIn(true));
+    // if enemies dies while fading in, complete the fade in instantly
+    private void OnDisable() {
+        foreach (Tween fadeTween in fadeTweens) {
+            fadeTween.Complete();
+        }
     }
 }

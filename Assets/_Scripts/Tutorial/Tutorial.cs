@@ -443,7 +443,7 @@ public class CombatModifyCardStep : BaseTutorialStep {
     }
 
     private void TryCompleteStep() {
-        bool anyAlive = enemyInstances.Any(e => !e.GetComponent<Health>().IsDead());
+        bool anyAlive = enemyInstances.Any(e => !e.GetComponent<Health>().Dead);
 
         if (!anyAlive) {
             foreach (var enemyInstance in enemyInstances) {

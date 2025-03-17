@@ -34,16 +34,20 @@ public abstract class ScriptableAbilityCardBase : ScriptableCardBase {
 
         bool anyFlagsMatch = (abilityAttributes & modifier.AbilityAttributes) != 0;
 
+        // I don't know why I needed the commented out code below - delete if there are no bugs
+
         // if the modifier effects a projectile, the ability must be a projectile for them to be compatible
-        bool abilityIsProjectile = (abilityAttributes & AbilityAttribute.IsProjectile) != 0;
-        bool modifierEffectsProjectile = (modifier.AbilityAttributes & AbilityAttribute.IsProjectile) != 0;
+        //bool abilityIsProjectile = (abilityAttributes & AbilityAttribute.IsProjectile) != 0;
+        //bool modifierEffectsProjectile = (modifier.AbilityAttributes & AbilityAttribute.IsProjectile) != 0;
 
-        bool projectileCheck = true;
-        if (modifierEffectsProjectile) {
-            projectileCheck = abilityIsProjectile;
-        }
+        //bool projectileCheck = true;
+        //if (modifierEffectsProjectile) {
+        //    projectileCheck = abilityIsProjectile;
+        //}
 
-        return anyFlagsMatch && projectileCheck;
+        //return anyFlagsMatch && projectileCheck;
+
+        return anyFlagsMatch;
     }
 
     private Coroutine positioningCardCoroutine;

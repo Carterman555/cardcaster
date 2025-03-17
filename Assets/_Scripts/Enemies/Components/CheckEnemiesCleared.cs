@@ -22,7 +22,7 @@ public class CheckEnemiesCleared : MonoBehaviour {
     private IEnumerator CheckIfEnemiesCleared() {
         //... wait because some enemies spawn more on death and it needs to register those
         yield return null;
-        bool anyAliveEnemies = Containers.Instance.Enemies.GetComponentsInChildren<Health>().Any(health => !health.IsDead());
+        bool anyAliveEnemies = Containers.Instance.Enemies.GetComponentsInChildren<Health>().Any(health => !health.Dead);
 
         if (!anyAliveEnemies && !isOnCooldown) {
 

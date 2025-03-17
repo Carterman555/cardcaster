@@ -40,7 +40,7 @@ public class CircleMoveBehavior : MonoBehaviour, IChangesFacing, IEnemyMovement 
 
     private void OnDisable() {
         // if disabled by enemy script, not from dying
-        if (!GetComponent<Health>().IsDead() && !Helpers.GameStopping()) {
+        if (!GetComponent<Health>().Dead && !Helpers.GameStopping()) {
             agent.isStopped = true;
         }
     }

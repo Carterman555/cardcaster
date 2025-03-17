@@ -31,15 +31,11 @@ public class Health : MonoBehaviour, IDamagable {
         }
     }
 
-    private bool dead;
+    public bool Dead { get; private set; }
 
     [SerializeField] private bool increaseHealthPerLevel;
     [ConditionalHide("increaseHealthPerLevel")]
     [SerializeField] private float perLevelProportionToIncrease;
-
-    public bool IsDead() {
-        return dead;
-    }
 
     public bool IsInvincible() {
         return TryGetComponent(out Invincibility invincibility);
@@ -62,7 +58,7 @@ public class Health : MonoBehaviour, IDamagable {
     }
 
     private void OnEnable() {
-        dead = false;
+        Dead = false;
         health = maxHealth;
 
         OnHealthChanged_HealthProportion?.Invoke(health / maxHealth);
@@ -70,7 +66,7 @@ public class Health : MonoBehaviour, IDamagable {
 
     public void Damage(float damage, bool shared = false) {
 
-        if (dead || IsInvincible()) {
+        if (Dead || IsInvincible()) {
             return;
         }
 
@@ -93,11 +89,11 @@ public class Health : MonoBehaviour, IDamagable {
     [Command]
     public void Die() {
 
-        if (dead) {
+        if (Dead) {
             return;
         }
 
-        dead = true;
+        Dead = true;
 
         deathEventTrigger?.Invoke();
         OnDeath?.Invoke();
@@ -114,7 +110,7 @@ public class Health : MonoBehaviour, IDamagable {
 
     public void Heal(float amount) {
 
-        if (dead) {
+        if (Dead) {
             return;
         }
 

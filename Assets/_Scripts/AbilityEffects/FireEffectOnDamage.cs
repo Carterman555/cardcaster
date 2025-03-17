@@ -32,7 +32,7 @@ public class FireEffectOnDamage : MonoBehaviour, IAbilityEffect {
 
         if (target.TryGetComponent(out IEffectable effectable)) {
 
-            if (target.GetComponent<Health>().IsDead()) {
+            if (target.GetComponent<Health>().Dead) {
                 return;
             }
 

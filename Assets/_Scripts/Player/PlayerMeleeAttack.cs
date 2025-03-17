@@ -76,7 +76,7 @@ public class PlayerMeleeAttack : StaticInstance<PlayerMeleeAttack>, ITargetAttac
         // turn the targetCol array into health array
         Health[] targetHealths = targetCols
             ?.Select(t => t.GetComponent<Health>())
-            .Where(health => health != null && !health.IsDead())
+            .Where(health => health != null && !health.Dead)
             .ToArray() ?? Array.Empty<Health>();
 
         foreach (Health health in targetHealths) {

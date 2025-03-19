@@ -375,6 +375,6 @@ public class HandCard : MonoBehaviour {
     }
 
     public bool CanAffordToPlay() {
-        return DeckManager.Instance.GetEssence() >= card.GetCost();
+        return DeckManager.Instance.GetEssence() >= card.Cost;
     }
 }

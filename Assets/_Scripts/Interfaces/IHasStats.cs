@@ -1,7 +1,7 @@
 using UnityEngine;
 
 public interface IHasStats {
-    public Stats GetStats();
+    public Stats Stats { get; }
 }
 
 public interface IHasEnemyStats : IHasStats {

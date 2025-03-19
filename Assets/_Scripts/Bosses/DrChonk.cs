@@ -9,9 +9,7 @@ using UnityEngine.InputSystem;
 public class DrChonk : MonoBehaviour, IHasStats, IBoss {
 
     [SerializeField] private ScriptableBoss scriptableBoss;
-    public Stats GetStats() {
-        return scriptableBoss.Stats;
-    }
+    public Stats Stats => scriptableBoss.Stats;
 
     private DrChonkState currentState;
     private DrChonkState previousActionState;

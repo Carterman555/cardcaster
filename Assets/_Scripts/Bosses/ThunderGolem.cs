@@ -13,9 +13,7 @@ using static UnityEngine.ParticleSystem;
 public class ThunderGolem : MonoBehaviour, IHasStats, IBoss {
 
     [SerializeField] private ScriptableBoss scriptableBoss;
-    public Stats GetStats() {
-        return scriptableBoss.Stats;
-    }
+    public Stats Stats => scriptableBoss.Stats;
 
     private GolemState currentState;
     private GolemState previousActionState;
@@ -194,7 +192,7 @@ public class ThunderGolem : MonoBehaviour, IHasStats, IBoss {
             StraightMovement projectile = electricProjectilePrefab.Spawn(position, Containers.Instance.Projectiles);
 
             projectile.Setup(randomDirection, projectileSpeed.Randomize());
-            projectile.GetComponent<DamageOnContact>().Setup(GetStats().Damage, GetStats().KnockbackStrength);
+            projectile.GetComponent<DamageOnContact>().Setup(Stats.Damage, Stats.KnockbackStrength);
         }
 
         CameraShaker.Instance.ShakeCamera(2f);
@@ -230,13 +228,13 @@ public class ThunderGolem : MonoBehaviour, IHasStats, IBoss {
 
             float glowDuration = 0f;
 
-            if (glowDuration > GetStats().AttackCooldown) {
+            if (glowDuration > Stats.AttackCooldown) {
                 Debug.LogWarning("glowDuration should not be greater than GetStats().AttackCooldown!");
-                glowDuration = GetStats().AttackCooldown;
+                glowDuration = Stats.AttackCooldown;
             }
 
             // minus glowDuration so glowing effect doesn't add to shoot cooldown
-            yield return new WaitForSeconds(GetStats().AttackCooldown - glowDuration);
+            yield return new WaitForSeconds(Stats.AttackCooldown - glowDuration);
 
             shootBehavior.ShootProjectile();
         }
@@ -264,7 +262,7 @@ public class ThunderGolem : MonoBehaviour, IHasStats, IBoss {
                 spawnPosition = PlayerMovement.Instance.transform.position;
             }
             else {
-                spawnPosition = new RoomPositionHelper().GetRandomRoomPos(obstacleAvoidanceRadius: 0f, wallAvoidDistance: 3f);
+                spawnPosition = new RoomPositionHelper().GetRandomRoomPos(obstacleAvoidDistance: 0f, wallAvoidDistance: 3f);
             }
 
             electricAreaPrefab.Spawn(spawnPosition, Containers.Instance.Projectiles);

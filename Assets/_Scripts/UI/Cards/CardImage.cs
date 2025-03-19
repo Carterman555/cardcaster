@@ -28,13 +28,13 @@ public class CardImage : MonoBehaviour {
             typeText.text = "Modifier";
         }
 
-        iconImage.sprite = card.GetSprite();
+        iconImage.sprite = card.Sprite;
 
-        SetupCostImages(card.GetCost());
-        titleText.text = card.GetName();
-        descriptionText.text = card.GetDescription();
+        SetupCostImages(card.Cost);
+        titleText.text = card.Name;
+        descriptionText.text = card.Description;
 
-        GetComponent<ChangeColorFromRarity>().SetColor(card.GetRarity());
+        GetComponent<ChangeColorFromRarity>().SetColor(card.Rarity);
     }
 
     private void SetupCostImages(int cost) {

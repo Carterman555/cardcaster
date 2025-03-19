@@ -41,7 +41,7 @@ public class Chest : MonoBehaviour {
     private void SetupRemainingCardsList() {
 
         int currentLevel = GameSceneManager.Instance.GetLevel();
-        remainingPossibleCards = ResourceSystem.Instance.GetUnlockedCardsUpToLevel(currentLevel);
+        remainingPossibleCards = ResourceSystem.Instance.GetUnlockedCards();
 
         // Check if we have enough cards to choose from
         if (remainingPossibleCards.Count < ITEM_AMOUNT) {

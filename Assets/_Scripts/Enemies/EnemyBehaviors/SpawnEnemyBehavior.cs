@@ -22,7 +22,7 @@ public class SpawnEnemyBehavior : MonoBehaviour {
         hasStats = GetComponent<IHasStats>();
 
         timedActionBehavior = new TimedActionBehavior(
-            hasStats.GetStats().AttackCooldown,
+            hasStats.            Stats.AttackCooldown,
             () => TriggerSpawnAnimation()
         );
     }

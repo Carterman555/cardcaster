@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public abstract class ScriptableCardBase : ScriptableObject, ICollectable {
 
@@ -11,22 +12,23 @@ public abstract class ScriptableCardBase : ScriptableObject, ICollectable {
     [SerializeField] private CardType cardType;
     public CardType CardType => cardType;
 
-    public string GetName() => cardType.ToPrettyString();
+    public string Name => cardType.ToPrettyString();
 
     [SerializeField] private string description;
-    public string GetDescription() => description;
+    public string Description => description;
 
     [SerializeField] private Sprite sprite;
-    public Sprite GetSprite() => sprite;
+    public Sprite Sprite => sprite;
 
     [SerializeField] private int cost;
-    public int GetCost() => cost;
+    public int Cost => cost;
 
     [SerializeField] private Rarity rarity;
-    public Rarity GetRarity() => rarity;
+    public Rarity Rarity => rarity;
 
-    [SerializeField] private int minLevel = 1;
-    public int MinLevel => minLevel;
+    [FormerlySerializedAs("minLevel")]
+    [SerializeField] private int unlockLevel = 1;
+    public int UnlockLevel => unlockLevel;
 
     [Header("Advanced Info")]
     [SerializeField] private StackType stackType;

@@ -36,7 +36,7 @@ public class ModifierImage : MonoBehaviour {
 
     public void Setup(ScriptableModifierCardBase modifier) {
         this.modifier = modifier;
-        image.sprite = modifier.GetSprite();
+        image.sprite = modifier.Sprite;
 
         MoveToModifierPosition();
     }
@@ -118,7 +118,7 @@ public class ModifierImage : MonoBehaviour {
 
         transform.DOKill();
         transform.DOScale(0, scaleDuration).OnComplete(() => {
-            image.sprite = modifier.GetSprite();
+            image.sprite = modifier.Sprite;
             transform.DOScale(1, scaleDuration);
         });
     }

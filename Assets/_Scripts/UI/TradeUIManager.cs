@@ -47,9 +47,9 @@ public class TradeUIManager : StaticInstance<TradeUIManager>, IInitializable {
         this.shopItem = shopItem;
         this.newCard = newCard;
 
-        newCardIcon.sprite = newCard.GetSprite();
+        newCardIcon.sprite = newCard.Sprite;
 
-        DisableLesserRarities(newCard.GetRarity());
+        DisableLesserRarities(newCard.Rarity);
 
         //... can select cards if trading card
         AllCardsPanel.Instance.TrySetupControllerCardSelection();
@@ -105,7 +105,7 @@ public class TradeUIManager : StaticInstance<TradeUIManager>, IInitializable {
         currentCardIcon.transform.localPosition = currentCardLocalPosition;
         newCardIcon.transform.localPosition = newCardLocalPosition;
 
-        currentCardIcon.sprite = currentCard.GetSprite();
+        currentCardIcon.sprite = currentCard.Sprite;
     }
 
     // only cards that are of equal rarity or rarer can be traded
@@ -114,7 +114,7 @@ public class TradeUIManager : StaticInstance<TradeUIManager>, IInitializable {
         foreach (PanelCardButton panelCard in allPanelCards) {
 
             // if panel card is more common than item trying to trade
-            if (panelCard.GetCard().GetRarity() < newCardRarity) {
+            if (panelCard.GetCard().Rarity < newCardRarity) {
                 panelCard.GetComponent<Button>().interactable = false;
             }
         }

@@ -27,12 +27,14 @@ public class PlayerStats : Stats {
 
     public float DashSpeed;
     public float DashTime;
+    public float DashDamage;
 
     public void ApplyModifier(PlayerStatsModifier modifier) {
         MaxHealth *= modifier.MaxHealthPercent.PercentToMult();
         KnockbackResistance *= modifier.KnockbackResistancePercent.PercentToMult();
         MoveSpeed *= modifier.MoveSpeedPercent.PercentToMult();
         Damage *= modifier.DamageIncreasePercent.PercentToMult();
+        DashDamage *= modifier.DashDamageIncreasePercent.PercentToMult();
         AttackSpeed *= modifier.AttackSpeedPercent.PercentToMult();
         KnockbackStrength *= modifier.KnockbackStrengthPercent.PercentToMult();
         SwordSize *= modifier.SwordSizePercent.PercentToMult();

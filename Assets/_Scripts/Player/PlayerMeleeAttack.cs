@@ -19,15 +19,22 @@ public class PlayerMeleeAttack : StaticInstance<PlayerMeleeAttack>, ITargetAttac
 
     [SerializeField] private SortingGroup weaponGroup;
 
+    private PlayerDashAttack playerDashAttack;
+
     private float attackTimer;
 
     private PlayerStats stats => StatsManager.Instance.GetPlayerStats();
-    public Stats GetStats() => stats;
+    public Stats Stats => stats;
 
     private float GetAttackRadius() {
         float radiusMult = 1f;
         float radiusAdd = 0.5f;
         return stats.SwordSize * radiusMult + radiusAdd;
+    }
+
+    protected override void Awake() {
+        base.Awake();
+        playerDashAttack = GetComponent<PlayerDashAttack>();
     }
 
     private void Update() {
@@ -61,14 +68,19 @@ public class PlayerMeleeAttack : StaticInstance<PlayerMeleeAttack>, ITargetAttac
 
         weapon.Swing();
 
-        // deal damage
-        Vector2 attackCenter = (Vector2)gameObject.transform.position + (GetAttackDirection() * GetAttackRadius());
-        Collider2D[] targetCols = DamageDealer.DealCircleDamage(targetLayerMask, attackCenter, GetAttackRadius(), stats.Damage, stats.KnockbackStrength);
+        if (playerDashAttack.InDashAttackWindow) {
+            playerDashAttack.DashAttack();
+        }
+        else {
+            // deal damage
+            Vector2 attackCenter = (Vector2)gameObject.transform.position + (GetAttackDirection() * attackRadius);
+            Collider2D[] targetCols = DamageDealer.DealCircleDamage(targetLayerMask, attackCenter, attackRadius, damage, stats.KnockbackStrength);
 
-        PlayAttackFeedbacks(targetCols);
-        CreateSlashEffect(GetAttackDirection());
+            PlayAttackFeedbacks(targetCols);
+            CreateSlashEffect(GetAttackDirection());
 
-        AudioManager.Instance.PlaySound(AudioManager.Instance.AudioClips.Swing);
+            AudioManager.Instance.PlaySound(AudioManager.Instance.AudioClips.Swing);
+        }
 
         // invoke events
         OnAttack?.Invoke();
@@ -88,7 +100,7 @@ public class PlayerMeleeAttack : StaticInstance<PlayerMeleeAttack>, ITargetAttac
 
         float damage = stats.Damage * damageMult;
         float knockbackStrength = stats.KnockbackStrength * knockbackStrengthMult;
-        DamageDealer.TryDealDamage(target, transform.position, damage, knockbackStrength);
+        DamageDealer.TryDealDamage(target, attackCenter, damage, knockbackStrength);
 
         // invoke events
         OnAttack?.Invoke();

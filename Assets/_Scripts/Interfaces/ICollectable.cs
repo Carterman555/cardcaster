@@ -4,14 +4,13 @@ using UnityEngine;
 
 public interface ICollectable {
 
-    public string GetName();
-    public string GetDescription();
+    public string Name { get; }
+    public string Description { get; }
+    public Rarity Rarity { get; }
 
-    public Rarity GetRarity();
+    public int Cost { get; }
 
-    public int GetCost();
-
-    public Sprite GetSprite();
+    public Sprite Sprite { get; }
 }
 
 public enum Rarity {

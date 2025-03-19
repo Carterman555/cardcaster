@@ -1,3 +1,5 @@
+using Mono.CSharp;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -6,21 +8,24 @@ public class RoomPositionHelper {
     private float avoidRadius = 0f;
     private float obstacleAvoidDistance = 0f;
     private float wallAvoidDistance = 0f;
+    private float entranceAvoidDistance = 0f;
     private bool mustBeOnGroundTile = true;
 
-    public Vector2 GetRandomRoomPos(float obstacleAvoidanceRadius = 1f, float wallAvoidDistance = 1f) {
+    public Vector2 GetRandomRoomPos(float obstacleAvoidDistance = 1f, float wallAvoidDistance = 1f, float entranceAvoidDistance = 0f) {
         Vector2 randomPoint = new RoomPositionHelper()
-            .SetObstacleAvoidance(obstacleAvoidanceRadius)
+            .SetObstacleAvoidance(obstacleAvoidDistance)
             .SetWallAvoidance(wallAvoidDistance)
+            .SetEntranceAvoidance(entranceAvoidDistance)
             .GetRandomPositionInCollider();
         return randomPoint;
     }
 
-    public Vector2 GetRandomRoomPos(Vector2 avoidCenter, float avoidRadius, float obstacleAvoidDistance = 1f, float wallAvoidDistance = 1f) {
+    public Vector2 GetRandomRoomPos(Vector2 avoidCenter, float avoidRadius, float obstacleAvoidDistance = 1f, float wallAvoidDistance = 1f, float entranceAvoidDistance = 0f) {
         Vector2 randomPoint = new RoomPositionHelper()
             .SetAvoidArea(avoidCenter, avoidRadius)
             .SetObstacleAvoidance(obstacleAvoidDistance)
             .SetWallAvoidance(wallAvoidDistance)
+            .SetEntranceAvoidance(entranceAvoidDistance)
             .GetRandomPositionInCollider();
         return randomPoint;
     }
@@ -40,6 +45,11 @@ public class RoomPositionHelper {
 
     public RoomPositionHelper SetWallAvoidance(float distance) {
         this.wallAvoidDistance = distance;
+        return this;
+    }
+
+    public RoomPositionHelper SetEntranceAvoidance(float value) {
+        this.entranceAvoidDistance = value;
         return this;
     }
 
@@ -80,6 +90,9 @@ public class RoomPositionHelper {
         if (mustBeOnGroundTile && !OnlyOnGroundTile(Room.GetCurrentRoom(), point))
             return false;
 
+        if (entranceAvoidDistance > 0 && NearEntrance(point, entranceAvoidDistance))
+            return false;
+
         if (IsPointInNoTeleportZone(point, avoidCenter, avoidRadius))
             return false;
 
@@ -105,6 +118,11 @@ public class RoomPositionHelper {
         bool onGroundTile = OnTile(room.GetGroundTilemap(), point);
         bool onColliderTile = OnTile(room.GetTopWallsTilemap(), point) || OnTile(room.GetBotWallsTilemap(), point);
         return onGroundTile && !onColliderTile;
+    }
+
+    private bool NearEntrance(Vector2 point, float obstacleAvoidanceRadius = 1f) {
+        Collider2D[] cols = Physics2D.OverlapCircleAll(point, obstacleAvoidanceRadius);
+        return cols.Any(col => col.name == "EnterTrigger");
     }
 
     private bool OnTile(Tilemap tilemap, Vector2 point) {

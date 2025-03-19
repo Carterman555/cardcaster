@@ -29,6 +29,7 @@ public class PlayerStatsModifier {
     public float KnockbackResistancePercent;
     public float MoveSpeedPercent;
     public float DamageIncreasePercent;
+    public float DashDamageIncreasePercent;
     public float AttackSpeedPercent;
     public float KnockbackStrengthPercent;
     public float SwordSizePercent;
@@ -40,6 +41,7 @@ public class PlayerStatsModifier {
             KnockbackResistancePercent = a.KnockbackResistancePercent + b.KnockbackResistancePercent,
             MoveSpeedPercent = a.MoveSpeedPercent + b.MoveSpeedPercent,
             DamageIncreasePercent = a.DamageIncreasePercent + b.DamageIncreasePercent,
+            DashDamageIncreasePercent = a.DashDamageIncreasePercent + b.DashDamageIncreasePercent,
             AttackSpeedPercent = a.AttackSpeedPercent + b.AttackSpeedPercent,
             KnockbackStrengthPercent = a.KnockbackStrengthPercent + b.KnockbackStrengthPercent,
             SwordSizePercent = a.SwordSizePercent + b.SwordSizePercent,
@@ -53,6 +55,7 @@ public class PlayerStatsModifier {
             KnockbackResistancePercent = a.KnockbackResistancePercent - b.KnockbackResistancePercent,
             MoveSpeedPercent = a.MoveSpeedPercent - b.MoveSpeedPercent,
             DamageIncreasePercent = a.DamageIncreasePercent - b.DamageIncreasePercent,
+            DashDamageIncreasePercent = a.DashDamageIncreasePercent - b.DashDamageIncreasePercent,
             AttackSpeedPercent = a.AttackSpeedPercent - b.AttackSpeedPercent,
             KnockbackStrengthPercent = a.KnockbackStrengthPercent - b.KnockbackStrengthPercent,
             SwordSizePercent = a.SwordSizePercent - b.SwordSizePercent,
@@ -65,6 +68,7 @@ public class PlayerStatsModifier {
         KnockbackResistancePercent = 0,
         MoveSpeedPercent = 0,
         DamageIncreasePercent = 0,
+        DashDamageIncreasePercent = 0,
         AttackSpeedPercent = 0,
         KnockbackStrengthPercent = 0,
         SwordSizePercent = 0,

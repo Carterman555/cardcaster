@@ -26,7 +26,7 @@ public class Knockback : MonoBehaviour {
             return;
         }
 
-        if (hasStats.GetStats().KnockbackResistance == 0) {
+        if (hasStats.Stats.KnockbackResistance == 0) {
             Debug.LogError(gameObject.name + ": KnockbackResistance Cannot be 0!");
         }
 
@@ -35,7 +35,7 @@ public class Knockback : MonoBehaviour {
             knockbackResistance = overrideKnockbackResistance;
         }
         else {
-            knockbackResistance = hasStats.GetStats().KnockbackResistance;
+            knockbackResistance = hasStats.Stats.KnockbackResistance;
         }
 
         float knockbackFactor = 12f;

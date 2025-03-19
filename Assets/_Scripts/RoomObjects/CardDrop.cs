@@ -42,7 +42,7 @@ public class CardDrop : MonoBehaviour {
     public void SetCard(ScriptableCardBase scriptableCard) {
         this.scriptableCard = scriptableCard;
 
-        spriteRenderer.sprite = scriptableCard.GetSprite();
+        spriteRenderer.sprite = scriptableCard.Sprite;
 
         interactable.enabled = false;
 
@@ -55,7 +55,7 @@ public class CardDrop : MonoBehaviour {
             interactable.enabled = true;
         });
 
-        changeShineColor.SetColor(scriptableCard.GetRarity());
+        changeShineColor.SetColor(scriptableCard.Rarity);
     }
 
 

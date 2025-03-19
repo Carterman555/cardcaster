@@ -130,13 +130,13 @@ public class DeckManager : Singleton<DeckManager> {
     }
 
     public void OnUseAbilityCard(int indexInHand) {
-        ChangeEssenceAmount(-cardsInHand[indexInHand].GetCost());
+        ChangeEssenceAmount(-cardsInHand[indexInHand].Cost);
         DiscardCardInHand(indexInHand);
         OnUseCard(indexInHand);
     }
 
     public void OnUseModifierCard(int indexInHand) {
-        ChangeEssenceAmount(-cardsInHand[indexInHand].GetCost());
+        ChangeEssenceAmount(-cardsInHand[indexInHand].Cost);
         StackCardInHand(indexInHand);
         OnUseCard(indexInHand);
     }
@@ -288,7 +288,7 @@ public class DeckManager : Singleton<DeckManager> {
         string whole = startingText;
         foreach (var card in cards) {
             if (card != null) {
-                whole += card.GetName() + ", ";
+                whole += card.Name + ", ";
             }
             else {
                 whole += "Null, ";
@@ -301,7 +301,7 @@ public class DeckManager : Singleton<DeckManager> {
         string whole = startingText;
         foreach (var card in cards) {
             if (card != null) {
-                whole += card.GetName() + ", ";
+                whole += card.Name + ", ";
             }
             else {
                 whole += "Null, ";

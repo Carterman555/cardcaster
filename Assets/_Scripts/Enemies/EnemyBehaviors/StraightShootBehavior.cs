@@ -43,12 +43,12 @@ public class StraightShootBehavior : MonoBehaviour, IAttacker {
 
         if (hasShootAnim) {
             timedActionBehavior = new TimedActionBehavior(
-            hasStats.GetStats().AttackCooldown,
+            hasStats.            Stats.AttackCooldown,
             () => TriggerShootAnimation());
         }
         else {
             timedActionBehavior = new TimedActionBehavior(
-            hasStats.GetStats().AttackCooldown,
+            hasStats.            Stats.AttackCooldown,
             () => ShootProjectile());
         }
     }
@@ -106,8 +106,8 @@ public class StraightShootBehavior : MonoBehaviour, IAttacker {
 
         newProjectile.Setup(shootDirection.normalized);
 
-        float dmg = overrideDamage ? damage : hasStats.GetStats().Damage;
-        newProjectile.GetComponent<DamageOnContact>().Setup(dmg, hasStats.GetStats().KnockbackStrength);
+        float dmg = overrideDamage ? damage : hasStats.Stats.Damage;
+        newProjectile.GetComponent<DamageOnContact>().Setup(dmg, hasStats.Stats.KnockbackStrength);
 
         PlaySFX();
 

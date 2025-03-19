@@ -35,7 +35,7 @@ public class ExplodeBehavior : MonoBehaviour, ITargetAttacker {
     public void Explode(bool returnToPool = true) {
 
         // deal damage
-        float dmg = useIHasStats ? iHasStats.GetStats().Damage : damage;
+        float dmg = useIHasStats ? iHasStats.Stats.Damage : damage;
         Collider2D[] damagedColliders = DamageDealer.DealCircleDamage(targetLayerMask,
             transform.position,
             explosionRadius,

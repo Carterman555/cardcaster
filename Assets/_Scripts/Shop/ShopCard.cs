@@ -33,8 +33,8 @@ public class ShopCard : MonoBehaviour {
     public void SetCard(ScriptableCardBase card) {
         this.card = card;
 
-        spriteRenderer.sprite = card.GetSprite();
-        changeShineColor.SetColor(card.GetRarity());
+        spriteRenderer.sprite = card.Sprite;
+        changeShineColor.SetColor(card.Rarity);
     }
 
     private void OpenAllCardsUI() {

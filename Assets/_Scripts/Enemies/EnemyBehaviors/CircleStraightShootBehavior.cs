@@ -26,7 +26,7 @@ public class CircleStraightShootBehavior : MonoBehaviour {
         hasStats = GetComponent<IHasStats>();
 
         timedActionBehavior = new TimedActionBehavior(
-            hasStats.GetStats().AttackCooldown * attackCooldownMult,
+            hasStats.            Stats.AttackCooldown * attackCooldownMult,
             () => TriggerShootAnimation()
         );
     }
@@ -71,7 +71,7 @@ public class CircleStraightShootBehavior : MonoBehaviour {
             StraightMovement projectile = projectilePrefab
                 .Spawn(spawnPosition, Containers.Instance.Projectiles);
             projectile.Setup(projectileDirection);
-            projectile.GetComponent<DamageOnContact>().Setup(hasStats.GetStats().Damage, hasStats.GetStats().KnockbackStrength);
+            projectile.GetComponent<DamageOnContact>().Setup(hasStats.Stats.Damage, hasStats.Stats.KnockbackStrength);
             projectile.transform.up = projectileDirection;
 
             angle += angleStep;

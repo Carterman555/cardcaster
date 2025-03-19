@@ -71,14 +71,15 @@ public class RewardSpawner : MonoBehaviour {
         }
 
         int currentLevel = GameSceneManager.Instance.GetLevel();
-        List<CardType> possibleCardsToSpawn = ResourceSystem.Instance.GetAllCardsWithLevel(currentLevel);
+        List<CardType> possibleCardsToSpawn = ResourceSystem.Instance.GetUnlockedCards();
 
         if (bossUnlocksCardIfPossible) {
             List<CardType> unlockedCards = ResourceSystem.Instance.GetUnlockedCardsWithLevel(currentLevel);
-            bool unlockedAllCardsAtLevel = possibleCardsToSpawn.Count == unlockedCards.Count;
+            List<CardType> allCardsAtLevel = ResourceSystem.Instance.GetAllCardsWithLevel(currentLevel);
+            bool unlockedAllCardsAtLevel = allCardsAtLevel.Count == unlockedCards.Count;
 
             if (!unlockedAllCardsAtLevel) {
-                possibleCardsToSpawn = possibleCardsToSpawn.Where(c => !unlockedCards.Contains(c)).ToList();
+                possibleCardsToSpawn = allCardsAtLevel.Where(c => !unlockedCards.Contains(c)).ToList();
             }
         }
 

@@ -39,9 +39,7 @@ public class Enemy : MonoBehaviour, IHasEnemyStats, IEffectable {
 
     [SerializeField] protected ScriptableEnemy scriptableEnemy;
     protected EnemyStats stats => scriptableEnemy.Stats;
-    public Stats GetStats() {
-        return stats;
-    }
+    public Stats Stats => stats;
     public EnemyStats GetEnemyStats() {
         return stats;
     }

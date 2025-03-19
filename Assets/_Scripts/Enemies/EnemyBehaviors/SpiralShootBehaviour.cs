@@ -18,7 +18,7 @@ public class SpiralShootBehaviour : BaseShootPatternBehaviour {
         base.Awake();
 
         timedActionBehavior = new TimedActionBehavior(
-            hasStats.GetStats().AttackCooldown,
+            hasStats.            Stats.AttackCooldown,
             () => ShootMultipleProjectiles());
     }
 
@@ -55,7 +55,7 @@ public class SpiralShootBehaviour : BaseShootPatternBehaviour {
 
         Vector3 spawnPos = shootPoint.position + (Vector3)currentShootDirection * distanceFromShootPoint;
         StraightMovement projectile = projectilePrefab.Spawn(spawnPos, Containers.Instance.Projectiles);
-        projectile.GetComponent<DamageOnContact>().Setup(Damage, hasStats.GetStats().KnockbackStrength);
+        projectile.GetComponent<DamageOnContact>().Setup(Damage, hasStats.Stats.KnockbackStrength);
 
         projectile.Setup(currentShootDirection);
 

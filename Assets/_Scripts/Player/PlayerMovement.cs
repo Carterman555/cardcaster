@@ -15,7 +15,7 @@ public class PlayerMovement : StaticInstance<PlayerMovement>, IHasStats, IChange
     private Vector2 moveDirection;
 
     private PlayerStats stats => StatsManager.Instance.GetPlayerStats();
-    public Stats GetStats() => stats;
+    public Stats Stats => stats;
 
     [SerializeField] private Animator anim;
 

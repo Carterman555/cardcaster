@@ -46,7 +46,7 @@ public class Health : MonoBehaviour, IDamagable {
     }
 
     private void Awake() {
-        Stats stats = GetComponent<IHasStats>().GetStats();
+        Stats stats = GetComponent<IHasStats>().Stats;
 
         maxHealth = stats.MaxHealth;
         if (increaseHealthPerLevel) {

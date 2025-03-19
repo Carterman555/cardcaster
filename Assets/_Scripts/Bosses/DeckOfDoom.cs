@@ -8,9 +8,7 @@ using UnityEngine;
 public class DeckOfDoom : MonoBehaviour, IHasStats, IBoss {
 
     [SerializeField] private ScriptableBoss scriptableBoss;
-    public Stats GetStats() {
-        return scriptableBoss.Stats;
-    }
+    public Stats Stats => scriptableBoss.Stats;
 
     private DeckOfDoomState currentState;
     private DeckOfDoomState previousActionState;

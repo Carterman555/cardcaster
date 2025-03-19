@@ -27,7 +27,7 @@ public class ChasePlayerBehavior : MonoBehaviour, IEffectable, IEnemyMovement {
         }
 
         agent.isStopped = false;
-        agent.speed = hasStats.GetStats().MoveSpeed;
+        agent.speed = hasStats.Stats.MoveSpeed;
         agent.SetDestination(PlayerMovement.Instance.transform.position);
     }
 

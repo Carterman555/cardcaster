@@ -25,7 +25,7 @@ public class FleePlayerBehavior : MonoBehaviour, IEffectable, IEnemyMovement {
         }
 
         agent.isStopped = false;
-        agent.speed = hasStats.GetStats().MoveSpeed;
+        agent.speed = hasStats.Stats.MoveSpeed;
         TryEscapeFromPlayer();
     }
 

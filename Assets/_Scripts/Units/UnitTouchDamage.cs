@@ -101,8 +101,8 @@ public class UnitTouchDamage : MonoBehaviour {
                 }
             }
 
-            float dmg = overrideDamage ? damage : hasStats.GetStats().Damage;
-            float knockback = overrideKnockback ? knockbackStrength : hasStats.GetStats().KnockbackStrength;
+            float dmg = overrideDamage ? damage : hasStats.Stats.Damage;
+            float knockback = overrideKnockback ? knockbackStrength : hasStats.Stats.KnockbackStrength;
 
             DamageDealer.TryDealDamage(target, transform.position, dmg, knockback);
 

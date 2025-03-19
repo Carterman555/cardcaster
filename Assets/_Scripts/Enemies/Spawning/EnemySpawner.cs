@@ -70,8 +70,9 @@ public class EnemySpawner : StaticInstance<EnemySpawner> {
     [SerializeField] private SpawnEffect spawnEffectPrefab;
 
     private void SpawnEnemy(Enemy enemyPrefab, bool createSpawnEffect = true) {
-        float avoidRadius = 2f;
-        Vector2 position = new RoomPositionHelper().GetRandomRoomPos(PlayerMovement.Instance.transform.position, avoidRadius);
+        Vector2 position = new RoomPositionHelper().GetRandomRoomPos(PlayerMovement.Instance.transform.position,
+            avoidRadius: 2f,
+            entranceAvoidDistance: 3f);
 
         SpawnEnemy(enemyPrefab, position, createSpawnEffect);
     }

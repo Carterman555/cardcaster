@@ -68,19 +68,21 @@ public class PlayerMeleeAttack : StaticInstance<PlayerMeleeAttack>, ITargetAttac
 
         weapon.Swing();
 
+        Collider2D[] targetCols;
         if (playerDashAttack.InDashAttackWindow) {
-            playerDashAttack.DashAttack();
+            targetCols = playerDashAttack.DashAttack();
         }
         else {
             // deal damage
-            Vector2 attackCenter = (Vector2)gameObject.transform.position + (GetAttackDirection() * attackRadius);
-            Collider2D[] targetCols = DamageDealer.DealCircleDamage(targetLayerMask, attackCenter, attackRadius, damage, stats.KnockbackStrength);
+            Vector2 attackCenter = (Vector2)gameObject.transform.position + (GetAttackDirection() * GetAttackRadius());
+            targetCols = DamageDealer.DealCircleDamage(targetLayerMask, attackCenter, GetAttackRadius(), stats.Damage, stats.KnockbackStrength);
 
-            PlayAttackFeedbacks(targetCols);
             CreateSlashEffect(GetAttackDirection());
 
             AudioManager.Instance.PlaySound(AudioManager.Instance.AudioClips.Swing);
         }
+
+        PlayAttackFeedbacks(targetCols);
 
         // invoke events
         OnAttack?.Invoke();

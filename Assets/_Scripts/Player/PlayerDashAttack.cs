@@ -2,15 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.Timeline;
 
 public class PlayerDashAttack : MonoBehaviour {
 
     private PlayerMovement playerMovement;
     private PlayerMeleeAttack playerMeleeAttack;
 
-    [SerializeField] private TriggerContactTracker dashDamageTrigger;
-
+    [SerializeField] private LayerMask targetLayerMask;
+    [SerializeField] private Vector2 attackSize;
     [SerializeField] private float windowToAttack = 0.5f;
     private float dashTimer;
 
@@ -30,23 +29,24 @@ public class PlayerDashAttack : MonoBehaviour {
         playerMovement.OnDash.RemoveListener(OnDash);
     }
 
-    private void Update() {
-        dashTimer -= Time.deltaTime;
-
-        float angle = playerMeleeAttack.GetAttackDirection().DirectionToRotation().eulerAngles.z;
-        dashDamageTrigger.transform.eulerAngles = new Vector3(0f, 0f, angle);
-    }
-
     private void OnDash() {
         dashTimer = windowToAttack;
     }
 
     public Collider2D[] DashAttack() {
 
-        foreach (GameObject target in dashDamageTrigger.GetContacts()) {
-            DamageDealer.TryDealDamage(target, transform.position, Stats.Damage, Stats.KnockbackStrength);
-        }
+        float angle = playerMeleeAttack.GetAttackDirection().DirectionToRotation().eulerAngles.z;
+        Vector2 pos = (Vector2)transform.position + (playerMeleeAttack.GetAttackDirection() * attackSize.x * 0.5f);
 
-        return dashDamageTrigger.GetContacts().Select(g => g.GetComponent<Collider2D>()).ToArray();
+        Collider2D[] cols = DamageDealer.DealCapsuleDamage(
+            targetLayerMask,
+            pos, attackSize, angle,
+            Stats.DashDamage, Stats.KnockbackStrength);
+
+        return cols;
+    }
+
+    private void Update() {
+        dashTimer -= Time.deltaTime;
     }
 }

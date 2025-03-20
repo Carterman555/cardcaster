@@ -41,7 +41,7 @@ public class CursedWitch : Enemy {
 
     private void HandleMovement() {
 
-        float distanceFromPlayer = Vector2.Distance(PlayerMovement.Instance.transform.position, transform.position);
+        float distanceFromPlayer = Vector2.Distance(PlayerMovement.Instance.CenterPos, transform.position);
 
         bool closeToPlayer = distanceFromPlayer < moveFromPlayerRange;
 

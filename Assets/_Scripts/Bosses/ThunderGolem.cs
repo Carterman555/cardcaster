@@ -215,7 +215,7 @@ public class ThunderGolem : MonoBehaviour, IHasStats, IBoss {
     private IEnumerator PositionShootPoint() {
         while (currentState == GolemState.Chase) {
 
-            Vector2 toPlayerDirection = (PlayerMovement.Instance.transform.position - transform.position).normalized;
+            Vector2 toPlayerDirection = (PlayerMovement.Instance.CenterPos - transform.position).normalized;
             float distanceFromGolem = 2.5f;
             shootPoint.position = (Vector2)transform.position + (toPlayerDirection * distanceFromGolem);
 
@@ -259,7 +259,7 @@ public class ThunderGolem : MonoBehaviour, IHasStats, IBoss {
 
             Vector2 spawnPosition;
             if (UnityEngine.Random.value < spawnOnPlayerProbability) {
-                spawnPosition = PlayerMovement.Instance.transform.position;
+                spawnPosition = PlayerMovement.Instance.CenterPos;
             }
             else {
                 spawnPosition = new RoomPositionHelper().GetRandomRoomPos(obstacleAvoidDistance: 0f, wallAvoidDistance: 3f);

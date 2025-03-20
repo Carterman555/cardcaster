@@ -69,15 +69,15 @@ public class PlayerMeleeAttack : StaticInstance<PlayerMeleeAttack>, ITargetAttac
         weapon.Swing();
 
         Collider2D[] targetCols;
-        if (playerDashAttack.InDashAttackWindow) {
+        if (playerDashAttack.GetCanDashAttack(GetAttackDirection())) {
             targetCols = playerDashAttack.DashAttack();
         }
         else {
             // deal damage
-            Vector2 attackCenter = (Vector2)gameObject.transform.position + (GetAttackDirection() * GetAttackRadius());
+            Vector2 attackCenter = (Vector2)PlayerMovement.Instance.CenterPos + (GetAttackDirection() * GetAttackRadius());
             targetCols = DamageDealer.DealCircleDamage(targetLayerMask, attackCenter, GetAttackRadius(), stats.Damage, stats.KnockbackStrength);
 
-            CreateSlashEffect(GetAttackDirection());
+            slashPrefab.Spawn(PlayerMovement.Instance.CenterPos, GetAttackDirection().DirectionToRotation(), Containers.Instance.Effects);
 
             AudioManager.Instance.PlaySound(AudioManager.Instance.AudioClips.Swing);
         }
@@ -151,13 +151,9 @@ public class PlayerMeleeAttack : StaticInstance<PlayerMeleeAttack>, ITargetAttac
         }
 
         foreach (Collider2D col in targetCols) {
-            Vector2 contactPos = col.ClosestPoint(transform.position);
+            Vector2 contactPos = col.ClosestPoint(PlayerMovement.Instance.CenterPos);
             attackParticlesPrefab.Spawn(contactPos, Containers.Instance.Effects);
         }
-    }
-
-    private void CreateSlashEffect(Vector2 attackDirection) {
-        slashPrefab.Spawn(transform.position, attackDirection.DirectionToRotation(), Containers.Instance.Effects);
     }
 
     #endregion
@@ -180,7 +176,7 @@ public class PlayerMeleeAttack : StaticInstance<PlayerMeleeAttack>, ITargetAttac
     // aim the sword towards the mouse or with right joystick
     public Vector2 GetAttackDirection() {
         if (InputManager.Instance.GetControlScheme() == ControlSchemeType.Keyboard) {
-            return MouseTracker.Instance.ToMouseDirection(transform.position).normalized;
+            return MouseTracker.Instance.ToMouseDirection(PlayerMovement.Instance.CenterPos).normalized;
         }
         else if (InputManager.Instance.GetControlScheme() == ControlSchemeType.Controller) {
             return lastAimDirection;
@@ -196,7 +192,7 @@ public class PlayerMeleeAttack : StaticInstance<PlayerMeleeAttack>, ITargetAttac
         if (Application.isPlaying) {
             Gizmos.color = Color.red; // Choose a color for the circle
 
-            Vector2 attackCenter = (Vector2)transform.position + (GetAttackDirection() * GetAttackRadius());
+            Vector2 attackCenter = (Vector2)PlayerMovement.Instance.CenterPos + (GetAttackDirection() * GetAttackRadius());
             Gizmos.DrawWireSphere(attackCenter, GetAttackRadius());
         }
     }

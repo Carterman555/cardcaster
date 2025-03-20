@@ -39,7 +39,7 @@ public class ScriptableLaunchCard : ScriptableAbilityCardBase {
     public override void OnStartPositioningCard(Transform cardTransform) {
         base.OnStartPositioningCard(cardTransform);
 
-        pathVisual = pathVisualPrefab.Spawn(PlayerMovement.Instance.transform.position, PlayerMovement.Instance.transform);
+        pathVisual = pathVisualPrefab.Spawn(PlayerMovement.Instance.CenterPos, PlayerMovement.Instance.transform);
     }
 
     protected override void PositioningUpdate(Vector2 cardPosition) {
@@ -116,7 +116,7 @@ public class ScriptableLaunchCard : ScriptableAbilityCardBase {
     // only stop the launch if the wall is in front of the player. This is to prevent the player from stopping
     // immediately after launching if backed up into wall
     private void TryStopLaunch(GameObject wall) {
-        Vector2 playerPosition = PlayerMovement.Instance.transform.position;
+        Vector2 playerPosition = PlayerMovement.Instance.CenterPos;
         Vector2 contactPoint = wall.GetComponent<Collider2D>().ClosestPoint(playerPosition);
 
         Vector2 toContactPoint = contactPoint - playerPosition;

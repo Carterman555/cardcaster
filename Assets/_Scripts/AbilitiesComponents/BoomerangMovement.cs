@@ -32,7 +32,7 @@ public class BoomerangMovement : MonoBehaviour {
             }
         }
         else {
-            Vector2 playerPos = PlayerMeleeAttack.Instance.transform.position;
+            Vector2 playerPos = PlayerMovement.Instance.CenterPos;
             transform.position = Vector2.MoveTowards(transform.position, playerPos, speed * Time.fixedDeltaTime);
 
             speed += acceleration * Time.fixedDeltaTime;

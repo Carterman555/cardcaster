@@ -43,15 +43,15 @@ public class CameraInvalidate : MonoBehaviour {
         float distanceThreshold = 3;
         float distanceThresholdSquared = distanceThreshold * distanceThreshold;
 
-        float xDiff = PlayerMovement.Instance.transform.position.x - Camera.main.transform.position.x;
-        float yDiff = PlayerMovement.Instance.transform.position.y - Camera.main.transform.position.y;
+        float xDiff = PlayerMovement.Instance.CenterPos.x - Camera.main.transform.position.x;
+        float yDiff = PlayerMovement.Instance.CenterPos.y - Camera.main.transform.position.y;
         float distanceSquared = xDiff * xDiff + yDiff * yDiff;
 
         while (distanceSquared > distanceThresholdSquared) {
             yield return null;
 
-            xDiff = PlayerMovement.Instance.transform.position.x - Camera.main.transform.position.x;
-            yDiff = PlayerMovement.Instance.transform.position.y - Camera.main.transform.position.y;
+            xDiff = PlayerMovement.Instance.CenterPos.x - Camera.main.transform.position.x;
+            yDiff = PlayerMovement.Instance.CenterPos.y - Camera.main.transform.position.y;
             distanceSquared = xDiff * xDiff + yDiff * yDiff;
         }
 

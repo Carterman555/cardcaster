@@ -18,11 +18,11 @@ public class FacePlayerBehavior : MonoBehaviour {
     }
 
     private void Update() {
-        FaceTowardsPosition(PlayerMovement.Instance.transform.position.x);
+        FaceTowardsPosition(PlayerMovement.Instance.CenterPos.x);
     }
 
     private void FaceTowardsPosition(float xPos) {
-        float playerXPos = PlayerMovement.Instance.transform.position.x;
+        float playerXPos = PlayerMovement.Instance.CenterPos.x;
 
         bool playerToRight = playerXPos > transform.position.x;
 

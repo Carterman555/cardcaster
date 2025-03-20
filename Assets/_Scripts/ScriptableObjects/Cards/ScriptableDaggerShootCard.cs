@@ -37,7 +37,7 @@ public class ScriptableDaggerShootCard : ScriptableAbilityCardBase {
             // get direction to shoot
             Vector2 attackDirection = PlayerMeleeAttack.Instance.GetAttackDirection();
             Vector2 offset = spawnOffsetValue * attackDirection;
-            Vector2 spawnPos = (Vector2)PlayerMovement.Instance.transform.position + offset;
+            Vector2 spawnPos = (Vector2)PlayerMovement.Instance.CenterPos + offset;
 
             // spawn and setup dagger
             StraightMovement straightMovement = daggerPrefab.Spawn(spawnPos, Containers.Instance.Projectiles);

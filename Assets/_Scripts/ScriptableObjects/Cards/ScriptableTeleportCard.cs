@@ -63,7 +63,7 @@ public class ScriptableTeleportCard : ScriptableAbilityCardBase {
 
     private Vector2 RaycastToFindPosition(Vector2 targetPosition) {
 
-        Vector2 playerPosition = PlayerMovement.Instance.transform.position;
+        Vector2 playerPosition = PlayerMovement.Instance.CenterPos;
         Vector2 toPlayerDirection = (playerPosition - targetPosition).normalized;
 
         Vector2 checkPos = targetPosition;

@@ -83,7 +83,7 @@ public class MapCamera : MonoBehaviour {
         //... use heighest dimension because map texture is a square based on the heighest dimension
         float maxDimension = Mathf.Max(length, height);
 
-        Vector2 playerPosRelToCenter = PlayerMovement.Instance.transform.position - transform.position;
+        Vector2 playerPosRelToCenter = PlayerMovement.Instance.CenterPos - transform.position;
 
         // each coord ranges from -1 to 1 depending on where on the map the player is
         float normalizedPlayerXPosition = (Mathf.InverseLerp(-maxDimension, maxDimension, playerPosRelToCenter.x) * 4f) - 2f;

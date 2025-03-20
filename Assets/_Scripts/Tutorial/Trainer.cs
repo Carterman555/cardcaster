@@ -224,10 +224,10 @@ public class Trainer : StaticInstance<Trainer> {
             return;
         }
 
-        bool touchingPlayer = Vector2.Distance(PlayerMeleeAttack.Instance.transform.position, transform.position) < 0.05f;
+        bool touchingPlayer = Vector2.Distance(PlayerMovement.Instance.CenterPos, transform.position) < 0.05f;
 
         if (inRage && !touchingPlayer) {
-            Vector2 toPlayerDirection = (PlayerMeleeAttack.Instance.transform.position - transform.position).normalized;
+            Vector2 toPlayerDirection = (PlayerMovement.Instance.CenterPos - transform.position).normalized;
             float speed = Mathf.MoveTowards(rb.velocity.magnitude, maxSpeed, acceleration * Time.deltaTime);
             rb.velocity = toPlayerDirection * speed;
         }

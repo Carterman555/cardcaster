@@ -72,7 +72,7 @@ public class DarkPhantom : Enemy {
 
         float duration = 0.3f;
         visual.DOFade(0, duration).SetEase(Ease.InSine).OnComplete(() => {
-            teleportBehavior.Teleport(PlayerMovement.Instance.transform.position, teleportDistanceFromPlayer);
+            teleportBehavior.Teleport(PlayerMovement.Instance.CenterPos, teleportDistanceFromPlayer);
 
             visual.DOFade(originalFade, duration).SetEase(Ease.InSine);
         });

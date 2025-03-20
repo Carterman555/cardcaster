@@ -30,7 +30,7 @@ public class FleePlayerBehavior : MonoBehaviour, IEffectable, IEnemyMovement {
     }
 
     private void TryEscapeFromPlayer() {
-        Vector3 directionToPlayer = PlayerMovement.Instance.transform.position - transform.position;
+        Vector3 directionToPlayer = PlayerMovement.Instance.CenterPos - transform.position;
         Vector3 desiredEscapeDirection = -directionToPlayer.normalized;
 
         int maxAttempts = 10;

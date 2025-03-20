@@ -26,7 +26,7 @@ public class DamageDealer {
     }
 
     public static Collider2D[] DealCapsuleDamage(LayerMask targetLayerMask, Vector2 attackCenter, Vector2 size, float angle, float damage, float knockbackStrength) {
-        Collider2D[] cols = Physics2D.OverlapCapsuleAll(attackCenter, size, CapsuleDirection2D.Vertical, angle, targetLayerMask);
+        Collider2D[] cols = Physics2D.OverlapCapsuleAll(attackCenter, size, CapsuleDirection2D.Horizontal, angle, targetLayerMask);
         foreach (Collider2D col in cols) {
             TryDealDamage(col.gameObject, attackCenter, damage, knockbackStrength);
         }

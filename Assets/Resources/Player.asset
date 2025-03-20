@@ -22,3 +22,4 @@ MonoBehaviour:
     SwordSize: 1
     DashSpeed: 15
     DashTime: 0.3
+    DashDamage: 8

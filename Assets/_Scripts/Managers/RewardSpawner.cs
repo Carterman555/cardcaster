@@ -34,7 +34,7 @@ public class RewardSpawner : MonoBehaviour {
 
         float avoidPlayerRadius = 2f;
         float obstacleAvoidanceRadius = 3.5f;
-        Vector2 position = new RoomPositionHelper().GetRandomRoomPos(PlayerMovement.Instance.transform.position, avoidPlayerRadius, obstacleAvoidanceRadius);
+        Vector2 position = new RoomPositionHelper().GetRandomRoomPos(PlayerMovement.Instance.CenterPos, avoidPlayerRadius, obstacleAvoidanceRadius);
 
         if (Random.value < chestRewardChance) {
             // Instantiate the chest instead of using the spawning pool because the item that gets chosen gets unparented. And it's easiest to
@@ -53,7 +53,7 @@ public class RewardSpawner : MonoBehaviour {
     private void SpawnChest() {
         float avoidPlayerRadius = 2f;
         float obstacleAvoidanceRadius = 3.5f;
-        Vector2 position = new RoomPositionHelper().GetRandomRoomPos(PlayerMovement.Instance.transform.position, avoidPlayerRadius, obstacleAvoidanceRadius);
+        Vector2 position = new RoomPositionHelper().GetRandomRoomPos(PlayerMovement.Instance.CenterPos, avoidPlayerRadius, obstacleAvoidanceRadius);
         Chest chest = Instantiate(chestPrefab, position, Quaternion.identity, Containers.Instance.Drops);
         chest.GetComponent<CreateMapIcon>().ShowMapIcon();
     }

@@ -13,7 +13,12 @@ public class PlayerDashAttack : MonoBehaviour {
     [SerializeField] private float windowToAttack = 0.5f;
     private float dashTimer;
 
-    public bool InDashAttackWindow => dashTimer > 0;
+    private Vector2 dashDirection;
+
+    [SerializeField] private Transform slashPrefab;
+
+    
+
     private PlayerStats Stats => StatsManager.Instance.GetPlayerStats();
 
     private void Awake() {
@@ -22,28 +27,49 @@ public class PlayerDashAttack : MonoBehaviour {
     }
 
     private void OnEnable() {
-        playerMovement.OnDash.AddListener(OnDash);
+        playerMovement.OnDash_Direction += OnDash;
     }
 
     private void OnDisable() {
-        playerMovement.OnDash.RemoveListener(OnDash);
+        playerMovement.OnDash_Direction -= OnDash;
     }
 
-    private void OnDash() {
+    private void OnDash(Vector2 dashDirection) {
+        this.dashDirection = dashDirection;
         dashTimer = windowToAttack;
     }
 
     public Collider2D[] DashAttack() {
 
-        float angle = playerMeleeAttack.GetAttackDirection().DirectionToRotation().eulerAngles.z;
-        Vector2 pos = (Vector2)transform.position + (playerMeleeAttack.GetAttackDirection() * attackSize.x * 0.5f);
+        Vector2 attackDirection = playerMeleeAttack.GetAttackDirection();
+
+        float angle = attackDirection.DirectionToRotation().eulerAngles.z;
+        Vector2 pos = (Vector2)playerMovement.CenterPos + (playerMeleeAttack.GetAttackDirection() * attackSize.x * 0.5f);
 
         Collider2D[] cols = DamageDealer.DealCapsuleDamage(
             targetLayerMask,
             pos, attackSize, angle,
             Stats.DashDamage, Stats.KnockbackStrength);
 
+        slashPrefab.Spawn(playerMovement.CenterPos, attackDirection.DirectionToRotation(), Containers.Instance.Effects);
+
         return cols;
+    }
+
+    public bool GetCanDashAttack(Vector2 attackDirection) {
+        bool withinDashWindow = dashTimer > 0;
+        bool directionsMatch = DirectionsWithinRange(dashDirection, attackDirection, maxAngle: 60f);
+        return withinDashWindow && directionsMatch;
+    }
+
+    private bool DirectionsWithinRange(Vector3 dir1, Vector3 dir2, float maxAngle) {
+        dir1.Normalize();
+        dir2.Normalize();
+
+        float dot = Vector3.Dot(dir1, dir2);
+        float threshold = Mathf.Cos(maxAngle * Mathf.Deg2Rad);
+
+        return dot >= threshold;
     }
 
     private void Update() {

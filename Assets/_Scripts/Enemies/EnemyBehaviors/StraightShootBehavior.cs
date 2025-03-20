@@ -153,7 +153,7 @@ public class StraightShootBehavior : MonoBehaviour, IAttacker {
         }
     }
 
-    public Vector2 PlayerDirection => PlayerMeleeAttack.Instance.transform.position - transform.position;
+    public Vector2 PlayerDirection => PlayerMovement.Instance.CenterPos - transform.position;
 
     public Vector2 RandomDirection => UnityEngine.Random.insideUnitCircle.normalized;
 }

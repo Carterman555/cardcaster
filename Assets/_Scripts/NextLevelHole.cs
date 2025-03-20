@@ -37,7 +37,7 @@ public class NextLevelHole : MonoBehaviour {
 
         // fall movement
         float fallDistance = 3.5f;
-        float fallYPos = PlayerMovement.Instance.transform.position.y - fallDistance;
+        float fallYPos = PlayerMovement.Instance.CenterPos.y - fallDistance;
         PlayerMovement.Instance.transform.DOMoveY(fallYPos, duration: 0.5f).SetEase(Ease.InSine);
 
         OnFallInHole?.Invoke();

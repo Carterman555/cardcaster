@@ -32,7 +32,7 @@ public class SwordSlashBehavior : MonoBehaviour, IAttacker {
         weapon.Swing();
 
         // deal damage
-        Vector2 toPlayer = PlayerMovement.Instance.transform.position - transform.position;
+        Vector2 toPlayer = PlayerMovement.Instance.CenterPos - transform.position;
         Vector2 attackCenter = (Vector2)transform.position + (toPlayer.normalized * slashSize);
         DamageDealer.DealCircleDamage(GameLayers.PlayerLayerMask, attackCenter, slashSize, hasStats.Stats.Damage, hasStats.Stats.KnockbackStrength);
 

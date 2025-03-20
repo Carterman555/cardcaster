@@ -13,7 +13,7 @@ public class PointTowardsPlayer : MonoBehaviour {
     }
 
     void Update() {
-        Vector2 toPlayer = PlayerMovement.Instance.transform.position - transform.position;
+        Vector2 toPlayer = PlayerMovement.Instance.CenterPos - transform.position;
         float toPlayerAngle = toPlayer.DirectionToRotation().eulerAngles.z;
 
         // mirror on left side

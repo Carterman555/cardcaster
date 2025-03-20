@@ -28,10 +28,10 @@ public class ScriptableStraightShootCard : ScriptableAbilityCardBase {
     private void Shoot() {
 
         // get direction to shoot
-        Vector2 toShootDirection = shootPos - PlayerMovement.Instance.transform.position;
+        Vector2 toShootDirection = shootPos - PlayerMovement.Instance.CenterPos;
         toShootDirection.Normalize();
         Vector2 offset = spawnOffsetValue * toShootDirection;
-        Vector2 spawnPos = (Vector2)PlayerMovement.Instance.transform.position + offset;
+        Vector2 spawnPos = (Vector2)PlayerMovement.Instance.CenterPos + offset;
 
         // spawn and setup projectile
         StraightMovement straightMovement = projectilePrefab.Spawn(spawnPos, Containers.Instance.Projectiles);

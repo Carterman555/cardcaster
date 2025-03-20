@@ -121,7 +121,7 @@ public class DebugManager : StaticInstance<DebugManager> {
         bossRoom.GetComponent<Room>().OnEnterRoom();
 
         Vector3 offset = new Vector3(-5f, 0);
-        PlayerMeleeAttack.Instance.transform.position = bossRoom.GetBossSpawnPoint().position + offset;
+        PlayerMovement.Instance.transform.position = bossRoom.GetBossSpawnPoint().position + offset;
     }
 
     [SerializeField] private SpriteRenderer circle;
@@ -129,7 +129,7 @@ public class DebugManager : StaticInstance<DebugManager> {
     [Command]
     private void SpawnCircles() {
         for (int i = 0; i < 100; i++) {
-            Vector2 position = new RoomPositionHelper().GetRandomRoomPos(PlayerMovement.Instance.transform.position,
+            Vector2 position = new RoomPositionHelper().GetRandomRoomPos(PlayerMovement.Instance.CenterPos,
              avoidRadius: 2f,
              entranceAvoidDistance: 3f);
             circle.Spawn(position);

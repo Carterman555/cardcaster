@@ -19,6 +19,9 @@ public class PlayerMovement : StaticInstance<PlayerMovement>, IHasStats, IChange
 
     [SerializeField] private Animator anim;
 
+    [SerializeField] private Transform centerPoint;
+    public Vector3 CenterPos => centerPoint.position;
+
     private float stepTimer;
 
     protected override void Awake() {
@@ -87,6 +90,7 @@ public class PlayerMovement : StaticInstance<PlayerMovement>, IHasStats, IChange
     #region Dash
 
     public UnityEvent OnDash;
+    public event Action<Vector2> OnDash_Direction;
 
     [Header("Dash")]
     [SerializeField] private InputActionReference dashAction;
@@ -108,6 +112,7 @@ public class PlayerMovement : StaticInstance<PlayerMovement>, IHasStats, IChange
         AudioManager.Instance.PlaySound(AudioManager.Instance.AudioClips.Dash);
 
         OnDash?.Invoke();
+        OnDash_Direction?.Invoke(moveDirection.normalized);
 
         yield return new WaitForSeconds(stats.DashTime);
 

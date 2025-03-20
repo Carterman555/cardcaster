@@ -30,7 +30,7 @@ public class CardSurge : MonoBehaviour {
         Vector2 targetPoint = Vector2.zero;
 
         if (targetType == TargetType.Player) {
-            targetPoint = PlayerMeleeAttack.Instance.transform.position;
+            targetPoint = PlayerMovement.Instance.CenterPos;
         }
         else if (targetType == TargetType.Random) {
             targetPoint = new RoomPositionHelper().GetRandomRoomPos();

@@ -9,6 +9,13 @@ using static Cinemachine.DocumentationSortingAttribute;
 public class AnalyticsManager : MonoBehaviour {
 
     async void Awake() {
+
+#if UNITY_EDITOR
+        if (!playInEditor) {
+            return;
+        }
+#endif
+
         try {
             await UnityServices.InitializeAsync();
         }
@@ -22,6 +29,13 @@ public class AnalyticsManager : MonoBehaviour {
     #region Record Events
 
     private void OnEnable() {
+
+#if UNITY_EDITOR
+        if (!playInEditor) {
+            return;
+        }
+#endif
+
         GameSceneManager.OnStartGame += SetStartTimes;
 
         playerHealth.OnDeath += RecordDeathEvent;
@@ -36,6 +50,13 @@ public class AnalyticsManager : MonoBehaviour {
     }
 
     private void OnDisable() {
+
+#if UNITY_EDITOR
+        if (!playInEditor) {
+            return;
+        }
+#endif
+
         GameSceneManager.OnStartGame -= SetStartTimes;
 
         playerHealth.OnDeath -= RecordDeathEvent;
@@ -49,6 +70,7 @@ public class AnalyticsManager : MonoBehaviour {
         GameSceneManager.OnWinGame -= RecordCompleteGameEvent;
     }
 
+    [SerializeField] private bool playInEditor = false;
     [SerializeField] private bool debug = true;
 
     private float GameTime => Time.time - startRunTime;
@@ -76,7 +98,8 @@ public class AnalyticsManager : MonoBehaviour {
 
     private static float startLevelTime; // static so doesn't reset on scene load
 
-    public void RecordLevelCompleteEvent(int level) {
+    private void RecordLevelCompleteEvent(int level) {
+
         LevelCompleteEvent levelCompleteEvent = new() {
             TimeInLevel = Time.time - startLevelTime,
             Level = level
@@ -84,7 +107,7 @@ public class AnalyticsManager : MonoBehaviour {
 
         AnalyticsService.Instance.RecordEvent(levelCompleteEvent);
         if (debug) print($"Record level complete: {Time.time - startLevelTime}, {level}");
-        
+
         startLevelTime = Time.time;
     }
 

@@ -34,12 +34,11 @@ public class ScriptableColossusBladeCard : ScriptableStatsModifierCard {
         //... shake when swing
         PlayerMeleeAttack.Instance.OnAttack += ShakeCamera;
 
-        float sizeMult = GetPlayerStatsModifier().SwordSizePercent.PercentToMult();
-        Vector2 bigSwordStartingSize = Vector2.one * (1f/sizeMult);
+        float bigSwordStartingSize = 0.4f;
 
         // grow sword, then add effects
         swordVisual.transform.DOKill();
-        swordVisual.transform.localScale = bigSwordStartingSize;
+        swordVisual.transform.localScale = Vector2.one * bigSwordStartingSize;
         return swordVisual.transform.DOScale(1f, duration: 0.5f);
     }
 
@@ -49,9 +48,8 @@ public class ScriptableColossusBladeCard : ScriptableStatsModifierCard {
         //... don't shake when swing
         PlayerMeleeAttack.Instance.OnAttack -= ShakeCamera;
 
-        float sizeMult = GetPlayerStatsModifier().SwordSizePercent.PercentToMult();
-        Vector2 bigSwordEndingSize = Vector2.one * (1f / sizeMult);
-       
+        float bigSwordEndingSize = 0.4f;
+
         // shrink sword, then switch back to orignal sword
         swordVisual.transform.DOKill();
         swordVisual.transform.DOScale(bigSwordEndingSize, duration: 0.5f).OnComplete(() => {

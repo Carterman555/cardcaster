@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4dbfddf9a98b89341af7e3e9b7023c3d, type: 3}
   m_Name: Player
   m_EditorClassIdentifier: 
-  <Stats>k__BackingField:
+  <BaseStats>k__BackingField:
     MaxHealth: 20
     KnockbackResistance: 1
     MoveSpeed: 6
@@ -21,5 +21,12 @@ MonoBehaviour:
     KnockbackStrength: 1
     SwordSize: 1
     DashSpeed: 15
-    DashTime: 0.3
-    DashDamage: 8
+    DashDistance: 4
+    DashAttackDamage: 8
+    DashRechargeSpeed: 0
+    CritChance: 0
+    CritDamageMult: 0
+    ProjectileDamageMult: 0
+    AllDamageMult: 0
+    MaxEssence: 0
+    HandSize: 0

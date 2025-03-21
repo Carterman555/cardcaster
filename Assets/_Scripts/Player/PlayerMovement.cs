@@ -1,3 +1,4 @@
+using Mono.CSharp;
 using System;
 using System.Collections;
 using Unity.VisualScripting;
@@ -114,7 +115,8 @@ public class PlayerMovement : StaticInstance<PlayerMovement>, IHasStats, IChange
         OnDash?.Invoke();
         OnDash_Direction?.Invoke(moveDirection.normalized);
 
-        yield return new WaitForSeconds(stats.DashTime);
+        float dashTime = stats.DashDistance / stats.DashSpeed;
+        yield return new WaitForSeconds(dashTime);
 
         isDashing = false;
         dashTimer = 0f;

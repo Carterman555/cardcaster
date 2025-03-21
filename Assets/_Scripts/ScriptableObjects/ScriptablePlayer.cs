@@ -4,7 +4,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "PlayerData", menuName = "Unit/Player")]
 public class ScriptablePlayer : ScriptableObject {
 
-    [field: SerializeField] public PlayerStats Stats { get; private set; }
+    [field: SerializeField] public PlayerStats BaseStats { get; private set; }
 }
 
 [Serializable]
@@ -16,9 +16,8 @@ public class Stats {
 
     public float Damage;
     public float AttackSpeed;
-    public float KnockbackStrength;
-
     public float AttackCooldown => 1 / AttackSpeed;
+    public float KnockbackStrength;
 }
 
 [Serializable]
@@ -26,18 +25,62 @@ public class PlayerStats : Stats {
     public float SwordSize;
 
     public float DashSpeed;
-    public float DashTime;
-    public float DashDamage;
+    public float DashDistance;
+    public float DashAttackDamage;
+    public float DashRechargeSpeed;
+    public float DashCooldown => 1 / DashRechargeSpeed;
 
-    public void ApplyModifier(PlayerStatsModifier modifier) {
-        MaxHealth *= modifier.MaxHealthPercent.PercentToMult();
-        KnockbackResistance *= modifier.KnockbackResistancePercent.PercentToMult();
-        MoveSpeed *= modifier.MoveSpeedPercent.PercentToMult();
-        Damage *= modifier.DamageIncreasePercent.PercentToMult();
-        DashDamage *= modifier.DashDamageIncreasePercent.PercentToMult();
-        AttackSpeed *= modifier.AttackSpeedPercent.PercentToMult();
-        KnockbackStrength *= modifier.KnockbackStrengthPercent.PercentToMult();
-        SwordSize *= modifier.SwordSizePercent.PercentToMult();
-        DashSpeed *= modifier.DashDistancePercent.PercentToMult();
-    }
+    public float CritChance;
+    public float CritDamageMult;
+
+    public float ProjectileDamageMult;
+    public float AllDamageMult;
+
+    public int MaxEssence;
+    public int HandSize;
+}
+
+[Serializable]
+public class PlayerStatsModifier {
+    public PlayerStatModifier[] StatModifiers;
+    public string ID;
+}
+
+[Serializable]
+public struct PlayerStatModifier {
+    public PlayerStatType PlayerStatType;
+    public ModifyType ModifyType;
+    public float Value;
+}
+
+public enum PlayerStatType {
+    MaxHealth,
+    KnockbackResistance,
+
+    MoveSpeed,
+
+    Damage,
+    AttackSpeed,
+    KnockbackStrength,
+
+    SwordSize,
+
+    DashSpeed,
+    DashTime,
+    DashAttackDamage,
+    DashRechargeSpeed,
+
+    CritChance,
+    CritDamageMult,
+
+    ProjectileDamageMult,
+    AllDamageMult,
+
+    MaxEssence,
+    HandSize
+}
+
+public enum ModifyType {
+    Additive,
+    Multiplicative
 }

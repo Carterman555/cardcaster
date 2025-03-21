@@ -71,7 +71,9 @@ public enum CardType {
     Magnetify,
     DyingRage,
     Sustain,
-    ThrowingKnife
+    ThrowingKnife,
+
+    MaxHealthPerm,
 }
 
 // what to do when play again while already playing

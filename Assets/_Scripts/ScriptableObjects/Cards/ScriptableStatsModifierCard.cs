@@ -7,9 +7,7 @@ using UnityEngine;
 public class ScriptableStatsModifierCard : ScriptableAbilityCardBase {
 
     [SerializeField] private PlayerStatsModifier statsModifier;
-    protected PlayerStatsModifier GetPlayerStatsModifier() {
-        return statsModifier;
-    }
+    protected PlayerStatsModifier PlayerStatsModifier => statsModifier;
 
     protected override void Play(Vector2 position) {
         base.Play(position);
@@ -22,58 +20,6 @@ public class ScriptableStatsModifierCard : ScriptableAbilityCardBase {
     }
 }
 
-[Serializable]
-public class PlayerStatsModifier {
 
-    public float MaxHealthPercent;
-    public float KnockbackResistancePercent;
-    public float MoveSpeedPercent;
-    public float DamageIncreasePercent;
-    public float DashDamageIncreasePercent;
-    public float AttackSpeedPercent;
-    public float KnockbackStrengthPercent;
-    public float SwordSizePercent;
-    public float DashDistancePercent;
-
-    public static PlayerStatsModifier operator +(PlayerStatsModifier a, PlayerStatsModifier b) {
-        return new PlayerStatsModifier {
-            MaxHealthPercent = a.MaxHealthPercent + b.MaxHealthPercent,
-            KnockbackResistancePercent = a.KnockbackResistancePercent + b.KnockbackResistancePercent,
-            MoveSpeedPercent = a.MoveSpeedPercent + b.MoveSpeedPercent,
-            DamageIncreasePercent = a.DamageIncreasePercent + b.DamageIncreasePercent,
-            DashDamageIncreasePercent = a.DashDamageIncreasePercent + b.DashDamageIncreasePercent,
-            AttackSpeedPercent = a.AttackSpeedPercent + b.AttackSpeedPercent,
-            KnockbackStrengthPercent = a.KnockbackStrengthPercent + b.KnockbackStrengthPercent,
-            SwordSizePercent = a.SwordSizePercent + b.SwordSizePercent,
-            DashDistancePercent = a.DashDistancePercent + b.DashDistancePercent,
-        };
-    }
-
-    public static PlayerStatsModifier operator -(PlayerStatsModifier a, PlayerStatsModifier b) {
-        return new PlayerStatsModifier {
-            MaxHealthPercent = a.MaxHealthPercent - b.MaxHealthPercent,
-            KnockbackResistancePercent = a.KnockbackResistancePercent - b.KnockbackResistancePercent,
-            MoveSpeedPercent = a.MoveSpeedPercent - b.MoveSpeedPercent,
-            DamageIncreasePercent = a.DamageIncreasePercent - b.DamageIncreasePercent,
-            DashDamageIncreasePercent = a.DashDamageIncreasePercent - b.DashDamageIncreasePercent,
-            AttackSpeedPercent = a.AttackSpeedPercent - b.AttackSpeedPercent,
-            KnockbackStrengthPercent = a.KnockbackStrengthPercent - b.KnockbackStrengthPercent,
-            SwordSizePercent = a.SwordSizePercent - b.SwordSizePercent,
-            DashDistancePercent = a.DashDistancePercent - b.DashDistancePercent,
-        };
-    }
-
-    public static PlayerStatsModifier Zero = new PlayerStatsModifier {
-        MaxHealthPercent = 0,
-        KnockbackResistancePercent = 0,
-        MoveSpeedPercent = 0,
-        DamageIncreasePercent = 0,
-        DashDamageIncreasePercent = 0,
-        AttackSpeedPercent = 0,
-        KnockbackStrengthPercent = 0,
-        SwordSizePercent = 0,
-        DashDistancePercent = 0
-    };
-}
 
 

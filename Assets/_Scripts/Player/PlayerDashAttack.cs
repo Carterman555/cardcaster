@@ -49,7 +49,7 @@ public class PlayerDashAttack : MonoBehaviour {
         Collider2D[] cols = DamageDealer.DealCapsuleDamage(
             targetLayerMask,
             pos, attackSize, angle,
-            Stats.DashDamage, Stats.KnockbackStrength);
+            Stats.DashAttackDamage, Stats.KnockbackStrength);
 
         slashPrefab.Spawn(playerMovement.CenterPos, attackDirection.DirectionToRotation(), Containers.Instance.Effects);
 

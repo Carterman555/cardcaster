@@ -17,7 +17,7 @@ MonoBehaviour:
   sprite: {fileID: 1231924616, guid: d638d131cac6f4d45aeb96fc55848241, type: 3}
   cost: 1
   rarity: 0
-  minLevel: 1
+  unlockLevel: 1
   stackType: 1
   startUnlocked: 1
   abilityAttributes: 4
@@ -32,11 +32,8 @@ MonoBehaviour:
   <IsModifiable>k__BackingField: 0
   incompatibleAbilities: 0500000007000000
   statsModifier:
-    MaxHealthPercent: 0
-    KnockbackResistancePercent: 0
-    MoveSpeedPercent: 50
-    DamageIncreasePercent: 0
-    AttackSpeedPercent: 0
-    KnockbackStrengthPercent: 0
-    SwordSizePercent: 0
-    DashDistancePercent: 0
+    StatModifiers:
+    - PlayerStatType: 2
+      ModifyType: 0
+      Value: 3
+    Id: 049d4d75-9cf6-4aea-a21d-2dca69b576e9

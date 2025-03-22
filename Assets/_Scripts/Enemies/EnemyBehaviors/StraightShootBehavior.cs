@@ -10,7 +10,7 @@ public class StraightShootBehavior : MonoBehaviour, IAttacker {
 
     public event Action OnShootAnim;
 
-    protected IHasStats hasStats;
+    protected IHasEnemyStats hasStats;
 
     [SerializeField] protected StraightMovement projectilePrefab;
     [SerializeField] protected Transform shootPoint;
@@ -39,16 +39,16 @@ public class StraightShootBehavior : MonoBehaviour, IAttacker {
     private TimedActionBehavior timedActionBehavior;
 
     private void Awake() {
-        hasStats = GetComponent<IHasStats>();
+        hasStats = GetComponent<IHasEnemyStats>();
 
         if (hasShootAnim) {
             timedActionBehavior = new TimedActionBehavior(
-            hasStats.            Stats.AttackCooldown,
+            hasStats.            EnemyStats.AttackCooldown,
             () => TriggerShootAnimation());
         }
         else {
             timedActionBehavior = new TimedActionBehavior(
-            hasStats.            Stats.AttackCooldown,
+            hasStats.            EnemyStats.AttackCooldown,
             () => ShootProjectile());
         }
     }
@@ -106,8 +106,8 @@ public class StraightShootBehavior : MonoBehaviour, IAttacker {
 
         newProjectile.Setup(shootDirection.normalized);
 
-        float dmg = overrideDamage ? damage : hasStats.Stats.Damage;
-        newProjectile.GetComponent<DamageOnContact>().Setup(dmg, hasStats.Stats.KnockbackStrength);
+        float dmg = overrideDamage ? damage : hasStats.EnemyStats.Damage;
+        newProjectile.GetComponent<DamageOnContact>().Setup(dmg, hasStats.EnemyStats.KnockbackStrength);
 
         PlaySFX();
 

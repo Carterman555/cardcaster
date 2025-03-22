@@ -11,12 +11,12 @@ public class CircleMoveBehavior : MonoBehaviour, IChangesFacing, IEnemyMovement 
     private float angle;
     private Vector2 center;
 
-    private IHasStats hasStats;
+    private IHasEnemyStats hasStats;
     private NavMeshAgent agent;
     private Knockback knockback;
 
     private void Awake() {
-        hasStats = GetComponent<IHasStats>();
+        hasStats = GetComponent<IHasEnemyStats>();
 
         agent = GetComponent<NavMeshAgent>();
         agent.updateRotation = false;
@@ -51,10 +51,10 @@ public class CircleMoveBehavior : MonoBehaviour, IChangesFacing, IEnemyMovement 
             return;
         }
 
-        agent.speed = hasStats.Stats.MoveSpeed;
+        agent.speed = hasStats.EnemyStats.MoveSpeed;
 
         float mult = 1 / moveRadius;
-        angle += hasStats.Stats.MoveSpeed * mult * Time.deltaTime; // Increment angle based on speed
+        angle += hasStats.EnemyStats.MoveSpeed * mult * Time.deltaTime; // Increment angle based on speed
         float x = center.x + moveRadius * Mathf.Cos(angle);
         float y = center.y + moveRadius * Mathf.Sin(angle);
         Vector3 nextPosition = new Vector3(x, y);

@@ -3,7 +3,8 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D))]
 public class Knockback : MonoBehaviour {
 
-    private IHasStats hasStats;
+    private IHasPlayerStats hasPlayerStats;
+    private IHasEnemyStats hasEnemyStats;
     private Rigidbody2D rb;
         
     private bool applyingKnockback;
@@ -11,12 +12,31 @@ public class Knockback : MonoBehaviour {
     [SerializeField] private bool overrideKnockback;
     [ConditionalHide("overrideKnockback")][SerializeField] private float overrideKnockbackResistance;
 
+    private float GetKnockbackResistance() {
+        if (overrideKnockback) {
+            return overrideKnockbackResistance;
+        }
+        else {
+            if (hasPlayerStats != null) {
+                return hasPlayerStats.PlayerStats.KnockbackResistance;
+            }
+            else if (hasEnemyStats != null) {
+                return hasEnemyStats.EnemyStats.KnockbackResistance;
+            }
+            else {
+                Debug.LogError("Object with Knockback does not override or have stats component!");
+                return 1f;
+            }
+        }
+    }
+
     public bool IsApplyingKnockback() {
         return applyingKnockback;
     }
 
     private void Awake() {
-        hasStats = GetComponent<IHasStats>();
+        hasPlayerStats = GetComponent<IHasPlayerStats>();
+        hasEnemyStats = GetComponent<IHasEnemyStats>();
         rb = GetComponent<Rigidbody2D>();
     }
 
@@ -26,20 +46,12 @@ public class Knockback : MonoBehaviour {
             return;
         }
 
-        if (hasStats.Stats.KnockbackResistance == 0) {
+        if (GetKnockbackResistance() == 0) {
             Debug.LogError(gameObject.name + ": KnockbackResistance Cannot be 0!");
         }
 
-        float knockbackResistance;
-        if (overrideKnockback) {
-            knockbackResistance = overrideKnockbackResistance;
-        }
-        else {
-            knockbackResistance = hasStats.Stats.KnockbackResistance;
-        }
-
         float knockbackFactor = 12f;
-        float knockbackForce = strength / knockbackResistance;
+        float knockbackForce = strength / GetKnockbackResistance();
         rb.velocity = knockbackForce * knockbackFactor * direction.normalized;
 
         applyingKnockback = true;

@@ -13,7 +13,7 @@ public class ExplodeBehavior : MonoBehaviour, ITargetAttacker {
 
     [Header("Stats")]
     [SerializeField] private bool useIHasStats;
-    private IHasStats iHasStats;
+    private IHasEnemyStats hasEnemyStats;
 
     [SerializeField] private bool serializedExplosionRadius;
     [ConditionalHide("serializedExplosionRadius")] [SerializeField] private float explosionRadius;
@@ -28,14 +28,14 @@ public class ExplodeBehavior : MonoBehaviour, ITargetAttacker {
 
     private void Awake() {
         if (useIHasStats) {
-            iHasStats = GetComponent<IHasStats>();
+            hasEnemyStats = GetComponent<IHasEnemyStats>();
         }
     }
 
     public void Explode(bool returnToPool = true) {
 
         // deal damage
-        float dmg = useIHasStats ? iHasStats.Stats.Damage : damage;
+        float dmg = useIHasStats ? hasEnemyStats.EnemyStats.Damage : damage;
         Collider2D[] damagedColliders = DamageDealer.DealCircleDamage(targetLayerMask,
             transform.position,
             explosionRadius,

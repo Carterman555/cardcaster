@@ -10,7 +10,7 @@ public class SpawnEnemyBehavior : MonoBehaviour {
     [SerializeField] private Transform spawnPoint;
     [SerializeField] private Animator anim;
 
-    private IHasStats hasStats;
+    private IHasEnemyStats hasStats;
     private TimedActionBehavior timedActionBehavior;
 
     [Header("SFX")]
@@ -19,10 +19,10 @@ public class SpawnEnemyBehavior : MonoBehaviour {
 
     private void Awake() {
 
-        hasStats = GetComponent<IHasStats>();
+        hasStats = GetComponent<IHasEnemyStats>();
 
         timedActionBehavior = new TimedActionBehavior(
-            hasStats.            Stats.AttackCooldown,
+            hasStats.            EnemyStats.AttackCooldown,
             () => TriggerSpawnAnimation()
         );
     }

@@ -19,7 +19,7 @@ public class ShootStraightSpreadBehavior : StraightShootBehavior {
             Vector2 currentBulletDirection = Quaternion.Euler(0, 0, spreadAngle) * toTarget.normalized;
 
             newProjectile.Setup(currentBulletDirection);
-            newProjectile.GetComponent<DamageOnContact>().Setup(hasStats.Stats.Damage, hasStats.Stats.KnockbackStrength);
+            newProjectile.GetComponent<DamageOnContact>().Setup(hasStats.CommonStats.Damage, hasStats.CommonStats.KnockbackStrength);
 
             InvokeShootProjectileEvent(newProjectile.gameObject);
         }

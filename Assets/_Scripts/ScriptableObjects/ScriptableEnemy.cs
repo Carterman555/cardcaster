@@ -18,8 +18,10 @@ public class ScriptableEnemy : ScriptableObject {
 }
 
 [Serializable]
-public class EnemyStats : Stats {
-    public float WalkSpeed;
+public struct EnemyStats {
+
+    public CommonStats CommonStats;
+
     public float AttackRange;
 }
 

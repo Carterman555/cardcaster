@@ -8,7 +8,7 @@ public class ScriptablePlayer : ScriptableObject {
 }
 
 [Serializable]
-public class Stats {
+public struct CommonStats {
     public float MaxHealth;
     public float KnockbackResistance;
 
@@ -21,7 +21,10 @@ public class Stats {
 }
 
 [Serializable]
-public class PlayerStats : Stats {
+public struct PlayerStats {
+
+    public CommonStats CommonStats;
+
     public float SwordSize;
 
     public float DashSpeed;
@@ -41,7 +44,7 @@ public class PlayerStats : Stats {
 }
 
 [Serializable]
-public class PlayerStatsModifier {
+public struct PlayerStatsModifier {
     public PlayerStatModifier[] StatModifiers;
     public string ID;
 }

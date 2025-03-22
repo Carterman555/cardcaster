@@ -6,7 +6,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
 
-public class PlayerMovement : StaticInstance<PlayerMovement>, IHasStats, IChangesFacing {
+public class PlayerMovement : StaticInstance<PlayerMovement>, IHasCommonStats, IChangesFacing {
 
     [SerializeField] private InputActionReference moveInput;
 
@@ -15,8 +15,8 @@ public class PlayerMovement : StaticInstance<PlayerMovement>, IHasStats, IChange
 
     private Vector2 moveDirection;
 
-    private PlayerStats stats => StatsManager.Instance.GetPlayerStats();
-    public Stats Stats => stats;
+    public PlayerStats PlayerStats => StatsManager.Instance.GetPlayerStats();
+    public CommonStats CommonStats => PlayerStats.CommonStats;
 
     [SerializeField] private Animator anim;
 
@@ -84,7 +84,7 @@ public class PlayerMovement : StaticInstance<PlayerMovement>, IHasStats, IChange
         }
 
         if (!isDashing && !knockback.IsApplyingKnockback()) {
-            rb.velocity = moveDirection * stats.MoveSpeed;
+            rb.velocity = moveDirection * CommonStats.MoveSpeed;
         }
     }
 
@@ -105,7 +105,7 @@ public class PlayerMovement : StaticInstance<PlayerMovement>, IHasStats, IChange
     private IEnumerator Dash() {
 
         isDashing = true;
-        rb.velocity = moveDirection.normalized * stats.DashSpeed;
+        rb.velocity = moveDirection.normalized * PlayerStats.DashSpeed;
         PlayerInvincibility dashInvincibility = gameObject.AddComponent<PlayerInvincibility>();
 
         dashFade = PlayerFadeManager.Instance.AddFadeEffect(0, 0.5f);
@@ -115,7 +115,7 @@ public class PlayerMovement : StaticInstance<PlayerMovement>, IHasStats, IChange
         OnDash?.Invoke();
         OnDash_Direction?.Invoke(moveDirection.normalized);
 
-        float dashTime = stats.DashDistance / stats.DashSpeed;
+        float dashTime = PlayerStats.DashDistance / PlayerStats.DashSpeed;
         yield return new WaitForSeconds(dashTime);
 
         isDashing = false;

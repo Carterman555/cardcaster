@@ -1,14 +1,15 @@
 using System;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 [CreateAssetMenu(fileName = "PlayerData", menuName = "Unit/Player")]
 public class ScriptablePlayer : ScriptableObject {
-
-    [field: SerializeField] public PlayerStats BaseStats { get; private set; }
+    [SerializeField] private PlayerStats baseStats;
+    public PlayerStats PlayerStats => baseStats;
 }
 
 [Serializable]
-public class Stats {
+public struct PlayerStats {
     public float MaxHealth;
     public float KnockbackResistance;
 
@@ -18,10 +19,6 @@ public class Stats {
     public float AttackSpeed;
     public float AttackCooldown => 1 / AttackSpeed;
     public float KnockbackStrength;
-}
-
-[Serializable]
-public class PlayerStats : Stats {
     public float SwordSize;
 
     public float DashSpeed;

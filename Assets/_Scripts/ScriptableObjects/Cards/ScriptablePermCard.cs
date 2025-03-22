@@ -34,11 +34,4 @@ public class ScriptablePermCard : ScriptableCardBase {
         appliedStatsModifiers = new();
         currentLevel = 0;
     }
-
-    private void OnDestroy() {
-        foreach (var modifier in appliedStatsModifiers) {
-            StatsManager.Instance.RemovePlayerStatsModifier(statsModifierPerLevel);
-        }
-        Debug.Log("Remove all stat modifiers from: " + Name);
-    }
 }

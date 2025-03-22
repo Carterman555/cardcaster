@@ -17,7 +17,7 @@ public class Enemy : MonoBehaviour, IHasEnemyStats, IEffectable {
 
     protected virtual void OnEnable() {
         SubToPlayerTriggerEvents();
-        playerTracker.GetComponent<CircleCollider2D>().radius = stats.AttackRange;
+        playerTracker.GetComponent<CircleCollider2D>().radius = EnemyStats.AttackRange;
         OnAnySpawn?.Invoke(this);
     }
 
@@ -38,11 +38,7 @@ public class Enemy : MonoBehaviour, IHasEnemyStats, IEffectable {
     #region Stats
 
     [SerializeField] protected ScriptableEnemy scriptableEnemy;
-    protected EnemyStats stats => scriptableEnemy.Stats;
-    public Stats Stats => stats;
-    public EnemyStats GetEnemyStats() {
-        return stats;
-    }
+    public EnemyStats EnemyStats => scriptableEnemy.Stats;
 
     #endregion
 
@@ -50,7 +46,7 @@ public class Enemy : MonoBehaviour, IHasEnemyStats, IEffectable {
 
     [SerializeField] private TriggerContactTracker playerTracker;
     protected bool playerWithinRange => playerTracker.HasContact();
-
+    
     private void SubToPlayerTriggerEvents() {
         playerTracker.OnEnterContact_GO += OnPlayerEnteredRange;
         playerTracker.OnExitContact_GO += OnPlayerExitedRange;

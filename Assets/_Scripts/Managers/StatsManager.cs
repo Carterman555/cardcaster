@@ -11,6 +11,7 @@ using System.Reflection;
 public class StatsManager : StaticInstance<StatsManager> {
 
     [SerializeField] private ScriptablePlayer scriptablePlayer;
+    private PlayerStats playerStats;
 
     private List<PlayerStatsModifier> statsModifiers;
 
@@ -18,6 +19,11 @@ public class StatsManager : StaticInstance<StatsManager> {
         base.Awake();
         statsModifiers = new();
         print("Clear stat modifiers");
+    }
+
+    private void OnEnable() {
+        // Prevents accidental modification of scriptable objects in Inspector during play
+        hideFlags = HideFlags.NotEditable;
     }
 
     public void AddPlayerStatsModifier(PlayerStatsModifier modifier) {
@@ -29,6 +35,8 @@ public class StatsManager : StaticInstance<StatsManager> {
 
         statsModifiers.Add(modifier);
         modifier.ID = Guid.NewGuid().ToString();
+
+        UpdatePlayerStats();
     }
 
     public void RemovePlayerStatsModifier(PlayerStatsModifier modifier) {
@@ -40,12 +48,14 @@ public class StatsManager : StaticInstance<StatsManager> {
         }
 
         statsModifiers.Remove(modifierToRemove);
+
+        UpdatePlayerStats();
     }
 
-    private List<PlayerStatModifier> additiveModifiers = new();
-    private List<PlayerStatModifier> multiplictiveModifiers = new();
+    private readonly List<PlayerStatModifier> additiveModifiers = new();
+    private readonly List<PlayerStatModifier> multiplictiveModifiers = new();
 
-    public PlayerStats GetPlayerStats() {
+    private void UpdatePlayerStats() {
 
         additiveModifiers.Clear();
         multiplictiveModifiers.Clear();
@@ -55,7 +65,7 @@ public class StatsManager : StaticInstance<StatsManager> {
             multiplictiveModifiers.AddRange(playerStatsModifier.StatModifiers.Where(m => m.ModifyType == ModifyType.Multiplicative));
         }
 
-        PlayerStats playerStats = Instantiate(scriptablePlayer).BaseStats;
+        playerStats = scriptablePlayer.PlayerStats;
 
         foreach (PlayerStatModifier statModifier in additiveModifiers) {
             ModifyStat(playerStats, statModifier.PlayerStatType, statModifier.ModifyType, statModifier.Value);
@@ -84,7 +94,9 @@ public class StatsManager : StaticInstance<StatsManager> {
         playerStats.HandSize = (int)Mathf.Max(playerStats.HandSize, 0f);
 
         print(playerStats.Damage);
+    }
 
+    public PlayerStats GetPlayerStats() {
         return playerStats;
     }
 

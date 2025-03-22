@@ -18,8 +18,16 @@ public class ScriptableEnemy : ScriptableObject {
 }
 
 [Serializable]
-public class EnemyStats : Stats {
-    public float WalkSpeed;
+public struct EnemyStats {
+    public float MaxHealth;
+    public float KnockbackResistance;
+
+    public float MoveSpeed;
+
+    public float Damage;
+    public float AttackSpeed;
+    public float AttackCooldown => 1 / AttackSpeed;
+    public float KnockbackStrength;
     public float AttackRange;
 }
 

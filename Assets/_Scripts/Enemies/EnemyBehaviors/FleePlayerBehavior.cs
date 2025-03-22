@@ -4,12 +4,12 @@ using UnityEngine.AI;
 
 public class FleePlayerBehavior : MonoBehaviour, IEffectable, IEnemyMovement {
 
-    private IHasStats hasStats;
+    private IHasEnemyStats hasStats;
     private NavMeshAgent agent;
     private Knockback knockback;
 
     private void Awake() {
-        hasStats = GetComponent<IHasStats>();
+        hasStats = GetComponent<IHasEnemyStats>();
 
         agent = GetComponent<NavMeshAgent>();
         agent.updateRotation = false;
@@ -25,7 +25,7 @@ public class FleePlayerBehavior : MonoBehaviour, IEffectable, IEnemyMovement {
         }
 
         agent.isStopped = false;
-        agent.speed = hasStats.Stats.MoveSpeed;
+        agent.speed = hasStats.EnemyStats.MoveSpeed;
         TryEscapeFromPlayer();
     }
 

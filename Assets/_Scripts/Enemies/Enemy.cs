@@ -4,15 +4,11 @@ using System.Linq;
 using UnityEngine;
 using QFSW.QC;
 
-public class Enemy : MonoBehaviour, IHasCommonStats, IEffectable {
+public class Enemy : MonoBehaviour, IHasEnemyStats, IEffectable {
 
     public static event Action<Enemy> OnAnySpawn;
 
     protected Health health;
-
-    [SerializeField] protected ScriptableEnemy scriptableEnemy;
-    public EnemyStats EnemyStats => scriptableEnemy.Stats;
-    public CommonStats CommonStats => EnemyStats.CommonStats;
 
     protected virtual void Awake() {
         health = GetComponent<Health>();
@@ -21,7 +17,7 @@ public class Enemy : MonoBehaviour, IHasCommonStats, IEffectable {
 
     protected virtual void OnEnable() {
         SubToPlayerTriggerEvents();
-        playerTracker.GetComponent<CircleCollider2D>().radius = EnemyStats.AttackRange;
+        playerTracker.GetComponent<CircleCollider2D>().radius = stats.AttackRange;
         OnAnySpawn?.Invoke(this);
     }
 
@@ -38,6 +34,17 @@ public class Enemy : MonoBehaviour, IHasCommonStats, IEffectable {
     protected virtual void Update() {
         HandleMoveAnim();
     }
+
+    #region Stats
+
+    [SerializeField] protected ScriptableEnemy scriptableEnemy;
+    protected EnemyStats stats => scriptableEnemy.Stats;
+    public Stats Stats => stats;
+    public EnemyStats GetEnemyStats() {
+        return stats;
+    }
+
+    #endregion
 
     #region Player Tracker
 

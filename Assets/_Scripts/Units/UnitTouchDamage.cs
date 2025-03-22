@@ -25,7 +25,7 @@ public class UnitTouchDamage : MonoBehaviour {
     [SerializeField] private bool overrideKnockback;
     [ConditionalHide("overrideKnockback")][SerializeField] private float knockbackStrength;
 
-    private IHasCommonStats hasStats;
+    private IHasStats hasStats;
 
     private void Awake() {
         tracker = GetComponent<TriggerContactTracker>();
@@ -34,7 +34,7 @@ public class UnitTouchDamage : MonoBehaviour {
             health = GetComponentInParent<Health>();
         }
 
-        hasStats = GetComponentInParent<IHasCommonStats>();
+        hasStats = GetComponentInParent<IHasStats>();
     }
 
     private void OnEnable() {
@@ -101,8 +101,8 @@ public class UnitTouchDamage : MonoBehaviour {
                 }
             }
 
-            float dmg = overrideDamage ? damage : hasStats.CommonStats.Damage;
-            float knockback = overrideKnockback ? knockbackStrength : hasStats.CommonStats.KnockbackStrength;
+            float dmg = overrideDamage ? damage : hasStats.Stats.Damage;
+            float knockback = overrideKnockback ? knockbackStrength : hasStats.Stats.KnockbackStrength;
 
             DamageDealer.TryDealDamage(target, transform.position, dmg, knockback);
 

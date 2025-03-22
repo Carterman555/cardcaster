@@ -3,7 +3,7 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D))]
 public class Knockback : MonoBehaviour {
 
-    private IHasCommonStats hasStats;
+    private IHasStats hasStats;
     private Rigidbody2D rb;
         
     private bool applyingKnockback;
@@ -16,7 +16,7 @@ public class Knockback : MonoBehaviour {
     }
 
     private void Awake() {
-        hasStats = GetComponent<IHasCommonStats>();
+        hasStats = GetComponent<IHasStats>();
         rb = GetComponent<Rigidbody2D>();
     }
 
@@ -26,7 +26,7 @@ public class Knockback : MonoBehaviour {
             return;
         }
 
-        if (hasStats.CommonStats.KnockbackResistance == 0) {
+        if (hasStats.Stats.KnockbackResistance == 0) {
             Debug.LogError(gameObject.name + ": KnockbackResistance Cannot be 0!");
         }
 
@@ -35,7 +35,7 @@ public class Knockback : MonoBehaviour {
             knockbackResistance = overrideKnockbackResistance;
         }
         else {
-            knockbackResistance = hasStats.CommonStats.KnockbackResistance;
+            knockbackResistance = hasStats.Stats.KnockbackResistance;
         }
 
         float knockbackFactor = 12f;

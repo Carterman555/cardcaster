@@ -6,10 +6,10 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class DrChonk : MonoBehaviour, IHasCommonStats, IBoss {
+public class DrChonk : MonoBehaviour, IHasStats, IBoss {
 
     [SerializeField] private ScriptableBoss scriptableBoss;
-    public CommonStats CommonStats => scriptableBoss.Stats;
+    public Stats Stats => scriptableBoss.Stats;
 
     private DrChonkState currentState;
     private DrChonkState previousActionState;

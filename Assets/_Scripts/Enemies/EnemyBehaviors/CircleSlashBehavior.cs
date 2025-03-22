@@ -5,17 +5,17 @@ public class CircleSlashBehavior : MonoBehaviour {
     private TimedActionBehavior timedActionBehavior;
     [SerializeField] private Transform centerPoint;
 
-    private Enemy enemy;
+    private IHasEnemyStats hasStats;
 
     [Header("Animation")]
     [SerializeField] private bool specialAttack;
     [SerializeField] private Animator anim;
 
     private void Awake() {
-        enemy = GetComponent<Enemy>();
+        hasStats = GetComponent<IHasEnemyStats>();
 
         timedActionBehavior = new TimedActionBehavior(
-            enemy.EnemyStats.CommonStats.AttackCooldown,
+            hasStats.            Stats.AttackCooldown,
             () => TriggerAttackAnimation()
         );
     }
@@ -41,9 +41,9 @@ public class CircleSlashBehavior : MonoBehaviour {
         DamageDealer.DealCircleDamage(
             GameLayers.PlayerLayerMask,
             centerPoint.position,
-            enemy.EnemyStats.AttackRange,
-            enemy.EnemyStats.CommonStats.Damage,
-            enemy.EnemyStats.CommonStats.KnockbackStrength
+            hasStats.GetEnemyStats().AttackRange,
+            hasStats.            Stats.Damage,
+            hasStats.            Stats.KnockbackStrength
         );
 
         AudioManager.Instance.PlaySound(AudioManager.Instance.AudioClips.Swing);

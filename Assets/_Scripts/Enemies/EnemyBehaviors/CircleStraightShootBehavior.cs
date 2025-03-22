@@ -10,7 +10,7 @@ public class CircleStraightShootBehavior : MonoBehaviour {
     [SerializeField] private bool alternateShootDirection;
     private bool thisShotIsAlternate;
 
-    private IHasCommonStats hasStats;
+    private IHasStats hasStats;
 
     private TimedActionBehavior timedActionBehavior;
 
@@ -23,10 +23,10 @@ public class CircleStraightShootBehavior : MonoBehaviour {
     [ConditionalHide("customSFX")][SerializeField] private AudioClips shootSFX;
 
     private void Awake() {
-        hasStats = GetComponent<IHasCommonStats>();
+        hasStats = GetComponent<IHasStats>();
 
         timedActionBehavior = new TimedActionBehavior(
-            hasStats.            CommonStats.AttackCooldown * attackCooldownMult,
+            hasStats.            Stats.AttackCooldown * attackCooldownMult,
             () => TriggerShootAnimation()
         );
     }
@@ -71,7 +71,7 @@ public class CircleStraightShootBehavior : MonoBehaviour {
             StraightMovement projectile = projectilePrefab
                 .Spawn(spawnPosition, Containers.Instance.Projectiles);
             projectile.Setup(projectileDirection);
-            projectile.GetComponent<DamageOnContact>().Setup(hasStats.CommonStats.Damage, hasStats.CommonStats.KnockbackStrength);
+            projectile.GetComponent<DamageOnContact>().Setup(hasStats.Stats.Damage, hasStats.Stats.KnockbackStrength);
             projectile.transform.up = projectileDirection;
 
             angle += angleStep;

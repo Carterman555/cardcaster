@@ -5,7 +5,7 @@ public class SwordSlashBehavior : MonoBehaviour, IAttacker {
 
     public event Action OnAttack;
 
-    private IHasCommonStats hasStats;
+    private IHasStats hasStats;
 
     [SerializeField] private SlashingWeapon weapon;
     [SerializeField] private float slashSize;
@@ -13,7 +13,7 @@ public class SwordSlashBehavior : MonoBehaviour, IAttacker {
     private float attackTimer;
 
     private void Awake() {
-        hasStats = GetComponent<IHasCommonStats>();
+        hasStats = GetComponent<IHasStats>();
     }
 
     private void OnEnable() {
@@ -22,7 +22,7 @@ public class SwordSlashBehavior : MonoBehaviour, IAttacker {
 
     private void Update() {
         attackTimer += Time.deltaTime;
-        if (attackTimer > hasStats.CommonStats.AttackCooldown) {
+        if (attackTimer > hasStats.Stats.AttackCooldown) {
             attackTimer = 0;
             Slash();
         }
@@ -34,7 +34,7 @@ public class SwordSlashBehavior : MonoBehaviour, IAttacker {
         // deal damage
         Vector2 toPlayer = PlayerMovement.Instance.CenterPos - transform.position;
         Vector2 attackCenter = (Vector2)transform.position + (toPlayer.normalized * slashSize);
-        DamageDealer.DealCircleDamage(GameLayers.PlayerLayerMask, attackCenter, slashSize, hasStats.CommonStats.Damage, hasStats.CommonStats.KnockbackStrength);
+        DamageDealer.DealCircleDamage(GameLayers.PlayerLayerMask, attackCenter, slashSize, hasStats.Stats.Damage, hasStats.Stats.KnockbackStrength);
 
         OnAttack?.Invoke();
     }

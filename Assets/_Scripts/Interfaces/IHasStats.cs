@@ -1,5 +1,9 @@
 using UnityEngine;
 
-public interface IHasCommonStats {
-    CommonStats CommonStats { get; }
+public interface IHasStats {
+    public Stats Stats { get; }
+}
+
+public interface IHasEnemyStats : IHasStats {
+    public EnemyStats GetEnemyStats();
 }

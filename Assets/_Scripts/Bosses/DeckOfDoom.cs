@@ -5,10 +5,10 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class DeckOfDoom : MonoBehaviour, IHasCommonStats, IBoss {
+public class DeckOfDoom : MonoBehaviour, IHasStats, IBoss {
 
     [SerializeField] private ScriptableBoss scriptableBoss;
-    public CommonStats CommonStats => scriptableBoss.Stats;
+    public Stats Stats => scriptableBoss.Stats;
 
     private DeckOfDoomState currentState;
     private DeckOfDoomState previousActionState;

@@ -33,17 +33,17 @@ public class StatsManager : StaticInstance<StatsManager> {
 
     public void RemovePlayerStatsModifier(PlayerStatsModifier modifier) {
 
-        if (statsModifiers.Any(m => m.ID == modifier.ID)) {
+        PlayerStatsModifier modifierToRemove = statsModifiers.FirstOrDefault(s => s.ID == modifier.ID);
+        if (modifierToRemove == null) {
             Debug.LogError("Trying to remove modifier that is not in list!");
             return;
         }
 
-        PlayerStatsModifier modifierToRemove = statsModifiers.FirstOrDefault(m => m.ID == modifier.ID);
         statsModifiers.Remove(modifierToRemove);
     }
 
-    private readonly List<PlayerStatModifier> additiveModifiers = new();
-    private readonly List<PlayerStatModifier> multiplictiveModifiers = new();
+    private List<PlayerStatModifier> additiveModifiers = new();
+    private List<PlayerStatModifier> multiplictiveModifiers = new();
 
     public PlayerStats GetPlayerStats() {
 
@@ -55,7 +55,7 @@ public class StatsManager : StaticInstance<StatsManager> {
             multiplictiveModifiers.AddRange(playerStatsModifier.StatModifiers.Where(m => m.ModifyType == ModifyType.Multiplicative));
         }
 
-        PlayerStats playerStats = scriptablePlayer.BaseStats;
+        PlayerStats playerStats = Instantiate(scriptablePlayer).BaseStats;
 
         foreach (PlayerStatModifier statModifier in additiveModifiers) {
             ModifyStat(playerStats, statModifier.PlayerStatType, statModifier.ModifyType, statModifier.Value);
@@ -65,12 +65,12 @@ public class StatsManager : StaticInstance<StatsManager> {
             ModifyStat(playerStats, statModifier.PlayerStatType, statModifier.ModifyType, statModifier.Value);
         }
 
-        playerStats.CommonStats.MaxHealth = Mathf.Max(playerStats.CommonStats.MaxHealth, 1f);
-        playerStats.CommonStats.KnockbackResistance = Mathf.Max(playerStats.CommonStats.KnockbackResistance, 0.1f);
-        playerStats.CommonStats.MoveSpeed = Mathf.Max(playerStats.CommonStats.MoveSpeed, 0f);
-        playerStats.CommonStats.Damage = Mathf.Max(playerStats.CommonStats.Damage, 0f);
-        playerStats.CommonStats.AttackSpeed = Mathf.Max(playerStats.CommonStats.AttackSpeed, 0.1f);
-        playerStats.CommonStats.KnockbackStrength = Mathf.Max(playerStats.CommonStats.KnockbackStrength, 0f);
+        playerStats.MaxHealth = Mathf.Max(playerStats.MaxHealth, 1f);
+        playerStats.KnockbackResistance = Mathf.Max(playerStats.KnockbackResistance, 0.1f);
+        playerStats.MoveSpeed = Mathf.Max(playerStats.MoveSpeed, 0f);
+        playerStats.Damage = Mathf.Max(playerStats.Damage, 0f);
+        playerStats.AttackSpeed = Mathf.Max(playerStats.AttackSpeed, 0.1f);
+        playerStats.KnockbackStrength = Mathf.Max(playerStats.KnockbackStrength, 0f);
         playerStats.SwordSize = Mathf.Max(playerStats.SwordSize, 0f);
         playerStats.DashSpeed = Mathf.Max(playerStats.DashSpeed, 0f);
         playerStats.DashDistance = Mathf.Max(playerStats.DashDistance, 0f);
@@ -83,7 +83,7 @@ public class StatsManager : StaticInstance<StatsManager> {
         playerStats.MaxEssence = (int)Mathf.Max(playerStats.MaxEssence, 0f);
         playerStats.HandSize = (int)Mathf.Max(playerStats.HandSize, 0f);
 
-        print(playerStats.CommonStats.Damage);
+        print(playerStats.Damage);
 
         return playerStats;
     }

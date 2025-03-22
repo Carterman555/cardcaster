@@ -12,7 +12,7 @@ public class BounceMoveBehaviour : MonoBehaviour, IEffectable, IEnemyMovement {
 
     private Rigidbody2D rb;
     private Knockback knockback;
-    private IHasCommonStats hasStats;
+    private IHasStats hasStats;
 
     private Vector2 velocity;
 
@@ -37,7 +37,7 @@ public class BounceMoveBehaviour : MonoBehaviour, IEffectable, IEnemyMovement {
     private void Awake() {
         rb = GetComponent<Rigidbody2D>();
         knockback = GetComponent<Knockback>();
-        hasStats = GetComponent<IHasCommonStats>();
+        hasStats = GetComponent<IHasStats>();
     }
 
     private void OnEnable() {
@@ -61,7 +61,7 @@ public class BounceMoveBehaviour : MonoBehaviour, IEffectable, IEnemyMovement {
     }
 
     private void RandomizeDirection() {
-        velocity = Vector2.up * hasStats.CommonStats.MoveSpeed;
+        velocity = Vector2.up * hasStats.Stats.MoveSpeed;
 
         float randomDegrees = UnityEngine.Random.Range(0f, 360f);
         velocity.RotateDirection(randomDegrees);

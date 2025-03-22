@@ -5,13 +5,13 @@ using UnityEngine.AI;
 
 public class ChasePlayerBehavior : MonoBehaviour, IEffectable, IEnemyMovement {
 
-    private IHasCommonStats hasStats;
+    private IHasStats hasStats;
     private NavMeshAgent agent;
     private Knockback knockback;
 
     private void Awake() {
 
-        hasStats = GetComponent<IHasCommonStats>();
+        hasStats = GetComponent<IHasStats>();
 
         agent = GetComponent<NavMeshAgent>();
         agent.updateRotation = false;
@@ -27,7 +27,7 @@ public class ChasePlayerBehavior : MonoBehaviour, IEffectable, IEnemyMovement {
         }
 
         agent.isStopped = false;
-        agent.speed = hasStats.CommonStats.MoveSpeed;
+        agent.speed = hasStats.Stats.MoveSpeed;
         agent.SetDestination(PlayerMovement.Instance.CenterPos);
     }
 

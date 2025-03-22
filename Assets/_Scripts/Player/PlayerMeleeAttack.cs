@@ -7,7 +7,7 @@ using UnityEngine.Events;
 using UnityEngine.InputSystem;
 using UnityEngine.Rendering;
 
-public class PlayerMeleeAttack : StaticInstance<PlayerMeleeAttack>, ITargetAttacker, IHasCommonStats {
+public class PlayerMeleeAttack : StaticInstance<PlayerMeleeAttack>, ITargetAttacker, IHasStats {
 
     public event Action OnAttack;
     public event Action<GameObject> OnDamage_Target;
@@ -23,13 +23,13 @@ public class PlayerMeleeAttack : StaticInstance<PlayerMeleeAttack>, ITargetAttac
 
     private float attackTimer;
 
-    public PlayerStats PlayerStats => StatsManager.Instance.GetPlayerStats();
-    public CommonStats CommonStats => PlayerStats.CommonStats;
+    private PlayerStats stats => StatsManager.Instance.GetPlayerStats();
+    public Stats Stats => stats;
 
     private float GetAttackRadius() {
         float radiusMult = 1f;
         float radiusAdd = 0.5f;
-        return PlayerStats.SwordSize * radiusMult + radiusAdd;
+        return stats.SwordSize * radiusMult + radiusAdd;
     }
 
     protected override void Awake() {
@@ -48,7 +48,7 @@ public class PlayerMeleeAttack : StaticInstance<PlayerMeleeAttack>, ITargetAttac
         attackTimer += Time.deltaTime;
         if (!Helpers.IsMouseOverUI() &&
             attackInput.action.triggered &&
-            attackTimer > PlayerStats.CommonStats.AttackCooldown &&
+            attackTimer > stats.AttackCooldown &&
             !AttackDisabled()) {
 
             Attack();
@@ -75,7 +75,7 @@ public class PlayerMeleeAttack : StaticInstance<PlayerMeleeAttack>, ITargetAttac
         else {
             // deal damage
             Vector2 attackCenter = (Vector2)PlayerMovement.Instance.CenterPos + (GetAttackDirection() * GetAttackRadius());
-            targetCols = DamageDealer.DealCircleDamage(targetLayerMask, attackCenter, GetAttackRadius(), PlayerStats.CommonStats.Damage, PlayerStats.CommonStats.KnockbackStrength);
+            targetCols = DamageDealer.DealCircleDamage(targetLayerMask, attackCenter, GetAttackRadius(), stats.Damage, stats.KnockbackStrength);
 
             slashPrefab.Spawn(PlayerMovement.Instance.CenterPos, GetAttackDirection().DirectionToRotation(), Containers.Instance.Effects);
 
@@ -100,8 +100,8 @@ public class PlayerMeleeAttack : StaticInstance<PlayerMeleeAttack>, ITargetAttac
 
     public void ExternalAttack(GameObject target, Vector2 attackCenter, float damageMult = 1f, float knockbackStrengthMult = 1f) {
 
-        float damage = PlayerStats.CommonStats.Damage * damageMult;
-        float knockbackStrength = PlayerStats.CommonStats.KnockbackStrength * knockbackStrengthMult;
+        float damage = stats.Damage * damageMult;
+        float knockbackStrength = stats.KnockbackStrength * knockbackStrengthMult;
         DamageDealer.TryDealDamage(target, attackCenter, damage, knockbackStrength);
 
         // invoke events

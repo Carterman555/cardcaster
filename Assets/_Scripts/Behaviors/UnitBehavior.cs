@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class UnitBehavior {
     protected GameObject gameObject;
-    protected IHasCommonStats hasStats;
+    protected IHasStats hasStats;
 
     //private bool stopped;
 
-    protected UnitBehavior(GameObject gameObject, IHasCommonStats hasStats) {
+    protected UnitBehavior(GameObject gameObject, IHasStats hasStats) {
         this.gameObject = gameObject;
         this.hasStats = hasStats;
     }

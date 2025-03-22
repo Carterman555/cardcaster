@@ -4,10 +4,10 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class DeckOfDoomSplit : MonoBehaviour, IHasStats {
+public class DeckOfDoomSplit : MonoBehaviour, IHasCommonStats {
 
     [SerializeField] private ScriptableBoss scriptableBoss;
-    public Stats Stats => scriptableBoss.Stats;
+    public CommonStats CommonStats => scriptableBoss.Stats;
 
     [SerializeField] private Animator anim;
 

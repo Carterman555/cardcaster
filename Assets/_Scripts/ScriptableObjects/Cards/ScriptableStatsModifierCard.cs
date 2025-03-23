@@ -6,17 +6,17 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New Card", menuName = "Cards/Stats Modifier")]
 public class ScriptableStatsModifierCard : ScriptableAbilityCardBase {
 
-    [SerializeField] private PlayerStatsModifier statsModifier;
-    protected PlayerStatsModifier PlayerStatsModifier => statsModifier;
+    [SerializeField] private PlayerStatModifier[] statModifiers;
+    protected PlayerStatModifier[] PlayerStatsModifier => statModifiers;
 
     protected override void Play(Vector2 position) {
         base.Play(position);
-        StatsManager.Instance.AddPlayerStatsModifier(statsModifier);
+        StatsManager.Instance.AddPlayerStatModifiers(statModifiers);
     }
 
     public override void Stop() {
         base.Stop();
-        StatsManager.Instance.RemovePlayerStatsModifier(statsModifier);
+        StatsManager.Instance.RemovePlayerStatModifiers(statModifiers);
     }
 }
 

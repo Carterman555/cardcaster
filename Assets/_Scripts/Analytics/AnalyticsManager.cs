@@ -38,13 +38,13 @@ public class AnalyticsManager : MonoBehaviour {
 
         GameSceneManager.OnStartGame += SetStartTimes;
 
-        playerHealth.OnDeath += RecordDeathEvent;
+        playerHealth.DeathEventTrigger.AddListener(RecordDeathEvent);
 
         GameSceneManager.OnLevelComplete += RecordLevelCompleteEvent;
 
         Room.OnAnyRoomEnter_Room += OnRoomEnter;
         CheckEnemiesCleared.OnEnemiesCleared += RecordRoomEndEvent;
-        playerHealth.OnDeath += RecordRoomEndEvent;
+        playerHealth.DeathEventTrigger.AddListener(RecordRoomEndEvent);
 
         GameSceneManager.OnWinGame += RecordCompleteGameEvent;
     }
@@ -59,13 +59,13 @@ public class AnalyticsManager : MonoBehaviour {
 
         GameSceneManager.OnStartGame -= SetStartTimes;
 
-        playerHealth.OnDeath -= RecordDeathEvent;
+        playerHealth.DeathEventTrigger.RemoveListener(RecordDeathEvent);
 
         GameSceneManager.OnLevelComplete -= RecordLevelCompleteEvent;
 
         Room.OnAnyRoomEnter_Room -= OnRoomEnter;
         CheckEnemiesCleared.OnEnemiesCleared -= RecordRoomEndEvent;
-        playerHealth.OnDeath -= RecordRoomEndEvent;
+        playerHealth.DeathEventTrigger.RemoveListener(RecordRoomEndEvent);
 
         GameSceneManager.OnWinGame -= RecordCompleteGameEvent;
     }
@@ -82,7 +82,7 @@ public class AnalyticsManager : MonoBehaviour {
     }
 
 
-    [SerializeField] private Health playerHealth;
+    [SerializeField] private PlayerHealth playerHealth;
 
     private void RecordDeathEvent() {
         PlayerDeathEvent playerDeathEvent = new() {

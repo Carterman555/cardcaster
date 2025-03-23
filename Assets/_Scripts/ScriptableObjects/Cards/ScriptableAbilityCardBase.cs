@@ -14,15 +14,7 @@ public abstract class ScriptableAbilityCardBase : ScriptableCardBase {
 
     [FormerlySerializedAs("abilityStats")]
     [SerializeField] private AbilityStats baseStats;
-    private AbilityStats stats;
-    public AbilityStats Stats {
-        get {
-            if (stats == null) {
-                stats = baseStats.Clone();
-            }
-            return stats;
-        }
-    }
+    public AbilityStats Stats { get; private set; }
 
     [field: SerializeField] public bool IsPositional { get; private set; }
     [field: SerializeField] public bool IsModifiable { get; private set; } = true;
@@ -30,27 +22,17 @@ public abstract class ScriptableAbilityCardBase : ScriptableCardBase {
     [SerializeField] private CardType[] incompatibleAbilities;
     public CardType[] IncompatibleAbilities => incompatibleAbilities;
 
+    private Coroutine positioningCardCoroutine;
+
     public bool IsCompatibleWithModifier(ScriptableModifierCardBase modifier) {
-
         bool anyFlagsMatch = (abilityAttributes & modifier.AbilityAttributes) != 0;
-
-        // I don't know why I needed the commented out code below - delete if there are no bugs
-
-        // if the modifier effects a projectile, the ability must be a projectile for them to be compatible
-        //bool abilityIsProjectile = (abilityAttributes & AbilityAttribute.IsProjectile) != 0;
-        //bool modifierEffectsProjectile = (modifier.AbilityAttributes & AbilityAttribute.IsProjectile) != 0;
-
-        //bool projectileCheck = true;
-        //if (modifierEffectsProjectile) {
-        //    projectileCheck = abilityIsProjectile;
-        //}
-
-        //return anyFlagsMatch && projectileCheck;
-
         return anyFlagsMatch;
     }
 
-    private Coroutine positioningCardCoroutine;
+    public override void OnInstanceCreated() {
+        base.OnInstanceCreated();
+        positioningCardCoroutine = null;
+    }
 
     public virtual void OnStartPositioningCard(Transform cardTransform) {
         positioningCardCoroutine = AbilityManager.Instance.StartCoroutine(PositioningCard(cardTransform));
@@ -97,7 +79,7 @@ public abstract class ScriptableAbilityCardBase : ScriptableCardBase {
     protected override void Play(Vector2 position) {
         base.Play(position);
 
-        stats = baseStats.Clone();
+        Stats = baseStats;
 
         if (positioningCardCoroutine != null) {
             OnStopPositioningCard();
@@ -157,7 +139,27 @@ public abstract class ScriptableAbilityCardBase : ScriptableCardBase {
         AbilityManager.Instance.RemoveActiveAbility(this);
     }
 
-    public virtual void AddEffect(GameObject effectPrefab) {
+    public virtual void ApplyModifier(AbilityStats statsModifier, AbilityAttribute abilityAttributesToModify, GameObject effectPrefab) {
+        AbilityStats newStats = Stats;
+
+        if (abilityAttributesToModify.HasFlag(AbilityAttribute.DealsDamage)) {
+            newStats.Damage *= statsModifier.Damage.PercentToMult();
+            newStats.KnockbackStrength *= statsModifier.KnockbackStrength.PercentToMult();
+        }
+        if (abilityAttributesToModify.HasFlag(AbilityAttribute.HasArea)) {
+            newStats.AreaSize *= statsModifier.AreaSize.PercentToMult();
+        }
+        if (abilityAttributesToModify.HasFlag(AbilityAttribute.HasDuration)) {
+            newStats.Duration *= statsModifier.Duration.PercentToMult();
+        }
+        if (abilityAttributesToModify.HasFlag(AbilityAttribute.IsProjectile)) {
+            newStats.ProjectileSpeed *= statsModifier.ProjectileSpeed.PercentToMult();
+        }
+        if (abilityAttributesToModify.HasFlag(AbilityAttribute.HasCooldown)) {
+            newStats.Cooldown *= statsModifier.Cooldown.PercentToMult();
+        }
+
+        Stats = newStats;
     }
 
     private Coroutine durationStopCoroutine;
@@ -191,7 +193,7 @@ public enum AbilityAttribute {
 }
 
 [Serializable]
-public class AbilityStats {
+public struct AbilityStats {
     [ConditionalHideFlag("abilityAttributes", AbilityAttribute.DealsDamage)]
     public float Damage;
 
@@ -209,34 +211,4 @@ public class AbilityStats {
 
     [ConditionalHideFlag("abilityAttributes", AbilityAttribute.HasCooldown)]
     public float Cooldown;
-
-    public AbilityStats Clone() {
-        return new AbilityStats {
-            Damage = Damage,
-            KnockbackStrength = KnockbackStrength,
-            AreaSize = AreaSize,
-            Duration = Duration,
-            ProjectileSpeed = ProjectileSpeed,
-            Cooldown = Cooldown
-        };
-    }
-
-    public void ApplyModifier(AbilityStats statsModifierPercentage, AbilityAttribute abilityAttributesToModify) {
-        if (abilityAttributesToModify.HasFlag(AbilityAttribute.DealsDamage)) {
-            Damage *= statsModifierPercentage.Damage.PercentToMult();
-            KnockbackStrength *= statsModifierPercentage.KnockbackStrength.PercentToMult();
-        }
-        if (abilityAttributesToModify.HasFlag(AbilityAttribute.HasArea)) {
-            AreaSize *= statsModifierPercentage.AreaSize.PercentToMult();
-        }
-        if (abilityAttributesToModify.HasFlag(AbilityAttribute.HasDuration)) {
-            Duration *= statsModifierPercentage.Duration.PercentToMult();
-        }
-        if (abilityAttributesToModify.HasFlag(AbilityAttribute.IsProjectile)) {
-            ProjectileSpeed *= statsModifierPercentage.ProjectileSpeed.PercentToMult();
-        }
-        if (abilityAttributesToModify.HasFlag(AbilityAttribute.HasCooldown)) {
-            Cooldown *= statsModifierPercentage.Cooldown.PercentToMult();
-        }
-    }
 }

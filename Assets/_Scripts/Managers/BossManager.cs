@@ -16,14 +16,14 @@ public class BossManager : MonoBehaviour {
     [SerializeField] private BossHealthUI bossHealthUI;
 
     private MonoBehaviour boss;
-    private Health bossHealth;
+    private EnemyHealth bossHealth;
 
-    private Health playerHealth;
+    private PlayerHealth playerHealth;
 
     private Room room;
 
     private void Awake() {
-        playerHealth = PlayerMovement.Instance.GetComponent<Health>();
+        playerHealth = PlayerMovement.Instance.GetComponent<PlayerHealth>();
     }
 
     private void OnEnable() {
@@ -53,7 +53,7 @@ public class BossManager : MonoBehaviour {
 
         enterBossRoomPlayer.PlayFeedbacks();
 
-        playerHealth.OnDeath += OnPlayerDefeated;
+        playerHealth.DeathEventTrigger.AddListener(OnPlayerDefeated);
 
         OnStartBossFight?.Invoke();
     }
@@ -65,12 +65,12 @@ public class BossManager : MonoBehaviour {
 
         GameObject bossObject = chosenBoss.Prefab.Spawn(spawnPoint, Containers.Instance.Enemies);
         boss = bossObject.GetComponent<IBoss>() as MonoBehaviour;
-        bossHealth = boss.GetComponent<Health>();
+        bossHealth = boss.GetComponent<EnemyHealth>();
 
         //... setup the boss health bar
         bossHealthUI.Setup(chosenBoss.Name, bossHealth);
 
-        bossHealth.OnDeath += OnBossDefeated;
+        bossHealth.DeathEventTrigger.AddListener(OnBossDefeated);
     }
 
     public void OnEnterRoomPlayerCompleted() {
@@ -87,11 +87,11 @@ public class BossManager : MonoBehaviour {
         // hide healthbar
         FeedbackPlayerOld.PlayInReverse("BossHealthPopup");
 
-        bossHealth.OnDeath -= OnBossDefeated;
-        playerHealth.OnDeath -= OnPlayerDefeated;
+        bossHealth.DeathEventTrigger.RemoveListener(OnBossDefeated);
+        playerHealth.DeathEventTrigger.RemoveListener(OnPlayerDefeated);
 
-        Health[] enemyHealths = Containers.Instance.Enemies.GetComponentsInChildren<Health>();
-        foreach (Health health in enemyHealths) {
+        EnemyHealth[] enemyHealths = Containers.Instance.Enemies.GetComponentsInChildren<EnemyHealth>();
+        foreach (EnemyHealth health in enemyHealths) {
             health.Die();
         }
 
@@ -99,7 +99,7 @@ public class BossManager : MonoBehaviour {
     }
 
     private void OnPlayerDefeated() {
-        bossHealth.OnDeath -= OnBossDefeated;
-        playerHealth.OnDeath -= OnPlayerDefeated;
+        bossHealth.DeathEventTrigger.RemoveListener(OnBossDefeated);
+        playerHealth.DeathEventTrigger.RemoveListener(OnPlayerDefeated);
     }
 }

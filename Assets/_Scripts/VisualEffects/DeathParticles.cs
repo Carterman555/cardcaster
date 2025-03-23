@@ -3,10 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(Health))]
+[RequireComponent(typeof(EnemyHealth))]
 public class DeathParticles : MonoBehaviour {
 
-    private Health health;
+    private EnemyHealth health;
 
     [SerializeField] private ParticleSystem deathParticlesPrefab;
     [SerializeField] private Color deathParticlesColor;
@@ -20,17 +20,17 @@ public class DeathParticles : MonoBehaviour {
     [ConditionalHide("playSFX")] [SerializeField] private AudioClips deathSFX;
 
     private void Awake() {
-        health = GetComponent<Health>();
+        health = GetComponent<EnemyHealth>();
     }
 
     private void OnEnable() {
         if (playOnDeathEvent) {
-            health.OnDeath += GenerateParticles;
+            health.DeathEventTrigger.AddListener(GenerateParticles);
         }
     }
 
     private void OnDisable() {
-        health.OnDeath -= GenerateParticles;
+        health.DeathEventTrigger.RemoveListener(GenerateParticles);
     }
 
     public void GenerateParticles() {

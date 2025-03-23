@@ -51,9 +51,9 @@ public class ScriptableDaggerShootCard : ScriptableAbilityCardBase {
 
     #region Effects
 
-    public override void AddEffect(GameObject abilityEffectPrefab) {
-        base.AddEffect(abilityEffectPrefab);
-        abilityEffectPrefabs.Add(abilityEffectPrefab);
+    public override void ApplyModifier(AbilityStats statsModifier, AbilityAttribute abilityAttributesToModify, GameObject effectPrefab) {
+        base.ApplyModifier(statsModifier, abilityAttributesToModify, effectPrefab);
+        abilityEffectPrefabs.Add(effectPrefab);
     }
 
     // applies the effects set by the modifier

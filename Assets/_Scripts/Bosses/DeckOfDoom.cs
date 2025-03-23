@@ -21,7 +21,7 @@ public class DeckOfDoom : MonoBehaviour, IHasEnemyStats, IBoss {
 
     [SerializeField] private Animator anim;
 
-    private Health health;
+    private EnemyHealth health;
 
     [SerializeField] private bool debugState;
     [ConditionalHide("debugState")][SerializeField] private DeckOfDoomState stateToDebug;
@@ -29,7 +29,7 @@ public class DeckOfDoom : MonoBehaviour, IHasEnemyStats, IBoss {
     private void Awake() {
         InitializeDurationDict();
 
-        health = GetComponent<Health>();
+        health = GetComponent<EnemyHealth>();
         shootBehavior = GetComponent<SpiralShootBehaviour>();
         bounceMoveBehavior = GetComponent<BounceMoveBehaviour>();
     }
@@ -45,11 +45,11 @@ public class DeckOfDoom : MonoBehaviour, IHasEnemyStats, IBoss {
 
         stateTimer = 0f;
 
-        health.OnDeath += OnDeath;
+        health.DeathEventTrigger.AddListener(OnDeath);
     }
 
     private void OnDisable() {
-        health.OnDeath -= OnDeath;
+        health.DeathEventTrigger.RemoveListener(OnDeath);
     }
 
     private void Update() {
@@ -172,7 +172,7 @@ public class DeckOfDoom : MonoBehaviour, IHasEnemyStats, IBoss {
         splits = new DeckOfDoomSplit[numOfSplits];
         for (int i = 0; i < numOfSplits; i++) {
             DeckOfDoomSplit deckSplit = deckSplitPrefab.Spawn(transform.position, Containers.Instance.Enemies);
-            deckSplit.GetComponent<SharedHealth>().SetHealth(GetComponent<Health>());
+            deckSplit.GetComponent<SharedHealth>().SetHealth(GetComponent<EnemyHealth>());
 
             splits[i] = deckSplit;
         }

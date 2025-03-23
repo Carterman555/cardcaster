@@ -166,11 +166,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b436399d89bfd245b88204bdbc8ed47, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  returnOnDeath: 1
-  deathEventTrigger:
+  DeathEventTrigger:
     m_PersistentCalls:
       m_Calls: []
-  damagedEventTrigger:
+  DamagedEventTrigger:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 5262278598744334137}
@@ -185,6 +184,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  returnOnDeath: 1
   increaseHealthPerLevel: 1
   perLevelProportionToIncrease: 0.25
 --- !u!114 &5577381940195422070
@@ -225,7 +225,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7c98cfe1d221c544899de99d7a4c9eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnMaterial: {fileID: 2100000, guid: ecdd3156f007f3b448e4cbdbade57855, type: 2}
 --- !u!114 &-7604754236743832783
 MonoBehaviour:
   m_ObjectHideFlags: 0

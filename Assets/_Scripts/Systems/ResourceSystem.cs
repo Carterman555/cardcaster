@@ -2,17 +2,14 @@ using QFSW.QC;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEditor;
 using UnityEngine;
-using static Cinemachine.DocumentationSortingAttribute;
 
 /// <summary>
 /// One repository for all scriptable objects. Create your query methods here to keep your business logic clean.
 /// I make this a MonoBehaviour as sometimes I add some debug/development references in the editor.
 /// If you don't feel free to make this a standard class
 /// </summary>
-public class ResourceSystem : Singleton<ResourceSystem>
-{
+public class ResourceSystem : Singleton<ResourceSystem> {
     public List<ScriptableLevelLayout> LevelLayouts { get; private set; }
     public Dictionary<RoomType, ScriptableRoom[]> Rooms { get; private set; }
     public List<ScriptableEnemy> Enemies { get; private set; }
@@ -64,8 +61,8 @@ public class ResourceSystem : Singleton<ResourceSystem>
 
         // Use the actual type of the card for proper instantiation
         ScriptableCardBase instance = ScriptableObject.CreateInstance(original.GetType()) as ScriptableCardBase;
-
         JsonUtility.FromJsonOverwrite(JsonUtility.ToJson(original), instance);
+        instance.OnInstanceCreated();
         return instance;
     }
 
@@ -85,4 +82,4 @@ public class ResourceSystem : Singleton<ResourceSystem>
         //... convert to card type list in order to load and save the cards
         ES3.Save("UnlockedCardTypes", UnlockedCards);
     }
-}   
+}

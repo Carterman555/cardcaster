@@ -8,10 +8,10 @@ public class Enemy : MonoBehaviour, IHasEnemyStats, IEffectable {
 
     public static event Action<Enemy> OnAnySpawn;
 
-    protected Health health;
+    protected EnemyHealth health;
 
     protected virtual void Awake() {
-        health = GetComponent<Health>();
+        health = GetComponent<EnemyHealth>();
         moveBehaviours = GetComponents<IEnemyMovement>();
     }
 

@@ -28,7 +28,7 @@ public class ThunderGolem : MonoBehaviour, IHasEnemyStats, IBoss {
 
     [SerializeField] private Transform centerPoint;
 
-    private Health health;
+    private EnemyHealth health;
 
     [SerializeField] private bool debugState;
     [ConditionalHide("debugState")][SerializeField] private GolemState stateToDebug;
@@ -36,7 +36,7 @@ public class ThunderGolem : MonoBehaviour, IHasEnemyStats, IBoss {
     private void Awake() {
         InitializeDurationDict();
 
-        health = GetComponent<Health>();
+        health = GetComponent<EnemyHealth>();
     }
 
     private void InitializeDurationDict() {
@@ -50,11 +50,11 @@ public class ThunderGolem : MonoBehaviour, IHasEnemyStats, IBoss {
 
         ChangeState(GolemState.BetweenStates);
 
-        health.OnDeath += OnDeath;
+        health.DeathEventTrigger.AddListener(OnDeath);
     }
 
     private void OnDisable() {
-        health.OnDeath -= OnDeath;
+        health.DeathEventTrigger.RemoveListener(OnDeath);
     }
 
     private void Update() {

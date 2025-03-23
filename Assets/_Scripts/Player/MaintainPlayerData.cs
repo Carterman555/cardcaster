@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class MaintainPlayerData : MonoBehaviour {
 
-    [SerializeField] private Health health;
+    [SerializeField] private PlayerHealth health;
     private static float healthAmount;
     private static bool healthSet;
 

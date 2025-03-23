@@ -60,7 +60,7 @@ public class FleePlayerBehavior : MonoBehaviour, IEffectable, IEnemyMovement {
     private void OnDisable() {
 
         // if disabled by enemy script, not from dying
-        if (!GetComponent<Health>().Dead && !Helpers.GameStopping()) {
+        if (!GetComponent<EnemyHealth>().Dead && !Helpers.GameStopping()) {
             agent.isStopped = true;
         }
     }

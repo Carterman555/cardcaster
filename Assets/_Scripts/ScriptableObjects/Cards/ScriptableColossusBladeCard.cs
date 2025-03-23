@@ -67,8 +67,8 @@ public class ScriptableColossusBladeCard : ScriptableStatsModifierCard {
     private List<GameObject> effectPrefabs = new List<GameObject>();
     private List<GameObject> effectInstances = new List<GameObject>();
 
-    public override void AddEffect(GameObject effectPrefab) {
-        base.AddEffect(effectPrefab);
+    public override void ApplyModifier(AbilityStats statsModifier, AbilityAttribute abilityAttributesToModify, GameObject effectPrefab) {
+        base.ApplyModifier(statsModifier, abilityAttributesToModify, effectPrefab);
         effectPrefabs.Add(effectPrefab);
     }
 

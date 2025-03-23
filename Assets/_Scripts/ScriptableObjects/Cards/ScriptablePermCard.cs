@@ -9,8 +9,7 @@ public class ScriptablePermCard : ScriptableCardBase {
     [SerializeField] private int maxLevel;
     private int currentLevel;
 
-    [SerializeField] private PlayerStatsModifier statsModifierPerLevel;
-    private List<PlayerStatsModifier> appliedStatsModifiers;
+    [SerializeField] private PlayerStatModifier[] statModifiersPerLevel;
 
     public override void TryPlay(Vector2 position) {
         base.TryPlay(position);
@@ -20,18 +19,20 @@ public class ScriptablePermCard : ScriptableCardBase {
     // upgrade card
     protected override void Play(Vector2 position) {
         base.Play(position);
-
-        currentLevel++;
-        currentLevel = Mathf.Min(currentLevel, maxLevel);
-
-        if (currentLevel > appliedStatsModifiers.Count) {
-            StatsManager.Instance.AddPlayerStatsModifier(statsModifierPerLevel);
-            appliedStatsModifiers.Add(statsModifierPerLevel);
+        if (currentLevel < maxLevel) {
+            StatsManager.Instance.AddPlayerStatModifiers(statModifiersPerLevel);
+            currentLevel++;
         }
     }
 
     private void OnEnable() {
-        appliedStatsModifiers = new();
         currentLevel = 0;
+    }
+
+    private void OnRemoveCard() {
+        // remove all the stat modifiers it added
+        for (int i = 0; i < currentLevel; i++) {
+            StatsManager.Instance.RemovePlayerStatModifiers(statModifiersPerLevel);
+        }
     }
 }

@@ -40,11 +40,9 @@ public class ScriptableModifierCardBase : ScriptableCardBase {
         // apply stats modifier
         //... the attributes that both the ability card and modifier card share
         AbilityAttribute abilityAttributesToModify = card.AbilityAttributes & abilityAttributes;
-        card.Stats.ApplyModifier(StatsModifier, abilityAttributesToModify);
 
-        if (appliesEffect) {
-            card.AddEffect(effectPrefab);
-        }
+        if (!appliesEffect) effectPrefab = null;
+        card.ApplyModifier(StatsModifier, abilityAttributesToModify, effectPrefab);
     }
 }
 

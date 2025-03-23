@@ -109,8 +109,8 @@ public class ScriptableBoomerangSwordCard : ScriptableAbilityCardBase {
 
     private List<GameObject> abilityEffects = new();
 
-    public override void AddEffect(GameObject effectPrefab) {
-        base.AddEffect(effectPrefab);
+    public override void ApplyModifier(AbilityStats statsModifier, AbilityAttribute abilityAttributesToModify, GameObject effectPrefab) {
+        base.ApplyModifier(statsModifier, abilityAttributesToModify, effectPrefab);
         GameObject effect = effectPrefab.Spawn(ReferenceSystem.Instance.PlayerSword);
         abilityEffects.Add(effect);
     }

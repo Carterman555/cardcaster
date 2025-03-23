@@ -38,12 +38,6 @@ public struct PlayerStats {
 }
 
 [Serializable]
-public class PlayerStatsModifier {
-    public PlayerStatModifier[] StatModifiers;
-    public string ID;
-}
-
-[Serializable]
 public struct PlayerStatModifier {
     public PlayerStatType PlayerStatType;
     public ModifyType ModifyType;

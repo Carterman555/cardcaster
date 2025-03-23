@@ -10,7 +10,7 @@ public class IFrames : MonoBehaviour {
     [SerializeField] private float flashDelay;
     [SerializeField] private int flashAmount;
 
-    [SerializeField] private Health playerHealth;
+    [SerializeField] private PlayerHealth playerHealth;
     private PlayerFadeManager playerVisual;
 
     private Invincibility playerInvincibility;

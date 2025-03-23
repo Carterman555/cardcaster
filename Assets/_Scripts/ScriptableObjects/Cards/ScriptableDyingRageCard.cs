@@ -5,18 +5,18 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "DyingRageCard", menuName = "Cards/Dying Rage")]
 public class ScriptableDyingRageCard : ScriptableAbilityCardBase {
 
-    [SerializeField] private PlayerStatsModifier statsModifier;
+    [SerializeField] private PlayerStatModifier[] statModifiers;
 
     private bool applyingDamageModifier;
 
-    private Health playerHealth;
+    private PlayerHealth playerHealth;
 
     protected override void Play(Vector2 position) {
         base.Play(position);
 
         applyingDamageModifier = false;
 
-        playerHealth = PlayerMeleeAttack.Instance.GetComponent<Health>();
+        playerHealth = PlayerMeleeAttack.Instance.GetComponent<PlayerHealth>();
 
         playerHealth.OnHealthChanged_HealthProportion += UpdateDamage;
         UpdateDamage(playerHealth.GetHealthProportion());
@@ -28,7 +28,7 @@ public class ScriptableDyingRageCard : ScriptableAbilityCardBase {
         playerHealth.OnHealthChanged_HealthProportion -= UpdateDamage;
         
         if (applyingDamageModifier) {
-            StatsManager.Instance.RemovePlayerStatsModifier(statsModifier);
+            StatsManager.Instance.RemovePlayerStatModifiers(statModifiers);
             applyingDamageModifier = false;
         }
     }
@@ -40,11 +40,11 @@ public class ScriptableDyingRageCard : ScriptableAbilityCardBase {
         bool shouldApplyDamage = proportion < maxHealthProportionForDamage;
 
         if (shouldApplyDamage && !applyingDamageModifier) {
-            StatsManager.Instance.AddPlayerStatsModifier(statsModifier);
+            StatsManager.Instance.RemovePlayerStatModifiers(statModifiers);
             applyingDamageModifier = true;
         }
         else if (!shouldApplyDamage && applyingDamageModifier) {
-            StatsManager.Instance.RemovePlayerStatsModifier(statsModifier);
+            StatsManager.Instance.RemovePlayerStatModifiers(statModifiers);
             applyingDamageModifier = false;
         }
     }

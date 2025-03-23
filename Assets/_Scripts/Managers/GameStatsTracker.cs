@@ -10,17 +10,15 @@ public class GameStatsTracker : StaticInstance<GameStatsTracker> {
     private void OnEnable() {
         kills = 0;
 
-        Health.OnAnyDeath += TryIncrementKills;
+        EnemyHealth.OnAnyDeath += IncrementKills;
     }
 
     private void OnDisable() {
-        Health.OnAnyDeath -= TryIncrementKills;
+        EnemyHealth.OnAnyDeath -= IncrementKills;
     }
 
-    private void TryIncrementKills(Health health) {
-        if (health.TryGetComponent(out Enemy enemy)) {
-            kills++;
-        }
+    private void IncrementKills(EnemyHealth health) {
+        kills++;
     }
 
     #region Get Methods

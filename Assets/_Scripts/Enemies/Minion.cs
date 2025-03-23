@@ -30,11 +30,11 @@ public class Minion : Enemy {
     }
 
     private void Start() {
-        health.OnDeath += OnDeath;
+        health.DeathEventTrigger.AddListener(OnDeath);
     }
 
     private void OnDestroy() {
-        health.OnDeath -= OnDeath;
+        health.DeathEventTrigger.RemoveListener(OnDeath);
     }
 
     protected override void Update() {

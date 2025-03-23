@@ -96,7 +96,7 @@ public class Tutorial : MonoBehaviour {
     private void OnEnable() {
         startTutorialTrigger.OnEnterContact += TryStartTutorial;
 
-        PlayerMovement.Instance.GetComponent<Health>().OnDeathAnimComplete += OnPlayerDeath;
+        PlayerMovement.Instance.GetComponent<PlayerHealth>().OnDeathAnimComplete += OnPlayerDeath;
     }
     private void OnDisable() {
         startTutorialTrigger.OnEnterContact -= TryStartTutorial;
@@ -117,7 +117,7 @@ public class Tutorial : MonoBehaviour {
     }
 
     private void OnPlayerDeath() {
-        PlayerMovement.Instance.GetComponent<Health>().OnDeathAnimComplete -= OnPlayerDeath;
+        PlayerMovement.Instance.GetComponent<PlayerHealth>().OnDeathAnimComplete -= OnPlayerDeath;
         playerDied = true;
 
         DeckManager.Instance.ClearDeckAndEssence();
@@ -325,7 +325,7 @@ public class SpawnEnemyStep : BaseTutorialStep {
         Enemy.OnAnySpawn -= OnEnemySpawn;
 
         enemyInstance = enemy;
-        enemy.GetComponent<Health>().OnDeath += CompleteStep;
+        enemy.GetComponent<EnemyHealth>().DeathEventTrigger.AddListener(CompleteStep);
 
         //... so enemy doesn't invoke enemies cleared when killed because classes that take that event are not setup and ready
         //... to have it invoked
@@ -333,7 +333,7 @@ public class SpawnEnemyStep : BaseTutorialStep {
     }
 
     protected override void CompleteStep() {
-        enemyInstance.GetComponent<Health>().OnDeath -= CompleteStep;
+        enemyInstance.GetComponent<EnemyHealth>().DeathEventTrigger.RemoveListener(CompleteStep);
 
         base.CompleteStep();
     }
@@ -434,7 +434,7 @@ public class CombatModifyCardStep : BaseTutorialStep {
             Transform spawnPoint = enemySpawnPoints[enemyIndex];
             enemyInstances[enemyIndex] = scriptableEnemy.Prefab.Spawn(spawnPoint.position, Containers.Instance.Enemies);
 
-            enemyInstances[enemyIndex].GetComponent<Health>().OnDeath += TryCompleteStep;
+            enemyInstances[enemyIndex].GetComponent<EnemyHealth>().DeathEventTrigger.AddListener(TryCompleteStep);
 
             //... so enemy doesn't invoke enemies cleared when killed because classes that take that event are not setup and ready
             //... to have it invoked
@@ -443,11 +443,11 @@ public class CombatModifyCardStep : BaseTutorialStep {
     }
 
     private void TryCompleteStep() {
-        bool anyAlive = enemyInstances.Any(e => !e.GetComponent<Health>().Dead);
+        bool anyAlive = enemyInstances.Any(e => !e.GetComponent<EnemyHealth>().Dead);
 
         if (!anyAlive) {
             foreach (var enemyInstance in enemyInstances) {
-                enemyInstance.GetComponent<Health>().OnDeath -= TryCompleteStep;
+                enemyInstance.GetComponent<EnemyHealth>().DeathEventTrigger.RemoveListener(TryCompleteStep);
             }
             base.CompleteStep();
         }

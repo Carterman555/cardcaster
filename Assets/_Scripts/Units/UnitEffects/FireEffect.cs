@@ -4,14 +4,14 @@ using Unity.VisualScripting;
 using UnityEngine;
 
 public class FireEffect : UnitEffect {
-    private Health health;
+    private IDamagable damagable;
 
     private ParticleSystem fireParticles;
 
     public override void Setup(bool removeAfterDuration = false, float duration = 0) {
         base.Setup(removeAfterDuration, duration);
 
-        health = GetComponent<Health>();
+        damagable = GetComponent<IDamagable>();
         fireParticles = GetComponentInChildren<UnitEffectVisuals>().AddParticleEffect(AssetSystem.Instance.UnitFireParticles);
 
         StartCoroutine(Burn());
@@ -26,7 +26,7 @@ public class FireEffect : UnitEffect {
             yield return new WaitForSeconds(1f);
 
             float damagePerSecond = 2f;
-            health.Damage(damagePerSecond);
+            damagable.Damage(damagePerSecond);
         }
     }
 }

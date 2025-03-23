@@ -87,12 +87,12 @@ public class PlayerMeleeAttack : StaticInstance<PlayerMeleeAttack>, ITargetAttac
         OnAttack?.Invoke();
 
         // turn the targetCol array into health array
-        Health[] targetHealths = targetCols
-            ?.Select(t => t.GetComponent<Health>())
+        EnemyHealth[] targetHealths = targetCols
+            ?.Select(t => t.GetComponent<EnemyHealth>())
             .Where(health => health != null && !health.Dead)
-            .ToArray() ?? Array.Empty<Health>();
+            .ToArray() ?? Array.Empty<EnemyHealth>();
 
-        foreach (Health health in targetHealths) {
+        foreach (EnemyHealth health in targetHealths) {
             OnDamage_Target?.Invoke(health.gameObject);
         }
     }

@@ -34,7 +34,7 @@ public class ElectricChain : MonoBehaviour {
                     ElectricChain electricChain = col.AddComponent<ElectricChain>();
                     electricChain.Setup(damage, electricityLeft - 1);
 
-                    col.GetComponent<Health>().Damage(damage);
+                    col.GetComponent<EnemyHealth>().Damage(damage);
 
                     // only spread one on other enemy
                     break;

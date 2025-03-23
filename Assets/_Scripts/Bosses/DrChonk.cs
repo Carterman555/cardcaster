@@ -28,7 +28,7 @@ public class DrChonk : MonoBehaviour, IHasEnemyStats, IBoss {
     [ConditionalHide("debugState")] [SerializeField] private DrChonkState stateToDebug;
 
     private void Awake() {
-        health = GetComponent<Health>();
+        health = GetComponent<EnemyHealth>();
         bounceMoveBehaviour = GetComponent<BounceMoveBehaviour>();
         straightShootBehavior = GetComponent<StraightShootBehavior>();
 
@@ -201,7 +201,7 @@ public class DrChonk : MonoBehaviour, IHasEnemyStats, IBoss {
 
     private List<HealerMinion> healersSucking = new();
 
-    private Health health;
+    private EnemyHealth health;
 
     private void SubEatMinionMethods() {
         suckMinionTrigger.OnEnterContact_GO += TrySuckMinion;

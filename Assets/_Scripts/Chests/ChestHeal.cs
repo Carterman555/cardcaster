@@ -74,7 +74,7 @@ public class ChestHeal : MonoBehaviour, IChestItem {
         suckMovement.OnReachTarget -= ShrinkAndHeal;
 
         transform.DOScale(Vector2.zero, duration: 0.2f).SetEase(Ease.InSine).OnComplete(() => {
-            PlayerMeleeAttack.Instance.GetComponent<Health>().Heal(HealAmount);
+            PlayerMeleeAttack.Instance.GetComponent<PlayerHealth>().Heal(HealAmount);
 
             transform.DOKill();
             gameObject.ReturnToPool();

@@ -36,8 +36,8 @@ public class ScriptablePositionSpawnCard : ScriptableAbilityCardBase {
         abilityEffectPrefabs.Clear();
     }
 
-    public override void AddEffect(GameObject effectPrefab) {
-        base.AddEffect(effectPrefab);
+    public override void ApplyModifier(AbilityStats statsModifier, AbilityAttribute abilityAttributesToModify, GameObject effectPrefab) {
+        base.ApplyModifier(statsModifier, abilityAttributesToModify, effectPrefab);
         abilityEffectPrefabs.Add(effectPrefab);
     }
 

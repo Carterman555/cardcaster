@@ -8,6 +8,8 @@ public class BreakOnDamaged : MonoBehaviour, IDamagable {
     public event Action OnDamaged;
     public event Action<float, bool> OnDamaged_Damage_Shared;
 
+    public bool Dead { get; private set; }
+
     private Animator anim;
 
     [SerializeField] private ParticleSystem breakParticlesPrefab;
@@ -16,7 +18,13 @@ public class BreakOnDamaged : MonoBehaviour, IDamagable {
         anim = GetComponent<Animator>();
     }
 
+    private void OnEnable() {
+        Dead = false;
+    }
+
     public void Damage(float damage, bool shared = false) {
+        Dead = true;
+
         anim.SetTrigger("break");
 
         ParticleSystem particles = breakParticlesPrefab.Spawn(transform.position, Containers.Instance.Effects);

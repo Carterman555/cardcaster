@@ -8,9 +8,11 @@ public class SharedHealth : MonoBehaviour, IDamagable {
     public event Action OnDamaged;
     public event Action<float, bool> OnDamaged_Damage_Shared;
 
-    private Health health;
+    public bool Dead => health.Dead;
 
-    public void SetHealth(Health health) {
+    private EnemyHealth health;
+
+    public void SetHealth(EnemyHealth health) {
         this.health = health;
     }
 

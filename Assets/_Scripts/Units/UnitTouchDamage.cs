@@ -16,7 +16,7 @@ public class UnitTouchDamage : MonoBehaviour {
     [SerializeField] private float attackCooldown = 0.2f;
 
     [SerializeField] private bool hasHealth;
-    [ConditionalHide("hasHealth")] [SerializeField] private Health health;
+    [ConditionalHide("hasHealth")] [SerializeField] private EnemyHealth health;
     private bool dead;
 
     [SerializeField] private bool overrideDamage;
@@ -31,7 +31,7 @@ public class UnitTouchDamage : MonoBehaviour {
         tracker = GetComponent<TriggerContactTracker>();
 
         if (health) {
-            health = GetComponentInParent<Health>();
+            health = GetComponentInParent<EnemyHealth>();
         }
 
         hasStats = GetComponentInParent<IHasEnemyStats>();
@@ -42,7 +42,7 @@ public class UnitTouchDamage : MonoBehaviour {
         tracker.OnExitContact_GO += HandleLeaveContact;
 
         if (hasHealth) {
-            health.OnDeath += StopAllDamage;
+            health.DeathEventTrigger.AddListener(StopAllDamage);
         }
 
         activeCoroutines.Clear();
@@ -82,7 +82,7 @@ public class UnitTouchDamage : MonoBehaviour {
         dead = true;
 
         if (hasHealth) {
-            health.OnDeath -= StopAllDamage;
+            health.DeathEventTrigger.RemoveListener(StopAllDamage);
         }
     }
 

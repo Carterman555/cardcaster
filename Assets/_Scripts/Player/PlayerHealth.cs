@@ -3,21 +3,15 @@ using System;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class Health : MonoBehaviour, IDamagable {
+public class PlayerHealth : MonoBehaviour, IDamagable {
 
-    public static event Action<Health> OnAnyDeath;
-
-    public event Action OnDeath;
+    public UnityEvent DeathEventTrigger;
     public event Action OnDeathAnimComplete; // only invokes for player right now from the deathfeedbacks
-    public event Action<float> OnHealthChanged_HealthProportion;
 
+    public UnityEvent DamagedEventTrigger;
     public event Action OnDamaged;
     public event Action<float, bool> OnDamaged_Damage_Shared;
-
-    [SerializeField] private bool returnOnDeath = true;
-
-    [SerializeField] private UnityEvent deathEventTrigger;
-    [SerializeField] private UnityEvent damagedEventTrigger;
+    public event Action<float> OnHealthChanged_HealthProportion;
 
     private float maxHealth;
     private float health;
@@ -33,10 +27,6 @@ public class Health : MonoBehaviour, IDamagable {
 
     public bool Dead { get; private set; }
 
-    [SerializeField] private bool increaseHealthPerLevel;
-    [ConditionalHide("increaseHealthPerLevel")]
-    [SerializeField] private float perLevelProportionToIncrease;
-
     public bool IsInvincible() {
         return TryGetComponent(out Invincibility invincibility);
     }
@@ -46,14 +36,7 @@ public class Health : MonoBehaviour, IDamagable {
     }
 
     private void Awake() {
-        Stats stats = GetComponent<IHasEnemyStats>().EnemyStats;
-
-        maxHealth = stats.MaxHealth;
-        if (increaseHealthPerLevel) {
-            float proportionIncrease = perLevelProportionToIncrease * (GameSceneManager.Instance.GetLevel() - 1);
-            maxHealth = stats.MaxHealth + (stats.MaxHealth * proportionIncrease);
-        }
-
+        maxHealth = StatsManager.Instance.GetPlayerStats().MaxHealth;
         health = maxHealth;
     }
 
@@ -75,7 +58,7 @@ public class Health : MonoBehaviour, IDamagable {
         AudioManager.Instance.PlaySound(AudioManager.Instance.AudioClips.Damaged);
 
         OnHealthChanged_HealthProportion?.Invoke(health/maxHealth);
-        damagedEventTrigger?.Invoke();
+        DamagedEventTrigger?.Invoke();
 
         OnDamaged?.Invoke();
         OnDamaged_Damage_Shared?.Invoke(damage, shared);
@@ -95,13 +78,7 @@ public class Health : MonoBehaviour, IDamagable {
 
         Dead = true;
 
-        deathEventTrigger?.Invoke();
-        OnDeath?.Invoke();
-        OnAnyDeath?.Invoke(this);
-
-        if (returnOnDeath) {
-            gameObject.ReturnToPool();
-        }
+        DeathEventTrigger?.Invoke();
     }
 
     public void InvokeDeathAnimComplete() {

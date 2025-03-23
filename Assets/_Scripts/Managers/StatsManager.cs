@@ -2,22 +2,21 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using Unity.VisualScripting;
-using UnityEditor;
 using UnityEngine;
 using System.Reflection;
-
+using static Mono.CSharp.Parameter;
 
 public class StatsManager : StaticInstance<StatsManager> {
 
     [SerializeField] private ScriptablePlayer scriptablePlayer;
     private PlayerStats playerStats;
 
-    private List<PlayerStatsModifier> statsModifiers;
+    private List<PlayerStatModifier> statModifiers;
 
     protected override void Awake() {
         base.Awake();
-        statsModifiers = new();
+        statModifiers = new();
+        UpdatePlayerStats();
         print("Clear stat modifiers");
     }
 
@@ -26,53 +25,62 @@ public class StatsManager : StaticInstance<StatsManager> {
         hideFlags = HideFlags.NotEditable;
     }
 
-    public void AddPlayerStatsModifier(PlayerStatsModifier modifier) {
-
-        if (statsModifiers.Any(s => s.ID == modifier.ID)) {
-            Debug.LogError("Trying to add modifier that was already added!");
-            return;
+    public void AddPlayerStatModifiers(PlayerStatModifier[] modifiers) {
+        foreach (PlayerStatModifier modifier in modifiers) {
+            AddPlayerStatModifier(modifier);
         }
+    }
 
-        statsModifiers.Add(modifier);
-        modifier.ID = Guid.NewGuid().ToString();
-
+    public void AddPlayerStatModifier(PlayerStatModifier modifier) {
+        statModifiers.Add(modifier);
         UpdatePlayerStats();
     }
 
-    public void RemovePlayerStatsModifier(PlayerStatsModifier modifier) {
+    public void RemovePlayerStatModifiers(PlayerStatModifier[] modifiers) {
+        foreach (PlayerStatModifier modifier in modifiers) {
+            RemovePlayerStatModifier(modifier);
+        }
+    }
 
-        PlayerStatsModifier modifierToRemove = statsModifiers.FirstOrDefault(s => s.ID == modifier.ID);
-        if (modifierToRemove == null) {
-            Debug.LogError("Trying to remove modifier that is not in list!");
+    public void RemovePlayerStatModifier(PlayerStatModifier modifier) {
+        if (!TryFindPlayerStatModifier(modifier, out PlayerStatModifier modifierInList)) {
+            Debug.LogError("Trying to remove player stat modifer that is not in list!");
             return;
         }
 
-        statsModifiers.Remove(modifierToRemove);
-
+        statModifiers.Remove(modifierInList);
         UpdatePlayerStats();
     }
 
-    private readonly List<PlayerStatModifier> additiveModifiers = new();
-    private readonly List<PlayerStatModifier> multiplictiveModifiers = new();
+    private bool TryFindPlayerStatModifier(PlayerStatModifier originalModifier, out PlayerStatModifier modifierInList) {
+        foreach (PlayerStatModifier modifier in statModifiers) {
+            if (modifier.PlayerStatType == originalModifier.PlayerStatType &&
+                modifier.ModifyType == originalModifier.ModifyType &&
+                modifier.Value == originalModifier.Value) {
+                modifierInList = modifier;
+                return true;
+            }
+        }
+
+        modifierInList = default;
+        return false;
+    }
 
     private void UpdatePlayerStats() {
 
-        additiveModifiers.Clear();
-        multiplictiveModifiers.Clear();
-
-        foreach (PlayerStatsModifier playerStatsModifier in statsModifiers) {
-            additiveModifiers.AddRange(playerStatsModifier.StatModifiers.Where(m => m.ModifyType == ModifyType.Additive));
-            multiplictiveModifiers.AddRange(playerStatsModifier.StatModifiers.Where(m => m.ModifyType == ModifyType.Multiplicative));
-        }
-
         playerStats = scriptablePlayer.PlayerStats;
 
-        foreach (PlayerStatModifier statModifier in additiveModifiers) {
-            ModifyStat(playerStats, statModifier.PlayerStatType, statModifier.ModifyType, statModifier.Value);
+        // two forloops to add additive modifiers first
+        foreach (PlayerStatModifier statModifier in statModifiers) {
+            if (statModifier.ModifyType == ModifyType.Additive) {
+                ModifyStat(playerStats, statModifier.PlayerStatType, statModifier.ModifyType, statModifier.Value);
+            }
         }
 
-        foreach (PlayerStatModifier statModifier in multiplictiveModifiers) {
-            ModifyStat(playerStats, statModifier.PlayerStatType, statModifier.ModifyType, statModifier.Value);
+        foreach (PlayerStatModifier statModifier in statModifiers) {
+            if (statModifier.ModifyType == ModifyType.Multiplicative) {
+                ModifyStat(playerStats, statModifier.PlayerStatType, statModifier.ModifyType, statModifier.Value);
+            }
         }
 
         playerStats.MaxHealth = Mathf.Max(playerStats.MaxHealth, 1f);
@@ -99,7 +107,6 @@ public class StatsManager : StaticInstance<StatsManager> {
     public PlayerStats GetPlayerStats() {
         return playerStats;
     }
-
 
     public void ModifyStat(PlayerStats playerStats, PlayerStatType playerStatType, ModifyType modifyType, float value) {
         Type type = typeof(PlayerStats);

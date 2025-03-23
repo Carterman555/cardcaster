@@ -42,7 +42,11 @@ public class Knockback : MonoBehaviour {
 
     public void ApplyKnockback(Vector2 direction, float strength) {
 
-        if (TryGetComponent(out Health health) && health.IsInvincible()) {
+        if (TryGetComponent(out EnemyHealth enemyHealth) && enemyHealth.IsInvincible()) {
+            return;
+        }
+
+        if (TryGetComponent(out PlayerHealth playerHealth) && playerHealth.IsInvincible()) {
             return;
         }
 

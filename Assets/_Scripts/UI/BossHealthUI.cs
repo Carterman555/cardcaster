@@ -10,9 +10,9 @@ public class BossHealthUI : MonoBehaviour {
     [SerializeField] private TextMeshProUGUI bossNameText;
     [SerializeField] private Image healthFill;
 
-    private Health bossHealth;
+    private EnemyHealth bossHealth;
 
-    public void Setup(string bossName, Health bossHealth) {
+    public void Setup(string bossName, EnemyHealth bossHealth) {
         this.bossHealth = bossHealth;
 
         bossNameText.text = bossName;

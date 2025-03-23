@@ -6,16 +6,16 @@ using UnityEngine;
 
 public class DropEssenceOnDeath : MonoBehaviour {
 
-    private Health health;
+    private EnemyHealth health;
 
     private void Awake() {
-        health = GetComponent<Health>();
+        health = GetComponent<EnemyHealth>();
 
-        health.OnDeath += DropEssence;
+        health.DeathEventTrigger.AddListener(DropEssence);
     }
 
     private void OnDestroy() {
-        health.OnDeath -= DropEssence;
+        health.DeathEventTrigger.RemoveListener(DropEssence);
     }
 
     [SerializeField] private GameObject essencePrefab;

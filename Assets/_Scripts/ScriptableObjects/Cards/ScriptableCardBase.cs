@@ -37,6 +37,9 @@ public abstract class ScriptableCardBase : ScriptableObject, ICollectable {
     [SerializeField] private bool startUnlocked;
     public bool StartUnlocked => startUnlocked;
 
+    public virtual void OnInstanceCreated() {
+    }
+
     public virtual void TryPlay(Vector2 position) {
     }
 

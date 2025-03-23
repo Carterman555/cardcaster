@@ -6,10 +6,10 @@ using UnityEngine;
 
 public class DropEssenceOnDamaged : MonoBehaviour {
 
-    private Health health;
+    private EnemyHealth health;
 
     private void Awake() {
-        health = GetComponent<Health>();
+        health = GetComponent<EnemyHealth>();
 
         health.OnDamaged_Damage_Shared += DropEssence;
 

@@ -12,13 +12,15 @@ public class DamageOnContact : MonoBehaviour, ITargetAttacker {
 
     private float damage;
     private float knockbackStrength;
+    private bool canCrit;
 
     [SerializeField] private bool piercing;
     private bool canDamage;
 
-    public void Setup(float damage, float knockbackStrength) {
+    public void Setup(float damage, float knockbackStrength, bool canCrit = false) {
         this.damage = damage;
         this.knockbackStrength = knockbackStrength;
+        this.canCrit = canCrit;
 
         canDamage = true;
     }
@@ -35,7 +37,8 @@ public class DamageOnContact : MonoBehaviour, ITargetAttacker {
                 collision.gameObject,
                 transform.position,
                 damage,
-                knockbackStrength);
+                knockbackStrength,
+                canCrit);
 
             if (dealtDamage) {
                 OnDamage_Target?.Invoke(collision.gameObject);

@@ -21,9 +21,7 @@ MonoBehaviour:
   stackType: 0
   startUnlocked: 1
   maxLevel: 3
-  statsModifierPerLevel:
-    StatModifiers:
-    - PlayerStatType: 3
-      ModifyType: 0
-      Value: 1
-    ID: 
+  statModifiersPerLevel:
+  - PlayerStatType: 2
+    ModifyType: 0
+    Value: 1

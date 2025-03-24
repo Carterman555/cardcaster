@@ -51,7 +51,7 @@ public class ScriptableSwordSwingCard : ScriptableAbilityCardBase {
             yield return null;
 
             // update collider size to match sword size
-            float swordSize = StatsManager.Instance.GetPlayerStats().SwordSize;
+            float swordSize = StatsManager.Instance.PlayerStats.SwordSize;
             instanceCol.size = new Vector2(prefabCol.size.x * Stats.AreaSize * swordSize, prefabCol.size.y);
 
             // increase/decrease the offset by half of what the size was changed by

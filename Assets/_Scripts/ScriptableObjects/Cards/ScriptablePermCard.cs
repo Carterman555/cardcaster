@@ -25,11 +25,14 @@ public class ScriptablePermCard : ScriptableCardBase {
         }
     }
 
-    private void OnEnable() {
+    public override void OnInstanceCreated() {
+        base.OnInstanceCreated();
         currentLevel = 0;
     }
 
-    private void OnRemoveCard() {
+    public override void OnRemoved() {
+        base.OnRemoved();
+
         // remove all the stat modifiers it added
         for (int i = 0; i < currentLevel; i++) {
             StatsManager.Instance.RemovePlayerStatModifiers(statModifiersPerLevel);

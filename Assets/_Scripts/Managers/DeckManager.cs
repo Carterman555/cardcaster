@@ -179,12 +179,15 @@ public class DeckManager : Singleton<DeckManager> {
 
     public void TrashCard(CardLocation cardLocation, int cardIndex) {
         if (cardLocation == CardLocation.Deck) {
+            cardsInDeck[cardIndex].OnRemoved();
             cardsInDeck.RemoveAt(cardIndex);
         }
         else if (cardLocation == CardLocation.Discard) {
+            cardsInDiscard[cardIndex].OnRemoved();
             cardsInDiscard.RemoveAt(cardIndex);
         }
         else if (cardLocation == CardLocation.Hand) {
+            cardsInHand[cardIndex].OnRemoved();
             TryDrawCard(cardIndex);
             OnTrashCardInHand?.Invoke();
         }
@@ -192,12 +195,15 @@ public class DeckManager : Singleton<DeckManager> {
 
     public void ReplaceCard(CardLocation cardLocation, int cardIndex, ScriptableCardBase newCard) {
         if (cardLocation == CardLocation.Deck) {
+            cardsInDeck[cardIndex].OnRemoved();
             cardsInDeck[cardIndex] = newCard;
         }
         else if (cardLocation == CardLocation.Discard) {
+            cardsInDiscard[cardIndex].OnRemoved();
             cardsInDiscard[cardIndex] = newCard;
         }
         else if (cardLocation == CardLocation.Hand) {
+            cardsInHand[cardIndex].OnRemoved();
             cardsInHand[cardIndex] = newCard;
             OnReplaceCardInHand?.Invoke();
         }

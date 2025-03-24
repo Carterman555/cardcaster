@@ -15,7 +15,8 @@ public struct PlayerStats {
 
     public float MoveSpeed;
 
-    public float Damage;
+    public float BaseDamage;
+    public float Damage => BaseDamage * AllDamageMult;
     public float AttackSpeed;
     public float AttackCooldown => 1 / AttackSpeed;
     public float KnockbackStrength;
@@ -23,7 +24,8 @@ public struct PlayerStats {
 
     public float DashSpeed;
     public float DashDistance;
-    public float DashAttackDamage;
+    public float BaseDashAttackDamage;
+    public float DashAttackDamage => BaseDashAttackDamage * AllDamageMult;
     public float DashRechargeSpeed;
     public float DashCooldown => 1 / DashRechargeSpeed;
 

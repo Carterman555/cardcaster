@@ -15,7 +15,7 @@ public class PlayerMovement : StaticInstance<PlayerMovement>, IChangesFacing, IH
 
     private Vector2 moveDirection;
 
-    public PlayerStats PlayerStats => StatsManager.Instance.GetPlayerStats();
+    public PlayerStats PlayerStats => StatsManager.Instance.PlayerStats;
 
     [SerializeField] private Animator anim;
 
@@ -57,7 +57,7 @@ public class PlayerMovement : StaticInstance<PlayerMovement>, IChangesFacing, IH
         moveDirection = moveInput.action.ReadValue<Vector2>();
 
         dashTimer += Time.deltaTime;
-        if (dashAction.action.triggered && !isDashing && dashTimer > dashCooldown && !knockback.IsApplyingKnockback() && moveDirection.magnitude > 0f) {
+        if (dashAction.action.triggered && !isDashing && dashTimer > PlayerStats.DashCooldown && !knockback.IsApplyingKnockback() && moveDirection.magnitude > 0f) {
             StartCoroutine(Dash());
         }
 
@@ -92,7 +92,6 @@ public class PlayerMovement : StaticInstance<PlayerMovement>, IChangesFacing, IH
 
     [Header("Dash")]
     [SerializeField] private InputActionReference dashAction;
-    [SerializeField] private float dashCooldown;
     private float dashTimer;
 
     private PlayerFade dashFade;

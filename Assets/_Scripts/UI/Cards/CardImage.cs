@@ -9,6 +9,7 @@ public class CardImage : MonoBehaviour {
     [SerializeField] private Image cardTypeImage;
     [SerializeField] private Color abilityTypeColor;
     [SerializeField] private Color modifierTypeColor;
+    [SerializeField] private Color persisentTypeColor;
 
     [SerializeField] private Image iconImage;
     [SerializeField] private Image[] essenceImages;
@@ -17,15 +18,28 @@ public class CardImage : MonoBehaviour {
     [SerializeField] private TextMeshProUGUI typeText;
     [SerializeField] private TextMeshProUGUI descriptionText;
 
+    [SerializeField] private UpgradeSlots upgradeSlots;
+
     public void Setup(ScriptableCardBase card) {
 
         if (card is ScriptableAbilityCardBase) {
+            upgradeSlots.gameObject.SetActive(false);
+
             cardTypeImage.color = abilityTypeColor;
             typeText.text = "Ability";
         }
         else if (card is ScriptableModifierCardBase) {
+            upgradeSlots.gameObject.SetActive(false);
+
             cardTypeImage.color = modifierTypeColor;
             typeText.text = "Modifier";
+        }
+        else if (card is ScriptablePersistentCard persistentCard) {
+            upgradeSlots.gameObject.SetActive(true);
+            upgradeSlots.Setup(persistentCard);
+
+            cardTypeImage.color = persisentTypeColor;
+            typeText.text = "Persistent";
         }
 
         iconImage.sprite = card.Sprite;

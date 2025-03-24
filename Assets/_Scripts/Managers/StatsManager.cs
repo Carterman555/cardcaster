@@ -83,7 +83,7 @@ public class StatsManager : StaticInstance<StatsManager> {
         playerStats.MaxHealth = Mathf.Max(playerStats.MaxHealth, 1f);
         playerStats.KnockbackResistance = Mathf.Max(playerStats.KnockbackResistance, 0.1f);
         playerStats.MoveSpeed = Mathf.Max(playerStats.MoveSpeed, 0f);
-        playerStats.BaseDamage = Mathf.Max(playerStats.BaseDamage, 0f);
+        playerStats.BaseBasicAttackDamage = Mathf.Max(playerStats.BaseBasicAttackDamage, 0f);
         playerStats.AttackSpeed = Mathf.Max(playerStats.AttackSpeed, 0.1f);
         playerStats.KnockbackStrength = Mathf.Max(playerStats.KnockbackStrength, 0f);
         playerStats.SwordSize = Mathf.Max(playerStats.SwordSize, 0f);
@@ -93,7 +93,7 @@ public class StatsManager : StaticInstance<StatsManager> {
         playerStats.DashRechargeSpeed = Mathf.Max(playerStats.DashRechargeSpeed, 0f);
         playerStats.CritChance = Mathf.Clamp(playerStats.CritChance, 0f, 1f);
         playerStats.CritDamageMult = Mathf.Max(playerStats.CritDamageMult, 0f);
-        playerStats.ProjectileDamageMult = Mathf.Max(playerStats.ProjectileDamageMult, 0f);
+        playerStats.BaseProjectileDamageMult = Mathf.Max(playerStats.BaseProjectileDamageMult, 0f);
         playerStats.AllDamageMult = Mathf.Max(playerStats.AllDamageMult, 0f);
         playerStats.MaxEssence = (int)Mathf.Max(playerStats.MaxEssence, 0f);
         playerStats.HandSize = (int)Mathf.Max(playerStats.HandSize, 0f);
@@ -111,7 +111,7 @@ public class StatsManager : StaticInstance<StatsManager> {
                 ApplyModification(ref playerStats.MoveSpeed, modifyType, value);
                 break;
             case PlayerStatType.Damage:
-                ApplyModification(ref playerStats.BaseDamage, modifyType, value);
+                ApplyModification(ref playerStats.BaseBasicAttackDamage, modifyType, value);
                 break;
             case PlayerStatType.AttackSpeed:
                 ApplyModification(ref playerStats.AttackSpeed, modifyType, value);
@@ -141,7 +141,7 @@ public class StatsManager : StaticInstance<StatsManager> {
                 ApplyModification(ref playerStats.CritDamageMult, modifyType, value);
                 break;
             case PlayerStatType.ProjectileDamageMult:
-                ApplyModification(ref playerStats.ProjectileDamageMult, modifyType, value);
+                ApplyModification(ref playerStats.BaseProjectileDamageMult, modifyType, value);
                 break;
             case PlayerStatType.AllDamageMult:
                 ApplyModification(ref playerStats.AllDamageMult, modifyType, value);

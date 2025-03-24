@@ -74,7 +74,7 @@ public class PlayerMeleeAttack : StaticInstance<PlayerMeleeAttack>, ITargetAttac
         else {
             // deal damage
             Vector2 attackCenter = (Vector2)PlayerMovement.Instance.CenterPos + (GetAttackDirection() * GetAttackRadius());
-            targetCols = DamageDealer.DealCircleDamage(targetLayerMask, attackCenter, GetAttackRadius(), Stats.Damage, Stats.KnockbackStrength, canCrit: true);
+            targetCols = DamageDealer.DealCircleDamage(targetLayerMask, attackCenter, GetAttackRadius(), Stats.BasicAttackDamage, Stats.KnockbackStrength, canCrit: true);
 
             slashPrefab.Spawn(PlayerMovement.Instance.CenterPos, GetAttackDirection().DirectionToRotation(), Containers.Instance.Effects);
 
@@ -99,7 +99,7 @@ public class PlayerMeleeAttack : StaticInstance<PlayerMeleeAttack>, ITargetAttac
 
     public void ExternalAttack(GameObject target, Vector2 attackCenter, float damageMult = 1f, float knockbackStrengthMult = 1f) {
 
-        float damage = Stats.Damage * damageMult;
+        float damage = Stats.BasicAttackDamage * damageMult;
         float knockbackStrength = Stats.KnockbackStrength * knockbackStrengthMult;
         DamageDealer.TryDealDamage(target, attackCenter, damage, knockbackStrength, canCrit: true);
 

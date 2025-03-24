@@ -57,6 +57,8 @@ public class CardsUIManager : StaticInstance<CardsUIManager> {
 
     private void OnCardUsed(HandCard cardButton) {
 
+        print("OnCardUsed");
+
         // return the card button
         cardButton.gameObject.ReturnToPool();
         handCards.Remove(cardButton);

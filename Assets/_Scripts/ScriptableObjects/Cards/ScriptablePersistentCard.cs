@@ -1,12 +1,16 @@
-using Mono.CSharp;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "NewPermCard", menuName = "Cards/Perm Card")]
-public class ScriptablePermCard : ScriptableCardBase {
+[CreateAssetMenu(fileName = "NewPersistentCard", menuName = "Cards/Persistent Card")]
+public class ScriptablePersistentCard : ScriptableCardBase {
+
+    public event Action<int> OnLevelUp;
 
     [SerializeField] private int maxLevel;
+    public int MaxLevel => maxLevel;
+
     private int currentLevel;
 
     [SerializeField] private PlayerStatModifier[] statModifiersPerLevel;
@@ -22,6 +26,7 @@ public class ScriptablePermCard : ScriptableCardBase {
         if (currentLevel < maxLevel) {
             StatsManager.Instance.AddPlayerStatModifiers(statModifiersPerLevel);
             currentLevel++;
+            OnLevelUp?.Invoke(currentLevel);
         }
     }
 
@@ -32,6 +37,9 @@ public class ScriptablePermCard : ScriptableCardBase {
 
     public override void OnRemoved() {
         base.OnRemoved();
+
+        // unsub from all things that subbed to it
+        OnLevelUp = null;
 
         // remove all the stat modifiers it added
         for (int i = 0; i < currentLevel; i++) {

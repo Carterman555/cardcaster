@@ -14,6 +14,9 @@ public class DamageDealer {
 
             damagable.Damage(damage);
             dealtDamage = true;
+
+            Debug.Log($"Damage: {damage}, All Mult: {StatsManager.Instance.PlayerStats.AllDamageMult}, " +
+                $"Projectile Mult: {StatsManager.Instance.PlayerStats.ProjectileDamageMult}");
         }
         if (target.TryGetComponent(out Knockback knockback)) {
             Vector2 toEnemyDirection = (Vector2)target.transform.position - attackerPos;

@@ -22,6 +22,7 @@ public class DebugManager : StaticInstance<DebugManager> {
         }
 
         GiveStartingCards();
+        ApplyPlayerStatModifiers();
     }
 
     private void OnEnable() {
@@ -124,16 +125,9 @@ public class DebugManager : StaticInstance<DebugManager> {
         PlayerMovement.Instance.transform.position = bossRoom.GetBossSpawnPoint().position + offset;
     }
 
-    [SerializeField] private SpriteRenderer circle;
+    [SerializeField] private PlayerStatModifier[] startingPlayerStatModifiers;
 
-    [Command]
-    private void SpawnCircles() {
-        for (int i = 0; i < 100; i++) {
-            Vector2 position = new RoomPositionHelper().GetRandomRoomPos(PlayerMovement.Instance.CenterPos,
-             avoidRadius: 2f,
-             entranceAvoidDistance: 3f);
-            circle.Spawn(position);
-        }
+    private void ApplyPlayerStatModifiers() {
+        StatsManager.Instance.AddPlayerStatModifiers(startingPlayerStatModifiers);
     }
-
 }

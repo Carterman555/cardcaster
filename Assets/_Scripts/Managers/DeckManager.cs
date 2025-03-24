@@ -127,23 +127,23 @@ public class DeckManager : Singleton<DeckManager> {
             availableCards.Remove(choosenCardType);
             GainCard(ResourceSystem.Instance.GetCardInstance(choosenCardType));
         }
+
+        // all the cards were gained to discard so put them in the deck
+        ShuffleDiscardToDeck();
     }
 
-    public void OnUseAbilityCard(int indexInHand) {
+    public void OnUseCard(int indexInHand, bool modifierCard = false) {
+
         ChangeEssenceAmount(-cardsInHand[indexInHand].Cost);
-        DiscardCardInHand(indexInHand);
-        OnUseCard(indexInHand);
-    }
 
-    public void OnUseModifierCard(int indexInHand) {
-        ChangeEssenceAmount(-cardsInHand[indexInHand].Cost);
-        StackCardInHand(indexInHand);
-        OnUseCard(indexInHand);
-    }
-
-    private void OnUseCard(int indexInHand) {
-
-        // index in hand might be messed up - think about how it could be messed up
+        if (modifierCard) {
+            cardsInModifierStack.Add(cardsInHand[indexInHand]);
+            cardsInHand[indexInHand] = null;
+        }
+        else { // discard card
+            cardsInDiscard.Add(cardsInHand[indexInHand]);
+            cardsInHand[indexInHand] = null;
+        }
 
         TryDrawCard(indexInHand);
         TryDrawOtherCards();
@@ -207,16 +207,6 @@ public class DeckManager : Singleton<DeckManager> {
             cardsInHand[cardIndex] = newCard;
             OnReplaceCardInHand?.Invoke();
         }
-    }
-
-    private void DiscardCardInHand(int indexInHand) {
-        cardsInDiscard.Add(cardsInHand[indexInHand]);
-        cardsInHand[indexInHand] = null;
-    }
-
-    private void StackCardInHand(int indexInHand) {
-        cardsInModifierStack.Add(cardsInHand[indexInHand]);
-        cardsInHand[indexInHand] = null;
     }
 
     private void RemoveHandGaps() {

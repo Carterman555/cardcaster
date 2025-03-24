@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1c5cef38b1b4f164687a2ea52eb40d82, type: 3}
-  m_Name: MaxHealthPermCard
+  m_Name: MaxHealthPersistentCard
   m_EditorClassIdentifier: 
   cardType: 21
   description: 

@@ -204,12 +204,8 @@ public class HandCard : MonoBehaviour {
 
         useCardPlayer.PlayFeedbacks();
 
-        if (card is ScriptableAbilityCardBase) {
-            DeckManager.Instance.OnUseAbilityCard(cardIndex);
-        }
-        else if (card is ScriptableModifierCardBase modifier) {
-            DeckManager.Instance.OnUseModifierCard(cardIndex);
-        }
+        bool stackCard = card is ScriptableModifierCardBase;
+        DeckManager.Instance.OnUseCard(cardIndex, stackCard);
 
         AudioManager.Instance.PlaySound(AudioManager.Instance.AudioClips.PlayCard, uiSound: false);
     }

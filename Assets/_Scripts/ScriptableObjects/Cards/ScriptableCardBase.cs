@@ -80,7 +80,7 @@ public enum CardType {
     Sustain,
     ThrowingKnife,
 
-    MaxHealthPerm,
+    MaxHealthPersistent,
 }
 
 // what to do when play again while already playing

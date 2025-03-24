@@ -19,7 +19,7 @@ public class PlayerDashAttack : MonoBehaviour {
 
     
 
-    private PlayerStats Stats => StatsManager.Instance.GetPlayerStats();
+    private PlayerStats Stats => StatsManager.Instance.PlayerStats;
 
     private void Awake() {
         playerMovement = GetComponent<PlayerMovement>();
@@ -49,7 +49,7 @@ public class PlayerDashAttack : MonoBehaviour {
         Collider2D[] cols = DamageDealer.DealCapsuleDamage(
             targetLayerMask,
             pos, attackSize, angle,
-            Stats.DashAttackDamage, Stats.KnockbackStrength);
+            Stats.DashAttackDamage, Stats.KnockbackStrength, canCrit: true);
 
         slashPrefab.Spawn(playerMovement.CenterPos, attackDirection.DirectionToRotation(), Containers.Instance.Effects);
 

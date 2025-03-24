@@ -31,9 +31,7 @@ MonoBehaviour:
   <IsPositional>k__BackingField: 0
   <IsModifiable>k__BackingField: 0
   incompatibleAbilities: 
-  statsModifier:
-    StatModifiers:
-    - PlayerStatType: 14
-      ModifyType: 1
-      Value: 2
-    Id: 750c89b4-dcda-4806-9f52-8a47e5c1b829
+  statModifiers:
+  - PlayerStatType: 14
+    ModifyType: 1
+    Value: 2

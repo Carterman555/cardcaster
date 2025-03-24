@@ -16,17 +16,17 @@ MonoBehaviour:
     MaxHealth: 20
     KnockbackResistance: 1
     MoveSpeed: 6
-    Damage: 5
+    BaseDamage: 0
     AttackSpeed: 3
     KnockbackStrength: 1
     SwordSize: 1
     DashSpeed: 15
     DashDistance: 4
-    DashAttackDamage: 0
-    DashRechargeSpeed: 0
-    CritChance: 0
-    CritDamageMult: 0
-    ProjectileDamageMult: 0
-    AllDamageMult: 0
-    MaxEssence: 0
-    HandSize: 0
+    BaseDashAttackDamage: 0
+    DashRechargeSpeed: 2
+    CritChance: 0.1
+    CritDamageMult: 2
+    ProjectileDamageMult: 1
+    AllDamageMult: 1
+    MaxEssence: 6
+    HandSize: 3

@@ -47,7 +47,7 @@ public class ScriptableBoomerangSwordCard : ScriptableAbilityCardBase {
         BoxCollider2D instanceCol = playerTouchDamage.GetComponent<BoxCollider2D>();
 
         //. update collider size to match sword size
-        float swordSize = StatsManager.Instance.GetPlayerStats().SwordSize;
+        float swordSize = StatsManager.Instance.PlayerStats.SwordSize;
 
         instanceCol.size = new Vector2(prefabCol.size.x * swordSize, prefabCol.size.y);
 

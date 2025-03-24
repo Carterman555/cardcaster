@@ -6,7 +6,7 @@ using UnityEngine;
 
 
 [RequireComponent(typeof(TriggerContactTracker))]
-public class UnitTouchDamage : MonoBehaviour {
+public class EnemyTouchDamage : MonoBehaviour {
 
     private TriggerContactTracker tracker;
     private Dictionary<GameObject, Coroutine> activeCoroutines = new Dictionary<GameObject, Coroutine>();

@@ -40,6 +40,10 @@ public abstract class ScriptableCardBase : ScriptableObject, ICollectable {
     public virtual void OnInstanceCreated() {
     }
 
+    public virtual void OnRemoved() {
+        Debug.Log("Removed " + Name);
+    }
+
     public virtual void TryPlay(Vector2 position) {
     }
 

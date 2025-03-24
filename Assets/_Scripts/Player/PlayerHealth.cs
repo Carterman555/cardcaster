@@ -36,7 +36,7 @@ public class PlayerHealth : MonoBehaviour, IDamagable {
     }
 
     private void Awake() {
-        maxHealth = StatsManager.Instance.GetPlayerStats().MaxHealth;
+        maxHealth = StatsManager.Instance.PlayerStats.MaxHealth;
         health = maxHealth;
     }
 

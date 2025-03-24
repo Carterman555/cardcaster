@@ -23,7 +23,7 @@ public class PlayerMeleeAttack : StaticInstance<PlayerMeleeAttack>, ITargetAttac
 
     private float attackTimer;
 
-    private PlayerStats Stats => StatsManager.Instance.GetPlayerStats();
+    private PlayerStats Stats => StatsManager.Instance.PlayerStats;
 
     private float GetAttackRadius() {
         float radiusMult = 1f;
@@ -74,7 +74,7 @@ public class PlayerMeleeAttack : StaticInstance<PlayerMeleeAttack>, ITargetAttac
         else {
             // deal damage
             Vector2 attackCenter = (Vector2)PlayerMovement.Instance.CenterPos + (GetAttackDirection() * GetAttackRadius());
-            targetCols = DamageDealer.DealCircleDamage(targetLayerMask, attackCenter, GetAttackRadius(), Stats.Damage, Stats.KnockbackStrength);
+            targetCols = DamageDealer.DealCircleDamage(targetLayerMask, attackCenter, GetAttackRadius(), Stats.Damage, Stats.KnockbackStrength, canCrit: true);
 
             slashPrefab.Spawn(PlayerMovement.Instance.CenterPos, GetAttackDirection().DirectionToRotation(), Containers.Instance.Effects);
 
@@ -101,7 +101,7 @@ public class PlayerMeleeAttack : StaticInstance<PlayerMeleeAttack>, ITargetAttac
 
         float damage = Stats.Damage * damageMult;
         float knockbackStrength = Stats.KnockbackStrength * knockbackStrengthMult;
-        DamageDealer.TryDealDamage(target, attackCenter, damage, knockbackStrength);
+        DamageDealer.TryDealDamage(target, attackCenter, damage, knockbackStrength, canCrit: true);
 
         // invoke events
         OnAttack?.Invoke();

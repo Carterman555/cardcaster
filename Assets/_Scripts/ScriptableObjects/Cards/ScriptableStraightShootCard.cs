@@ -36,7 +36,9 @@ public class ScriptableStraightShootCard : ScriptableAbilityCardBase {
         // spawn and setup projectile
         StraightMovement straightMovement = projectilePrefab.Spawn(spawnPos, Containers.Instance.Projectiles);
         straightMovement.Setup(toShootDirection, Stats.ProjectileSpeed);
-        straightMovement.GetComponent<DamageOnContact>().Setup(Stats.Damage, Stats.KnockbackStrength);
+
+        float damage = Stats.Damage * StatsManager.Instance.PlayerStats.ProjectileDamageMult * StatsManager.Instance.PlayerStats.AllDamageMult;
+        straightMovement.GetComponent<DamageOnContact>().Setup(damage, Stats.KnockbackStrength, canCrit: true);
 
         // apply effect
         ApplyEffects(straightMovement);
@@ -51,7 +53,9 @@ public class ScriptableStraightShootCard : ScriptableAbilityCardBase {
 
     public override void ApplyModifier(AbilityStats statsModifier, AbilityAttribute abilityAttributesToModify, GameObject effectPrefab) {
         base.ApplyModifier(statsModifier, abilityAttributesToModify, effectPrefab);
-        abilityEffectPrefabs.Add(effectPrefab);
+        if (effectPrefab != null) {
+            abilityEffectPrefabs.Add(effectPrefab);
+        }
     }
 
     // applies the effects set by the modifier

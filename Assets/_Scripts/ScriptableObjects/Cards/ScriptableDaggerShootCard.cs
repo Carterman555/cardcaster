@@ -42,7 +42,9 @@ public class ScriptableDaggerShootCard : ScriptableAbilityCardBase {
             // spawn and setup dagger
             StraightMovement straightMovement = daggerPrefab.Spawn(spawnPos, Containers.Instance.Projectiles);
             straightMovement.Setup(attackDirection, Stats.ProjectileSpeed);
-            straightMovement.GetComponent<DamageOnContact>().Setup(Stats.Damage, Stats.KnockbackStrength);
+
+            float damage = Stats.Damage * StatsManager.Instance.PlayerStats.ProjectileDamageMult * StatsManager.Instance.PlayerStats.AllDamageMult;
+            straightMovement.GetComponent<DamageOnContact>().Setup(damage, Stats.KnockbackStrength, canCrit: true);
 
             // apply effect
             ApplyEffects(straightMovement);
@@ -53,7 +55,9 @@ public class ScriptableDaggerShootCard : ScriptableAbilityCardBase {
 
     public override void ApplyModifier(AbilityStats statsModifier, AbilityAttribute abilityAttributesToModify, GameObject effectPrefab) {
         base.ApplyModifier(statsModifier, abilityAttributesToModify, effectPrefab);
-        abilityEffectPrefabs.Add(effectPrefab);
+        if (effectPrefab != null) {
+            abilityEffectPrefabs.Add(effectPrefab);
+        }
     }
 
     // applies the effects set by the modifier

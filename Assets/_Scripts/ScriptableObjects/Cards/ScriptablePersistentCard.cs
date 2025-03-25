@@ -8,11 +8,10 @@ public class ScriptablePersistentCard : ScriptableCardBase {
 
     public event Action<int> OnLevelUp;
 
-    [SerializeField] private int maxLevel;
     public int MaxLevel => maxLevel;
+    public int CurrentLevel { get; private set; }
 
-    private int currentLevel;
-
+    [SerializeField] private int maxLevel;
     [SerializeField] private PlayerStatModifier[] statModifiersPerLevel;
 
     public override void TryPlay(Vector2 position) {
@@ -23,16 +22,16 @@ public class ScriptablePersistentCard : ScriptableCardBase {
     // upgrade card
     protected override void Play(Vector2 position) {
         base.Play(position);
-        if (currentLevel < maxLevel) {
+        if (CurrentLevel < maxLevel) {
             StatsManager.Instance.AddPlayerStatModifiers(statModifiersPerLevel);
-            currentLevel++;
-            OnLevelUp?.Invoke(currentLevel);
+            CurrentLevel++;
+            OnLevelUp?.Invoke(CurrentLevel);
         }
     }
 
     public override void OnInstanceCreated() {
         base.OnInstanceCreated();
-        currentLevel = 0;
+        CurrentLevel = 0;
     }
 
     public override void OnRemoved() {
@@ -42,7 +41,7 @@ public class ScriptablePersistentCard : ScriptableCardBase {
         OnLevelUp = null;
 
         // remove all the stat modifiers it added
-        for (int i = 0; i < currentLevel; i++) {
+        for (int i = 0; i < CurrentLevel; i++) {
             StatsManager.Instance.RemovePlayerStatModifiers(statModifiersPerLevel);
         }
     }

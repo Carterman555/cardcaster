@@ -61,7 +61,7 @@ public enum PlayerStatType {
     SwordSize,
 
     DashSpeed,
-    DashTime,
+    DashDistance,
     DashAttackDamage,
     DashRechargeSpeed,
 

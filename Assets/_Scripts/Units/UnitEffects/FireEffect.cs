@@ -26,6 +26,9 @@ public class FireEffect : UnitEffect {
             yield return new WaitForSeconds(1f);
 
             float damagePerSecond = 2f;
+            if (damagable is EnemyHealth) {
+                damagePerSecond *= StatsManager.Instance.PlayerStats.AllDamageMult;
+            }
             damagable.Damage(damagePerSecond);
         }
     }

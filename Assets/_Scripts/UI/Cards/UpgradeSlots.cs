@@ -10,14 +10,11 @@ public class UpgradeSlots : MonoBehaviour {
     [SerializeField] private Sprite unupgradedSprite;
     [SerializeField] private Sprite upgradedSprite;
 
-    private void Awake() {
-        upgradeSlots = GetComponentsInChildren<Image>();
-    }
-
     public void Setup(ScriptablePersistentCard card) {
 
         card.OnLevelUp += LevelUp;
 
+        upgradeSlots = GetComponentsInChildren<Image>();
         for (int i = 0; i < upgradeSlots.Length; i++) {
             if (i < card.MaxLevel) {
                 upgradeSlots[i].gameObject.SetActive(true);
@@ -26,7 +23,13 @@ public class UpgradeSlots : MonoBehaviour {
                 upgradeSlots[i].gameObject.SetActive(false);
             }
 
-            upgradeSlots[i].sprite = unupgradedSprite;
+            if (i < card.CurrentLevel) {
+                upgradeSlots[i].sprite = upgradedSprite;
+            }
+            else {
+                upgradeSlots[i].sprite = unupgradedSprite;
+            }
+
         }
     }
 

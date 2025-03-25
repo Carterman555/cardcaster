@@ -143,7 +143,7 @@ public abstract class ScriptableAbilityCardBase : ScriptableCardBase {
         AbilityStats newStats = Stats;
 
         if (abilityAttributesToModify.HasFlag(AbilityAttribute.DealsDamage)) {
-            newStats.Damage *= statsModifier.Damage.PercentToMult();
+            newStats.BaseDamage *= statsModifier.Damage.PercentToMult();
             newStats.KnockbackStrength *= statsModifier.KnockbackStrength.PercentToMult();
         }
         if (abilityAttributesToModify.HasFlag(AbilityAttribute.HasArea)) {
@@ -195,7 +195,8 @@ public enum AbilityAttribute {
 [Serializable]
 public struct AbilityStats {
     [ConditionalHideFlag("abilityAttributes", AbilityAttribute.DealsDamage)]
-    public float Damage;
+    public float BaseDamage;
+    public float Damage => BaseDamage * StatsManager.Instance.PlayerStats.AllDamageMult;
 
     [ConditionalHideFlag("abilityAttributes", AbilityAttribute.DealsDamage)]
     public float KnockbackStrength;

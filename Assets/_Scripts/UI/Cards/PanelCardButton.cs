@@ -21,7 +21,7 @@ public class PanelCardButton : GameButton {
         this.cardIndex = cardIndex;
 
         cardImage.Setup(card);
-        
+
         SetupTrashing();
     }
 
@@ -41,15 +41,17 @@ public class PanelCardButton : GameButton {
 
     [Header("Trashing")]
     [SerializeField] private MMF_Player burnCardFeedbacks;
-    [SerializeField] private Image[] burnImages;
     [SerializeField] private Material burnMaterial;
     [SerializeField] private float fadeSpeed;
+
+    private Image[] burnImages;
     private Material burnMaterialInstance;
 
     private void SetupTrashing() {
         burnCardFeedbacks.RestoreInitialValues();
 
         burnMaterialInstance = new Material(burnMaterial);
+        burnImages = GetComponentsInChildren<Image>();
         for (int i = 0; i < burnImages.Length; i++) {
             Image image = burnImages[i];
             burnMaterialInstance.name = "burn " + i;
@@ -63,7 +65,6 @@ public class PanelCardButton : GameButton {
     }
 
     public IEnumerator TrashCardVisual() {
-
         burnCardFeedbacks.PlayFeedbacks();
 
         float fadeAmount = -0.1f;

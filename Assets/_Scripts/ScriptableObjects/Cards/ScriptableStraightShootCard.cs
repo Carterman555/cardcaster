@@ -37,7 +37,7 @@ public class ScriptableStraightShootCard : ScriptableAbilityCardBase {
         StraightMovement straightMovement = projectilePrefab.Spawn(spawnPos, Containers.Instance.Projectiles);
         straightMovement.Setup(toShootDirection, Stats.ProjectileSpeed);
 
-        float damage = Stats.Damage * StatsManager.Instance.PlayerStats.ProjectileDamageMult;
+        float damage = Stats.Damage * StatsManager.Instance.PlayerStats.BaseProjectileDamageMult;
         straightMovement.GetComponent<DamageOnContact>().Setup(damage, Stats.KnockbackStrength, canCrit: true);
 
         // apply effect

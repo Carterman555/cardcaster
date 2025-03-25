@@ -42,6 +42,7 @@ public class ScriptableBoomerangSwordCard : ScriptableAbilityCardBase {
         Transform sword = ReferenceSystem.Instance.PlayerSword;
         Quaternion damageRotation = Quaternion.Euler(0, 0, sword.eulerAngles.z + 65f);
         playerTouchDamage = playerTouchDamagePrefab.Spawn(sword.position, damageRotation, sword);
+        playerTouchDamage.SetDamageMult(StatsManager.Instance.PlayerStats.BaseProjectileDamageMult);
 
         BoxCollider2D prefabCol = playerTouchDamagePrefab.GetComponent<BoxCollider2D>();
         BoxCollider2D instanceCol = playerTouchDamage.GetComponent<BoxCollider2D>();

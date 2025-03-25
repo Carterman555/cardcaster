@@ -26,10 +26,6 @@ public abstract class ScriptableCardBase : ScriptableObject, ICollectable {
     [SerializeField] private Rarity rarity;
     public Rarity Rarity => rarity;
 
-    [FormerlySerializedAs("minLevel")]
-    [SerializeField] private int unlockLevel = 1;
-    public int UnlockLevel => unlockLevel;
-
     [Header("Advanced Info")]
     [SerializeField] private StackType stackType;
     public StackType StackType => stackType;
@@ -37,11 +33,13 @@ public abstract class ScriptableCardBase : ScriptableObject, ICollectable {
     [SerializeField] private bool startUnlocked;
     public bool StartUnlocked => startUnlocked;
 
+    [ConditionalHideReversed("startUnlocked")] [SerializeField] private int unlockLevel = 1;
+    public int UnlockLevel => unlockLevel;
+
     public virtual void OnInstanceCreated() {
     }
 
     public virtual void OnRemoved() {
-        Debug.Log("Removed " + Name);
     }
 
     public virtual void TryPlay(Vector2 position) {
@@ -80,7 +78,18 @@ public enum CardType {
     Sustain,
     ThrowingKnife,
 
-    MaxHealthPersistent,
+    Quickfeet,
+    Flurry,
+    Power,
+    Sharpshot,
+    StoneHeart,
+    Deadeye,
+    LethalEdge,
+    SmashingBlow,
+    LongDash,
+    EssenceReserve,
+    EssenceHarvest,
+    WisdomsHold
 }
 
 // what to do when play again while already playing

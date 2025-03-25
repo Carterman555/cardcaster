@@ -32,7 +32,13 @@ public class ElectricEffectOnDamage : MonoBehaviour, IAbilityEffect {
     private void Shock(GameObject target) {
         if (target.TryGetComponent(out IEffectable effectable)) {
             ElectricChain electricChain = target.AddComponent<ElectricChain>();
-            electricChain.Setup(damage, chainSize);
+
+            float dmg = damage;
+            if (target.layer == GameLayers.EnemyLayer) {
+                dmg *= StatsManager.Instance.PlayerStats.AllDamageMult;
+            }
+
+            electricChain.Setup(dmg, chainSize);
         }
     }
 }

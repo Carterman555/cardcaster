@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c5cef38b1b4f164687a2ea52eb40d82, type: 3}
+  m_Name: SharpshotCard
+  m_EditorClassIdentifier: 
+  cardType: 24
+  description: Gain persistent projectile damage boost
+  sprite: {fileID: -1287555010, guid: d638d131cac6f4d45aeb96fc55848241, type: 3}
+  cost: 4
+  rarity: 1
+  stackType: 0
+  startUnlocked: 1
+  unlockLevel: 1
+  maxLevel: 4
+  statModifiersPerLevel:
+  - PlayerStatType: 13
+    ModifyType: 0
+    Value: 0.25

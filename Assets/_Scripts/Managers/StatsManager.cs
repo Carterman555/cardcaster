@@ -125,7 +125,7 @@ public class StatsManager : StaticInstance<StatsManager> {
             case PlayerStatType.DashSpeed:
                 ApplyModification(ref playerStats.DashSpeed, modifyType, value);
                 break;
-            case PlayerStatType.DashTime:
+            case PlayerStatType.DashDistance:
                 ApplyModification(ref playerStats.DashDistance, modifyType, value);
                 break;
             case PlayerStatType.DashAttackDamage:
@@ -171,5 +171,32 @@ public class StatsManager : StaticInstance<StatsManager> {
         else if (modifyType == ModifyType.Multiplicative) {
             stat *= value;
         }
+    }
+
+    // debugging
+    [ContextMenu("Print Stats")]
+    public void PrintStats() {
+        Debug.Log($"MaxHealth: {playerStats.MaxHealth}\n" +
+                  $"KnockbackResistance: {playerStats.KnockbackResistance}\n" +
+                  $"MoveSpeed: {playerStats.MoveSpeed}\n" +
+                  $"BaseBasicAttackDamage: {playerStats.BaseBasicAttackDamage}\n" +
+                  $"AttackSpeed: {playerStats.AttackSpeed}\n" +
+                  $"AttackCooldown: {playerStats.AttackCooldown}\n" +
+                  $"KnockbackStrength: {playerStats.KnockbackStrength}\n" +
+                  $"SwordSize: {playerStats.SwordSize}\n" +
+                  $"DashSpeed: {playerStats.DashSpeed}\n" +
+                  $"DashDistance: {playerStats.DashDistance}\n" +
+                  $"BaseDashAttackDamage: {playerStats.BaseDashAttackDamage}\n" +
+                  $"DashRechargeSpeed: {playerStats.DashRechargeSpeed}\n" +
+                  $"DashCooldown: {playerStats.DashCooldown}\n" +
+                  $"CritChance: {playerStats.CritChance}\n" +
+                  $"CritDamageMult: {playerStats.CritDamageMult}\n" +
+                  $"BaseProjectileDamageMult: {playerStats.BaseProjectileDamageMult}\n" +
+                  $"AllDamageMult: {playerStats.AllDamageMult}\n" +
+                  $"BasicAttackDamage: {playerStats.BasicAttackDamage}\n" +
+                  $"DashAttackDamage: {playerStats.DashAttackDamage}\n" +
+                  $"ProjectileDamageMult: {playerStats.ProjectileDamageMult}\n" +
+                  $"MaxEssence: {playerStats.MaxEssence}\n" +
+                  $"HandSize: {playerStats.HandSize}");
     }
 }

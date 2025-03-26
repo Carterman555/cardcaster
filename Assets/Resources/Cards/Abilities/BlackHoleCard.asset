@@ -17,12 +17,12 @@ MonoBehaviour:
   sprite: {fileID: -756483188, guid: d638d131cac6f4d45aeb96fc55848241, type: 3}
   cost: 2
   rarity: 1
-  minLevel: 1
   stackType: 0
   startUnlocked: 0
+  unlockLevel: 1
   abilityAttributes: 7
   baseStats:
-    Damage: 1
+    BaseDamage: 1
     KnockbackStrength: 0
     AreaSize: 5
     Duration: 5

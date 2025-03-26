@@ -353,13 +353,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b436399d89bfd245b88204bdbc8ed47, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  DeathEventTrigger:
+    m_PersistentCalls:
+      m_Calls: []
+  DamagedEventTrigger:
+    m_PersistentCalls:
+      m_Calls: []
   returnOnDeath: 0
-  deathEventTrigger:
-    m_PersistentCalls:
-      m_Calls: []
-  damagedEventTrigger:
-    m_PersistentCalls:
-      m_Calls: []
   increaseHealthPerLevel: 0
   perLevelProportionToIncrease: 0
 --- !u!114 &3351410608047035514
@@ -388,11 +388,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23ba49c69b5da3143ab2a3b3d4077c77, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  essencePrefab: {fileID: 8034270738103182623, guid: 12e28bcb234b1b548ae2d9e6745360a6, type: 3}
-  dropAmount:
-    MinValue: 3
-    MaxValue: 4
-  dropChance: 1
+  DropMult: 1
+  essencePrefab: {fileID: 3327677883894410736, guid: 12e28bcb234b1b548ae2d9e6745360a6, type: 3}
+  avgDropAmount: 5
+  dropAmountVariation: 1
+  yVariation: 2
 --- !u!114 &8221645877726648208
 MonoBehaviour:
   m_ObjectHideFlags: 0

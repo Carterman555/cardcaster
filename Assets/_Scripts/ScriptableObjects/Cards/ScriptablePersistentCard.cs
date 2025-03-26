@@ -6,6 +6,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "NewPersistentCard", menuName = "Cards/Persistent Card")]
 public class ScriptablePersistentCard : ScriptableCardBase {
 
+    // WARNING: prob only use for upgradeslots because UnsubOnLevelUp resets this event
     public event Action<int> OnLevelUp;
 
     public int MaxLevel => maxLevel;
@@ -44,5 +45,9 @@ public class ScriptablePersistentCard : ScriptableCardBase {
         for (int i = 0; i < CurrentLevel; i++) {
             StatsManager.Instance.RemovePlayerStatModifiers(statModifiersPerLevel);
         }
+    }
+
+    public void UnsubOnLevelUp() {
+        OnLevelUp = null;
     }
 }

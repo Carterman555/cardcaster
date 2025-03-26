@@ -14,22 +14,25 @@ public class DebugManager : StaticInstance<DebugManager> {
     [SerializeField] private bool unlimitedEssence;
     public bool UnlimitedEssence => unlimitedEssence;
 
-
     private void Start() {
-
         if (playerInvincible) {
             PlayerMovement.Instance.AddComponent<Invincibility>();
         }
-
-        GiveStartingCards();
-        ApplyPlayerStatModifiers();
     }
 
     private void OnEnable() {
         RoomGenerator.OnCompleteGeneration += OnRoomsGenerated;
+        GameSceneManager.OnStartGame += OnStartGame;
     }
+
     private void OnDisable() {
         RoomGenerator.OnCompleteGeneration -= OnRoomsGenerated;
+        GameSceneManager.OnStartGame -= OnStartGame;
+    }
+
+    private void OnStartGame() {
+        GiveStartingCards();
+        ApplyPlayerStatModifiers();
     }
 
     private void Update() {

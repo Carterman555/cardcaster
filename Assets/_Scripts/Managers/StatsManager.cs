@@ -8,6 +8,8 @@ using static Mono.CSharp.Parameter;
 
 public class StatsManager : StaticInstance<StatsManager> {
 
+    public static event Action<PlayerStatType> OnStatsChanged;
+
     [SerializeField] private ScriptablePlayer scriptablePlayer;
 
     private PlayerStats playerStats;
@@ -31,6 +33,8 @@ public class StatsManager : StaticInstance<StatsManager> {
     public void AddPlayerStatModifier(PlayerStatModifier modifier) {
         statModifiers.Add(modifier);
         UpdatePlayerStats();
+
+        OnStatsChanged?.Invoke(modifier.PlayerStatType);
     }
 
     public void RemovePlayerStatModifiers(PlayerStatModifier[] modifiers) {
@@ -47,6 +51,8 @@ public class StatsManager : StaticInstance<StatsManager> {
 
         statModifiers.Remove(modifierInList);
         UpdatePlayerStats();
+
+        OnStatsChanged?.Invoke(modifier.PlayerStatType);
     }
 
     private bool TryFindPlayerStatModifier(PlayerStatModifier originalModifier, out PlayerStatModifier modifierInList) {

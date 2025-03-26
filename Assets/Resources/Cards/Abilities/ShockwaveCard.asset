@@ -17,12 +17,12 @@ MonoBehaviour:
   sprite: {fileID: 299688740, guid: d638d131cac6f4d45aeb96fc55848241, type: 3}
   cost: 1
   rarity: 0
-  minLevel: 1
   stackType: 1
   startUnlocked: 1
+  unlockLevel: 1
   abilityAttributes: 7
   baseStats:
-    Damage: 0.5
+    BaseDamage: 0.5
     KnockbackStrength: 1
     AreaSize: 1
     Duration: 10
@@ -30,4 +30,5 @@ MonoBehaviour:
     Cooldown: 0
   <IsPositional>k__BackingField: 0
   <IsModifiable>k__BackingField: 1
+  incompatibleAbilities: 
   shockwavePrefab: {fileID: -5963227168189626075, guid: 6b0bda39ed8ba824faf96be71532084b, type: 3}

@@ -12,6 +12,7 @@ public class DeckManager : Singleton<DeckManager> {
     public static event Action OnReplaceCardInHand;
     public static event Action OnClearCards;
 
+    public static event Action<int> OnMaxEssenceChanged_Amount;
     public static event Action<int> OnEssenceChanged_Amount;
 
     [SerializeField] private int startingCardAmount;
@@ -24,8 +25,9 @@ public class DeckManager : Singleton<DeckManager> {
 
     [SerializeField] private CardAmount[] startingCardPool;
 
-    [SerializeField] private int maxEssence;
-    private int essence;
+    [SerializeField] private int baseMaxEssence;
+    private int maxEssence;
+    public int Essence { get; private set; }
 
     #region Get Methods
 
@@ -46,14 +48,11 @@ public class DeckManager : Singleton<DeckManager> {
         return handSize;
     }
 
-    public float GetEssence() {
-        return essence;
-    }
-
     #endregion
 
     public void ChangeMaxEssence(int amount) {
         maxEssence += amount;
+        OnMaxEssenceChanged_Amount?.Invoke(maxEssence);
     }
 
     public void ChangeEssenceAmount(int amount) {
@@ -62,9 +61,9 @@ public class DeckManager : Singleton<DeckManager> {
             return;
         }
 
-        essence = Mathf.Clamp(essence + amount, 0, maxEssence);
+        Essence = Mathf.Clamp(Essence + amount, 0, maxEssence);
 
-        OnEssenceChanged_Amount?.Invoke(essence);
+        OnEssenceChanged_Amount?.Invoke(Essence);
     }
 
     private void OnEnable() {
@@ -76,9 +75,12 @@ public class DeckManager : Singleton<DeckManager> {
 
     private void OnDisable() {
         GameSceneManager.OnStartGame -= OnStartGame;
+        GameSceneManager.OnLevelComplete -= OnLevelComplete;
     }
 
     private void OnStartGame() {
+        maxEssence = baseMaxEssence;
+
         ClearDeckAndEssence();
         if (!GameSceneManager.Instance.Tutorial) {
             GiveStartingCards();
@@ -100,8 +102,8 @@ public class DeckManager : Singleton<DeckManager> {
 
         OnClearCards?.Invoke(); // clears handcards
 
-        essence = maxEssence;
-        OnEssenceChanged_Amount?.Invoke(essence);
+        Essence = maxEssence;
+        OnEssenceChanged_Amount?.Invoke(Essence);
     }
 
     private void GiveStartingCards() {
@@ -188,7 +190,10 @@ public class DeckManager : Singleton<DeckManager> {
         }
         else if (cardLocation == CardLocation.Hand) {
             cardsInHand[cardIndex].OnRemoved();
-            TryDrawCard(cardIndex);
+            if (!TryDrawCard(cardIndex)) {
+                cardsInHand[cardIndex] = null;
+                RemoveHandGaps();
+            }
             OnTrashCardInHand?.Invoke();
         }
     }

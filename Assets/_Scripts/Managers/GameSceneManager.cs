@@ -85,6 +85,8 @@ public class GameSceneManager : Singleton<GameSceneManager> {
         loadGameFeedback.Play(Vector3.zero);
 
         isSceneLoading = true;
+
+        print("Start load Game scene");
     }
 
     private void LoadMenuScene() {
@@ -104,6 +106,7 @@ public class GameSceneManager : Singleton<GameSceneManager> {
     private void OnSceneLoaded(Scene scene, LoadSceneMode loadSceneMode) {
         if (scene != SceneManager.GetSceneByName("AdditiveLoadingScreen")) {
             isSceneLoading = false;
+            print("End load Game scene");
         }
     }
 

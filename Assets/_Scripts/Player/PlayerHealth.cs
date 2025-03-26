@@ -13,27 +13,20 @@ public class PlayerHealth : MonoBehaviour, IDamagable {
     public event Action<float, bool> OnDamaged_Damage_Shared;
     public event Action<float> OnHealthChanged_HealthProportion;
 
-    private float maxHealth;
-    private float health;
+    public float HealthProportion => health / maxHealth;
+    public bool Dead { get; private set; }
     public float CurrentHealth {
         get {
             return health;
         }
         set {
             health = value;
-            OnHealthChanged_HealthProportion?.Invoke(GetHealthProportion());
+            OnHealthChanged_HealthProportion?.Invoke(HealthProportion);
         }
     }
 
-    public bool Dead { get; private set; }
-
-    public bool IsInvincible() {
-        return TryGetComponent(out Invincibility invincibility);
-    }
-
-    public float GetHealthProportion() {
-        return health / maxHealth;
-    }
+    private float maxHealth;
+    private float health;
 
     private void Awake() {
         maxHealth = StatsManager.Instance.PlayerStats.MaxHealth;
@@ -45,7 +38,11 @@ public class PlayerHealth : MonoBehaviour, IDamagable {
         health = maxHealth;
 
         OnHealthChanged_HealthProportion?.Invoke(health / maxHealth);
+
+        StatsManager.OnStatsChanged += TrySetMaxHealth;
     }
+
+    
 
     public void Damage(float damage, bool shared = false) {
 
@@ -94,5 +91,20 @@ public class PlayerHealth : MonoBehaviour, IDamagable {
         health = Mathf.MoveTowards(health, maxHealth, amount);
 
         OnHealthChanged_HealthProportion?.Invoke(health / maxHealth);
+    }
+
+    public bool IsInvincible() {
+        return TryGetComponent(out Invincibility invincibility);
+    }
+
+    private void TrySetMaxHealth(PlayerStatType type) {
+        if (type == PlayerStatType.MaxHealth) {
+            float newMaxHealth = StatsManager.Instance.PlayerStats.MaxHealth;
+            float changeInMaxHealth = newMaxHealth - maxHealth;
+            maxHealth = newMaxHealth;
+            health = Mathf.MoveTowards(health, maxHealth, changeInMaxHealth);
+
+            OnHealthChanged_HealthProportion?.Invoke(health / maxHealth);
+        }
     }
 }

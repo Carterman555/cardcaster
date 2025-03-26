@@ -44,12 +44,20 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -7604754236743832783, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
+      propertyPath: avgDropAmount
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: -7604754236743832783, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
       propertyPath: dropAmount.MaxValue
       value: 4
       objectReference: {fileID: 0}
     - target: {fileID: -7604754236743832783, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
       propertyPath: dropAmount.MinValue
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: -7604754236743832783, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
+      propertyPath: dropAmountVariation
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 226976224992304211, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
       propertyPath: m_Name
@@ -399,6 +407,7 @@ MonoBehaviour:
     Clips:
     - {fileID: 8300000, guid: 37d3291e066408a43bcf60d651991f9a, type: 3}
     Volume: 1
+    PitchVariation: 0
 --- !u!95 &7812749826847277617 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 621019451974682374, guid: d26e40392c042dc4d8c237ede2183746, type: 3}

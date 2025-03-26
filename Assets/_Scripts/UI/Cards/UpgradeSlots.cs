@@ -5,16 +5,15 @@ using UnityEngine.UI;
 
 public class UpgradeSlots : MonoBehaviour {
 
-    private Image[] upgradeSlots;
+    [SerializeField] private Image[] upgradeSlots;
 
     [SerializeField] private Sprite unupgradedSprite;
     [SerializeField] private Sprite upgradedSprite;
 
     public void Setup(ScriptablePersistentCard card) {
-
+        card.UnsubOnLevelUp();
         card.OnLevelUp += LevelUp;
 
-        upgradeSlots = GetComponentsInChildren<Image>();
         for (int i = 0; i < upgradeSlots.Length; i++) {
             if (i < card.MaxLevel) {
                 upgradeSlots[i].gameObject.SetActive(true);

@@ -126,6 +126,14 @@ PrefabInstance:
       propertyPath: dropChance
       value: 0.4
       objectReference: {fileID: 0}
+    - target: {fileID: -7604754236743832783, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
+      propertyPath: avgDropAmount
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: -7604754236743832783, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
+      propertyPath: dropAmountVariation
+      value: 0.15
+      objectReference: {fileID: 0}
     - target: {fileID: 226976224992304211, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
       propertyPath: m_Name
       value: MiniMinion
@@ -443,6 +451,8 @@ MonoBehaviour:
   hasDestroyParticles: 0
   destroyParticles: {fileID: 0}
   destroyParticlesColor: {r: 0, g: 0, b: 0, a: 0}
+  hasParticlePoint: 0
+  particlePoint: {fileID: 0}
 --- !u!114 &4456296759277680617
 MonoBehaviour:
   m_ObjectHideFlags: 0

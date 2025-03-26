@@ -622,7 +622,7 @@ MonoBehaviour:
           Initialized: 0
         RemapCurveZero: 0
         RemapCurveZeroAlt: 0
-        RemapCurveOne: 3
+        RemapCurveOne: 1.5
         RemapCurveOneAlt: -3
         AnimateX: 0
         AnimatePositionTweenX:

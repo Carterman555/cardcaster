@@ -131,7 +131,7 @@ public class HandCard : MonoBehaviour {
             CurrentCardState = CardState.Moving;
 
             rectTransform.DOKill();
-            rectTransform.DOAnchorPos(position, duration: 0.2f).OnComplete(() => {
+            rectTransform.DOAnchorPos(position, duration: 0.2f).SetUpdate(true).OnComplete(() => {
                 CurrentCardState = CardState.ReadyToPlay;
             });
         }
@@ -371,6 +371,6 @@ public class HandCard : MonoBehaviour {
     }
 
     public bool CanAffordToPlay() {
-        return DeckManager.Instance.GetEssence() >= card.Cost;
+        return DeckManager.Instance.Essence >= card.Cost;
     }
 }

@@ -9,8 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1c5cef38b1b4f164687a2ea52eb40d82, type: 3}
-  m_Name: EssenceHarvestCard-c
+  m_Script: {fileID: 11500000, guid: 3c5b4d878ce7a0446a7b5abc442da00e, type: 3}
+  m_Name: EssenceHarvestCard
   m_EditorClassIdentifier: 
   cardType: 31
   description: Gain more essence from dash attack kills
@@ -21,7 +21,5 @@ MonoBehaviour:
   startUnlocked: 1
   unlockLevel: 1
   maxLevel: 3
-  statModifiersPerLevel:
-  - PlayerStatType: 2
-    ModifyType: 0
-    Value: 1
+  statModifiersPerLevel: []
+  dropMultPerLevel: 0.3

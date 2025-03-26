@@ -55,17 +55,15 @@ public class CardsUIManager : StaticInstance<CardsUIManager> {
         handCards.Clear();
     }
 
-    private void OnCardUsed(HandCard cardButton) {
-
-        print("OnCardUsed");
+    private void OnCardUsed(HandCard handCard) {
 
         // return the card button
-        cardButton.gameObject.ReturnToPool();
-        handCards.Remove(cardButton);
+        handCard.gameObject.ReturnToPool();
+        handCards.Remove(handCard);
 
         // respawn the card button if it was replaced (most likely will)
         if (GetHandSize() > handCards.Count) {
-            DrawCard(cardButton.GetIndex());
+            DrawCard(handCard.GetIndex());
         }
 
         // spawn more cards to end. This happens when modifier cards are used on an ability and so they all
@@ -104,7 +102,13 @@ public class CardsUIManager : StaticInstance<CardsUIManager> {
         ScriptableCardBase[] cardsInHand = DeckManager.Instance.GetCardsInHand();
 
         for (int i = 0; i < handCards.Count; i++) {
-            handCards[i].SetCard(cardsInHand[i]);
+            if (cardsInHand[i] != null) {
+                handCards[i].SetCard(cardsInHand[i]);
+            }
+            else {
+                handCards[i].gameObject.ReturnToPool();
+                handCards.RemoveAt(i);
+            }
         }
     }
 

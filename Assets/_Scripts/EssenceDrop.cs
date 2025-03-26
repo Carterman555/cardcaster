@@ -9,24 +9,41 @@ using UnityEngine;
 public class EssenceDrop : MonoBehaviour {
 
     private BobMovement bobMovement;
+    private MMF_Player launchPlayer;
 
     private void Awake() {
         bobMovement = GetComponent<BobMovement>();
         launchPlayer = GetComponent<MMF_Player>();
     }
 
-    private void Start() {
+    private void OnEnable() {
+        bobMovement.enabled = false;
+
+        launchPlayer.PlayFeedbacks();
+        launchPlayer.Events.OnComplete.AddListener(OnLaunchComplete);
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision) {
+
+        bool launching = launchPlayer.IsPlaying;
+        bool nearPlayer = GameLayers.PlayerLayerMask.ContainsLayer(collision.gameObject.layer);
+
+        if (nearPlayer && !launching) {
+            StartCoroutine(MoveToPlayer(collision.transform));
+        }
+    }
+
+    private void OnLaunchComplete() {
+        launchPlayer.Events.OnComplete.RemoveListener(OnLaunchComplete);
+
         float radius = GetComponent<CircleCollider2D>().radius;
         Collider2D[] cols = Physics2D.OverlapCircleAll(transform.position, radius, GameLayers.PlayerLayerMask);
         bool touchingPlayer = cols.Length > 0;
         if (touchingPlayer) {
             StartCoroutine(MoveToPlayer(cols[0].transform));
         }
-    }
-
-    private void OnTriggerEnter2D(Collider2D collision) {
-        if (GameLayers.PlayerLayerMask.ContainsLayer(collision.gameObject.layer)) {
-            StartCoroutine(MoveToPlayer(collision.transform));
+        else {
+            bobMovement.enabled = true;
         }
     }
 
@@ -47,26 +64,4 @@ public class EssenceDrop : MonoBehaviour {
 
         AudioManager.Instance.PlaySound(AudioManager.Instance.AudioClips.CollectEssence);
     }
-
-    #region Launch
-
-    private MMF_Player launchPlayer;
-
-    public void Launch() {
-
-        bobMovement.enabled = false;
-
-        launchPlayer.PlayFeedbacks();
-
-        launchPlayer.Events.OnComplete.AddListener(StartBobbing);
-
-    }
-
-    private void StartBobbing() {
-        bobMovement.enabled = true;
-
-        launchPlayer.Events.OnComplete.RemoveListener(StartBobbing);
-    }
-
-    #endregion
 }

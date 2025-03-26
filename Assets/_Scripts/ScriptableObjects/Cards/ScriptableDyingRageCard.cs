@@ -19,7 +19,7 @@ public class ScriptableDyingRageCard : ScriptableAbilityCardBase {
         playerHealth = PlayerMeleeAttack.Instance.GetComponent<PlayerHealth>();
 
         playerHealth.OnHealthChanged_HealthProportion += UpdateDamage;
-        UpdateDamage(playerHealth.GetHealthProportion());
+        UpdateDamage(playerHealth.HealthProportion);
     }
 
     public override void Stop() {

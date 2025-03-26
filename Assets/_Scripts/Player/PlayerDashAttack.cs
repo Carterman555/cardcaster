@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using UnityEngine;
 
@@ -16,8 +17,6 @@ public class PlayerDashAttack : MonoBehaviour {
     private Vector2 dashDirection;
 
     [SerializeField] private Transform slashPrefab;
-
-    
 
     private PlayerStats Stats => StatsManager.Instance.PlayerStats;
 
@@ -46,10 +45,19 @@ public class PlayerDashAttack : MonoBehaviour {
         float angle = attackDirection.DirectionToRotation().eulerAngles.z;
         Vector2 pos = (Vector2)playerMovement.CenterPos + (playerMeleeAttack.GetAttackDirection() * attackSize.x * 0.5f);
 
-        Collider2D[] cols = DamageDealer.DealCapsuleDamage(
+        Collider2D[] cols = Physics2D.OverlapCapsuleAll(pos, attackSize, CapsuleDirection2D.Horizontal, angle, targetLayerMask);
+
+        foreach (Collider2D col in cols) {
+            if (col.TryGetComponent(out DropEssenceOnDeath dropEssenceOnDeath)) {
+                dropEssenceOnDeath.DropMult = ScriptableEssenceHarvestCard.TotalDropMult;
+            }
+        }
+
+        DamageDealer.DealCapsuleDamage(
             targetLayerMask,
             pos, attackSize, angle,
             Stats.DashAttackDamage, Stats.KnockbackStrength, canCrit: true);
+
 
         slashPrefab.Spawn(playerMovement.CenterPos, attackDirection.DirectionToRotation(), Containers.Instance.Effects);
 

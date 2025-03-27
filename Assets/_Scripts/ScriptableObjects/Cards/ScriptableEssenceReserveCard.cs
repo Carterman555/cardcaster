@@ -1,0 +1,18 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+[CreateAssetMenu(fileName = "EssenceReserveCard", menuName = "Cards/Essence Reserve Card")]
+public class ScriptableEssenceReserveCard : ScriptablePersistentCard {
+
+    protected override void Play(Vector2 position) {
+        base.Play(position);
+        DeckManager.Instance.UpdateMaxEssence();
+    }
+
+    public override void OnRemoved() {
+        base.OnRemoved();
+        DeckManager.Instance.UpdateMaxEssence();
+    }
+}
+

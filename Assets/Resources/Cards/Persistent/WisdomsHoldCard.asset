@@ -9,8 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1c5cef38b1b4f164687a2ea52eb40d82, type: 3}
-  m_Name: WisdomsHold
+  m_Script: {fileID: 11500000, guid: 9f15fe25b6d309345ae88f1b7f89bc2f, type: 3}
+  m_Name: WisdomsHoldCard
   m_EditorClassIdentifier: 
   cardType: 32
   description: Increase hand size by 1
@@ -20,7 +20,7 @@ MonoBehaviour:
   stackType: 0
   startUnlocked: 1
   unlockLevel: 1
-  maxLevel: 3
+  maxLevel: 2
   statModifiersPerLevel:
   - PlayerStatType: 16
     ModifyType: 0

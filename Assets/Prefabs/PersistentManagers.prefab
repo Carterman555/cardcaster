@@ -704,7 +704,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startingCardAmount: 10
-  maxHandSize: 3
+  baseHandSize: 3
+  maxHandSize: 6
   startingCardPool:
   - CardType: 2
     Amount: 7
@@ -716,7 +717,7 @@ MonoBehaviour:
     Amount: 7
   - CardType: 19
     Amount: 7
-  maxEssence: 6
+  baseMaxEssence: 6
 --- !u!1 &3718070589907718167
 GameObject:
   m_ObjectHideFlags: 0

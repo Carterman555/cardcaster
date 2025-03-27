@@ -17,6 +17,9 @@ public class CardControllerInput : MonoBehaviour {
     [SerializeField] private InputActionReference playFirstCardInput;
     [SerializeField] private InputActionReference playSecondCardInput;
     [SerializeField] private InputActionReference playThirdCardInput;
+    [SerializeField] private InputActionReference playForthCardInput;
+    [SerializeField] private InputActionReference playFifthCardInput;
+    [SerializeField] private InputActionReference playSixthCardInput;
 
     [SerializeField] private InputActionReference cancelAction;
     [SerializeField] private InputActionReference moveCardAction;
@@ -120,14 +123,35 @@ public class CardControllerInput : MonoBehaviour {
 
     private bool PressedOtherPlayInput() {
         int cardIndex = handCard.GetIndex();
+
+        bool pressedAnyCardInput = playFirstCardInput.action.WasReleasedThisFrame() ||
+            playSecondCardInput.action.WasReleasedThisFrame() ||
+            playThirdCardInput.action.WasReleasedThisFrame() ||
+            playForthCardInput.action.WasReleasedThisFrame() ||
+            playFifthCardInput.action.WasReleasedThisFrame() ||
+            playSixthCardInput.action.WasReleasedThisFrame();
+
+        if (!pressedAnyCardInput) {
+            return false;
+        }
+
         if (cardIndex == 0) {
-            return playSecondCardInput.action.WasReleasedThisFrame() || playThirdCardInput.action.WasReleasedThisFrame();
+            return !playFirstCardInput.action.WasReleasedThisFrame();
         }
         else if (cardIndex == 1) {
-            return playFirstCardInput.action.WasReleasedThisFrame() || playThirdCardInput.action.WasReleasedThisFrame();
+            return !playSecondCardInput.action.WasReleasedThisFrame();
         }
         else if (cardIndex == 2) {
-            return playFirstCardInput.action.WasReleasedThisFrame() || playSecondCardInput.action.WasReleasedThisFrame();
+            return !playThirdCardInput.action.WasReleasedThisFrame();
+        }
+        else if (cardIndex == 3) {
+            return !playForthCardInput.action.WasReleasedThisFrame();
+        }
+        else if (cardIndex == 4) {
+            return !playFifthCardInput.action.WasReleasedThisFrame();
+        }
+        else if (cardIndex == 5) {
+            return !playSixthCardInput.action.WasReleasedThisFrame();
         }
         else {
             Debug.LogError("cardIndex not supported: " + cardIndex);

@@ -9,7 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1c5cef38b1b4f164687a2ea52eb40d82, type: 3}
+  m_Script: {fileID: 11500000, guid: 69e94b1bc0fbf394b8c367c9307ddc59, type: 3}
   m_Name: EssenceReserveCard
   m_EditorClassIdentifier: 
   cardType: 30

@@ -96,6 +96,33 @@
                     "initialStateCheck": false
                 },
                 {
+                    "name": "PlayForthCard",
+                    "type": "Button",
+                    "id": "b04b2b81-0605-4361-861a-9e075e25446c",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "PlayFifthCard",
+                    "type": "Button",
+                    "id": "10f10a60-25f5-436c-bc24-dd3dc3d37013",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "PlaySixthCard",
+                    "type": "Button",
+                    "id": "b4dea61b-7ad2-4b31-ac98-8c56bf997cca",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "CancelCard",
                     "type": "Button",
                     "id": "26c32f48-b9db-43a5-9402-6120e48a1173",
@@ -521,6 +548,72 @@
                     "action": "MoveCard",
                     "isComposite": false,
                     "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "f50cfac6-fa68-4e61-9f37-350683cd369d",
+                    "path": "<Keyboard>/4",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard",
+                    "action": "PlayForthCard",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "83074b6c-671b-45f4-9e0a-db99c487eec3",
+                    "path": "<Gamepad>/buttonWest",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Controller",
+                    "action": "PlayForthCard",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "58d42751-8bc9-42b5-bef6-aa3be6bc1c39",
+                    "path": "<Keyboard>/5",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard",
+                    "action": "PlayFifthCard",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "7332b4b0-9b51-4428-907b-926d463301ee",
+                    "path": "<Gamepad>/buttonSouth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Controller",
+                    "action": "PlayFifthCard",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "c00cba26-0076-46b6-ba15-e7741a8d8d5a",
+                    "path": "<Keyboard>/6",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard",
+                    "action": "PlaySixthCard",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "af32954c-fe49-4619-b662-5ef3a46054ea",
+                    "path": "<Gamepad>/buttonEast",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Controller",
+                    "action": "PlaySixthCard",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         },

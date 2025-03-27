@@ -41,6 +41,9 @@ public class HandCard : MonoBehaviour {
     [SerializeField] private InputActionReference playFirstCardInput;
     [SerializeField] private InputActionReference playSecondCardInput;
     [SerializeField] private InputActionReference playThirdCardInput;
+    [SerializeField] private InputActionReference playForthCardInput;
+    [SerializeField] private InputActionReference playFifthCardInput;
+    [SerializeField] private InputActionReference playSixthCardInput;
 
     private ScriptableCardBase card;
     private int cardIndex;
@@ -193,7 +196,6 @@ public class HandCard : MonoBehaviour {
     }
 
     public void TryPlayCard(Vector2 playPosition) {
-
         if (!card.CanPlay()) {
             return;
         }
@@ -360,6 +362,15 @@ public class HandCard : MonoBehaviour {
         else if (cardIndex == 2) {
             return playThirdCardInput.action;
         }
+        else if (cardIndex == 3) {
+            return playForthCardInput.action;
+        }
+        else if (cardIndex == 4) {
+            return playFifthCardInput.action;
+        }
+        else if (cardIndex == 5) {
+            return playSixthCardInput.action;
+        }
         else {
             Debug.LogError("cardIndex not supported: " + cardIndex);
             return null;
@@ -371,6 +382,12 @@ public class HandCard : MonoBehaviour {
     }
 
     public bool CanAffordToPlay() {
+
+        if (card == null) {
+            Debug.LogWarning("Try to play CanAffordToPlay, but card is null!");
+            return false;
+        }
+
         return DeckManager.Instance.Essence >= card.Cost;
     }
 }

@@ -635,7 +635,7 @@ MonoBehaviour:
         DebugActive: 0
         Mode: 0
         AnimateScaleTarget: {fileID: 1519043710445125909}
-        AnimateScaleDuration: 0.3
+        AnimateScaleDuration: 0.1
         RemapCurveZero: 1
         RemapCurveOne: 0
         Offset: 0
@@ -2341,6 +2341,9 @@ MonoBehaviour:
   playFirstCardInput: {fileID: 5962943595717837552, guid: 50afa068aa51bd149a1f3d07794c53d5, type: 3}
   playSecondCardInput: {fileID: 5805402075545936634, guid: 50afa068aa51bd149a1f3d07794c53d5, type: 3}
   playThirdCardInput: {fileID: -8723412899392237460, guid: 50afa068aa51bd149a1f3d07794c53d5, type: 3}
+  playForthCardInput: {fileID: 973669194404103893, guid: 50afa068aa51bd149a1f3d07794c53d5, type: 3}
+  playFifthCardInput: {fileID: -3012362030779160134, guid: 50afa068aa51bd149a1f3d07794c53d5, type: 3}
+  playSixthCardInput: {fileID: 1371200559049933552, guid: 50afa068aa51bd149a1f3d07794c53d5, type: 3}
   cardImage: {fileID: 8781295295215984585}
   hotkeyText: {fileID: 4834253411405777544}
   incompatitableText: {fileID: 2547107600795234371}
@@ -2360,6 +2363,9 @@ MonoBehaviour:
   playFirstCardInput: {fileID: 5962943595717837552, guid: 50afa068aa51bd149a1f3d07794c53d5, type: 3}
   playSecondCardInput: {fileID: 5805402075545936634, guid: 50afa068aa51bd149a1f3d07794c53d5, type: 3}
   playThirdCardInput: {fileID: -8723412899392237460, guid: 50afa068aa51bd149a1f3d07794c53d5, type: 3}
+  playForthCardInput: {fileID: 973669194404103893, guid: 50afa068aa51bd149a1f3d07794c53d5, type: 3}
+  playFifthCardInput: {fileID: -3012362030779160134, guid: 50afa068aa51bd149a1f3d07794c53d5, type: 3}
+  playSixthCardInput: {fileID: 1371200559049933552, guid: 50afa068aa51bd149a1f3d07794c53d5, type: 3}
   cancelAction: {fileID: -355084504590373469, guid: 50afa068aa51bd149a1f3d07794c53d5, type: 3}
   moveCardAction: {fileID: -8533682895351492078, guid: 50afa068aa51bd149a1f3d07794c53d5, type: 3}
 --- !u!114 &677690741969955083

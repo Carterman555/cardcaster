@@ -84,6 +84,10 @@ public class RoomPositionHelper {
     }
 
     public bool IsValidPosition(Vector2 point) {
+
+        if (Room.GetCurrentRoom() == null)
+            return false;
+
         if (!IsPointInPolygon(Room.GetCurrentRoom().GetComponent<PolygonCollider2D>(), point))
             return false;
 

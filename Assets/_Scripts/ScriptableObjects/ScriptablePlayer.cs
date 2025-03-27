@@ -32,7 +32,7 @@ public struct PlayerStats {
 
     public float BaseProjectileDamageMult;
     public float AllDamageMult;
-    
+
     public float BasicAttackDamage => BaseBasicAttackDamage * AllDamageMult;
     public float DashAttackDamage => BaseDashAttackDamage * AllDamageMult;
     public float ProjectileDamageMult => BaseProjectileDamageMult * AllDamageMult;

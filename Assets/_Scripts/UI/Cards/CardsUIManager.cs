@@ -20,9 +20,11 @@ public class CardsUIManager : StaticInstance<CardsUIManager> {
         DeckManager.OnTrashCardInHand += UpdateCardButtons;
         DeckManager.OnReplaceCardInHand += UpdateCardButtons;
         DeckManager.OnClearCards += OnClearCards;
+        DeckManager.OnHandSizeChanged_Size += OnHandSizeChanged;
 
         DrawCardsOnNewLevel();
     }
+
     private void OnDisable() {
         HandCard.OnAnyCardUsed_Button -= OnCardUsed;
 
@@ -30,6 +32,7 @@ public class CardsUIManager : StaticInstance<CardsUIManager> {
         DeckManager.OnTrashCardInHand -= UpdateCardButtons;
         DeckManager.OnReplaceCardInHand -= UpdateCardButtons;
         DeckManager.OnClearCards -= OnClearCards;
+        DeckManager.OnHandSizeChanged_Size -= OnHandSizeChanged;
     }
 
     private void DrawCardsOnNewLevel() {
@@ -38,7 +41,6 @@ public class CardsUIManager : StaticInstance<CardsUIManager> {
         for (int i = 0; i < handSize; i++) {
             DrawCardToEnd();
         }
-
     }
 
     private void DrawCardToEnd() {
@@ -53,6 +55,21 @@ public class CardsUIManager : StaticInstance<CardsUIManager> {
             handCard.gameObject.ReturnToPool();
         }
         handCards.Clear();
+    }
+
+    private void OnHandSizeChanged(int handSize) {
+
+        while (handSize < handCards.Count) {
+            handCards[^1].gameObject.ReturnToPool();
+            handCards.RemoveAt(handCards.Count - 1);
+        }
+
+        while (handSize > handCards.Count) {
+            int index = handCards.Count;
+            DrawCard(index);
+        }
+
+        UpdateCardButtons();
     }
 
     private void OnCardUsed(HandCard handCard) {
@@ -120,7 +137,7 @@ public class CardsUIManager : StaticInstance<CardsUIManager> {
 
     private int GetHandSize() {
         ScriptableCardBase[] cardsInHand = DeckManager.Instance.GetCardsInHand();
-        int handSize = cardsInHand.Where(card => card != null).Count();
+        int handSize = cardsInHand.Count(card => card != null);
         return handSize;
     }
 

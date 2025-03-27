@@ -102,7 +102,7 @@ public class StatsManager : StaticInstance<StatsManager> {
         playerStats.BaseProjectileDamageMult = Mathf.Max(playerStats.BaseProjectileDamageMult, 0f);
         playerStats.AllDamageMult = Mathf.Max(playerStats.AllDamageMult, 0f);
         playerStats.MaxEssence = (int)Mathf.Max(playerStats.MaxEssence, 0f);
-        playerStats.HandSize = (int)Mathf.Max(playerStats.HandSize, 0f);
+        playerStats.HandSize = (int)Mathf.Clamp(playerStats.HandSize, 0f, DeckManager.MaxHandSize);
     }
 
     public void ModifyStat(ref PlayerStats playerStats, PlayerStatType playerStatType, ModifyType modifyType, float value) {

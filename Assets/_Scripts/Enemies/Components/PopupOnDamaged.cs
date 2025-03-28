@@ -15,13 +15,13 @@ public class PopupOnDamaged : MonoBehaviour {
     }
 
     private void OnEnable() {
-        damagable.OnDamaged_Damage_Shared += CreateDamagePopup;
+        damagable.OnDamagedDetailed += CreateDamagePopup;
     }
     private void OnDisable() {
-        damagable.OnDamaged_Damage_Shared -= CreateDamagePopup;
+        damagable.OnDamagedDetailed -= CreateDamagePopup;
     }
 
-    public void CreateDamagePopup(float damage, bool fromShared) {
+    public void CreateDamagePopup(float damage, bool fromShared, bool crit) {
 
         if (fromShared) {
             return;
@@ -35,6 +35,6 @@ public class PopupOnDamaged : MonoBehaviour {
         position.y += Random.Range(-yVariation, yVariation);
 
         DamagePopup damagePopup = damagePopupPrefab.Spawn(position, Containers.Instance.Effects);
-        damagePopup.Setup(damage);
+        damagePopup.Setup(damage, crit);
     }
 }

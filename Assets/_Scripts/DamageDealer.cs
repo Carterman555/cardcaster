@@ -8,11 +8,12 @@ public class DamageDealer {
         bool dealtDamage = false;
         if (target.TryGetComponent(out IDamagable damagable)) {
 
-            if (canCrit && StatsManager.Instance.PlayerStats.CritChance > Random.Range(0f, 1f)) {
+            bool crit = canCrit && StatsManager.Instance.PlayerStats.CritChance > Random.Range(0f, 1f);
+            if (crit) {
                 damage *= StatsManager.Instance.PlayerStats.CritDamageMult;
             }
 
-            damagable.Damage(damage);
+            damagable.Damage(damage, crit: crit);
             dealtDamage = true;
         }
         if (target.TryGetComponent(out Knockback knockback)) {

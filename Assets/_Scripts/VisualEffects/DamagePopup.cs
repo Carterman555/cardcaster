@@ -9,11 +9,8 @@ public class DamagePopup : MonoBehaviour {
     private TextMeshPro text;
 
     [Header("Color")]
-    [SerializeField] private Color lowDamageColor;
-    [SerializeField] private float mediumDamageThreshold;
-    [SerializeField] private Color mediumDamageColor;
-    [SerializeField] private float highDamageThreshold;
-    [SerializeField] private Color highDamageColor;
+    [SerializeField] private Color normalColor;
+    [SerializeField] private Color critColor;
 
     [Header("Animate")]
     [SerializeField] private Vector2 moveAmount;
@@ -22,7 +19,7 @@ public class DamagePopup : MonoBehaviour {
         text = GetComponent<TextMeshPro>();
     }
 
-    public void Setup(float damage) {
+    public void Setup(float damage, bool crit) {
 
         if (damage < 1f) {
             // round to nearest tenths place
@@ -32,19 +29,8 @@ public class DamagePopup : MonoBehaviour {
             damage = Mathf.Round(damage);
         }
 
-
         text.text = damage.ToString();
-
-        // set color based on damage
-        if (damage > highDamageThreshold) {
-            text.color = highDamageColor;
-        }
-        else if (damage > mediumDamageThreshold) {
-            text.color = mediumDamageColor;
-        }
-        else {
-            text.color = lowDamageColor;
-        }
+        text.color = crit ? critColor : normalColor;
 
         // move and fade
         float duration = 0.5f;

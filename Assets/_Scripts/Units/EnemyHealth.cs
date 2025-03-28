@@ -11,7 +11,7 @@ public class EnemyHealth : MonoBehaviour, IDamagable {
 
     public UnityEvent DamagedEventTrigger;
     public event Action OnDamaged;
-    public event Action<float, bool> OnDamaged_Damage_Shared;
+    public event Action<float, bool, bool> OnDamagedDetailed;
     public event Action<float> OnHealthChanged_HealthProportion;
 
     [SerializeField] private bool returnOnDeath = true;
@@ -61,7 +61,7 @@ public class EnemyHealth : MonoBehaviour, IDamagable {
         OnHealthChanged_HealthProportion?.Invoke(health / maxHealth);
     }
 
-    public void Damage(float damage, bool shared = false) {
+    public void Damage(float damage, bool shared = false, bool crit = false) {
 
         if (Dead || IsInvincible()) {
             return;
@@ -75,7 +75,7 @@ public class EnemyHealth : MonoBehaviour, IDamagable {
         DamagedEventTrigger?.Invoke();
 
         OnDamaged?.Invoke();
-        OnDamaged_Damage_Shared?.Invoke(damage, shared);
+        OnDamagedDetailed?.Invoke(damage, shared, crit);
 
         if (health <= 0) {
             Die();

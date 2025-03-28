@@ -6,7 +6,7 @@ using UnityEngine;
 public class BreakOnDamaged : MonoBehaviour, IDamagable {
 
     public event Action OnDamaged;
-    public event Action<float, bool> OnDamaged_Damage_Shared;
+    public event Action<float, bool, bool> OnDamagedDetailed;
 
     public bool Dead { get; private set; }
 
@@ -22,7 +22,7 @@ public class BreakOnDamaged : MonoBehaviour, IDamagable {
         Dead = false;
     }
 
-    public void Damage(float damage, bool shared = false) {
+    public void Damage(float damage, bool shared = false, bool crit = false) {
         Dead = true;
 
         anim.SetTrigger("break");
@@ -33,6 +33,6 @@ public class BreakOnDamaged : MonoBehaviour, IDamagable {
         AudioManager.Instance.PlaySound(AudioManager.Instance.AudioClips.BreakBarrel);
 
         OnDamaged?.Invoke();
-        OnDamaged_Damage_Shared?.Invoke(damage, shared);
+        OnDamagedDetailed?.Invoke(damage, shared, crit);
     }
 }

@@ -18,4 +18,6 @@ EditorBuildSettings:
     path: Assets/Scenes/AdditiveLoadingScreen.unity
     guid: 945e5b97212e8e74ebcd35bddde3970c
   m_configObjects:
+    com.unity.addressableassets: {fileID: 11400000, guid: 60cc4b91c27a9b5419bbb43a9176f0a8, type: 2}
     com.unity.input.settings: {fileID: 11400000, guid: f3e01eb474065dd44aaadb0177805415, type: 2}
+    com.unity.localization.settings: {fileID: 11400000, guid: 9a994e1429266584db0d460530a69526, type: 2}

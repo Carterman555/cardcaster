@@ -11,12 +11,12 @@ public class DropEssenceOnDamaged : MonoBehaviour {
     private void Awake() {
         health = GetComponent<EnemyHealth>();
 
-        health.OnDamaged_Damage_Shared += TryDropEssence;
+        health.OnDamagedDetailed += TryDropEssence;
 
     }
 
     private void OnDestroy() {
-        health.OnDamaged_Damage_Shared -= TryDropEssence;
+        health.OnDamagedDetailed -= TryDropEssence;
     }
 
     [SerializeField] private EssenceDrop essencePrefab;
@@ -26,7 +26,7 @@ public class DropEssenceOnDamaged : MonoBehaviour {
 
     [SerializeField] private float yVariation = 1f;
 
-    private void TryDropEssence(float damage, bool shared) {
+    private void TryDropEssence(float damage, bool shared, bool crit) {
 
         float dropChance = dropChancePerDmg * damage;
         dropChance = Mathf.Clamp01(dropChance);

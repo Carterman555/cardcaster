@@ -6,7 +6,7 @@ using UnityEngine;
 public class ReturnOnDamaged : MonoBehaviour, IDamagable {
 
     public event Action OnDamaged;
-    public event Action<float, bool> OnDamaged_Damage_Shared;
+    public event Action<float, bool, bool> OnDamagedDetailed;
 
     public bool Dead { get; private set; }
 
@@ -14,12 +14,12 @@ public class ReturnOnDamaged : MonoBehaviour, IDamagable {
         Dead = false;
     }
 
-    public void Damage(float damage, bool shared = false) {
+    public void Damage(float damage, bool shared = false, bool crit = false) {
         Dead = true;
 
         gameObject.ReturnToPool();
 
         OnDamaged?.Invoke();
-        OnDamaged_Damage_Shared?.Invoke(damage, shared);
+        OnDamagedDetailed?.Invoke(damage, shared, crit);
     }
 }

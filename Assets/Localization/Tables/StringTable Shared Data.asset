@@ -10,13 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5b11a58205ec3474ca216360e9fa74a8, type: 3}
-  m_Name: TestTable Shared Data
+  m_Name: StringTable Shared Data
   m_EditorClassIdentifier: 
-  m_TableCollectionName: TestTable
+  m_TableCollectionName: StringTable
   m_TableCollectionNameGuidString: e2b89126a54df984f885da2bac4cb92f
   m_Entries:
   - m_Id: 23997190144
     m_Key: testKey
+    m_Metadata:
+      m_Items: []
+  - m_Id: 331050082897920
+    m_Key: Game/Canvases/HUD/TestText
     m_Metadata:
       m_Items: []
   m_Metadata:

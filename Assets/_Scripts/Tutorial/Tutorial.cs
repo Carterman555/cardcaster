@@ -7,6 +7,8 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
+using UnityEngine.Localization;
+using UnityEngine.Localization.Settings;
 using UnityEngine.Serialization;
 
 public class Tutorial : MonoBehaviour {
@@ -28,15 +30,26 @@ public class Tutorial : MonoBehaviour {
     [Header("Dialog Steps")]
     [SerializeField] private InputActionReference nextStepInput;
 
-    private string welcomeText = "Hello, I am The Dealer. I normally trade cards, but for now will guide you.";
+    [SerializeField] private DialogStepText welcomeText;
+    [SerializeField] private DialogStepText faceText;
+    [SerializeField] private DialogStepText combatText;
+    [SerializeField] private DialogStepText dashText;
+    [SerializeField] private DialogStepText card1Text;
+    [SerializeField] private DialogStepText card2Text;
+    [SerializeField] private DialogStepText modifyCard1Text;
+    [SerializeField] private DialogStepText modifyCard2Text;
+    [SerializeField] private DialogStepText essenceText;
+    [SerializeField] private DialogStepText holeText;
+
+    private string welcomeTextOld = "Hello, I am The Dealer. I normally trade cards, but for now will guide you.";
 
     private string faceTextKeyboard = "First I will teach you that you can change the direction you are facing and aim your sword with your mouse position.";
     private string faceTextController = "First I will teach you that you can change the direction you are facing with {ACTION}.";
 
-    private string combatText = "In the Card Dungeon, you need to fight off enemies. I'll spawn one in for you," +
+    private string combatTextOld = "In the Card Dungeon, you need to fight off enemies. I'll spawn one in for you," +
         " so you can learn. Press {ACTION} to swing your sword and kill him!";
 
-    private string dashText = "Nice. You can also dash with {ACTION}, which can be a useful way to move around. You're also " +
+    private string dashTextOld = "Nice. You can also dash with {ACTION}, which can be a useful way to move around. You're also " +
         "invincible while dashing. Try it.";
 
     private string card1TextKeyboard = "Good. In the card dungeon, you will find magical cards. I will give a teleport card." +
@@ -54,10 +67,10 @@ public class Tutorial : MonoBehaviour {
 
     private string modify2CardText = "Play Scorch then Spinning Fury, and watch what happens.";
 
-    private string essenceText = "You might have noticed that cards cost essence. Enemies drop essence and I'll give you" +
+    private string essenceTextOld = "You might have noticed that cards cost essence. Enemies drop essence and I'll give you" +
         " some now to make sure you what they look like. Pick them all up.";
 
-    private string holeText = "See this hole I created? You should fall into it.";
+    private string holeTextOld = "See this hole I created? You should fall into it.";
 
     [Header("Combat Step")]
     [SerializeField] private InputActionReference attackAction;
@@ -129,24 +142,24 @@ public class Tutorial : MonoBehaviour {
         tutorialActive = true;
 
         if (playerDied) {
-            welcomeText = "Let's start this again, shall we. " + welcomeText;
+            welcomeTextOld = "Let's start this again, shall we. " + welcomeTextOld;
         }
 
         tutorialSteps = new BaseTutorialStep[] {
             new DialogStep(nextStepInput, welcomeText),
-            new DialogStep(nextStepInput, faceTextKeyboard, faceTextController, faceInput),
+            new DialogStep(nextStepInput, faceText, faceInput),
             new DialogStep(nextStepInput, combatText, attackAction),
             new SpawnEnemyStep(practiceEnemy, enemySpawnPoint),
-            new EventDialogStep(PlayerMovement.Instance.OnDash, dashText, dashInput),
-            new DialogStep(nextStepInput, card1TextKeyboard, card1TextController, firstCardInput),
-            new DialogStep(nextStepInput, card2TextKeyboard, card2TextController, firstCardInput),
+            new EventDialogStep(PlayerMovement.Instance.OnDash, dashTextOld, dashInput),
+            new DialogStep(nextStepInput, card1Text, firstCardInput),
+            new DialogStep(nextStepInput, card2Text, firstCardInput),
             new GiveTeleportCardStep(teleportCard, roomTwoTrigger),
-            new DialogStep(nextStepInput, modify1CardText),
-            new DialogStep(nextStepInput, modify2CardText),
+            new DialogStep(nextStepInput, modifyCard1Text),
+            new DialogStep(nextStepInput, modifyCard2Text),
             new GiveModifyCardStep(modifierCard, abilityCard),
             new CombatModifyCardStep(practiceEnemy, modifyEnemySpawnPoints),
-            new PickupEssenceStep(essencePrefab, essenceSpawnPoints, essenceText),
-            new HoleStep(hole, createHoleParticles, holeText)
+            new PickupEssenceStep(essencePrefab, essenceSpawnPoints, essenceTextOld),
+            new HoleStep(hole, createHoleParticles, holeTextOld)
         };
         currentStepIndex = 0;
 
@@ -213,51 +226,26 @@ public class BaseTutorialStep {
 public class DialogStep : BaseTutorialStep {
 
     private InputActionReference nextStepInput;
-    private string dialog;
+    private DialogStepText dialog;
     private InputActionReference dialogAction;
 
-    public DialogStep(InputActionReference nextStepInput, string dialog, InputActionReference dialogAction = null) {
+    public DialogStep(InputActionReference nextStepInput, DialogStepText dialog, InputActionReference dialogAction = null) {
         this.nextStepInput = nextStepInput;
         this.dialog = dialog;
         this.dialogAction = dialogAction;
-
-        multipleDialogs = false;
-    }
-
-    private string keyboardDialog;
-    private string controllerDialog;
-    private bool multipleDialogs;
-
-    public DialogStep(InputActionReference nextStepInput, string keyboardDialog, string controllerDialog, InputActionReference dialogAction = null) {
-        this.nextStepInput = nextStepInput;
-        this.keyboardDialog = keyboardDialog;
-        this.controllerDialog = controllerDialog;
-        this.dialogAction = dialogAction;
-
-        multipleDialogs = true;
     }
 
     public override void OnEnterStep() {
         base.OnEnterStep();
 
-        if (multipleDialogs) {
-            if (InputManager.Instance.GetControlScheme() == ControlSchemeType.Keyboard) {
-                dialog = keyboardDialog;
-            }
-            else if (InputManager.Instance.GetControlScheme() == ControlSchemeType.Controller) {
-                dialog = controllerDialog;
-            }
-            else {
-                Debug.LogError("Could not find input scheme: " + InputManager.Instance.GetControlScheme());
-            }
-        }
+        string dialogText = dialog.GetText(InputManager.Instance.GetControlScheme(), LocalizationSettings.SelectedLocale.Identifier);
 
         if (dialogAction != null) {
             string actionText = InputManager.Instance.GetBindingText(dialogAction, shortDisplayName: false);
-            dialog = dialog.Replace("{ACTION}", actionText);
+            dialogText = dialogText.Replace("{ACTION}", actionText);
         }
 
-        DialogBox.Instance.ShowText(dialog);
+        DialogBox.Instance.ShowText(dialogText);
 
         nextStepInput.action.performed += CompleteStep;
     }
@@ -541,5 +529,23 @@ public class HoleStep : BaseTutorialStep {
         NextLevelHole.OnFallInHole -= CompleteStep;
 
         base.CompleteStep();
+    }
+}
+
+[Serializable]
+public struct DialogVersion {
+    public string Text;
+    public ControlSchemeType Input;
+    public LocaleIdentifier LanguageIdentifier;
+}
+
+[Serializable]
+public struct DialogStepText {
+    public DialogVersion[] DialogVersions;
+
+    public string GetText(ControlSchemeType input, LocaleIdentifier languageIdentifier) {
+        DialogVersion dialogVersion = DialogVersions.FirstOrDefault(d => ((d.Input == ControlSchemeType.Any) || d.Input == input) &&
+                                                                            d.LanguageIdentifier == languageIdentifier);
+        return dialogVersion.Text;
     }
 }

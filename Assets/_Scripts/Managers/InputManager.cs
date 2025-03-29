@@ -247,4 +247,5 @@ public class InputManager : Singleton<InputManager> {
 public enum ControlSchemeType {
     Keyboard = 0,
     Controller = 1,
+    Any = 2
 }

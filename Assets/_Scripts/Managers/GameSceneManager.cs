@@ -106,7 +106,6 @@ public class GameSceneManager : Singleton<GameSceneManager> {
     private void OnSceneLoaded(Scene scene, LoadSceneMode loadSceneMode) {
         if (scene != SceneManager.GetSceneByName("AdditiveLoadingScreen")) {
             isSceneLoading = false;
-            print("End load Game scene");
         }
     }
 

@@ -14,35 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_TableCollectionName: FontTable
   m_TableCollectionNameGuidString: eb6c61c9cfdcfdd4cac5fd0caa8c0e5f
-  m_Entries:
-  - m_Id: 918508015616
-    m_Key: Font
-    m_Metadata:
-      m_Items: []
-  - m_Id: 926703685632
-    m_Key: FontMaterial
-    m_Metadata:
-      m_Items: []
-  - m_Id: 28360295583744
-    m_Key: Game/Canvases/HUD/TestText
-    m_Metadata:
-      m_Items: []
-  - m_Id: 28572435091456
-    m_Key: Game/Canvases/HUD/TestText 1
-    m_Metadata:
-      m_Items: []
-  - m_Id: 28650059075584
-    m_Key: Game/Canvases/HUD/TestText 2
-    m_Metadata:
-      m_Items: []
-  - m_Id: 28650080047104
-    m_Key: Game/Canvases/HUD/TestText 3
-    m_Metadata:
-      m_Items: []
+  m_Entries: []
   m_Metadata:
-    m_Items:
-    - rid: 2333493097498411012
-    - rid: 2333493097498411015
+    m_Items: []
   m_KeyGenerator:
     rid: 2333493097498411008
   references:
@@ -52,39 +26,3 @@ MonoBehaviour:
       type: {class: DistributedUIDGenerator, ns: UnityEngine.Localization.Tables, asm: Unity.Localization}
       data:
         m_CustomEpoch: 1743254286624
-    - rid: 2333493097498411012
-      type: {class: AssetTypeMetadata, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
-      data:
-        m_Entries:
-        - m_KeyId: 918508015616
-          m_TableCodes:
-          - en
-          - zh-Hans
-        - m_KeyId: 28650059075584
-          m_TableCodes:
-          - en
-          - zh-Hans
-        m_TypeString: TMPro.TMP_FontAsset, Unity.TextMeshPro, Version=0.0.0.0, Culture=neutral,
-          PublicKeyToken=null
-    - rid: 2333493097498411015
-      type: {class: AssetTypeMetadata, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
-      data:
-        m_Entries:
-        - m_KeyId: 926703685632
-          m_TableCodes:
-          - en
-          - zh-Hans
-        - m_KeyId: 28360295583744
-          m_TableCodes:
-          - en
-          - zh-Hans
-        - m_KeyId: 28572435091456
-          m_TableCodes:
-          - en
-          - zh-Hans
-        - m_KeyId: 28650080047104
-          m_TableCodes:
-          - en
-          - zh-Hans
-        m_TypeString: UnityEngine.Material, UnityEngine.CoreModule, Version=0.0.0.0,
-          Culture=neutral, PublicKeyToken=null

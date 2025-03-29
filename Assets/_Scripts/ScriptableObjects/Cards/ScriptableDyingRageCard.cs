@@ -28,7 +28,7 @@ public class ScriptableDyingRageCard : ScriptableAbilityCardBase {
         playerHealth.OnHealthChanged_HealthProportion -= UpdateDamage;
         
         if (applyingDamageModifier) {
-            StatsManager.Instance.RemovePlayerStatModifiers(statModifiers);
+            StatsManager.RemovePlayerStatModifiers(statModifiers);
             applyingDamageModifier = false;
         }
     }
@@ -40,11 +40,11 @@ public class ScriptableDyingRageCard : ScriptableAbilityCardBase {
         bool shouldApplyDamage = proportion < maxHealthProportionForDamage;
 
         if (shouldApplyDamage && !applyingDamageModifier) {
-            StatsManager.Instance.RemovePlayerStatModifiers(statModifiers);
+            StatsManager.RemovePlayerStatModifiers(statModifiers);
             applyingDamageModifier = true;
         }
         else if (!shouldApplyDamage && applyingDamageModifier) {
-            StatsManager.Instance.RemovePlayerStatModifiers(statModifiers);
+            StatsManager.RemovePlayerStatModifiers(statModifiers);
             applyingDamageModifier = false;
         }
     }

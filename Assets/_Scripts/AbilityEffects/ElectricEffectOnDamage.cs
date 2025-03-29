@@ -35,7 +35,7 @@ public class ElectricEffectOnDamage : MonoBehaviour, IAbilityEffect {
 
             float dmg = damage;
             if (target.layer == GameLayers.EnemyLayer) {
-                dmg *= StatsManager.Instance.PlayerStats.AllDamageMult;
+                dmg *= StatsManager.PlayerStats.AllDamageMult;
             }
 
             electricChain.Setup(dmg, chainSize);

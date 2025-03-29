@@ -18,12 +18,46 @@ MonoBehaviour:
   m_Metadata:
     m_Items: []
   m_TableData:
-  - m_Id: 23997190144
-    m_Localized: Hello
+  - m_Id: 465874663772160
+    m_Localized: DO NOT BREAK MY BARRELS!!!
     m_Metadata:
       m_Items: []
-  - m_Id: 331050082897920
-    m_Localized: Hello
+  - m_Id: 470177034014720
+    m_Localized: YOU WERE SUPPOSED TO TELEPORT TO THE NEXT ROOM ON THE RIGHT!!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 470271896588288
+    m_Localized: I'M TRYING TO TEACH YOU! DON'T LEAVE THAT ROOM!!!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 470290213113856
+    m_Localized: YOU USED TOO MUCH ESSENCE, AND NOW YOU DON'T HAVE ENOUGH FOR ME
+      TO TEACH YOU!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 474383677657088
+    m_Localized: Hello, I am The Dealer. I normally trade cards, but for now will
+      guide you.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 474893050712064
+    m_Localized: Let's start this again, shall we. Hello, I am The Dealer. I normally
+      trade cards, but for now will guide you.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 475184282210304
+    m_Localized: First I will teach you that you can change the direction you are
+      facing and aim your sword with your mouse position.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 475374644891648
+    m_Localized: First I will teach you that you can change the direction you are
+      facing with {ACTION}.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 475480735617024
+    m_Localized: In the Card Dungeon, you need to fight off enemies. I'll spawn one
+      in for you, so you can learn. Press {ACTION} to swing your sword and kill him!
     m_Metadata:
       m_Items: []
   references:

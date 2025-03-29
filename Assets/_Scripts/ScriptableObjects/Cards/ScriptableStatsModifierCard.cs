@@ -11,12 +11,12 @@ public class ScriptableStatsModifierCard : ScriptableAbilityCardBase {
 
     protected override void Play(Vector2 position) {
         base.Play(position);
-        StatsManager.Instance.AddPlayerStatModifiers(statModifiers);
+        StatsManager.AddPlayerStatModifiers(statModifiers);
     }
 
     public override void Stop() {
         base.Stop();
-        StatsManager.Instance.RemovePlayerStatModifiers(statModifiers);
+        StatsManager.RemovePlayerStatModifiers(statModifiers);
     }
 }
 

@@ -131,6 +131,6 @@ public class DebugManager : StaticInstance<DebugManager> {
     [SerializeField] private PlayerStatModifier[] startingPlayerStatModifiers;
 
     private void ApplyPlayerStatModifiers() {
-        StatsManager.Instance.AddPlayerStatModifiers(startingPlayerStatModifiers);
+        StatsManager.AddPlayerStatModifiers(startingPlayerStatModifiers);
     }
 }

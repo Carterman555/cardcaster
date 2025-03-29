@@ -15,12 +15,40 @@ MonoBehaviour:
   m_TableCollectionName: StringTable
   m_TableCollectionNameGuidString: e2b89126a54df984f885da2bac4cb92f
   m_Entries:
-  - m_Id: 23997190144
-    m_Key: testKey
+  - m_Id: 465874663772160
+    m_Key: barrelBreak
     m_Metadata:
       m_Items: []
-  - m_Id: 331050082897920
-    m_Key: Game/Canvases/HUD/TestText
+  - m_Id: 470177034014720
+    m_Key: wrongTeleport
+    m_Metadata:
+      m_Items: []
+  - m_Id: 470271896588288
+    m_Key: teleportAway
+    m_Metadata:
+      m_Items: []
+  - m_Id: 470290213113856
+    m_Key: insufficientEssence
+    m_Metadata:
+      m_Items: []
+  - m_Id: 474383677657088
+    m_Key: welcome
+    m_Metadata:
+      m_Items: []
+  - m_Id: 474893050712064
+    m_Key: playerDiedWelcome
+    m_Metadata:
+      m_Items: []
+  - m_Id: 475184282210304
+    m_Key: faceKeyboard
+    m_Metadata:
+      m_Items: []
+  - m_Id: 475374644891648
+    m_Key: faceController
+    m_Metadata:
+      m_Items: []
+  - m_Id: 475480735617024
+    m_Key: combat
     m_Metadata:
       m_Items: []
   m_Metadata:

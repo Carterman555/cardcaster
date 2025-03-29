@@ -43,7 +43,7 @@ public class ScriptableDaggerShootCard : ScriptableAbilityCardBase {
             StraightMovement straightMovement = daggerPrefab.Spawn(spawnPos, Containers.Instance.Projectiles);
             straightMovement.Setup(attackDirection, Stats.ProjectileSpeed);
 
-            float damage = Stats.Damage * StatsManager.Instance.PlayerStats.BaseProjectileDamageMult;
+            float damage = Stats.Damage * StatsManager.PlayerStats.BaseProjectileDamageMult;
             straightMovement.GetComponent<DamageOnContact>().Setup(damage, Stats.KnockbackStrength, canCrit: true);
 
             // apply effect

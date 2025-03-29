@@ -29,7 +29,7 @@ public class PlayerHealth : MonoBehaviour, IDamagable {
     private float health;
 
     private void Awake() {
-        maxHealth = StatsManager.Instance.PlayerStats.MaxHealth;
+        maxHealth = StatsManager.PlayerStats.MaxHealth;
         health = maxHealth;
     }
 
@@ -99,7 +99,7 @@ public class PlayerHealth : MonoBehaviour, IDamagable {
 
     private void TrySetMaxHealth(PlayerStatType type) {
         if (type == PlayerStatType.MaxHealth) {
-            float newMaxHealth = StatsManager.Instance.PlayerStats.MaxHealth;
+            float newMaxHealth = StatsManager.PlayerStats.MaxHealth;
             float changeInMaxHealth = newMaxHealth - maxHealth;
             maxHealth = newMaxHealth;
             health = Mathf.MoveTowards(health, maxHealth, changeInMaxHealth);

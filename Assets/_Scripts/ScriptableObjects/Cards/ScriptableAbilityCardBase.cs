@@ -196,7 +196,7 @@ public enum AbilityAttribute {
 public struct AbilityStats {
     [ConditionalHideFlag("abilityAttributes", AbilityAttribute.DealsDamage)]
     public float BaseDamage;
-    public float Damage => BaseDamage * StatsManager.Instance.PlayerStats.AllDamageMult;
+    public float Damage => BaseDamage * StatsManager.PlayerStats.AllDamageMult;
 
     [ConditionalHideFlag("abilityAttributes", AbilityAttribute.DealsDamage)]
     public float KnockbackStrength;

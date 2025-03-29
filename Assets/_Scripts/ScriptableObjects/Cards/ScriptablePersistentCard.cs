@@ -24,7 +24,7 @@ public class ScriptablePersistentCard : ScriptableCardBase {
     protected override void Play(Vector2 position) {
         base.Play(position);
         if (CurrentLevel < maxLevel) {
-            StatsManager.Instance.AddPlayerStatModifiers(statModifiersPerLevel);
+            StatsManager.AddPlayerStatModifiers(statModifiersPerLevel);
             CurrentLevel++;
             OnLevelUp?.Invoke(CurrentLevel);
         }
@@ -43,7 +43,7 @@ public class ScriptablePersistentCard : ScriptableCardBase {
 
         // remove all the stat modifiers it added
         for (int i = 0; i < CurrentLevel; i++) {
-            StatsManager.Instance.RemovePlayerStatModifiers(statModifiersPerLevel);
+            StatsManager.RemovePlayerStatModifiers(statModifiersPerLevel);
         }
     }
 

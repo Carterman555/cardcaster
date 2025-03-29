@@ -85,8 +85,6 @@ public class GameSceneManager : Singleton<GameSceneManager> {
         loadGameFeedback.Play(Vector3.zero);
 
         isSceneLoading = true;
-
-        print("Start load Game scene");
     }
 
     private void LoadMenuScene() {

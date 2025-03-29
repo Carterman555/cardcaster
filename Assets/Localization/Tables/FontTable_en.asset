@@ -17,31 +17,7 @@ MonoBehaviour:
   m_SharedData: {fileID: 11400000, guid: eb6c61c9cfdcfdd4cac5fd0caa8c0e5f, type: 2}
   m_Metadata:
     m_Items: []
-  m_TableData:
-  - m_Id: 918508015616
-    m_Localized: d6fd8257d87b2374f8d84cb7d78d8392
-    m_Metadata:
-      m_Items: []
-  - m_Id: 926703685632
-    m_Localized: d6fd8257d87b2374f8d84cb7d78d8392[pixelfont-4x5 Atlas Material]
-    m_Metadata:
-      m_Items: []
-  - m_Id: 28360295583744
-    m_Localized: d6fd8257d87b2374f8d84cb7d78d8392[pixelfont-4x5 Atlas Material]
-    m_Metadata:
-      m_Items: []
-  - m_Id: 28572435091456
-    m_Localized: 3114ff0727a6fe34f9470b913abb376a[NotoSansChinese Atlas Material]
-    m_Metadata:
-      m_Items: []
-  - m_Id: 28650059075584
-    m_Localized: d6fd8257d87b2374f8d84cb7d78d8392
-    m_Metadata:
-      m_Items: []
-  - m_Id: 28650080047104
-    m_Localized: d6fd8257d87b2374f8d84cb7d78d8392[pixelfont-4x5 Atlas Material]
-    m_Metadata:
-      m_Items: []
+  m_TableData: []
   references:
     version: 2
     RefIds: []

@@ -1,9 +1,7 @@
-using Mono.CSharp;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
@@ -30,47 +28,32 @@ public class Tutorial : MonoBehaviour {
     [Header("Dialog Steps")]
     [SerializeField] private InputActionReference nextStepInput;
 
-    [SerializeField] private DialogStepText welcomeText;
+    [SerializeField] private DialogStepText welcomeText; // DONT delete yet in case the nonparse tags it creates messes with input string
+    [SerializeField] private LocalizedString welcomeLocString;
+    [SerializeField] private DialogStepText playerDiedWelcomeText;
+    [SerializeField] private LocalizedString playerDiedLocString;
     [SerializeField] private DialogStepText faceText;
+    [SerializeField] private LocalizedString faceKeyboardLocString;
+    [SerializeField] private LocalizedString faceControllerLocString;
     [SerializeField] private DialogStepText combatText;
+    [SerializeField] private LocalizedString combatLocString;
     [SerializeField] private DialogStepText dashText;
-    [SerializeField] private DialogStepText card1Text;
-    [SerializeField] private DialogStepText card2Text;
+    [SerializeField] private LocalizedString dashLocString;
+    [SerializeField] private DialogStepText card1Text; // both
+    [SerializeField] private LocalizedString card1KeyboardLocString;
+    [SerializeField] private LocalizedString card1ControllerLocString;
+    [SerializeField] private DialogStepText card2Text; // both
+    [SerializeField] private LocalizedString card2KeyboardLocString;
+    [SerializeField] private LocalizedString card2ControllerLocString;
     [SerializeField] private DialogStepText modifyCard1Text;
+    [SerializeField] private LocalizedString modifyCard1LocString;
     [SerializeField] private DialogStepText modifyCard2Text;
+    [SerializeField] private LocalizedString modifyCard2LocString;
     [SerializeField] private DialogStepText essenceText;
+    [SerializeField] private LocalizedString essenceLocString;
     [SerializeField] private DialogStepText holeText;
+    [SerializeField] private LocalizedString holeLocString;
 
-    private string welcomeTextOld = "Hello, I am The Dealer. I normally trade cards, but for now will guide you.";
-
-    private string faceTextKeyboard = "First I will teach you that you can change the direction you are facing and aim your sword with your mouse position.";
-    private string faceTextController = "First I will teach you that you can change the direction you are facing with {ACTION}.";
-
-    private string combatTextOld = "In the Card Dungeon, you need to fight off enemies. I'll spawn one in for you," +
-        " so you can learn. Press {ACTION} to swing your sword and kill him!";
-
-    private string dashTextOld = "Nice. You can also dash with {ACTION}, which can be a useful way to move around. You're also " +
-        "invincible while dashing. Try it.";
-
-    private string card1TextKeyboard = "Good. In the card dungeon, you will find magical cards. I will give a teleport card." +
-        " Drag it on the other side of this wall to the right to teleport there.";
-    private string card1TextController = "Good. In the card dungeon, you will find magical cards. I will give a teleport card." +
-        " Press {ACTION}, and use the right joystick to move the card to where you want to teleport.";
-
-    private string card2TextKeyboard = "You can also hold the hotkey ({ACTION}), and release where you want to teleport. These are" +
-        " simple instructions. If you fail, I will get angry.";
-    private string card2TextController = "Once it's in the correct position, press {ACTION} again to teleport. These are" +
-        " simple instructions. If you fail, I will get angry.";
-
-
-    private string modify1CardText = "Some cards have the magical power to modify other cards that perform abilities.";
-
-    private string modify2CardText = "Play Scorch then Spinning Fury, and watch what happens.";
-
-    private string essenceTextOld = "You might have noticed that cards cost essence. Enemies drop essence and I'll give you" +
-        " some now to make sure you what they look like. Pick them all up.";
-
-    private string holeTextOld = "See this hole I created? You should fall into it.";
 
     [Header("Combat Step")]
     [SerializeField] private InputActionReference attackAction;
@@ -141,16 +124,14 @@ public class Tutorial : MonoBehaviour {
 
         tutorialActive = true;
 
-        if (playerDied) {
-            welcomeTextOld = "Let's start this again, shall we. " + welcomeTextOld;
-        }
+        DialogStepText correctWelcomeText = playerDied ? playerDiedWelcomeText : welcomeText;
 
         tutorialSteps = new BaseTutorialStep[] {
-            new DialogStep(nextStepInput, welcomeText),
+            new DialogStep(nextStepInput, correctWelcomeText),
             new DialogStep(nextStepInput, faceText, faceInput),
             new DialogStep(nextStepInput, combatText, attackAction),
             new SpawnEnemyStep(practiceEnemy, enemySpawnPoint),
-            new EventDialogStep(PlayerMovement.Instance.OnDash, dashTextOld, dashInput),
+            new EventDialogStep(PlayerMovement.Instance.OnDash, dashText, dashInput),
             new DialogStep(nextStepInput, card1Text, firstCardInput),
             new DialogStep(nextStepInput, card2Text, firstCardInput),
             new GiveTeleportCardStep(teleportCard, roomTwoTrigger),
@@ -158,8 +139,8 @@ public class Tutorial : MonoBehaviour {
             new DialogStep(nextStepInput, modifyCard2Text),
             new GiveModifyCardStep(modifierCard, abilityCard),
             new CombatModifyCardStep(practiceEnemy, modifyEnemySpawnPoints),
-            new PickupEssenceStep(essencePrefab, essenceSpawnPoints, essenceTextOld),
-            new HoleStep(hole, createHoleParticles, holeTextOld)
+            new PickupEssenceStep(essencePrefab, essenceSpawnPoints, essenceText),
+            new HoleStep(hole, createHoleParticles, holeText)
         };
         currentStepIndex = 0;
 
@@ -260,10 +241,10 @@ public class DialogStep : BaseTutorialStep {
 public class EventDialogStep : BaseTutorialStep {
 
     private UnityEvent nextStepEvent;
-    private string dialog;
+    private DialogStepText dialog;
     private InputActionReference dialogAction;
 
-    public EventDialogStep(UnityEvent nextStepEvent, string dialog, InputActionReference dialogAction = null) {
+    public EventDialogStep(UnityEvent nextStepEvent, DialogStepText dialog, InputActionReference dialogAction = null) {
         this.nextStepEvent = nextStepEvent;
         this.dialog = dialog;
         this.dialogAction = dialogAction;
@@ -272,12 +253,13 @@ public class EventDialogStep : BaseTutorialStep {
     public override void OnEnterStep() {
         base.OnEnterStep();
 
+        string dialogText = dialog.GetText(InputManager.Instance.GetControlScheme(), LocalizationSettings.SelectedLocale.Identifier);
         if (dialogAction != null) {
             string actionText = InputManager.Instance.GetBindingText(dialogAction, shortDisplayName: false);
-            dialog = dialog.Replace("{ACTION}", actionText);
+            dialogText = dialogText.Replace("{ACTION}", actionText);
         }
 
-        DialogBox.Instance.ShowText(dialog, showNextDialogText: false);
+        DialogBox.Instance.ShowText(dialogText, showNextDialogText: false);
 
         nextStepEvent.AddListener(CompleteStep);
     }
@@ -448,10 +430,9 @@ public class PickupEssenceStep : BaseTutorialStep {
     private Transform[] essenceSpawnPoints;
 
     private EssenceDrop[] essenceInstances;
+    private DialogStepText dialog;
 
-    private string dialog;
-
-    public PickupEssenceStep(EssenceDrop essencePrefab, Transform[] essenceSpawnPoints, string dialog) {
+    public PickupEssenceStep(EssenceDrop essencePrefab, Transform[] essenceSpawnPoints, DialogStepText dialog) {
         this.essencePrefab = essencePrefab;
         this.essenceSpawnPoints = essenceSpawnPoints;
         this.dialog = dialog;
@@ -462,7 +443,8 @@ public class PickupEssenceStep : BaseTutorialStep {
     public override void OnEnterStep() {
         base.OnEnterStep();
 
-        DialogBox.Instance.ShowText(dialog, showNextDialogText: false);
+        string dialogText = dialog.GetText(InputManager.Instance.GetControlScheme(), LocalizationSettings.SelectedLocale.Identifier);
+        DialogBox.Instance.ShowText(dialogText, showNextDialogText: false);
 
         DropEssence();
 
@@ -496,9 +478,9 @@ public class HoleStep : BaseTutorialStep {
     private GameObject hole;
     private ParticleSystem createHoleParticles;
 
-    private string dialog;
+    private DialogStepText dialog;
 
-    public HoleStep(GameObject hole, ParticleSystem createHoleParticles, string dialog) {
+    public HoleStep(GameObject hole, ParticleSystem createHoleParticles, DialogStepText dialog) {
         this.hole = hole;
         this.createHoleParticles = createHoleParticles;
 
@@ -508,7 +490,8 @@ public class HoleStep : BaseTutorialStep {
     public override void OnEnterStep() {
         base.OnEnterStep();
 
-        DialogBox.Instance.ShowText(dialog, showNextDialogText: false);
+        string dialogText = dialog.GetText(InputManager.Instance.GetControlScheme(), LocalizationSettings.SelectedLocale.Identifier);
+        DialogBox.Instance.ShowText(dialogText, showNextDialogText: false);
 
         createHoleParticles.Play();
 

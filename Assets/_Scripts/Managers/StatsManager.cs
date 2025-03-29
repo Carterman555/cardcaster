@@ -4,46 +4,47 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using System.Reflection;
-using static Mono.CSharp.Parameter;
 
-public class StatsManager : StaticInstance<StatsManager> {
+public class StatsManager : MonoBehaviour {
 
     public static event Action<PlayerStatType> OnStatsChanged;
 
-    [SerializeField] private ScriptablePlayer scriptablePlayer;
+    private static ScriptablePlayer scriptablePlayer;
 
-    private PlayerStats playerStats;
-    public PlayerStats PlayerStats => playerStats;
+    private static PlayerStats playerStats;
+    public static PlayerStats PlayerStats => playerStats;
 
-    private List<PlayerStatModifier> statModifiers;
+    private static List<PlayerStatModifier> statModifiers;
 
-    protected override void Awake() {
-        base.Awake();
+    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
+    private static void Init() {
+        scriptablePlayer = Resources.Load<ScriptablePlayer>("Player");
+
         statModifiers = new();
         UpdatePlayerStats();
         print("Clear stat modifiers");
     }
 
-    public void AddPlayerStatModifiers(PlayerStatModifier[] modifiers) {
+    public static void AddPlayerStatModifiers(PlayerStatModifier[] modifiers) {
         foreach (PlayerStatModifier modifier in modifiers) {
             AddPlayerStatModifier(modifier);
         }
     }
 
-    public void AddPlayerStatModifier(PlayerStatModifier modifier) {
+    public static void AddPlayerStatModifier(PlayerStatModifier modifier) {
         statModifiers.Add(modifier);
         UpdatePlayerStats();
 
         OnStatsChanged?.Invoke(modifier.PlayerStatType);
     }
 
-    public void RemovePlayerStatModifiers(PlayerStatModifier[] modifiers) {
+    public static void RemovePlayerStatModifiers(PlayerStatModifier[] modifiers) {
         foreach (PlayerStatModifier modifier in modifiers) {
             RemovePlayerStatModifier(modifier);
         }
     }
 
-    public void RemovePlayerStatModifier(PlayerStatModifier modifier) {
+    public static void RemovePlayerStatModifier(PlayerStatModifier modifier) {
         if (!TryFindPlayerStatModifier(modifier, out PlayerStatModifier modifierInList)) {
             Debug.LogError("Trying to remove player stat modifer that is not in list!");
             return;
@@ -55,7 +56,7 @@ public class StatsManager : StaticInstance<StatsManager> {
         OnStatsChanged?.Invoke(modifier.PlayerStatType);
     }
 
-    private bool TryFindPlayerStatModifier(PlayerStatModifier originalModifier, out PlayerStatModifier modifierInList) {
+    private static bool TryFindPlayerStatModifier(PlayerStatModifier originalModifier, out PlayerStatModifier modifierInList) {
         foreach (PlayerStatModifier modifier in statModifiers) {
             if (modifier.PlayerStatType == originalModifier.PlayerStatType &&
                 modifier.ModifyType == originalModifier.ModifyType &&
@@ -69,7 +70,7 @@ public class StatsManager : StaticInstance<StatsManager> {
         return false;
     }
 
-    private void UpdatePlayerStats() {
+    private static void UpdatePlayerStats() {
 
         playerStats = scriptablePlayer.PlayerStats;
 
@@ -105,7 +106,7 @@ public class StatsManager : StaticInstance<StatsManager> {
         playerStats.HandSize = (int)Mathf.Clamp(playerStats.HandSize, 0f, DeckManager.MaxHandSize);
     }
 
-    public void ModifyStat(ref PlayerStats playerStats, PlayerStatType playerStatType, ModifyType modifyType, float value) {
+    public static void ModifyStat(ref PlayerStats playerStats, PlayerStatType playerStatType, ModifyType modifyType, float value) {
         switch (playerStatType) {
             case PlayerStatType.MaxHealth:
                 ApplyModification(ref playerStats.MaxHealth, modifyType, value);
@@ -161,7 +162,7 @@ public class StatsManager : StaticInstance<StatsManager> {
         }
     }
 
-    private void ApplyModification(ref float stat, ModifyType modifyType, float value) {
+    private static void ApplyModification(ref float stat, ModifyType modifyType, float value) {
         if (modifyType == ModifyType.Additive) {
             stat += value;
         }
@@ -170,7 +171,7 @@ public class StatsManager : StaticInstance<StatsManager> {
         }
     }
 
-    private void ApplyModification(ref int stat, ModifyType modifyType, int value) {
+    private static void ApplyModification(ref int stat, ModifyType modifyType, int value) {
         if (modifyType == ModifyType.Additive) {
             stat += value;
         }

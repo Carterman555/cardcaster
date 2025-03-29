@@ -27,7 +27,7 @@ public class FireEffect : UnitEffect {
 
             float damagePerSecond = 2f;
             if (damagable is EnemyHealth) {
-                damagePerSecond *= StatsManager.Instance.PlayerStats.AllDamageMult;
+                damagePerSecond *= StatsManager.PlayerStats.AllDamageMult;
             }
             damagable.Damage(damagePerSecond);
         }

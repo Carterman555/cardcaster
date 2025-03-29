@@ -6,6 +6,8 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Localization;
+using UnityEngine.Localization.Tables;
 
 public class Trainer : StaticInstance<Trainer> {
 
@@ -81,6 +83,11 @@ public class Trainer : StaticInstance<Trainer> {
     [SerializeField] private Tutorial tutorial;
     [SerializeField] private ScriptableModifierCardBase fireCard;
 
+    [SerializeField] private LocalizedString breakBarrelString;
+    [SerializeField] private LocalizedString wrongTeleportString;
+    [SerializeField] private LocalizedString teleportAwayString;
+    [SerializeField] private LocalizedString insufficientEssenceString;
+
     [Header("Movement")]
     [SerializeField] private float acceleration;
     [SerializeField] private float maxSpeed;
@@ -123,7 +130,7 @@ public class Trainer : StaticInstance<Trainer> {
             return;
         }
 
-        DialogBox.Instance.ShowText("DO NOT BREAK MY BARRELS!!!", showNextDialogText: false);
+        DialogBox.Instance.ShowText(breakBarrelString.GetLocalizedString(), showNextDialogText: false);
         EnterRage();
     }
 
@@ -142,7 +149,8 @@ public class Trainer : StaticInstance<Trainer> {
         bool playerInRoomTwo = roomTwoTrigger.HasContact();
 
         if (playedCard is ScriptableTeleportCard && !playerInRoomTwo) {
-            DialogBox.Instance.ShowText("YOU WERE SUPPOSED TO TELEPORT TO THE NEXT ROOM ON THE RIGHT!!", showNextDialogText: false);
+
+            DialogBox.Instance.ShowText(wrongTeleportString.GetLocalizedString(), showNextDialogText: false);
             EnterRage();
         }
     }
@@ -158,7 +166,7 @@ public class Trainer : StaticInstance<Trainer> {
             return;
         }
 
-        DialogBox.Instance.ShowText("I'M TRYING TO TEACH YOU! DON'T LEAVE THAT ROOM!!!", showNextDialogText: false);
+        DialogBox.Instance.ShowText(teleportAwayString.GetLocalizedString(), showNextDialogText: false);
 
         TeleportToPoint(roomOneTeleportPoint);
 
@@ -175,7 +183,7 @@ public class Trainer : StaticInstance<Trainer> {
         bool fireOrSwingCard = card == fireCard || card is ScriptableSwordSwingCard;
 
         if (fireOrSwingCard && tutorial.InGiveCardsStep()) {
-            DialogBox.Instance.ShowText("YOU USED TOO MUCH ESSENCE, AND NOW YOU DON'T HAVE ENOUGH FOR ME TO TEACH YOU!", showNextDialogText: false);
+            DialogBox.Instance.ShowText(insufficientEssenceString.GetLocalizedString(), showNextDialogText: false);
             EnterRage();
         }
     }

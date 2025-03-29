@@ -54,19 +54,19 @@ public class DeckManager : Singleton<DeckManager> {
     #endregion
 
     public void UpdateMaxEssence() {
-        maxEssence = StatsManager.Instance.PlayerStats.MaxEssence;
+        maxEssence = StatsManager.PlayerStats.MaxEssence;
         Essence = Mathf.Min(Essence, maxEssence);
         OnMaxEssenceChanged_Amount?.Invoke(maxEssence);
     }
 
     public void UpdateHandSize() {
 
-        if (cardsInHand.Length == StatsManager.Instance.PlayerStats.HandSize) {
+        if (cardsInHand.Length == StatsManager.PlayerStats.HandSize) {
             return;
         }
 
         ScriptableCardBase[] oldHand = cardsInHand;
-        cardsInHand = new ScriptableCardBase[StatsManager.Instance.PlayerStats.HandSize];
+        cardsInHand = new ScriptableCardBase[StatsManager.PlayerStats.HandSize];
 
         int smallerLength = Mathf.Min(oldHand.Length, cardsInHand.Length);
         Array.Copy(oldHand, cardsInHand, smallerLength);
@@ -129,8 +129,7 @@ public class DeckManager : Singleton<DeckManager> {
 
     public void ClearDeckAndEssence() {
          
-
-        cardsInHand = new ScriptableCardBase[StatsManager.Instance.PlayerStats.HandSize];
+        cardsInHand = new ScriptableCardBase[StatsManager.PlayerStats.HandSize];
 
         cardsInDeck.Clear();
         cardsInDiscard.Clear();
@@ -198,7 +197,7 @@ public class DeckManager : Singleton<DeckManager> {
 
     public void GainCard(ScriptableCardBase card) {
 
-        if (GetHandSize() == StatsManager.Instance.PlayerStats.HandSize) {
+        if (GetHandSize() == StatsManager.PlayerStats.HandSize) {
             cardsInDiscard.Add(card);
         }
         else {

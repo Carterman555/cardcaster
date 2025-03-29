@@ -23,7 +23,7 @@ public class PlayerMeleeAttack : StaticInstance<PlayerMeleeAttack>, ITargetAttac
 
     private float attackTimer;
 
-    private PlayerStats Stats => StatsManager.Instance.PlayerStats;
+    private PlayerStats Stats => StatsManager.PlayerStats;
 
     private float GetAttackRadius() {
         float radiusMult = 1f;

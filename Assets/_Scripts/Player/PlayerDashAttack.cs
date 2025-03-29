@@ -18,7 +18,7 @@ public class PlayerDashAttack : MonoBehaviour {
 
     [SerializeField] private Transform slashPrefab;
 
-    private PlayerStats Stats => StatsManager.Instance.PlayerStats;
+    private PlayerStats Stats => StatsManager.PlayerStats;
 
     private void Awake() {
         playerMovement = GetComponent<PlayerMovement>();

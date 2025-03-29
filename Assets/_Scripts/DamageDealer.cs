@@ -8,9 +8,9 @@ public class DamageDealer {
         bool dealtDamage = false;
         if (target.TryGetComponent(out IDamagable damagable)) {
 
-            bool crit = canCrit && StatsManager.Instance.PlayerStats.CritChance > Random.Range(0f, 1f);
+            bool crit = canCrit && StatsManager.PlayerStats.CritChance > Random.Range(0f, 1f);
             if (crit) {
-                damage *= StatsManager.Instance.PlayerStats.CritDamageMult;
+                damage *= StatsManager.PlayerStats.CritDamageMult;
             }
 
             damagable.Damage(damage, crit: crit);

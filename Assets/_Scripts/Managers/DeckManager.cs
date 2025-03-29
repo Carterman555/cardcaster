@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class DeckManager : Singleton<DeckManager> {
 
@@ -100,7 +101,10 @@ public class DeckManager : Singleton<DeckManager> {
         GameSceneManager.OnStartGame += OnStartGame;
         GameSceneManager.OnLevelComplete += OnLevelComplete;
 
-        ClearDeckAndEssence();
+        //debugging so can start game in 'game' scene
+        if (SceneManager.GetActiveScene() == SceneManager.GetSceneByName("Game")) {
+            ClearDeckAndEssence();
+        }
     }
 
     private void OnDisable() {
@@ -124,6 +128,8 @@ public class DeckManager : Singleton<DeckManager> {
     }
 
     public void ClearDeckAndEssence() {
+         
+
         cardsInHand = new ScriptableCardBase[StatsManager.Instance.PlayerStats.HandSize];
 
         cardsInDeck.Clear();

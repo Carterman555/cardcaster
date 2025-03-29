@@ -1,0 +1,90 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b11a58205ec3474ca216360e9fa74a8, type: 3}
+  m_Name: FontTable Shared Data
+  m_EditorClassIdentifier: 
+  m_TableCollectionName: FontTable
+  m_TableCollectionNameGuidString: eb6c61c9cfdcfdd4cac5fd0caa8c0e5f
+  m_Entries:
+  - m_Id: 918508015616
+    m_Key: Font
+    m_Metadata:
+      m_Items: []
+  - m_Id: 926703685632
+    m_Key: FontMaterial
+    m_Metadata:
+      m_Items: []
+  - m_Id: 28360295583744
+    m_Key: Game/Canvases/HUD/TestText
+    m_Metadata:
+      m_Items: []
+  - m_Id: 28572435091456
+    m_Key: Game/Canvases/HUD/TestText 1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 28650059075584
+    m_Key: Game/Canvases/HUD/TestText 2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 28650080047104
+    m_Key: Game/Canvases/HUD/TestText 3
+    m_Metadata:
+      m_Items: []
+  m_Metadata:
+    m_Items:
+    - rid: 2333493097498411012
+    - rid: 2333493097498411015
+  m_KeyGenerator:
+    rid: 2333493097498411008
+  references:
+    version: 2
+    RefIds:
+    - rid: 2333493097498411008
+      type: {class: DistributedUIDGenerator, ns: UnityEngine.Localization.Tables, asm: Unity.Localization}
+      data:
+        m_CustomEpoch: 1743254286624
+    - rid: 2333493097498411012
+      type: {class: AssetTypeMetadata, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_Entries:
+        - m_KeyId: 918508015616
+          m_TableCodes:
+          - en
+          - zh-Hans
+        - m_KeyId: 28650059075584
+          m_TableCodes:
+          - en
+          - zh-Hans
+        m_TypeString: TMPro.TMP_FontAsset, Unity.TextMeshPro, Version=0.0.0.0, Culture=neutral,
+          PublicKeyToken=null
+    - rid: 2333493097498411015
+      type: {class: AssetTypeMetadata, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_Entries:
+        - m_KeyId: 926703685632
+          m_TableCodes:
+          - en
+          - zh-Hans
+        - m_KeyId: 28360295583744
+          m_TableCodes:
+          - en
+          - zh-Hans
+        - m_KeyId: 28572435091456
+          m_TableCodes:
+          - en
+          - zh-Hans
+        - m_KeyId: 28650080047104
+          m_TableCodes:
+          - en
+          - zh-Hans
+        m_TypeString: UnityEngine.Material, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null

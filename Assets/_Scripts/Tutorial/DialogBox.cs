@@ -1,10 +1,11 @@
-using Febucci.UI;
+﻿using Febucci.UI;
 using QFSW.QC;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Localization.Settings;
 
 public class DialogBox : MonoBehaviour, IInitializable {
 
@@ -38,7 +39,8 @@ public class DialogBox : MonoBehaviour, IInitializable {
         dialogText.text = text;
         dialogText.GetComponent<TypewriterByCharacter>().StartShowingText();
 
-        nextDialogText.text = "[" + InputManager.Instance.GetBindingText(nextDialogAction, shortDisplayName: false) + "]";
+        string inputStr = InputManager.Instance.GetBindingText(nextDialogAction, shortDisplayName: false);
+        nextDialogText.text = "[" + inputStr + "]";
         if (!showNextDialogText) {
             nextDialogText.text = "";
         }

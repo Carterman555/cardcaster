@@ -1,11 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Localization;
 
 public interface ICollectable {
 
-    public string Name { get; }
-    public string Description { get; }
+    public LocalizedString Name { get; }
+    public LocalizedString Description { get; }
     public Rarity Rarity { get; }
 
     public int Cost { get; }

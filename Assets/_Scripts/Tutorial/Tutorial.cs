@@ -28,30 +28,19 @@ public class Tutorial : MonoBehaviour {
     [Header("Dialog Steps")]
     [SerializeField] private InputActionReference nextStepInput;
 
-    [SerializeField] private DialogStepText welcomeText; // DONT delete yet in case the nonparse tags it creates messes with input string
     [SerializeField] private LocalizedString welcomeLocString;
-    [SerializeField] private DialogStepText playerDiedWelcomeText;
     [SerializeField] private LocalizedString playerDiedLocString;
-    [SerializeField] private DialogStepText faceText;
     [SerializeField] private LocalizedString faceKeyboardLocString;
     [SerializeField] private LocalizedString faceControllerLocString;
-    [SerializeField] private DialogStepText combatText;
     [SerializeField] private LocalizedString combatLocString;
-    [SerializeField] private DialogStepText dashText;
     [SerializeField] private LocalizedString dashLocString;
-    [SerializeField] private DialogStepText card1Text; // both
     [SerializeField] private LocalizedString card1KeyboardLocString;
     [SerializeField] private LocalizedString card1ControllerLocString;
-    [SerializeField] private DialogStepText card2Text; // both
     [SerializeField] private LocalizedString card2KeyboardLocString;
     [SerializeField] private LocalizedString card2ControllerLocString;
-    [SerializeField] private DialogStepText modifyCard1Text;
     [SerializeField] private LocalizedString modifyCard1LocString;
-    [SerializeField] private DialogStepText modifyCard2Text;
     [SerializeField] private LocalizedString modifyCard2LocString;
-    [SerializeField] private DialogStepText essenceText;
     [SerializeField] private LocalizedString essenceLocString;
-    [SerializeField] private DialogStepText holeText;
     [SerializeField] private LocalizedString holeLocString;
 
 
@@ -124,23 +113,23 @@ public class Tutorial : MonoBehaviour {
 
         tutorialActive = true;
 
-        DialogStepText correctWelcomeText = playerDied ? playerDiedWelcomeText : welcomeText;
+        LocalizedString correctWelcomeText = playerDied ? playerDiedLocString : welcomeLocString;
 
         tutorialSteps = new BaseTutorialStep[] {
             new DialogStep(nextStepInput, correctWelcomeText),
-            new DialogStep(nextStepInput, faceText, faceInput),
-            new DialogStep(nextStepInput, combatText, attackAction),
+            new DialogStep(nextStepInput, faceKeyboardLocString, faceControllerLocString, faceInput),
+            new DialogStep(nextStepInput, combatLocString, attackAction),
             new SpawnEnemyStep(practiceEnemy, enemySpawnPoint),
-            new EventDialogStep(PlayerMovement.Instance.OnDash, dashText, dashInput),
-            new DialogStep(nextStepInput, card1Text, firstCardInput),
-            new DialogStep(nextStepInput, card2Text, firstCardInput),
+            new EventDialogStep(PlayerMovement.Instance.OnDash, dashLocString, dashInput),
+            new DialogStep(nextStepInput, card1KeyboardLocString, card1ControllerLocString, firstCardInput),
+            new DialogStep(nextStepInput, card2KeyboardLocString, card2ControllerLocString, firstCardInput),
             new GiveTeleportCardStep(teleportCard, roomTwoTrigger),
-            new DialogStep(nextStepInput, modifyCard1Text),
-            new DialogStep(nextStepInput, modifyCard2Text),
+            new DialogStep(nextStepInput, modifyCard1LocString),
+            new DialogStep(nextStepInput, modifyCard2LocString),
             new GiveModifyCardStep(modifierCard, abilityCard),
             new CombatModifyCardStep(practiceEnemy, modifyEnemySpawnPoints),
-            new PickupEssenceStep(essencePrefab, essenceSpawnPoints, essenceText),
-            new HoleStep(hole, createHoleParticles, holeText)
+            new PickupEssenceStep(essencePrefab, essenceSpawnPoints, essenceLocString),
+            new HoleStep(hole, createHoleParticles, holeLocString)
         };
         currentStepIndex = 0;
 
@@ -207,19 +196,46 @@ public class BaseTutorialStep {
 public class DialogStep : BaseTutorialStep {
 
     private InputActionReference nextStepInput;
-    private DialogStepText dialog;
+    private LocalizedString dialog;
     private InputActionReference dialogAction;
 
-    public DialogStep(InputActionReference nextStepInput, DialogStepText dialog, InputActionReference dialogAction = null) {
+    public DialogStep(InputActionReference nextStepInput, LocalizedString dialog, InputActionReference dialogAction = null) {
         this.nextStepInput = nextStepInput;
         this.dialog = dialog;
         this.dialogAction = dialogAction;
+        inputDependentDialog = false;
+    }
+
+    private LocalizedString keyboardDialog;
+    private LocalizedString controllerDialog;
+    private bool inputDependentDialog;
+
+    public DialogStep(InputActionReference nextStepInput, LocalizedString keyboardDialog, LocalizedString controllerDialog, InputActionReference dialogAction = null) {
+        this.nextStepInput = nextStepInput;
+        this.keyboardDialog = keyboardDialog;
+        this.controllerDialog = controllerDialog;
+        this.dialogAction = dialogAction;
+        inputDependentDialog = true;
     }
 
     public override void OnEnterStep() {
         base.OnEnterStep();
 
-        string dialogText = dialog.GetText(InputManager.Instance.GetControlScheme(), LocalizationSettings.SelectedLocale.Identifier);
+        string dialogText = "";
+        if (inputDependentDialog) {
+            if (InputManager.Instance.GetControlScheme() == ControlSchemeType.Keyboard) {
+                dialogText = keyboardDialog.GetLocalizedString();
+            }
+            else if (InputManager.Instance.GetControlScheme() == ControlSchemeType.Controller) {
+                dialogText = controllerDialog.GetLocalizedString();
+            }
+            else {
+                Debug.LogWarning("No matching control scheme type!");
+            }
+        }
+        else {
+            dialogText = dialog.GetLocalizedString();
+        }
 
         if (dialogAction != null) {
             string actionText = InputManager.Instance.GetBindingText(dialogAction, shortDisplayName: false);
@@ -241,19 +257,46 @@ public class DialogStep : BaseTutorialStep {
 public class EventDialogStep : BaseTutorialStep {
 
     private UnityEvent nextStepEvent;
-    private DialogStepText dialog;
+    private LocalizedString dialog;
     private InputActionReference dialogAction;
 
-    public EventDialogStep(UnityEvent nextStepEvent, DialogStepText dialog, InputActionReference dialogAction = null) {
+    public EventDialogStep(UnityEvent nextStepEvent, LocalizedString dialog, InputActionReference dialogAction = null) {
         this.nextStepEvent = nextStepEvent;
         this.dialog = dialog;
         this.dialogAction = dialogAction;
     }
 
+    private LocalizedString keyboardDialog;
+    private LocalizedString controllerDialog;
+    private bool inputDependentDialog;
+
+    public EventDialogStep(UnityEvent nextStepEvent, LocalizedString keyboardDialog, LocalizedString controllerDialog, InputActionReference dialogAction = null) {
+        this.nextStepEvent = nextStepEvent;
+        this.keyboardDialog = keyboardDialog;
+        this.controllerDialog = controllerDialog;
+        this.dialogAction = dialogAction;
+        inputDependentDialog = true;
+    }
+
     public override void OnEnterStep() {
         base.OnEnterStep();
 
-        string dialogText = dialog.GetText(InputManager.Instance.GetControlScheme(), LocalizationSettings.SelectedLocale.Identifier);
+        string dialogText = "";
+        if (inputDependentDialog) {
+            if (InputManager.Instance.GetControlScheme() == ControlSchemeType.Keyboard) {
+                dialogText = keyboardDialog.GetLocalizedString();
+            }
+            else if (InputManager.Instance.GetControlScheme() == ControlSchemeType.Controller) {
+                dialogText = controllerDialog.GetLocalizedString();
+            }
+            else {
+                Debug.LogWarning("No matching control scheme type!");
+            }
+        }
+        else {
+            dialogText = dialog.GetLocalizedString();
+        }
+
         if (dialogAction != null) {
             string actionText = InputManager.Instance.GetBindingText(dialogAction, shortDisplayName: false);
             dialogText = dialogText.Replace("{ACTION}", actionText);
@@ -430,9 +473,9 @@ public class PickupEssenceStep : BaseTutorialStep {
     private Transform[] essenceSpawnPoints;
 
     private EssenceDrop[] essenceInstances;
-    private DialogStepText dialog;
+    private LocalizedString dialog;
 
-    public PickupEssenceStep(EssenceDrop essencePrefab, Transform[] essenceSpawnPoints, DialogStepText dialog) {
+    public PickupEssenceStep(EssenceDrop essencePrefab, Transform[] essenceSpawnPoints, LocalizedString dialog) {
         this.essencePrefab = essencePrefab;
         this.essenceSpawnPoints = essenceSpawnPoints;
         this.dialog = dialog;
@@ -443,7 +486,7 @@ public class PickupEssenceStep : BaseTutorialStep {
     public override void OnEnterStep() {
         base.OnEnterStep();
 
-        string dialogText = dialog.GetText(InputManager.Instance.GetControlScheme(), LocalizationSettings.SelectedLocale.Identifier);
+        string dialogText = dialog.GetLocalizedString();
         DialogBox.Instance.ShowText(dialogText, showNextDialogText: false);
 
         DropEssence();
@@ -478,9 +521,9 @@ public class HoleStep : BaseTutorialStep {
     private GameObject hole;
     private ParticleSystem createHoleParticles;
 
-    private DialogStepText dialog;
+    private LocalizedString dialog;
 
-    public HoleStep(GameObject hole, ParticleSystem createHoleParticles, DialogStepText dialog) {
+    public HoleStep(GameObject hole, ParticleSystem createHoleParticles, LocalizedString dialog) {
         this.hole = hole;
         this.createHoleParticles = createHoleParticles;
 
@@ -490,7 +533,7 @@ public class HoleStep : BaseTutorialStep {
     public override void OnEnterStep() {
         base.OnEnterStep();
 
-        string dialogText = dialog.GetText(InputManager.Instance.GetControlScheme(), LocalizationSettings.SelectedLocale.Identifier);
+        string dialogText = dialog.GetLocalizedString();
         DialogBox.Instance.ShowText(dialogText, showNextDialogText: false);
 
         createHoleParticles.Play();

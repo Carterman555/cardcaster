@@ -84,6 +84,7 @@ GameObject:
   - component: {fileID: 1172466604904936912}
   - component: {fileID: 6545841278162910488}
   - component: {fileID: 8663938607204011825}
+  - component: {fileID: 5975500132844508854}
   m_Layer: 5
   m_Name: Label
   m_TagString: Untagged
@@ -207,6 +208,20 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &5975500132844508854
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4362928858822061249}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad83300d5dc94c24381330bca161b16a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  overrideEnglishFontSize: 0
+  englishFontSizeOverride: 0
 --- !u!1 &5677922106283002757
 GameObject:
   m_ObjectHideFlags: 0
@@ -798,6 +813,7 @@ GameObject:
   - component: {fileID: 7347010004712065994}
   - component: {fileID: 6672873614686451520}
   - component: {fileID: 4531488598603560131}
+  - component: {fileID: 8803267539147737011}
   m_Layer: 5
   m_Name: Item Label
   m_TagString: Untagged
@@ -921,6 +937,20 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &8803267539147737011
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7364574675654408328}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad83300d5dc94c24381330bca161b16a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  overrideEnglishFontSize: 1
+  englishFontSizeOverride: 20
 --- !u!1 &7549982686294410404
 GameObject:
   m_ObjectHideFlags: 0
@@ -1274,6 +1304,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad83300d5dc94c24381330bca161b16a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  overrideEnglishFontSize: 0
+  englishFontSizeOverride: 0
 --- !u!1 &8908620875877873545
 GameObject:
   m_ObjectHideFlags: 0

@@ -13,9 +13,17 @@ public class LocalizeFont : MonoBehaviour {
     private float englishFontSize;
     private float chineseFontSizeMult = 1.5f;
 
+    [SerializeField] private bool overrideEnglishFontSize;
+    [ConditionalHide("overrideEnglishFontSize")]
+    [SerializeField] private float englishFontSizeOverride;
+
     private void Awake() {
         text = GetComponent<TextMeshProUGUI>();
+
         englishFontSize = text.fontSize;
+        if (overrideEnglishFontSize) {
+            englishFontSize = englishFontSizeOverride;
+        }
 
         //if (text.alignment != TextAlignmentOptions.Capline &&
         //    text.alignment != TextAlignmentOptions.CaplineLeft &&

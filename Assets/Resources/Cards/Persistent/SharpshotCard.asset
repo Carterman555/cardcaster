@@ -13,7 +13,33 @@ MonoBehaviour:
   m_Name: SharpshotCard
   m_EditorClassIdentifier: 
   cardType: 24
-  description: Gain persistent projectile damage boost
+  locName:
+    m_TableReference:
+      m_TableCollectionName: GUID:e2b89126a54df984f885da2bac4cb92f
+    m_TableEntryReference:
+      m_KeyId: 731446701985792
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  category:
+    m_TableReference:
+      m_TableCollectionName: GUID:e2b89126a54df984f885da2bac4cb92f
+    m_TableEntryReference:
+      m_KeyId: 732281917935616
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  description:
+    m_TableReference:
+      m_TableCollectionName: GUID:e2b89126a54df984f885da2bac4cb92f
+    m_TableEntryReference:
+      m_KeyId: 728211505287168
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
   sprite: {fileID: -1287555010, guid: d638d131cac6f4d45aeb96fc55848241, type: 3}
   cost: 4
   rarity: 1
@@ -25,3 +51,6 @@ MonoBehaviour:
   - PlayerStatType: 13
     ModifyType: 0
     Value: 0.25
+  references:
+    version: 2
+    RefIds: []

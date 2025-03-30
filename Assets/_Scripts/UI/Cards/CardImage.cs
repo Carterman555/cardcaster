@@ -1,7 +1,10 @@
+using System;
 using System.Runtime.CompilerServices;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Localization;
+using UnityEngine.Localization.Settings;
 using UnityEngine.UI;
 
 public class CardImage : MonoBehaviour {
@@ -15,38 +18,39 @@ public class CardImage : MonoBehaviour {
     [SerializeField] private Image[] essenceImages;
 
     [SerializeField] private TextMeshProUGUI titleText;
-    [SerializeField] private TextMeshProUGUI typeText;
+    [SerializeField] private TextMeshProUGUI catagoryText;
     [SerializeField] private TextMeshProUGUI descriptionText;
+
+    private ScriptableCardBase card;
 
     [SerializeField] private UpgradeSlots upgradeSlots;
 
     public void Setup(ScriptableCardBase card) {
+        this.card = card;
 
         if (card is ScriptableAbilityCardBase) {
             upgradeSlots.gameObject.SetActive(false);
 
             cardTypeImage.color = abilityTypeColor;
-            typeText.text = "Ability";
         }
         else if (card is ScriptableModifierCardBase) {
             upgradeSlots.gameObject.SetActive(false);
 
             cardTypeImage.color = modifierTypeColor;
-            typeText.text = "Modifier";
         }
         else if (card is ScriptablePersistentCard persistentCard) {
             upgradeSlots.gameObject.SetActive(true);
             upgradeSlots.Setup(persistentCard);
 
             cardTypeImage.color = persisentTypeColor;
-            typeText.text = "Persistent";
         }
 
         iconImage.sprite = card.Sprite;
 
         SetupCostImages(card.Cost);
-        titleText.text = card.Name;
-        descriptionText.text = card.Description;
+        titleText.text = card.Name.GetLocalizedString();
+        catagoryText.text = card.Category.GetLocalizedString();
+        descriptionText.text = card.Description.GetLocalizedString();
 
         GetComponent<ChangeColorFromRarity>().SetColor(card.Rarity);
     }
@@ -58,5 +62,18 @@ public class CardImage : MonoBehaviour {
         for (int i = cost; i < essenceImages.Length; i++) {
             essenceImages[i].enabled = false;
         }
+    }
+
+    private void OnEnable() {
+        LocalizationSettings.SelectedLocaleChanged += OnLanguageChanged;
+    }
+    private void OnDisable() {
+        LocalizationSettings.SelectedLocaleChanged -= OnLanguageChanged;
+    }
+
+    private void OnLanguageChanged(Locale locale) {
+        titleText.text = card.Name.GetLocalizedString();
+        catagoryText.text = card.Category.GetLocalizedString();
+        descriptionText.text = card.Description.GetLocalizedString();
     }
 }

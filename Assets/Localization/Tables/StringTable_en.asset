@@ -16,7 +16,8 @@ MonoBehaviour:
     m_Code: en
   m_SharedData: {fileID: 11400000, guid: e2b89126a54df984f885da2bac4cb92f, type: 2}
   m_Metadata:
-    m_Items: []
+    m_Items:
+    - rid: 2333493122674720776
   m_TableData:
   - m_Id: 465874663772160
     m_Localized: DO NOT BREAK MY BARRELS!!!
@@ -106,6 +107,371 @@ MonoBehaviour:
     m_Localized: See this hole I created? You should fall into it.
     m_Metadata:
       m_Items: []
+  - m_Id: 726798209388544
+    m_Localized: Summon a black hole to suck in enemies
+    m_Metadata:
+      m_Items: []
+  - m_Id: 726923627466752
+    m_Localized: Place a bomb and explode your enemies!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 727002413273088
+    m_Localized: Throw your sword like a boomerang
+    m_Metadata:
+      m_Items: []
+  - m_Id: 727056800813056
+    m_Localized: Gain a giant sword, but decrease speed
+    m_Metadata:
+      m_Items: []
+  - m_Id: 727128192061440
+    m_Localized: Rapid fire daggers
+    m_Metadata:
+      m_Items: []
+  - m_Id: 727160790192128
+    m_Localized: Deal double damage when below 25% health for 10 seconds
+    m_Metadata:
+      m_Items: []
+  - m_Id: 727187205918720
+    m_Localized: Turn invincible and gain mobility
+    m_Metadata:
+      m_Items: []
+  - m_Id: 727208223576064
+    m_Localized: Turn invincible and launch until you hit a wall
+    m_Metadata:
+      m_Items: []
+  - m_Id: 727228553367552
+    m_Localized: Creates a shockwave on hit
+    m_Metadata:
+      m_Items: []
+  - m_Id: 727259897401344
+    m_Localized: Shoot a hologram of your sword
+    m_Metadata:
+      m_Items: []
+  - m_Id: 727298803765248
+    m_Localized: Swings your sword around in a circle
+    m_Metadata:
+      m_Items: []
+  - m_Id: 727320664477696
+    m_Localized: Teleport to a location in the room
+    m_Metadata:
+      m_Items: []
+  - m_Id: 727362729152512
+    m_Localized: Throw a knife
+    m_Metadata:
+      m_Items: []
+  - m_Id: 727394853326848
+    m_Localized: The next ability you play can electrify the enemies
+    m_Metadata:
+      m_Items: []
+  - m_Id: 727889013641216
+    m_Localized: Increase the area of abilities by 50% (not projectiles)
+    m_Metadata:
+      m_Items: []
+  - m_Id: 727915769106432
+    m_Localized: Add a magnetic field to your abilities to draw enemies in
+    m_Metadata:
+      m_Items: []
+  - m_Id: 727929190879232
+    m_Localized: Increase the damage of next ability
+    m_Metadata:
+      m_Items: []
+  - m_Id: 727951315832832
+    m_Localized: Increase the damage, but decrease the duration of your next ability
+    m_Metadata:
+      m_Items: []
+  - m_Id: 727963529646080
+    m_Localized: The next projectile you play will bounce off walls and objects.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 727976305496064
+    m_Localized: The next ability you play can burn the enemies
+    m_Metadata:
+      m_Items: []
+  - m_Id: 727989546913792
+    m_Localized: Increase the duration of next ability
+    m_Metadata:
+      m_Items: []
+  - m_Id: 728055108079616
+    m_Localized: Gain persistent critical hit chance increase
+    m_Metadata:
+      m_Items: []
+  - m_Id: 728100356231168
+    m_Localized: Gain more essence from dash attack kills
+    m_Metadata:
+      m_Items: []
+  - m_Id: 728129884131328
+    m_Localized: Increase max essence by 1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 728142823559168
+    m_Localized: Basic attack gains persistent attack speed boost
+    m_Metadata:
+      m_Items: []
+  - m_Id: 728157310685184
+    m_Localized: Gain persistent critical hit damage boost
+    m_Metadata:
+      m_Items: []
+  - m_Id: 728176453488640
+    m_Localized: Gain persistent dash distance increase
+    m_Metadata:
+      m_Items: []
+  - m_Id: 728188709244928
+    m_Localized: Gain persistent boost to all damage dealt
+    m_Metadata:
+      m_Items: []
+  - m_Id: 728200000311296
+    m_Localized: Gain persistent move speed boost
+    m_Metadata:
+      m_Items: []
+  - m_Id: 728211505287168
+    m_Localized: Gain persistent projectile damage boost
+    m_Metadata:
+      m_Items: []
+  - m_Id: 728286537191424
+    m_Localized: Gain persistent dash attack damage boost
+    m_Metadata:
+      m_Items: []
+  - m_Id: 728315486277632
+    m_Localized: Gain persistent max health increase
+    m_Metadata:
+      m_Items: []
+  - m_Id: 728378430197760
+    m_Localized: Increase hand size by 1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 731446701985792
+    m_Localized: Sharpshot
+    m_Metadata:
+      m_Items: []
+  - m_Id: 731454851518464
+    m_Localized: Smashing Blow
+    m_Metadata:
+      m_Items: []
+  - m_Id: 730240323686400
+    m_Localized: Black Hole
+    m_Metadata:
+      m_Items: []
+  - m_Id: 730553449451520
+    m_Localized: Bomb
+    m_Metadata:
+      m_Items: []
+  - m_Id: 730559506026496
+    m_Localized: Boomerblade
+    m_Metadata:
+      m_Items: []
+  - m_Id: 730600241106944
+    m_Localized: Colossus Blade
+    m_Metadata:
+      m_Items: []
+  - m_Id: 730615139274752
+    m_Localized: Daggerstorm
+    m_Metadata:
+      m_Items: []
+  - m_Id: 731207874121728
+    m_Localized: Dying Rage
+    m_Metadata:
+      m_Items: []
+  - m_Id: 731219731419136
+    m_Localized: Ghost
+    m_Metadata:
+      m_Items: []
+  - m_Id: 731230833741824
+    m_Localized: Launch
+    m_Metadata:
+      m_Items: []
+  - m_Id: 731240476446720
+    m_Localized: Shockwave
+    m_Metadata:
+      m_Items: []
+  - m_Id: 731250408558592
+    m_Localized: Spectral Blade
+    m_Metadata:
+      m_Items: []
+  - m_Id: 731260852375552
+    m_Localized: Spinning Fury
+    m_Metadata:
+      m_Items: []
+  - m_Id: 731269278732288
+    m_Localized: Teleport
+    m_Metadata:
+      m_Items: []
+  - m_Id: 731293572141056
+    m_Localized: Electricify
+    m_Metadata:
+      m_Items: []
+  - m_Id: 731277512151040
+    m_Localized: Throwing Knife
+    m_Metadata:
+      m_Items: []
+  - m_Id: 731303495864320
+    m_Localized: Expanse
+    m_Metadata:
+      m_Items: []
+  - m_Id: 731318771519488
+    m_Localized: Magnetify
+    m_Metadata:
+      m_Items: []
+  - m_Id: 731327604723712
+    m_Localized: Might
+    m_Metadata:
+      m_Items: []
+  - m_Id: 731336345653248
+    m_Localized: Overload
+    m_Metadata:
+      m_Items: []
+  - m_Id: 731345053028352
+    m_Localized: Ricochet
+    m_Metadata:
+      m_Items: []
+  - m_Id: 731353085120512
+    m_Localized: Scorch
+    m_Metadata:
+      m_Items: []
+  - m_Id: 731361427591168
+    m_Localized: Sustain
+    m_Metadata:
+      m_Items: []
+  - m_Id: 731372261478400
+    m_Localized: Deadeye
+    m_Metadata:
+      m_Items: []
+  - m_Id: 731381279232000
+    m_Localized: Essence Harvest
+    m_Metadata:
+      m_Items: []
+  - m_Id: 731392167645184
+    m_Localized: Essence Reserve
+    m_Metadata:
+      m_Items: []
+  - m_Id: 731401869070336
+    m_Localized: Flurry
+    m_Metadata:
+      m_Items: []
+  - m_Id: 731410337370112
+    m_Localized: Lethal Edge
+    m_Metadata:
+      m_Items: []
+  - m_Id: 731418201690112
+    m_Localized: Long Dash
+    m_Metadata:
+      m_Items: []
+  - m_Id: 731426988756992
+    m_Localized: Power
+    m_Metadata:
+      m_Items: []
+  - m_Id: 731435746463744
+    m_Localized: Quickfeet
+    m_Metadata:
+      m_Items: []
+  - m_Id: 731462405459968
+    m_Localized: Stone Heart
+    m_Metadata:
+      m_Items: []
+  - m_Id: 731469909069824
+    m_Localized: Wisdom's Hold
+    m_Metadata:
+      m_Items: []
+  - m_Id: 732275555176448
+    m_Localized: Modifier
+    m_Metadata:
+      m_Items: []
+  - m_Id: 732278604435456
+    m_Localized: Ability
+    m_Metadata:
+      m_Items: []
+  - m_Id: 732281917935616
+    m_Localized: Persistent
+    m_Metadata:
+      m_Items: []
+  - m_Id: 737411199406080
+    m_Localized: Play
+    m_Metadata:
+      m_Items: []
+  - m_Id: 737599796285440
+    m_Localized: Tutorial
+    m_Metadata:
+      m_Items: []
+  - m_Id: 737757728608256
+    m_Localized: Give Feedback
+    m_Metadata:
+      m_Items: []
+  - m_Id: 737841342058496
+    m_Localized: Settings
+    m_Metadata:
+      m_Items: []
+  - m_Id: 737912737501184
+    m_Localized: Quit
+    m_Metadata:
+      m_Items: []
+  - m_Id: 738157747769344
+    m_Localized: Wishlist
+    m_Metadata:
+      m_Items: []
+  - m_Id: 742560689033216
+    m_Localized: Back
+    m_Metadata:
+      m_Items: []
+  - m_Id: 743004358316032
+    m_Localized: General
+    m_Metadata:
+      m_Items: []
+  - m_Id: 743292049821696
+    m_Localized: Camera Shake
+    m_Metadata:
+      m_Items:
+      - rid: 2333493122674720776
+  - m_Id: 743702332444672
+    m_Localized: Video
+    m_Metadata:
+      m_Items: []
+  - m_Id: 743902362996736
+    m_Localized: V-Sync
+    m_Metadata:
+      m_Items: []
+  - m_Id: 744185008754688
+    m_Localized: Display Mode
+    m_Metadata:
+      m_Items: []
+  - m_Id: 744482301022208
+    m_Localized: Resolution
+    m_Metadata:
+      m_Items: []
+  - m_Id: 745309526822912
+    m_Localized: Audio
+    m_Metadata:
+      m_Items: []
+  - m_Id: 745417928609792
+    m_Localized: Music Volume
+    m_Metadata:
+      m_Items: []
+  - m_Id: 745497326784512
+    m_Localized: SFX Volume
+    m_Metadata:
+      m_Items: []
+  - m_Id: 745565891072000
+    m_Localized: UI Volume
+    m_Metadata:
+      m_Items: []
+  - m_Id: 745745973514240
+    m_Localized: Controls
+    m_Metadata:
+      m_Items: []
+  - m_Id: 746031001636864
+    m_Localized: Rebind Keyboard
+    m_Metadata:
+      m_Items: []
+  - m_Id: 746124689805312
+    m_Localized: Rebind Controller
+    m_Metadata:
+      m_Items: []
+  - m_Id: 746272312528896
+    m_Localized: Reset to Default
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
-    RefIds: []
+    RefIds:
+    - rid: 2333493122674720776
+      type: {class: SmartFormatTag, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_Entries: 0010982a05a40200

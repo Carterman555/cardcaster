@@ -13,7 +13,33 @@ MonoBehaviour:
   m_Name: SpinningFuryCard
   m_EditorClassIdentifier: 
   cardType: 5
-  description: Swings your sword around in a circle
+  locName:
+    m_TableReference:
+      m_TableCollectionName: GUID:e2b89126a54df984f885da2bac4cb92f
+    m_TableEntryReference:
+      m_KeyId: 731260852375552
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  category:
+    m_TableReference:
+      m_TableCollectionName: GUID:e2b89126a54df984f885da2bac4cb92f
+    m_TableEntryReference:
+      m_KeyId: 732278604435456
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  description:
+    m_TableReference:
+      m_TableCollectionName: GUID:e2b89126a54df984f885da2bac4cb92f
+    m_TableEntryReference:
+      m_KeyId: 727298803765248
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
   sprite: {fileID: -195869499, guid: d638d131cac6f4d45aeb96fc55848241, type: 3}
   cost: 2
   rarity: 1
@@ -34,3 +60,6 @@ MonoBehaviour:
   swingSpeed: 1000
   playerTouchDamagePrefab: {fileID: 6934243973706104934, guid: 8f7f3a14b56d08b49adfce4774b17f00, type: 3}
   swingSwordEffectsPrefab: {fileID: 6374651499721630456, guid: 3fb6c8d220ffaa74d9b087f68296c1b9, type: 3}
+  references:
+    version: 2
+    RefIds: []

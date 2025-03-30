@@ -13,7 +13,33 @@ MonoBehaviour:
   m_Name: ThrowingKnifeCard
   m_EditorClassIdentifier: 
   cardType: 20
-  description: Throw a knife
+  locName:
+    m_TableReference:
+      m_TableCollectionName: GUID:e2b89126a54df984f885da2bac4cb92f
+    m_TableEntryReference:
+      m_KeyId: 731277512151040
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  category:
+    m_TableReference:
+      m_TableCollectionName: GUID:e2b89126a54df984f885da2bac4cb92f
+    m_TableEntryReference:
+      m_KeyId: 732278604435456
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  description:
+    m_TableReference:
+      m_TableCollectionName: GUID:e2b89126a54df984f885da2bac4cb92f
+    m_TableEntryReference:
+      m_KeyId: 727362729152512
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
   sprite: {fileID: 1376469280, guid: d638d131cac6f4d45aeb96fc55848241, type: 3}
   cost: 1
   rarity: 0
@@ -33,3 +59,6 @@ MonoBehaviour:
   incompatibleAbilities: 
   projectilePrefab: {fileID: 712133601725730603, guid: d716733ca4d8a4341a71e831dda4daa3, type: 3}
   spawnOffsetValue: 1
+  references:
+    version: 2
+    RefIds: []

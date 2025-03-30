@@ -13,7 +13,33 @@ MonoBehaviour:
   m_Name: ColossusBladeCard
   m_EditorClassIdentifier: 
   cardType: 11
-  description: Gain a giant sword, but decrease speed
+  locName:
+    m_TableReference:
+      m_TableCollectionName: GUID:e2b89126a54df984f885da2bac4cb92f
+    m_TableEntryReference:
+      m_KeyId: 730600241106944
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  category:
+    m_TableReference:
+      m_TableCollectionName: GUID:e2b89126a54df984f885da2bac4cb92f
+    m_TableEntryReference:
+      m_KeyId: 732278604435456
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  description:
+    m_TableReference:
+      m_TableCollectionName: GUID:e2b89126a54df984f885da2bac4cb92f
+    m_TableEntryReference:
+      m_KeyId: 727056800813056
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
   sprite: {fileID: -903462562, guid: d638d131cac6f4d45aeb96fc55848241, type: 3}
   cost: 2
   rarity: 3
@@ -46,3 +72,6 @@ MonoBehaviour:
     Value: 1.5
   bigSwordSprite: {fileID: 21300000, guid: b2149264fa5b3c34aa0bd7ace452b311, type: 3}
   normalSwordSprite: {fileID: -7548330956807559887, guid: 5c535993996dd1841aaedb9eb6cd812f, type: 3}
+  references:
+    version: 2
+    RefIds: []

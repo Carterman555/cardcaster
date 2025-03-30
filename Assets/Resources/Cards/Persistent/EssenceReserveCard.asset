@@ -13,7 +13,33 @@ MonoBehaviour:
   m_Name: EssenceReserveCard
   m_EditorClassIdentifier: 
   cardType: 30
-  description: Increase max essence by 1
+  locName:
+    m_TableReference:
+      m_TableCollectionName: GUID:e2b89126a54df984f885da2bac4cb92f
+    m_TableEntryReference:
+      m_KeyId: 731392167645184
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  category:
+    m_TableReference:
+      m_TableCollectionName: GUID:e2b89126a54df984f885da2bac4cb92f
+    m_TableEntryReference:
+      m_KeyId: 732281917935616
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  description:
+    m_TableReference:
+      m_TableCollectionName: GUID:e2b89126a54df984f885da2bac4cb92f
+    m_TableEntryReference:
+      m_KeyId: 728129884131328
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
   sprite: {fileID: -843023272, guid: d638d131cac6f4d45aeb96fc55848241, type: 3}
   cost: 5
   rarity: 3
@@ -25,3 +51,6 @@ MonoBehaviour:
   - PlayerStatType: 15
     ModifyType: 0
     Value: 1
+  references:
+    version: 2
+    RefIds: []

@@ -13,7 +13,33 @@ MonoBehaviour:
   m_Name: BombCard
   m_EditorClassIdentifier: 
   cardType: 9
-  description: Place a bomb and explode your enemies!
+  locName:
+    m_TableReference:
+      m_TableCollectionName: GUID:e2b89126a54df984f885da2bac4cb92f
+    m_TableEntryReference:
+      m_KeyId: 730553449451520
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  category:
+    m_TableReference:
+      m_TableCollectionName: GUID:e2b89126a54df984f885da2bac4cb92f
+    m_TableEntryReference:
+      m_KeyId: 732278604435456
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  description:
+    m_TableReference:
+      m_TableCollectionName: GUID:e2b89126a54df984f885da2bac4cb92f
+    m_TableEntryReference:
+      m_KeyId: 726923627466752
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
   sprite: {fileID: 1341098088, guid: d638d131cac6f4d45aeb96fc55848241, type: 3}
   cost: 2
   rarity: 1
@@ -32,3 +58,6 @@ MonoBehaviour:
   <IsModifiable>k__BackingField: 1
   incompatibleAbilities: 
   objectToSpawn: {fileID: 291389537816103061, guid: 90136b416fc0f58418c7b7cdb9587c77, type: 3}
+  references:
+    version: 2
+    RefIds: []

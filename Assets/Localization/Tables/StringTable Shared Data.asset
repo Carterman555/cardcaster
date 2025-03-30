@@ -51,6 +51,42 @@ MonoBehaviour:
     m_Key: combat
     m_Metadata:
       m_Items: []
+  - m_Id: 691588163964928
+    m_Key: dashInstructions
+    m_Metadata:
+      m_Items: []
+  - m_Id: 691868553187328
+    m_Key: card1KeyboardInstructions
+    m_Metadata:
+      m_Items: []
+  - m_Id: 691997116993536
+    m_Key: card1ControllerInstructions
+    m_Metadata:
+      m_Items: []
+  - m_Id: 692179942510592
+    m_Key: card2KeyboardInstructions
+    m_Metadata:
+      m_Items: []
+  - m_Id: 692336226471936
+    m_Key: card2ControllerInstructions
+    m_Metadata:
+      m_Items: []
+  - m_Id: 692537880219648
+    m_Key: modifyCard1Instructions
+    m_Metadata:
+      m_Items: []
+  - m_Id: 692711536988160
+    m_Key: modifyCard2Instructions
+    m_Metadata:
+      m_Items: []
+  - m_Id: 692963555938304
+    m_Key: essenceInstructions
+    m_Metadata:
+      m_Items: []
+  - m_Id: 693280662097920
+    m_Key: holeInstructions
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

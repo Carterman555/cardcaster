@@ -60,6 +60,52 @@ MonoBehaviour:
       in for you, so you can learn. Press {ACTION} to swing your sword and kill him!
     m_Metadata:
       m_Items: []
+  - m_Id: 691588163964928
+    m_Localized: Nice. You can also dash with {ACTION}, which can be a useful way
+      to move around. You're also invincible while dashing. Try it.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 691868553187328
+    m_Localized: Good. In the card dungeon, you will find magical cards. I will give
+      a teleport card. Drag it on the other side of this wall to the right to teleport
+      there.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 691997116993536
+    m_Localized: Good. In the card dungeon, you will find magical cards. I will give
+      a teleport card. Press {ACTION}, and use the right joystick to move the card
+      to where you want to teleport.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 692179942510592
+    m_Localized: You can also hold the hotkey ({ACTION}), and release where you want
+      to teleport. These are simple instructions. If you fail, I will get angry.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 692336226471936
+    m_Localized: Once it's in the correct position, press {ACTION} again to teleport.
+      These are simple instructions. If you fail, I will get angry.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 692537880219648
+    m_Localized: Some cards have the magical power to modify other cards that perform
+      abilities.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 692711536988160
+    m_Localized: Play Scorch then Spinning Fury, and watch what happens.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 692963555938304
+    m_Localized: You might have noticed that cards cost essence. Enemies drop essence
+      and I'll give you some now to make sure you what they look like. Pick them
+      all up.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 693280662097920
+    m_Localized: See this hole I created? You should fall into it.
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

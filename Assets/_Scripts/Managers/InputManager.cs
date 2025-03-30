@@ -1,10 +1,11 @@
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
+using UnityEngine.Localization.Settings;
 using UnityEngine.SceneManagement;
 
 public class InputManager : Singleton<InputManager> {
@@ -137,12 +138,24 @@ public class InputManager : Singleton<InputManager> {
             { "Left Button", "Left Click" },
         };
 
-        if (actionReplaceDict.ContainsKey(displayString)) {
-            return actionReplaceDict[displayString];
+        if (actionReplaceDict.TryGetValue(displayString, out string replacement)) {
+            displayString = replacement;
         }
-        else {
-            return displayString;
+
+        bool inChinese = LocalizationSettings.SelectedLocale.Identifier == "zh-Hans";
+        if (inChinese) {
+            Dictionary<string, string> chineseReplaceDict = new() {
+                { "Enter", "回车" },
+                { "Right Click", "右键" },
+                { "Left Click", "左键" }
+            };
+
+            if (chineseReplaceDict.TryGetValue(displayString, out string chineseReplacement)) {
+                displayString = chineseReplacement;
+            }
         }
+
+        return displayString;
     }
 
     [SerializeField] private GamepadIcons xboxIcons;

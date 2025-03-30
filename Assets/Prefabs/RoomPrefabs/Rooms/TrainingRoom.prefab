@@ -12938,9 +12938,9 @@ MonoBehaviour:
         m_Code: zh-Hans
   dashLocString:
     m_TableReference:
-      m_TableCollectionName: 
+      m_TableCollectionName: GUID:e2b89126a54df984f885da2bac4cb92f
     m_TableEntryReference:
-      m_KeyId: 0
+      m_KeyId: 691588163964928
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
@@ -12969,18 +12969,18 @@ MonoBehaviour:
         m_Code: zh-Hans
   card1KeyboardLocString:
     m_TableReference:
-      m_TableCollectionName: 
+      m_TableCollectionName: GUID:e2b89126a54df984f885da2bac4cb92f
     m_TableEntryReference:
-      m_KeyId: 0
+      m_KeyId: 691868553187328
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
     m_LocalVariables: []
   card1ControllerLocString:
     m_TableReference:
-      m_TableCollectionName: 
+      m_TableCollectionName: GUID:e2b89126a54df984f885da2bac4cb92f
     m_TableEntryReference:
-      m_KeyId: 0
+      m_KeyId: 691997116993536
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
@@ -13007,18 +13007,18 @@ MonoBehaviour:
         m_Code: zh-Hans
   card2KeyboardLocString:
     m_TableReference:
-      m_TableCollectionName: 
+      m_TableCollectionName: GUID:e2b89126a54df984f885da2bac4cb92f
     m_TableEntryReference:
-      m_KeyId: 0
+      m_KeyId: 692179942510592
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
     m_LocalVariables: []
   card2ControllerLocString:
     m_TableReference:
-      m_TableCollectionName: 
+      m_TableCollectionName: GUID:e2b89126a54df984f885da2bac4cb92f
     m_TableEntryReference:
-      m_KeyId: 0
+      m_KeyId: 692336226471936
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
@@ -13036,9 +13036,9 @@ MonoBehaviour:
         m_Code: zh-Hans
   modifyCard1LocString:
     m_TableReference:
-      m_TableCollectionName: 
+      m_TableCollectionName: GUID:e2b89126a54df984f885da2bac4cb92f
     m_TableEntryReference:
-      m_KeyId: 0
+      m_KeyId: 692537880219648
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
@@ -13055,9 +13055,9 @@ MonoBehaviour:
         m_Code: zh-Hans
   modifyCard2LocString:
     m_TableReference:
-      m_TableCollectionName: 
+      m_TableCollectionName: GUID:e2b89126a54df984f885da2bac4cb92f
     m_TableEntryReference:
-      m_KeyId: 0
+      m_KeyId: 692711536988160
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
@@ -13076,9 +13076,9 @@ MonoBehaviour:
         m_Code: zh-Hans
   essenceLocString:
     m_TableReference:
-      m_TableCollectionName: 
+      m_TableCollectionName: GUID:e2b89126a54df984f885da2bac4cb92f
     m_TableEntryReference:
-      m_KeyId: 0
+      m_KeyId: 692963555938304
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
@@ -13095,9 +13095,9 @@ MonoBehaviour:
         m_Code: zh-Hans
   holeLocString:
     m_TableReference:
-      m_TableCollectionName: 
+      m_TableCollectionName: GUID:e2b89126a54df984f885da2bac4cb92f
     m_TableEntryReference:
-      m_KeyId: 0
+      m_KeyId: 693280662097920
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0

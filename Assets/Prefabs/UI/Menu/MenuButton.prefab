@@ -137,7 +137,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   interactVisual: {fileID: 8556145279354413283}
-  visualWidth: 15
+  text: {fileID: 6150399023233924920}
 --- !u!114 &8116721211774601241
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -155,13 +155,16 @@ MonoBehaviour:
   clickSFX:
     Clips: []
     Volume: 0
+    PitchVariation: 0
   customHoverSFX: 0
   enterSFX:
     Clips: []
     Volume: 0
+    PitchVariation: 0
   exitSFX:
     Clips: []
     Volume: 0
+    PitchVariation: 0
 --- !u!1 &3364276439836063205
 GameObject:
   m_ObjectHideFlags: 0
@@ -173,6 +176,8 @@ GameObject:
   - component: {fileID: 6107828502124045115}
   - component: {fileID: 6268007306529256328}
   - component: {fileID: 6150399023233924920}
+  - component: {fileID: 7640655881702349480}
+  - component: {fileID: 2722710878557112375}
   m_Layer: 0
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -296,6 +301,58 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &7640655881702349480
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3364276439836063205}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56eb0353ae6e5124bb35b17aff880f16, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_StringReference:
+    m_TableReference:
+      m_TableCollectionName: GUID:e2b89126a54df984f885da2bac4cb92f
+    m_TableEntryReference:
+      m_KeyId: 0
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  m_FormatArguments: []
+  m_UpdateString:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6150399023233924920}
+        m_TargetAssemblyTypeName: TMPro.TMP_Text, Unity.TextMeshPro
+        m_MethodName: set_text
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  references:
+    version: 2
+    RefIds: []
+--- !u!114 &2722710878557112375
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3364276439836063205}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad83300d5dc94c24381330bca161b16a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7437037175437881233
 GameObject:
   m_ObjectHideFlags: 0
@@ -331,7 +388,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 10}
-  m_SizeDelta: {x: 12, y: 8}
+  m_SizeDelta: {x: 1, y: 8}
   m_Pivot: {x: 0, y: 0}
 --- !u!222 &6682956139497224402
 CanvasRenderer:

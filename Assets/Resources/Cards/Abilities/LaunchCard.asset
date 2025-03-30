@@ -13,7 +13,33 @@ MonoBehaviour:
   m_Name: LaunchCard
   m_EditorClassIdentifier: 
   cardType: 6
-  description: Turn invincible and launch until you hit a wall
+  locName:
+    m_TableReference:
+      m_TableCollectionName: GUID:e2b89126a54df984f885da2bac4cb92f
+    m_TableEntryReference:
+      m_KeyId: 731230833741824
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  category:
+    m_TableReference:
+      m_TableCollectionName: GUID:e2b89126a54df984f885da2bac4cb92f
+    m_TableEntryReference:
+      m_KeyId: 732278604435456
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  description:
+    m_TableReference:
+      m_TableCollectionName: GUID:e2b89126a54df984f885da2bac4cb92f
+    m_TableEntryReference:
+      m_KeyId: 727208223576064
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
   sprite: {fileID: 1190246372, guid: d638d131cac6f4d45aeb96fc55848241, type: 3}
   cost: 2
   rarity: 1
@@ -40,3 +66,6 @@ MonoBehaviour:
   wallTriggerPrefab: {fileID: 7161472512564696427, guid: 1c58ce2bbac713a4f9265ceffc8ec132, type: 3}
   launchSpeed: 20
   launchEffectsPrefab: {fileID: 8999108393401452439, guid: f8130339e07081844a1a1df4b6dd1477, type: 3}
+  references:
+    version: 2
+    RefIds: []

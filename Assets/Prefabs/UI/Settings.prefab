@@ -2804,6 +2804,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 4651027549531557540}
     m_Modifications:
+    - target: {fileID: 136507580210413044, guid: 82fbade4f957f6b4c83c251161866105, type: 3}
+      propertyPath: m_StringReference.m_TableEntryReference.m_KeyId
+      value: 745417928609792
+      objectReference: {fileID: 0}
     - target: {fileID: 473049309612348992, guid: 82fbade4f957f6b4c83c251161866105, type: 3}
       propertyPath: m_Layer
       value: 5
@@ -3079,7 +3083,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6150399023233924920, guid: 1c99e356348c93345a150d152aebb7f1, type: 3}
       propertyPath: m_text
-      value: BAck
+      value: Back
       objectReference: {fileID: 0}
     - target: {fileID: 6150399023233924920, guid: 1c99e356348c93345a150d152aebb7f1, type: 3}
       propertyPath: m_fontSize
@@ -3116,6 +3120,10 @@ PrefabInstance:
     - target: {fileID: 7546568927440928143, guid: 1c99e356348c93345a150d152aebb7f1, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 7640655881702349480, guid: 1c99e356348c93345a150d152aebb7f1, type: 3}
+      propertyPath: m_StringReference.m_TableEntryReference.m_KeyId
+      value: 742560689033216
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -3226,6 +3234,10 @@ PrefabInstance:
     - target: {fileID: 7070482060935595510, guid: 36e73a8290c0f06459d473c7eb539a58, type: 3}
       propertyPath: m_text
       value: Video
+      objectReference: {fileID: 0}
+    - target: {fileID: 7993594428798650165, guid: 36e73a8290c0f06459d473c7eb539a58, type: 3}
+      propertyPath: m_StringReference.m_TableEntryReference.m_KeyId
+      value: 743702332444672
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -3556,6 +3568,10 @@ PrefabInstance:
       propertyPath: m_text
       value: Audio
       objectReference: {fileID: 0}
+    - target: {fileID: 7993594428798650165, guid: 36e73a8290c0f06459d473c7eb539a58, type: 3}
+      propertyPath: m_StringReference.m_TableEntryReference.m_KeyId
+      value: 745309526822912
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3576,7 +3592,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 786861982741797967, guid: a33bbb4b8c944d2419816025a3c2e3cf, type: 3}
       propertyPath: m_text
-      value: D-Pad Up
+      value: D-Pad/Up
       objectReference: {fileID: 0}
     - target: {fileID: 1076470667226628001, guid: a33bbb4b8c944d2419816025a3c2e3cf, type: 3}
       propertyPath: m_AnchorMax.y
@@ -3610,7 +3626,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1135399437141092081, guid: a33bbb4b8c944d2419816025a3c2e3cf, type: 3}
       propertyPath: m_text
-      value: D-Pad Left
+      value: D-Pad/Left
       objectReference: {fileID: 0}
     - target: {fileID: 1906070958378442976, guid: a33bbb4b8c944d2419816025a3c2e3cf, type: 3}
       propertyPath: m_BindingId
@@ -3666,7 +3682,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2556488952990817858, guid: a33bbb4b8c944d2419816025a3c2e3cf, type: 3}
       propertyPath: m_text
-      value: D-Pad Right
+      value: D-Pad/Right
       objectReference: {fileID: 0}
     - target: {fileID: 3256978269760186866, guid: a33bbb4b8c944d2419816025a3c2e3cf, type: 3}
       propertyPath: m_AnchorMax.y
@@ -4356,6 +4372,14 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 7993594428798650165, guid: 36e73a8290c0f06459d473c7eb539a58, type: 3}
+      propertyPath: m_StringReference.m_TableEntryReference.m_KeyId
+      value: 743004358316032
+      objectReference: {fileID: 0}
+    - target: {fileID: 7993594428798650165, guid: 36e73a8290c0f06459d473c7eb539a58, type: 3}
+      propertyPath: m_UpdateString.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: TMPro.TextMeshProUGUI, Unity.TextMeshPro
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -4374,6 +4398,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 4651027549531557540}
     m_Modifications:
+    - target: {fileID: 136507580210413044, guid: 82fbade4f957f6b4c83c251161866105, type: 3}
+      propertyPath: m_StringReference.m_TableEntryReference.m_KeyId
+      value: 745565891072000
+      objectReference: {fileID: 0}
     - target: {fileID: 473049309612348992, guid: 82fbade4f957f6b4c83c251161866105, type: 3}
       propertyPath: m_Layer
       value: 5
@@ -4635,6 +4663,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7125956940997686244, guid: 1e754299eac0a7641a7c05baf22037e1, type: 3}
+      propertyPath: m_StringReference.m_TableEntryReference.m_KeyId
+      value: 746124689805312
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -4653,6 +4685,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 4651027549531557540}
     m_Modifications:
+    - target: {fileID: 136507580210413044, guid: 82fbade4f957f6b4c83c251161866105, type: 3}
+      propertyPath: m_StringReference.m_TableEntryReference.m_KeyId
+      value: 743292049821696
+      objectReference: {fileID: 0}
     - target: {fileID: 473049309612348992, guid: 82fbade4f957f6b4c83c251161866105, type: 3}
       propertyPath: m_Layer
       value: 5
@@ -4952,7 +4988,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7330992257258493064, guid: f25dcd618d3acd64795bf8bb32edb6c9, type: 3}
       propertyPath: m_text
-      value: D-Pad Down
+      value: D-Pad/Down
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -5156,6 +5192,14 @@ PrefabInstance:
     - target: {fileID: 7809347259679229141, guid: a9c81260bbd65b44885bedcd14bd1063, type: 3}
       propertyPath: m_Name
       value: SettingsToggle
+      objectReference: {fileID: 0}
+    - target: {fileID: 8858319129874807776, guid: a9c81260bbd65b44885bedcd14bd1063, type: 3}
+      propertyPath: m_StringReference.m_TableEntryReference.m_KeyId
+      value: 743902362996736
+      objectReference: {fileID: 0}
+    - target: {fileID: 8858319129874807776, guid: a9c81260bbd65b44885bedcd14bd1063, type: 3}
+      propertyPath: m_UpdateString.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: TMPro.TextMeshProUGUI, Unity.TextMeshPro
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -5517,6 +5561,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7877919385461500151, guid: ca54e529ca9f7fe4b81ec76dde1533ca, type: 3}
+      propertyPath: m_StringReference.m_TableEntryReference.m_KeyId
+      value: 744185008754688
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -5674,6 +5722,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7877919385461500151, guid: ca54e529ca9f7fe4b81ec76dde1533ca, type: 3}
+      propertyPath: m_StringReference.m_TableEntryReference.m_KeyId
+      value: 744482301022208
+      objectReference: {fileID: 0}
     - target: {fileID: 8663938607204011825, guid: ca54e529ca9f7fe4b81ec76dde1533ca, type: 3}
       propertyPath: m_text
       value: 1920x1080
@@ -5714,6 +5766,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 4651027549531557540}
     m_Modifications:
+    - target: {fileID: 136507580210413044, guid: 82fbade4f957f6b4c83c251161866105, type: 3}
+      propertyPath: m_StringReference.m_TableEntryReference.m_KeyId
+      value: 745497326784512
+      objectReference: {fileID: 0}
     - target: {fileID: 473049309612348992, guid: 82fbade4f957f6b4c83c251161866105, type: 3}
       propertyPath: m_Layer
       value: 5
@@ -6483,6 +6539,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7125956940997686244, guid: 1e754299eac0a7641a7c05baf22037e1, type: 3}
+      propertyPath: m_StringReference.m_TableEntryReference.m_KeyId
+      value: 746031001636864
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -6812,6 +6872,10 @@ PrefabInstance:
       propertyPath: m_text
       value: Controls
       objectReference: {fileID: 0}
+    - target: {fileID: 7993594428798650165, guid: 36e73a8290c0f06459d473c7eb539a58, type: 3}
+      propertyPath: m_StringReference.m_TableEntryReference.m_KeyId
+      value: 745745973514240
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -6949,6 +7013,14 @@ PrefabInstance:
     - target: {fileID: 4934700630393870791, guid: 1e754299eac0a7641a7c05baf22037e1, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7125956940997686244, guid: 1e754299eac0a7641a7c05baf22037e1, type: 3}
+      propertyPath: m_StringReference.m_TableEntryReference.m_KeyId
+      value: 746272312528896
+      objectReference: {fileID: 0}
+    - target: {fileID: 7125956940997686244, guid: 1e754299eac0a7641a7c05baf22037e1, type: 3}
+      propertyPath: m_StringReference.m_TableReference.m_TableCollectionName
+      value: GUID:e2b89126a54df984f885da2bac4cb92f
       objectReference: {fileID: 0}
     - target: {fileID: 7450362249382199957, guid: 1e754299eac0a7641a7c05baf22037e1, type: 3}
       propertyPath: m_SizeDelta.x

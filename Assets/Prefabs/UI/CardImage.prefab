@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6427539442954357039}
   - component: {fileID: 4695060487792709567}
   m_Layer: 0
-  m_Name: TypeText
+  m_Name: CatagoryText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -245,7 +245,7 @@ MonoBehaviour:
   - {fileID: 3067117355160299992}
   - {fileID: 8848597277270409907}
   titleText: {fileID: 8421946754090297211}
-  typeText: {fileID: 4695060487792709567}
+  catagoryText: {fileID: 4695060487792709567}
   descriptionText: {fileID: 3427304383025992864}
   upgradeSlots: {fileID: 4525021074102674615}
 --- !u!114 &4058689592740030879
@@ -796,7 +796,7 @@ GameObject:
   - component: {fileID: 490147895919545463}
   - component: {fileID: 2574373803838126008}
   m_Layer: 0
-  m_Name: Type
+  m_Name: Catagory
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

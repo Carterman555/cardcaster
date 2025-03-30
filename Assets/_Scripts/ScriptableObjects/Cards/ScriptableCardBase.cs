@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Localization;
 using UnityEngine.Serialization;
 
 public abstract class ScriptableCardBase : ScriptableObject, ICollectable {
@@ -12,10 +13,14 @@ public abstract class ScriptableCardBase : ScriptableObject, ICollectable {
     [SerializeField] private CardType cardType;
     public CardType CardType => cardType;
 
-    public string Name => cardType.ToPrettyString();
+    [SerializeField] private LocalizedString locName;
+    public LocalizedString Name => locName;
 
-    [SerializeField] private string description;
-    public string Description => description;
+    [SerializeField] private LocalizedString category;
+    public LocalizedString Category => category;
+
+    [SerializeField] private LocalizedString description;
+    public LocalizedString Description => description;
 
     [SerializeField] private Sprite sprite;
     public Sprite Sprite => sprite;

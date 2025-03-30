@@ -87,6 +87,370 @@ MonoBehaviour:
     m_Key: holeInstructions
     m_Metadata:
       m_Items: []
+  - m_Id: 726798209388544
+    m_Key: blackHoleDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 726923627466752
+    m_Key: bombDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 727002413273088
+    m_Key: boomerbladeDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 727056800813056
+    m_Key: colossusBladeDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 727128192061440
+    m_Key: daggerstormDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 727160790192128
+    m_Key: dyingRageDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 727187205918720
+    m_Key: ghostDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 727208223576064
+    m_Key: launchDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 727228553367552
+    m_Key: shockwaveDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 727259897401344
+    m_Key: spectralBladeDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 727298803765248
+    m_Key: spinningFuryDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 727320664477696
+    m_Key: teleportDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 727362729152512
+    m_Key: throwingKnifeDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 727394853326848
+    m_Key: electrifyDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 727889013641216
+    m_Key: expanseDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 727915769106432
+    m_Key: magnetifyDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 727929190879232
+    m_Key: mightDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 727951315832832
+    m_Key: overloadDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 727963529646080
+    m_Key: ricochetDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 727976305496064
+    m_Key: scorchDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 727989546913792
+    m_Key: sustainDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 728055108079616
+    m_Key: deadeyeDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 728100356231168
+    m_Key: essenceHarvestDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 728129884131328
+    m_Key: essenceReserveDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 728142823559168
+    m_Key: flurryDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 728157310685184
+    m_Key: lethalEdgeDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 728176453488640
+    m_Key: longDashDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 728188709244928
+    m_Key: powerDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 728200000311296
+    m_Key: quickFeetDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 728211505287168
+    m_Key: sharpShotDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 728286537191424
+    m_Key: smashingBlowDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 728315486277632
+    m_Key: stoneHeartDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 728378430197760
+    m_Key: wisdomsHoldDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 730240323686400
+    m_Key: blackHoleName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 730553449451520
+    m_Key: bombName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 730559506026496
+    m_Key: boomerbladeName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 730600241106944
+    m_Key: colossusBladeName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 730615139274752
+    m_Key: daggerstormName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 731207874121728
+    m_Key: dyingRageName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 731219731419136
+    m_Key: ghostName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 731230833741824
+    m_Key: launchName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 731240476446720
+    m_Key: shockwaveName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 731250408558592
+    m_Key: spectralBladeName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 731260852375552
+    m_Key: spinningFuryName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 731269278732288
+    m_Key: teleportName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 731277512151040
+    m_Key: throwingKnifeName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 731293572141056
+    m_Key: electrifyName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 731303495864320
+    m_Key: expanseName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 731318771519488
+    m_Key: magnetifyName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 731327604723712
+    m_Key: mightName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 731336345653248
+    m_Key: overloadName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 731345053028352
+    m_Key: ricochetName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 731353085120512
+    m_Key: scorchName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 731361427591168
+    m_Key: sustainName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 731372261478400
+    m_Key: deadeyeName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 731381279232000
+    m_Key: essenceHarvestName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 731392167645184
+    m_Key: essenceReserveName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 731401869070336
+    m_Key: flurryName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 731410337370112
+    m_Key: lethalEdgeName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 731418201690112
+    m_Key: longDashName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 731426988756992
+    m_Key: powerName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 731435746463744
+    m_Key: quickfeetName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 731446701985792
+    m_Key: sharpshotName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 731454851518464
+    m_Key: smashingBlowName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 731462405459968
+    m_Key: stoneHeartName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 731469909069824
+    m_Key: wisdomsHoldName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 732275555176448
+    m_Key: modifierCard
+    m_Metadata:
+      m_Items: []
+  - m_Id: 732278604435456
+    m_Key: abilityCard
+    m_Metadata:
+      m_Items: []
+  - m_Id: 732281917935616
+    m_Key: persisentCard
+    m_Metadata:
+      m_Items: []
+  - m_Id: 737411199406080
+    m_Key: play
+    m_Metadata:
+      m_Items: []
+  - m_Id: 737599796285440
+    m_Key: tutorial
+    m_Metadata:
+      m_Items: []
+  - m_Id: 737757728608256
+    m_Key: giveFeedback
+    m_Metadata:
+      m_Items: []
+  - m_Id: 737841342058496
+    m_Key: settings
+    m_Metadata:
+      m_Items: []
+  - m_Id: 737912737501184
+    m_Key: quit
+    m_Metadata:
+      m_Items: []
+  - m_Id: 738157747769344
+    m_Key: wishlist
+    m_Metadata:
+      m_Items: []
+  - m_Id: 742560689033216
+    m_Key: back
+    m_Metadata:
+      m_Items: []
+  - m_Id: 743004358316032
+    m_Key: general
+    m_Metadata:
+      m_Items: []
+  - m_Id: 743292049821696
+    m_Key: cameraShake
+    m_Metadata:
+      m_Items: []
+  - m_Id: 743560988594176
+    m_Key: string
+    m_Metadata:
+      m_Items: []
+  - m_Id: 743702332444672
+    m_Key: video
+    m_Metadata:
+      m_Items: []
+  - m_Id: 743902362996736
+    m_Key: vSync
+    m_Metadata:
+      m_Items: []
+  - m_Id: 744185008754688
+    m_Key: displayMode
+    m_Metadata:
+      m_Items: []
+  - m_Id: 744482301022208
+    m_Key: resolution
+    m_Metadata:
+      m_Items: []
+  - m_Id: 745309526822912
+    m_Key: audio
+    m_Metadata:
+      m_Items: []
+  - m_Id: 745417928609792
+    m_Key: musicVolume
+    m_Metadata:
+      m_Items: []
+  - m_Id: 745497326784512
+    m_Key: SFXVolume
+    m_Metadata:
+      m_Items: []
+  - m_Id: 745565891072000
+    m_Key: UIVolume
+    m_Metadata:
+      m_Items: []
+  - m_Id: 745745973514240
+    m_Key: controls
+    m_Metadata:
+      m_Items: []
+  - m_Id: 746031001636864
+    m_Key: rebindKeyboard
+    m_Metadata:
+      m_Items: []
+  - m_Id: 746124689805312
+    m_Key: rebindController
+    m_Metadata:
+      m_Items: []
+  - m_Id: 746272312528896
+    m_Key: resetToDefault
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

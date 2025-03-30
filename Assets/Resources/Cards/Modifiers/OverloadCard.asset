@@ -9,15 +9,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dba01c9be251ead46a9175e95714592e, type: 3}
-  m_Name: TeleportCard
+  m_Script: {fileID: 11500000, guid: ddceab62dd8231248bd8d7581dfc91e1, type: 3}
+  m_Name: OverloadCard
   m_EditorClassIdentifier: 
-  cardType: 3
+  cardType: 14
   locName:
     m_TableReference:
       m_TableCollectionName: GUID:e2b89126a54df984f885da2bac4cb92f
     m_TableEntryReference:
-      m_KeyId: 731269278732288
+      m_KeyId: 731336345653248
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
@@ -26,7 +26,7 @@ MonoBehaviour:
     m_TableReference:
       m_TableCollectionName: GUID:e2b89126a54df984f885da2bac4cb92f
     m_TableEntryReference:
-      m_KeyId: 732278604435456
+      m_KeyId: 732275555176448
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
@@ -35,34 +35,28 @@ MonoBehaviour:
     m_TableReference:
       m_TableCollectionName: GUID:e2b89126a54df984f885da2bac4cb92f
     m_TableEntryReference:
-      m_KeyId: 727320664477696
+      m_KeyId: 727951315832832
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
     m_LocalVariables: []
-  sprite: {fileID: -660011274, guid: d638d131cac6f4d45aeb96fc55848241, type: 3}
+  sprite: {fileID: -1574451434, guid: d638d131cac6f4d45aeb96fc55848241, type: 3}
   cost: 1
-  rarity: 0
+  rarity: 1
   stackType: 0
-  startUnlocked: 1
+  startUnlocked: 0
   unlockLevel: 1
-  abilityAttributes: 0
-  baseStats:
+  abilityAttributes: 5
+  abilityStatsModifierPercentage:
     BaseDamage: 0
     KnockbackStrength: 0
     AreaSize: 0
-    Duration: 0
+    Duration: -25
     ProjectileSpeed: 0
     Cooldown: 0
-  <IsPositional>k__BackingField: 1
-  <IsModifiable>k__BackingField: 0
-  incompatibleAbilities: 
-  raycastStep: 0.1
-  obstacleLayer:
-    serializedVersion: 2
-    m_Bits: 1280
-  teleportPosVisualPrefab: {fileID: 5377785376021319435, guid: 7c2e94089a4b7a1488dad79b02be9292, type: 3}
-  visualClonePrefab: {fileID: -7599572236578445748, guid: 5601fbdb501ad5b4799133031cb476e0, type: 3}
+  modifierImagePrefab: {fileID: -2071319084836149, guid: c6d28b118b972a744a66d705262b19cd, type: 3}
+  appliesEffect: 0
+  effectPrefab: {fileID: 0}
   references:
     version: 2
     RefIds: []

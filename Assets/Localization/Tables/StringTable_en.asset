@@ -468,10 +468,43 @@ MonoBehaviour:
     m_Localized: Reset to Default
     m_Metadata:
       m_Items: []
+  - m_Id: 753654669250560
+    m_Localized: Full Screen
+    m_Metadata:
+      m_Items: []
+  - m_Id: 753843643617280
+    m_Localized: Full Screen Window
+    m_Metadata:
+      m_Items: []
+  - m_Id: 753937365340160
+    m_Localized: Windowed
+    m_Metadata:
+      m_Items: []
+  - m_Id: 758823704334336
+    m_Localized: Reset
+    m_Metadata:
+      m_Items: []
+  - m_Id: 758957641043968
+    m_Localized: Attack
+    m_Metadata:
+      m_Items: []
+  - m_Id: 759322151227392
+    m_Localized: Dash
+    m_Metadata:
+      m_Items: []
+  - m_Id: 759383522283520
+    m_Localized: Interact
+    m_Metadata:
+      m_Items: []
+  - m_Id: 760325500047360
+    m_Localized: Play Card {card-number}
+    m_Metadata:
+      m_Items:
+      - rid: 2333493122674720776
   references:
     version: 2
     RefIds:
     - rid: 2333493122674720776
       type: {class: SmartFormatTag, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
       data:
-        m_Entries: 0010982a05a40200
+        m_Entries: 0010982a05a402000010581383b30200

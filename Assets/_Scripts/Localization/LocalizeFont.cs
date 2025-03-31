@@ -24,12 +24,6 @@ public class LocalizeFont : MonoBehaviour {
         if (overrideEnglishFontSize) {
             englishFontSize = englishFontSizeOverride;
         }
-
-        //if (text.alignment != TextAlignmentOptions.Capline &&
-        //    text.alignment != TextAlignmentOptions.CaplineLeft &&
-        //    text.alignment != TextAlignmentOptions.CaplineRight) {
-        //    Debug.LogWarning("Text with LocalizeFont does not have Capline alignment! " + text.alignment);
-        //}
     }
 
     private void OnEnable() {
@@ -51,7 +45,11 @@ public class LocalizeFont : MonoBehaviour {
         else if (locale.Identifier == "zh-Hans") {
             TMP_FontAsset chineseFont = Resources.Load<TMP_FontAsset>("Fonts/LanaPixel SDF");
             text.font = chineseFont;
-            text.fontSize = englishFontSize * chineseFontSizeMult;
+
+            // the lanapixel font is a little stretched and distorted when the font is not a multiple of 11
+            // so round to nearest 11
+            float fontSize = englishFontSize * chineseFontSizeMult;
+            text.fontSize = Mathf.Round(fontSize / 11f) * 11f;
         }
     }
 }

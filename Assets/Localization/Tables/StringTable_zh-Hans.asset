@@ -209,10 +209,92 @@ MonoBehaviour:
     m_Metadata:
       m_Items:
       - rid: 2333493124091871236
+  - m_Id: 1070995516952576
+    m_Localized: "\u91CD\u7F6E\u6240\u6709"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1071719403491328
+    m_Localized: "\u6253\u5F00\u5730\u56FE"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1072477939175424
+    m_Localized: "\u64A4\u9500\u51FA\u724C"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1072555554770944
+    m_Localized: "\u6253\u5F00\u5361\u724C\u83DC\u5355"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1075752579108864
+    m_Localized: "\u77F3\u5934"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1076382383214592
+    m_Localized: "\u5E73\u6ED1\u77F3\u5934"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1076461357764608
+    m_Localized: "\u84DD\u8272\u77F3\u5934"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1077986637385728
+    m_Localized: "\u5384\u8FD0\u724C\u7EC4"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1078129583460352
+    m_Localized: "\u80D6\u58A9\u535A\u58EB"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1078243924381696
+    m_Localized: "\u96F7\u9706\u9B54\u50CF"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1081345909985280
+    m_Localized: "\u5361\u724C\u5DF2\u89E3\u9501\uFF01"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1081772550393856
+    m_Localized: "\u73B0\u5728\u53EF\u4EE5\u5728\u8FF7\u5BAB\u4E2D\u627E\u5230\u8FD9\u5F20\u5361\u724C\u4E86"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1081901181308928
+    m_Localized: "\u5173\u95ED"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1088586465677312
+    m_Localized: "\u5DF2\u6682\u505C"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1088666870484992
+    m_Localized: "\u7EE7\u7EED\u6E38\u620F"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1088817177563136
+    m_Localized: "\u4E3B\u83DC\u5355"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1089700753838080
+    m_Localized: "\u4F60\u5DF2\u9635\u4EA1"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1089787819200512
+    m_Localized: "\u51FB\u6740\u6570: {stats-text:KillCount}"
+    m_Metadata:
+      m_Items:
+      - rid: 2333493124091871236
+  - m_Id: 1090141591965696
+    m_Localized: "\u5173\u5361: {stats-text:Level}"
+    m_Metadata:
+      m_Items:
+      - rid: 2333493124091871236
+  - m_Id: 1090310198792192
+    m_Localized: "\u91CD\u65B0\u5F00\u59CB"
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds:
     - rid: 2333493124091871236
       type: {class: SmartFormatTag, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
       data:
-        m_Entries: 0010581383b30200
+        m_Entries: 0010581383b302000010d8ff27df03000010585e7adf0300

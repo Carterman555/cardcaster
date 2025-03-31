@@ -12,8 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff4f25c988b22e145a7ddd278777abaa, type: 3}
   m_Name: DeckOfDoom
   m_EditorClassIdentifier: 
-  <Name>k__BackingField: The Deck Of Doom
-  <Description>k__BackingField: 
+  <LocName>k__BackingField:
+    m_TableReference:
+      m_TableCollectionName: GUID:e2b89126a54df984f885da2bac4cb92f
+    m_TableEntryReference:
+      m_KeyId: 1077986637385728
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
   <Prefab>k__BackingField: {fileID: 1338195640233062225, guid: c4c94c4170581ca48be6ef20fbe73968, type: 3}
   <Stats>k__BackingField:
     MaxHealth: 600
@@ -22,4 +29,8 @@ MonoBehaviour:
     Damage: 0
     AttackSpeed: 5
     KnockbackStrength: 1
+    AttackRange: 0
   <PossibleLevels>k__BackingField: 02000000
+  references:
+    version: 2
+    RefIds: []

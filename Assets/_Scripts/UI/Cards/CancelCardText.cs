@@ -8,13 +8,9 @@ public class CancelCardText : MonoBehaviour {
 
     [SerializeField] private InputActionReference cancelCardAction;
 
-    private TextMeshProUGUI text;
-
-    private void Awake() {
-        text = GetComponent<TextMeshProUGUI>();
-    }
+    public string Input; // for localize string event (it sets the text)
 
     private void OnEnable() {
-        text.text = $"{InputManager.Instance.GetBindingText(cancelCardAction)} to cancel card";
+        Input = InputManager.Instance.GetBindingText(cancelCardAction);
     }
 }

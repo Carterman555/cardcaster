@@ -501,10 +501,92 @@ MonoBehaviour:
     m_Metadata:
       m_Items:
       - rid: 2333493122674720776
+  - m_Id: 1070995516952576
+    m_Localized: Reset All
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1071719403491328
+    m_Localized: Open Map
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1072477939175424
+    m_Localized: Cancel Card
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1072555554770944
+    m_Localized: Open Cards
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1075752579108864
+    m_Localized: Stone
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1076382383214592
+    m_Localized: Smooth Stone
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1076461357764608
+    m_Localized: Blue Stone
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1077986637385728
+    m_Localized: The Deck Of Doom
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1078129583460352
+    m_Localized: Dr. Chonk
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1078243924381696
+    m_Localized: Thunder Golem
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1081345909985280
+    m_Localized: Card Unlocked!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1081772550393856
+    m_Localized: You can now find this card throughout the dungeon
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1081901181308928
+    m_Localized: Close
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1088586465677312
+    m_Localized: Paused
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1088666870484992
+    m_Localized: Resume
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1088817177563136
+    m_Localized: Menu
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1089700753838080
+    m_Localized: You Died
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1089787819200512
+    m_Localized: 'Kills: {stats-text:KillCount}'
+    m_Metadata:
+      m_Items:
+      - rid: 2333493122674720776
+  - m_Id: 1090141591965696
+    m_Localized: 'Level: {stats-text:Level}'
+    m_Metadata:
+      m_Items:
+      - rid: 2333493122674720776
+  - m_Id: 1090310198792192
+    m_Localized: Restart
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds:
     - rid: 2333493122674720776
       type: {class: SmartFormatTag, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
       data:
-        m_Entries: 0010982a05a402000010581383b30200
+        m_Entries: 0010982a05a402000010581383b302000010d8ff27df03000010585e7adf0300

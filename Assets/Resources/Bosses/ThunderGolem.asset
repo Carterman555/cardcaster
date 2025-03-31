@@ -12,8 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff4f25c988b22e145a7ddd278777abaa, type: 3}
   m_Name: ThunderGolem
   m_EditorClassIdentifier: 
-  <Name>k__BackingField: Thunder Golem
-  <Description>k__BackingField: 
+  <LocName>k__BackingField:
+    m_TableReference:
+      m_TableCollectionName: GUID:e2b89126a54df984f885da2bac4cb92f
+    m_TableEntryReference:
+      m_KeyId: 1078243924381696
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
   <Prefab>k__BackingField: {fileID: 1338195640233062225, guid: f24834a6f750fae4c8b19527e74b5add, type: 3}
   <Stats>k__BackingField:
     MaxHealth: 800
@@ -22,4 +29,8 @@ MonoBehaviour:
     Damage: 3
     AttackSpeed: 2
     KnockbackStrength: 1
+    AttackRange: 0
   <PossibleLevels>k__BackingField: 03000000
+  references:
+    version: 2
+    RefIds: []

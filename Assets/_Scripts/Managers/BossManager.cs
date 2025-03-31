@@ -5,6 +5,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Localization;
+using UnityEngine.Localization.Settings;
 
 public class BossManager : MonoBehaviour {
 
@@ -29,6 +31,7 @@ public class BossManager : MonoBehaviour {
     private void OnEnable() {
         Room.OnAnyRoomEnter_Room += TryStartBossFight;
     }
+
     private void OnDisable() {
         Room.OnAnyRoomEnter_Room -= TryStartBossFight;
     }
@@ -68,7 +71,7 @@ public class BossManager : MonoBehaviour {
         bossHealth = boss.GetComponent<EnemyHealth>();
 
         //... setup the boss health bar
-        bossHealthUI.Setup(chosenBoss.Name, bossHealth);
+        bossHealthUI.Setup(chosenBoss.LocName, bossHealth);
 
         bossHealth.DeathEventTrigger.AddListener(OnBossDefeated);
     }

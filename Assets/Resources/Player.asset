@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Player
   m_EditorClassIdentifier: 
   baseStats:
-    MaxHealth: 20
+    MaxHealth: 2
     KnockbackResistance: 1
     MoveSpeed: 6
     BaseBasicAttackDamage: 5

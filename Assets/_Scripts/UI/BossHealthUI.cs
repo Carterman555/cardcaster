@@ -3,6 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Localization;
+using UnityEngine.Localization.Settings;
 using UnityEngine.UI;
 
 public class BossHealthUI : MonoBehaviour {
@@ -12,19 +14,32 @@ public class BossHealthUI : MonoBehaviour {
 
     private EnemyHealth bossHealth;
 
-    public void Setup(string bossName, EnemyHealth bossHealth) {
+    private LocalizedString bossName;
+
+    public void Setup(LocalizedString bossName, EnemyHealth bossHealth) {
+        this.bossName = bossName;
         this.bossHealth = bossHealth;
 
-        bossNameText.text = bossName;
+        bossNameText.text = bossName.GetLocalizedString();
 
         healthFill.fillAmount = 1f;
-        bossHealth.OnHealthChanged_HealthProportion += UpdateHealthBar;
     }
+
+    private void OnEnable() {
+        bossHealth.OnHealthChanged_HealthProportion += UpdateHealthBar;
+        LocalizationSettings.SelectedLocaleChanged += UpdateBossText;
+    }
+
     private void OnDisable() {
         bossHealth.OnHealthChanged_HealthProportion -= UpdateHealthBar;
+        LocalizationSettings.SelectedLocaleChanged -= UpdateBossText;
     }
 
     private void UpdateHealthBar(float healthProportion) {
         healthFill.fillAmount = healthProportion;
+    }
+
+    private void UpdateBossText(Locale locale) {
+        bossNameText.text = bossName.GetLocalizedString();
     }
 }

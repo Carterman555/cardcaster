@@ -575,8 +575,56 @@ MonoBehaviour:
     m_Key: restart
     m_Metadata:
       m_Items: []
-  - m_Id: 1090398010740736
-    m_Key: New Entry 2
+  - m_Id: 1142706576822272
+    m_Key: demoComplete
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1144895353393152
+    m_Key: cards
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1145283104215040
+    m_Key: deck
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1145369121001472
+    m_Key: discard
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1145523697881088
+    m_Key: hand
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1147145178058752
+    m_Key: trade
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1147313847799808
+    m_Key: burn
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1148213391790080
+    m_Key: cancel
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1148901123428352
+    m_Key: toCancelCard
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1150426906365952
+    m_Key: trad
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1150950040932352
+    m_Key: resetProgressWarning
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1151234062422016
+    m_Key: yes
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1151379818680320
+    m_Key: no
     m_Metadata:
       m_Items: []
   m_Metadata:

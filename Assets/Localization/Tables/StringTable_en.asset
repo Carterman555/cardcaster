@@ -570,17 +570,70 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 1089787819200512
-    m_Localized: 'Kills: {stats-text:KillCount}'
+    m_Localized: 'Kills: {stats-text.KillCount}'
     m_Metadata:
       m_Items:
       - rid: 2333493122674720776
   - m_Id: 1090141591965696
-    m_Localized: 'Level: {stats-text:Level}'
+    m_Localized: 'Level: {stats-text.Level}'
     m_Metadata:
       m_Items:
       - rid: 2333493122674720776
   - m_Id: 1090310198792192
     m_Localized: Restart
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1142706576822272
+    m_Localized: Demo Complete!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1144895353393152
+    m_Localized: Cards
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1145283104215040
+    m_Localized: Deck
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1145369121001472
+    m_Localized: Discard
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1145523697881088
+    m_Localized: Hand
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1147145178058752
+    m_Localized: Trade
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1147313847799808
+    m_Localized: Burn
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1148213391790080
+    m_Localized: Cancel
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1148901123428352
+    m_Localized: '{cancel-text.Input} to cancel card'
+    m_Metadata:
+      m_Items:
+      - rid: 2333493122674720776
+  - m_Id: 1150426906365952
+    m_Localized: Trade
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1150950040932352
+    m_Localized: This will reset your progress. Are you sure you want to exit?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1151234062422016
+    m_Localized: Yes
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1151379818680320
+    m_Localized: No
     m_Metadata:
       m_Items: []
   references:
@@ -589,4 +642,4 @@ MonoBehaviour:
     - rid: 2333493122674720776
       type: {class: SmartFormatTag, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
       data:
-        m_Entries: 0010982a05a402000010581383b302000010d8ff27df03000010585e7adf0300
+        m_Entries: 0010982a05a402000010581383b302000010d8ff27df03000010585e7adf030000105863eb140400

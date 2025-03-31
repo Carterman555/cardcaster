@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Localization;
 
 public class SelectButton : GameButton, IInitializable {
     
@@ -31,8 +32,13 @@ public class SelectButton : GameButton, IInitializable {
     private CardLocation cardLocation;
     private int cardIndex;
 
-    public void Show(string buttonText, PanelCardButton panelCard) {
-        text.text = buttonText;
+    private LocalizedString buttonLocString;
+
+    public void Show(LocalizedString buttonLocString, PanelCardButton panelCard) {
+        this.buttonLocString = buttonLocString;
+        buttonLocString.StringChanged += UpdateButtonText;
+
+        text.text = buttonLocString.GetLocalizedString();
 
         this.panelCard = panelCard;
         cardLocation = panelCard.GetCardLocation();
@@ -62,6 +68,8 @@ public class SelectButton : GameButton, IInitializable {
         transform.DOScale(Vector3.zero, duration).SetEase(Ease.InSine).SetUpdate(true).OnComplete(() => {
             gameObject.SetActive(false);
         });
+
+        buttonLocString.StringChanged -= UpdateButtonText;
     }
 
     protected override void OnClick() {
@@ -71,5 +79,9 @@ public class SelectButton : GameButton, IInitializable {
 
         button.interactable = false;
         Hide();
+    }
+
+    private void UpdateButtonText(string newString) {
+        text.text = newString;
     }
 }

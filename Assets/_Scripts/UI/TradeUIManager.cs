@@ -3,6 +3,7 @@ using Mono.CSharp;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Localization;
 using UnityEngine.UI;
 
 public class TradeUIManager : StaticInstance<TradeUIManager>, IInitializable {
@@ -27,6 +28,8 @@ public class TradeUIManager : StaticInstance<TradeUIManager>, IInitializable {
     private bool active;
 
     private PanelCardButton panelCardToTrade;
+
+    [SerializeField] private LocalizedString tradeLocString;
 
     #region Open Trade UI
 
@@ -83,7 +86,7 @@ public class TradeUIManager : StaticInstance<TradeUIManager>, IInitializable {
     }
 
     private void ShowSelectButton(PanelCardButton panelCard) {
-        SelectButton.Instance.Show("Trade", panelCard);
+        SelectButton.Instance.Show(tradeLocString, panelCard);
     }
 
     private void ShowTradeUI(PanelCardButton panelCard) {

@@ -278,17 +278,66 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 1089787819200512
-    m_Localized: "\u51FB\u6740\u6570: {stats-text:KillCount}"
+    m_Localized: "\u51FB\u6740\u6570: {stats-text.KillCount}"
     m_Metadata:
       m_Items:
       - rid: 2333493124091871236
   - m_Id: 1090141591965696
-    m_Localized: "\u5173\u5361: {stats-text:Level}"
+    m_Localized: "\u5173\u5361: {stats-text.Level}"
     m_Metadata:
       m_Items:
       - rid: 2333493124091871236
   - m_Id: 1090310198792192
     m_Localized: "\u91CD\u65B0\u5F00\u59CB"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1142706576822272
+    m_Localized: "\u8BD5\u73A9\u7248\u5B8C\u6210\uFF01"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1144895353393152
+    m_Localized: "\u5361\u724C"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1145283104215040
+    m_Localized: "\u724C\u5E93"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1145369121001472
+    m_Localized: "\u5F03\u724C\u5806"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1145523697881088
+    m_Localized: "\u624B\u724C"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1147145178058752
+    m_Localized: "\u4EA4\u6362"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1147313847799808
+    m_Localized: "\u711A\u6BC1"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1148213391790080
+    m_Localized: "\u53D6\u6D88"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1148901123428352
+    m_Localized: "\u6309 {cancel-text.Input} \u53D6\u6D88\u51FA\u724C"
+    m_Metadata:
+      m_Items:
+      - rid: 2333493124091871236
+  - m_Id: 1150950040932352
+    m_Localized: "\u9000\u51FA\u5C06\u91CD\u7F6E\u60A8\u7684\u8FDB\u5EA6\u3002\u786E\u5B9A\u8981\u9000\u51FA\u5417\uFF1F"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1151234062422016
+    m_Localized: "\u786E\u5B9A"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1151379818680320
+    m_Localized: "\u53D6\u6D88"
     m_Metadata:
       m_Items: []
   references:
@@ -297,4 +346,4 @@ MonoBehaviour:
     - rid: 2333493124091871236
       type: {class: SmartFormatTag, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
       data:
-        m_Entries: 0010581383b302000010d8ff27df03000010585e7adf0300
+        m_Entries: 0010581383b302000010d8ff27df03000010585e7adf030000105863eb140400

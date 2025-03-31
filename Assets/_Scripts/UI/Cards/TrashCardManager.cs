@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Localization;
 
 public class TrashCardManager : StaticInstance<TrashCardManager> {
 
@@ -11,6 +12,8 @@ public class TrashCardManager : StaticInstance<TrashCardManager> {
     private bool active;
 
     private PanelCardButton panelCardToTrash;
+
+    [SerializeField] private LocalizedString burnLocString;
 
     public void Activate() {
         active = true;
@@ -48,7 +51,7 @@ public class TrashCardManager : StaticInstance<TrashCardManager> {
     }
 
     private void ShowSelectButton(PanelCardButton panelCard) {
-        SelectButton.Instance.Show("Burn", panelCard);
+        SelectButton.Instance.Show(burnLocString, panelCard);
     }
 
     private void TrashCard(PanelCardButton panelCard) {

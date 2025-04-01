@@ -266,8 +266,20 @@ MonoBehaviour:
   interactableTextPrefab: {fileID: 9084209149797969205, guid: a643d41c5c0620048bcb91e7ddbffcec, type: 3}
   textPosition: {x: 0, y: 1.4}
   text: Open
+  locText:
+    m_TableReference:
+      m_TableCollectionName: GUID:e2b89126a54df984f885da2bac4cb92f
+    m_TableEntryReference:
+      m_KeyId: 1425822092627968
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
   spriteRenderer: {fileID: 8716365102295414358}
   outlineMaterial: {fileID: 2100000, guid: 2fff2435ee99439438c463e2ce768283, type: 2}
+  references:
+    version: 2
+    RefIds: []
 --- !u!114 &7542433000797141514
 MonoBehaviour:
   m_ObjectHideFlags: 0

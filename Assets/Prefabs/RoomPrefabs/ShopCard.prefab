@@ -147,7 +147,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   changeShineColor: {fileID: 6380215148307476358}
   debugCard: 0
-  defaultCard: {fileID: 0}
+  defaultCard: 0
 --- !u!114 &3454742852932245681
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -164,8 +164,20 @@ MonoBehaviour:
   interactableTextPrefab: {fileID: 9084209149797969205, guid: a643d41c5c0620048bcb91e7ddbffcec, type: 3}
   textPosition: {x: 0, y: 0.8}
   text: Trade
+  locText:
+    m_TableReference:
+      m_TableCollectionName: GUID:e2b89126a54df984f885da2bac4cb92f
+    m_TableEntryReference:
+      m_KeyId: 1147145178058752
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
   spriteRenderer: {fileID: 5208893674117993705}
   outlineMaterial: {fileID: 2100000, guid: 2fff2435ee99439438c463e2ce768283, type: 2}
+  references:
+    version: 2
+    RefIds: []
 --- !u!1001 &2467327418261736795
 PrefabInstance:
   m_ObjectHideFlags: 0

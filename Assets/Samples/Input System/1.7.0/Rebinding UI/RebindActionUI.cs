@@ -3,10 +3,7 @@ using System.Collections.Generic;
 using UnityEngine.Events;
 using UnityEngine.UI;
 using UnityEngine;
-
-////TODO: localization support
-
-////TODO: deal with composites that have parts bound in different control schemes
+using Codice.Client.BaseCommands;
 
 namespace UnityEngine.InputSystem.Samples.RebindUI {
     /// <summary>
@@ -179,8 +176,9 @@ namespace UnityEngine.InputSystem.Samples.RebindUI {
             }
 
             // Set on label (if any).
-            if (m_BindingText != null)
+            if (m_BindingText != null) {
                 m_BindingText.text = displayString;
+            }
 
             // Give listeners a chance to configure UI in response.
             m_UpdateBindingUIEvent?.Invoke(this, displayString, deviceLayoutName, controlPath);
@@ -293,7 +291,7 @@ namespace UnityEngine.InputSystem.Samples.RebindUI {
                         m_RebindStopEvent?.Invoke(this, operation);
 
                         if (CheckDuplicateBindings(action, bindingIndex, out InputBinding duplicateBinding, allCompositeParts)) {
-                            action.RemoveBindingOverride(bindingIndex);
+                            action.RemoveBindingOverride(bindingIndex); // shouldn't reset completely, but i guess fine for now or if I run out of time
                             CleanUp();
                             PerformInteractiveRebind(action, bindingIndex, allCompositeParts);
                             ShowFailedRebindText(duplicateBinding);
@@ -366,12 +364,16 @@ namespace UnityEngine.InputSystem.Samples.RebindUI {
         }
 
         private void ShowFailedRebindText(InputBinding attemptedBinding) {
-            string actionStr = attemptedBinding.effectivePath;
-            m_FailedRebindText.text = $"{actionStr} is already being used";
+            m_FailedRebindInputText.enabled = true;
+            m_FailedRebindText.enabled = true;
+
+            string actionStr = attemptedBinding.ToDisplayString(displayStringOptions);
+            m_FailedRebindInputText.text = $"{actionStr}";
         }
 
         private void HideFailedRebindText() {
-            m_FailedRebindText.text = string.Empty;
+            m_FailedRebindInputText.enabled = false;
+            m_FailedRebindText.enabled = false;
         }
 
         protected void OnEnable() {
@@ -445,6 +447,8 @@ namespace UnityEngine.InputSystem.Samples.RebindUI {
         [SerializeField]
         private TMPro.TextMeshProUGUI m_RebindText;
 
+        [SerializeField]
+        private TMPro.TextMeshProUGUI m_FailedRebindInputText;
         [SerializeField]
         private TMPro.TextMeshProUGUI m_FailedRebindText;
 

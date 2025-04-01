@@ -3368,7 +3368,7 @@ PrefabInstance:
     - target: {fileID: 6680292650503350826, guid: f25dcd618d3acd64795bf8bb32edb6c9, type: 3}
       propertyPath: m_FailedRebindText
       value: 
-      objectReference: {fileID: 9055704806070192308}
+      objectReference: {fileID: 8264592900598438920}
     - target: {fileID: 6680292650503350826, guid: f25dcd618d3acd64795bf8bb32edb6c9, type: 3}
       propertyPath: m_ActionLabelString
       value: Open Cards
@@ -3377,6 +3377,10 @@ PrefabInstance:
       propertyPath: m_OverRideActionLabel
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6680292650503350826, guid: f25dcd618d3acd64795bf8bb32edb6c9, type: 3}
+      propertyPath: m_FailedRebindInputText
+      value: 
+      objectReference: {fileID: 9055704806070192308}
     - target: {fileID: 7330992257258493064, guid: f25dcd618d3acd64795bf8bb32edb6c9, type: 3}
       propertyPath: m_text
       value: LB
@@ -3830,7 +3834,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5984856981035748170, guid: a33bbb4b8c944d2419816025a3c2e3cf, type: 3}
       propertyPath: m_text
-      value: Right Stick Press
+      value: X
       objectReference: {fileID: 0}
     - target: {fileID: 7270970128914461147, guid: a33bbb4b8c944d2419816025a3c2e3cf, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
@@ -4269,6 +4273,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 8842095964630475142, guid: a33bbb4b8c944d2419816025a3c2e3cf, type: 3}
   m_PrefabInstance: {fileID: 1527638063960072329}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &8264592900598438920 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7458798592394148993, guid: a33bbb4b8c944d2419816025a3c2e3cf, type: 3}
+  m_PrefabInstance: {fileID: 1527638063960072329}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &9055704806070192308 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7538763212236793917, guid: a33bbb4b8c944d2419816025a3c2e3cf, type: 3}
@@ -4985,7 +5000,7 @@ PrefabInstance:
     - target: {fileID: 6680292650503350826, guid: f25dcd618d3acd64795bf8bb32edb6c9, type: 3}
       propertyPath: m_FailedRebindText
       value: 
-      objectReference: {fileID: 9055704806070192308}
+      objectReference: {fileID: 8264592900598438920}
     - target: {fileID: 6680292650503350826, guid: f25dcd618d3acd64795bf8bb32edb6c9, type: 3}
       propertyPath: m_ActionLabelString
       value: Cancel Card
@@ -4994,6 +5009,10 @@ PrefabInstance:
       propertyPath: m_OverRideActionLabel
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6680292650503350826, guid: f25dcd618d3acd64795bf8bb32edb6c9, type: 3}
+      propertyPath: m_FailedRebindInputText
+      value: 
+      objectReference: {fileID: 9055704806070192308}
     - target: {fileID: 7330992257258493064, guid: f25dcd618d3acd64795bf8bb32edb6c9, type: 3}
       propertyPath: m_text
       value: D-Pad/Down
@@ -5349,7 +5368,7 @@ PrefabInstance:
     - target: {fileID: 6680292650503350826, guid: f25dcd618d3acd64795bf8bb32edb6c9, type: 3}
       propertyPath: m_FailedRebindText
       value: 
-      objectReference: {fileID: 9055704806070192308}
+      objectReference: {fileID: 8264592900598438920}
     - target: {fileID: 6680292650503350826, guid: f25dcd618d3acd64795bf8bb32edb6c9, type: 3}
       propertyPath: m_ActionLabelString
       value: Open Map
@@ -5358,6 +5377,10 @@ PrefabInstance:
       propertyPath: m_OverRideActionLabel
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6680292650503350826, guid: f25dcd618d3acd64795bf8bb32edb6c9, type: 3}
+      propertyPath: m_FailedRebindInputText
+      value: 
+      objectReference: {fileID: 9055704806070192308}
     - target: {fileID: 7330992257258493064, guid: f25dcd618d3acd64795bf8bb32edb6c9, type: 3}
       propertyPath: m_text
       value: Select
@@ -6395,6 +6418,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 9080784532341072401, guid: a33bbb4b8c944d2419816025a3c2e3cf, type: 3}
+      propertyPath: m_DisplayStringOptions
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 9080784532341072402, guid: a33bbb4b8c944d2419816025a3c2e3cf, type: 3}
       propertyPath: m_AnchorMax.y
       value: 1
@@ -6423,6 +6450,17 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 2476143838840507458}
   m_SourcePrefab: {fileID: 100100000, guid: a33bbb4b8c944d2419816025a3c2e3cf, type: 3}
+--- !u!114 &247214166208636124 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7458798592394148993, guid: a33bbb4b8c944d2419816025a3c2e3cf, type: 3}
+  m_PrefabInstance: {fileID: 7272396630296975453}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &897253196881293408 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7538763212236793917, guid: a33bbb4b8c944d2419816025a3c2e3cf, type: 3}
@@ -6744,7 +6782,7 @@ PrefabInstance:
     - target: {fileID: 6680292650503350826, guid: f25dcd618d3acd64795bf8bb32edb6c9, type: 3}
       propertyPath: m_FailedRebindText
       value: 
-      objectReference: {fileID: 897253196881293408}
+      objectReference: {fileID: 247214166208636124}
     - target: {fileID: 6680292650503350826, guid: f25dcd618d3acd64795bf8bb32edb6c9, type: 3}
       propertyPath: m_ActionLabelString
       value: Open Map
@@ -6753,6 +6791,10 @@ PrefabInstance:
       propertyPath: m_OverRideActionLabel
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6680292650503350826, guid: f25dcd618d3acd64795bf8bb32edb6c9, type: 3}
+      propertyPath: m_FailedRebindInputText
+      value: 
+      objectReference: {fileID: 897253196881293408}
     - target: {fileID: 7330992257258493064, guid: f25dcd618d3acd64795bf8bb32edb6c9, type: 3}
       propertyPath: m_text
       value: Tab

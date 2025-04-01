@@ -467,10 +467,6 @@ MonoBehaviour:
     m_Key: rebindKeyboar
     m_Metadata:
       m_Items: []
-  - m_Id: 758365363376128
-    m_Key: New Entry
-    m_Metadata:
-      m_Items: []
   - m_Id: 758823704334336
     m_Key: reset
     m_Metadata:
@@ -505,10 +501,6 @@ MonoBehaviour:
       m_Items: []
   - m_Id: 1072555554770944
     m_Key: openCards
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1072626757275648
-    m_Key: New Entry 1
     m_Metadata:
       m_Items: []
   - m_Id: 1075752579108864
@@ -625,6 +617,70 @@ MonoBehaviour:
       m_Items: []
   - m_Id: 1151379818680320
     m_Key: no
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1415909010313216
+    m_Key: quitGameWarning
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1425450070446080
+    m_Key: burnCard
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1425656417619968
+    m_Key: pickup
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1425822092627968
+    m_Key: open
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1426050359234560
+    m_Key: choose
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1429632995299328
+    m_Key: heal
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1453146758451200
+    m_Key: LMB
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1453491865784320
+    m_Key: RMB
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1454508300832768
+    m_Key: Tab
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1454629100982272
+    m_Key: Space
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1454680938385408
+    m_Key: Shift
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1454689016614912
+    m_Key: Ctrl
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1455365109059584
+    m_Key: Backspace
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1455367256543232
+    m_Key: Delete
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1455951816691712
+    m_Key: waitingForInput
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1456749464260608
+    m_Key: failInput
     m_Metadata:
       m_Items: []
   m_Metadata:

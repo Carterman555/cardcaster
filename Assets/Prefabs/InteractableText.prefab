@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 8528166481679195605}
   - component: {fileID: 5247772179704914681}
   - component: {fileID: 9084209149797969205}
+  - component: {fileID: -1094246995294409010}
   m_Layer: 0
   m_Name: InteractableText
   m_TagString: Untagged
@@ -57,7 +58,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2002732806699863819, guid: 3ee8e3e16bedc2c47a4ab608b515454f, type: 2}
+  - {fileID: 3955962077340898542, guid: d6fd8257d87b2374f8d84cb7d78d8392, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -101,8 +102,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: E
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 3ee8e3e16bedc2c47a4ab608b515454f, type: 2}
-  m_sharedMaterial: {fileID: 2002732806699863819, guid: 3ee8e3e16bedc2c47a4ab608b515454f, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: d6fd8257d87b2374f8d84cb7d78d8392, type: 2}
+  m_sharedMaterial: {fileID: 3955962077340898542, guid: d6fd8257d87b2374f8d84cb7d78d8392, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -126,8 +127,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 3.5
-  m_fontSizeBase: 3.5
+  m_fontSize: 2
+  m_fontSizeBase: 2
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -171,3 +172,18 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_renderer: {fileID: 5247772179704914681}
   m_maskType: 0
+--- !u!114 &-1094246995294409010
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 183237714412152925}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad83300d5dc94c24381330bca161b16a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  overrideEnglishFontSize: 0
+  englishFontSizeOverride: 3.5
+  roundToNearest11: 0

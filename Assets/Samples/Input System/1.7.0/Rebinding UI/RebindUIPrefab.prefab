@@ -172,6 +172,8 @@ GameObject:
   - component: {fileID: 8386609434156804226}
   - component: {fileID: 2267825787910245709}
   - component: {fileID: 7330992257258493064}
+  - component: {fileID: 8474022658749574671}
+  - component: {fileID: 1350982336648926706}
   m_Layer: 5
   m_Name: ActionBindingText
   m_TagString: Untagged
@@ -295,6 +297,33 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &8474022658749574671
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 731473608444823109}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a752427de4629044db94e8847757d57b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1350982336648926706
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 731473608444823109}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad83300d5dc94c24381330bca161b16a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  overrideEnglishFontSize: 0
+  englishFontSizeOverride: 0
+  roundToNearest11: 1
 --- !u!1 &3765126000884218416
 GameObject:
   m_ObjectHideFlags: 0
@@ -485,6 +514,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   overrideEnglishFontSize: 0
   englishFontSizeOverride: 0
+  roundToNearest11: 1
 --- !u!1 &5436830959763822803
 GameObject:
   m_ObjectHideFlags: 0
@@ -658,6 +688,7 @@ MonoBehaviour:
   m_BindingText: {fileID: 7330992257258493064}
   m_RebindOverlay: {fileID: 0}
   m_RebindText: {fileID: 0}
+  m_FailedRebindInputText: {fileID: 0}
   m_FailedRebindText: {fileID: 0}
   m_ClickInput: {fileID: 392368643174621059, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
   m_OverRideActionLabel: 0
@@ -861,6 +892,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   overrideEnglishFontSize: 0
   englishFontSizeOverride: 0
+  roundToNearest11: 1
 --- !u!1 &8384654220190448158
 GameObject:
   m_ObjectHideFlags: 0

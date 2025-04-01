@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Localization;
 
 public class ChestItemInfoUI : MonoBehaviour, IInitializable {
 
@@ -25,6 +26,8 @@ public class ChestItemInfoUI : MonoBehaviour, IInitializable {
     [SerializeField] private GameObject heal;
     [SerializeField] private TextMeshProUGUI healText;
 
+    [SerializeField] private LocalizedString healLocString;
+
     private ItemInfo itemInfoShowing;
     private ItemInfo itemInfoToShow;
 
@@ -36,7 +39,7 @@ public class ChestItemInfoUI : MonoBehaviour, IInitializable {
     public void SetHealInfo() {
         itemInfoToShow = new() { Heal = true, Card = null };
         gameObject.SetActive(true);
-        healText.text = $"Heal {ChestHeal.HealAmount}";
+        healText.text = $"{healLocString.GetLocalizedString()} {ChestHeal.HealAmount}";
     }
 
     public void RemoveInfo() {

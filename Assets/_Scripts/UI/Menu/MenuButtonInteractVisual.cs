@@ -40,6 +40,11 @@ public class MenuButtonInteractVisual : GameButton, IPointerEnterHandler, IPoint
         if (textInfo.characterCount > 0) {
             float minX = textInfo.characterInfo[0].bottomLeft.x;
             float maxX = textInfo.characterInfo[textInfo.characterCount - 1].topRight.x;
+
+            RectTransform rectTransform = text.GetComponent<RectTransform>();
+            float leftX = rectTransform.position.x + minX;
+            interactVisual.transform.position = new(leftX, interactVisual.transform.position.y);
+
             float length = maxX - minX;
             interactVisual.DOScaleX(length, duration: 0.1f).SetUpdate(true).SetEase(Ease.InFlash);
         }

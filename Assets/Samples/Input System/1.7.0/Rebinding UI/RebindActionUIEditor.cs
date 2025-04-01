@@ -26,6 +26,7 @@ namespace UnityEngine.InputSystem.Samples.RebindUI
             m_RebindOverlayProperty = serializedObject.FindProperty("m_RebindOverlay");
             m_RebindTextProperty = serializedObject.FindProperty("m_RebindText");
             m_FailedRebindTextProperty = serializedObject.FindProperty("m_FailedRebindText");
+            m_FailedRebindInputTextProperty = serializedObject.FindProperty("m_FailedRebindInputText");
             m_ClickInputProperty = serializedObject.FindProperty("m_ClickInput");
             m_UpdateBindingUIEventProperty = serializedObject.FindProperty("m_UpdateBindingUIEvent");
             m_RebindStartEventProperty = serializedObject.FindProperty("m_RebindStartEvent");
@@ -71,6 +72,7 @@ namespace UnityEngine.InputSystem.Samples.RebindUI
                 EditorGUILayout.PropertyField(m_BindingTextProperty);
                 EditorGUILayout.PropertyField(m_RebindOverlayProperty);
                 EditorGUILayout.PropertyField(m_RebindTextProperty);
+                EditorGUILayout.PropertyField(m_FailedRebindInputTextProperty);
                 EditorGUILayout.PropertyField(m_FailedRebindTextProperty);
                 EditorGUILayout.PropertyField(m_ClickInputProperty);
             }
@@ -176,6 +178,7 @@ namespace UnityEngine.InputSystem.Samples.RebindUI
         private SerializedProperty m_BindingTextProperty;
         private SerializedProperty m_RebindOverlayProperty;
         private SerializedProperty m_RebindTextProperty;
+        private SerializedProperty m_FailedRebindInputTextProperty;
         private SerializedProperty m_FailedRebindTextProperty;
         private SerializedProperty m_ClickInputProperty;
         private SerializedProperty m_RebindStartEventProperty;

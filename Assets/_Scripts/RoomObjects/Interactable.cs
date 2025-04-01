@@ -3,9 +3,9 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Localization;
 
 public class Interactable : MonoBehaviour {
 
@@ -21,6 +21,7 @@ public class Interactable : MonoBehaviour {
     private TextMeshPro interactableText;
     [SerializeField] private Vector2 textPosition;
     [SerializeField] private string text;
+    [SerializeField] private LocalizedString locText;
 
     [Header("Outline")]
     private Material originalMaterial;
@@ -65,7 +66,7 @@ public class Interactable : MonoBehaviour {
         interactableText.transform.position = (Vector2)transform.position + textPosition;
 
         string interactInputText = InputManager.Instance.GetBindingText(interactAction);
-        interactableText.text = text + " (" + interactInputText + ")";
+        interactableText.text = locText.GetLocalizedString() + " (" + interactInputText + ")";
 
         // grow text
         interactableText.transform.DOKill();

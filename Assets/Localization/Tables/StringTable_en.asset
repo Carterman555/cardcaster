@@ -636,6 +636,70 @@ MonoBehaviour:
     m_Localized: No
     m_Metadata:
       m_Items: []
+  - m_Id: 1415909010313216
+    m_Localized: Are you sure you want to quit?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1425450070446080
+    m_Localized: Burn Card
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1425656417619968
+    m_Localized: Pickup
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1425822092627968
+    m_Localized: Open
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1426050359234560
+    m_Localized: Choose
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1429632995299328
+    m_Localized: Heal
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1453146758451200
+    m_Localized: LMB
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1453491865784320
+    m_Localized: RMB
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1454508300832768
+    m_Localized: Tab
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1454629100982272
+    m_Localized: Space
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1454680938385408
+    m_Localized: Shift
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1454689016614912
+    m_Localized: Ctrl
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1455365109059584
+    m_Localized: Backspace
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1455367256543232
+    m_Localized: Delete
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1455951816691712
+    m_Localized: Waiting for input
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1456749464260608
+    m_Localized: is already being used
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds:

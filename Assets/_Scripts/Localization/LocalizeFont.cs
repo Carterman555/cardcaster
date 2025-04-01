@@ -8,7 +8,7 @@ using UnityEngine.Localization.Settings;
 
 public class LocalizeFont : MonoBehaviour {
 
-    private TextMeshProUGUI text;
+    private TMP_Text text;
 
     private float englishFontSize;
     private float chineseFontSizeMult = 1.5f;
@@ -17,8 +17,10 @@ public class LocalizeFont : MonoBehaviour {
     [ConditionalHide("overrideEnglishFontSize")]
     [SerializeField] private float englishFontSizeOverride;
 
+    [SerializeField] private bool roundToNearest11 = true;
+
     private void Awake() {
-        text = GetComponent<TextMeshProUGUI>();
+        text = GetComponent<TMP_Text>();
 
         englishFontSize = text.fontSize;
         if (overrideEnglishFontSize) {
@@ -46,10 +48,13 @@ public class LocalizeFont : MonoBehaviour {
             TMP_FontAsset chineseFont = Resources.Load<TMP_FontAsset>("Fonts/LanaPixel SDF");
             text.font = chineseFont;
 
-            // the lanapixel font is a little stretched and distorted when the font is not a multiple of 11
-            // so round to nearest 11
             float fontSize = englishFontSize * chineseFontSizeMult;
-            text.fontSize = Mathf.Round(fontSize / 11f) * 11f;
+            if (roundToNearest11) {
+                // the lanapixel font is a little stretched and distorted when the font is not a multiple of 11
+                // so round to nearest 11
+                fontSize = Mathf.Round(fontSize / 11f) * 11f;
+            }
+            text.fontSize = fontSize;
         }
     }
 }

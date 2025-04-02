@@ -620,10 +620,6 @@ MonoBehaviour:
     m_Metadata:
       m_Items:
       - rid: 2333493122674720776
-  - m_Id: 1150426906365952
-    m_Localized: Trade
-    m_Metadata:
-      m_Items: []
   - m_Id: 1150950040932352
     m_Localized: This will reset your progress. Are you sure you want to exit?
     m_Metadata:

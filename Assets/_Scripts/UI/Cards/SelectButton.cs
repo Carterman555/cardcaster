@@ -34,6 +34,13 @@ public class SelectButton : GameButton, IInitializable {
 
     private LocalizedString buttonLocString;
 
+    private bool hidden = true;
+
+    protected override void Awake() {
+        base.Awake();
+        hidden = true;
+    }
+
     public void Show(LocalizedString buttonLocString, PanelCardButton panelCard) {
         this.buttonLocString = buttonLocString;
         buttonLocString.StringChanged += UpdateButtonText;
@@ -58,9 +65,15 @@ public class SelectButton : GameButton, IInitializable {
         float duration = 0.3f;
         transform.localScale = Vector3.zero;
         transform.DOScale(Vector3.one, duration).SetEase(Ease.OutSine).SetUpdate(true);
+
+        hidden = false;
     }
 
     public void Hide() {
+
+        if (hidden) {
+            return;
+        }
 
         // shrink then disable
         float duration = 0.3f;
@@ -70,6 +83,8 @@ public class SelectButton : GameButton, IInitializable {
         });
 
         buttonLocString.StringChanged -= UpdateButtonText;
+
+        hidden = true;
     }
 
     protected override void OnClick() {

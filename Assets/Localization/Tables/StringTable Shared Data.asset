@@ -399,10 +399,6 @@ MonoBehaviour:
     m_Key: cameraShake
     m_Metadata:
       m_Items: []
-  - m_Id: 743560988594176
-    m_Key: string
-    m_Metadata:
-      m_Items: []
   - m_Id: 743702332444672
     m_Key: video
     m_Metadata:
@@ -601,10 +597,6 @@ MonoBehaviour:
       m_Items: []
   - m_Id: 1148901123428352
     m_Key: toCancelCard
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1150426906365952
-    m_Key: trad
     m_Metadata:
       m_Items: []
   - m_Id: 1150950040932352

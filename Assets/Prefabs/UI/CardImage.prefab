@@ -36,7 +36,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 160, y: 15.8742}
+  m_SizeDelta: {x: 160, y: 21.4049}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6427539442954357039
 CanvasRenderer:
@@ -103,7 +103,7 @@ MonoBehaviour:
   m_fontSizeMax: 0
   m_fontStyle: 0
   m_HorizontalAlignment: 2
-  m_VerticalAlignment: 512
+  m_VerticalAlignment: 8192
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
@@ -152,6 +152,8 @@ MonoBehaviour:
   overrideEnglishFontSize: 0
   englishFontSizeOverride: 0
   roundToNearest11: 1
+  forceRoundUp: 1
+  disableAutoResize: 1
 --- !u!1 &479060129788471932
 GameObject:
   m_ObjectHideFlags: 0
@@ -334,8 +336,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 139.6}
-  m_SizeDelta: {x: 166.11, y: 20.7}
+  m_AnchoredPosition: {x: -1.1, y: 142.3}
+  m_SizeDelta: {x: 166.11, y: 27.7084}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!222 &3335345600469449999
 CanvasRenderer:
@@ -400,7 +402,7 @@ MonoBehaviour:
   m_fontSizeMax: 15.4
   m_fontStyle: 0
   m_HorizontalAlignment: 2
-  m_VerticalAlignment: 512
+  m_VerticalAlignment: 8192
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
@@ -449,6 +451,8 @@ MonoBehaviour:
   overrideEnglishFontSize: 0
   englishFontSizeOverride: 0
   roundToNearest11: 1
+  forceRoundUp: 1
+  disableAutoResize: 1
 --- !u!1 &2288915062564730750
 GameObject:
   m_ObjectHideFlags: 0
@@ -742,6 +746,8 @@ MonoBehaviour:
   overrideEnglishFontSize: 0
   englishFontSizeOverride: 0
   roundToNearest11: 1
+  forceRoundUp: 0
+  disableAutoResize: 1
 --- !u!1 &4574122829196852481
 GameObject:
   m_ObjectHideFlags: 0

@@ -26,7 +26,7 @@ public class EssenceDrop : MonoBehaviour {
     private void OnTriggerEnter2D(Collider2D collision) {
 
         bool launching = launchPlayer.IsPlaying;
-        bool nearPlayer = GameLayers.PlayerLayerMask.ContainsLayer(collision.gameObject.layer);
+        bool nearPlayer = GameLayers.AllPlayerLayerMask.ContainsLayer(collision.gameObject.layer);
 
         if (nearPlayer && !launching) {
             StartCoroutine(MoveToPlayer(collision.transform));
@@ -37,7 +37,7 @@ public class EssenceDrop : MonoBehaviour {
         launchPlayer.Events.OnComplete.RemoveListener(OnLaunchComplete);
 
         float radius = GetComponent<CircleCollider2D>().radius;
-        Collider2D[] cols = Physics2D.OverlapCircleAll(transform.position, radius, GameLayers.PlayerLayerMask);
+        Collider2D[] cols = Physics2D.OverlapCircleAll(transform.position, radius, GameLayers.AllPlayerLayerMask);
         bool touchingPlayer = cols.Length > 0;
         if (touchingPlayer) {
             StartCoroutine(MoveToPlayer(cols[0].transform));

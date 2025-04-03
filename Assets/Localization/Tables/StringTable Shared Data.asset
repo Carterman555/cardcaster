@@ -675,6 +675,10 @@ MonoBehaviour:
     m_Key: failInput
     m_Metadata:
       m_Items: []
+  - m_Id: 2210749985853440
+    m_Key: clearDataWarning
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

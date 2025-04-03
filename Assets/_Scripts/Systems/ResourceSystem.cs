@@ -34,6 +34,10 @@ public class ResourceSystem : Singleton<ResourceSystem> {
 
         AllCards = Resources.LoadAll<ScriptableCardBase>("Cards").ToList();
 
+        UpdateUnlockedCards();
+    }
+
+    public void UpdateUnlockedCards() {
         // convert to card type list in order to load and save the cards
         List<CardType> defaultUnlockedCards = AllCards.Where(c => c.StartUnlocked).Select(c => c.CardType).ToList();
         UnlockedCards = ES3.Load("UnlockedCardTypes", defaultUnlockedCards);

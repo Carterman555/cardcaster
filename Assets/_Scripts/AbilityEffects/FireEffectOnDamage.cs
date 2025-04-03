@@ -30,11 +30,11 @@ public class FireEffectOnDamage : MonoBehaviour, IAbilityEffect {
 
     private void InflictBurn(GameObject target) {
 
-        if (target.TryGetComponent(out IEffectable effectable)) {
+        if (target.TryGetComponent(out IDamagable damagable) && damagable.Dead) {
+            return;
+        }
 
-            if (target.GetComponent<IDamagable>().Dead) {
-                return;
-            }
+        if (target.TryGetComponent(out IEffectable effectable)) {
 
             // if the unit is already on fire don't add effect, but instead reset the time
             if (target.TryGetComponent(out FireEffect existingFireEffect)) {

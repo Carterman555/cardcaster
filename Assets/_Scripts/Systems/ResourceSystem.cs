@@ -56,6 +56,46 @@ public class ResourceSystem : Singleton<ResourceSystem> {
     public ScriptableCardBase GetCardInstance(CardType cardType) => CloneCard(AllCards.FirstOrDefault(c => c.CardType == cardType));
     public ScriptableCardBase GetCardInstance(string cardName) => CloneCard(AllCards.FirstOrDefault(c => c.name == cardName));
 
+    public CardType GetRandomCardWeighted(List<CardType> cardsToChooseFrom) {
+
+        if (cardsToChooseFrom.Count == 0) {
+            Debug.LogError("GetRandomCardWeighted given 0 cards to choose from!");
+        }
+
+        float totalWeight = 0;
+        foreach (CardType cardType in cardsToChooseFrom) {
+            float weight = GetCardWeight(cardType);
+            totalWeight += weight;
+        }
+
+        float remainWeight = UnityEngine.Random.Range(0, totalWeight);
+        foreach (CardType cardType in cardsToChooseFrom) {
+            float weight = GetCardWeight(cardType);
+            remainWeight -= weight;
+
+            if (remainWeight < 0) {
+                return cardType;
+            }
+        }
+
+        Debug.LogError("GetRandomCardWeighted broke!");
+        return default;
+
+        float GetCardWeight(CardType cardType) {
+            Rarity rarity = AllCards.FirstOrDefault(c => c.CardType == cardType).Rarity;
+            switch (rarity) {
+                case Rarity.Common: return 1f;
+                case Rarity.Uncommon: return 0.66f;
+                case Rarity.Rare: return 0.33f;
+                case Rarity.Epic: return 0.25f;
+                case Rarity.Mythic: return 0.15f;
+                default:
+                    Debug.LogError("Rarity not supported!");
+                    return 0f;
+            }
+        }
+    }
+
     private ScriptableCardBase CloneCard(ScriptableCardBase original) {
         if (original == null) return null;
 

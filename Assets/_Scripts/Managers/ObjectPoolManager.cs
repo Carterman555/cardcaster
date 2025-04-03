@@ -9,7 +9,7 @@ public static class ObjectPoolManager {
     public static List<PooledObjectInfo> ObjectPoolList = new List<PooledObjectInfo>();
 
     // debugging
-    private static string nameToDebug = "";
+    private static string nameToDebug = "FireUnitEffect";
 
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
     private static void Init() {

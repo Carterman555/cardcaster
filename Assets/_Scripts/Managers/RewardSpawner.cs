@@ -83,7 +83,7 @@ public class RewardSpawner : MonoBehaviour {
             }
         }
 
-        CardType choosenCardType = possibleCardsToSpawn.RandomItem();
+        CardType choosenCardType = ResourceSystem.Instance.GetRandomCardWeighted(possibleCardsToSpawn);
         StartCoroutine(SpawnBossCardCor(bossRoom.GetBossSpawnPoint().position, ResourceSystem.Instance.GetCardInstance(choosenCardType)));
     }
 

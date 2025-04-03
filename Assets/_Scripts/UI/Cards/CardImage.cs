@@ -48,9 +48,7 @@ public class CardImage : MonoBehaviour {
         iconImage.sprite = card.Sprite;
 
         SetupCostImages(card.Cost);
-        titleText.text = card.Name.GetLocalizedString();
-        catagoryText.text = card.Category.GetLocalizedString();
-        descriptionText.text = card.Description.GetLocalizedString();
+        UpdateTexts(LocalizationSettings.SelectedLocale);
 
         GetComponent<ChangeColorFromRarity>().SetColor(card.Rarity);
     }
@@ -65,13 +63,18 @@ public class CardImage : MonoBehaviour {
     }
 
     private void OnEnable() {
-        LocalizationSettings.SelectedLocaleChanged += OnLanguageChanged;
+        LocalizationSettings.SelectedLocaleChanged += UpdateTexts;
+        UpdateTexts(LocalizationSettings.SelectedLocale); // needed here and setup because well I don't want to explain
     }
     private void OnDisable() {
-        LocalizationSettings.SelectedLocaleChanged -= OnLanguageChanged;
+        LocalizationSettings.SelectedLocaleChanged -= UpdateTexts;
     }
 
-    private void OnLanguageChanged(Locale locale) {
+    private void UpdateTexts(Locale locale) {
+        if (card == null) {
+            return;
+        }
+
         titleText.text = card.Name.GetLocalizedString();
         catagoryText.text = card.Category.GetLocalizedString();
         descriptionText.text = card.Description.GetLocalizedString();

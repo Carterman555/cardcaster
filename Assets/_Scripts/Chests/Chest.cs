@@ -93,7 +93,7 @@ public class Chest : MonoBehaviour {
                 ChestCard chestCard = chestCardPrefab.Spawn(transform.position, chestItemContainer);
                 chestCard.Setup(this, itemIndex, GetItemPosition(itemIndex));
 
-                CardType chosenCardType = remainingPossibleCards.RandomItem();
+                CardType chosenCardType = ResourceSystem.Instance.GetRandomCardWeighted(remainingPossibleCards);
                 remainingPossibleCards.Remove(chosenCardType); // so won't choose two of the same card
                 chestCard.SetCard(ResourceSystem.Instance.GetCardInstance(chosenCardType));
 

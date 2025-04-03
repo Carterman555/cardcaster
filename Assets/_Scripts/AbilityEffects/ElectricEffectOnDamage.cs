@@ -30,6 +30,11 @@ public class ElectricEffectOnDamage : MonoBehaviour, IAbilityEffect {
     }
 
     private void Shock(GameObject target) {
+
+        if (target.TryGetComponent(out IDamagable damagable) && damagable.Dead) {
+            return;
+        }
+
         if (target.TryGetComponent(out IEffectable effectable)) {
             ElectricChain electricChain = target.AddComponent<ElectricChain>();
 

@@ -98,7 +98,6 @@ public class CardsUIManager : StaticInstance<CardsUIManager> {
 
         ScriptableCardBase card = cardsInHand[index];
         HandCard cardButton = handCardPrefab.Spawn(transform);
-
         cardButton.Setup(deckButtonTransform, card);
 
         // add to list at correct index

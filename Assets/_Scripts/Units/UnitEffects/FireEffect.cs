@@ -6,19 +6,13 @@ using UnityEngine;
 public class FireEffect : UnitEffect {
     private IDamagable damagable;
 
-    private ParticleSystem fireParticles;
-
     public override void Setup(bool removeAfterDuration = false, float duration = 0) {
         base.Setup(removeAfterDuration, duration);
 
         damagable = GetComponent<IDamagable>();
-        fireParticles = GetComponentInChildren<UnitEffectVisuals>().AddParticleEffect(AssetSystem.Instance.UnitFireParticles);
+        GetComponentInChildren<UnitEffectVisuals>().AddParticleEffect(AssetSystem.Instance.UnitFireParticles);
 
         StartCoroutine(Burn());
-    }
-
-    private void OnDestroy() {
-        GetComponentInChildren<UnitEffectVisuals>().RemoveParticleEffect(fireParticles);
     }
 
     private IEnumerator Burn() {

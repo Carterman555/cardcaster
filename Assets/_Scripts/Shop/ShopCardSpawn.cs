@@ -13,10 +13,10 @@ public class ShopCardSpawn : MonoBehaviour {
     private void SpawnCard() {
         ShopCard shopItem = shopItemPrefab.Spawn(transform.position, transform);
 
-        int currentLevel = GameSceneManager.Instance.GetLevel();
         List<CardType> possibleCards = ResourceSystem.Instance.GetUnlockedCards();
-        ScriptableCardBase randomCard = ResourceSystem.Instance.GetCardInstance(possibleCards.RandomItem());
+        CardType choosenCardType = ResourceSystem.Instance.GetRandomCardWeighted(possibleCards);
+        ScriptableCardBase choosenCard = ResourceSystem.Instance.GetCardInstance(choosenCardType);
 
-        shopItem.SetCard(randomCard);
+        shopItem.SetCard(choosenCard);
     }
 }

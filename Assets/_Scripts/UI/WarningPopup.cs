@@ -5,24 +5,9 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using DG.Tweening;
-using static UnityEngine.RuleTile.TilingRuleOutput;
+using UnityEngine.Localization;
 
-public class WarningPopup : MonoBehaviour, IInitializable {
-
-    #region Static Instance
-
-    public static WarningPopup Instance { get; private set; }
-
-    public void Initialize() {
-        Instance = this;
-    }
-
-    protected virtual void OnApplicationQuit() {
-        Instance = null;
-        Destroy(gameObject);
-    }
-
-    #endregion
+public class WarningPopup : MonoBehaviour {
 
     public event Action OnAccepted;
 
@@ -31,8 +16,8 @@ public class WarningPopup : MonoBehaviour, IInitializable {
     private CanvasGroup canvasGroupToDisable;
     private Button buttonToSelectOnClose;
 
-    public void Setup(string warningTextStr, CanvasGroup canvasGroupToDisable, Button buttonToSelectOnClose = null) {
-        warningText.text = warningTextStr;
+    public void Setup(LocalizedString warningTextStr, CanvasGroup canvasGroupToDisable, Button buttonToSelectOnClose = null) {
+        warningText.text = warningTextStr.GetLocalizedString();
         this.canvasGroupToDisable = canvasGroupToDisable;
         this.buttonToSelectOnClose = buttonToSelectOnClose;
 

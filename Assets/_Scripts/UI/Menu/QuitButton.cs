@@ -1,22 +1,25 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Localization;
 using UnityEngine.UI;
 
 public class QuitButton : GameButton {
 
     [SerializeField] private CanvasGroup canvasGroupToDisable;
+    [SerializeField] private WarningPopup warningPopup;
+
+    [SerializeField] private LocalizedString locWarning;
 
     protected override void OnClick() {
         base.OnClick();
 
-        WarningPopup.Instance.Setup("Are you sure you want to quit?", canvasGroupToDisable);
-
-        WarningPopup.Instance.OnAccepted += Quit;
+        warningPopup.Setup(locWarning, canvasGroupToDisable);
+        warningPopup.OnAccepted += Quit;
     }
 
     private void Quit() {
-        WarningPopup.Instance.OnAccepted -= Quit;
+        warningPopup.OnAccepted -= Quit;
 
 #if UNITY_EDITOR
         // Stop play mode in the editor

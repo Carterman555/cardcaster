@@ -16,6 +16,7 @@ public class GameLayers {
 
     public static LayerMask EnemyLayerMask => 1 << EnemyLayer;
     public static LayerMask PlayerLayerMask => 1 << PlayerLayer;
+    public static LayerMask AllPlayerLayerMask => 1 << PlayerLayer | 1 << InvinciblePlayerLayer;
     public static LayerMask RoomObjectLayerMask => 1 << RoomObjectLayer;
     public static LayerMask WallLayerMask => 1 << WallLayer;
     public static LayerMask ObstacleLayerMask => 1 << WallLayer | 1 << DoorBlockerLayer | 1 << RoomObjectLayer;

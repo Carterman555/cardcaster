@@ -696,6 +696,11 @@ MonoBehaviour:
     m_Localized: is already being used
     m_Metadata:
       m_Items: []
+  - m_Id: 2210749985853440
+    m_Localized: This will reset your progress and cards unlocked. Are you sure you
+      want to clear data?
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds:

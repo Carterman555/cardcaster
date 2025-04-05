@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff4f25c988b22e145a7ddd278777abaa, type: 3}
+  m_Name: TheFakeDealer
+  m_EditorClassIdentifier: 
+  <LocName>k__BackingField:
+    m_TableReference:
+      m_TableCollectionName: GUID:e2b89126a54df984f885da2bac4cb92f
+    m_TableEntryReference:
+      m_KeyId: 1078243924381696
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  <Prefab>k__BackingField: {fileID: 1338195640233062225, guid: 2d684cd4d40097f41a0dd19177de9f88, type: 3}
+  <Stats>k__BackingField:
+    MaxHealth: 1000
+    KnockbackResistance: 100
+    MoveSpeed: 4
+    Damage: 3
+    AttackSpeed: 2
+    KnockbackStrength: 1
+    AttackRange: 0
+  <PossibleLevels>k__BackingField: 01000000
+  references:
+    version: 2
+    RefIds: []

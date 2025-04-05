@@ -520,7 +520,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 1078243924381696
-    m_Key: thunderGolem
+    m_Key: theDealer
     m_Metadata:
       m_Items: []
   - m_Id: 1081345909985280
@@ -677,6 +677,10 @@ MonoBehaviour:
       m_Items: []
   - m_Id: 2210749985853440
     m_Key: clearDataWarning
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2509449203290112
+    m_Key: clearData
     m_Metadata:
       m_Items: []
   m_Metadata:

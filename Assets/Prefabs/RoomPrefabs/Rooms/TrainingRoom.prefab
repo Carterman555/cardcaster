@@ -13223,10 +13223,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Dealer
       objectReference: {fileID: 0}
-    - target: {fileID: 6116790443597687743, guid: 2b1af091dbe4b61469981465d17a3c4f, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
     - target: {fileID: 6303677656194196763, guid: 2b1af091dbe4b61469981465d17a3c4f, type: 3}
       propertyPath: m_Size.y
       value: 1.914294

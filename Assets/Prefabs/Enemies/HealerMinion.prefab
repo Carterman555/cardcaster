@@ -123,6 +123,10 @@ PrefabInstance:
       propertyPath: dropChance
       value: 0.8
       objectReference: {fileID: 0}
+    - target: {fileID: 174481253933899696, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
+      propertyPath: m_CollisionDetection
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 226976224992304211, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
       propertyPath: m_Name
       value: HealerMinion

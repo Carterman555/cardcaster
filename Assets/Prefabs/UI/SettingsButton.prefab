@@ -299,7 +299,7 @@ MonoBehaviour:
   m_fontSizeMax: 72
   m_fontStyle: 0
   m_HorizontalAlignment: 2
-  m_VerticalAlignment: 512
+  m_VerticalAlignment: 8192
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
@@ -385,3 +385,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad83300d5dc94c24381330bca161b16a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  overrideEnglishFontSize: 0
+  englishFontSizeOverride: 0
+  roundToNearest11: 1
+  forceRoundUp: 0
+  disableAutoResize: 1

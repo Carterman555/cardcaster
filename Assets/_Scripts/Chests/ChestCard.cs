@@ -1,7 +1,5 @@
 using DG.Tweening;
-using System;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class ChestCard : CardDrop, IChestItem {
 

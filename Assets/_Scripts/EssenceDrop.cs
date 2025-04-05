@@ -1,8 +1,5 @@
-using DG.Tweening;
 using MoreMountains.Feedbacks;
-using QFSW.QC.Utilities;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(BobMovement))]

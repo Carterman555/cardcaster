@@ -1,9 +1,5 @@
-using Mono.CSharp;
-using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.VFX;
 
 [CreateAssetMenu(fileName = "StraightShootCard", menuName = "Cards/Straight Shoot Card")]
 public class ScriptableStraightShootCard : ScriptableAbilityCardBase {

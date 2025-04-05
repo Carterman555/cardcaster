@@ -1,6 +1,5 @@
 using UnityEngine;
 using System.Collections.Generic;
-using DG.Tweening;
 using System.Linq;
 
 public class PlayerFadeManager : StaticInstance<PlayerFadeManager> {

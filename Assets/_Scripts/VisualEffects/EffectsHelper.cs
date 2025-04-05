@@ -1,8 +1,6 @@
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using static UnityEngine.ParticleSystem;
 
 public static class EffectsHelper {
     public static void CreateColoredParticles(this ParticleSystem particleSystemPrefab, Vector2 position, Color color) {

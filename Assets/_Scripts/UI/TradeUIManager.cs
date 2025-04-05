@@ -1,7 +1,4 @@
 using DG.Tweening;
-using Mono.CSharp;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Localization;
 using UnityEngine.UI;

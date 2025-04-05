@@ -1,11 +1,5 @@
 using DG.Tweening;
-using MoreMountains.Feedbacks;
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem.LowLevel;
-using static ShowCardMovement;
 
 public class ShowCardMovement : MonoBehaviour {
 

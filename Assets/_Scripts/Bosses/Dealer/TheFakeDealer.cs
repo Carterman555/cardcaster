@@ -4,7 +4,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using TreeEditor;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -199,7 +198,7 @@ public class TheFakeDealer : MonoBehaviour, IHasEnemyStats, IBoss {
 
         Vector2 shootDirection = Vector2.up;
 
-        int numOfLasers = 2;
+        int numOfLasers = inFirstStage ? 2 : 4;
 
         while (currentState == FakeDealerState.Lasers) {
             yield return new WaitForSeconds(shootCooldown);

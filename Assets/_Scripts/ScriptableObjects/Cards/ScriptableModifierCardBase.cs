@@ -1,7 +1,3 @@
-using Mono.CSharp;
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "ModifierCard", menuName = "Cards/Modifiers/Base")]

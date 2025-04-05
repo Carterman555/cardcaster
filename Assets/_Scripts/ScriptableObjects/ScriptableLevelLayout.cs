@@ -2,7 +2,6 @@ using UnityEngine;
 using System;
 using System.Collections.Generic;
 using UnityEngine.Serialization;
-using Unity.Burst.CompilerServices;
 
 [Serializable]
 public class RoomConnection {

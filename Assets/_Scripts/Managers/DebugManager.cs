@@ -1,11 +1,7 @@
 using QFSW.QC;
-using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
-using static UnityEngine.UI.Image;
 
 public class DebugManager : StaticInstance<DebugManager> {
 

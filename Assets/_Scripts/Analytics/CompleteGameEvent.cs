@@ -1,8 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using Unity.Services.Analytics;
-
 public class CompleteGameEvent : Unity.Services.Analytics.Event {
 
     public CompleteGameEvent() : base("onCompleteGame") {

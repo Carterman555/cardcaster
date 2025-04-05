@@ -1,11 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEditor;
+﻿using UnityEditor;
 
-namespace MoreMountains.Tools
-{
-	[CanEditMultipleObjects]
+namespace MoreMountains.Tools {
+    [CanEditMultipleObjects]
 	[CustomEditor(typeof(AIBrain), true)]
 	public class AIBrainEditor : Editor
 	{

@@ -1,11 +1,7 @@
 #if ES3_UGUI
 
-using System;
-using UnityEngine;
-
-namespace ES3Types
-{
-	[UnityEngine.Scripting.Preserve]
+namespace ES3Types {
+    [UnityEngine.Scripting.Preserve]
 	[ES3PropertiesAttribute("sprite", "overrideSprite", "type", "preserveAspect", "fillCenter", "fillMethod", "fillAmount", "fillClockwise", "fillOrigin", "alphaHitTestMinimumThreshold", "useSpriteMesh", "pixelsPerUnitMultiplier", "material", "onCullStateChanged", "maskable", "color", "raycastTarget", "useLegacyMeshGeneration", "useGUILayout", "enabled", "hideFlags")]
 	public class ES3Type_Image : ES3ComponentType
 	{

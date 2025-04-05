@@ -1,14 +1,11 @@
-using QFSW.QC.Actions;
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.UI;
-using static UnityEngine.Rendering.DebugUI;
 
 public class SettingsManager : MonoBehaviour, IInitializable {
 

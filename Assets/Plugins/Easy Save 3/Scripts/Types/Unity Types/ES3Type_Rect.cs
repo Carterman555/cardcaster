@@ -1,9 +1,7 @@
-using System;
 using UnityEngine;
 
-namespace ES3Types
-{
-	[UnityEngine.Scripting.Preserve]
+namespace ES3Types {
+    [UnityEngine.Scripting.Preserve]
 	[ES3PropertiesAttribute("x", "y", "width", "height")]
 	public class ES3Type_Rect : ES3Type
 	{

@@ -1,16 +1,14 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine;
 
-namespace MoreMountains.Tools
-{
-	/// <summary>
-	/// A class that lets you create polygon collider 2D out of mesh filters
-	/// </summary>
-	public class MMMeshToPolygonCollider2D : MonoBehaviour
+namespace MoreMountains.Tools {
+    /// <summary>
+    /// A class that lets you create polygon collider 2D out of mesh filters
+    /// </summary>
+    public class MMMeshToPolygonCollider2D : MonoBehaviour
 	{
 		/// <summary>
 		/// Generates a PolygonCollider2D out of a meshfilter

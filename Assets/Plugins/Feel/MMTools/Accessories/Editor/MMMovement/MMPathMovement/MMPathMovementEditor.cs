@@ -2,14 +2,12 @@
 
 using UnityEngine;
 using UnityEditor;
-using System.Collections;
 
-namespace MoreMountains.Tools
-{
-	/// <summary>
-	/// This class adds names for each LevelMapPathElement next to it on the scene view, for easier setup
-	/// </summary>
-	[CustomEditor(typeof(MMPathMovement),true)]
+namespace MoreMountains.Tools {
+    /// <summary>
+    /// This class adds names for each LevelMapPathElement next to it on the scene view, for easier setup
+    /// </summary>
+    [CustomEditor(typeof(MMPathMovement),true)]
 	[InitializeOnLoad]
 	public class MMPathMovementEditor : Editor 
 	{		

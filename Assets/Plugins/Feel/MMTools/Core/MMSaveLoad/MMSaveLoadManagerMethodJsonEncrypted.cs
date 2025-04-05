@@ -1,13 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using System.IO;
-using System.Text;
 using System.Security.Cryptography;
 
-namespace MoreMountains.Tools
-{
-	public class MMSaveLoadManagerMethodJsonEncrypted : MMSaveLoadManagerEncrypter, IMMSaveLoadManagerMethod
+namespace MoreMountains.Tools {
+    public class MMSaveLoadManagerMethodJsonEncrypted : MMSaveLoadManagerEncrypter, IMMSaveLoadManagerMethod
 	{
 		/// <summary>
 		/// Saves the specified object at the specified location to disk, converts it to json and encrypts it

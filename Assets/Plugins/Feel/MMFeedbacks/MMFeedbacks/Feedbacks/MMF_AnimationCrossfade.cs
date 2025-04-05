@@ -1,15 +1,12 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Scripting.APIUpdating;
 
-namespace MoreMountains.Feedbacks
-{
-	/// <summary>
-	/// A feedback used to trigger an animation (bool, int, float or trigger) on the associated animator, with or without randomness
-	/// </summary>
-	[AddComponentMenu("")]
+namespace MoreMountains.Feedbacks {
+    /// <summary>
+    /// A feedback used to trigger an animation (bool, int, float or trigger) on the associated animator, with or without randomness
+    /// </summary>
+    [AddComponentMenu("")]
 	[FeedbackHelp("This feedback will allow you to cross fade a target Animator to the specified state.")]
 	[MovedFrom(false, null, "MoreMountains.Feedbacks")]
 	[FeedbackPath("Animation/Animation Crossfade")]

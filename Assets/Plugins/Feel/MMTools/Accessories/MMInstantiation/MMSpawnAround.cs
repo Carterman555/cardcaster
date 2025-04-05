@@ -1,14 +1,11 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace MoreMountains.Tools
-{
-	/// <summary>
-	/// This class is used to describe spawn properties, to be used by the MMSpawnAround class.
-	/// It's meant to be exposed and used by classes that are designed to spawn objects, typically loot systems 
-	/// </summary>
-	[System.Serializable]
+namespace MoreMountains.Tools {
+    /// <summary>
+    /// This class is used to describe spawn properties, to be used by the MMSpawnAround class.
+    /// It's meant to be exposed and used by classes that are designed to spawn objects, typically loot systems 
+    /// </summary>
+    [System.Serializable]
 	public class MMSpawnAroundProperties
 	{
 		/// the possible shapes objects can be spawned within

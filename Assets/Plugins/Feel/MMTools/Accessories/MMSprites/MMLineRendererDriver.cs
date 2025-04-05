@@ -1,13 +1,11 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
-namespace MoreMountains.Tools
-{
-	/// <summary>
-	/// This component, added to a line renderer, will let you fill a list of transforms, and bind their positions to the linerenderer's positions.
-	/// </summary>
-	[RequireComponent(typeof(LineRenderer))]
+namespace MoreMountains.Tools {
+    /// <summary>
+    /// This component, added to a line renderer, will let you fill a list of transforms, and bind their positions to the linerenderer's positions.
+    /// </summary>
+    [RequireComponent(typeof(LineRenderer))]
 	public class MMLineRendererDriver : MonoBehaviour
 	{
 		[Header("Position Drivers")]

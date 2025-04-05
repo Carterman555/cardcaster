@@ -1,18 +1,15 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Generic;
-using MoreMountains.Tools;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-namespace MoreMountains.Feedbacks
-{
-	/// <summary>
-	/// A base class, meant to be extended, defining a Feedback. A Feedback is an action triggered by a MMFeedbacks, usually in reaction to the player's input or actions,
-	/// to help communicate both emotion and legibility, improving game feel.
-	/// To create a new feedback, extend this class and override its Custom methods, declared at the end of this class. You can look at the many examples for reference.
-	/// </summary>
-	[AddComponentMenu("")]
+namespace MoreMountains.Feedbacks {
+    /// <summary>
+    /// A base class, meant to be extended, defining a Feedback. A Feedback is an action triggered by a MMFeedbacks, usually in reaction to the player's input or actions,
+    /// to help communicate both emotion and legibility, improving game feel.
+    /// To create a new feedback, extend this class and override its Custom methods, declared at the end of this class. You can look at the many examples for reference.
+    /// </summary>
+    [AddComponentMenu("")]
 	[System.Serializable]
 	[ExecuteAlways]
 	public abstract class MMFeedback : MonoBehaviour

@@ -1,11 +1,7 @@
 #if ES3_UGUI
 
-using System;
-using UnityEngine;
-
-namespace ES3Types
-{
-	[UnityEngine.Scripting.Preserve]
+namespace ES3Types {
+    [UnityEngine.Scripting.Preserve]
 	[ES3PropertiesAttribute("texture", "uvRect", "onCullStateChanged", "maskable", "color", "raycastTarget", "useLegacyMeshGeneration", "material", "useGUILayout", "enabled", "hideFlags")]
 	public class ES3Type_RawImage : ES3ComponentType
 	{

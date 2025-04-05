@@ -1,21 +1,18 @@
 ﻿using UnityEngine;
-using System.Collections;
-using MoreMountains.Feedbacks;
 using System;
 using System.Collections.Generic;
 using MoreMountains.Tools;
 
-namespace MoreMountains.Feedbacks
-{
-	/// <summary>
-	/// Describes a blink phase, defined by a duration for the phase, and the time it should remain inactive and active, sequentially
-	/// For the duration of the phase, the object will be off for OffDuration, then on for OnDuration, then off again for OffDuration, etc
-	/// If you want a grenade to blink briefly every .2 seconds, for 1 second, these parameters are what you're after :
-	/// PhaseDuration = 1f;
-	/// OffDuration = 0.2f;
-	/// OnDuration = 0.1f;
-	/// </summary>
-	[Serializable]
+namespace MoreMountains.Feedbacks {
+    /// <summary>
+    /// Describes a blink phase, defined by a duration for the phase, and the time it should remain inactive and active, sequentially
+    /// For the duration of the phase, the object will be off for OffDuration, then on for OnDuration, then off again for OffDuration, etc
+    /// If you want a grenade to blink briefly every .2 seconds, for 1 second, these parameters are what you're after :
+    /// PhaseDuration = 1f;
+    /// OffDuration = 0.2f;
+    /// OnDuration = 0.1f;
+    /// </summary>
+    [Serializable]
 	public class BlinkPhase
 	{
 		/// the duration of that specific phase, in seconds

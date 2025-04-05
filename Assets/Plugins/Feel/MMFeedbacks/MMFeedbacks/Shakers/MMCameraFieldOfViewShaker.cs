@@ -1,14 +1,11 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using MoreMountains.Tools;
+﻿using MoreMountains.Tools;
 using UnityEngine;
 
-namespace MoreMountains.Feedbacks
-{
-	/// <summary>
-	/// Add this to a camera and it'll let you control its field of view over time, can be piloted by a MMFeedbackCameraFieldOfView
-	/// </summary>
-	[AddComponentMenu("More Mountains/Feedbacks/Shakers/Camera/MMCameraFieldOfViewShaker")]
+namespace MoreMountains.Feedbacks {
+    /// <summary>
+    /// Add this to a camera and it'll let you control its field of view over time, can be piloted by a MMFeedbackCameraFieldOfView
+    /// </summary>
+    [AddComponentMenu("More Mountains/Feedbacks/Shakers/Camera/MMCameraFieldOfViewShaker")]
 	[RequireComponent(typeof(Camera))]
 	public class MMCameraFieldOfViewShaker : MMShaker
 	{

@@ -1,15 +1,11 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.Tilemaps;
-using Random = System.Random;
 
-namespace MoreMountains.Tools
-{	
-	/// <summary>
-	/// A collection of helper methods for interacting with Tilemaps
-	/// </summary>
-	public class MMTilemap : MonoBehaviour
+namespace MoreMountains.Tools {
+    /// <summary>
+    /// A collection of helper methods for interacting with Tilemaps
+    /// </summary>
+    public class MMTilemap : MonoBehaviour
 	{
 		/// <summary>
 		/// Returns a random world position on the specified tilemap/grid combo, filled or not based on the shouldBeFilled flag 

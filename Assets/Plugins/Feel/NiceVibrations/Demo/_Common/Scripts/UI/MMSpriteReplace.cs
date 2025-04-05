@@ -1,12 +1,9 @@
 // Copyright (c) Meta Platforms, Inc. and affiliates. 
 
 using UnityEngine;
-using System.Collections;
-using System;
 using UnityEngine.UI;
 
-namespace Lofelt.NiceVibrations
-{
+namespace Lofelt.NiceVibrations {
     /// <summary>
     /// A class to add to an Image or SpriteRenderer to have it act like a button with a different sprite for on and off states
     /// </summary>

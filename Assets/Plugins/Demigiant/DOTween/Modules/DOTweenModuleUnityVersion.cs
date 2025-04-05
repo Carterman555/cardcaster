@@ -1,7 +1,6 @@
 ﻿// Author: Daniele Giardini - http://www.demigiant.com
 // Created: 2018/07/13
 
-using System;
 using UnityEngine;
 using DG.Tweening.Core;
 using DG.Tweening.Plugins.Options;
@@ -10,8 +9,7 @@ using DG.Tweening.Plugins.Options;
 //#endif
 
 #pragma warning disable 1591
-namespace DG.Tweening
-{
+namespace DG.Tweening {
     /// <summary>
     /// Shortcuts/functions that are not strictly related to specific Modules
     /// but are available only on some Unity versions

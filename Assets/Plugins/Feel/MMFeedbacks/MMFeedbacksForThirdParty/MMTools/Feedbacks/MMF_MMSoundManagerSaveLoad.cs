@@ -1,18 +1,12 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using System.Threading.Tasks;
+﻿using UnityEngine;
 using MoreMountains.Tools;
-using UnityEngine.Audio;
 using UnityEngine.Scripting.APIUpdating;
 
-namespace MoreMountains.Feedbacks
-{
-	/// <summary>
-	/// This feedback will let you trigger save, load, and reset on MMSoundManager settings. You will need a MMSoundManager in your scene for this to work.
-	/// </summary>
-	[AddComponentMenu("")]
+namespace MoreMountains.Feedbacks {
+    /// <summary>
+    /// This feedback will let you trigger save, load, and reset on MMSoundManager settings. You will need a MMSoundManager in your scene for this to work.
+    /// </summary>
+    [AddComponentMenu("")]
 	[MovedFrom(false, null, "MoreMountains.Feedbacks.MMTools")]
 	[FeedbackPath("Audio/MMSoundManager Save and Load")]
 	[FeedbackHelp("This feedback will let you trigger save, load, and reset on MMSoundManager settings. You will need a MMSoundManager in your scene for this to work.")]

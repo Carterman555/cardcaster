@@ -1,18 +1,12 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using System.Threading.Tasks;
+﻿using UnityEngine;
 using MoreMountains.Tools;
-using UnityEngine.Audio;
 using UnityEngine.Scripting.APIUpdating;
 
-namespace MoreMountains.Feedbacks
-{
-	/// <summary>
-	/// This feedback will let you control a specific sound (or sounds), targeted by SoundID, which has to match the SoundID of the sound you intially played. You will need a MMSoundManager in your scene for this to work.
-	/// </summary>
-	[AddComponentMenu("")]
+namespace MoreMountains.Feedbacks {
+    /// <summary>
+    /// This feedback will let you control a specific sound (or sounds), targeted by SoundID, which has to match the SoundID of the sound you intially played. You will need a MMSoundManager in your scene for this to work.
+    /// </summary>
+    [AddComponentMenu("")]
 	[MovedFrom(false, null, "MoreMountains.Feedbacks.MMTools")]
 	[FeedbackPath("Audio/MMSoundManager Sound Control")]
 	[FeedbackHelp("This feedback will let you control a specific sound (or sounds), targeted by SoundID, which has to match the SoundID of the sound you intially played. You will need a MMSoundManager in your scene for this to work.")]

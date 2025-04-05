@@ -1,20 +1,16 @@
-﻿using MoreMountains.Tools;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.Scripting.APIUpdating;
 
-namespace MoreMountains.Feedbacks
-{
-	/// <summary>
-	/// This feedback will request the spawn of a floating text, usually to signify damage, but not necessarily
-	/// This requires that a MMFloatingTextSpawner be correctly setup in the scene, otherwise nothing will happen.
-	/// To do so, create a new empty object, add a MMFloatingTextSpawner to it. Drag (at least) one MMFloatingText prefab into its PooledSimpleMMFloatingText slot.
-	/// You'll find such prefabs already made in the MMTools/Tools/MMFloatingText/Prefabs folder, but feel free to create your own.
-	/// Using that feedback will always spawn the same text. While this may be what you want, if you're using the Corgi Engine or TopDown Engine, you'll find dedicated versions
-	/// directly hooked to the Health component, letting you display damage taken.
-	/// </summary>
-	[AddComponentMenu("")]
+namespace MoreMountains.Feedbacks {
+    /// <summary>
+    /// This feedback will request the spawn of a floating text, usually to signify damage, but not necessarily
+    /// This requires that a MMFloatingTextSpawner be correctly setup in the scene, otherwise nothing will happen.
+    /// To do so, create a new empty object, add a MMFloatingTextSpawner to it. Drag (at least) one MMFloatingText prefab into its PooledSimpleMMFloatingText slot.
+    /// You'll find such prefabs already made in the MMTools/Tools/MMFloatingText/Prefabs folder, but feel free to create your own.
+    /// Using that feedback will always spawn the same text. While this may be what you want, if you're using the Corgi Engine or TopDown Engine, you'll find dedicated versions
+    /// directly hooked to the Health component, letting you display damage taken.
+    /// </summary>
+    [AddComponentMenu("")]
 	[FeedbackHelp("This feedback will request the spawn of a floating text, usually to signify damage, but not necessarily. " +
 	              "This requires that a MMFloatingTextSpawner be correctly setup in the scene, otherwise nothing will happen. " +
 	              "To do so, create a new empty object, add a MMFloatingTextSpawner to it. Drag (at least) one MMFloatingText prefab into its PooledSimpleMMFloatingText slot. " +

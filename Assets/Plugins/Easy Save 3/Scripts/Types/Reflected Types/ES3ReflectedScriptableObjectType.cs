@@ -1,11 +1,7 @@
 ﻿using System;
-using UnityEngine;
-using System.Collections;
-using System.Collections.Generic;
 
-namespace ES3Types
-{
-	[UnityEngine.Scripting.Preserve]
+namespace ES3Types {
+    [UnityEngine.Scripting.Preserve]
 	internal class ES3ReflectedScriptableObjectType : ES3ScriptableObjectType
 	{
 		public ES3ReflectedScriptableObjectType(Type type) : base(type)

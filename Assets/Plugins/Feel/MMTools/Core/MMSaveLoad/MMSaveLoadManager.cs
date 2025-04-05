@@ -1,31 +1,27 @@
 ﻿using UnityEngine;
-using System.Collections;
 using System.IO;
-using System.Runtime.Serialization.Formatters.Binary;
 #if UNITY_EDITOR
-using UnityEditor;
 #endif
 
-namespace MoreMountains.Tools
-{
-	/// <summary>
-	/// Allows the save and load of objects in a specific folder and file.
-	/// 
-	/// How to use (at a minimum) :
-	/// 
-	/// Save : MMSaveLoadManager.Save(TestObject, FileName+SaveFileExtension, FolderName);
-	/// 
-	/// Load : TestObject = (YourObjectClass)MMSaveLoadManager.Load(typeof(YourObjectClass), FileName + SaveFileExtension, FolderName);
-	/// 
-	/// Delete save : MMSaveLoadManager.DeleteSave(FileName+SaveFileExtension, FolderName);
-	/// 
-	/// Delete save folder : MMSaveLoadManager.DeleteSaveFolder(FolderName);
-	/// 
-	/// You can also specify what IMMSaveLoadManagerMethod the system should use. By default it's binary but you can also pick binary encrypted, json, or json encrypted
-	/// You'll find examples of how to set each of these in the MMSaveLoadTester class
-	/// 
-	/// </summary>
-	public static class MMSaveLoadManager
+namespace MoreMountains.Tools {
+    /// <summary>
+    /// Allows the save and load of objects in a specific folder and file.
+    /// 
+    /// How to use (at a minimum) :
+    /// 
+    /// Save : MMSaveLoadManager.Save(TestObject, FileName+SaveFileExtension, FolderName);
+    /// 
+    /// Load : TestObject = (YourObjectClass)MMSaveLoadManager.Load(typeof(YourObjectClass), FileName + SaveFileExtension, FolderName);
+    /// 
+    /// Delete save : MMSaveLoadManager.DeleteSave(FileName+SaveFileExtension, FolderName);
+    /// 
+    /// Delete save folder : MMSaveLoadManager.DeleteSaveFolder(FolderName);
+    /// 
+    /// You can also specify what IMMSaveLoadManagerMethod the system should use. By default it's binary but you can also pick binary encrypted, json, or json encrypted
+    /// You'll find examples of how to set each of these in the MMSaveLoadTester class
+    /// 
+    /// </summary>
+    public static class MMSaveLoadManager
 	{
 		/// the method to use when saving and loading files (has to be the same at both times of course)
 		public static IMMSaveLoadManagerMethod SaveLoadMethod = new MMSaveLoadManagerMethodBinary();

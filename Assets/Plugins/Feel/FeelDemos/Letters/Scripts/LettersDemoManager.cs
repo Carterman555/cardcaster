@@ -1,16 +1,12 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using MoreMountains.Feedbacks;
-using MoreMountains.Tools;
 
-namespace MoreMountains.Feel
-{
-	/// <summary>
-	/// A manager used to pilot Feel's Letters demo scene
-	/// It detects input, and plays corresponding feedbacks when needed
-	/// </summary>
-	[AddComponentMenu("")]
+namespace MoreMountains.Feel {
+    /// <summary>
+    /// A manager used to pilot Feel's Letters demo scene
+    /// It detects input, and plays corresponding feedbacks when needed
+    /// </summary>
+    [AddComponentMenu("")]
 	public class LettersDemoManager : MonoBehaviour
 	{
 		[Header("Feedbacks")]

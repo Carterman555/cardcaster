@@ -1,13 +1,11 @@
 ﻿using UnityEngine;
-using System.Collections;
 
-namespace MoreMountains.Tools
-{	
-	/// <summary>
-	/// Input helpers
-	/// </summary>
+namespace MoreMountains.Tools {
+    /// <summary>
+    /// Input helpers
+    /// </summary>
 
-	public class MMInput : MonoBehaviour 
+    public class MMInput : MonoBehaviour 
 	{
 		/// <summary>
 		/// All possible states for a button. Can be used in a state machine.

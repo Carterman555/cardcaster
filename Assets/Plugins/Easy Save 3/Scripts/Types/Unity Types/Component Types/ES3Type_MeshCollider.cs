@@ -1,9 +1,5 @@
-using System;
-using UnityEngine;
-
-namespace ES3Types
-{
-	[UnityEngine.Scripting.Preserve]
+namespace ES3Types {
+    [UnityEngine.Scripting.Preserve]
 	[ES3PropertiesAttribute("sharedMesh", "convex", "inflateMesh", "skinWidth", "enabled", "isTrigger", "contactOffset", "sharedMaterial")]
 	public class ES3Type_MeshCollider : ES3ComponentType
 	{

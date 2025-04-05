@@ -1,18 +1,12 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using System.Threading.Tasks;
+﻿using UnityEngine;
 using MoreMountains.Tools;
-using UnityEngine.Audio;
 using UnityEngine.Scripting.APIUpdating;
 
-namespace MoreMountains.Feedbacks
-{
-	/// <summary>
-	/// This feedback will let you control all sounds playing on a specific track (master, UI, music, sfx), and play, pause, mute, unmute, resume, stop, free them all at once. You will need a MMSoundManager in your scene for this to work.
-	/// </summary>
-	[AddComponentMenu("")]
+namespace MoreMountains.Feedbacks {
+    /// <summary>
+    /// This feedback will let you control all sounds playing on a specific track (master, UI, music, sfx), and play, pause, mute, unmute, resume, stop, free them all at once. You will need a MMSoundManager in your scene for this to work.
+    /// </summary>
+    [AddComponentMenu("")]
 	[MovedFrom(false, null, "MoreMountains.Feedbacks.MMTools")]
 	[FeedbackPath("Audio/MMSoundManager Track Control")]
 	[FeedbackHelp("This feedback will let you control all sounds playing on a specific track (master, UI, music, sfx), and play, pause, mute, unmute, resume, stop, free them all at once. You will need a MMSoundManager in your scene for this to work.")]

@@ -1,15 +1,10 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
-using System.Reflection;
-using System;
-using UnityEngine.Events;
+﻿using System;
 
-namespace MoreMountains.Tools
-{
-	/// <summary>
-	/// A class used to pick a property, and remap its value for emission/broadcast
-	/// </summary>
-	[Serializable]
+namespace MoreMountains.Tools {
+    /// <summary>
+    /// A class used to pick a property, and remap its value for emission/broadcast
+    /// </summary>
+    [Serializable]
 	public class MMPropertyEmitter : MMPropertyPicker 
 	{
 		/// the min value to clamp this property value to

@@ -1,18 +1,15 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System.Globalization;
+﻿using System.Globalization;
 using System.Linq;
 using System.Reflection;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace MoreMountains.Tools
-{
-	/// <summary>
-	/// Command lines to be run from the MMDebugMenu
-	/// To add new ones, add the [MMDebugLogCommand] attribute to any static method
-	/// </summary>
-	public class MMDebugMenuCommands : MonoBehaviour
+namespace MoreMountains.Tools {
+    /// <summary>
+    /// Command lines to be run from the MMDebugMenu
+    /// To add new ones, add the [MMDebugLogCommand] attribute to any static method
+    /// </summary>
+    public class MMDebugMenuCommands : MonoBehaviour
 	{
 		/// <summary>
 		/// Outputs Time.time

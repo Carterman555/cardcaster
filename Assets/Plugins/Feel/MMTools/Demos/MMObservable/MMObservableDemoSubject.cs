@@ -1,13 +1,10 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace MoreMountains.Tools
-{
-	/// <summary>
-	/// A test class used to demonstrate how MMObservable works in the MMObservableTest demo scene  
-	/// </summary>
-	[AddComponentMenu("")]
+namespace MoreMountains.Tools {
+    /// <summary>
+    /// A test class used to demonstrate how MMObservable works in the MMObservableTest demo scene  
+    /// </summary>
+    [AddComponentMenu("")]
 	public class MMObservableDemoSubject : MonoBehaviour
 	{
 		/// a public float we expose, outputting the x position of our object

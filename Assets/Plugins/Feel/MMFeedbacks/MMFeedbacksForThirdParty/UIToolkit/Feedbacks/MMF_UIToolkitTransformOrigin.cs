@@ -1,16 +1,13 @@
-﻿using System.Collections;
-using MoreMountains.Feedbacks;
-using MoreMountains.Tools;
+﻿using MoreMountains.Feedbacks;
 using UnityEngine;
 using UnityEngine.UIElements;
 using UnityEngine.Scripting.APIUpdating;
 
-namespace MoreMountains.FeedbacksForThirdParty
-{
-	/// <summary>
-	/// This feedback will let you change the transform origin an element on a target UI Document
-	/// </summary>
-	[AddComponentMenu("")]
+namespace MoreMountains.FeedbacksForThirdParty {
+    /// <summary>
+    /// This feedback will let you change the transform origin an element on a target UI Document
+    /// </summary>
+    [AddComponentMenu("")]
 	[FeedbackHelp("This feedback will let you change the transform origin an element on a target UI Document")]
 	[FeedbackPath("UI Toolkit/UITK Transform Origin")]
 	[MovedFrom(false, null, "MoreMountains.Feedbacks.UIToolkit")]

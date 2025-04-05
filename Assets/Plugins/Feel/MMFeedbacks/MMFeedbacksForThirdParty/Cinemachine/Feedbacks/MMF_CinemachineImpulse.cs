@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using MoreMountains.Feedbacks;
 using MoreMountains.Tools;
 #if MM_CINEMACHINE
@@ -10,9 +8,8 @@ using Unity.Cinemachine;
 #endif
 using UnityEngine.Scripting.APIUpdating;
 
-namespace MoreMountains.FeedbacksForThirdParty
-{
-	[AddComponentMenu("")]
+namespace MoreMountains.FeedbacksForThirdParty {
+    [AddComponentMenu("")]
 	#if MM_CINEMACHINE || MM_CINEMACHINE3
 	[FeedbackPath("Camera/Cinemachine Impulse")]
 	#endif

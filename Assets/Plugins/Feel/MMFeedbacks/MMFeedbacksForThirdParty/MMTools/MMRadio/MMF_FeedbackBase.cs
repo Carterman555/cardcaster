@@ -1,12 +1,10 @@
 ﻿using MoreMountains.Tools;
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace MoreMountains.Feedbacks
-{
-	public class MMF_FeedbackBaseTarget
+namespace MoreMountains.Feedbacks {
+    public class MMF_FeedbackBaseTarget
 	{
 		/// the receiver to write the level to
 		public MMPropertyReceiver Target;

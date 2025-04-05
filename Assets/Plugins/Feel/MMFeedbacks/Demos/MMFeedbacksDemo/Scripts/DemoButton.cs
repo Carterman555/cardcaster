@@ -1,21 +1,14 @@
-﻿using System;
-using MoreMountains.Tools;
-using UnityEngine;
-using UnityEngine.Events;
+﻿using UnityEngine;
 #if MM_UI
 using UnityEngine.UI;
 
 #if UNITY_EDITOR
-using UnityEditor;
-using UnityEditor.Events;
 #endif
-using UnityEngine.Scripting.APIUpdating;
-namespace MoreMountains.Feedbacks
-{
-	/// <summary>
-	/// A simple class used to handle demo buttons in the MMF_PlayerDemo and MMFeedbacksDemo scenes
-	/// </summary>
-	[ExecuteAlways]
+namespace MoreMountains.Feedbacks {
+    /// <summary>
+    /// A simple class used to handle demo buttons in the MMF_PlayerDemo and MMFeedbacksDemo scenes
+    /// </summary>
+    [ExecuteAlways]
 	[AddComponentMenu("")]
 	public class DemoButton : MonoBehaviour
 	{

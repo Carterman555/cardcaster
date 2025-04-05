@@ -1,14 +1,11 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using MoreMountains.Tools;
+﻿using MoreMountains.Tools;
 using UnityEngine;
 
-namespace MoreMountains.Feedbacks
-{
-	/// <summary>
-	/// Add this to an AudioSource to shake its stereo pan values remapped along a curve 
-	/// </summary>
-	[AddComponentMenu("More Mountains/Feedbacks/Shakers/Audio/MMAudioSourceStereoPanShaker")]
+namespace MoreMountains.Feedbacks {
+    /// <summary>
+    /// Add this to an AudioSource to shake its stereo pan values remapped along a curve 
+    /// </summary>
+    [AddComponentMenu("More Mountains/Feedbacks/Shakers/Audio/MMAudioSourceStereoPanShaker")]
 	[RequireComponent(typeof(AudioSource))]
 	public class MMAudioSourceStereoPanShaker : MMShaker
 	{

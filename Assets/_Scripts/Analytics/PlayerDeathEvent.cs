@@ -1,8 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using Unity.Services.Analytics;
-
 public class PlayerDeathEvent : Unity.Services.Analytics.Event {
 
     public PlayerDeathEvent() : base("onDeath") {

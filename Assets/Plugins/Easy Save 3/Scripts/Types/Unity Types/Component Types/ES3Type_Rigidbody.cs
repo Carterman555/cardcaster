@@ -1,8 +1,6 @@
-using System;
 using UnityEngine;
 
-namespace ES3Types
-{
+namespace ES3Types {
     [UnityEngine.Scripting.Preserve]
     [ES3PropertiesAttribute("velocity", "angularVelocity", "drag", "angularDrag", "mass", "useGravity", "maxDepenetrationVelocity", "isKinematic", "freezeRotation", "constraints", "collisionDetectionMode", "centerOfMass", "inertiaTensorRotation", "inertiaTensor", "detectCollisions", "position", "rotation", "interpolation", "solverIterations", "sleepThreshold", "maxAngularVelocity", "solverVelocityIterations")]
     public class ES3Type_Rigidbody : ES3ComponentType

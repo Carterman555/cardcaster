@@ -1,13 +1,11 @@
 ﻿using UnityEngine;
-using System.Collections;
 using System;
 
-namespace MoreMountains.Tools
-{	
-	/// <summary>
-	/// This achievement system supports 2 types of achievements : simple (do something > get achievement), and progress based (jump X times, kill X enemies, etc).
-	/// </summary>
-	public enum AchievementTypes { Simple, Progress }
+namespace MoreMountains.Tools {
+    /// <summary>
+    /// This achievement system supports 2 types of achievements : simple (do something > get achievement), and progress based (jump X times, kill X enemies, etc).
+    /// </summary>
+    public enum AchievementTypes { Simple, Progress }
 
 	[Serializable]
 	public class MMAchievement  

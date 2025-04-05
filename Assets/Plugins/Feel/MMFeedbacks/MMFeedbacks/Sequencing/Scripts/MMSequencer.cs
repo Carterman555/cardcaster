@@ -1,16 +1,14 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 
-namespace MoreMountains.Feedbacks
-{
-	/// <summary>
-	/// This class lets you design a quantized MMSequence using a sequencer interface, and lets you play a quantized sequence, triggering events on beats if specified
-	/// </summary>
-	[AddComponentMenu("More Mountains/Feedbacks/Sequencing/MMSequencer")]
+namespace MoreMountains.Feedbacks {
+    /// <summary>
+    /// This class lets you design a quantized MMSequence using a sequencer interface, and lets you play a quantized sequence, triggering events on beats if specified
+    /// </summary>
+    [AddComponentMenu("More Mountains/Feedbacks/Sequencing/MMSequencer")]
 	public class MMSequencer : MonoBehaviour
 	{
 		public enum TimeScales { Scaled, Unscaled }

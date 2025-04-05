@@ -1,16 +1,12 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.Events;
+﻿using UnityEngine;
 #if MM_UI
 using UnityEngine.UI;
 
-namespace MoreMountains.Tools
-{
-	/// <summary>
-	/// A class used to bind a checkbox to a MMDebugMenu
-	/// </summary>
-	public class MMDebugMenuItemCheckbox : MonoBehaviour
+namespace MoreMountains.Tools {
+    /// <summary>
+    /// A class used to bind a checkbox to a MMDebugMenu
+    /// </summary>
+    public class MMDebugMenuItemCheckbox : MonoBehaviour
 	{
 		[Header("Bindings")]
 		/// the switch used to display the checkbox

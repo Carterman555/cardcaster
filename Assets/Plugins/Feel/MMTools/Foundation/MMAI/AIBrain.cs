@@ -1,15 +1,12 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-namespace MoreMountains.Tools
-{
-	/// <summary>
-	/// the AI brain is responsible from going from one state to the other based on the defined transitions. It's basically just a collection of states, and it's where you'll link all the actions, decisions, states and transitions together.
-	/// </summary>
-	[AddComponentMenu("More Mountains/Tools/AI/AIBrain")]
+namespace MoreMountains.Tools {
+    /// <summary>
+    /// the AI brain is responsible from going from one state to the other based on the defined transitions. It's basically just a collection of states, and it's where you'll link all the actions, decisions, states and transitions together.
+    /// </summary>
+    [AddComponentMenu("More Mountains/Tools/AI/AIBrain")]
 	public class AIBrain : MonoBehaviour
 	{
 		[Header("Debug")]

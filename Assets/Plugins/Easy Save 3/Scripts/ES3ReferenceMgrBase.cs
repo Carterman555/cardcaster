@@ -1,12 +1,10 @@
 using UnityEngine;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System;
 using UnityEngine.SceneManagement;
 
-namespace ES3Internal
-{
+namespace ES3Internal {
     [System.Serializable]
     [DisallowMultipleComponent]
     public abstract class ES3ReferenceMgrBase : MonoBehaviour

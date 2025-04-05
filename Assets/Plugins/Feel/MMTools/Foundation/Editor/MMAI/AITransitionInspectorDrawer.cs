@@ -1,10 +1,8 @@
 ﻿using UnityEngine;
 using UnityEditor;
-using System.Collections;
 
-namespace MoreMountains.Tools
-{
-	[CustomPropertyDrawer(typeof(AITransition))]
+namespace MoreMountains.Tools {
+    [CustomPropertyDrawer(typeof(AITransition))]
 	public class AITransitionPropertyInspector : PropertyDrawer
 	{
 		const float LineHeight = 16f;

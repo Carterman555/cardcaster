@@ -1,13 +1,11 @@
 using MoreMountains.Feedbacks;
 using MoreMountains.Tools;
 #if MM_TEXTMESHPRO
-using TMPro;
 #endif
 using UnityEngine;
 
-namespace MoreMountains.Feel
-{
-	[AddComponentMenu("")]
+namespace MoreMountains.Feel {
+    [AddComponentMenu("")]
 	public class FeelSpringsFloatDemo : MonoBehaviour
 	{
 		[Header("Spring")]

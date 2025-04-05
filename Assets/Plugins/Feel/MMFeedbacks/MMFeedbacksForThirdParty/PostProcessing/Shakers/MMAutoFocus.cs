@@ -1,17 +1,13 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 #if MM_POSTPROCESSING
 using UnityEngine.Rendering.PostProcessing;
 #endif
-using MoreMountains.Feedbacks;
 
-namespace MoreMountains.FeedbacksForThirdParty
-{
-	/// <summary>
-	/// This class will set the depth of field to focus on the set of targets specified in its inspector.
-	/// </summary>
-	[AddComponentMenu("More Mountains/Feedbacks/Shakers/PostProcessing/MMAutoFocus")]
+namespace MoreMountains.FeedbacksForThirdParty {
+    /// <summary>
+    /// This class will set the depth of field to focus on the set of targets specified in its inspector.
+    /// </summary>
+    [AddComponentMenu("More Mountains/Feedbacks/Shakers/PostProcessing/MMAutoFocus")]
 	#if MM_POSTPROCESSING
 	[RequireComponent(typeof(PostProcessVolume))]
 	#endif

@@ -1,12 +1,9 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace MoreMountains.Tools
-{
-	[System.Serializable]
+namespace MoreMountains.Tools {
+    [System.Serializable]
 	public class MMRadioSignalOnValueChange : UnityEvent<float> { }
 
 	/// <summary>

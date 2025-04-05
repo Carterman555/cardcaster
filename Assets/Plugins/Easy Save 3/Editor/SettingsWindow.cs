@@ -1,12 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEditor;
-using ES3Internal;
 
-namespace ES3Editor
-{
-	public class SettingsWindow : SubWindow
+namespace ES3Editor {
+    public class SettingsWindow : SubWindow
 	{
 		public ES3Defaults editorSettings = null;
 		public ES3SerializableSettings settings = null;

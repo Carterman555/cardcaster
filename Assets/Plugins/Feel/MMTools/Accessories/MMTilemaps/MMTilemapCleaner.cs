@@ -1,14 +1,11 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.Tilemaps;
 
-namespace MoreMountains.Tools
-{
-	/// <summary>
-	/// A super simple component you can add to a tilemap to get a button to clean it from all tiles
-	/// </summary>
-	public class MMTilemapCleaner : MonoBehaviour
+namespace MoreMountains.Tools {
+    /// <summary>
+    /// A super simple component you can add to a tilemap to get a button to clean it from all tiles
+    /// </summary>
+    public class MMTilemapCleaner : MonoBehaviour
 	{
 		/// Debug buttons
 		[MMInspectorButton("Clean")] 

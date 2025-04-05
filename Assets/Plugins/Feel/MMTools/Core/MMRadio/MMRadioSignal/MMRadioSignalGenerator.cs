@@ -1,16 +1,12 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.Events;
+﻿using UnityEngine;
 
-namespace MoreMountains.Tools
-{
-	/// <summary>
-	/// A class used to generate signals, normalized values between 0 and 1
-	/// You can then use these values from a MMRadioBroadcaster, or simply evaluate its value to use wherever you want, 
-	/// like a supercharged animation curve. In that case, simply disable the component, and read from it using its Evaluate method
-	/// </summary>
-	public class MMRadioSignalGenerator : MMRadioSignal
+namespace MoreMountains.Tools {
+    /// <summary>
+    /// A class used to generate signals, normalized values between 0 and 1
+    /// You can then use these values from a MMRadioBroadcaster, or simply evaluate its value to use wherever you want, 
+    /// like a supercharged animation curve. In that case, simply disable the component, and read from it using its Evaluate method
+    /// </summary>
+    public class MMRadioSignalGenerator : MMRadioSignal
 	{
 		/// whether or not to display an animated preview
 		public bool AnimatedPreview = false;

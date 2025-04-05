@@ -1,14 +1,10 @@
 // Copyright (c) Meta Platforms, Inc. and affiliates. 
 
 using UnityEngine;
-using System.Collections;
-using System;
 using UnityEngine.UI;
-using System.Collections.Generic;
 using UnityEngine.Events;
 
-namespace Lofelt.NiceVibrations
-{
+namespace Lofelt.NiceVibrations {
     /// <summary>
     /// A component to handle switches
     /// </summary>

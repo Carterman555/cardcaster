@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using MoreMountains.Feedbacks;
+﻿using MoreMountains.Feedbacks;
 using UnityEngine;
 
-namespace  MoreMountains.Feel
-{
-	[AddComponentMenu("")]
+namespace MoreMountains.Feel {
+    [AddComponentMenu("")]
 	public class Wheel : MonoBehaviour
 	{
 		[Header("Binding")]

@@ -178,7 +178,7 @@ MonoBehaviour:
   anim: {fileID: 3887365593034165796}
   centerPoint: {fileID: 2512676828727106287}
   debugState: 1
-  stateToDebug: 2
+  stateToDebug: 0
   swordRotate: {fileID: 8468655487895110190}
   sword1Renderer: {fileID: 5832003789959896266}
   sword2Renderer: {fileID: 7368805656976827978}

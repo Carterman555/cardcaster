@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace  MoreMountains.Tools
-{
-	/// <summary>
-	/// Use this script to have a Transform automatically face a certain direction, whether its own movement direction, or a specific target Transform
-	/// </summary>
-	public class MMFaceDirection : MonoBehaviour
+namespace MoreMountains.Tools {
+    /// <summary>
+    /// Use this script to have a Transform automatically face a certain direction, whether its own movement direction, or a specific target Transform
+    /// </summary>
+    public class MMFaceDirection : MonoBehaviour
 	{
 		/// the possible Updates this script should run at 
 		public enum UpdateModes { Update, LateUpdate, FixedUpdate }

@@ -1,14 +1,11 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-namespace MoreMountains.Tools
-{
-	/// <summary>
-	/// A simple class used to store fog properties
-	/// </summary>
-	[Serializable]
+namespace MoreMountains.Tools {
+    /// <summary>
+    /// A simple class used to store fog properties
+    /// </summary>
+    [Serializable]
 	public class FogSettings
 	{
 		public bool FogEnabled = true;

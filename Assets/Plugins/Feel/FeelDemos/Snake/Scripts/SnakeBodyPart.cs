@@ -1,16 +1,13 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections;
 using MoreMountains.Feedbacks;
 using MoreMountains.Tools;
 using UnityEngine;
 
-namespace MoreMountains.Feel
-{
-	/// <summary>
-	/// A class used to handle Feel's Snake demo's snake bodyparts
-	/// </summary>
-	[AddComponentMenu("")]
+namespace MoreMountains.Feel {
+    /// <summary>
+    /// A class used to handle Feel's Snake demo's snake bodyparts
+    /// </summary>
+    [AddComponentMenu("")]
 	public class SnakeBodyPart : MonoBehaviour
 	{
 		/// a position recorder this body part will look at to know where to go to

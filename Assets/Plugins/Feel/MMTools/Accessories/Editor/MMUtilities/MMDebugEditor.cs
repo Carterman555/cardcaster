@@ -1,14 +1,10 @@
-﻿using UnityEngine;
-using System.Collections;
-using MoreMountains.Tools;
-using UnityEditor;
+﻿using UnityEditor;
 
-namespace MoreMountains.Tools
-{
-	/// <summary>
-	/// An editor class used to display menu items 
-	/// </summary>
-	public class MMDebugEditor
+namespace MoreMountains.Tools {
+    /// <summary>
+    /// An editor class used to display menu items 
+    /// </summary>
+    public class MMDebugEditor
 	{
 		/// <summary>
 		/// Adds a menu item to enable debug logs

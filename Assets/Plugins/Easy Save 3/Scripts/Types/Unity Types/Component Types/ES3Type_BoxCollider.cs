@@ -1,8 +1,5 @@
-using System;
-
-namespace ES3Types
-{
-	[UnityEngine.Scripting.Preserve]
+namespace ES3Types {
+    [UnityEngine.Scripting.Preserve]
 	[ES3PropertiesAttribute("center", "size", "enabled", "isTrigger", "contactOffset", "sharedMaterial")]
 	public class ES3Type_BoxCollider : ES3ComponentType
 	{

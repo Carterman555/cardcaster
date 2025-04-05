@@ -1,10 +1,8 @@
-﻿using System.Collections;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEditor;
 
-namespace ES3Editor
-{
-	public class EditorStyle
+namespace ES3Editor {
+    public class EditorStyle
 	{
 		private static EditorStyle style = null;
 

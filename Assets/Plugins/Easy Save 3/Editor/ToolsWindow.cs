@@ -1,12 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEditor;
 using System.IO;
 
-namespace ES3Editor
-{
-	public class ToolsWindow : SubWindow
+namespace ES3Editor {
+    public class ToolsWindow : SubWindow
 	{
 		public ToolsWindow(EditorWindow window) : base("Tools", window){}
 

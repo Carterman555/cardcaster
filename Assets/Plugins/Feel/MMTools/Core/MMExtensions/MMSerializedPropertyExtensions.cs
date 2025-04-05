@@ -1,18 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
-using UnityEngine;
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
- 
-namespace MoreMountains.Tools 
-{
-	/// <summary>
-	/// Serialized property extensions
-	/// </summary>
-	public static class MMSerializedPropertyExtensions 
+
+namespace MoreMountains.Tools {
+    /// <summary>
+    /// Serialized property extensions
+    /// </summary>
+    public static class MMSerializedPropertyExtensions 
 	{
 		#if UNITY_EDITOR
 		/// <summary>

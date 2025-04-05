@@ -1,8 +1,4 @@
-using System;
-using UnityEngine;
-
-namespace ES3Types
-{
+namespace ES3Types {
     [UnityEngine.Scripting.Preserve]
     [ES3PropertiesAttribute("time", "hideFlags", "collision", "colorBySpeed", "colorOverLifetime", "emission", "externalForces", "forceOverLifetime", "inheritVelocity",
                             "lights", "limitVelocityOverLifetime", "main", "noise", "rotatonBySpeed", "rotationOverLifetime", "shape", "sizeBySpeed", "sizeOverLifetime",

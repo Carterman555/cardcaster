@@ -1,14 +1,11 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace MoreMountains.Feedbacks
-{
-	/// <summary>
-	/// A helper class added automatically by MMFeedbacks if they're in AutoPlayOnEnable mode
-	/// This lets them play again should their parent game object be disabled/enabled
-	/// </summary>
-	[AddComponentMenu("")]
+namespace MoreMountains.Feedbacks {
+    /// <summary>
+    /// A helper class added automatically by MMFeedbacks if they're in AutoPlayOnEnable mode
+    /// This lets them play again should their parent game object be disabled/enabled
+    /// </summary>
+    [AddComponentMenu("")]
 	public class MMFeedbacksEnabler : MonoBehaviour
 	{
 		/// the MMFeedbacks to pilot

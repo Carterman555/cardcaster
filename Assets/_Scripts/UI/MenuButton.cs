@@ -1,8 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Localization;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class MenuButton : GameButton {

@@ -1,16 +1,13 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using MoreMountains.Tools;
 using UnityEngine.Scripting.APIUpdating;
 
-namespace MoreMountains.Feedbacks
-{
-	/// <summary>
-	/// This feedback will let you pilot a MMPlaylist
-	/// </summary>
-	[AddComponentMenu("")]
+namespace MoreMountains.Feedbacks {
+    /// <summary>
+    /// This feedback will let you pilot a MMPlaylist
+    /// </summary>
+    [AddComponentMenu("")]
 	[FeedbackHelp("This feedback will let you pilot a MMPlaylist")]
 	[MovedFrom(false, null, "MoreMountains.Feedbacks.MMTools")]
 	[FeedbackPath("Audio/MMPlaylist")]

@@ -1,12 +1,10 @@
 ﻿using UnityEngine;
-using System.Collections;
 
-namespace MoreMountains.Tools
-{
-	/// <summary>
-	/// Use this class to offset an animation by a random range
-	/// </summary>
-	[RequireComponent(typeof(Animator))]
+namespace MoreMountains.Tools {
+    /// <summary>
+    /// Use this class to offset an animation by a random range
+    /// </summary>
+    [RequireComponent(typeof(Animator))]
 	[AddComponentMenu("More Mountains/Tools/Animation/MMOffsetAnimation")]
 	public class MMOffsetAnimation : MonoBehaviour
 	{

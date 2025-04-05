@@ -1,5 +1,4 @@
-﻿using System;
-using MoreMountains.Feedbacks;
+﻿using MoreMountains.Feedbacks;
 using System.Collections;
 using System.Collections.Generic;
 using MoreMountains.Tools;
@@ -7,9 +6,8 @@ using UnityEngine;
 #if MM_UI
 using UnityEngine.UI;
 
-namespace MoreMountains.Feel
-{
-	public struct StrikePin
+namespace MoreMountains.Feel {
+    public struct StrikePin
 	{
 		public Rigidbody Rb;
 		public Vector3 InitialPosition;

@@ -1,9 +1,7 @@
 using System;
-using UnityEngine;
 
-namespace MoreMountains.Feedbacks
-{
-	[Serializable]
+namespace MoreMountains.Feedbacks {
+    [Serializable]
 	public abstract class MMSpringDefinition<T>
 	{
 		public abstract T CurrentValue { get; set; }

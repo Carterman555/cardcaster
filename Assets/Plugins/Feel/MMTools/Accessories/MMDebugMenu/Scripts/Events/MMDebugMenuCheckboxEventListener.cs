@@ -1,12 +1,9 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace MoreMountains.Tools
-{
-	[Serializable]
+namespace MoreMountains.Tools {
+    [Serializable]
 	public class MMDCheckboxPressedEvent : UnityEvent<bool> { }
 	[Serializable]
 	public class MMDCheckboxTrueEvent : UnityEvent { }

@@ -1,13 +1,11 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-namespace MoreMountains.Feedbacks
-{
-	/// <summary>
-	/// Coroutine helpers
-	/// </summary>
-	public static class MMFeedbacksCoroutine
+namespace MoreMountains.Feedbacks {
+    /// <summary>
+    /// Coroutine helpers
+    /// </summary>
+    public static class MMFeedbacksCoroutine
 	{
 		/// <summary>
 		/// Waits for the specified amount of frames

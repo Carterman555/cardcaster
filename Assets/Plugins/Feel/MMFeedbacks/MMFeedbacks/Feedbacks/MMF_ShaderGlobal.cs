@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.Scripting.APIUpdating;
 
-namespace MoreMountains.Feedbacks
-{
-	/// <summary>
-	/// Turns an object active or inactive at the various stages of the feedback
-	/// </summary>
-	[AddComponentMenu("")]
+namespace MoreMountains.Feedbacks {
+    /// <summary>
+    /// Turns an object active or inactive at the various stages of the feedback
+    /// </summary>
+    [AddComponentMenu("")]
 	[FeedbackHelp("This feedback allows you to set global properties on your shader, or enable/disable keywords.")]
 	[MovedFrom(false, null, "MoreMountains.Feedbacks")]
 	[FeedbackPath("Renderer/Shader Global")]

@@ -1,11 +1,9 @@
 using System;
 using UnityEngine;
-using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
-namespace MoreMountains.Tools
-{
-	public class MMSMPlaylistManager : MMMonoBehaviour
+namespace MoreMountains.Tools {
+    public class MMSMPlaylistManager : MMMonoBehaviour
 	{
 		/// the possible states this playlist can be in
 		public enum PlaylistManagerStates

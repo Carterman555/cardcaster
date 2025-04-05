@@ -1,13 +1,10 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace MoreMountains.Tools
-{
-	/// <summary>
-	/// Array helpers
-	/// </summary>
-	public class MMArray : MonoBehaviour
+namespace MoreMountains.Tools {
+    /// <summary>
+    /// Array helpers
+    /// </summary>
+    public class MMArray : MonoBehaviour
 	{
 		/// <summary>
 		/// Rounds an int to the closest int in an array (array has to be sorted)

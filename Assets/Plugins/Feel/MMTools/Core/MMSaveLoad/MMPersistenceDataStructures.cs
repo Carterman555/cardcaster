@@ -1,15 +1,11 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Runtime.Serialization;
-using UnityEngine;
 
-namespace MoreMountains.Tools
-{
-	/// <summary>
-	/// A serializable class used to store scene data, the key is a string (the scene name), the value is a MMPersistencySceneData
-	/// </summary>
-	[Serializable]
+namespace MoreMountains.Tools {
+    /// <summary>
+    /// A serializable class used to store scene data, the key is a string (the scene name), the value is a MMPersistencySceneData
+    /// </summary>
+    [Serializable]
 	public class DictionaryStringSceneData : MMSerializableDictionary<string, MMPersistenceSceneData>
 	{
 		public DictionaryStringSceneData() : base() { }

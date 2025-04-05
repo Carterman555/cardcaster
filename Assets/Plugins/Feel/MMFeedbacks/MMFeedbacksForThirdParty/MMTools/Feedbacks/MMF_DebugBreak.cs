@@ -1,15 +1,11 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using MoreMountains.Tools;
+﻿using UnityEngine;
 using UnityEngine.Scripting.APIUpdating;
 
-namespace MoreMountains.Feedbacks
-{
-	/// <summary>
-	/// This feedback will force a break, pausing the editor
-	/// </summary>
-	[AddComponentMenu("")]
+namespace MoreMountains.Feedbacks {
+    /// <summary>
+    /// This feedback will force a break, pausing the editor
+    /// </summary>
+    [AddComponentMenu("")]
 	[FeedbackHelp("This feedback will will force a break, pausing the editor")]
 	[MovedFrom(false, null, "MoreMountains.Feedbacks.MMTools")]
 	[FeedbackPath("Debug/Break")]

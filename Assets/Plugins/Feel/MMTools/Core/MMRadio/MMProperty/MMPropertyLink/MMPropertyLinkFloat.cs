@@ -1,12 +1,10 @@
-﻿using UnityEngine;
-using System;
+﻿using System;
 
-namespace MoreMountains.Tools
-{
-	/// <summary>
-	/// Float property setter
-	/// </summary>
-	public class MMPropertyLinkFloat : MMPropertyLink
+namespace MoreMountains.Tools {
+    /// <summary>
+    /// Float property setter
+    /// </summary>
+    public class MMPropertyLinkFloat : MMPropertyLink
 	{
 		public Func<float> GetFloatDelegate;
 		public Action<float> SetFloatDelegate;

@@ -1,13 +1,11 @@
 ﻿using MoreMountains.Tools;
 using UnityEngine;
-using UnityEngine.Scripting.APIUpdating;
 
-namespace MoreMountains.Feedbacks
-{
-	/// <summary>
-	/// This component will be automatically added by the MMF_Broadcast feedback
-	/// </summary>
-	public class MMF_BroadcastProxy : MonoBehaviour
+namespace MoreMountains.Feedbacks {
+    /// <summary>
+    /// This component will be automatically added by the MMF_Broadcast feedback
+    /// </summary>
+    public class MMF_BroadcastProxy : MonoBehaviour
 	{
 		/// the channel on which to broadcast
 		[Tooltip("the channel on which to broadcast")]

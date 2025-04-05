@@ -1,15 +1,13 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 
-namespace MoreMountains.Tools
-{
-	/// <summary>
-	/// This helper class, meant to be used by the MMAdditiveSceneLoadingManager, creates a temporary scene to store objects that might get instantiated, and empties it in the destination scene once loading is complete
-	/// </summary>
-	public class MMSceneLoadingAntiSpill
+namespace MoreMountains.Tools {
+    /// <summary>
+    /// This helper class, meant to be used by the MMAdditiveSceneLoadingManager, creates a temporary scene to store objects that might get instantiated, and empties it in the destination scene once loading is complete
+    /// </summary>
+    public class MMSceneLoadingAntiSpill
 	{
 		protected Scene _antiSpillScene;
 		protected Scene _destinationScene;

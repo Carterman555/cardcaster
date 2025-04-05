@@ -1,10 +1,7 @@
 ﻿using Febucci.UI.Core;
-using Febucci.UI.Effects;
 using UnityEngine;
-using UnityEngine.Serialization;
 
-namespace Febucci.UI.Effects
-{
+namespace Febucci.UI.Effects {
     [UnityEngine.Scripting.Preserve]
     [CreateAssetMenu(fileName = "Uniform Curve Animation", menuName = "Text Animator/Animations/Special/Uniform Curve")]
     [EffectInfo("", EffectCategory.All)]

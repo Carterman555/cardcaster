@@ -1,11 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-namespace MoreMountains.Tools
-{
-	public class MMGridGenerator
+namespace MoreMountains.Tools {
+    public class MMGridGenerator
 	{
 		/// <summary>
 		/// Prepares the grid array for use in the generate methods

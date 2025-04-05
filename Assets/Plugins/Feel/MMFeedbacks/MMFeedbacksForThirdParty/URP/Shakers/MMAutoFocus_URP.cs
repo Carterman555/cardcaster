@@ -1,19 +1,15 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.Rendering;
 #if MM_URP
 using UnityEngine.Rendering.Universal;
 #endif
-using MoreMountains.Feedbacks;
 
-namespace MoreMountains.FeedbacksForThirdParty
-{
-	/// <summary>
-	/// This class will set the URP depth of field to focus on the set of targets specified in its inspector.
-	/// </summary>
-	#if MM_URP
-	[RequireComponent(typeof(Volume))]
+namespace MoreMountains.FeedbacksForThirdParty {
+    /// <summary>
+    /// This class will set the URP depth of field to focus on the set of targets specified in its inspector.
+    /// </summary>
+#if MM_URP
+    [RequireComponent(typeof(Volume))]
 	#endif
 	[AddComponentMenu("More Mountains/Feedbacks/Shakers/PostProcessing/MMAutoFocus_URP")]
 	public class MMAutoFocus_URP : MonoBehaviour

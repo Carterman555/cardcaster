@@ -1,15 +1,12 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using MoreMountains.Tools;
 using UnityEngine.Scripting.APIUpdating;
 
-namespace MoreMountains.Feedbacks
-{
-	/// <summary>
-	/// This feedback will let you output a message to the console, using a custom MM debug method, or Log, Assertion, Error or Warning logs.
-	/// </summary>
-	[AddComponentMenu("")]
+namespace MoreMountains.Feedbacks {
+    /// <summary>
+    /// This feedback will let you output a message to the console, using a custom MM debug method, or Log, Assertion, Error or Warning logs.
+    /// </summary>
+    [AddComponentMenu("")]
 	[FeedbackHelp("This feedback will let you output a message to the console, using a custom MM debug method, or Log, Assertion, Error or Warning logs.")]
 	[MovedFrom(false, null, "MoreMountains.Feedbacks.MMTools")]
 	[FeedbackPath("Debug/Log")]

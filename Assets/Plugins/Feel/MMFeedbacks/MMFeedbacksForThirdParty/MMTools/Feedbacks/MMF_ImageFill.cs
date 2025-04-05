@@ -1,17 +1,15 @@
 ﻿#if MM_UI
 using System.Collections;
-using System.Collections.Generic;
 using MoreMountains.Tools;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Scripting.APIUpdating;
 
-namespace MoreMountains.Feedbacks
-{
-	/// <summary>
-	/// This feedback will let you change the fill value of a target Image over time.
-	/// </summary>
-	[AddComponentMenu("")]
+namespace MoreMountains.Feedbacks {
+    /// <summary>
+    /// This feedback will let you change the fill value of a target Image over time.
+    /// </summary>
+    [AddComponentMenu("")]
 	[FeedbackHelp("This feedback will let you modify the fill value of a target Image over time.")]
 	[MovedFrom(false, null, "MoreMountains.Feedbacks.MMTools")]
 	[FeedbackPath("UI/Image Fill")]

@@ -1,12 +1,10 @@
 ﻿using UnityEngine;
-using System.Collections;
 
-namespace MoreMountains.Tools
-{
-	/// <summary>
-	/// An event used to move filters on and off a camera
-	/// </summary>
-	public struct MMPostProcessingMovingFilterEvent
+namespace MoreMountains.Tools {
+    /// <summary>
+    /// An event used to move filters on and off a camera
+    /// </summary>
+    public struct MMPostProcessingMovingFilterEvent
 	{
 		static private event Delegate OnEvent;
 

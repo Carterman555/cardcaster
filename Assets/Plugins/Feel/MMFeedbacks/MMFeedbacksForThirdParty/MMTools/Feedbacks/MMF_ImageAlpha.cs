@@ -1,17 +1,15 @@
 ﻿#if MM_UI
 using System.Collections;
-using System.Collections.Generic;
 using MoreMountains.Tools;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Scripting.APIUpdating;
 
-namespace MoreMountains.Feedbacks
-{
-	/// <summary>
-	/// This feedback will let you change the alpha of a target sprite renderer over time.
-	/// </summary>
-	[AddComponentMenu("")]
+namespace MoreMountains.Feedbacks {
+    /// <summary>
+    /// This feedback will let you change the alpha of a target sprite renderer over time.
+    /// </summary>
+    [AddComponentMenu("")]
 	[FeedbackHelp("This feedback will let you change the alpha of a target Image over time.")]
 	[MovedFrom(false, null, "MoreMountains.Feedbacks.MMTools")]
 	[FeedbackPath("UI/Image Alpha")]

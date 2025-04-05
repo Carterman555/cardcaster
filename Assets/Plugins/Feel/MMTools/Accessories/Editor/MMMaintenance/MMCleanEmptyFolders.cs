@@ -1,18 +1,14 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 using System.IO;
-using System.Text;
 using System.Linq;
-using System;
 
-namespace MoreMountains.Tools
-{
-	/// <summary>
-	/// A maintenance class that removes all empty directories from a project via a menu item
-	/// </summary>
-	public class MMCleanEmptyFolders : MonoBehaviour
+namespace MoreMountains.Tools {
+    /// <summary>
+    /// A maintenance class that removes all empty directories from a project via a menu item
+    /// </summary>
+    public class MMCleanEmptyFolders : MonoBehaviour
 	{
 		static string _consoleLog = "";
 		static List<DirectoryInfo> _listOfEmptyDirectories = new List<DirectoryInfo>();

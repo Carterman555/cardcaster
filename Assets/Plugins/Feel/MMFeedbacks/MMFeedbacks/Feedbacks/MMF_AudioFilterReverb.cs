@@ -1,15 +1,11 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.Audio;
+﻿using UnityEngine;
 using UnityEngine.Scripting.APIUpdating;
 
-namespace MoreMountains.Feedbacks
-{
-	/// <summary>
-	/// This feedback lets you control the reverb level of a reverb filter. You'll need a MMAudioFilterReverbShaker on your filter.
-	/// </summary>
-	[AddComponentMenu("")]
+namespace MoreMountains.Feedbacks {
+    /// <summary>
+    /// This feedback lets you control the reverb level of a reverb filter. You'll need a MMAudioFilterReverbShaker on your filter.
+    /// </summary>
+    [AddComponentMenu("")]
 	[MovedFrom(false, null, "MoreMountains.Feedbacks")]
 	[FeedbackPath("Audio/Audio Filter Reverb")]
 	[FeedbackHelp(

@@ -2,29 +2,27 @@ using System;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 using UnityEngine;
-using UnityEngine.Serialization;
 
-namespace MoreMountains.Tools
-{
-	/// <summary>
-	/// A serializable dictionary implementation, as Unity still can't serialize Dictionaries natively
-	/// 
-	/// How to use :
-	///
-	/// For each type of dictionary you want to serialize, create a serializable class that inherits from MMSerializableDictionary,
-	/// and override the constructor and the SerializationInfo constructor, like so (here with a string/int Dictionary) :
-	///
-	/// [Serializable]
-	/// public class DictionaryStringInt : MMSerializableDictionary<string, int>
-	/// {
-	///   public DictionaryStringInt() : base() { }
-	///   protected DictionaryStringInt(SerializationInfo info, StreamingContext context) : base(info, context) { }
-	/// }
-	///  
-	/// </summary>
-	/// <typeparam name="TKey"></typeparam>
-	/// <typeparam name="TValue"></typeparam>
-	[Serializable]
+namespace MoreMountains.Tools {
+    /// <summary>
+    /// A serializable dictionary implementation, as Unity still can't serialize Dictionaries natively
+    /// 
+    /// How to use :
+    ///
+    /// For each type of dictionary you want to serialize, create a serializable class that inherits from MMSerializableDictionary,
+    /// and override the constructor and the SerializationInfo constructor, like so (here with a string/int Dictionary) :
+    ///
+    /// [Serializable]
+    /// public class DictionaryStringInt : MMSerializableDictionary<string, int>
+    /// {
+    ///   public DictionaryStringInt() : base() { }
+    ///   protected DictionaryStringInt(SerializationInfo info, StreamingContext context) : base(info, context) { }
+    /// }
+    ///  
+    /// </summary>
+    /// <typeparam name="TKey"></typeparam>
+    /// <typeparam name="TValue"></typeparam>
+    [Serializable]
 	public class MMSerializableDictionary<TKey, TValue> : Dictionary<TKey, TValue>, ISerializationCallbackReceiver
 	{
 		[SerializeField] 

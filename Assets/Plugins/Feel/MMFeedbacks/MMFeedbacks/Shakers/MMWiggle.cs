@@ -1,12 +1,10 @@
 ﻿using UnityEngine;
-using System.Collections;
 using System;
 using MoreMountains.Tools;
 
-namespace MoreMountains.Feedbacks
-{
-	/// the possible types of wiggle
-	public enum WiggleTypes { None, Random, PingPong, Noise, Curve }
+namespace MoreMountains.Feedbacks {
+    /// the possible types of wiggle
+    public enum WiggleTypes { None, Random, PingPong, Noise, Curve }
 
 	/// <summary>
 	/// A class to store public wiggle properties

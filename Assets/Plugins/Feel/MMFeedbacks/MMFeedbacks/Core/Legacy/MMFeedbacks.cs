@@ -2,24 +2,20 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using MoreMountains.Feedbacks;
 using System.Linq;
 using MoreMountains.Tools;
-using UnityEditor.Experimental;
-using UnityEngine.Events;
 using Random = UnityEngine.Random;
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
 
-namespace MoreMountains.Feedbacks
-{
-	/// <summary>
-	/// A collection of MMFeedback, meant to be played altogether.
-	/// This class provides a custom inspector to add and customize feedbacks, and public methods to trigger them, stop them, etc.
-	/// You can either use it on its own, or bind it from another class and trigger it from there.
-	/// </summary>
-	[AddComponentMenu("")]
+namespace MoreMountains.Feedbacks {
+    /// <summary>
+    /// A collection of MMFeedback, meant to be played altogether.
+    /// This class provides a custom inspector to add and customize feedbacks, and public methods to trigger them, stop them, etc.
+    /// You can either use it on its own, or bind it from another class and trigger it from there.
+    /// </summary>
+    [AddComponentMenu("")]
 	public class MMFeedbacks : MonoBehaviour
 	{
 		/// the possible directions MMFeedbacks can be played

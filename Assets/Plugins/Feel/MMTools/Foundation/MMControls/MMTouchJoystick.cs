@@ -3,15 +3,12 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.Events;
 using System;
-using Unity.Collections;
-using UnityEngine.UI;
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
 
-namespace MoreMountains.Tools 
-{
-	[System.Serializable]
+namespace MoreMountains.Tools {
+    [System.Serializable]
 	public class JoystickEvent : UnityEvent<Vector2> {}
 	[System.Serializable]
 	public class JoystickFloatEvent : UnityEvent<float> {}

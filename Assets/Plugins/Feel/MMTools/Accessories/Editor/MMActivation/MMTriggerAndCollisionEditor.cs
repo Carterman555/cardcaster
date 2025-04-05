@@ -1,11 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEditor;
+﻿using UnityEditor;
 
-namespace MoreMountains.Tools
-{
-	[CustomEditor(typeof(MMTriggerAndCollision), true)]
+namespace MoreMountains.Tools {
+    [CustomEditor(typeof(MMTriggerAndCollision), true)]
 	[CanEditMultipleObjects]
 	public class MMTriggerAndCollisionEditor : Editor
 	{

@@ -1,16 +1,11 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using UnityEditor;
+﻿using UnityEditor;
 using UnityEngine;
 
-namespace MoreMountains.Tools
-{
-	/// <summary>
-	/// A custom editor displaying a foldable list of MMFeedbacks, a dropdown to add more, as well as test buttons to test your feedbacks at runtime
-	/// </summary>
-	[CanEditMultipleObjects]
+namespace MoreMountains.Tools {
+    /// <summary>
+    /// A custom editor displaying a foldable list of MMFeedbacks, a dropdown to add more, as well as test buttons to test your feedbacks at runtime
+    /// </summary>
+    [CanEditMultipleObjects]
 	[CustomEditor(typeof(MMPlotter), true)]
 	public class MMPlotterEditor : Editor
 	{

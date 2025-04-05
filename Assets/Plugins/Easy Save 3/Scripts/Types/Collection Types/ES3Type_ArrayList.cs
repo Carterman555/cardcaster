@@ -1,8 +1,4 @@
-using System;
-using UnityEngine;
-
-namespace ES3Types
-{
+namespace ES3Types {
     [UnityEngine.Scripting.Preserve]
     [ES3PropertiesAttribute("_items", "_size", "_version")]
     public class ES3Type_ArrayList : ES3ObjectType

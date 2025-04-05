@@ -1,16 +1,12 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.Events;
+﻿using UnityEngine;
 #if MM_UI
 using UnityEngine.UI;
 
-namespace MoreMountains.Tools
-{
-	/// <summary>
-	/// A class used to bind a slider to a MMDebugMenu
-	/// </summary>
-	public class MMDebugMenuItemSlider : MonoBehaviour
+namespace MoreMountains.Tools {
+    /// <summary>
+    /// A class used to bind a slider to a MMDebugMenu
+    /// </summary>
+    public class MMDebugMenuItemSlider : MonoBehaviour
 	{
 		/// the possible modes this slider can operate on
 		public enum Modes { Float, Int }

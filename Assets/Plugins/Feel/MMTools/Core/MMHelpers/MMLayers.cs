@@ -1,9 +1,7 @@
 ﻿using UnityEngine;
-using System.Collections;
 
-namespace MoreMountains.Tools
-{	
-	public class MMLayers  
+namespace MoreMountains.Tools {
+    public class MMLayers  
 	{
 		public static bool LayerInLayerMask(int layer, LayerMask layerMask)
 		{

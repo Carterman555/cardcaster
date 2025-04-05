@@ -1,13 +1,6 @@
-using DG.Tweening;
-using MoreMountains.Feedbacks;
 using MoreMountains.Tools;
-using System;
-using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.InputSystem;
-using UnityEngine.Rendering;
-using UnityEngine.UI;
 using static HandCard;
 
 public class CardKeyboardInput : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler {

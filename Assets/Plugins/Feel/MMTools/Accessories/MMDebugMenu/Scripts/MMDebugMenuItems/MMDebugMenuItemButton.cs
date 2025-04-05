@@ -1,16 +1,12 @@
 ﻿#if MM_UI
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Events;
 using UnityEngine.UI;
 
-namespace MoreMountains.Tools
-{
-	/// <summary>
-	/// A class used to bind a button to a MMDebugMenu
-	/// </summary>
-	public class MMDebugMenuItemButton : MonoBehaviour
+namespace MoreMountains.Tools {
+    /// <summary>
+    /// A class used to bind a button to a MMDebugMenu
+    /// </summary>
+    public class MMDebugMenuItemButton : MonoBehaviour
 	{
 		[Header("Bindings")]
 		/// the associated button 

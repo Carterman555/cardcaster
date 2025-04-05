@@ -1,15 +1,11 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using MoreMountains.Tools;
 using UnityEngine;
 
-namespace MoreMountains.Tools
-{
-	/// <summary>
-	/// This class stores MMSoundManager settings and lets you tweak them from the MMSoundManagerSettingsSO's inspector
-	/// </summary>
-	[Serializable]
+namespace MoreMountains.Tools {
+    /// <summary>
+    /// This class stores MMSoundManager settings and lets you tweak them from the MMSoundManagerSettingsSO's inspector
+    /// </summary>
+    [Serializable]
 	public class MMSoundManagerSettings
 	{
 		public const float _minimalVolume = 0.0001f;

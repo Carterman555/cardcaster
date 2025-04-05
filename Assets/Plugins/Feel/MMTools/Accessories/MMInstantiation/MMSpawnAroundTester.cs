@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace MoreMountains.Tools
-{
-	/// <summary>
-	/// A tester class used to show how the MMSpawnAround class can be used
-	/// </summary>
-	public class MMSpawnAroundTester : MonoBehaviour
+namespace MoreMountains.Tools {
+    /// <summary>
+    /// A tester class used to show how the MMSpawnAround class can be used
+    /// </summary>
+    public class MMSpawnAroundTester : MonoBehaviour
 	{
 		/// a GameObject to instantiate and position around this object 
 		public GameObject ObjectToInstantiate;

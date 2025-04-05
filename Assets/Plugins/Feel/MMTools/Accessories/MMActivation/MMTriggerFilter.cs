@@ -1,10 +1,7 @@
-using System;
-using System.Web;
 using UnityEngine;
 
-namespace MoreMountains.Tools
-{
-	public abstract class MMTriggerFilter : MonoBehaviour
+namespace MoreMountains.Tools {
+    public abstract class MMTriggerFilter : MonoBehaviour
 	{
 		public TriggerAndCollisionMask TriggerFilter = TriggerAndCollisionMask.All;
 

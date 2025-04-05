@@ -1,16 +1,13 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
-namespace MoreMountains.Tools
-{
-	/// <summary>
-	/// Custom editor for the MMSoundManager, used to display custom track controls
-	/// </summary>
-	#if UNITY_EDITOR
-	[CustomEditor(typeof(MMSoundManager), true)]
+namespace MoreMountains.Tools {
+    /// <summary>
+    /// Custom editor for the MMSoundManager, used to display custom track controls
+    /// </summary>
+#if UNITY_EDITOR
+    [CustomEditor(typeof(MMSoundManager), true)]
 	[CanEditMultipleObjects]
 	public class MMSoundManagerEditor : Editor
 	{

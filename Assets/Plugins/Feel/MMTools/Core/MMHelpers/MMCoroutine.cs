@@ -1,10 +1,8 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-namespace MoreMountains.Tools
-{
-	public static class MMCoroutine
+namespace MoreMountains.Tools {
+    public static class MMCoroutine
 	{
 		/// <summary>
 		/// Waits for the specified amount of frames

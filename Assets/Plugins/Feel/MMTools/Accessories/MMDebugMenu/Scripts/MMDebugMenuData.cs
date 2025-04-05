@@ -1,20 +1,17 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Events;
 #if ENABLE_INPUT_SYSTEM && !ENABLE_LEGACY_INPUT_MANAGER
 using UnityEngine.InputSystem;
 #endif
 
 #if MM_UI
 
-namespace MoreMountains.Tools
-{
-	/// <summary>
-	/// A class used to store and display a reorderable list of menu items
-	/// </summary>
-	[Serializable]
+namespace MoreMountains.Tools {
+    /// <summary>
+    /// A class used to store and display a reorderable list of menu items
+    /// </summary>
+    [Serializable]
 	public class MMDebugMenuItemList : MMReorderableArray<MMDebugMenuItem>
 	{
 

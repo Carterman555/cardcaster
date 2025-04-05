@@ -1,8 +1,6 @@
 using System.Numerics;
-using UnityEngine;
 
-namespace ES3Types
-{
+namespace ES3Types {
     [UnityEngine.Scripting.Preserve]
     [ES3Properties("bytes")]
     public class ES3Type_BigInteger : ES3Type

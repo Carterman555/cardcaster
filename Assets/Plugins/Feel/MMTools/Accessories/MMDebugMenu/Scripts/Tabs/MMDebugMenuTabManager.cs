@@ -1,14 +1,12 @@
 ﻿#if MM_UI
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
-namespace MoreMountains.Tools
-{
-	/// <summary>
-	/// A class used to keep track of tabs and their contents in a MMDebugMenu
-	/// </summary>
-	public class MMDebugMenuTabManager : MonoBehaviour
+namespace MoreMountains.Tools {
+    /// <summary>
+    /// A class used to keep track of tabs and their contents in a MMDebugMenu
+    /// </summary>
+    public class MMDebugMenuTabManager : MonoBehaviour
 	{
 		/// a list of all the tabs under that manager
 		public List<MMDebugMenuTab> Tabs;

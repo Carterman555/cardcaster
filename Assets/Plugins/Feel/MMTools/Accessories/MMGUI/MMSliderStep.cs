@@ -1,16 +1,13 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.Events;
 #if MM_UI
 using UnityEngine.UI;
 
-namespace MoreMountains.Tools
-{
-	/// <summary>
-	/// Add this class to a UI slider and it'll let you trigger events when the cursor moves past a certain step
-	/// </summary>
-	[AddComponentMenu("More Mountains/Tools/GUI/MMSliderStep")]
+namespace MoreMountains.Tools {
+    /// <summary>
+    /// Add this class to a UI slider and it'll let you trigger events when the cursor moves past a certain step
+    /// </summary>
+    [AddComponentMenu("More Mountains/Tools/GUI/MMSliderStep")]
 	[RequireComponent(typeof(Slider))]
 	public class MMSliderStep : MonoBehaviour
 	{

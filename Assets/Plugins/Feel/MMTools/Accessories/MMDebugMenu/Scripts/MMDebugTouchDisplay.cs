@@ -1,15 +1,13 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
-namespace MoreMountains.Tools
-{
-	/// <summary>
-	/// Add this class to a canvas and it'll automatically reposition TouchPrefabs at the position of touches
-	/// You can set a higher TouchProvision if your game gets more than the default number (6) simultaneous touches
-	/// Disable/enable this mono for it to stop/work
-	/// </summary>
-	public class MMDebugTouchDisplay : MonoBehaviour
+namespace MoreMountains.Tools {
+    /// <summary>
+    /// Add this class to a canvas and it'll automatically reposition TouchPrefabs at the position of touches
+    /// You can set a higher TouchProvision if your game gets more than the default number (6) simultaneous touches
+    /// Disable/enable this mono for it to stop/work
+    /// </summary>
+    public class MMDebugTouchDisplay : MonoBehaviour
 	{
 		[Header("Bindings")]
 		/// the canvas to display the TouchPrefabs on

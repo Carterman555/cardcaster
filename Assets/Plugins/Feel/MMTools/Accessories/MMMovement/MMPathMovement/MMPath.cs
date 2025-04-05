@@ -1,12 +1,8 @@
 ﻿using UnityEngine;
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using MoreMountains.Tools;
 
-namespace MoreMountains.Tools
-{
-	[System.Serializable]
+namespace MoreMountains.Tools {
+    [System.Serializable]
 	/// <summary>
 	/// This class describes a node on an MMPath
 	/// </summary>

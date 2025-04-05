@@ -1,8 +1,6 @@
 using UnityEngine;
-using UnityEngine.Serialization;
 
-namespace Febucci.UI.Effects
-{
+namespace Febucci.UI.Effects {
     public class FloatCurveProperty : PropertyAttribute
     {
         

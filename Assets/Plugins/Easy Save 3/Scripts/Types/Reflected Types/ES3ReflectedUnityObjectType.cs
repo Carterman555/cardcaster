@@ -1,12 +1,8 @@
 ﻿using System;
-using UnityEngine;
-using System.Collections;
-using System.Collections.Generic;
 using ES3Internal;
 
-namespace ES3Types
-{
-	[UnityEngine.Scripting.Preserve]
+namespace ES3Types {
+    [UnityEngine.Scripting.Preserve]
 	internal class ES3ReflectedUnityObjectType : ES3UnityObjectType
 	{
 		public ES3ReflectedUnityObjectType(Type type) : base(type)

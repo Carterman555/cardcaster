@@ -1,11 +1,9 @@
 ﻿using System;
 #if UNITY_EDITOR
-using UnityEditor;
 #endif
 
-namespace MoreMountains.Tools
-{
-	[AttributeUsage(AttributeTargets.Class, Inherited = false, AllowMultiple = false)]
+namespace MoreMountains.Tools {
+    [AttributeUsage(AttributeTargets.Class, Inherited = false, AllowMultiple = false)]
 	public class MMHiddenPropertiesAttribute : Attribute
 	{
 		public string[] PropertiesNames;

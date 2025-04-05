@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using System.Collections.Generic;
 
-namespace ES3Types
-{
-	[UnityEngine.Scripting.Preserve]
+namespace ES3Types {
+    [UnityEngine.Scripting.Preserve]
 	public class ES3Type_ES3Ref : ES3Type
 	{
 		public static ES3Type Instance = new ES3Type_ES3Ref();

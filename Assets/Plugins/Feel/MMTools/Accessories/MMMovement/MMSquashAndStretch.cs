@@ -1,22 +1,19 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace MoreMountains.Tools
-{
-	/// <summary>
-	/// This component will automatically update scale and rotation 
-	/// Put it one level below the top, and have the model one level below that
-	/// Hierarchy should be as follows :
-	/// 
-	/// Parent (where the logic (and optionnally rigidbody lies)
-	/// - MMSquashAndStretch
-	/// - - Model / sprite
-	/// 
-	/// Make sure this intermediary layer only has one child
-	/// If movement feels glitchy make sure your rigidbody is on Interpolate
-	/// </summary>
-	[AddComponentMenu("More Mountains/Tools/Movement/MMSquashAndStretch")]
+namespace MoreMountains.Tools {
+    /// <summary>
+    /// This component will automatically update scale and rotation 
+    /// Put it one level below the top, and have the model one level below that
+    /// Hierarchy should be as follows :
+    /// 
+    /// Parent (where the logic (and optionnally rigidbody lies)
+    /// - MMSquashAndStretch
+    /// - - Model / sprite
+    /// 
+    /// Make sure this intermediary layer only has one child
+    /// If movement feels glitchy make sure your rigidbody is on Interpolate
+    /// </summary>
+    [AddComponentMenu("More Mountains/Tools/Movement/MMSquashAndStretch")]
 	public class MMSquashAndStretch : MonoBehaviour
 	{
 		public enum Timescales { Regular, Unscaled }

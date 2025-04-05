@@ -1,13 +1,10 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using System.Collections.Generic;
 
-namespace MoreMountains.Tools
-{
-	/// <summary>
-	/// A helper class to handle geometry related operations    
-	/// </summary>    
-	public static class MMGeometry
+namespace MoreMountains.Tools {
+    /// <summary>
+    /// A helper class to handle geometry related operations    
+    /// </summary>    
+    public static class MMGeometry
 	{
 		// Based on https://answers.unity.com/questions/1019436/get-outeredge-vertices-c.html
 		public struct MMEdge

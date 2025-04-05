@@ -1,13 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-namespace MoreMountains.Tools
-{
-	/// <summary>
-	/// Generates a grid of the specified size, either entirely full or empty
-	/// </summary>
-	public class MMGridGeneratorFull : MMGridGenerator 
+﻿namespace MoreMountains.Tools {
+    /// <summary>
+    /// Generates a grid of the specified size, either entirely full or empty
+    /// </summary>
+    public class MMGridGeneratorFull : MMGridGenerator 
 	{
 		/// <summary>
 		/// Generates a grid of the specified size, either entirely full or empty

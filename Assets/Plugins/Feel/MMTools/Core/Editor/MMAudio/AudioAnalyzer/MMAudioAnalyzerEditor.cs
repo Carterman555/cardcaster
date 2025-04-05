@@ -1,12 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEditor;
+﻿using UnityEditor;
 using UnityEngine;
 
-namespace MoreMountains.Tools
-{
-	#if UNITY_EDITOR
-	[CustomEditor(typeof(MMAudioAnalyzer), true)]
+namespace MoreMountains.Tools {
+#if UNITY_EDITOR
+    [CustomEditor(typeof(MMAudioAnalyzer), true)]
 	[CanEditMultipleObjects]
 	public class MMAudioAnalyzerEditor : Editor
 	{

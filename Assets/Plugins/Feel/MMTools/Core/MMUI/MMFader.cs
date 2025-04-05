@@ -1,17 +1,13 @@
 ﻿using UnityEngine;
-using System.Collections;
-using System;
 #if MM_UI
 using UnityEngine.UI;
 #endif
-using MoreMountains.Tools;
 
-namespace MoreMountains.Tools
-{
-	/// <summary>
-	/// An event used to stop fades
-	/// </summary>
-	public struct MMFadeStopEvent
+namespace MoreMountains.Tools {
+    /// <summary>
+    /// An event used to stop fades
+    /// </summary>
+    public struct MMFadeStopEvent
 	{
 		/// an ID that has to match the one on the fader
 		public int ID;

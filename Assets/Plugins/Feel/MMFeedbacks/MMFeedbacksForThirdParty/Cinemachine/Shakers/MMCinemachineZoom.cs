@@ -1,18 +1,16 @@
 ﻿using UnityEngine;
 #if MM_CINEMACHINE
-using Cinemachine;
 #elif MM_CINEMACHINE3
 using Unity.Cinemachine;
 #endif
 using MoreMountains.Feedbacks;
 using MoreMountains.Tools;
 
-namespace MoreMountains.FeedbacksForThirdParty
-{
-	/// <summary>
-	/// This class will allow you to trigger zooms on your cinemachine camera by sending MMCameraZoomEvents from any other class
-	/// </summary>
-	[AddComponentMenu("More Mountains/Feedbacks/Shakers/Cinemachine/MMCinemachineZoom")]
+namespace MoreMountains.FeedbacksForThirdParty {
+    /// <summary>
+    /// This class will allow you to trigger zooms on your cinemachine camera by sending MMCameraZoomEvents from any other class
+    /// </summary>
+    [AddComponentMenu("More Mountains/Feedbacks/Shakers/Cinemachine/MMCinemachineZoom")]
 	#if MM_CINEMACHINE
 	[RequireComponent(typeof(Cinemachine.CinemachineVirtualCamera))]
 	#elif MM_CINEMACHINE3

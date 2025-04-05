@@ -1,8 +1,5 @@
 // Copyright (c) Meta Platforms, Inc. and affiliates. 
 
-using UnityEngine;
-using System;
-
 #if (UNITY_ANDROID && !UNITY_EDITOR)
 using System.Text;
 using System.Runtime.InteropServices;
@@ -11,8 +8,7 @@ using UnityEngine.iOS;
 using System.Runtime.InteropServices;
 #endif
 
-namespace Lofelt.NiceVibrations
-{
+namespace Lofelt.NiceVibrations {
     /// <summary>
     /// C# wrapper for the Lofelt Studio Android and iOS SDK.
     /// </summary>

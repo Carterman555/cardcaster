@@ -1,10 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace MoreMountains.Tools
-{
-	public class MMDropdownAttribute : PropertyAttribute
+namespace MoreMountains.Tools {
+    public class MMDropdownAttribute : PropertyAttribute
 	{
 		public readonly object[] DropdownValues;
 

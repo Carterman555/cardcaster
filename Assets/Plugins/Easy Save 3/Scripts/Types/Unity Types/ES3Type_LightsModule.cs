@@ -1,9 +1,5 @@
-using System;
-using UnityEngine;
-
-namespace ES3Types
-{
-	[UnityEngine.Scripting.Preserve]
+namespace ES3Types {
+    [UnityEngine.Scripting.Preserve]
 	[ES3PropertiesAttribute("enabled", "ratio", "useRandomDistribution", "light", "useParticleColor", "sizeAffectsRange", "alphaAffectsIntensity", "range", "rangeMultiplier", "intensity", "intensityMultiplier", "maxLights")]
 	public class ES3Type_LightsModule : ES3Type
 	{

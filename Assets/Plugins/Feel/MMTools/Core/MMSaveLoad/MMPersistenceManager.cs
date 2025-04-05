@@ -1,20 +1,16 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.Serialization;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace MoreMountains.Tools
-{
-	/// <summary>
-	/// Add this component to a scene and it'll let you save and load the state of objects that implement the IMMPersistent interface
-	/// You can create your own classes that implement this interface, or use the MMPersistent class that comes with this package
-	/// It will save their transform data (position, rotation, scale) and their active state
-	/// Triggering save and load is done via events, and the manager also emits events every time data is loaded or saved
-	/// </summary>
-	public class MMPersistenceManager : MMPersistentSingleton<MMPersistenceManager>, MMEventListener<MMGameEvent>
+namespace MoreMountains.Tools {
+    /// <summary>
+    /// Add this component to a scene and it'll let you save and load the state of objects that implement the IMMPersistent interface
+    /// You can create your own classes that implement this interface, or use the MMPersistent class that comes with this package
+    /// It will save their transform data (position, rotation, scale) and their active state
+    /// Triggering save and load is done via events, and the manager also emits events every time data is loaded or saved
+    /// </summary>
+    public class MMPersistenceManager : MMPersistentSingleton<MMPersistenceManager>, MMEventListener<MMGameEvent>
 	{
 		[Header("Persistence")]
 		/// A persistence ID used to identify the data associated to this manager.

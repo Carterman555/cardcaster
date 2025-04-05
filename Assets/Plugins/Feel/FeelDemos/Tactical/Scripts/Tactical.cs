@@ -1,11 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using MoreMountains.Feedbacks;
+﻿using MoreMountains.Feedbacks;
 using UnityEngine;
 
-namespace MoreMountains.Feel
-{
-	[AddComponentMenu("")]
+namespace MoreMountains.Feel {
+    [AddComponentMenu("")]
 	/// <summary>
 	/// A class used to handle the characters in Feel's Tactical demo scene, detects input,
 	/// shoots while a button is pressed, stops shooting when released, handles reload

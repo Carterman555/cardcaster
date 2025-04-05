@@ -1,16 +1,12 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using System.IO;
+﻿using System.IO;
 using System.Text;
 using System.Security.Cryptography;
 
-namespace MoreMountains.Tools
-{
-	/// <summary>
-	/// An interface to implement save and load using different methods (binary, json, etc)
-	/// </summary>
-	public interface IMMSaveLoadManagerMethod
+namespace MoreMountains.Tools {
+    /// <summary>
+    /// An interface to implement save and load using different methods (binary, json, etc)
+    /// </summary>
+    public interface IMMSaveLoadManagerMethod
 	{
 		void Save(object objectToSave, FileStream saveFile);
 		object Load(System.Type objectType, FileStream saveFile);

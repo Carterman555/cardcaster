@@ -1,14 +1,11 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace MoreMountains.Tools
-{
-	/// <summary>
-	/// Add this component to an object to randomize its position/rotation/scale on demand or automatically
-	/// </summary>
-	#if UNITY_EDITOR
-	[ExecuteAlways]
+namespace MoreMountains.Tools {
+    /// <summary>
+    /// Add this component to an object to randomize its position/rotation/scale on demand or automatically
+    /// </summary>
+#if UNITY_EDITOR
+    [ExecuteAlways]
 	#endif
 	public class MMTransformRandomizer : MonoBehaviour
 	{

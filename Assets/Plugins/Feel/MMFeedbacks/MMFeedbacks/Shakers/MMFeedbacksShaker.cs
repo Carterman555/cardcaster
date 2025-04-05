@@ -1,9 +1,7 @@
 ﻿using UnityEngine;
-using MoreMountains.Tools;
 
-namespace MoreMountains.Feedbacks
-{
-	[RequireComponent(typeof(MMFeedbacks))]
+namespace MoreMountains.Feedbacks {
+    [RequireComponent(typeof(MMFeedbacks))]
 	[AddComponentMenu("More Mountains/Feedbacks/Shakers/Feedbacks/MMFeedbacksShaker")]
 	public class MMFeedbacksShaker : MMShaker
 	{

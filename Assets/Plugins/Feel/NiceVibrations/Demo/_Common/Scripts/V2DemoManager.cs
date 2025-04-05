@@ -3,9 +3,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
-namespace Lofelt.NiceVibrations
-{
+namespace Lofelt.NiceVibrations {
     public class V2DemoManager : MonoBehaviour
     {
         public List<RectTransform> Pages;

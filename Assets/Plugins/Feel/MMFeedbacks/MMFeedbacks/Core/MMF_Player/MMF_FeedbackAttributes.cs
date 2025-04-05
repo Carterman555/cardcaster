@@ -1,11 +1,7 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 
-namespace MoreMountains.Feedbacks
-{
-	[Serializable]
+namespace MoreMountains.Feedbacks {
+    [Serializable]
 	public class MMF_Button
 	{
 		public delegate void ButtonMethod();

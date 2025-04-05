@@ -1,13 +1,10 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace MoreMountains.Tools
-{
-	/// <summary>
-	/// A test class used to demonstrate the MMObservable in the MMObservableTest demo scene    
-	/// </summary>
-	[AddComponentMenu("")]
+namespace MoreMountains.Tools {
+    /// <summary>
+    /// A test class used to demonstrate the MMObservable in the MMObservableTest demo scene    
+    /// </summary>
+    [AddComponentMenu("")]
 	public class MMObservableDemoObserver : MonoBehaviour
 	{
 		/// the subject to look at

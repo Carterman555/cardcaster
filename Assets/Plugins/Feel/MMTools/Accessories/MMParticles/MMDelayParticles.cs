@@ -1,10 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace MoreMountains.Tools
-{
-	[ExecuteAlways]
+namespace MoreMountains.Tools {
+    [ExecuteAlways]
 	/// <summary>
 	/// MM delay particles.
 	/// </summary>

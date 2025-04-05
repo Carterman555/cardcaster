@@ -1,9 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-namespace AdmurinsMonsters
-{
+namespace AdmurinsMonsters {
     public class MonsterManager : MonoBehaviour
     {
         public Animator[] monsterAnimators;

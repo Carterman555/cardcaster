@@ -1,22 +1,18 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using System.IO;
+﻿using System.IO;
 using System.Text;
 using System;
 using ES3Types;
 using System.Globalization;
 
-namespace ES3Internal
-{
-	/*
+namespace ES3Internal {
+    /*
 	 * 	Specific ES3Reader for reading JSON data.
 	 * 
 	 * 	Note: 	Leading & trailing whitespace is ignored whenever 
 	 * 			reading characters which are part of the JSON syntax,
 	 * 			i.e. { } [ ] , " " :
 	 */
-	public class ES3JSONReader : ES3Reader
+    public class ES3JSONReader : ES3Reader
 	{
 		private const char endOfStreamChar = (char)65535;
 

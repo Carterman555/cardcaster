@@ -1,16 +1,14 @@
 ﻿using MoreMountains.Tools;
 using UnityEngine;
 using UnityEngine.Scripting.APIUpdating;
-using UnityEngine.Serialization;
 #if MM_UI
 using UnityEngine.UI;
 
-namespace MoreMountains.Feedbacks
-{
-	/// <summary>
-	/// This feedback will trigger a flash event (to be caught by a MMFlash) when played
-	/// </summary>
-	[AddComponentMenu("")]
+namespace MoreMountains.Feedbacks {
+    /// <summary>
+    /// This feedback will trigger a flash event (to be caught by a MMFlash) when played
+    /// </summary>
+    [AddComponentMenu("")]
 	[FeedbackHelp("On play, this feedback will broadcast a MMFlashEvent. If you create a UI image with a MMFlash component on it (see example in the Demo scene), it will intercept that event, and flash (usually you'll want it to take the full size of your screen, but that's not mandatory). In the feedback's inspector, you can define the color of the flash, its duration, alpha, and a FlashID. That FlashID needs to be the same on your feedback and MMFlash for them to work together. This allows you to have multiple MMFlashs in your scene, and flash them separately.")]
 	[MovedFrom(false, null, "MoreMountains.Feedbacks")]
 	[FeedbackPath("Camera/Flash")]

@@ -1,14 +1,12 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
-namespace MoreMountains.Feedbacks
-{
-	/// <summary>
-	/// Custom editor for MMSequencer, handles recalibration and sequencer display
-	/// </summary>
-	[CustomEditor(typeof(MMSequencer), true)]
+namespace MoreMountains.Feedbacks {
+    /// <summary>
+    /// Custom editor for MMSequencer, handles recalibration and sequencer display
+    /// </summary>
+    [CustomEditor(typeof(MMSequencer), true)]
 	[CanEditMultipleObjects]
 	public class MMSequencerEditor : Editor
 	{

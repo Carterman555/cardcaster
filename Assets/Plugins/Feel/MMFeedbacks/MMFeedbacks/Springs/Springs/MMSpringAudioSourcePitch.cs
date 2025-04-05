@@ -1,9 +1,7 @@
-using MoreMountains.Tools;
 using UnityEngine;
 
-namespace MoreMountains.Feedbacks
-{
-	[AddComponentMenu("More Mountains/Springs/MMSpringAudioSourcePitch")]
+namespace MoreMountains.Feedbacks {
+    [AddComponentMenu("More Mountains/Springs/MMSpringAudioSourcePitch")]
 	public class MMSpringAudioSourcePitch : MMSpringFloatComponent<AudioSource>
 	{
 		public override float TargetFloat

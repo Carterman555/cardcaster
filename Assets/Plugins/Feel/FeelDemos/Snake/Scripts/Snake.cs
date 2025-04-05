@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using MoreMountains.Feedbacks;
 using MoreMountains.Tools;
@@ -9,12 +8,11 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 #endif
 
-namespace MoreMountains.Feel
-{
-	/// <summary>
-	/// A class used to handle Feel's Snake demo's snake "head", the part controlled by the player
-	/// </summary>
-	[AddComponentMenu("")]
+namespace MoreMountains.Feel {
+    /// <summary>
+    /// A class used to handle Feel's Snake demo's snake "head", the part controlled by the player
+    /// </summary>
+    [AddComponentMenu("")]
 	public class Snake : MonoBehaviour
 	{
 		[Header("Movement")]

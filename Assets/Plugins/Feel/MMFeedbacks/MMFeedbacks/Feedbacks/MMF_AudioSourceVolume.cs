@@ -1,15 +1,11 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.Audio;
+﻿using UnityEngine;
 using UnityEngine.Scripting.APIUpdating;
 
-namespace MoreMountains.Feedbacks
-{
-	/// <summary>
-	/// This feedback lets you control the volume of a target AudioSource over time.
-	/// </summary>
-	[AddComponentMenu("")]
+namespace MoreMountains.Feedbacks {
+    /// <summary>
+    /// This feedback lets you control the volume of a target AudioSource over time.
+    /// </summary>
+    [AddComponentMenu("")]
 	[MovedFrom(false, null, "MoreMountains.Feedbacks")]
 	[FeedbackPath("Audio/AudioSource Volume")]
 	[FeedbackHelp("This feedback lets you control the volume of a target AudioSource over time.")]

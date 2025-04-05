@@ -1,11 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace MoreMountains.Feedbacks
-{
-	/// the possible modes for the timescale
-	public enum TimescaleModes { Scaled, Unscaled }
+namespace MoreMountains.Feedbacks {
+    /// the possible modes for the timescale
+    public enum TimescaleModes { Scaled, Unscaled }
 
 	/// <summary>
 	/// A class collecting delay, cooldown and repeat values, to be used to define the behaviour of each MMFeedback

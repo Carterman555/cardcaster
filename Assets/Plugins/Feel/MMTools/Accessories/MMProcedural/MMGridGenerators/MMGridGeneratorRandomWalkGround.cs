@@ -1,13 +1,10 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace MoreMountains.Tools
-{
-	/// <summary>
-	/// Uses random walk to generate a ground with controlled elevation
-	/// </summary>
-	public class MMGridGeneratorRandomWalkGround : MMGridGenerator
+namespace MoreMountains.Tools {
+    /// <summary>
+    /// Uses random walk to generate a ground with controlled elevation
+    /// </summary>
+    public class MMGridGeneratorRandomWalkGround : MMGridGenerator
 	{
 		/// <summary>
 		/// Uses random walk to generate a ground with controlled elevation

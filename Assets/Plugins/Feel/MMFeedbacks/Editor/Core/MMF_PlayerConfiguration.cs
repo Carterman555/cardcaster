@@ -1,16 +1,12 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace MoreMountains.Feedbacks
-{
-	/// <summary>
-	/// An asset to store copy information, as well as global feedback settings.
-	/// It requires that one (and only one) MMFeedbacksConfiguration asset be created and stored in a Resources folder.
-	/// That's already done when installing MMFeedbacks.
-	/// </summary>
-	[CreateAssetMenu(menuName = "MoreMountains/MMFeedbacks/Configuration", fileName = "MMFeedbacksConfiguration")]
+namespace MoreMountains.Feedbacks {
+    /// <summary>
+    /// An asset to store copy information, as well as global feedback settings.
+    /// It requires that one (and only one) MMFeedbacksConfiguration asset be created and stored in a Resources folder.
+    /// That's already done when installing MMFeedbacks.
+    /// </summary>
+    [CreateAssetMenu(menuName = "MoreMountains/MMFeedbacks/Configuration", fileName = "MMFeedbacksConfiguration")]
 	public class MMF_PlayerConfiguration : ScriptableObject
 	{
 		private static MMF_PlayerConfiguration _instance;

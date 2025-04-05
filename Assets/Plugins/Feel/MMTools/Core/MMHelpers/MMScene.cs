@@ -1,15 +1,13 @@
 ﻿using System;
 using UnityEngine;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 
-namespace MoreMountains.Tools
-{	
-	/// <summary>
-	/// Scene management helpers
-	/// </summary>
-	public class MMScene  
+namespace MoreMountains.Tools {
+    /// <summary>
+    /// Scene management helpers
+    /// </summary>
+    public class MMScene  
 	{
 		/// <summary>
 		/// Returns an array filled with all the currently loaded scenes

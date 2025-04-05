@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Linq;
 using System.Runtime.CompilerServices;
 using UnityEngine;
 
-namespace QFSW.QC
-{
+namespace QFSW.QC {
     /// <summary>
     /// Creates a prefix that will be prepended to all commands made within this class. Works recursively with sub-classes.
     /// </summary>

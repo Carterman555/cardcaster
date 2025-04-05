@@ -1,12 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.Scripting.APIUpdating;
 
-namespace MoreMountains.Feedbacks
-{
-	[AddComponentMenu("")]
+namespace MoreMountains.Feedbacks {
+    [AddComponentMenu("")]
 	[MovedFrom(false, null, "MoreMountains.Feedbacks")]
 	[FeedbackPath("Audio/AudioSource")]
 	[FeedbackHelp("This feedback lets you play a target audio source, with some elements at random.")]

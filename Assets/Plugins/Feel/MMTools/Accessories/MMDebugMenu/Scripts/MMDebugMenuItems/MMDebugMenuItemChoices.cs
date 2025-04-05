@@ -1,15 +1,13 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 #if MM_UI
 using UnityEngine.UI;
 
-namespace MoreMountains.Tools
-{
-	/// <summary>
-	/// A class used to store choices contents
-	/// </summary>
-	[System.Serializable]
+namespace MoreMountains.Tools {
+    /// <summary>
+    /// A class used to store choices contents
+    /// </summary>
+    [System.Serializable]
 	public class MMDebugMenuChoiceEntry
 	{
 		/// the button associated to this choice

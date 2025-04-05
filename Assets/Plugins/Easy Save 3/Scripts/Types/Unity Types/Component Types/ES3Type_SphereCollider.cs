@@ -1,8 +1,5 @@
-using System;
-
-namespace ES3Types
-{
-	[UnityEngine.Scripting.Preserve]
+namespace ES3Types {
+    [UnityEngine.Scripting.Preserve]
 	[ES3PropertiesAttribute("center", "radius", "enabled", "isTrigger", "contactOffset", "sharedMaterial")]
 	public class ES3Type_SphereCollider : ES3ComponentType
 	{

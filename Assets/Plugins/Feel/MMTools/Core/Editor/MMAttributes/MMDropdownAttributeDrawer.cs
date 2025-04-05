@@ -1,12 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEditor;
 using System;
 
-namespace MoreMountains.Tools
-{
-	[CustomPropertyDrawer(typeof(MMDropdownAttribute))]
+namespace MoreMountains.Tools {
+    [CustomPropertyDrawer(typeof(MMDropdownAttribute))]
 	public class MMDropdownAttributeDrawer : PropertyDrawer
 	{        
 		protected MMDropdownAttribute _dropdownAttribute;

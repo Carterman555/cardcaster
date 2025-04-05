@@ -1,15 +1,12 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace MoreMountains.Tools
-{
-	/// <summary>
-	/// This class lets you define an axis on which to flip a "two sided" UI element (made of two separate and usually aligned objects, effectively turning each side on/off everytime the container's scale goes above/below a certain threshold
-	/// </summary>
-	[ExecuteAlways]
+namespace MoreMountains.Tools {
+    /// <summary>
+    /// This class lets you define an axis on which to flip a "two sided" UI element (made of two separate and usually aligned objects, effectively turning each side on/off everytime the container's scale goes above/below a certain threshold
+    /// </summary>
+    [ExecuteAlways]
 	public class MMTwoSidedUI : MonoBehaviour
 	{
 		/// the possible axis on which to flip the double object

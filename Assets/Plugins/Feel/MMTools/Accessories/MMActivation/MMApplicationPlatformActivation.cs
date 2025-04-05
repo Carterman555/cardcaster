@@ -1,14 +1,12 @@
 ﻿using UnityEngine;
-using System.Collections;
 using System;
 using System.Collections.Generic;
 
-namespace MoreMountains.Tools
-{
-	/// <summary>
-	/// A class used to store bindings
-	/// </summary>
-	[Serializable]
+namespace MoreMountains.Tools {
+    /// <summary>
+    /// A class used to store bindings
+    /// </summary>
+    [Serializable]
 	public class PlatformBindings
 	{
 		public enum PlatformActions { DoNothing, Disable }

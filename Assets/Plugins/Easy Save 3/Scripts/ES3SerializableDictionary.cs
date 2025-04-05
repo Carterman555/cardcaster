@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 
-namespace ES3Internal
-{
-	[System.Serializable]
+namespace ES3Internal {
+    [System.Serializable]
 	public abstract class ES3SerializableDictionary<TKey,TVal> : Dictionary<TKey,TVal>, ISerializationCallbackReceiver
 	{
 		[SerializeField]

@@ -1,10 +1,7 @@
-﻿using System;
-using UnityEngine;
-using System.Collections.Generic;
+﻿using UnityEngine;
 
-namespace ES3Types
-{
-	[UnityEngine.Scripting.Preserve]
+namespace ES3Types {
+    [UnityEngine.Scripting.Preserve]
 	[ES3PropertiesAttribute("center", "size")]
 	public class ES3Type_Bounds : ES3Type
 	{

@@ -1,11 +1,9 @@
 ﻿using NavMeshPlus.Components;
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-namespace NavMeshPlus.Extensions
-{
+namespace NavMeshPlus.Extensions {
     public abstract class NavMeshExtension: MonoBehaviour
     {
         public int Order { get; protected set; }

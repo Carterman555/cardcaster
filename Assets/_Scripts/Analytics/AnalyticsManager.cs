@@ -1,10 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using Unity.Services.Analytics;
 using System;
 using Unity.Services.Core;
-using static Cinemachine.DocumentationSortingAttribute;
 
 public class AnalyticsManager : MonoBehaviour {
 

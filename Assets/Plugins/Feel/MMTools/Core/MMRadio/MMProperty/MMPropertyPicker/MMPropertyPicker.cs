@@ -1,15 +1,11 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
-using System.Reflection;
+﻿using UnityEngine;
 using System;
-using UnityEngine.Events;
 
-namespace MoreMountains.Tools
-{
-	/// <summary>
-	/// A class used to pick a property on a target object / component / scriptable object
-	/// </summary>
-	[Serializable]
+namespace MoreMountains.Tools {
+    /// <summary>
+    /// A class used to pick a property on a target object / component / scriptable object
+    /// </summary>
+    [Serializable]
 	public class MMPropertyPicker
 	{
 		/// the target object to look for a property on

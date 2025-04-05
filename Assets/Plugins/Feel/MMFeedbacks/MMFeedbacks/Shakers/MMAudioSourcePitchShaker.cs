@@ -1,14 +1,11 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using MoreMountains.Tools;
+﻿using MoreMountains.Tools;
 using UnityEngine;
 
-namespace MoreMountains.Feedbacks
-{
-	/// <summary>
-	/// Add this to an AudioSource to shake its pitch remapped along a curve 
-	/// </summary>
-	[AddComponentMenu("More Mountains/Feedbacks/Shakers/Audio/MMAudioSourcePitchShaker")]
+namespace MoreMountains.Feedbacks {
+    /// <summary>
+    /// Add this to an AudioSource to shake its pitch remapped along a curve 
+    /// </summary>
+    [AddComponentMenu("More Mountains/Feedbacks/Shakers/Audio/MMAudioSourcePitchShaker")]
 	[RequireComponent(typeof(AudioSource))]
 	public class MMAudioSourcePitchShaker : MMShaker
 	{

@@ -1,12 +1,10 @@
-﻿using UnityEngine;
-using System;
+﻿using System;
 
-namespace MoreMountains.Tools
-{
-	/// <summary>
-	/// Bool property setter
-	/// </summary>
-	public class MMPropertyLinkBool : MMPropertyLink
+namespace MoreMountains.Tools {
+    /// <summary>
+    /// Bool property setter
+    /// </summary>
+    public class MMPropertyLinkBool : MMPropertyLink
 	{
 		public Func<bool> GetBoolDelegate;
 		public Action<bool> SetBoolDelegate;

@@ -1,14 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEditor;
-using System.Reflection;
 using System;
-using System.Linq;
 
-namespace MoreMountains.Tools
-{
-	[CustomPropertyDrawer(typeof(MMPropertyReceiver), true)]
+namespace MoreMountains.Tools {
+    [CustomPropertyDrawer(typeof(MMPropertyReceiver), true)]
 	[CanEditMultipleObjects]
 	public class MMPropertyReceiverDrawer : MMPropertyPickerDrawer
 	{

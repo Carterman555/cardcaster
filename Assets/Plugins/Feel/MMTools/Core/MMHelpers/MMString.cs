@@ -1,15 +1,11 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System.Globalization;
+﻿using System.Globalization;
 using System.Text.RegularExpressions;
-using UnityEngine;
 
-namespace MoreMountains.Tools
-{
-	/// <summary>
-	/// String helpers
-	/// </summary>
-	public static class MMString 
+namespace MoreMountains.Tools {
+    /// <summary>
+    /// String helpers
+    /// </summary>
+    public static class MMString 
 	{
 		/// <summary>
 		/// Uppercases the first letter of the parameter string

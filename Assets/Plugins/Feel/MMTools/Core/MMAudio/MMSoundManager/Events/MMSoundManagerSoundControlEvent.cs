@@ -1,10 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace MoreMountains.Tools
-{
-	public enum MMSoundManagerSoundControlEventTypes
+namespace MoreMountains.Tools {
+    public enum MMSoundManagerSoundControlEventTypes
 	{
 		Pause,
 		Resume,

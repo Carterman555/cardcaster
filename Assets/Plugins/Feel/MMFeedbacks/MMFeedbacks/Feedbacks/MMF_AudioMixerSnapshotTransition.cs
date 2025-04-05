@@ -1,15 +1,12 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.Scripting.APIUpdating;
 
-namespace MoreMountains.Feedbacks
-{
-	/// <summary>
-	/// This feedback will let you transition to a target AudioMixer Snapshot over a specified time
-	/// </summary>
-	[AddComponentMenu("")]
+namespace MoreMountains.Feedbacks {
+    /// <summary>
+    /// This feedback will let you transition to a target AudioMixer Snapshot over a specified time
+    /// </summary>
+    [AddComponentMenu("")]
 	[FeedbackHelp("This feedback will let you transition to a target AudioMixer Snapshot over a specified time")]
 	[MovedFrom(false, null, "MoreMountains.Feedbacks")]
 	[FeedbackPath("Audio/AudioMixer Snapshot Transition")]

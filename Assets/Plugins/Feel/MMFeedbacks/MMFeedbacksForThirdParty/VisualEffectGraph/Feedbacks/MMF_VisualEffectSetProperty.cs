@@ -1,18 +1,15 @@
-using System;
 using UnityEngine;
 #if MM_VISUALEFFECTGRAPH
 using UnityEngine.VFX;
 #endif
 using MoreMountains.Feedbacks;
-using MoreMountains.Tools;
 using UnityEngine.Scripting.APIUpdating;
 
-namespace MoreMountains.FeedbacksForThirdParty
-{
-	/// <summary>
-	/// This feedback will let you set a property on a target VisualEffect
-	/// </summary>
-	[AddComponentMenu("")]
+namespace MoreMountains.FeedbacksForThirdParty {
+    /// <summary>
+    /// This feedback will let you set a property on a target VisualEffect
+    /// </summary>
+    [AddComponentMenu("")]
 	[FeedbackHelp("This feedback will let you set a property on a target VisualEffect")]
 	#if MM_VISUALEFFECTGRAPH
 	[FeedbackPath("Particles/VisualEffectSetProperty")]

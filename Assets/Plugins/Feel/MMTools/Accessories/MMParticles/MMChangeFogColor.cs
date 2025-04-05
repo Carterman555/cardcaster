@@ -1,9 +1,7 @@
 ﻿using UnityEngine;
-using System.Collections;
 
-namespace MoreMountains.Tools
-{
-	[ExecuteAlways]
+namespace MoreMountains.Tools {
+    [ExecuteAlways]
 	/// <summary>
 	/// Adds this class to a UnityStandardAssets.ImageEffects.GlobalFog to change its color
 	/// Why this is not native, I don't know.

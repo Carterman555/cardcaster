@@ -1,20 +1,18 @@
 ﻿using UnityEngine;
 using MoreMountains.Feedbacks;
-using UnityEngine.Rendering;
 using MoreMountains.Tools;
 #if MM_HDRP
 using UnityEngine.Rendering.HighDefinition;
 #endif
 
-namespace MoreMountains.FeedbacksForThirdParty
-{
-	/// <summary>
-	/// Add this class to a Camera with a HDRP vignette post processing and it'll be able to "shake" its values by getting events
-	/// </summary>
-	#if MM_HDRP
+namespace MoreMountains.FeedbacksForThirdParty {
+    /// <summary>
+    /// Add this class to a Camera with a HDRP vignette post processing and it'll be able to "shake" its values by getting events
+    /// </summary>
+#if MM_HDRP
 	[RequireComponent(typeof(Volume))]
-	#endif
-	[AddComponentMenu("More Mountains/Feedbacks/Shakers/PostProcessing/MMPaniniProjectionShaker_HDRP")]
+#endif
+    [AddComponentMenu("More Mountains/Feedbacks/Shakers/PostProcessing/MMPaniniProjectionShaker_HDRP")]
 	public class MMPaniniProjectionShaker_HDRP : MMShaker
 	{
 		[MMInspectorGroup("Panini Projection Distance", true, 49)]

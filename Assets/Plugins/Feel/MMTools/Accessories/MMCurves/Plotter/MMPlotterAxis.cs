@@ -2,15 +2,9 @@
 #if MM_UI
 using UnityEngine.UI;
 #endif
-using System.Collections;
-using System;
-using System.Reflection;
-using System.Collections.Generic;
-using System.Linq;
 
-namespace MoreMountains.Tools
-{
-	public class MMPlotterAxis : MonoBehaviour
+namespace MoreMountains.Tools {
+    public class MMPlotterAxis : MonoBehaviour
 	{
 		#if MM_UI
 		public Text Label;

@@ -1,4 +1,3 @@
-using Mono.CSharp;
 using UnityEngine;
 
 public class CircleStraightShootBehavior : MonoBehaviour {

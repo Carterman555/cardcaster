@@ -1,11 +1,8 @@
 ﻿using UnityEngine;
-using System.Collections;
 using UnityEditor;
-using MoreMountains.Tools;
 
-namespace MoreMountains.Tools
-{	
-	[CustomEditor(typeof(MMObjectBounds),true)]
+namespace MoreMountains.Tools {
+    [CustomEditor(typeof(MMObjectBounds),true)]
 	public class ObjectBoundsEditor : Editor 
 	{
 		protected MMObjectBounds _objectBounds;

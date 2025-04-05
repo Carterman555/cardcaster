@@ -1,17 +1,13 @@
-﻿using System.Collections;
-using MoreMountains.Feedbacks;
-using MoreMountains.Tools;
+﻿using MoreMountains.Feedbacks;
 using UnityEngine;
-using UnityEngine.Serialization;
 using UnityEngine.UIElements;
 using UnityEngine.Scripting.APIUpdating;
 
-namespace MoreMountains.FeedbacksForThirdParty
-{
-	/// <summary>
-	/// This feedback will let you change the border width of an element on a target UI Document
-	/// </summary>
-	[AddComponentMenu("")]
+namespace MoreMountains.FeedbacksForThirdParty {
+    /// <summary>
+    /// This feedback will let you change the border width of an element on a target UI Document
+    /// </summary>
+    [AddComponentMenu("")]
 	[FeedbackHelp("This feedback will let you change the border width of an element on a target UI Document")]
 	[FeedbackPath("UI Toolkit/UITK Border Width")]
 	[MovedFrom(false, null, "MoreMountains.Feedbacks.UIToolkit")]

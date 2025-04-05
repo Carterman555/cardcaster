@@ -1,9 +1,7 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace ES3Types
-{
-	[UnityEngine.Scripting.Preserve]
+namespace ES3Types {
+    [UnityEngine.Scripting.Preserve]
 	[ES3PropertiesAttribute("localPosition","localRotation","localScale","parent","siblingIndex")]
 	public class ES3Type_Transform : ES3ComponentType
 	{

@@ -1,14 +1,10 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using Random = System.Random;
+﻿using UnityEngine;
 
-namespace MoreMountains.Tools
-{
-	/// <summary>
-	/// Generates a grid of the specified size based on a seeded perlin noise, the smaller the seed, the blockier the grid
-	/// </summary>
-	public class MMGridGeneratorPerlinNoise : MMGridGenerator 
+namespace MoreMountains.Tools {
+    /// <summary>
+    /// Generates a grid of the specified size based on a seeded perlin noise, the smaller the seed, the blockier the grid
+    /// </summary>
+    public class MMGridGeneratorPerlinNoise : MMGridGenerator 
 	{
            
 		/// <summary>

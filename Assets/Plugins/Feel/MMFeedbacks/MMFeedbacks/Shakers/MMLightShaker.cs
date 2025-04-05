@@ -1,14 +1,11 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using MoreMountains.Tools;
+﻿using MoreMountains.Tools;
 using UnityEngine;
 
-namespace MoreMountains.Feedbacks
-{
-	/// <summary>
-	/// Add this to a light to have it receive MMLightShakeEvents from feedbacks or to shake it locally
-	/// </summary>
-	[AddComponentMenu("More Mountains/Feedbacks/Shakers/Lights/MMLightShaker")]
+namespace MoreMountains.Feedbacks {
+    /// <summary>
+    /// Add this to a light to have it receive MMLightShakeEvents from feedbacks or to shake it locally
+    /// </summary>
+    [AddComponentMenu("More Mountains/Feedbacks/Shakers/Lights/MMLightShaker")]
 	[RequireComponent(typeof(Light))]
 	public class MMLightShaker : MMShaker
 	{

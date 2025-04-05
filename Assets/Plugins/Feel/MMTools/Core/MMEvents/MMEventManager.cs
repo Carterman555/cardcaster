@@ -5,17 +5,13 @@
 
 using System;
 using UnityEngine;
-using UnityEngine.Events;
-using System.Collections;
 using System.Collections.Generic;
-using UnityEngine.Audio;
 
-namespace MoreMountains.Tools
-{	
-	/// <summary>
-	/// MMGameEvents are used throughout the game for general game events (game started, game ended, life lost, etc.)
-	/// </summary>
-	public struct MMGameEvent
+namespace MoreMountains.Tools {
+    /// <summary>
+    /// MMGameEvents are used throughout the game for general game events (game started, game ended, life lost, etc.)
+    /// </summary>
+    public struct MMGameEvent
 	{
 		static MMGameEvent e;
 		

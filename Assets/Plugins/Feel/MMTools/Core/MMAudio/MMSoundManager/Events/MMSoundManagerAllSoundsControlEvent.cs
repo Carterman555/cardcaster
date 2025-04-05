@@ -1,10 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-namespace MoreMountains.Tools
-{
-	public enum MMSoundManagerAllSoundsControlEventTypes
+﻿namespace MoreMountains.Tools {
+    public enum MMSoundManagerAllSoundsControlEventTypes
 	{
 		Pause, Play, Stop, Free, FreeAllButPersistent, FreeAllLooping
 	}

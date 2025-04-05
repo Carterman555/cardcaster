@@ -1,9 +1,5 @@
-using System;
-using UnityEngine;
-
-namespace ES3Types
-{
-	[UnityEngine.Scripting.Preserve]
+namespace ES3Types {
+    [UnityEngine.Scripting.Preserve]
 	[ES3PropertiesAttribute("time", "count", "minCount", "maxCount", "cycleCount", "repeatInterval", "probability")]
 	public class ES3Type_Burst : ES3Type
 	{

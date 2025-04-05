@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Generic;
 using ES3Internal;
 
-namespace ES3Types
-{
-	[UnityEngine.Scripting.Preserve]
+namespace ES3Types {
+    [UnityEngine.Scripting.Preserve]
 	public class ES3ListType : ES3CollectionType
 	{
 		public ES3ListType(Type type) : base(type){}

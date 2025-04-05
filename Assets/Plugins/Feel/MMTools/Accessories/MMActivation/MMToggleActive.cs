@@ -1,13 +1,10 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace MoreMountains.Tools
-{
-	/// <summary>
-	/// This very simple class simply exposes a method to toggle the GameObject it's on (or a target one if left empty in the inspector) active or inactive
-	/// </summary>
-	public class MMToggleActive : MonoBehaviour
+namespace MoreMountains.Tools {
+    /// <summary>
+    /// This very simple class simply exposes a method to toggle the GameObject it's on (or a target one if left empty in the inspector) active or inactive
+    /// </summary>
+    public class MMToggleActive : MonoBehaviour
 	{
 		[Header("Target - leave empty for self")]
 		/// the target gameobject to toggle. Leave blank for auto grab

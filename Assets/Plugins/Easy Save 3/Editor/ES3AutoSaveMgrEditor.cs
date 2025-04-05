@@ -1,12 +1,8 @@
 ﻿using UnityEditor;
 using UnityEngine;
-using System;
-using System.Collections;
-using System.Collections.Generic;
 
-namespace ES3Internal
-{
-	[CustomEditor(typeof(ES3AutoSaveMgr))]
+namespace ES3Internal {
+    [CustomEditor(typeof(ES3AutoSaveMgr))]
 	public class ES3AutoSaveMgrEditor : UnityEditor.Editor
 	{
 		public override void OnInspectorGUI() 

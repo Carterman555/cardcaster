@@ -1,10 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-namespace MoreMountains.Tools
-{
-	public enum MMSoundManagerEventTypes
+﻿namespace MoreMountains.Tools {
+    public enum MMSoundManagerEventTypes
 	{
 		SaveSettings,
 		LoadSettings,

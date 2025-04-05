@@ -1,14 +1,11 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace MoreMountains.Tools
-{
-	/// <summary>
-	/// A test class used to demonstrate the MMObservable pattern in the MMObservableDemo scene
-	/// This one disables itself on Awake, and passively listens for changes, even when disabled
-	/// </summary>
-	[AddComponentMenu("")]
+namespace MoreMountains.Tools {
+    /// <summary>
+    /// A test class used to demonstrate the MMObservable pattern in the MMObservableDemo scene
+    /// This one disables itself on Awake, and passively listens for changes, even when disabled
+    /// </summary>
+    [AddComponentMenu("")]
 	public class MMObservableDemoObserverAutoSleep : MonoBehaviour
 	{
 		public MMObservableDemoSubject TargetSubject;

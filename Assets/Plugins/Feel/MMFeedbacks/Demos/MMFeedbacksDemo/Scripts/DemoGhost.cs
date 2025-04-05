@@ -1,13 +1,10 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace MoreMountains.Feedbacks
-{
-	/// <summary>
-	/// A class used on the MMFeedback's demo ghost
-	/// </summary>
-	[AddComponentMenu("")]
+namespace MoreMountains.Feedbacks {
+    /// <summary>
+    /// A class used on the MMFeedback's demo ghost
+    /// </summary>
+    [AddComponentMenu("")]
 	public class DemoGhost : MonoBehaviour
 	{
 		/// <summary>

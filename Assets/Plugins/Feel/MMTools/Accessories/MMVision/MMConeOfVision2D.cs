@@ -1,12 +1,9 @@
 ﻿using UnityEngine;
-using System.Collections;
-using MoreMountains.Tools;
 using System.Collections.Generic;
 using System;
 
-namespace MoreMountains.Tools
-{
-	[Serializable]
+namespace MoreMountains.Tools {
+    [Serializable]
 	[AddComponentMenu("More Mountains/Tools/Vision/MMConeOfVision2D")]
 	public class MMConeOfVision2D : MonoBehaviour
 	{

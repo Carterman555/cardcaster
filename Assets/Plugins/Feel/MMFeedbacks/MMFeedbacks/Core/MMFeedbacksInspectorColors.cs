@@ -1,11 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using MoreMountains.Feedbacks;
+﻿using UnityEngine;
 
-namespace MoreMountains.Feedbacks
-{
-	public class MMFeedbacksInspectorColors : MonoBehaviour
+namespace MoreMountains.Feedbacks {
+    public class MMFeedbacksInspectorColors : MonoBehaviour
 	{
 		public static Color32 GameObjectColor = new Color32(76, 174, 80, 255);
 		public static Color32 PostProcessColor = new Color32(254, 234, 59, 255);

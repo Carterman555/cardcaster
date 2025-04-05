@@ -1,13 +1,11 @@
 // Copyright (c) Meta Platforms, Inc. and affiliates. 
 
 using UnityEngine;
-using System.Collections;
 using UnityEngine.UI;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
 
-namespace Lofelt.NiceVibrations
-{
+namespace Lofelt.NiceVibrations {
     [RequireComponent(typeof(Rect))]
     [RequireComponent(typeof(CanvasGroup))]
     /// <summary>

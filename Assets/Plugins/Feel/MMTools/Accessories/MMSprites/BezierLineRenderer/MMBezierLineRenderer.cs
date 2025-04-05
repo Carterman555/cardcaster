@@ -1,12 +1,10 @@
 ﻿using UnityEngine;
-using System.Collections.Generic;
 
-namespace MoreMountains.Tools
-{
-	/// <summary>
-	/// Add this class to a line renderer and it'll add control points that let you turn your line into a bezier curve
-	/// </summary>
-	[ExecuteAlways]
+namespace MoreMountains.Tools {
+    /// <summary>
+    /// Add this class to a line renderer and it'll add control points that let you turn your line into a bezier curve
+    /// </summary>
+    [ExecuteAlways]
 	[RequireComponent(typeof(LineRenderer))]
 	[AddComponentMenu("More Mountains/Tools/Sprites/MMBezierLineRenderer")]
 	public class MMBezierLineRenderer : MonoBehaviour

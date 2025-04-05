@@ -1,14 +1,12 @@
-﻿using MoreMountains.FeedbacksForThirdParty;
-using MoreMountains.Tools;
+﻿using MoreMountains.Tools;
 using UnityEngine;
 using UnityEngine.Scripting.APIUpdating;
 
-namespace MoreMountains.Feedbacks
-{
-	/// <summary>
-	/// A feedback used to pilot float springs
-	/// </summary>
-	[AddComponentMenu("")]
+namespace MoreMountains.Feedbacks {
+    /// <summary>
+    /// A feedback used to pilot float springs
+    /// </summary>
+    [AddComponentMenu("")]
 	[FeedbackHelp("A feedback used to pilot float springs")]
 	[MovedFrom(false, null, "MoreMountains.Feedbacks")]
 	[FeedbackPath("Springs/Spring Float")]

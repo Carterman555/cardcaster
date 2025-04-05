@@ -2,15 +2,13 @@
 
 using UnityEngine;
 using UnityEditor;
-using System.Collections;
 using System.Collections.Generic;
 
-namespace MoreMountains.Tools
-{
-	/// <summary>
-	/// As static class that lets you look for missing scripts on any prefab in your project, or for prefabs equipped with a certain type of MonoBehaviour
-	/// </summary>
-	public class MMFindPrefabsByMono : EditorWindow
+namespace MoreMountains.Tools {
+    /// <summary>
+    /// As static class that lets you look for missing scripts on any prefab in your project, or for prefabs equipped with a certain type of MonoBehaviour
+    /// </summary>
+    public class MMFindPrefabsByMono : EditorWindow
 	{
 		protected Vector2 _scrollView;
 		protected string[] _tabs = new string[] { "Find prefabs with missing components", "Find prefabs by MonoBehaviour" };

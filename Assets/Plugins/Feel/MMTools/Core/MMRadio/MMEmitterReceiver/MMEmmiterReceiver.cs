@@ -1,15 +1,12 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace MoreMountains.Tools
-{
-	/// <summary>
-	/// This component lets you very easily have one property drive the value of another property.
-	/// To do so, drag the object with the property you want to "read" from into the Emitter Property slot, then select the component the property is on, and finally the property itself.
-	/// Then drag the object with the property you want to "write" to into the ReceiverProperty slot, and pick the property you want to drive with the emitter's value.
-	/// </summary>
-	public class MMEmmiterReceiver : MonoBehaviour
+namespace MoreMountains.Tools {
+    /// <summary>
+    /// This component lets you very easily have one property drive the value of another property.
+    /// To do so, drag the object with the property you want to "read" from into the Emitter Property slot, then select the component the property is on, and finally the property itself.
+    /// Then drag the object with the property you want to "write" to into the ReceiverProperty slot, and pick the property you want to drive with the emitter's value.
+    /// </summary>
+    public class MMEmmiterReceiver : MonoBehaviour
 	{
 		[MMInformation(
 			"This component lets you very easily have one property drive the value of another property. " +

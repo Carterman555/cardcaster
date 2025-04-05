@@ -1,12 +1,8 @@
 // Copyright (c) Meta Platforms, Inc. and affiliates. 
 
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-namespace Lofelt.NiceVibrations
-{
+namespace Lofelt.NiceVibrations {
     /// <summary>
     /// A minimal, demo only class, used to rotate an image in the demo's UI
     /// </summary>

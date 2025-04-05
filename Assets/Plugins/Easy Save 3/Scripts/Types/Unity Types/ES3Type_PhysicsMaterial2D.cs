@@ -1,8 +1,5 @@
-using System;
-
-namespace ES3Types
-{
-	[UnityEngine.Scripting.Preserve]
+namespace ES3Types {
+    [UnityEngine.Scripting.Preserve]
 	[ES3PropertiesAttribute("bounciness", "friction")]
 	public class ES3Type_PhysicsMaterial2D : ES3ObjectType
 	{

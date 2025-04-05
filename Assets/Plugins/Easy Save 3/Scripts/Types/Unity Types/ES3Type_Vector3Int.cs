@@ -1,10 +1,8 @@
 ﻿#if UNITY_2017_2_OR_NEWER
-using System;
 using UnityEngine;
 
-namespace ES3Types
-{
-	[UnityEngine.Scripting.Preserve]
+namespace ES3Types {
+    [UnityEngine.Scripting.Preserve]
 	[ES3PropertiesAttribute("x", "y", "z")]
 	public class ES3Type_Vector3Int : ES3Type
 	{

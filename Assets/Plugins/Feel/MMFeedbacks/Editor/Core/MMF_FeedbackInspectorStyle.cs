@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEditor;
+﻿using UnityEditor;
 using UnityEngine;
 
-namespace MoreMountains.Feedbacks
-{
-	static class MMF_FeedbackInspectorStyle
+namespace MoreMountains.Feedbacks {
+    static class MMF_FeedbackInspectorStyle
 	{
 		public static GUIStyle ContainerStyle;
 		public static GUIStyle BoxChildStyle;

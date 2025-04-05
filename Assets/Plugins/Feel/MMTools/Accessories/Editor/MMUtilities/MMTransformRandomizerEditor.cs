@@ -1,14 +1,11 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEditor;
 
-namespace MoreMountains.Tools
-{
-	/// <summary>
-	/// Custom editor for the MMTransformRandomizer class
-	/// </summary>
-	[CustomEditor(typeof(MMTransformRandomizer), true)]
+namespace MoreMountains.Tools {
+    /// <summary>
+    /// Custom editor for the MMTransformRandomizer class
+    /// </summary>
+    [CustomEditor(typeof(MMTransformRandomizer), true)]
 	[CanEditMultipleObjects]
 	public class MMTransformRandomizerEditor : Editor
 	{

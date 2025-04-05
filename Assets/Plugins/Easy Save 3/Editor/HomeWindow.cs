@@ -1,11 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEditor;
 
-namespace ES3Editor
-{
-	public class HomeWindow : SubWindow
+namespace ES3Editor {
+    public class HomeWindow : SubWindow
 	{
 		Vector2 scrollPos = Vector2.zero;
 

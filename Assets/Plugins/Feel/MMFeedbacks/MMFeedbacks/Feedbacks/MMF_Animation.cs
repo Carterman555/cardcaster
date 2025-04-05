@@ -1,14 +1,12 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Scripting.APIUpdating;
 
-namespace MoreMountains.Feedbacks
-{
-	/// <summary>
-	/// A feedback used to trigger an animation (bool, int, float or trigger) on the associated animator, with or without randomness
-	/// </summary>
-	[AddComponentMenu("")]
+namespace MoreMountains.Feedbacks {
+    /// <summary>
+    /// A feedback used to trigger an animation (bool, int, float or trigger) on the associated animator, with or without randomness
+    /// </summary>
+    [AddComponentMenu("")]
 	[FeedbackHelp("This feedback will allow you to send to an animator (bound in its inspector) a bool, int, float or trigger parameter, allowing you to trigger an animation, with or without randomness.")]
 	[MovedFrom(false, null, "MoreMountains.Feedbacks")]
 	[FeedbackPath("Animation/Animation Parameter")]

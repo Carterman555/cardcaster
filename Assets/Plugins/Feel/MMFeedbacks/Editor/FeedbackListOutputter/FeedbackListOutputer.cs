@@ -1,20 +1,14 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEditor;
-using UnityEditor.PackageManager.Requests;
-using UnityEditor.PackageManager;
-using UnityEngine;
-using System.Threading.Tasks;
 using System.Linq;
 using System.Text;
 using MoreMountains.Tools;
 
-namespace MoreMountains.Feedbacks
-{
-	/// <summary>
-	/// This class is used to automatically install optional dependencies used in MMFeedbacks
-	/// </summary>
-	public static class FeedbackListOutputer 
+namespace MoreMountains.Feedbacks {
+    /// <summary>
+    /// This class is used to automatically install optional dependencies used in MMFeedbacks
+    /// </summary>
+    public static class FeedbackListOutputer 
 	{
 		/// <summary>
 		/// Outputs a list of all MMFeedbacks to the console (there's only one target user for this and it's me hello!)

@@ -1,16 +1,12 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using Unity.Collections;
 using UnityEngine;
 using UnityEngine.Audio;
 
-namespace MoreMountains.Tools
-{
-	/// <summary>
-	/// A class to save sound settings (music on or off, sfx on or off)
-	/// </summary>
-	[Serializable]
+namespace MoreMountains.Tools {
+    /// <summary>
+    /// A class to save sound settings (music on or off, sfx on or off)
+    /// </summary>
+    [Serializable]
 	[CreateAssetMenu(menuName = "MoreMountains/Audio/MMSoundManagerSettings")]
 	public class MMSoundManagerSettingsSO : ScriptableObject
 	{

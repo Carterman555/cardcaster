@@ -1,12 +1,10 @@
-using MoreMountains.Tools;
 using UnityEngine;
 using UnityEditor;
 using UnityEditor.UIElements;
 using UnityEngine.UIElements;
 
-namespace MoreMountains.Feedbacks
-{
-	[CustomPropertyDrawer(typeof(MMSpringVector3))]
+namespace MoreMountains.Feedbacks {
+    [CustomPropertyDrawer(typeof(MMSpringVector3))]
 	class MMSpringVector3PropertyDrawer : PropertyDrawer
 	{
 		protected float _lastTarget;

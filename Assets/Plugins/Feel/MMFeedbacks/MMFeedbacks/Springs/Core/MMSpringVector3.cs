@@ -1,10 +1,8 @@
 using System;
-using MoreMountains.Tools;
 using UnityEngine;
 
-namespace MoreMountains.Feedbacks
-{
-	[Serializable]
+namespace MoreMountains.Feedbacks {
+    [Serializable]
 	public class MMSpringVector3 : MMSpringDefinition<Vector3>
 	{
 		public bool SeparateAxis = false;

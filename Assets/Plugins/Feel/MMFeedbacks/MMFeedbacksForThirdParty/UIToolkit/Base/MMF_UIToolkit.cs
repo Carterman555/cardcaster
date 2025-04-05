@@ -1,17 +1,13 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using MoreMountains.Feedbacks;
 using UnityEngine;
-using UnityEngine.Serialization;
 using UnityEngine.UIElements;
 
-namespace MoreMountains.FeedbacksForThirdParty
-{
-	/// <summary>
-	/// This feedback is a base for UI Toolkit feedbacks
-	/// </summary>
-	[AddComponentMenu("")]
+namespace MoreMountains.FeedbacksForThirdParty {
+    /// <summary>
+    /// This feedback is a base for UI Toolkit feedbacks
+    /// </summary>
+    [AddComponentMenu("")]
 	[FeedbackHelp("This feedback is a base for UI Toolkit feedbacks")]
 	public class MMF_UIToolkit : MMF_Feedback
 	{

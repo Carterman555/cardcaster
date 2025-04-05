@@ -1,16 +1,14 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace MoreMountains.Tools
-{
-	/// <summary>
-	/// Add this class to an empty object, bind a few prefabs into its RandomPool slots, and it'll instantiate one of them at its position/rotation on Start or Awake
-	/// You can also call its InstantiateRandomObject method at any time, and it'll instantiate another random object on demand, 
-	/// potentially destroying the previous one if you decide so
-	/// </summary>
-	public class MMRandomInstantiator : MonoBehaviour
+namespace MoreMountains.Tools {
+    /// <summary>
+    /// Add this class to an empty object, bind a few prefabs into its RandomPool slots, and it'll instantiate one of them at its position/rotation on Start or Awake
+    /// You can also call its InstantiateRandomObject method at any time, and it'll instantiate another random object on demand, 
+    /// potentially destroying the previous one if you decide so
+    /// </summary>
+    public class MMRandomInstantiator : MonoBehaviour
 	{
 		/// the possible start modes
 		public enum StartModes { Awake, Start, None }

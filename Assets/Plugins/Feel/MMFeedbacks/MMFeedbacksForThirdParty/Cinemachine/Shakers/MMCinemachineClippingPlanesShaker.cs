@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 #if MM_CINEMACHINE
 using Cinemachine;
 #elif MM_CINEMACHINE3
@@ -9,12 +7,11 @@ using Unity.Cinemachine;
 using MoreMountains.Feedbacks;
 using MoreMountains.Tools;
 
-namespace MoreMountains.FeedbacksForThirdParty
-{
-	/// <summary>
-	/// Add this to a Cinemachine virtual camera and it'll let you control its near and far clipping planes
-	/// </summary>
-	[AddComponentMenu("More Mountains/Feedbacks/Shakers/Cinemachine/MMCinemachineClippingPlanesShaker")]
+namespace MoreMountains.FeedbacksForThirdParty {
+    /// <summary>
+    /// Add this to a Cinemachine virtual camera and it'll let you control its near and far clipping planes
+    /// </summary>
+    [AddComponentMenu("More Mountains/Feedbacks/Shakers/Cinemachine/MMCinemachineClippingPlanesShaker")]
 	#if MM_CINEMACHINE
 	[RequireComponent(typeof(CinemachineVirtualCamera))]
 	#elif MM_CINEMACHINE3

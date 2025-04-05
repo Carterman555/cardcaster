@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.Rendering;
 #if MM_URP
 using UnityEngine.Rendering.Universal;
@@ -8,13 +6,12 @@ using UnityEngine.Rendering.Universal;
 using MoreMountains.Feedbacks;
 using MoreMountains.Tools;
 
-namespace MoreMountains.FeedbacksForThirdParty
-{
-	/// <summary>
-	/// Add this class to a Camera with a URP FilmGrain post processing and it'll be able to "shake" its values by getting events
-	/// </summary>
-	#if MM_URP
-	[RequireComponent(typeof(Volume))]
+namespace MoreMountains.FeedbacksForThirdParty {
+    /// <summary>
+    /// Add this class to a Camera with a URP FilmGrain post processing and it'll be able to "shake" its values by getting events
+    /// </summary>
+#if MM_URP
+    [RequireComponent(typeof(Volume))]
 	#endif
 	[AddComponentMenu("More Mountains/Feedbacks/Shakers/PostProcessing/MMFilmGrainShaker_URP")]
 	public class MMFilmGrainShaker_URP : MMShaker

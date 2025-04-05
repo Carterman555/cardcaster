@@ -1,16 +1,11 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-namespace MoreMountains.Tools
-{
-	/// <summary>
-	/// This event will let you pause 
-	///
-	/// Example : MMSoundManagerSoundFadeEvent.Trigger(33, 2f, 0.3f, new MMTweenType(MMTween.MMTweenCurve.EaseInElastic));
-	/// will fade the sound with an ID of 33 towards a volume of 0.3, over 2 seconds, on an elastic curve
-	/// </summary>
-	public struct MMSoundManagerSoundFadeEvent
+﻿namespace MoreMountains.Tools {
+    /// <summary>
+    /// This event will let you pause 
+    ///
+    /// Example : MMSoundManagerSoundFadeEvent.Trigger(33, 2f, 0.3f, new MMTweenType(MMTween.MMTweenCurve.EaseInElastic));
+    /// will fade the sound with an ID of 33 towards a volume of 0.3, over 2 seconds, on an elastic curve
+    /// </summary>
+    public struct MMSoundManagerSoundFadeEvent
 	{
 		public enum Modes { PlayFade, StopFade }
 

@@ -1,13 +1,10 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace MoreMountains.Tools
-{
-	/// <summary>
-	/// Add this class to a Rigidbody or Rigidbody2D to be able to edit its center of mass from the inspector directly
-	/// </summary>
-	public class MMRigidbodyCenterOfMass : MonoBehaviour
+namespace MoreMountains.Tools {
+    /// <summary>
+    /// Add this class to a Rigidbody or Rigidbody2D to be able to edit its center of mass from the inspector directly
+    /// </summary>
+    public class MMRigidbodyCenterOfMass : MonoBehaviour
 	{
 		/// the possible modes this class can start on
 		public enum AutomaticSetModes { Awake, Start, ScriptOnly }

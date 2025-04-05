@@ -1,19 +1,16 @@
 ﻿#if MM_UI
 using UnityEngine;
-using System.Collections;
-using UnityEngine.UI;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
 #if ENABLE_INPUT_SYSTEM && !ENABLE_LEGACY_INPUT_MANAGER
 using UnityEngine.InputSystem;
 #endif
 
-namespace MoreMountains.Tools
-{	
-	/// <summary>
-	/// The possible directions a swipe can have
-	/// </summary>
-	public enum MMPossibleSwipeDirections { Up, Down, Left, Right }
+namespace MoreMountains.Tools {
+    /// <summary>
+    /// The possible directions a swipe can have
+    /// </summary>
+    public enum MMPossibleSwipeDirections { Up, Down, Left, Right }
 
 
 	[System.Serializable]

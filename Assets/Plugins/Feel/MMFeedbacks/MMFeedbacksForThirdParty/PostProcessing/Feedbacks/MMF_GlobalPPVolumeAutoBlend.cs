@@ -1,14 +1,12 @@
 ﻿using UnityEngine;
 using MoreMountains.Feedbacks;
-using MoreMountains.Tools;
 using UnityEngine.Scripting.APIUpdating;
 
-namespace MoreMountains.FeedbacksForThirdParty
-{
-	/// <summary>
-	/// This feedback will let you pilot a Global PostProcessing Volume AutoBlend component. A GPPVAB component is placed on a PostProcessing Volume, and will let you control and blend its weight over time on demand.    
-	/// </summary>
-	[AddComponentMenu("")]
+namespace MoreMountains.FeedbacksForThirdParty {
+    /// <summary>
+    /// This feedback will let you pilot a Global PostProcessing Volume AutoBlend component. A GPPVAB component is placed on a PostProcessing Volume, and will let you control and blend its weight over time on demand.    
+    /// </summary>
+    [AddComponentMenu("")]
 	[FeedbackHelp("This feedback will let you pilot a Global PostProcessing Volume AutoBlend component. " +
 	              "A GPPVAB component is placed on a PostProcessing Volume, and will let you control and blend its weight over time on demand.")]
 	#if MM_POSTPROCESSING

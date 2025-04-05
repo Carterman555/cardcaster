@@ -1,12 +1,9 @@
 // Copyright (c) Meta Platforms, Inc. and affiliates. 
 
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.EventSystems;
 
-namespace Lofelt.NiceVibrations
-{
+namespace Lofelt.NiceVibrations {
     public class MMUIShaker : MonoBehaviour
     {
         public float Amplitude;

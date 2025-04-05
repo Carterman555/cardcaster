@@ -1,19 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
-using UnityEngine.SceneManagement;
-using UnityEngine.Serialization;
 
-namespace MoreMountains.Tools
-{
-	/// <summary>
-	/// A persistent class that can save the essential parts of an object :
-	/// its transform data (position, rotation, scale) and its active state
-	/// This inherits from MMPersistentBase and implements the IMMPersistent interface
-	/// It's a good example of how to implement the interface's OnSave and OnLoad methods
-	/// </summary>
-	public class MMPersistent : MMPersistentBase
+namespace MoreMountains.Tools {
+    /// <summary>
+    /// A persistent class that can save the essential parts of an object :
+    /// its transform data (position, rotation, scale) and its active state
+    /// This inherits from MMPersistentBase and implements the IMMPersistent interface
+    /// It's a good example of how to implement the interface's OnSave and OnLoad methods
+    /// </summary>
+    public class MMPersistent : MMPersistentBase
 	{
 		
 		[Header("Properties")]

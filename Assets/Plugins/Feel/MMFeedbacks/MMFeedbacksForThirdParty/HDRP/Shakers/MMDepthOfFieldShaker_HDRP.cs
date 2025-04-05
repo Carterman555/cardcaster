@@ -1,20 +1,18 @@
 ﻿using UnityEngine;
-using UnityEngine.Rendering;
 using MoreMountains.Feedbacks;
 using MoreMountains.Tools;
 #if MM_HDRP
 using UnityEngine.Rendering.HighDefinition;
 #endif
 
-namespace MoreMountains.FeedbacksForThirdParty
-{
-	/// <summary>
-	/// Add this class to a Camera with a HDRP depth of field post processing and it'll be able to "shake" its values by getting events
-	/// </summary>
-	#if MM_HDRP
+namespace MoreMountains.FeedbacksForThirdParty {
+    /// <summary>
+    /// Add this class to a Camera with a HDRP depth of field post processing and it'll be able to "shake" its values by getting events
+    /// </summary>
+#if MM_HDRP
 	[RequireComponent(typeof(Volume))]
-	#endif
-	[AddComponentMenu("More Mountains/Feedbacks/Shakers/PostProcessing/MMDepthOfFieldShaker_HDRP")]
+#endif
+    [AddComponentMenu("More Mountains/Feedbacks/Shakers/PostProcessing/MMDepthOfFieldShaker_HDRP")]
 	public class MMDepthOfFieldShaker_HDRP : MMShaker
 	{
 		[MMInspectorGroup("Focus Distance", true, 53)]

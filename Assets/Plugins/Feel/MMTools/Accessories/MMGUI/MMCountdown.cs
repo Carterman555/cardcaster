@@ -1,14 +1,12 @@
 ﻿#if MM_UI
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 
-namespace MoreMountains.Tools
-{
-	[RequireComponent(typeof(Text))]
+namespace MoreMountains.Tools {
+    [RequireComponent(typeof(Text))]
 	[AddComponentMenu("More Mountains/Tools/Time/MMCountdown")]
 	public class MMCountdown : MMMonoBehaviour
 	{

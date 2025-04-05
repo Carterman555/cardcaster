@@ -1,11 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEditor;
+﻿using UnityEditor;
 using UnityEngine;
 
-namespace MoreMountains.Tools
-{
-	[CustomEditor(typeof(MMRadioSignalGenerator), true)]
+namespace MoreMountains.Tools {
+    [CustomEditor(typeof(MMRadioSignalGenerator), true)]
 	[CanEditMultipleObjects]
 	public class MMRadioSignalGeneratorEditor : MMRadioSignalEditor
 	{

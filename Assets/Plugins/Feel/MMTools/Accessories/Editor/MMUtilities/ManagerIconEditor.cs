@@ -1,13 +1,11 @@
 ﻿using UnityEngine;
 using UnityEditor;
-using System.Collections;
 
-namespace MoreMountains.Tools
-{
-	/// <summary>
-	/// This class adds names for each LevelMapPathElement next to it on the scene view, for easier setup
-	/// </summary>
-	[CustomEditor(typeof(MMSceneViewIcon))]
+namespace MoreMountains.Tools {
+    /// <summary>
+    /// This class adds names for each LevelMapPathElement next to it on the scene view, for easier setup
+    /// </summary>
+    [CustomEditor(typeof(MMSceneViewIcon))]
 	[InitializeOnLoad]
 	public class SceneViewIconEditor : Editor 
 	{		

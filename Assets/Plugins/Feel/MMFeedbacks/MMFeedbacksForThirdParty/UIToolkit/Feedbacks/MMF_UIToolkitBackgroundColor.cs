@@ -1,15 +1,13 @@
-﻿using System.Collections;
-using MoreMountains.Feedbacks;
+﻿using MoreMountains.Feedbacks;
 using UnityEngine;
 using UnityEngine.Scripting.APIUpdating;
 using UnityEngine.UIElements;
 
-namespace MoreMountains.FeedbacksForThirdParty
-{
-	/// <summary>
-	/// This feedback will let you change the background color of an element on a target UI Document
-	/// </summary>
-	[AddComponentMenu("")]
+namespace MoreMountains.FeedbacksForThirdParty {
+    /// <summary>
+    /// This feedback will let you change the background color of an element on a target UI Document
+    /// </summary>
+    [AddComponentMenu("")]
 	[FeedbackHelp("This feedback will let you change the background color of an element on a target UI Document")]
 	[FeedbackPath("UI Toolkit/UITK Background Color")]
 	[MovedFrom(false, null, "MoreMountains.Feedbacks.UIToolkit")]

@@ -1,13 +1,8 @@
-﻿using UnityEngine;
-using System.Collections;
-using System.Collections.Generic;
-
-namespace MoreMountains.Tools
-{
-	/// <summary>
-	/// An event type used to broadcast the fact that an achievement has been unlocked
-	/// </summary>
-	public struct MMAchievementUnlockedEvent
+﻿namespace MoreMountains.Tools {
+    /// <summary>
+    /// An event type used to broadcast the fact that an achievement has been unlocked
+    /// </summary>
+    public struct MMAchievementUnlockedEvent
 	{
 		/// the achievement that has been unlocked
 		public MMAchievement Achievement;

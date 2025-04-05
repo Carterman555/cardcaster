@@ -1,10 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace MoreMountains.Tools
-{
-	public class MMTweenDefinitions
+namespace MoreMountains.Tools {
+    public class MMTweenDefinitions
 	{
 		// Linear       ---------------------------------------------------------------------------------------------------------------------------
 

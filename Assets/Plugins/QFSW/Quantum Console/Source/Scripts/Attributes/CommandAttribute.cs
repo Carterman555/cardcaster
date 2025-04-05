@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Linq;
 using System.Runtime.CompilerServices;
 using UnityEngine;
 
-namespace QFSW.QC
-{
+namespace QFSW.QC {
     /// <summary>
     /// Marks the associated method as a command, allowing it to be loaded by the QuantumConsoleProcessor. This means it will be usable as a command from a Quantum Console.
     /// </summary>

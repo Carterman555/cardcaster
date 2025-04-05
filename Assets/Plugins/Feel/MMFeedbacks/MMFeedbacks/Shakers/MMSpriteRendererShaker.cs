@@ -1,14 +1,11 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using MoreMountains.Tools;
+﻿using MoreMountains.Tools;
 using UnityEngine;
 
-namespace MoreMountains.Feedbacks
-{
-	/// <summary>
-	/// Add this to a SpriteRenderer to have it receive MMSpriteRendererShakeEvents from feedbacks or to shake it locally
-	/// </summary>
-	[AddComponentMenu("More Mountains/Feedbacks/Shakers/Renderer/MMSpriteRendererShaker")]
+namespace MoreMountains.Feedbacks {
+    /// <summary>
+    /// Add this to a SpriteRenderer to have it receive MMSpriteRendererShakeEvents from feedbacks or to shake it locally
+    /// </summary>
+    [AddComponentMenu("More Mountains/Feedbacks/Shakers/Renderer/MMSpriteRendererShaker")]
 	[RequireComponent(typeof(SpriteRenderer))]
 	public class MMSpriteRendererShaker : MMShaker
 	{

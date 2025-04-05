@@ -1,13 +1,11 @@
 ﻿using UnityEngine;
-using System.Collections;
 using System.Collections.Generic;
 
-namespace MoreMountains.Tools
-{
-	/// <summary>
-	/// Color helpers
-	/// </summary>
-	public static class MMColors
+namespace MoreMountains.Tools {
+    /// <summary>
+    /// Color helpers
+    /// </summary>
+    public static class MMColors
 	{
 		// via https://gist.github.com/LotteMakesStuff/f7ce43f11e545a151b95b5e87f76304c
 		// NOTE: The follwing color names come from the CSS3 specification, Section 4.3 Extended Color Keywords

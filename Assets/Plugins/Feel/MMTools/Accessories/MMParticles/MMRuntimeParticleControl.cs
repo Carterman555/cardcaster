@@ -1,16 +1,12 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using Unity.Collections;
 using UnityEngine;
 
-namespace MoreMountains.Tools
-{
-	/// <summary>
-	/// Add this class to a particle system at runtime, and it'll expose controls to play/pause/stop it from the inspector
-	/// Because Unity's built-in controls somehow lack pause when in play mode
-	/// </summary>
-	[RequireComponent(typeof(ParticleSystem))]
+namespace MoreMountains.Tools {
+    /// <summary>
+    /// Add this class to a particle system at runtime, and it'll expose controls to play/pause/stop it from the inspector
+    /// Because Unity's built-in controls somehow lack pause when in play mode
+    /// </summary>
+    [RequireComponent(typeof(ParticleSystem))]
 	public class MMRuntimeParticleControl : MonoBehaviour
 	{
 		/// <summary>

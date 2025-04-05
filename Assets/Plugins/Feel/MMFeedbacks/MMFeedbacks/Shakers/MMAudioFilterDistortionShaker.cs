@@ -1,14 +1,11 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using MoreMountains.Tools;
+﻿using MoreMountains.Tools;
 using UnityEngine;
 
-namespace MoreMountains.Feedbacks
-{
-	/// <summary>
-	/// Add this to an audio distortion filter to shake its values remapped along a curve 
-	/// </summary>
-	[AddComponentMenu("More Mountains/Feedbacks/Shakers/Audio/MMAudioFilterDistortionShaker")]
+namespace MoreMountains.Feedbacks {
+    /// <summary>
+    /// Add this to an audio distortion filter to shake its values remapped along a curve 
+    /// </summary>
+    [AddComponentMenu("More Mountains/Feedbacks/Shakers/Audio/MMAudioFilterDistortionShaker")]
 	[RequireComponent(typeof(AudioDistortionFilter))]
 	public class MMAudioFilterDistortionShaker : MMShaker
 	{

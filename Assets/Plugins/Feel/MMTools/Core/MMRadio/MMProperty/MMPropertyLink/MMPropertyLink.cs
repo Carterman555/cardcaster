@@ -1,12 +1,8 @@
-﻿using System;
-using UnityEngine;
-
-namespace MoreMountains.Tools
-{
-	/// <summary>
-	/// A class, meant to be extended, used to control a MMProperty and get/set its value
-	/// </summary>
-	public abstract class MMPropertyLink
+﻿namespace MoreMountains.Tools {
+    /// <summary>
+    /// A class, meant to be extended, used to control a MMProperty and get/set its value
+    /// </summary>
+    public abstract class MMPropertyLink
 	{
 		protected bool _getterSetterInitialized = false;
         

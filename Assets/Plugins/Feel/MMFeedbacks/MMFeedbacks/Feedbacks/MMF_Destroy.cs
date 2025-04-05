@@ -1,14 +1,12 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Scripting.APIUpdating;
 
-namespace MoreMountains.Feedbacks
-{
-	/// <summary>
-	/// This feedback allows you to destroy a target gameobject, either via Destroy, DestroyImmediate, or SetActive:False
-	/// </summary>
-	[AddComponentMenu("")]
+namespace MoreMountains.Feedbacks {
+    /// <summary>
+    /// This feedback allows you to destroy a target gameobject, either via Destroy, DestroyImmediate, or SetActive:False
+    /// </summary>
+    [AddComponentMenu("")]
 	[FeedbackHelp("This feedback allows you to destroy a target gameobject, either via Destroy, DestroyImmediate, or SetActive:False")]
 	[MovedFrom(false, null, "MoreMountains.Feedbacks")]
 	[FeedbackPath("GameObject/Destroy")]

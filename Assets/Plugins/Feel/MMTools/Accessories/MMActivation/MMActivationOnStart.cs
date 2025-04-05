@@ -1,14 +1,12 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
-namespace MoreMountains.Tools
-{
-	/// <summary>
-	/// Use this class to enable or disable other gameobjects automatically on Start or Awake
-	/// </summary>
+namespace MoreMountains.Tools {
+    /// <summary>
+    /// Use this class to enable or disable other gameobjects automatically on Start or Awake
+    /// </summary>
 
-	[AddComponentMenu("More Mountains/Tools/Activation/MMActivationOnStart")]
+    [AddComponentMenu("More Mountains/Tools/Activation/MMActivationOnStart")]
 	public class MMActivationOnStart : MonoBehaviour
 	{
 		/// The possible modes that define whether this should run at Awake or Start

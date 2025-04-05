@@ -1,17 +1,15 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 #if ENABLE_INPUT_SYSTEM && !ENABLE_LEGACY_INPUT_MANAGER
 using UnityEngine.InputSystem;
 #endif
 
-namespace MoreMountains.Tools
-{
-	/// <summary>
-	/// A class used to store MMInputExecution bindings, associating a target keycode to UnityEvents
-	/// </summary>
-	[System.Serializable]
+namespace MoreMountains.Tools {
+    /// <summary>
+    /// A class used to store MMInputExecution bindings, associating a target keycode to UnityEvents
+    /// </summary>
+    [System.Serializable]
 	public class MMInputExecutionBinding
 	{
 		#if ENABLE_INPUT_SYSTEM && !ENABLE_LEGACY_INPUT_MANAGER

@@ -1,12 +1,6 @@
 using DG.Tweening;
-using MoreMountains.Feedbacks;
-using System.Collections;
-using System.Collections.Generic;
-using Unity.Collections.LowLevel.Unsafe;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.UIElements;
-using UnityEngine.Windows;
 using static HandCard;
 
 public class CardControllerInput : MonoBehaviour {

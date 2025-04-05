@@ -1,17 +1,13 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using MoreMountains.Tools;
+﻿using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Assertions;
 using UnityEngine.SceneManagement;
 using UnityEngine.Scripting.APIUpdating;
 
-namespace MoreMountains.Feedbacks
-{
-	/// <summary>
-	/// This feedback will instantiate a particle system and play/stop it when playing/stopping the feedback
-	/// </summary>
-	[AddComponentMenu("")]
+namespace MoreMountains.Feedbacks {
+    /// <summary>
+    /// This feedback will instantiate a particle system and play/stop it when playing/stopping the feedback
+    /// </summary>
+    [AddComponentMenu("")]
 	[FeedbackHelp("This feedback will instantiate the specified ParticleSystem at the specified position on Start or on Play, optionally nesting them.")]
 	[MovedFrom(false, null, "MoreMountains.Feedbacks")]
 	[FeedbackPath("Particles/Particles Instantiation")]

@@ -1,14 +1,12 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 using System.Reflection;
 using System;
 using System.Linq;
 
-namespace MoreMountains.Tools
-{
-	[CustomPropertyDrawer(typeof(MMPropertyPicker), true)]
+namespace MoreMountains.Tools {
+    [CustomPropertyDrawer(typeof(MMPropertyPicker), true)]
 	public class MMPropertyPickerDrawer : PropertyDrawer
 	{
 		public class PropertyPickerViewData

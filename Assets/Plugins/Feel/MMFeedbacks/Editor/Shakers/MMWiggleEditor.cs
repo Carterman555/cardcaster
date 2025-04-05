@@ -1,11 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEditor;
+﻿using UnityEditor;
 using UnityEngine;
 
-namespace MoreMountains.Feedbacks
-{
-	[CanEditMultipleObjects]
+namespace MoreMountains.Feedbacks {
+    [CanEditMultipleObjects]
 	[CustomEditor(typeof(MMWiggle), true)]
 	public class MMWiggleEditor : Editor
 	{

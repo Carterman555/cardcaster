@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -7,12 +6,11 @@ using MoreMountains.Tools;
 using UnityEditor;
 using UnityEngine;
 
-namespace MoreMountains.Feedbacks
-{
-	/// <summary>
-	/// A custom editor displaying a foldable list of MMFeedbacks, a dropdown to add more, as well as test buttons to test your feedbacks at runtime
-	/// </summary>
-	[CustomEditor(typeof(MMFeedbacks))]
+namespace MoreMountains.Feedbacks {
+    /// <summary>
+    /// A custom editor displaying a foldable list of MMFeedbacks, a dropdown to add more, as well as test buttons to test your feedbacks at runtime
+    /// </summary>
+    [CustomEditor(typeof(MMFeedbacks))]
 	public class MMFeedbacksEditor : Editor
 	{
 		/// <summary>

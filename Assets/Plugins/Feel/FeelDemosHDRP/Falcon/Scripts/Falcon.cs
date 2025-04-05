@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using MoreMountains.Feedbacks;
 using MoreMountains.Tools;
 using UnityEngine;
 
-namespace  MoreMountains.Feel
-{
-	[AddComponentMenu("")]
+namespace MoreMountains.Feel {
+    [AddComponentMenu("")]
 	public class Falcon : MonoBehaviour
 	{
 		[Header("Input")]

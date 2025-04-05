@@ -1,16 +1,11 @@
 using DG.Tweening;
 using MoreMountains.Feedbacks;
-using MoreMountains.Tools;
 using System;
 using System.Collections;
 using TMPro;
-using UnityEditor;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
-using static HandCard;
 
 public class HandCard : MonoBehaviour {
 

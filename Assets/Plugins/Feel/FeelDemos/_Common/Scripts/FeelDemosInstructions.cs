@@ -1,16 +1,14 @@
 ﻿#if MM_UI
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using MoreMountains.Tools;
 
-namespace MoreMountains.Feel
-{
-	/// <summary>
-	/// This class handles the instruction texts that appear in the Feel demo scenes
-	/// </summary>
-	public class FeelDemosInstructions : MonoBehaviour
+namespace MoreMountains.Feel {
+    /// <summary>
+    /// This class handles the instruction texts that appear in the Feel demo scenes
+    /// </summary>
+    public class FeelDemosInstructions : MonoBehaviour
 	{
 		[Header("Bindings")]
 		/// a text component where we'll display instructions

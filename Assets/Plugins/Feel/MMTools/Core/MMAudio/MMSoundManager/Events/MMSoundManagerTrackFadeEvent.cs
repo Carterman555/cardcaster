@@ -1,16 +1,11 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-namespace MoreMountains.Tools
-{
-	/// <summary>
-	/// This event will let you order the MMSoundManager to fade an entire track's sounds' volume towards the specified FinalVolume
-	///
-	/// Example : MMSoundManagerTrackFadeEvent.Trigger(MMSoundManager.MMSoundManagerTracks.Music, 2f, 0.5f, new MMTweenType(MMTween.MMTweenCurve.EaseInCubic));
-	/// will fade the volume of the music track towards 0.5, over 2 seconds, using an ease in cubic tween 
-	/// </summary>
-	public struct MMSoundManagerTrackFadeEvent
+﻿namespace MoreMountains.Tools {
+    /// <summary>
+    /// This event will let you order the MMSoundManager to fade an entire track's sounds' volume towards the specified FinalVolume
+    ///
+    /// Example : MMSoundManagerTrackFadeEvent.Trigger(MMSoundManager.MMSoundManagerTracks.Music, 2f, 0.5f, new MMTweenType(MMTween.MMTweenCurve.EaseInCubic));
+    /// will fade the volume of the music track towards 0.5, over 2 seconds, using an ease in cubic tween 
+    /// </summary>
+    public struct MMSoundManagerTrackFadeEvent
 	{
 		public enum Modes { PlayFade, StopFade }
 

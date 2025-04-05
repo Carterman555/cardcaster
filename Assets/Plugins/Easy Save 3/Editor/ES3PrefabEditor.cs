@@ -1,8 +1,4 @@
 ﻿using UnityEditor;
-using UnityEngine;
-using UnityEngine.SceneManagement;
-using System;
-using System.Collections;
 using ES3Internal;
 
 [CustomEditor(typeof(ES3Prefab))]

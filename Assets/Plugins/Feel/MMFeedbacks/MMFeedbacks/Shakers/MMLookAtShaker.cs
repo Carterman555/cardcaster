@@ -1,14 +1,11 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using MoreMountains.Tools;
+﻿using MoreMountains.Tools;
 using UnityEngine;
 
-namespace MoreMountains.Feedbacks
-{
-	/// <summary>
-	/// Add this to an object and it'll be able to listen for MMFLookAtShakeEvents, and when one is received, it will rotate its associated transform accordingly
-	/// </summary>
-	public class MMLookAtShaker : MMShaker
+namespace MoreMountains.Feedbacks {
+    /// <summary>
+    /// Add this to an object and it'll be able to listen for MMFLookAtShakeEvents, and when one is received, it will rotate its associated transform accordingly
+    /// </summary>
+    public class MMLookAtShaker : MMShaker
 	{
 		[MMInspectorGroup("Look at settings", true, 37)]
 		/// the duration of this shake, in seconds

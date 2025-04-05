@@ -1,14 +1,11 @@
 using MoreMountains.Tools;
-using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.PlayerLoop;
 
-namespace MoreMountains.Feedbacks
-{
-	/// <summary>
-	/// An abstract class used to build spring components to pilot various properties (float, vector2, vector3, color, etc)
-	/// </summary>
-	[MMRequiresConstantRepaintOnlyWhenPlaying]
+namespace MoreMountains.Feedbacks {
+    /// <summary>
+    /// An abstract class used to build spring components to pilot various properties (float, vector2, vector3, color, etc)
+    /// </summary>
+    [MMRequiresConstantRepaintOnlyWhenPlaying]
 	public abstract class MMSpringComponentBase : MMMonoBehaviour
 	{
 		/// the different possible timescale modes for the spring

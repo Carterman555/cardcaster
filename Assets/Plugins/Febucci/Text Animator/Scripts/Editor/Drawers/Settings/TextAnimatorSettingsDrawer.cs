@@ -1,9 +1,7 @@
-using System;
 using UnityEditor;
 using UnityEngine;
 
-namespace Febucci.UI
-{
+namespace Febucci.UI {
     [CustomEditor(typeof(TextAnimatorSettings))]
     public class TextAnimatorSettingsDrawer : Editor
     {

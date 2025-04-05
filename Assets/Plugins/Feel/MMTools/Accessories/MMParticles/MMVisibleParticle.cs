@@ -1,12 +1,10 @@
 ﻿using UnityEngine;
-using System.Collections;
 
-namespace MoreMountains.Tools
-{
-	/// <summary>
-	/// Adds this class to particles to force their sorting layer
-	/// </summary>
-	[AddComponentMenu("More Mountains/Tools/Particles/MMVisibleParticle")]
+namespace MoreMountains.Tools {
+    /// <summary>
+    /// Adds this class to particles to force their sorting layer
+    /// </summary>
+    [AddComponentMenu("More Mountains/Tools/Particles/MMVisibleParticle")]
 	public class MMVisibleParticle : MonoBehaviour {
 
 		/// <summary>

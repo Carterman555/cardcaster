@@ -1,17 +1,12 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using MoreMountains.Tools;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.Scripting.APIUpdating;
 
-namespace MoreMountains.Feedbacks
-{
-	/// <summary>
-	/// This feedback allows you to hold a reference, that can then be used by other feedbacks to automatically set their target.
-	/// It doesn't do anything when played. 
-	/// </summary>
-	[AddComponentMenu("")]
+namespace MoreMountains.Feedbacks {
+    /// <summary>
+    /// This feedback allows you to hold a reference, that can then be used by other feedbacks to automatically set their target.
+    /// It doesn't do anything when played. 
+    /// </summary>
+    [AddComponentMenu("")]
 	[FeedbackHelp("This feedback allows you to hold a reference, that can then be used by other feedbacks to automatically set their target. It doesn't do anything when played.")]
 	[MovedFrom(false, null, "MoreMountains.Feedbacks")]
 	[FeedbackPath("Feedbacks/MMF Reference Holder")]

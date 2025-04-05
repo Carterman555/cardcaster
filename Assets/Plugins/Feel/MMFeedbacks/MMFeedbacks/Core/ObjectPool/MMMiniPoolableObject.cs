@@ -1,15 +1,11 @@
 ﻿using UnityEngine;
-using System.Collections;
-using MoreMountains.Feedbacks;
-using System;
 
-namespace MoreMountains.Feedbacks
-{	
-	/// <summary>
-	/// Add this class to an object that you expect to pool from an objectPooler. 
-	/// Note that these objects can't be destroyed by calling Destroy(), they'll just be set inactive (that's the whole point).
-	/// </summary>
-	public class MMMiniPoolableObject : MonoBehaviour 
+namespace MoreMountains.Feedbacks {
+    /// <summary>
+    /// Add this class to an object that you expect to pool from an objectPooler. 
+    /// Note that these objects can't be destroyed by calling Destroy(), they'll just be set inactive (that's the whole point).
+    /// </summary>
+    public class MMMiniPoolableObject : MonoBehaviour 
 	{
 		public delegate void Events();
 		public event Events OnSpawnComplete;

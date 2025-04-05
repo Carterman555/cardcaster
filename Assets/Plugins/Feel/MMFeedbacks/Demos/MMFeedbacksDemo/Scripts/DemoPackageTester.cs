@@ -1,14 +1,12 @@
-using MoreMountains.Tools;
 using UnityEngine;
 using UnityEditor;
 
-namespace MoreMountains.Feedbacks
-{
-	/// <summary>
-	/// This class, meant to be used in MMFeedbacks demos, will check for requirements, and output an
-	/// error message if necessary.
-	/// </summary>
-	[AddComponentMenu("")]
+namespace MoreMountains.Feedbacks {
+    /// <summary>
+    /// This class, meant to be used in MMFeedbacks demos, will check for requirements, and output an
+    /// error message if necessary.
+    /// </summary>
+    [AddComponentMenu("")]
 	public class DemoPackageTester : MonoBehaviour
 	{
 		[MMFInformation("This component is only used to display an error in the console in case dependencies for this demo haven't been installed. You can safely remove it if you want, and typically you wouldn't want to keep that in your own game.", MMFInformationAttribute.InformationType.Warning, false)]

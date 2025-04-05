@@ -1,12 +1,10 @@
 ﻿using UnityEngine;
-using System.Collections;
 
-namespace MoreMountains.Tools
-{
-	/// <summary>
-	/// Add this class to a GameObject to make it rotate on itself
-	/// </summary>
-	[AddComponentMenu("More Mountains/Tools/Movement/MMAutoRotate")]
+namespace MoreMountains.Tools {
+    /// <summary>
+    /// Add this class to a GameObject to make it rotate on itself
+    /// </summary>
+    [AddComponentMenu("More Mountains/Tools/Movement/MMAutoRotate")]
 	public class MMAutoRotate : MonoBehaviour
 	{
 		public enum UpdateModes { Update, LateUpdate, FixedUpdate }

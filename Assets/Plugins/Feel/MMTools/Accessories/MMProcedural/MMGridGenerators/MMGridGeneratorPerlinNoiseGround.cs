@@ -1,14 +1,10 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using Random = System.Random;
+﻿using UnityEngine;
 
-namespace MoreMountains.Tools
-{
-	/// <summary>
-	/// Generates a grid with a ground floor
-	/// </summary>
-	public class MMGridGeneratorPerlinNoiseGround : MMGridGenerator
+namespace MoreMountains.Tools {
+    /// <summary>
+    /// Generates a grid with a ground floor
+    /// </summary>
+    public class MMGridGeneratorPerlinNoiseGround : MMGridGenerator
 	{
 		/// <summary>
 		/// Generates a grid with a ground floor

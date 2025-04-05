@@ -1,15 +1,12 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-namespace MoreMountains.Tools
-{
-	/// <summary>
-	/// Add this class on a Transform, and it'll record its position periodically
-	/// The Positions array can then be read from anywhere to know where that object was in the past
-	/// </summary>
-	public class MMPositionRecorder : MonoBehaviour
+namespace MoreMountains.Tools {
+    /// <summary>
+    /// Add this class on a Transform, and it'll record its position periodically
+    /// The Positions array can then be read from anywhere to know where that object was in the past
+    /// </summary>
+    public class MMPositionRecorder : MonoBehaviour
 	{
 		/// the possible modes to run this recorder on 
 		public enum Modes { Framecount, Time }

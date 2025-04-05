@@ -1,15 +1,13 @@
 ﻿using UnityEngine;
-using MoreMountains.Tools;
 #if (MM_TEXTMESHPRO || MM_UGUI2)
 using TMPro;
 #endif
 
-namespace MoreMountains.Feedbacks
-{
-	/// <summary>
-	/// A floating text variant using TextMeshPro instead of regular TextMesh
-	/// </summary>
-	public class MMFloatingTextMeshPro : MMFloatingText
+namespace MoreMountains.Feedbacks {
+    /// <summary>
+    /// A floating text variant using TextMeshPro instead of regular TextMesh
+    /// </summary>
+    public class MMFloatingTextMeshPro : MMFloatingText
 	{
 		#if (MM_TEXTMESHPRO || MM_UGUI2)
 		[Header("TextMeshPro")]

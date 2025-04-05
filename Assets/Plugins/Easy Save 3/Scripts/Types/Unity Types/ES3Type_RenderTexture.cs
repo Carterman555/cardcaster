@@ -1,8 +1,6 @@
-using System;
 using UnityEngine;
 
-namespace ES3Types
-{
+namespace ES3Types {
     [UnityEngine.Scripting.Preserve]
     [ES3PropertiesAttribute("width", "height", "dimension", "graphicsFormat", "useMipMap", "vrUsage", "memorylessMode", "format", "stencilFormat", "autoGenerateMips", "volumeDepth", "antiAliasing", "bindTextureMS", "enableRandomWrite", "useDynamicScale", "isPowerOfTwo", "depth", "descriptor", "masterTextureLimit", "anisotropicFiltering", "wrapMode", "wrapModeU", "wrapModeV", "wrapModeW", "filterMode", "anisoLevel", "mipMapBias", "imageContentsHash", "streamingTextureForceLoadAll", "streamingTextureDiscardUnusedMips", "allowThreadedTextureCreation", "name")]
     public class ES3Type_RenderTexture : ES3ObjectType

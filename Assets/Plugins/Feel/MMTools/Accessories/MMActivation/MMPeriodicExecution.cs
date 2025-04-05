@@ -1,14 +1,11 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.Events;
 
-namespace MoreMountains.Tools
-{
-	/// <summary>
-	/// This class will let you trigger a OnRandomInterval event periodically, at random intervals
-	/// </summary>
-	public class MMPeriodicExecution : MonoBehaviour
+namespace MoreMountains.Tools {
+    /// <summary>
+    /// This class will let you trigger a OnRandomInterval event periodically, at random intervals
+    /// </summary>
+    public class MMPeriodicExecution : MonoBehaviour
 	{
 		/// the min and max duration of the interval between two events, in seconds
 		[MMVector("Min", "Max")]

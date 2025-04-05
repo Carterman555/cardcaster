@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace MoreMountains.Feedbacks
-{
-	/// <summary>
-	/// This class lets you record sequences via input presses
-	/// </summary>
-	[AddComponentMenu("More Mountains/Feedbacks/Sequencing/MMInputSequenceRecorder")]
+namespace MoreMountains.Feedbacks {
+    /// <summary>
+    /// This class lets you record sequences via input presses
+    /// </summary>
+    [AddComponentMenu("More Mountains/Feedbacks/Sequencing/MMInputSequenceRecorder")]
 	[ExecuteAlways]
 	public class MMInputSequenceRecorder : MonoBehaviour
 	{

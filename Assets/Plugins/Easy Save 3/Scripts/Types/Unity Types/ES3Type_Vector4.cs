@@ -1,10 +1,7 @@
-﻿using System;
-using UnityEngine;
-using System.Collections.Generic;
+﻿using UnityEngine;
 
-namespace ES3Types
-{
-	[UnityEngine.Scripting.Preserve]
+namespace ES3Types {
+    [UnityEngine.Scripting.Preserve]
 	[ES3PropertiesAttribute("x", "y", "z", "w")]
 	public class ES3Type_Vector4 : ES3Type
 	{

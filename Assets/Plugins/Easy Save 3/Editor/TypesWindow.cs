@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 using System;
@@ -8,11 +7,9 @@ using System.Linq;
 using ES3Types;
 using System.IO;
 using ES3Internal;
-using System.Text.RegularExpressions;
 
-namespace ES3Editor
-{
-	public class TypesWindow : SubWindow
+namespace ES3Editor {
+    public class TypesWindow : SubWindow
 	{
 		TypeListItem[] types = null;
 		const int recentTypeCount = 5;

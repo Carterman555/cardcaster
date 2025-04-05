@@ -1,8 +1,6 @@
 ﻿using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using System;
-using System.Collections;
 using System.Collections.Generic;
 
 [CustomEditor(typeof(ES3ReferenceMgr))]

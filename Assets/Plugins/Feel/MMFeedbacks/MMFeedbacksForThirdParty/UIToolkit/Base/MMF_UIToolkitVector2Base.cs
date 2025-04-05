@@ -2,15 +2,12 @@ using System.Collections;
 using MoreMountains.Feedbacks;
 using MoreMountains.Tools;
 using UnityEngine;
-using UnityEngine.Serialization;
-using UnityEngine.UIElements;
 
-namespace MoreMountains.FeedbacksForThirdParty
-{
-	/// <summary>
-	/// A base feedback to set a vector2 on a target UI Document
-	/// </summary>
-	[AddComponentMenu("")]
+namespace MoreMountains.FeedbacksForThirdParty {
+    /// <summary>
+    /// A base feedback to set a vector2 on a target UI Document
+    /// </summary>
+    [AddComponentMenu("")]
 	public class MMF_UIToolkitVector2Base : MMF_UIToolkit
 	{
 		/// a static bool used to disable all feedbacks of this type at once

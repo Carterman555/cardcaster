@@ -1,15 +1,12 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using MoreMountains.Tools;
 using UnityEngine.Scripting.APIUpdating;
 
-namespace MoreMountains.Feedbacks
-{
-	/// <summary>
-	/// This feedback will trigger a post processing moving filter event, meant to be caught by a MMPostProcessingMovableFilter object
-	/// </summary>
-	[AddComponentMenu("")]
+namespace MoreMountains.Feedbacks {
+    /// <summary>
+    /// This feedback will trigger a post processing moving filter event, meant to be caught by a MMPostProcessingMovableFilter object
+    /// </summary>
+    [AddComponentMenu("")]
 	[FeedbackHelp("This feedback will trigger a post processing moving filter event, meant to be caught by a MMPostProcessingMovableFilter object")]
 	[MovedFrom(false, null, "MoreMountains.Feedbacks.MMTools")]
 	[FeedbackPath("PostProcess/PPMovingFilter")]

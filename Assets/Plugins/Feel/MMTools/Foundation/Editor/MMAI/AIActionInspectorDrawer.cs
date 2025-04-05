@@ -1,10 +1,8 @@
 ﻿using UnityEngine;
 using UnityEditor;
-using System.Collections;
 
-namespace MoreMountains.Tools
-{
-	[CustomPropertyDrawer(typeof(AIAction))]
+namespace MoreMountains.Tools {
+    [CustomPropertyDrawer(typeof(AIAction))]
 	public class AIActionPropertyInspector : PropertyDrawer
 	{
 		const float LineHeight = 16f;

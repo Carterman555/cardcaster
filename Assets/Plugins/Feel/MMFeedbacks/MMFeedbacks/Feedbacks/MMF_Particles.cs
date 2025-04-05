@@ -1,17 +1,13 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Assertions;
 using Random = UnityEngine.Random;
 using UnityEngine.Scripting.APIUpdating;
 
-namespace MoreMountains.Feedbacks
-{
-	/// <summary>
-	/// This feedback will play the associated particles system on play, and stop it on stop
-	/// </summary>
-	[AddComponentMenu("")]
+namespace MoreMountains.Feedbacks {
+    /// <summary>
+    /// This feedback will play the associated particles system on play, and stop it on stop
+    /// </summary>
+    [AddComponentMenu("")]
 	[FeedbackHelp("This feedback will simply play the specified ParticleSystem (from your scene) when played.")]
 	[MovedFrom(false, null, "MoreMountains.Feedbacks")]
 	[FeedbackPath("Particles/Particles Play")]

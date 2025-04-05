@@ -1,11 +1,9 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-namespace MoreMountains.Tools
-{
-	public class MMTilemapGridRenderer 
+namespace MoreMountains.Tools {
+    public class MMTilemapGridRenderer 
 	{
 		/// <summary>
 		/// Renders the specified grid on the specified tilemap, with optional slow mode (only works at runtime)

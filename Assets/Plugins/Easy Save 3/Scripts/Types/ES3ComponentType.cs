@@ -1,10 +1,8 @@
 using System;
 using UnityEngine;
-using System.Collections;
 using ES3Internal;
 
-namespace ES3Types
-{
+namespace ES3Types {
     [UnityEngine.Scripting.Preserve]
     public abstract class ES3ComponentType : ES3UnityObjectType
     {

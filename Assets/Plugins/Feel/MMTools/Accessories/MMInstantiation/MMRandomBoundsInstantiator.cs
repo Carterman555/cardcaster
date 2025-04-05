@@ -1,14 +1,12 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace MoreMountains.Tools
-{
-	/// <summary>
-	/// This class lets you randomly spawn objects within its bounds (defined by a 3D collider)
-	/// </summary>
-	[RequireComponent(typeof(Collider))]
+namespace MoreMountains.Tools {
+    /// <summary>
+    /// This class lets you randomly spawn objects within its bounds (defined by a 3D collider)
+    /// </summary>
+    [RequireComponent(typeof(Collider))]
 	public class MMRandomBoundsInstantiator : MonoBehaviour
 	{
 		/// the possible start modes

@@ -1,13 +1,10 @@
 // Copyright (c) Meta Platforms, Inc. and affiliates. 
 
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-namespace Lofelt.NiceVibrations
-{
+namespace Lofelt.NiceVibrations {
     public class WobbleButton : MonoBehaviour, IPointerExitHandler, IPointerEnterHandler
     {
         public RenderMode ParentCanvasRenderMode { get; protected set; }

@@ -1,14 +1,11 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace MoreMountains.Tools
-{
-	/// <summary>
-	/// Generates a grid with a path carved by a drunkard walk algorithm
-	/// See http://pcg.wikidot.com/pcg-algorithm:drunkard-walk
-	/// </summary>
-	public class MMGridGeneratorRandomWalk : MMGridGenerator
+namespace MoreMountains.Tools {
+    /// <summary>
+    /// Generates a grid with a path carved by a drunkard walk algorithm
+    /// See http://pcg.wikidot.com/pcg-algorithm:drunkard-walk
+    /// </summary>
+    public class MMGridGeneratorRandomWalk : MMGridGenerator
 	{
 		/// <summary>
 		/// Generates a grid with a path carved by a drunkard walk algorithm

@@ -1,9 +1,7 @@
-using Febucci.UI.Effects;
 using UnityEditor;
 using UnityEngine;
 
-namespace Febucci.UI.Core
-{
+namespace Febucci.UI.Core {
     [System.Serializable]
     class AnimationElementDrawer
     {

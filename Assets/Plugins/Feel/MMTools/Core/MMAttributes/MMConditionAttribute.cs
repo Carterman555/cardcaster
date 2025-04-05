@@ -1,12 +1,10 @@
 ﻿using UnityEngine;
 using System;
 #if UNITY_EDITOR
-using UnityEditor;
 #endif
 
-namespace MoreMountains.Tools
-{
-	[AttributeUsage(AttributeTargets.Field | AttributeTargets.Property | AttributeTargets.Class | AttributeTargets.Struct, Inherited = true)]
+namespace MoreMountains.Tools {
+    [AttributeUsage(AttributeTargets.Field | AttributeTargets.Property | AttributeTargets.Class | AttributeTargets.Struct, Inherited = true)]
 	public class MMConditionAttribute : PropertyAttribute
 	{
 		public string ConditionBoolean = "";

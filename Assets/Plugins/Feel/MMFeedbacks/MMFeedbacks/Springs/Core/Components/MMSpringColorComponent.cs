@@ -1,14 +1,11 @@
-using System.Collections;
 using MoreMountains.Tools;
 using UnityEngine;
-using UnityEngine.Serialization;
 
-namespace MoreMountains.Feedbacks
-{
-	/// <summary>
-	/// An event used to pilot a MMSpringColor component
-	/// </summary>
-	public struct MMSpringColorEvent
+namespace MoreMountains.Feedbacks {
+    /// <summary>
+    /// An event used to pilot a MMSpringColor component
+    /// </summary>
+    public struct MMSpringColorEvent
 	{
 		static MMSpringColorEvent e;
 		

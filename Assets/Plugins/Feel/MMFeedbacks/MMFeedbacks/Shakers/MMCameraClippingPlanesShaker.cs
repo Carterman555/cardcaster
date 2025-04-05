@@ -1,14 +1,11 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using MoreMountains.Tools;
+﻿using MoreMountains.Tools;
 using UnityEngine;
 
-namespace MoreMountains.Feedbacks
-{
-	/// <summary>
-	/// Add this to a camera and it'll let you control its near and far clipping planes
-	/// </summary>
-	[AddComponentMenu("More Mountains/Feedbacks/Shakers/Camera/MMCameraClippingPlanesShaker")]
+namespace MoreMountains.Feedbacks {
+    /// <summary>
+    /// Add this to a camera and it'll let you control its near and far clipping planes
+    /// </summary>
+    [AddComponentMenu("More Mountains/Feedbacks/Shakers/Camera/MMCameraClippingPlanesShaker")]
 	[RequireComponent(typeof(Camera))]
 	public class MMCameraClippingPlanesShaker : MMShaker
 	{

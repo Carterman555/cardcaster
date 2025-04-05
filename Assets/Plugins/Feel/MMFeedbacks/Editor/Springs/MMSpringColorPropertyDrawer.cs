@@ -1,12 +1,9 @@
-using MoreMountains.Tools;
-using UnityEngine;
 using UnityEditor;
 using UnityEditor.UIElements;
 using UnityEngine.UIElements;
 
-namespace MoreMountains.Feedbacks
-{
-	[CustomPropertyDrawer(typeof(MMSpringColor))]
+namespace MoreMountains.Feedbacks {
+    [CustomPropertyDrawer(typeof(MMSpringColor))]
 	class MMSpringColorPropertyDrawer : PropertyDrawer
 	{
 		protected float _lastTarget;

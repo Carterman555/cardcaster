@@ -1,11 +1,9 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using Febucci.UI.Core.Parsing;
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace Febucci.UI.Core
-{
+namespace Febucci.UI.Core {
     /// <summary>
     /// Base class for all Typewriters. <br/>
     /// - Manual: <see href="https://www.febucci.com/text-animator-unity/docs/typewriters/">Typewriters</see>.<br/>

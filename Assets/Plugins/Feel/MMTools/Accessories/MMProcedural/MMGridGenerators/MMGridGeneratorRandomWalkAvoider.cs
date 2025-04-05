@@ -1,13 +1,10 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace MoreMountains.Tools
-{
-	/// <summary>
-	/// Generates a grid with a path carved by a drunkard walk algorithm that will avoid another grid's walls
-	/// </summary>
-	public class MMGridGeneratorRandomWalkAvoider : MMGridGenerator
+namespace MoreMountains.Tools {
+    /// <summary>
+    /// Generates a grid with a path carved by a drunkard walk algorithm that will avoid another grid's walls
+    /// </summary>
+    public class MMGridGeneratorRandomWalkAvoider : MMGridGenerator
 	{
 		/// <summary>
 		/// Generates a grid with a path carved by a drunkard walk algorithm that will avoid another grid's walls

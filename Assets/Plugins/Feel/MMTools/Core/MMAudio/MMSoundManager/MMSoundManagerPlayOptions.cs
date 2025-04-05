@@ -1,15 +1,12 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
 
-namespace MoreMountains.Tools
-{
-	/// <summary>
-	/// A class used to store options for MMSoundManager play
-	/// </summary>
-	[Serializable]
+namespace MoreMountains.Tools {
+    /// <summary>
+    /// A class used to store options for MMSoundManager play
+    /// </summary>
+    [Serializable]
 	public struct MMSoundManagerPlayOptions
 	{
 		[HideInInspector]

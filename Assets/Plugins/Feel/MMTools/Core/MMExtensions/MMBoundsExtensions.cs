@@ -1,12 +1,10 @@
 ﻿using UnityEngine;
-using System.Collections;
 
-namespace MoreMountains.Tools
-{	
-	/// <summary>
-	/// Bounds helpers
-	/// </summary>
-	public class MMBoundsExtensions : MonoBehaviour 
+namespace MoreMountains.Tools {
+    /// <summary>
+    /// Bounds helpers
+    /// </summary>
+    public class MMBoundsExtensions : MonoBehaviour 
 	{
 		/// <summary>
 		/// Returns a random point within the bounds set as parameter

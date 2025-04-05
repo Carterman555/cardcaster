@@ -1,16 +1,12 @@
 ﻿#if MM_UI
 using UnityEngine;
-using System.Collections;
-using System;
-using MoreMountains.Tools;
 using UnityEngine.UI;
 
-namespace MoreMountains.Tools
-{	
-	/// <summary>
-	/// A class to add to an image to have it act like a button with a different sprite for on and off states
-	/// </summary>
-	public class MMDebugMenuSpriteReplace : MonoBehaviour 
+namespace MoreMountains.Tools {
+    /// <summary>
+    /// A class to add to an image to have it act like a button with a different sprite for on and off states
+    /// </summary>
+    public class MMDebugMenuSpriteReplace : MonoBehaviour 
 	{
 		/// the sprite to use when in the "on" state
 		public Sprite OnSprite;

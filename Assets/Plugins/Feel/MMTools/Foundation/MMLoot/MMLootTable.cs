@@ -1,22 +1,20 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
-namespace  MoreMountains.Tools
-{
-	/// <summary>
-	/// A loot table helper that can be used to randomly pick objects out of a weighted list
-	/// This design pattern was described in more details by Daniel Cook in 2014 in his blog :
-	/// https://lostgarden.home.blog/2014/12/08/loot-drop-tables/
-	///
-	/// This generic LootTable defines a list of objects to loot, each of them weighted.
-	/// The weights don't have to add to a certain number, they're relative to each other.
-	/// The ComputeWeights method determines, based on these weights, the chance percentage of each object to be picked
-	/// The GetLoot method returns one object, picked randomly from the table
-	/// </summary>
-	/// <typeparam name="T"></typeparam>
-	/// <typeparam name="V"></typeparam>
-	public class MMLootTable<T,V> where T:MMLoot<V>
+namespace MoreMountains.Tools {
+    /// <summary>
+    /// A loot table helper that can be used to randomly pick objects out of a weighted list
+    /// This design pattern was described in more details by Daniel Cook in 2014 in his blog :
+    /// https://lostgarden.home.blog/2014/12/08/loot-drop-tables/
+    ///
+    /// This generic LootTable defines a list of objects to loot, each of them weighted.
+    /// The weights don't have to add to a certain number, they're relative to each other.
+    /// The ComputeWeights method determines, based on these weights, the chance percentage of each object to be picked
+    /// The GetLoot method returns one object, picked randomly from the table
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <typeparam name="V"></typeparam>
+    public class MMLootTable<T,V> where T:MMLoot<V>
 	{
 		/// the list of objects that have a chance of being returned by the table
 		[SerializeField]

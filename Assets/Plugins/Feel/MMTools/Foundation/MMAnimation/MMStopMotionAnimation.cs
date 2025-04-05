@@ -1,10 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace MoreMountains.Tools
-{
-	[AddComponentMenu("More Mountains/Tools/Animation/MMStopMotionAnimation")]
+namespace MoreMountains.Tools {
+    [AddComponentMenu("More Mountains/Tools/Animation/MMStopMotionAnimation")]
 	public class MMStopMotionAnimation : MonoBehaviour
 	{
 		public enum FramerateModes { Manual, Automatic }

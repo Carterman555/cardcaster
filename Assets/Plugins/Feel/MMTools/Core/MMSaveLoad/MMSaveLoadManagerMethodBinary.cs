@@ -1,17 +1,11 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using System.IO;
-using System.Text;
-using System.Security.Cryptography;
+﻿using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 
-namespace MoreMountains.Tools
-{
-	/// <summary>
-	/// This save load method saves and loads files as binary files
-	/// </summary>
-	public class MMSaveLoadManagerMethodBinary : IMMSaveLoadManagerMethod
+namespace MoreMountains.Tools {
+    /// <summary>
+    /// This save load method saves and loads files as binary files
+    /// </summary>
+    public class MMSaveLoadManagerMethodBinary : IMMSaveLoadManagerMethod
 	{
 		/// <summary>
 		/// Saves the specified object to disk at the specified location after serializing it

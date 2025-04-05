@@ -1,13 +1,10 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace MoreMountains.Feedbacks
-{
-	/// <summary>
-	/// A variant of the Camera Shaker that acts on the rotation instead of the position. Careful, can cause vertigo to some users.
-	/// </summary>
-	public class MMCameraShakerRotation : MMCameraShaker
+namespace MoreMountains.Feedbacks {
+    /// <summary>
+    /// A variant of the Camera Shaker that acts on the rotation instead of the position. Careful, can cause vertigo to some users.
+    /// </summary>
+    public class MMCameraShakerRotation : MMCameraShaker
 	{
 		/// <summary>
 		/// Shakes the camera for Duration seconds, by the desired amplitude and frequency

@@ -1,13 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using System.IO;
 using System.Text;
-using System.Security.Cryptography;
 
-namespace MoreMountains.Tools
-{
-	public class MMSaveLoadManagerMethodJson : IMMSaveLoadManagerMethod
+namespace MoreMountains.Tools {
+    public class MMSaveLoadManagerMethodJson : IMMSaveLoadManagerMethod
 	{
 		/// <summary>
 		/// Saves the specified object at the specified location after converting it to json

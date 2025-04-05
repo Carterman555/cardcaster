@@ -2,14 +2,12 @@
 using UnityEngine;
 using UnityEngine.Audio;
 using MoreMountains.Tools;
-using UnityEngine.Scripting.APIUpdating;
 
-namespace MoreMountains.Feedbacks
-{
-	/// <summary>
-	/// A scriptable object used to store data for MMSoundManager play
-	/// </summary>
-	[Serializable]
+namespace MoreMountains.Feedbacks {
+    /// <summary>
+    /// A scriptable object used to store data for MMSoundManager play
+    /// </summary>
+    [Serializable]
 	[CreateAssetMenu(menuName = "MoreMountains/Audio/MMF_SoundData")]
 	public class MMF_MMSoundManagerSoundData : ScriptableObject
 	{

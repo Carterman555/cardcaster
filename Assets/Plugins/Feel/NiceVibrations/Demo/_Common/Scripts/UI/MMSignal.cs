@@ -1,11 +1,8 @@
 // Copyright (c) Meta Platforms, Inc. and affiliates. 
 
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-namespace Lofelt.NiceVibrations
-{
+namespace Lofelt.NiceVibrations {
     /// <summary>
     /// This class lets you output the value corresponding to one of the basic signal types it contains. Useful to draw basic signal curves.
     /// </summary>

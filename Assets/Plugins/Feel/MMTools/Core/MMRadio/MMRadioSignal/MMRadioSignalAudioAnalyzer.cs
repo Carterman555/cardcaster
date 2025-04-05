@@ -1,13 +1,10 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace MoreMountains.Tools
-{
-	/// <summary>
-	/// A class used to expose a beat level from a target MMAudioAnalyzer, to be broadcasted by a MMAudioBroadcaster
-	/// </summary>
-	public class MMRadioSignalAudioAnalyzer : MMRadioSignal
+namespace MoreMountains.Tools {
+    /// <summary>
+    /// A class used to expose a beat level from a target MMAudioAnalyzer, to be broadcasted by a MMAudioBroadcaster
+    /// </summary>
+    public class MMRadioSignalAudioAnalyzer : MMRadioSignal
 	{
 		[Header("Audio Analyzer")]
 		/// the MMAudioAnalyzer to read the value on

@@ -1,13 +1,10 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Text;
 using UnityEngine;
 #if MM_UI
 using UnityEngine.UI;
 
-namespace MoreMountains.Tools
-{
-	public class MMDebugOnScreenConsole : MonoBehaviour
+namespace MoreMountains.Tools {
+    public class MMDebugOnScreenConsole : MonoBehaviour
 	{
 		[Header("Bindings")]
 		public RectTransform Container;

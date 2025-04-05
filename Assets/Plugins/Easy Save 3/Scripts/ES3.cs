@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using ES3Internal;
 #if UNITY_2018_3_OR_NEWER

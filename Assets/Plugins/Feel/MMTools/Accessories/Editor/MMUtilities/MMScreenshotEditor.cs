@@ -1,12 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEditor;
 using System.IO;
 
-namespace MoreMountains.Tools
-{
-	[CustomEditor(typeof(MMAspectRatioSafeZones), true)]
+namespace MoreMountains.Tools {
+    [CustomEditor(typeof(MMAspectRatioSafeZones), true)]
 	public class MMScreenshotEditor : Editor
 	{
 		static string FolderName = "Screenshots";

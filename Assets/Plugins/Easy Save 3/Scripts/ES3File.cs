@@ -1,9 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System;
 using ES3Types;
-using UnityEngine;
 using ES3Internal;
 using System.Linq;
 
@@ -522,8 +520,7 @@ public class ES3File
     }
 }
 
-namespace ES3Internal
-{
+namespace ES3Internal {
     public struct ES3Data
     {
         public ES3Type type;

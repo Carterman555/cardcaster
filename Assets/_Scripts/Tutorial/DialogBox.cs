@@ -1,11 +1,7 @@
 ﻿using Febucci.UI;
-using QFSW.QC;
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.Localization.Settings;
 
 public class DialogBox : MonoBehaviour, IInitializable {
 

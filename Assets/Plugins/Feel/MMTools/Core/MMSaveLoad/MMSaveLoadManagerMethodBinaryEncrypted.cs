@@ -1,17 +1,13 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using System.IO;
-using System.Text;
 using System.Security.Cryptography;
 using System.Runtime.Serialization.Formatters.Binary;
 
-namespace MoreMountains.Tools
-{
-	/// <summary>
-	/// This save load method saves and loads files as encrypted binary files
-	/// </summary>
-	public class MMSaveLoadManagerMethodBinaryEncrypted : MMSaveLoadManagerEncrypter, IMMSaveLoadManagerMethod
+namespace MoreMountains.Tools {
+    /// <summary>
+    /// This save load method saves and loads files as encrypted binary files
+    /// </summary>
+    public class MMSaveLoadManagerMethodBinaryEncrypted : MMSaveLoadManagerEncrypter, IMMSaveLoadManagerMethod
 	{
 		/// <summary>
 		/// Saves the specified object to disk at the specified location after encrypting it 

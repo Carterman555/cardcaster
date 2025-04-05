@@ -1,13 +1,10 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace MoreMountains.Tools
-{
-	/// <summary>
-	/// A class used to pilot a MMPlaylist
-	/// </summary>
-	[AddComponentMenu("More Mountains/Tools/Audio/MMPlaylistRemote")]
+namespace MoreMountains.Tools {
+    /// <summary>
+    /// A class used to pilot a MMPlaylist
+    /// </summary>
+    [AddComponentMenu("More Mountains/Tools/Audio/MMPlaylistRemote")]
 	public class MMPlaylistRemote : MonoBehaviour
 	{
 		public int Channel = 0;

@@ -1,11 +1,8 @@
 ﻿using UnityEngine;
-using System.Collections;
-using MoreMountains.Tools;
 using System.Collections.Generic;
 
-namespace MoreMountains.Tools
-{
-	[CreateAssetMenu(fileName="AchievementList",menuName="MoreMountains/Achievement List")]
+namespace MoreMountains.Tools {
+    [CreateAssetMenu(fileName="AchievementList",menuName="MoreMountains/Achievement List")]
 	/// <summary>
 	/// A scriptable object containing a list of achievements. You need to create one and store it in a Resources folder for this to work.
 	/// </summary>

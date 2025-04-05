@@ -1,9 +1,7 @@
 using Febucci.UI.Core;
-using Febucci.UI.Effects;
 using UnityEngine;
 
-namespace Febucci.UI.Examples
-{
+namespace Febucci.UI.Examples {
     [AddComponentMenu("")]
     public class DefaultEffectsExample : MonoBehaviour
     {

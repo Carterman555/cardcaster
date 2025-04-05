@@ -1,14 +1,11 @@
 using UnityEngine;
-using System.Collections;
-using MoreMountains.Tools;
 using UnityEditor;
 
-namespace MoreMountains.Tools
-{	
-	/// <summary>
-	/// Adds a dedicated Tools menu into the top bar More Mountains entry to delete all saved data
-	/// </summary>
-	public static class MMSaveLoadMenu 
+namespace MoreMountains.Tools {
+    /// <summary>
+    /// Adds a dedicated Tools menu into the top bar More Mountains entry to delete all saved data
+    /// </summary>
+    public static class MMSaveLoadMenu 
 	{
 		[MenuItem("Tools/More Mountains/Delete all saved data",false,31)]
 		/// <summary>

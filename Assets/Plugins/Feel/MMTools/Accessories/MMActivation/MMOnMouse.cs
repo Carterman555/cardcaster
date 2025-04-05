@@ -1,14 +1,11 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.Events;
 
-namespace MoreMountains.Tools
-{
-	/// <summary>
-	/// Attach this class to a collider and it'll let you trigger events when the user clicks/drags/enters/etc that collider
-	/// </summary>
-	public class MMOnMouse : MonoBehaviour
+namespace MoreMountains.Tools {
+    /// <summary>
+    /// Attach this class to a collider and it'll let you trigger events when the user clicks/drags/enters/etc that collider
+    /// </summary>
+    public class MMOnMouse : MonoBehaviour
 	{
 		/// OnMouseDown is called when the user has pressed the mouse button while over the Collider.
 		[Tooltip("OnMouseDown is called when the user has pressed the mouse button while over the Collider.")]

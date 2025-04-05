@@ -27,11 +27,9 @@ using UnityEngine;
 // If any of the 3 conditions is not met, GamepadRumbler doesn't contain any calls into
 // UnityEngine.InputSystem, and CanPlay() always returns false.
 #if ((!UNITY_ANDROID && !UNITY_IOS) || UNITY_EDITOR) && NICE_VIBRATIONS_INPUTSYSTEM_INSTALLED && ENABLE_INPUT_SYSTEM && !NICE_VIBRATIONS_DISABLE_GAMEPAD_SUPPORT
-using UnityEngine.InputSystem;
 #endif
 
-namespace Lofelt.NiceVibrations
-{
+namespace Lofelt.NiceVibrations {
     /// <summary>
     /// Contains a vibration pattern to make a gamepad rumble.
     /// </summary>

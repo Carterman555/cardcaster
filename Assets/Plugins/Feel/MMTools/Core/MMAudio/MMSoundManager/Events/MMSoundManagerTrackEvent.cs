@@ -1,10 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-namespace MoreMountains.Tools
-{
-	public enum MMSoundManagerTrackEventTypes
+﻿namespace MoreMountains.Tools {
+    public enum MMSoundManagerTrackEventTypes
 	{
 		MuteTrack,
 		UnmuteTrack,

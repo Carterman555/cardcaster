@@ -1,7 +1,4 @@
-using System;
-using System.Runtime.CompilerServices;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Localization;
 using UnityEngine.Localization.Settings;

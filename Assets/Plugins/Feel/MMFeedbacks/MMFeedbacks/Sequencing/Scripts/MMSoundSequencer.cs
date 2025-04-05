@@ -1,16 +1,12 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 
-namespace MoreMountains.Feedbacks
-{
-	/// <summary>
-	/// A MMSequencer with ready made slots to play sounds
-	/// </summary>
-	[AddComponentMenu("More Mountains/Feedbacks/Sequencing/MMSoundSequencer")]
+namespace MoreMountains.Feedbacks {
+    /// <summary>
+    /// A MMSequencer with ready made slots to play sounds
+    /// </summary>
+    [AddComponentMenu("More Mountains/Feedbacks/Sequencing/MMSoundSequencer")]
 	public class MMSoundSequencer : MMSequencer
 	{
 		/// the list of audio clips to play (one per track)

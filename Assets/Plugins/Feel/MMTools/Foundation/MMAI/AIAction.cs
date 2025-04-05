@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace MoreMountains.Tools
-{
-	/// <summary>
-	/// Actions are behaviours and describe what your character is doing. Examples include patrolling, shooting, jumping, etc. 
-	/// </summary>
-	public abstract class AIAction : MonoBehaviour
+namespace MoreMountains.Tools {
+    /// <summary>
+    /// Actions are behaviours and describe what your character is doing. Examples include patrolling, shooting, jumping, etc. 
+    /// </summary>
+    public abstract class AIAction : MonoBehaviour
 	{
 		public enum InitializationModes { EveryTime, OnlyOnce, }
 		/// whether initialization should happen only once, or every time the brain is reset

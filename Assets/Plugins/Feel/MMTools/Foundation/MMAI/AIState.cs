@@ -1,10 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace MoreMountains.Tools
-{
-	[System.Serializable]
+namespace MoreMountains.Tools {
+    [System.Serializable]
 	public class AIActionsList : MMReorderableArray<AIAction>
 	{
 	}

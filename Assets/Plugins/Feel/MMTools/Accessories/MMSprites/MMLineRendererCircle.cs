@@ -1,11 +1,8 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-namespace MoreMountains.Tools
-{
-	[RequireComponent(typeof(LineRenderer))]
+namespace MoreMountains.Tools {
+    [RequireComponent(typeof(LineRenderer))]
 	public class MMLineRendererCircle : MonoBehaviour
 	{
 		/// the possible axis 

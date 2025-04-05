@@ -1,11 +1,7 @@
-﻿using UnityEngine;
-using System.Collections;
-using MoreMountains.Tools;
-using UnityEditor;
+﻿using UnityEditor;
 
-namespace MoreMountains.Tools
-{	
-	public static class MMAchievementMenu 
+namespace MoreMountains.Tools {
+    public static class MMAchievementMenu 
 	{
 		[MenuItem("Tools/More Mountains/Reset all achievements", false,21)]
 		/// <summary>

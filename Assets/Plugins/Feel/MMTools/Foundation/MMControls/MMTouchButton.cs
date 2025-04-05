@@ -1,18 +1,16 @@
 ﻿#if MM_UI
 using UnityEngine;
-using System.Collections;
 using UnityEngine.UI;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
 
-namespace MoreMountains.Tools
-{
-	/// <summary>
-	/// Add this component to a GUI Image to have it act as a button. 
-	/// Bind pressed down, pressed continually and released actions to it from the inspector
-	/// Handles mouse and multi touch
-	/// </summary>
-	[RequireComponent(typeof(Rect))]
+namespace MoreMountains.Tools {
+    /// <summary>
+    /// Add this component to a GUI Image to have it act as a button. 
+    /// Bind pressed down, pressed continually and released actions to it from the inspector
+    /// Handles mouse and multi touch
+    /// </summary>
+    [RequireComponent(typeof(Rect))]
 	[RequireComponent(typeof(CanvasGroup))]
 	[AddComponentMenu("More Mountains/Tools/Controls/MMTouchButton")]
 	public class MMTouchButton : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPointerExitHandler, IPointerEnterHandler, ISubmitHandler

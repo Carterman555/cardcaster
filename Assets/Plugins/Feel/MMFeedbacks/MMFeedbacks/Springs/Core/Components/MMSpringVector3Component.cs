@@ -1,13 +1,11 @@
 using MoreMountains.Tools;
 using UnityEngine;
-using UnityEngine.Serialization;
 
-namespace MoreMountains.Feedbacks
-{
-	/// <summary>
-	/// An event used to pilot a MMSpringVector3 component
-	/// </summary>
-	public struct MMSpringVector3Event
+namespace MoreMountains.Feedbacks {
+    /// <summary>
+    /// An event used to pilot a MMSpringVector3 component
+    /// </summary>
+    public struct MMSpringVector3Event
 	{
 		static MMSpringVector3Event e;
 		

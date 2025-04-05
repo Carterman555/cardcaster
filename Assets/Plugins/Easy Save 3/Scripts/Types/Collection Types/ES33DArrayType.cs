@@ -1,11 +1,9 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using ES3Internal;
 
-namespace ES3Types
-	{
-	public class ES33DArrayType : ES3CollectionType
+namespace ES3Types {
+    public class ES33DArrayType : ES3CollectionType
 	{
 		public ES33DArrayType(Type type) : base(type){}
 

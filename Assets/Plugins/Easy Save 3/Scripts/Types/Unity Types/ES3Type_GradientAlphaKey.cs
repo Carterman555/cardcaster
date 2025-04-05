@@ -1,9 +1,7 @@
-using System;
 using UnityEngine;
 
-namespace ES3Types
-{
-	[UnityEngine.Scripting.Preserve]
+namespace ES3Types {
+    [UnityEngine.Scripting.Preserve]
 	[ES3PropertiesAttribute("alpha", "time")]
 	public class ES3Type_GradientAlphaKey : ES3Type
 	{

@@ -1,14 +1,11 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using System.Collections.Generic;
 using System.Diagnostics;
 
-namespace MoreMountains.Tools
-{
-	/// <summary>
-	/// A struct to store data associated to speed tests
-	/// </summary>
-	public struct MMSpeedTestItem
+namespace MoreMountains.Tools {
+    /// <summary>
+    /// A struct to store data associated to speed tests
+    /// </summary>
+    public struct MMSpeedTestItem
 	{
 		/// the name of the test, has to be unique
 		public string TestID;

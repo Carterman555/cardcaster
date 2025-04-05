@@ -1,9 +1,5 @@
-﻿using System;
-using UnityEngine;
-
-namespace ES3Types
-{
-	[UnityEngine.Scripting.Preserve]
+﻿namespace ES3Types {
+    [UnityEngine.Scripting.Preserve]
 	public class ES3Type_long : ES3Type
 	{
 		public static ES3Type Instance = null;

@@ -1,13 +1,10 @@
 ﻿using UnityEngine;
-using System.Collections;
-using System.Collections.Generic;
 
-namespace MoreMountains.Tools
-{
-	/// <summary>
-	/// That class is meant to be extended to implement the achievement rules specific to your game.
-	/// </summary>
-	public abstract class MMAchievementRules : MonoBehaviour, MMEventListener<MMGameEvent>
+namespace MoreMountains.Tools {
+    /// <summary>
+    /// That class is meant to be extended to implement the achievement rules specific to your game.
+    /// </summary>
+    public abstract class MMAchievementRules : MonoBehaviour, MMEventListener<MMGameEvent>
 	{
 		public MMAchievementList AchievementList;
 		[MMInspectorButton("PrintCurrentStatus")]

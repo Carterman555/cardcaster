@@ -1,14 +1,11 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEditor;
 
-namespace MoreMountains.Tools
-{
-	/// <summary>
-	/// Custom editor for the MMScreenSafeZones component
-	/// </summary>
-	[CustomEditor(typeof(MMAspectRatioSafeZones), true)]
+namespace MoreMountains.Tools {
+    /// <summary>
+    /// Custom editor for the MMScreenSafeZones component
+    /// </summary>
+    [CustomEditor(typeof(MMAspectRatioSafeZones), true)]
 	[CanEditMultipleObjects]
 	public class MMAspectRatioSafeZonesEditor : Editor
 	{

@@ -1,11 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using MoreMountains.Feedbacks;
 using UnityEngine;
 
-namespace MoreMountains.Feel
-{
-	[AddComponentMenu("")]
+namespace MoreMountains.Feel {
+    [AddComponentMenu("")]
 	public class FeelCardsUIStackButton : MonoBehaviour
 	{
 		/// the MMFeedback to play when pressing the stack button

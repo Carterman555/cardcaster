@@ -1,14 +1,11 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-namespace MoreMountains.Tools
-{
-	/// <summary>
-	/// A simple struct used to store information about the sounds played by the MMSoundManager
-	/// </summary>
-	[Serializable]
+namespace MoreMountains.Tools {
+    /// <summary>
+    /// A simple struct used to store information about the sounds played by the MMSoundManager
+    /// </summary>
+    [Serializable]
 	public struct MMSoundManagerSound
 	{
 		/// the ID of the sound 

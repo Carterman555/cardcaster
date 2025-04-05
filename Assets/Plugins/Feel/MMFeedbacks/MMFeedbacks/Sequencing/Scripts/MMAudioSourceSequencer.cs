@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Events;
 
-namespace MoreMountains.Feedbacks
-{
-	/// <summary>
-	/// A MMSequencer with ready made slots to play AudioSources
-	/// </summary>
-	[AddComponentMenu("More Mountains/Feedbacks/Sequencing/MMAudioSourceSequencer")]
+namespace MoreMountains.Feedbacks {
+    /// <summary>
+    /// A MMSequencer with ready made slots to play AudioSources
+    /// </summary>
+    [AddComponentMenu("More Mountains/Feedbacks/Sequencing/MMAudioSourceSequencer")]
 	public class MMAudioSourceSequencer : MMSequencer
 	{
 		/// the list of audio sources to play (one per track)

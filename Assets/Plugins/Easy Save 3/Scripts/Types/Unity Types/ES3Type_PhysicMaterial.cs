@@ -1,7 +1,4 @@
-using System;
-
-namespace ES3Types
-{
+namespace ES3Types {
 #if UNITY_6000_0_OR_NEWER
     [UnityEngine.Scripting.Preserve]
     [ES3PropertiesAttribute("dynamicFriction", "staticFriction", "bounciness", "frictionCombine", "bounceCombine")]

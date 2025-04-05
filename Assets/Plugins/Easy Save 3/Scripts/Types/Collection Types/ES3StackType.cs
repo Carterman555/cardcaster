@@ -2,12 +2,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using ES3Internal;
-using System.Reflection;
 using System.Linq;
 
-namespace ES3Types
-{
-	[UnityEngine.Scripting.Preserve]
+namespace ES3Types {
+    [UnityEngine.Scripting.Preserve]
 	public class ES3StackType : ES3CollectionType
 	{
 		public ES3StackType(Type type) : base(type){}

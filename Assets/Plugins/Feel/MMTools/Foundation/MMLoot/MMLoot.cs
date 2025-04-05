@@ -1,15 +1,11 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using MoreMountains.Tools;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace  MoreMountains.Tools
-{
-	/// <summary>
-	/// A class defining the contents of a MMLootTable
-	/// </summary>
-	/// <typeparam name="T"></typeparam>
-	public class MMLoot<T>
+namespace MoreMountains.Tools {
+    /// <summary>
+    /// A class defining the contents of a MMLootTable
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    public class MMLoot<T>
 	{
 		/// the object to return
 		public T Loot;

@@ -1,10 +1,6 @@
-
-using Mono.CSharp;
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.VFX;
 
 [CreateAssetMenu(fileName = "DaggerShootCard", menuName = "Cards/Dagger Shoot Card")]
 public class ScriptableDaggerShootCard : ScriptableAbilityCardBase {

@@ -1,12 +1,8 @@
 ﻿using System;
-using UnityEngine;
-using System.Collections;
-using System.Collections.Generic;
 using ES3Internal;
 
-namespace ES3Types
-{
-	[UnityEngine.Scripting.Preserve]
+namespace ES3Types {
+    [UnityEngine.Scripting.Preserve]
 	public abstract class ES3ObjectType : ES3Type
 	{
 		public ES3ObjectType(Type type) : base(type) {}

@@ -1,14 +1,11 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEditor;
+﻿using UnityEditor;
 using UnityEngine;
 
-namespace MoreMountains.Feedbacks
-{
-	/// <summary>
-	/// Custom editor for sequence recorder
-	/// </summary>
-	[CustomEditor(typeof(MMInputSequenceRecorder), true)]
+namespace MoreMountains.Feedbacks {
+    /// <summary>
+    /// Custom editor for sequence recorder
+    /// </summary>
+    [CustomEditor(typeof(MMInputSequenceRecorder), true)]
 	[CanEditMultipleObjects]
 	public class MMInputSequenceRecorderEditor : Editor
 	{

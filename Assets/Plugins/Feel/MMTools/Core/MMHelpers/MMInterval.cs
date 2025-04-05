@@ -1,11 +1,8 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-namespace MoreMountains.Tools
-{
-	[Serializable]
+namespace MoreMountains.Tools {
+    [Serializable]
 	public struct MMInterval<T> where T : struct, IComparable
 	{
 		public enum MMIntervalType { Inclusive, Exclusive }

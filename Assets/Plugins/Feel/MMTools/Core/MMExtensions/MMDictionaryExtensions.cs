@@ -1,13 +1,10 @@
-﻿using UnityEngine;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
-namespace MoreMountains.Tools
-{
-	/// <summary>
-	/// Dictionary extensions
-	/// </summary>
-	public static class MMDictionaryExtensions
+namespace MoreMountains.Tools {
+    /// <summary>
+    /// Dictionary extensions
+    /// </summary>
+    public static class MMDictionaryExtensions
 	{
 		/// <summary>
 		/// Finds a key (if there's one) that matches the value set in parameters

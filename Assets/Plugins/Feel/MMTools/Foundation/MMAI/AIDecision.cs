@@ -1,14 +1,11 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 
-namespace MoreMountains.Tools
-{
-	/// <summary>
-	/// Decisions are components that will be evaluated by transitions, every frame, and will return true or false. Examples include time spent in a state, distance to a target, or object detection within an area.  
-	/// </summary>
-	public abstract class AIDecision : MonoBehaviour
+namespace MoreMountains.Tools {
+    /// <summary>
+    /// Decisions are components that will be evaluated by transitions, every frame, and will return true or false. Examples include time spent in a state, distance to a target, or object detection within an area.  
+    /// </summary>
+    public abstract class AIDecision : MonoBehaviour
 	{
 		/// Decide will be performed every frame while the Brain is in a state this Decision is in. Should return true or false, which will then determine the transition's outcome.
 		public abstract bool Decide();

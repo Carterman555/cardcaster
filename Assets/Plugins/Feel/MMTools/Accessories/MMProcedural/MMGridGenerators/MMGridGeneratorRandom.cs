@@ -1,14 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using MoreMountains.Tools;
-using UnityEngine;
-
-namespace MoreMountains.Tools
-{
-	/// <summary>
-	/// Generates a simple grid filled with random points 
-	/// </summary>
-	public class MMGridGeneratorRandom : MMGridGenerator
+﻿namespace MoreMountains.Tools {
+    /// <summary>
+    /// Generates a simple grid filled with random points 
+    /// </summary>
+    public class MMGridGeneratorRandom : MMGridGenerator
 	{
 		/// <summary>
 		/// Generates a simple grid filled with random points 

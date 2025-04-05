@@ -1,13 +1,10 @@
 ﻿using UnityEngine;
-using System.Collections;
-using MoreMountains.Tools;
 using System;
 using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 
-namespace MoreMountains.Tools
-{	
-	[Serializable]
+namespace MoreMountains.Tools {
+    [Serializable]
 	/// <summary>
 	/// Multiple object pooler object.
 	/// </summary>

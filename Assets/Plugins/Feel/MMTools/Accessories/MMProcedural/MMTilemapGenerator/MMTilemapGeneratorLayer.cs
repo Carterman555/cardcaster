@@ -1,15 +1,13 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-namespace MoreMountains.Tools
-{
-	/// <summary>
-	/// A class used to display a reoderable list of MMTilemapGeneratorLayers
-	/// </summary>
-	[System.Serializable]
+namespace MoreMountains.Tools {
+    /// <summary>
+    /// A class used to display a reoderable list of MMTilemapGeneratorLayers
+    /// </summary>
+    [System.Serializable]
 	public class MMTilemapGeneratorLayerList : MMReorderableArray<MMTilemapGeneratorLayer>
 	{
 	}

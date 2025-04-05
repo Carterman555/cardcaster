@@ -1,15 +1,13 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
-namespace MoreMountains.Tools
-{
-	/// <summary>
-	/// This class will let you mirror the behaviour of an Animator's parameters on a Source Animator onto the ones of a Target Animator.
-	/// Target will mirror Source.
-	/// Only the parameters existing on both Target and Source will be considered, you'll need to have the same on both before entering runtime.
-	/// </summary>
-	public class MMAnimatorMirror : MonoBehaviour
+namespace MoreMountains.Tools {
+    /// <summary>
+    /// This class will let you mirror the behaviour of an Animator's parameters on a Source Animator onto the ones of a Target Animator.
+    /// Target will mirror Source.
+    /// Only the parameters existing on both Target and Source will be considered, you'll need to have the same on both before entering runtime.
+    /// </summary>
+    public class MMAnimatorMirror : MonoBehaviour
 	{
 		/// a struct used to store bindings
 		public struct MMAnimatorMirrorBind

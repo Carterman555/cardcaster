@@ -1,16 +1,11 @@
-using System.Collections;
 using MoreMountains.Feedbacks;
-using MoreMountains.Tools;
 using UnityEngine;
-using UnityEngine.Serialization;
-using UnityEngine.UIElements;
 
-namespace MoreMountains.FeedbacksForThirdParty
-{
-	/// <summary>
-	/// A base feedback to set a bool on a target UI Document
-	/// </summary>
-	[AddComponentMenu("")]
+namespace MoreMountains.FeedbacksForThirdParty {
+    /// <summary>
+    /// A base feedback to set a bool on a target UI Document
+    /// </summary>
+    [AddComponentMenu("")]
 	public class MMF_UIToolkitBoolBase : MMF_UIToolkit
 	{
 		/// the duration of this feedback is the duration of the color transition, or 0 if instant

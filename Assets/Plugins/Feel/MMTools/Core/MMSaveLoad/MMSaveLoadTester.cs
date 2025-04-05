@@ -1,16 +1,13 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 #if MM_UI
 using UnityEngine.UI;
 #endif
 
-namespace MoreMountains.Tools
-{
-	/// <summary>
-	/// A test object to store data to test the MMSaveLoadManager class
-	/// </summary>
-	[System.Serializable]
+namespace MoreMountains.Tools {
+    /// <summary>
+    /// A test object to store data to test the MMSaveLoadManager class
+    /// </summary>
+    [System.Serializable]
 	public class MMSaveLoadTestObject
 	{
 		public string SavedText;

@@ -1,13 +1,11 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
-using System.Reflection;
 
-namespace MoreMountains.Tools
-{
-	/// <summary>
-	/// A class used to control the intensity of a light
-	/// </summary>
-	[AddComponentMenu("More Mountains/Tools/Property Controllers/LightController")]
+namespace MoreMountains.Tools {
+    /// <summary>
+    /// A class used to control the intensity of a light
+    /// </summary>
+    [AddComponentMenu("More Mountains/Tools/Property Controllers/LightController")]
 	public class LightController : MonoBehaviour
 	{
 		[Header("Binding")]

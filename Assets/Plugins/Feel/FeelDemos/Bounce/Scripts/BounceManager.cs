@@ -1,16 +1,12 @@
-﻿using MoreMountains.Feedbacks;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace MoreMountains.Feel
-{
-	/// <summary>
-	/// An example class part of the Feel demos
-	/// This class acts as a character controller for the Duck in the FeelDuck demo scene
-	/// It looks for input, and jumps when instructed to
-	/// </summary>
-	[AddComponentMenu("")]
+namespace MoreMountains.Feel {
+    /// <summary>
+    /// An example class part of the Feel demos
+    /// This class acts as a character controller for the Duck in the FeelDuck demo scene
+    /// It looks for input, and jumps when instructed to
+    /// </summary>
+    [AddComponentMenu("")]
 	public class BounceManager : MonoBehaviour
 	{ 
 		[Header("Cooldown")]

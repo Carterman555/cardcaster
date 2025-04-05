@@ -1,9 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace ES3Internal
-{
+namespace ES3Internal {
     public class ES3GlobalReferences : ScriptableObject
     {
 #if !UNITY_EDITOR || ES3GLOBAL_DISABLED

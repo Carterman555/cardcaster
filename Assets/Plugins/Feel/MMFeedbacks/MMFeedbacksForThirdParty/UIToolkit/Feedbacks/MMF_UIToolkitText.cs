@@ -1,16 +1,13 @@
-﻿using System.Collections;
-using MoreMountains.Feedbacks;
-using MoreMountains.Tools;
+﻿using MoreMountains.Feedbacks;
 using UnityEngine;
 using UnityEngine.UIElements;
 using UnityEngine.Scripting.APIUpdating;
 
-namespace MoreMountains.FeedbacksForThirdParty
-{
-	/// <summary>
-	/// This feedback will let you change the text an element on a target UI Document
-	/// </summary>
-	[AddComponentMenu("")]
+namespace MoreMountains.FeedbacksForThirdParty {
+    /// <summary>
+    /// This feedback will let you change the text an element on a target UI Document
+    /// </summary>
+    [AddComponentMenu("")]
 	[FeedbackHelp("This feedback will let you change the text an element on a target UI Document")]
 	[FeedbackPath("UI Toolkit/UITK Text")]
 	[MovedFrom(false, null, "MoreMountains.Feedbacks.UIToolkit")]

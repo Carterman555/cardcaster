@@ -1,18 +1,15 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using MoreMountains.Tools;
+﻿using MoreMountains.Tools;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.Scripting.APIUpdating;
 
-namespace MoreMountains.Feedbacks
-{
-	/// <summary>
-	/// This feedback will move the current "head" of an MMFeedbacks sequence back to another feedback above in the list.
-	/// What feedback the head lands on depends on your settings : you can decide to have it loop at last pause, or at the last LoopStart feedback in the list (or both).
-	/// Furthermore, you can decide to have it loop multiple times and cause a pause when met.
-	/// </summary>
-	[AddComponentMenu("")]
+namespace MoreMountains.Feedbacks {
+    /// <summary>
+    /// This feedback will move the current "head" of an MMFeedbacks sequence back to another feedback above in the list.
+    /// What feedback the head lands on depends on your settings : you can decide to have it loop at last pause, or at the last LoopStart feedback in the list (or both).
+    /// Furthermore, you can decide to have it loop multiple times and cause a pause when met.
+    /// </summary>
+    [AddComponentMenu("")]
 	[FeedbackHelp("This feedback will move the current 'head' of an MMFeedbacks sequence back to another feedback above in the list. " +
 	              "What feedback the head lands on depends on your settings : you can decide to have it loop at last pause, " +
 	              "or at the last LoopStart feedback in the list (or both). Furthermore, you can decide to have it loop multiple times and cause a pause when met.")]

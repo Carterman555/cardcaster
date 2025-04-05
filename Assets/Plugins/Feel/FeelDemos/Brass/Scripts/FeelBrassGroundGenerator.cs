@@ -1,16 +1,14 @@
 ﻿using System.Collections.Generic;
 using MoreMountains.Tools;
-using MoreMountains.Feedbacks;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Random = UnityEngine.Random;
 
-namespace MoreMountains.Feel
-{    
-	/// <summary>
-	/// A class used in Feel's Brass demo to generate a ground that reacts to the music made of many cubes
-	/// </summary>
-	[AddComponentMenu("")]
+namespace MoreMountains.Feel {
+    /// <summary>
+    /// A class used in Feel's Brass demo to generate a ground that reacts to the music made of many cubes
+    /// </summary>
+    [AddComponentMenu("")]
 	public class FeelBrassGroundGenerator : MonoBehaviour
 	{
 		[Header("Dimensions")]

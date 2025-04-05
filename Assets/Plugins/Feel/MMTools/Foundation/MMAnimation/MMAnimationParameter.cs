@@ -1,13 +1,10 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace MoreMountains.Tools
-{
-	/// <summary>
-	/// A helper class that will hash a animation parameter and update it on demand
-	/// </summary>
-	[AddComponentMenu("More Mountains/Tools/Animation/MMAnimationParameter")]
+namespace MoreMountains.Tools {
+    /// <summary>
+    /// A helper class that will hash a animation parameter and update it on demand
+    /// </summary>
+    [AddComponentMenu("More Mountains/Tools/Animation/MMAnimationParameter")]
 	public class MMAnimationParameter : MonoBehaviour
 	{
 		/// the name of the animation parameter to hash

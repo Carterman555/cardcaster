@@ -1,9 +1,7 @@
 ﻿using System;
-using System.ComponentModel;
 
-namespace ES3Internal
-{
-	public class ES3Member
+namespace ES3Internal {
+    public class ES3Member
 	{
 		public string name;
 		public Type type;

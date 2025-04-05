@@ -1,8 +1,6 @@
 ﻿using UnityEngine;
-using UnityEngine.AI;
 
-namespace NavMeshPlus.Extensions
-{
+namespace NavMeshPlus.Extensions {
     class AgentRotateSmooth2d: MonoBehaviour
     {
         public float angularSpeed;

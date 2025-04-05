@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
-namespace MoreMountains.Feedbacks
-{
-	/// the possible states for sequence notes
-	public enum MMSequenceTrackStates { Idle, Down, Up }
+namespace MoreMountains.Feedbacks {
+    /// the possible states for sequence notes
+    public enum MMSequenceTrackStates { Idle, Down, Up }
 
 	/// <summary>
 	/// A class describing the contents of a sequence note, basically a timestamp and the ID to play at that timestamp

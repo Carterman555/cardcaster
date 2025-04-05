@@ -1,9 +1,7 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace ES3Types
-{
-	[UnityEngine.Scripting.Preserve]
+namespace ES3Types {
+    [UnityEngine.Scripting.Preserve]
 	[ES3PropertiesAttribute("r", "g", "b", "a")]
 	public class ES3Type_Color : ES3Type
 	{

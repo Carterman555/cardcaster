@@ -1,13 +1,10 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace MoreMountains.Tools
-{
-	/// <summary>
-	/// Array extensions
-	/// </summary>
-	public static class MMArrayExtensions
+namespace MoreMountains.Tools {
+    /// <summary>
+    /// Array extensions
+    /// </summary>
+    public static class MMArrayExtensions
 	{
 		/// <summary>
 		/// Returns a random value inside the array

@@ -1,15 +1,11 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
-using System.Reflection;
+﻿using UnityEngine;
 using System;
-using UnityEngine.Events;
 
-namespace MoreMountains.Tools 
-{
-	/// <summary>
-	/// A class used to pick a property and modify its value
-	/// </summary>
-	[Serializable]
+namespace MoreMountains.Tools {
+    /// <summary>
+    /// A class used to pick a property and modify its value
+    /// </summary>
+    [Serializable]
 	public class MMPropertyReceiver : MMPropertyPicker
 	{
 		/// values will only be modified if this is true

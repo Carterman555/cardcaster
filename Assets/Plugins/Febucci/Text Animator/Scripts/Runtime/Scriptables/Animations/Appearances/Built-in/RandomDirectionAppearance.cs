@@ -1,9 +1,7 @@
 ﻿using Febucci.UI.Core;
-using Febucci.UI.Effects;
 using UnityEngine;
 
-namespace Febucci.UI.Effects
-{
+namespace Febucci.UI.Effects {
     [UnityEngine.Scripting.Preserve]
     [CreateAssetMenu(fileName = "RandomDir Appearance", menuName = "Text Animator/Animations/Appearances/Random Direction")]
     [EffectInfo("rdir", EffectCategory.Appearances)]

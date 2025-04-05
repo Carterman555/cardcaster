@@ -1,12 +1,10 @@
-﻿using UnityEngine;
-using System;
+﻿using System;
 
-namespace MoreMountains.Tools
-{
-	/// <summary>
-	/// Int property setter
-	/// </summary>
-	public class MMPropertyLinkInt : MMPropertyLink
+namespace MoreMountains.Tools {
+    /// <summary>
+    /// Int property setter
+    /// </summary>
+    public class MMPropertyLinkInt : MMPropertyLink
 	{
 		public Func<int> GetIntDelegate;
 		public Action<int> SetIntDelegate;

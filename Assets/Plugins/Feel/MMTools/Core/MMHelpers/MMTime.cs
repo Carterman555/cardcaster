@@ -1,14 +1,12 @@
 ﻿using UnityEngine;
-using System.Collections;
 using System;
 
-namespace MoreMountains.Tools
-{	
-	/// <summary>
-	/// Time helpers
-	/// </summary>
+namespace MoreMountains.Tools {
+    /// <summary>
+    /// Time helpers
+    /// </summary>
 
-	public class MMTime : MonoBehaviour 
+    public class MMTime : MonoBehaviour 
 	{
 		/// <summary>
 		/// Turns a float (expressed in seconds) into a string displaying hours, minutes, seconds and hundredths optionnally

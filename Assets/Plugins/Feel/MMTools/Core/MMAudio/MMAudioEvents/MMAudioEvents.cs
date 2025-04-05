@@ -1,11 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.Audio;
 
-namespace MoreMountains.Tools
-{
-	public class MMAudioEvents 
+namespace MoreMountains.Tools {
+    public class MMAudioEvents 
 	{
         
 	}

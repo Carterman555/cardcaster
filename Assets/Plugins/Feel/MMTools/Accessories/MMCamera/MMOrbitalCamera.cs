@@ -1,13 +1,11 @@
 ﻿using UnityEngine;
-using System.Collections;
 using UnityEngine.Events;
 
-namespace MoreMountains.Tools
-{
-	/// <summary>
-	/// A class used to make a camera orbit around a target
-	/// </summary>
-	[AddComponentMenu("More Mountains/Tools/Camera/MMOrbitalCamera")]
+namespace MoreMountains.Tools {
+    /// <summary>
+    /// A class used to make a camera orbit around a target
+    /// </summary>
+    [AddComponentMenu("More Mountains/Tools/Camera/MMOrbitalCamera")]
 	public class MMOrbitalCamera : MonoBehaviour
 	{
 		/// the possible input modes for this camera

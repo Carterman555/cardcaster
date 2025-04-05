@@ -1,9 +1,7 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-namespace AllIn1SpriteShader
-{
+namespace AllIn1SpriteShader {
     public class Demo2AutoScroll : MonoBehaviour
     {
         private Transform[] children;

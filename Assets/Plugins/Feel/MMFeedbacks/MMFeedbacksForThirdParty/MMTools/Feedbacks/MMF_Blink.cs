@@ -1,15 +1,12 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
-using MoreMountains.Tools;
 using UnityEngine.Scripting.APIUpdating;
 
-namespace MoreMountains.Feedbacks
-{
-	/// <summary>
-	/// This feedback will trigger a MMBlink object, letting you blink something
-	/// </summary>
-	[AddComponentMenu("")]
+namespace MoreMountains.Feedbacks {
+    /// <summary>
+    /// This feedback will trigger a MMBlink object, letting you blink something
+    /// </summary>
+    [AddComponentMenu("")]
 	[FeedbackHelp("This feedback lets you trigger a blink on an MMBlink object.")]
 	[FeedbackPath("Renderer/MMBlink")]
 	[MovedFrom(false, null, "MoreMountains.Feedbacks.MMTools")]

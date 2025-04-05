@@ -1,16 +1,13 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using MoreMountains.Tools;
 using UnityEngine;
-using UnityEngine.Serialization;
 using UnityEngine.Scripting.APIUpdating;
 
-namespace MoreMountains.Feedbacks
-{
-	/// <summary>
-	/// This feedback will animate the target's position (not its rotation), on an arc around the specified rotation center, for the specified duration (in seconds).
-	/// </summary>
-	[AddComponentMenu("")]
+namespace MoreMountains.Feedbacks {
+    /// <summary>
+    /// This feedback will animate the target's position (not its rotation), on an arc around the specified rotation center, for the specified duration (in seconds).
+    /// </summary>
+    [AddComponentMenu("")]
 	[FeedbackHelp("This feedback will animate the target's position (not its rotation), on an arc around the specified rotation center, for the specified duration (in seconds).")]
 	[MovedFrom(false, null, "MoreMountains.Feedbacks")]
 	[FeedbackPath("Transform/Rotate Position Around")]

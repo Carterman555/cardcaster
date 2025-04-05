@@ -1,8 +1,6 @@
 using UnityEditor;
-using UnityEngine;
 
-namespace Febucci.UI.Core.Editors
-{
+namespace Febucci.UI.Core.Editors {
     [CustomEditor(typeof(TypewriterByCharacter), true)]
     class TypewriterByCharacterDrawer : TypewriterCoreDrawer
     {

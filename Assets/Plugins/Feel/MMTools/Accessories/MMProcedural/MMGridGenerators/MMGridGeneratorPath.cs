@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using Random = UnityEngine.Random;
 
-namespace MoreMountains.Tools
-{
-	/// <summary>
-	/// Generates a grid with a path in the specified direction
-	/// </summary>
-	public class MMGridGeneratorPath : MMGridGenerator 
+namespace MoreMountains.Tools {
+    /// <summary>
+    /// Generates a grid with a path in the specified direction
+    /// </summary>
+    public class MMGridGeneratorPath : MMGridGenerator 
 	{
 		public enum Directions { TopToBottom, BottomToTop, LeftToRight, RightToLeft }
         

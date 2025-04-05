@@ -2,15 +2,13 @@
 #if MM_UI
 using UnityEngine.UI;
 using System.Collections;
-using System;
 
-namespace MoreMountains.Tools
-{
-	/// <summary>
-	/// Fade helpers
-	/// </summary>
+namespace MoreMountains.Tools {
+    /// <summary>
+    /// Fade helpers
+    /// </summary>
 
-	public static class MMFade
+    public static class MMFade
 	{
 
 		/// <summary>

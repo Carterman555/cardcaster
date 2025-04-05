@@ -2,10 +2,8 @@
 
 using UnityEngine;
 using UnityEngine.UI;
-using System.Collections;
 
-namespace Lofelt.NiceVibrations
-{
+namespace Lofelt.NiceVibrations {
     [RequireComponent(typeof(Text))]
     /// <summary>
     /// Add this class to a gameObject with a Text component and it'll feed it the number of FPS in real time.

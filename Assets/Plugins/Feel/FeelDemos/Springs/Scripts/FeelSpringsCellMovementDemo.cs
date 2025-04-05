@@ -1,16 +1,13 @@
 using MoreMountains.Feedbacks;
-using MoreMountains.Tools;
 #if MM_TEXTMESHPRO
-using TMPro;
 #endif
 using UnityEngine;
 #if ENABLE_INPUT_SYSTEM && !ENABLE_LEGACY_INPUT_MANAGER
 using UnityEngine.InputSystem;
 #endif
 
-namespace MoreMountains.Feel
-{
-	[AddComponentMenu("")]
+namespace MoreMountains.Feel {
+    [AddComponentMenu("")]
 	public class FeelSpringsCellMovementDemo : MonoBehaviour
 	{
 		[Header("Spring")] 

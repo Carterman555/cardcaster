@@ -1,15 +1,13 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using MoreMountains.Tools;
 using UnityEngine.Scripting.APIUpdating;
 
-namespace MoreMountains.Feedbacks
-{
-	/// <summary>
-	/// This feedback will trigger a one time play on a target FloatController
-	/// </summary>
-	[AddComponentMenu("")]
+namespace MoreMountains.Feedbacks {
+    /// <summary>
+    /// This feedback will trigger a one time play on a target FloatController
+    /// </summary>
+    [AddComponentMenu("")]
 	[FeedbackHelp("This feedback lets you trigger a one time play on a target FloatController.")]
 	[MovedFrom(false, null, "MoreMountains.Feedbacks.MMTools")]
 	[FeedbackPath("GameObject/FloatController")]

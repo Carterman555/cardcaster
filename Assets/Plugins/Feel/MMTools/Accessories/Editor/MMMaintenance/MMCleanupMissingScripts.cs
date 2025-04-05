@@ -1,14 +1,11 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEditor;
+﻿using UnityEditor;
 using UnityEngine;
 
-namespace MoreMountains.Tools
-{
-	/// <summary>
-	/// This class lets you clean all missing scripts on a selection of gameobjects
-	/// </summary>
-	public class MMCleanupMissingScripts : MonoBehaviour
+namespace MoreMountains.Tools {
+    /// <summary>
+    /// This class lets you clean all missing scripts on a selection of gameobjects
+    /// </summary>
+    public class MMCleanupMissingScripts : MonoBehaviour
 	{
 		/// <summary>
 		/// Processes the cleaning of gameobjects for all missing scripts on them

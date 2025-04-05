@@ -1,15 +1,12 @@
 ﻿using MoreMountains.Feedbacks;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-namespace  MoreMountains.Feel
-{
-	/// <summary>
-	/// A simple class used in Feel's Bounce demo scene.
-	/// It's meant to be piloted by an animator, that calls animator events at certain points of its "cube jumps" animation 
-	/// </summary>
-	[AddComponentMenu("")]
+namespace MoreMountains.Feel {
+    /// <summary>
+    /// A simple class used in Feel's Bounce demo scene.
+    /// It's meant to be piloted by an animator, that calls animator events at certain points of its "cube jumps" animation 
+    /// </summary>
+    [AddComponentMenu("")]
 	public class BounceFeedbacks : MonoBehaviour
 	{
 		/// a feedback to be played when the cube starts "charging"

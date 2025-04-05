@@ -1,15 +1,11 @@
 ﻿using UnityEngine;
 #if MM_UI
 using UnityEngine.UI;
-using System.Collections;
-using System.Collections.Generic;
-using MoreMountains.Feedbacks;
 using System;
 using MoreMountains.Tools;
 
-namespace MoreMountains.Feedbacks
-{
-	public struct MMFlashEvent
+namespace MoreMountains.Feedbacks {
+    public struct MMFlashEvent
 	{
 		static private event Delegate OnEvent;
 		[RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)] private static void RuntimeInitialization() { OnEvent = null; }

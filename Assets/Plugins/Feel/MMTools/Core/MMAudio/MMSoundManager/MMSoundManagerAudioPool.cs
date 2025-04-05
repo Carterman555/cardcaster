@@ -2,15 +2,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Audio;
 using UnityEngine.SceneManagement;
 
-namespace MoreMountains.Tools
-{
-	/// <summary>
-	/// This class manages an object pool of audiosources
-	/// </summary>
-	[Serializable]
+namespace MoreMountains.Tools {
+    /// <summary>
+    /// This class manages an object pool of audiosources
+    /// </summary>
+    [Serializable]
 	public class MMSoundManagerAudioPool 
 	{
 		protected List<AudioSource> _pool;

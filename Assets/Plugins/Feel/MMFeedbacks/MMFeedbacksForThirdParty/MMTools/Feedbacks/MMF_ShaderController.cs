@@ -1,16 +1,14 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using MoreMountains.Tools;
 using UnityEngine.Scripting.APIUpdating;
 
 #if MM_UI
-namespace MoreMountains.Feedbacks
-{
-	/// <summary>
-	/// This feedback will let you control values on a target ShaderController, letting you modify the behaviour and aspect of a shader driven material at runtime
-	/// </summary>
-	[AddComponentMenu("")]
+namespace MoreMountains.Feedbacks {
+    /// <summary>
+    /// This feedback will let you control values on a target ShaderController, letting you modify the behaviour and aspect of a shader driven material at runtime
+    /// </summary>
+    [AddComponentMenu("")]
 	[FeedbackHelp("This feedback lets you trigger a one time play on a target ShaderController.")]
 	[MovedFrom(false, null, "MoreMountains.Feedbacks.MMTools")]
 	[FeedbackPath("Renderer/ShaderController")]

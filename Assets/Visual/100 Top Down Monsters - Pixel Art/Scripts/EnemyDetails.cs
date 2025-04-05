@@ -1,9 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-namespace AdmurinsMonsters
-{
+namespace AdmurinsMonsters {
     public class EnemyDetails : MonoBehaviour
     {
         public bool hasMove, hasAbility, hasAttack, hasAttack2;

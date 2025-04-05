@@ -1,5 +1,4 @@
 using UnityEngine;
-using static System.Runtime.CompilerServices.RuntimeHelpers;
 
 public class HorizontalDoor : MonoBehaviour {
 

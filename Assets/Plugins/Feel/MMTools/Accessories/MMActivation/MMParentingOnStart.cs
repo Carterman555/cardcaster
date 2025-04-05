@@ -1,13 +1,10 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace MoreMountains.Tools
-{
-	/// <summary>
-	/// This component lets you parent the transform you put it on to any target parent (or to the root if none is set), on Awake, Start or anytime you call its Parent() method
-	/// </summary>
-	public class MMParentingOnStart : MonoBehaviour
+namespace MoreMountains.Tools {
+    /// <summary>
+    /// This component lets you parent the transform you put it on to any target parent (or to the root if none is set), on Awake, Start or anytime you call its Parent() method
+    /// </summary>
+    public class MMParentingOnStart : MonoBehaviour
 	{
 		/// the possible modes this can run on
 		public enum Modes { Awake, Start, Script }

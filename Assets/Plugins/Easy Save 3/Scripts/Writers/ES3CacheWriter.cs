@@ -1,14 +1,7 @@
-﻿using System.Collections.Generic;
-using System.Collections;
-using System.IO;
-using System;
-using UnityEngine;
-using System.Text;
-using System.Globalization;
+﻿using System;
 
-namespace ES3Internal
-{
-	internal class ES3CacheWriter : ES3Writer
+namespace ES3Internal {
+    internal class ES3CacheWriter : ES3Writer
 	{
         ES3File es3File;
 

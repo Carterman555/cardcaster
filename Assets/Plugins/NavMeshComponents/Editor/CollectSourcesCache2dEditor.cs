@@ -1,10 +1,8 @@
-﻿using UnityEngine.AI;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEditor;
 using NavMeshPlus.Extensions;
 
-namespace NavMeshPlus.Editors.Extensions
-{
+namespace NavMeshPlus.Editors.Extensions {
     [CanEditMultipleObjects]
     [CustomEditor(typeof(CollectSourcesCache2d))]
     internal class CollectSourcesCache2dEditor : Editor

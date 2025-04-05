@@ -1,14 +1,10 @@
-﻿using UnityEngine;
-using System.Collections;
-using MoreMountains.Tools;
-using UnityEditor;
+﻿using UnityEditor;
 
-namespace MoreMountains.Tools
-{	
-	/// <summary>
-	/// This class adds a MoreMountains entry in Unity's top menu, allowing to enable/disable the help texts from the engine's inspectors
-	/// </summary>
-	public static class MMMenuHelp
+namespace MoreMountains.Tools {
+    /// <summary>
+    /// This class adds a MoreMountains entry in Unity's top menu, allowing to enable/disable the help texts from the engine's inspectors
+    /// </summary>
+    public static class MMMenuHelp
 	{
 		[MenuItem("Tools/More Mountains/Enable Help in Inspectors", false,0)]
 		/// <summary>

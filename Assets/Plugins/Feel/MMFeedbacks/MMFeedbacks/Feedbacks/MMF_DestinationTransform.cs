@@ -1,15 +1,13 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using MoreMountains.Tools;
 using UnityEngine;
 using UnityEngine.Scripting.APIUpdating;
 
-namespace MoreMountains.Feedbacks
-{
-	/// <summary>
-	/// This feedback will let you animate the position/rotation/scale of a target transform to match the one of a destination transform.
-	/// </summary>
-	[AddComponentMenu("")]
+namespace MoreMountains.Feedbacks {
+    /// <summary>
+    /// This feedback will let you animate the position/rotation/scale of a target transform to match the one of a destination transform.
+    /// </summary>
+    [AddComponentMenu("")]
 	[FeedbackHelp("This feedback will let you animate the position/rotation/scale of a target transform to match the one of a destination transform.")]
 	[MovedFrom(false, null, "MoreMountains.Feedbacks")]
 	[FeedbackPath("Transform/Destination")]

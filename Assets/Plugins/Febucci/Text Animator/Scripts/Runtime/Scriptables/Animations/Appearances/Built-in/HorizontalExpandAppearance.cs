@@ -1,9 +1,7 @@
 ﻿using Febucci.UI.Core;
-using Febucci.UI.Effects;
 using UnityEngine;
 
-namespace Febucci.UI.Effects
-{
+namespace Febucci.UI.Effects {
     [UnityEngine.Scripting.Preserve]
     [CreateAssetMenu(fileName = "Horizontal Expand Appearance", menuName = "Text Animator/Animations/Appearances/Horizontal Expand")]
     [EffectInfo("horiexp", EffectCategory.Appearances)]

@@ -1,13 +1,10 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace MoreMountains.Tools
-{
-	/// <summary>
-	/// This class lets you output the value corresponding to one of the basic signal types it contains. Useful to draw basic signal curves.
-	/// </summary>
-	public class MMSignal
+namespace MoreMountains.Tools {
+    /// <summary>
+    /// This class lets you output the value corresponding to one of the basic signal types it contains. Useful to draw basic signal curves.
+    /// </summary>
+    public class MMSignal
 	{
 		public enum SignalType
 		{

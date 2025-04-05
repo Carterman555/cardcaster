@@ -1,38 +1,35 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace  MoreMountains.Feedbacks
-{
-	/// <summary>
-	/// Events triggered by a MMFeedbacks when playing a series of feedbacks
-	/// - play : when a MMFeedbacks starts playing
-	/// - pause : when a holding pause is met
-	/// - resume : after a holding pause resumes
-	/// - revert : when a MMFeedbacks reverts its play direction
-	/// - complete : when a MMFeedbacks has played its last feedback
-	///
-	/// to listen to these events :
-	///
-	/// public virtual void OnMMFeedbacksEvent(MMFeedbacks source, EventTypes type)
-	/// {
-	///     // do something
-	/// }
-	/// 
-	/// protected virtual void OnEnable()
-	/// {
-	///     MMFeedbacksEvent.Register(OnMMFeedbacksEvent);
-	/// }
-	/// 
-	/// protected virtual void OnDisable()
-	/// {
-	///     MMFeedbacksEvent.Unregister(OnMMFeedbacksEvent);
-	/// }
-	/// 
-	/// </summary>
-	public struct MMFeedbacksEvent
+namespace MoreMountains.Feedbacks {
+    /// <summary>
+    /// Events triggered by a MMFeedbacks when playing a series of feedbacks
+    /// - play : when a MMFeedbacks starts playing
+    /// - pause : when a holding pause is met
+    /// - resume : after a holding pause resumes
+    /// - revert : when a MMFeedbacks reverts its play direction
+    /// - complete : when a MMFeedbacks has played its last feedback
+    ///
+    /// to listen to these events :
+    ///
+    /// public virtual void OnMMFeedbacksEvent(MMFeedbacks source, EventTypes type)
+    /// {
+    ///     // do something
+    /// }
+    /// 
+    /// protected virtual void OnEnable()
+    /// {
+    ///     MMFeedbacksEvent.Register(OnMMFeedbacksEvent);
+    /// }
+    /// 
+    /// protected virtual void OnDisable()
+    /// {
+    ///     MMFeedbacksEvent.Unregister(OnMMFeedbacksEvent);
+    /// }
+    /// 
+    /// </summary>
+    public struct MMFeedbacksEvent
 	{
 		static private event Delegate OnEvent;
 		[RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)] private static void RuntimeInitialization() { OnEvent = null; }

@@ -1,14 +1,11 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEditor;
 
-namespace MoreMountains.Tools
-{
-	/// <summary>
-	/// Custom editor for the FloatController, conditional hiding and dropdown fill
-	/// </summary>
-	[CustomEditor(typeof(FloatController), true)]
+namespace MoreMountains.Tools {
+    /// <summary>
+    /// Custom editor for the FloatController, conditional hiding and dropdown fill
+    /// </summary>
+    [CustomEditor(typeof(FloatController), true)]
 	[CanEditMultipleObjects]    
 	public class FloatControllerEditor : Editor
 	{

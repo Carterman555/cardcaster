@@ -1,10 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
-namespace AllIn1SpriteShader
-{
+namespace AllIn1SpriteShader {
     public class All1TextureOffsetOverTime : MonoBehaviour
     {
         [SerializeField] private string texturePropertyName = "_MainTex";

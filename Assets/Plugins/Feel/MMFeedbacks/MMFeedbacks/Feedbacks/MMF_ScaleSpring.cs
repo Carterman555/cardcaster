@@ -1,18 +1,15 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Generic;
 using MoreMountains.Tools;
 using UnityEngine;
-using UnityEngine.Serialization;
 using UnityEngine.Scripting.APIUpdating;
 using Random = UnityEngine.Random;
 
-namespace MoreMountains.Feedbacks
-{
-	/// <summary>
-	/// This feedback will let you animate the scale of the target object over time, with a spring effect
-	/// </summary>
-	[AddComponentMenu("")]
+namespace MoreMountains.Feedbacks {
+    /// <summary>
+    /// This feedback will let you animate the scale of the target object over time, with a spring effect
+    /// </summary>
+    [AddComponentMenu("")]
 	[MovedFrom(false, null, "MoreMountains.Feedbacks")]
 	[FeedbackPath("Transform/Scale Spring")]
 	[FeedbackHelp("This feedback will let you animate the scale of the target object over time, with a spring effect.")]

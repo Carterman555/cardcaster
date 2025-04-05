@@ -1,14 +1,12 @@
 ﻿using UnityEngine;
-using System.Collections;
 using UnityEngine.SceneManagement;
 using UnityEngine.Scripting.APIUpdating;
 
-namespace MoreMountains.Feedbacks
-{
-	/// <summary>
-	/// This feedback lets you unload a scene by name or build index
-	/// </summary>
-	[AddComponentMenu("")]
+namespace MoreMountains.Feedbacks {
+    /// <summary>
+    /// This feedback lets you unload a scene by name or build index
+    /// </summary>
+    [AddComponentMenu("")]
 	[FeedbackHelp("This feedback lets you unload a scene by name or build index")]
 	[MovedFrom(false, null, "MoreMountains.Feedbacks")]
 	[FeedbackPath("Scene/Unload Scene")]

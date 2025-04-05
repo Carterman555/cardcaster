@@ -1,13 +1,9 @@
 ﻿using System;
-using UnityEngine;
 using System.Collections;
-using System.Collections.Generic;
 using ES3Internal;
-using System.Linq;
 
-namespace ES3Types
-{
-	[System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+namespace ES3Types {
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
 	[UnityEngine.Scripting.Preserve]
 	public abstract class ES3Type
 	{

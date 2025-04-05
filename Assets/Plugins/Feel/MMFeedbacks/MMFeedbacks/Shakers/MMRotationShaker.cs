@@ -1,16 +1,13 @@
-﻿using System;
-using System.Collections;
-using MoreMountains.Tools;
+﻿using MoreMountains.Tools;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-namespace MoreMountains.Feedbacks
-{
-	/// <summary>
-	/// This shaker will let you move the rotation of a transform, either once or permanently, shaking its rotation for the specified duration and within the specified range.
-	/// You can apply that shake along a direction, randomized or not, with optional noise and attenuation
-	/// </summary>
-	public class MMRotationShaker : MMShaker
+namespace MoreMountains.Feedbacks {
+    /// <summary>
+    /// This shaker will let you move the rotation of a transform, either once or permanently, shaking its rotation for the specified duration and within the specified range.
+    /// You can apply that shake along a direction, randomized or not, with optional noise and attenuation
+    /// </summary>
+    public class MMRotationShaker : MMShaker
 	{
 		public enum Modes { Transform, RectTransform }
 

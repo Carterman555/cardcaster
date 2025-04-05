@@ -2,14 +2,12 @@ using System.Collections;
 using MoreMountains.Feedbacks;
 using UnityEngine;
 using UnityEngine.Serialization;
-using UnityEngine.UIElements;
 
-namespace MoreMountains.FeedbacksForThirdParty
-{
-	/// <summary>
-	/// A base feedback to set a color on a target UI Document
-	/// </summary>
-	[AddComponentMenu("")]
+namespace MoreMountains.FeedbacksForThirdParty {
+    /// <summary>
+    /// A base feedback to set a color on a target UI Document
+    /// </summary>
+    [AddComponentMenu("")]
 	public class MMF_UIToolkitColorBase : MMF_UIToolkit
 	{
 		/// the duration of this feedback is whatever value's been defined for it

@@ -1,14 +1,10 @@
 ﻿#if UNITY_EDITOR
 
-using System;
 using UnityEngine;
 using UnityEditor;
-using System.Collections.Generic;
-using System.Reflection;
 
-namespace MoreMountains.Tools
-{	
-	[CustomPropertyDrawer (typeof(MMInformationAttribute))]
+namespace MoreMountains.Tools {
+    [CustomPropertyDrawer (typeof(MMInformationAttribute))]
 	/// <summary>
 	/// This class allows the display of a message box (warning, info, error...) next to a property (before or after)
 	/// </summary>

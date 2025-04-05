@@ -1,14 +1,9 @@
-﻿using System.Collections.Generic;
-using System.Collections;
-using System.IO;
+﻿using System.IO;
 using System;
-using UnityEngine;
-using System.Text;
 using System.Globalization;
 
-namespace ES3Internal
-{
-	internal class ES3JSONWriter : ES3Writer
+namespace ES3Internal {
+    internal class ES3JSONWriter : ES3Writer
 	{
 		internal StreamWriter baseWriter;
 

@@ -1,16 +1,14 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using MoreMountains.Tools;
 using UnityEngine.SceneManagement;
 using UnityEngine.Scripting.APIUpdating;
 
-namespace MoreMountains.Feedbacks
-{
-	/// <summary>
-	/// This feedback will request the load of a new scene, using the method of your choice
-	/// </summary>
-	[AddComponentMenu("")]
+namespace MoreMountains.Feedbacks {
+    /// <summary>
+    /// This feedback will request the load of a new scene, using the method of your choice
+    /// </summary>
+    [AddComponentMenu("")]
 	[FeedbackHelp("This feedback will request the load of a new scene, using the method of your choice")]
 	[MovedFrom(false, null, "MoreMountains.Feedbacks.MMTools")]
 	[FeedbackPath("Scene/Load Scene")]

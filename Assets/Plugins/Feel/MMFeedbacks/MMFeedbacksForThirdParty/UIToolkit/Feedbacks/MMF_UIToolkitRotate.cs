@@ -1,15 +1,13 @@
-﻿using System.Collections;
-using MoreMountains.Feedbacks;
+﻿using MoreMountains.Feedbacks;
 using UnityEngine;
 using UnityEngine.UIElements;
 using UnityEngine.Scripting.APIUpdating;
 
-namespace MoreMountains.FeedbacksForThirdParty
-{
-	/// <summary>
-	/// This feedback will let you rotate an element on a target UI Document
-	/// </summary>
-	[AddComponentMenu("")]
+namespace MoreMountains.FeedbacksForThirdParty {
+    /// <summary>
+    /// This feedback will let you rotate an element on a target UI Document
+    /// </summary>
+    [AddComponentMenu("")]
 	[FeedbackHelp("This feedback will let you rotate an element on a target UI Document")]
 	[FeedbackPath("UI Toolkit/UITK Rotate")]
 	[MovedFrom(false, null, "MoreMountains.Feedbacks.UIToolkit")]

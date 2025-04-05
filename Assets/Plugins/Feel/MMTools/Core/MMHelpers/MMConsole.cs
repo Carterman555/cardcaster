@@ -1,14 +1,12 @@
 ﻿using UnityEngine;
-using System.Collections;
 
-namespace MoreMountains.Tools
-{	
-	/// <summary>
-	/// This class displays an on-screen console for easier debugging
-	/// DO NOT ADD THIS CLASS AS A COMPONENT.
-	/// Instead, use the MMDebug.DebugOnScreen methods that will take care of everything
-	/// </summary>
-	public class MMConsole : MonoBehaviour 
+namespace MoreMountains.Tools {
+    /// <summary>
+    /// This class displays an on-screen console for easier debugging
+    /// DO NOT ADD THIS CLASS AS A COMPONENT.
+    /// Instead, use the MMDebug.DebugOnScreen methods that will take care of everything
+    /// </summary>
+    public class MMConsole : MonoBehaviour 
 	{
 		protected string _messageStack;
 

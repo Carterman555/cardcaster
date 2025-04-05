@@ -1,14 +1,10 @@
 ﻿using UnityEngine;
-using System.Collections;
-using System;
 #if MM_UI
 using UnityEngine.EventSystems;
-using UnityEngine.UI;
 #endif
 
-namespace MoreMountains.Tools
-{
-	public static class MMGUI 
+namespace MoreMountains.Tools {
+    public static class MMGUI 
 	{
 		/// <summary>
 		/// Sets the size of a rect transform to the specified one

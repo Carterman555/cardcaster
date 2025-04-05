@@ -1,14 +1,12 @@
 ﻿using UnityEngine;
 #if MM_UI
 using UnityEngine.UI;
-using System.Collections;
 
-namespace MoreMountains.Tools
-{
-	/// <summary>
-	/// Add this class to a gameObject with a Text component and it'll feed it the number of FPS in real time.
-	/// </summary>
-	[RequireComponent(typeof(Text))]
+namespace MoreMountains.Tools {
+    /// <summary>
+    /// Add this class to a gameObject with a Text component and it'll feed it the number of FPS in real time.
+    /// </summary>
+    [RequireComponent(typeof(Text))]
 	[AddComponentMenu("More Mountains/Tools/Performance/MMFPSCounter")]
 	public class MMFPSCounter : MonoBehaviour
 	{

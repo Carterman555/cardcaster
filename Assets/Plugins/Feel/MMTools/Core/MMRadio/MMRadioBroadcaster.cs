@@ -1,14 +1,11 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace MoreMountains.Tools
-{
-	/// <summary>
-	/// A class used to broadcast a level to MMRadioReceiver(s), either directly or via events
-	/// It can read from pretty much any value on any class
-	/// </summary>
-	[MMRequiresConstantRepaint]
+namespace MoreMountains.Tools {
+    /// <summary>
+    /// A class used to broadcast a level to MMRadioReceiver(s), either directly or via events
+    /// It can read from pretty much any value on any class
+    /// </summary>
+    [MMRequiresConstantRepaint]
 	public class MMRadioBroadcaster : MMMonoBehaviour
 	{
 		[Header("Source")]

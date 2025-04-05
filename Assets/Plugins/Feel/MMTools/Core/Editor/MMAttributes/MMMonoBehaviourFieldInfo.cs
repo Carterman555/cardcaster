@@ -2,13 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using UnityEditor;
-using UnityEngine;
 using Object = UnityEngine.Object;
 
-namespace MoreMountains.Tools
-{
-	static class MMMonoBehaviourFieldInfo
+namespace MoreMountains.Tools {
+    static class MMMonoBehaviourFieldInfo
 	{
 		public static Dictionary<int, List<FieldInfo>> FieldInfoList = new Dictionary<int, List<FieldInfo>>();
 

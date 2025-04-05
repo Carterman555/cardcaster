@@ -1,18 +1,15 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections;
 using MoreMountains.Tools;
 using UnityEngine;
 #if MM_UI
 using UnityEngine.UI;
 using UnityEngine.Scripting.APIUpdating;
 
-namespace MoreMountains.Feedbacks
-{
-	/// <summary>
-	/// This feedback will let you control the texture offset of a target UI Image over time
-	/// </summary>
-	[AddComponentMenu("")]
+namespace MoreMountains.Feedbacks {
+    /// <summary>
+    /// This feedback will let you control the texture offset of a target UI Image over time
+    /// </summary>
+    [AddComponentMenu("")]
 	[FeedbackHelp("This feedback will let you control the texture offset of a target UI Image over time.")]
 	[MovedFrom(false, null, "MoreMountains.Feedbacks")]
 	[FeedbackPath("UI/Image Texture Offset")]

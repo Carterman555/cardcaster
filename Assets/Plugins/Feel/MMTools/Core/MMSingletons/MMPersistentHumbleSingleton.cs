@@ -1,12 +1,10 @@
 ﻿using UnityEngine;
-using System;
 
-namespace MoreMountains.Tools
-{
-	/// <summary>
-	/// Persistent humble singleton, basically a classic singleton but will destroy any other older components of the same type it finds on awake
-	/// </summary>
-	public class MMPersistentHumbleSingleton<T> : MonoBehaviour	where T : Component
+namespace MoreMountains.Tools {
+    /// <summary>
+    /// Persistent humble singleton, basically a classic singleton but will destroy any other older components of the same type it finds on awake
+    /// </summary>
+    public class MMPersistentHumbleSingleton<T> : MonoBehaviour	where T : Component
 	{
 		/// whether or not this singleton already has an instance 
 		public static bool HasInstance => _instance != null;

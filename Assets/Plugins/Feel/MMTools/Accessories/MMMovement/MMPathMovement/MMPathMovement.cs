@@ -1,16 +1,12 @@
-﻿using System;
-using UnityEngine;
-using System.Collections;
+﻿using UnityEngine;
 using System.Collections.Generic;
-using MoreMountains.Tools;
 using Random = UnityEngine.Random;
 
-namespace MoreMountains.Tools
-{
-	/// <summary>
-	/// Add this component to an object and it'll be able to move along a path defined from its inspector.
-	/// </summary>
-	[AddComponentMenu("More Mountains/Tools/Movement/MMPathMovement")]
+namespace MoreMountains.Tools {
+    /// <summary>
+    /// Add this component to an object and it'll be able to move along a path defined from its inspector.
+    /// </summary>
+    [AddComponentMenu("More Mountains/Tools/Movement/MMPathMovement")]
 	public class MMPathMovement : MonoBehaviour 
 	{
 		/// the possible movement types

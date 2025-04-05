@@ -1,14 +1,12 @@
 ﻿using UnityEngine;
-using System.Collections;
 using System.Collections.Generic;
 using System;
 
-namespace MoreMountains.Tools
-{
-	/// <summary>
-	/// A class to store ratio display info
-	/// </summary>
-	[Serializable]    
+namespace MoreMountains.Tools {
+    /// <summary>
+    /// A class to store ratio display info
+    /// </summary>
+    [Serializable]    
 	public class Ratio
 	{
 		/// whether or not that ratio should be drawn

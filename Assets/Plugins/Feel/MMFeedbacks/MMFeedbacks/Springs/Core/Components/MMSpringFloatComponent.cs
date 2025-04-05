@@ -1,25 +1,22 @@
-using System;
 using MoreMountains.Tools;
 using UnityEngine;
-using UnityEngine.Serialization;
 
-namespace MoreMountains.Feedbacks
-{
-	/// <summary>
-	/// The possible commands used to pilot a spring
-	/// MoveTo : move the current value of the spring to the MoveToValue specified in the event
-	/// MoveToAdditive : adds the MoveToValue specified in the event to the current target value of the spring
-	/// MoveToSubtractive : subtracts the MoveToValue specified in the event to the current target value of the spring
-	/// MoveToRandom : moves the current value of the spring to a random value using MoveToRandomValue
-	/// MoveToInstant : instantly moves the current value of the spring to the MoveToValue specified in the event
-	/// Bump : bumps the spring by the BumpAmount specified in the event
-	/// BumpRandom : bumps the spring by a random amount specified in the event
-	/// Stop : stops the spring instantly
-	/// Finish : instantly moves the spring to its final target value
-	/// RestoreInitialValue : restores the spring's initial value
-	/// ResetInitialValue : resets the spring's initial value to its current value
-	/// </summary>
-	public enum SpringCommands { MoveTo, MoveToAdditive, MoveToSubtractive, MoveToRandom, MoveToInstant, Bump, BumpRandom, Stop, Finish, RestoreInitialValue, ResetInitialValue }
+namespace MoreMountains.Feedbacks {
+    /// <summary>
+    /// The possible commands used to pilot a spring
+    /// MoveTo : move the current value of the spring to the MoveToValue specified in the event
+    /// MoveToAdditive : adds the MoveToValue specified in the event to the current target value of the spring
+    /// MoveToSubtractive : subtracts the MoveToValue specified in the event to the current target value of the spring
+    /// MoveToRandom : moves the current value of the spring to a random value using MoveToRandomValue
+    /// MoveToInstant : instantly moves the current value of the spring to the MoveToValue specified in the event
+    /// Bump : bumps the spring by the BumpAmount specified in the event
+    /// BumpRandom : bumps the spring by a random amount specified in the event
+    /// Stop : stops the spring instantly
+    /// Finish : instantly moves the spring to its final target value
+    /// RestoreInitialValue : restores the spring's initial value
+    /// ResetInitialValue : resets the spring's initial value to its current value
+    /// </summary>
+    public enum SpringCommands { MoveTo, MoveToAdditive, MoveToSubtractive, MoveToRandom, MoveToInstant, Bump, BumpRandom, Stop, Finish, RestoreInitialValue, ResetInitialValue }
 	
 	/// <summary>
 	/// An event used to pilot a MMSpringColor component

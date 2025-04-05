@@ -1,14 +1,12 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace MoreMountains.Tools
-{
-	/// <summary>
-	/// A data class to store auto execution info to be used in MMAutoExecution
-	/// </summary>
-	[System.Serializable]
+namespace MoreMountains.Tools {
+    /// <summary>
+    /// A data class to store auto execution info to be used in MMAutoExecution
+    /// </summary>
+    [System.Serializable]
 	public class MMAutoExecutionItem
 	{
 		/// if this is true, Event will be invoked on Awake  

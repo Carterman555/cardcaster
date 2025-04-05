@@ -1,11 +1,9 @@
 ﻿using System.IO;
 using System.IO.Compression;
 using UnityEngine;
-using System;
 
-namespace ES3Internal
-{
-	public static class ES3Stream
+namespace ES3Internal {
+    public static class ES3Stream
 	{
 		public static Stream CreateStream(ES3Settings settings, ES3FileMode fileMode)
 		{

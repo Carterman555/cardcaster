@@ -1,8 +1,6 @@
-using System;
 using UnityEngine;
 
-namespace ES3Types
-{
+namespace ES3Types {
     [UnityEngine.Scripting.Preserve]
     [ES3PropertiesAttribute("texture", "rect", "pivot", "pixelsPerUnit", "border")]
     public class ES3Type_Sprite : ES3UnityObjectType

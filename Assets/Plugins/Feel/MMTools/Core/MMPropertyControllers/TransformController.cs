@@ -1,13 +1,10 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
-using System.Reflection;
+﻿using UnityEngine;
 
-namespace MoreMountains.Tools
-{
-	/// <summary>
-	/// A simple class used to control properties on a transform
-	/// </summary>
-	[AddComponentMenu("More Mountains/Tools/Property Controllers/TransformController")]
+namespace MoreMountains.Tools {
+    /// <summary>
+    /// A simple class used to control properties on a transform
+    /// </summary>
+    [AddComponentMenu("More Mountains/Tools/Property Controllers/TransformController")]
 	public class TransformController : MonoBehaviour
 	{
 		[Header("Position")]

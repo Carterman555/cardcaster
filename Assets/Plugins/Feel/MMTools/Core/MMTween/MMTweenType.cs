@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-namespace MoreMountains.Tools
-{
-	public enum MMTweenDefinitionTypes { MMTween, AnimationCurve }
+namespace MoreMountains.Tools {
+    public enum MMTweenDefinitionTypes { MMTween, AnimationCurve }
 
 	[Serializable]
 	public class MMTweenType

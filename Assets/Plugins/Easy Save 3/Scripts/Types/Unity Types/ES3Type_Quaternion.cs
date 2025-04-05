@@ -1,9 +1,7 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace ES3Types
-{
-	[UnityEngine.Scripting.Preserve]
+namespace ES3Types {
+    [UnityEngine.Scripting.Preserve]
 	[ES3PropertiesAttribute("x", "y", "z", "w")]
 	public class ES3Type_Quaternion : ES3Type
 	{

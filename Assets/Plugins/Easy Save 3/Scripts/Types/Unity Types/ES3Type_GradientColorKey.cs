@@ -1,9 +1,7 @@
-using System;
 using UnityEngine;
 
-namespace ES3Types
-{
-	[UnityEngine.Scripting.Preserve]
+namespace ES3Types {
+    [UnityEngine.Scripting.Preserve]
 	[ES3PropertiesAttribute("color", "time")]
 	public class ES3Type_GradientColorKey : ES3Type
 	{

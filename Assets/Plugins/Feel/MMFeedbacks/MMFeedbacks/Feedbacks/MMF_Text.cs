@@ -1,15 +1,13 @@
 ﻿using UnityEngine;
-using System.Collections;
 #if MM_UI
 using UnityEngine.UI;
 using UnityEngine.Scripting.APIUpdating;
 
-namespace MoreMountains.Feedbacks
-{
-	/// <summary>
-	/// This feedback lets you control the contents of a target Text over time
-	/// </summary>
-	[AddComponentMenu("")]
+namespace MoreMountains.Feedbacks {
+    /// <summary>
+    /// This feedback lets you control the contents of a target Text over time
+    /// </summary>
+    [AddComponentMenu("")]
 	[FeedbackHelp("This feedback lets you control the contents of a target Text over time.")]
 	[MovedFrom(false, null, "MoreMountains.Feedbacks")]
 	[FeedbackPath("UI/Text")]

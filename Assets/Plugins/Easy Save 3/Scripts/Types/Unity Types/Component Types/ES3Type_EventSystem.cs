@@ -1,12 +1,9 @@
 ﻿#if ES3_UGUI
 
-using System;
-using UnityEngine;
 using UnityEngine.EventSystems;
 
-namespace ES3Types
-{
-	[UnityEngine.Scripting.Preserve]
+namespace ES3Types {
+    [UnityEngine.Scripting.Preserve]
 	public class ES3Type_EventSystem : ES3ComponentType
 	{
 		public static ES3Type Instance = null;

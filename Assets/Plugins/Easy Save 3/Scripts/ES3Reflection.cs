@@ -1,14 +1,11 @@
-using System.Collections;
 using System.Collections.Generic;
 using System;
 using System.Linq;
 using System.Reflection;
-using System.ComponentModel;
 using UnityEngine;
 using ES3Types;
 
-namespace ES3Internal
-{
+namespace ES3Internal {
     public static class ES3Reflection
     {
         public const string memberFieldPrefix = "m_";

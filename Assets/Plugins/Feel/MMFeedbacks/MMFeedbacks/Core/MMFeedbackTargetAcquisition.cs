@@ -1,14 +1,10 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using MoreMountains.Tools;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace MoreMountains.Feedbacks
-{
-	/// <summary>
-	/// A class collecting target acquisition settings
-	/// </summary>
-	[System.Serializable]
+namespace MoreMountains.Feedbacks {
+    /// <summary>
+    /// A class collecting target acquisition settings
+    /// </summary>
+    [System.Serializable]
 	public class MMFeedbackTargetAcquisition
 	{
 		public enum Modes { None, Self, AnyChild, ChildAtIndex, Parent, FirstReferenceHolder, PreviousReferenceHolder, ClosestReferenceHolder, NextReferenceHolder, LastReferenceHolder }

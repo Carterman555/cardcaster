@@ -1,13 +1,11 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;using UnityEngine.Scripting.APIUpdating;
+﻿using UnityEngine;
+using UnityEngine.Scripting.APIUpdating;
 
-namespace MoreMountains.Feedbacks
-{
-	/// <summary>
-	/// This feedback will let you turn the BlocksRaycast parameter of a target CanvasGroup on or off on play
-	/// </summary>
-	[AddComponentMenu("")]
+namespace MoreMountains.Feedbacks {
+    /// <summary>
+    /// This feedback will let you turn the BlocksRaycast parameter of a target CanvasGroup on or off on play
+    /// </summary>
+    [AddComponentMenu("")]
 	[FeedbackHelp("This feedback will let you turn the BlocksRaycast parameter of a target CanvasGroup on or off on play")]
 	[MovedFrom(false, null, "MoreMountains.Feedbacks")]
 	[FeedbackPath("UI/CanvasGroup BlocksRaycasts")]

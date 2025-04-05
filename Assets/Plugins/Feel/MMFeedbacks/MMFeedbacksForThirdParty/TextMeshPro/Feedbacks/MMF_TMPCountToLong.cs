@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using MoreMountains.Tools;
 using UnityEngine;
 #if (MM_TEXTMESHPRO || MM_UGUI2)
@@ -7,12 +6,11 @@ using TMPro;
 #endif
 using UnityEngine.Scripting.APIUpdating;
 
-namespace MoreMountains.Feedbacks
-{
-	/// <summary>
-	/// This feedback will let you update a TMP text value over time, with a long value going from A to B over time, on a curve
-	/// </summary>
-	[AddComponentMenu("")]
+namespace MoreMountains.Feedbacks {
+    /// <summary>
+    /// This feedback will let you update a TMP text value over time, with a long value going from A to B over time, on a curve
+    /// </summary>
+    [AddComponentMenu("")]
 	[FeedbackHelp("This feedback will let you update a TMP text value over time, with a long value going from A to B over time, on a curve")]
 	#if (MM_TEXTMESHPRO || MM_UGUI2)
 	[FeedbackPath("TextMesh Pro/TMP Count To Long")]

@@ -1,14 +1,10 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-#if UNITY_EDITOR
+﻿#if UNITY_EDITOR
 using UnityEditor;
-using UnityEditor.UIElements;
 #endif
 using UnityEngine;
 
-namespace MoreMountains.Tools
-{
-	[CustomPropertyDrawer(typeof(MMTweenType))]
+namespace MoreMountains.Tools {
+    [CustomPropertyDrawer(typeof(MMTweenType))]
 	public class MMTweenTypeDrawer : PropertyDrawer
 	{
 		protected const int _lineHeight = 20; 

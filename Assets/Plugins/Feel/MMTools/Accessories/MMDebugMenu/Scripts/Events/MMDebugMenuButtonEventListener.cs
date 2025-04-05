@@ -1,15 +1,12 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace MoreMountains.Tools
-{
-	/// <summary>
-	/// An event fired when a button gets pressed in a MMDebugMenu
-	/// </summary>
-	[Serializable]
+namespace MoreMountains.Tools {
+    /// <summary>
+    /// An event fired when a button gets pressed in a MMDebugMenu
+    /// </summary>
+    [Serializable]
 	public class MMDButtonPressedEvent : UnityEvent
 	{
 	}

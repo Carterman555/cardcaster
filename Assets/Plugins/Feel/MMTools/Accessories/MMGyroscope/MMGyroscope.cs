@@ -1,10 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace MoreMountains.Tools
-{
-	[AddComponentMenu("More Mountains/Tools/Gyroscope/MMGyroscope")]
+namespace MoreMountains.Tools {
+    [AddComponentMenu("More Mountains/Tools/Gyroscope/MMGyroscope")]
 	public class MMGyroscope : MonoBehaviour
 	{
 		public enum TimeScales { Scaled, Unscaled }

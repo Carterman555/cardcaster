@@ -1,13 +1,9 @@
 ﻿using UnityEngine;
 #if MM_UI
-using UnityEngine.UI;
 #endif
-using System.Collections;
-using MoreMountains.Tools;
 
-namespace MoreMountains.Tools
-{	
-	public class MMProgressBarDemoAuto : MonoBehaviour 
+namespace MoreMountains.Tools {
+    public class MMProgressBarDemoAuto : MonoBehaviour 
 	{
 		public enum TestModes { Permanent, OneTime }
 		public TestModes TestMode = TestModes.Permanent;

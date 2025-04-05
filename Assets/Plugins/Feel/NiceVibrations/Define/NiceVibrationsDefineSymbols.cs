@@ -1,13 +1,10 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using System.Collections.Generic;
 using System.Linq;
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
 
-namespace MoreMountains.FeedbacksForThirdParty
-{
+namespace MoreMountains.FeedbacksForThirdParty {
 #if UNITY_EDITOR
     /// <summary>
     /// This class lets you specify (in code, by editing it) symbols that will be added to the build settings' define symbols list automatically

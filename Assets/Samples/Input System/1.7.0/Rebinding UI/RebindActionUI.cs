@@ -1,9 +1,6 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine.Events;
-using UnityEngine.UI;
-using UnityEngine;
-using Codice.Client.BaseCommands;
 
 namespace UnityEngine.InputSystem.Samples.RebindUI {
     /// <summary>

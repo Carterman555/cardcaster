@@ -1,16 +1,12 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using MoreMountains.Tools;
+﻿using System.Collections;
 using UnityEngine;
 using UnityEngine.Scripting.APIUpdating;
 
-namespace MoreMountains.Feedbacks
-{
-	/// <summary>
-	/// This feedback will let you control the color and intensity of a Light when played
-	/// </summary>
-	[AddComponentMenu("")]
+namespace MoreMountains.Feedbacks {
+    /// <summary>
+    /// This feedback will let you control the color and intensity of a Light when played
+    /// </summary>
+    [AddComponentMenu("")]
 	[FeedbackHelp("This feedback lets you control the color and intensity of a Light in your scene for a certain duration (or instantly).")]
 	[MovedFrom(false, null, "MoreMountains.Feedbacks")]
 	[FeedbackPath("Lights/Light")]

@@ -1,13 +1,10 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace MoreMountains.Tools
-{
-	/// <summary>
-	/// Prevents fast moving objects from going through colliders by casting a ray backwards after each movement
-	/// </summary>
-	[AddComponentMenu("More Mountains/Tools/Movement/MMPreventPassingThrough")]
+namespace MoreMountains.Tools {
+    /// <summary>
+    /// Prevents fast moving objects from going through colliders by casting a ray backwards after each movement
+    /// </summary>
+    [AddComponentMenu("More Mountains/Tools/Movement/MMPreventPassingThrough")]
 	public class MMPreventPassingThrough : MonoBehaviour 
 	{
 		/// the layer mask to search obstacles on

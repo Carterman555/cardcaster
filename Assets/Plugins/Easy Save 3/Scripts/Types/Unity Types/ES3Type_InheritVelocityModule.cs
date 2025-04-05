@@ -1,9 +1,5 @@
-using System;
-using UnityEngine;
-
-namespace ES3Types
-{
-	[UnityEngine.Scripting.Preserve]
+namespace ES3Types {
+    [UnityEngine.Scripting.Preserve]
 	[ES3PropertiesAttribute("enabled", "mode", "curve", "curveMultiplier")]
 	public class ES3Type_InheritVelocityModule : ES3Type
 	{

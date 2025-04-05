@@ -1,6 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "NewEnemyComposition", menuName = "Room Generation/Enemy Composition")]

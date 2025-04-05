@@ -14,6 +14,8 @@ public class BounceOnContact : MonoBehaviour {
 
     private Vector2 originalScale;
 
+    [SerializeField] private bool useRaycast;
+
     private void Awake() {
         rb = GetComponent<Rigidbody2D>();
         originalScale = transform.localScale;
@@ -24,7 +26,28 @@ public class BounceOnContact : MonoBehaviour {
         transform.localScale = originalScale;
     }
 
+    private void Update() {
+        if (useRaycast) {
+
+            float checkDistance = 0.5f;
+            RaycastHit2D hit = Physics2D.Raycast(transform.position, rb.velocity.normalized, checkDistance, bounceLayer);
+            if (hit) {
+                bool bouncesLeft = bounces < maxBounces;
+                if (!bouncesLeft) {
+                    gameObject.ReturnToPool();
+                    return;
+                }
+
+                Bounce(hit.collider);
+            }
+        }
+    }
+
     private void OnTriggerEnter2D(Collider2D collision) {
+
+        if (useRaycast) {
+            return;
+        }
 
         if (bounceLayer.ContainsLayer(collision.gameObject.layer)) {
             bool bouncesLeft = bounces < maxBounces;

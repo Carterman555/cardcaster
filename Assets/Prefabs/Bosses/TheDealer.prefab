@@ -172,8 +172,8 @@ MonoBehaviour:
       MaxValue: 10
   - State: 3
     Duration:
-      MinValue: 10
-      MaxValue: 10
+      MinValue: 20
+      MaxValue: 20
   debugStartSecondStage: 0
   anim: {fileID: 3887365593034165796}
   centerPoint: {fileID: 2512676828727106287}
@@ -191,6 +191,14 @@ MonoBehaviour:
   laserSpeed: 20
   laserDamage: 2
   laserRotateAngle: 25
+  smasherPrefab: {fileID: 6572754046408632783, guid: f66b761bfdcc84848bbdfd121cfe827f, type: 3}
+  smasherPositions:
+  - {x: -8, y: 6}
+  - {x: 0, y: 6}
+  - {x: 8, y: 6}
+  - {x: -4, y: -6}
+  - {x: 4, y: -6}
+  smashCooldown: 2
 --- !u!114 &7842081825320602579
 MonoBehaviour:
   m_ObjectHideFlags: 0

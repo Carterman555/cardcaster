@@ -12,7 +12,7 @@ public enum FakeDealerState {
     BetweenStates = 0,
     Swing = 1,
     Lasers = 2,
-    UIAttack = 3
+    Smashers = 3
 }
 
 [Serializable]
@@ -41,7 +41,6 @@ public class TheFakeDealer : MonoBehaviour, IHasEnemyStats, IBoss {
     private Rigidbody2D rb;
     private NavMeshAgent agent;
     private ChasePlayerBehavior chasePlayerBehavior;
-
 
     [SerializeField] private Transform centerPoint;
 
@@ -134,7 +133,8 @@ public class TheFakeDealer : MonoBehaviour, IHasEnemyStats, IBoss {
         }
         else if (previousState == FakeDealerState.Lasers) {
         }
-        else if (previousState == FakeDealerState.UIAttack) {
+        else if (previousState == FakeDealerState.Smashers) {
+            RemoveSmashers();
         }
 
         if (newState == FakeDealerState.BetweenStates) {
@@ -145,7 +145,8 @@ public class TheFakeDealer : MonoBehaviour, IHasEnemyStats, IBoss {
         else if (newState == FakeDealerState.Lasers) {
             StartCoroutine(ShootLasers());
         }
-        else if (newState == FakeDealerState.UIAttack) {
+        else if (newState == FakeDealerState.Smashers) {
+            SpawnSmashers();
         }
     }
 
@@ -214,6 +215,34 @@ public class TheFakeDealer : MonoBehaviour, IHasEnemyStats, IBoss {
             }
             shootDirection.RotateDirection(laserRotateAngle);
         }
+    }
+
+    #endregion
+
+    #region Smashers
+
+    [Header("Smashers")]
+    [SerializeField] private Smasher smasherPrefab;
+    [SerializeField] private Vector2[] smasherPositions;
+
+    [SerializeField] private float smashCooldown;
+
+    private List<Smasher> smashers;
+
+    private void SpawnSmashers() {
+        smashers = new();
+        for (int i = 0; i < smasherPositions.Count(); i++) {
+            Vector2 pos = (Vector2)Room.GetCurrentRoom().transform.position + smasherPositions[i];
+            Smasher smasher = smasherPrefab.Spawn(pos, Containers.Instance.Projectiles);
+            smashers.Add(smasher);
+        }
+    }
+
+    private void RemoveSmashers() {
+        foreach (Smasher smasher in smashers) {
+            smasher.gameObject.ReturnToPool();
+        }
+        smashers.Clear();
     }
 
     #endregion

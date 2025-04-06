@@ -13,17 +13,18 @@ public class Smasher : MonoBehaviour {
 
     [SerializeField] private float acceleration;
     [SerializeField] private float maxSpeed;
-    [SerializeField] private float smashCooldown;
-    private float smashTimer;
+    [SerializeField] private RandomFloat smashCooldown;
+    [Tooltip("If moving slowly for this amount of time, change directions")]
+    [SerializeField] private float slowMovingTime;
 
+    private float slowMovingTimer;
+    private float smashTimer;
     private bool smashing;
 
     [SerializeField] private BoxCollider2D col;
     private Rigidbody2D rb;
 
-    [SerializeField] private bool debugDirection;
-    [SerializeField] private Vector2[] directionOrder;
-    private int directionIndex;
+    [SerializeField] private GameObject arrow;
 
     private void Awake() {
         rb = GetComponent<Rigidbody2D>();
@@ -31,72 +32,100 @@ public class Smasher : MonoBehaviour {
 
     private void OnEnable() {
         ResetSmash();
-        directionIndex = 0;
-        currentDirection = directionOrder[directionIndex];
     }
 
     private void Update() {
         if (!smashing) {
+            rb.velocity = Vector2.zero;
+
             smashTimer += Time.deltaTime;
-            if (smashTimer > smashCooldown) {
+            if (smashTimer > smashCooldown.Value) {
                 Smash();
-                rb.velocity = currentDirection * maxSpeed;
             }
+        }
+        else if (smashing) {
+            float slowMovingThreshold = 0.5f;
+
+            bool hitObstacle = rb.velocity.magnitude == 0;
+            if (hitObstacle) {
+                ResetSmash();
+            }
+            else if (rb.velocity.magnitude < slowMovingThreshold) {
+                slowMovingTimer += Time.deltaTime;
+                if (slowMovingTimer > slowMovingTime) {
+                    ResetSmash();
+                }
+            }
+            else {
+                slowMovingTimer = 0;
+            }
+        }
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision) {
+        if (smashing && collision.gameObject.TryGetComponent(out Smasher smasher)) {
+            ResetSmash();
         }
     }
 
     private void FixedUpdate() {
         if (smashing) {
-            // rb.velocity = Mathf.MoveTowards(rb.velocity.magnitude, maxSpeed, acceleration * Time.fixedDeltaTime) * currentDirection;
+            rb.velocity = Mathf.MoveTowards(rb.velocity.magnitude, maxSpeed, acceleration * Time.fixedDeltaTime) * currentDirection;
         }
     }
 
-    private void Smash() {
+    public void Smash() {
         smashing = true;
-    }
 
-    private void OnCollisionEnter2D(Collision2D collision) {
+        // make sure vel is not 0, so doesn't register as hit something right away
+        rb.velocity = Mathf.MoveTowards(rb.velocity.magnitude, maxSpeed, acceleration * Time.fixedDeltaTime) * currentDirection;
 
-        if (smashing && GameLayers.ObstacleLayerMask.ContainsLayer(collision.gameObject.layer)) {
-            ResetSmash();
-        }
+        arrow.SetActive(false);
     }
 
     private void ResetSmash() {
         smashing = false;
+        smashCooldown.Randomize();
         smashTimer = 0;
+        slowMovingTimer = 0;
 
         rb.velocity = Vector2.zero;
 
-        //Vector2 moveAmount = -currentDirection * 0.1f;
-        //rb.MovePosition(rb.position + moveAmount);
-
         lastDirection = currentDirection;
+        currentDirection = GetRandomValidDirection();
 
+        arrow.SetActive(true);
+        arrow.transform.up = currentDirection;
+    }
+
+    private Vector2 GetRandomValidDirection() {
         List<Vector2> validDirections = directions.Where(d => d != lastDirection).ToList();
 
         // don't choose direction that where the smasher an obstacle in that direction
         for (int i = validDirections.Count - 1; i >= 0; i--) {
 
-            Vector2 boxPos = (Vector2)transform.position + col.offset + (validDirections[i] * 0.2f);
-            if (Physics2D.OverlapBox(boxPos, col.size, 0f, GameLayers.ObstacleLayerMask)) {
+            Vector2 boxPos = (Vector2)transform.position + (col.offset * transform.localScale) + (validDirections[i] * 0.2f);
+            Collider2D[] cols = Physics2D.OverlapBoxAll(boxPos, col.size * transform.localScale * 0.98f, 0f, GameLayers.ObstacleLayerMask);
+            if (cols.Any(c => c.gameObject != gameObject)) {
                 validDirections.RemoveAt(i);
             }
         }
 
-        currentDirection = validDirections.RandomItem();
-
-        if (debugDirection) {
-            directionIndex++;
-            currentDirection = directionOrder[directionIndex];
+        if (validDirections.Count == 0) {
+            return Vector2.zero;
         }
+
+        return validDirections.RandomItem();
     }
 
     private void OnDrawGizmos() {
 
         foreach (Vector2 direction in directions) {
-            Vector2 pos = (Vector2)transform.position + col.offset + (direction * 0.2f);
-            Gizmos.DrawWireCube(pos, col.size);
+            Vector2 pos = (Vector2)transform.position + (col.offset * transform.localScale) + (direction * 0.2f);
+            Gizmos.DrawWireCube(pos, col.size * transform.localScale * 0.98f);
         }
+
+        float length = 5f;
+        Gizmos.DrawLine(transform.position, transform.position + ((Vector3)currentDirection * length));
     }
 }

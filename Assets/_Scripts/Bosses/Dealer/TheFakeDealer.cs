@@ -4,6 +4,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using TreeEditor;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -64,9 +65,12 @@ public class TheFakeDealer : MonoBehaviour, IHasEnemyStats, IBoss {
 
     private void OnEnable() {
         stateTimer = 0f;
-
         ChangeState(FakeDealerState.BetweenStates);
+
         inFirstStage = !debugStartSecondStage;
+
+        StartCoroutine(FadeInRed());
+        UpdateVisual();
 
         health.DeathEventTrigger.AddListener(OnDeath);
     }
@@ -245,5 +249,53 @@ public class TheFakeDealer : MonoBehaviour, IHasEnemyStats, IBoss {
         smashers.Clear();
     }
 
+    #endregion
+
+    #region Visual
+
+    [Header("Visual")]
+    [SerializeField] private Material redMaterial;
+    [SerializeField] private SpriteRenderer visual;
+    private Material redMaterialInstance;
+
+    [SerializeField] private ParticleSystem sparksFake;
+    [SerializeField] private ParticleSystem sparksReal;
+
+    private IEnumerator FadeInRed() {
+
+        redMaterialInstance = new Material(redMaterial);
+        visual.material = redMaterialInstance;
+
+        float glow = 0f;
+
+        float finalGlow = 2f;
+        float glowFadeSpeed = 2f;
+
+        while (glow < finalGlow) {
+            redMaterialInstance.SetFloat("_ShineGlow", glow);
+            glow += glowFadeSpeed * Time.deltaTime;
+
+            yield return null;
+        }
+    }
+
+    private void UpdateVisual() {
+        bool realDealer = false;
+
+        if (realDealer) {
+            sparksFake.gameObject.SetActive(false);
+            sparksReal.gameObject.SetActive(true);
+
+            var emission = sparksReal.emission;
+            emission.enabled = !inFirstStage;
+        }
+        else {
+            sparksFake.gameObject.SetActive(true);
+            sparksReal.gameObject.SetActive(false);
+
+            var emission = sparksFake.emission;
+            emission.enabled = !inFirstStage;
+        }
+    }
     #endregion
 }

@@ -13,7 +13,6 @@ public class Trainer : StaticInstance<Trainer> {
         base.Awake();
 
         SetOriginalFade();
-        SetOriginalMaterial();
 
         rb = GetComponent<Rigidbody2D>();
     }
@@ -67,7 +66,6 @@ public class Trainer : StaticInstance<Trainer> {
     [SerializeField] private Material redMaterial;
     [SerializeField] private SpriteRenderer swordRenderer;
     private Material redMaterialInstance;
-    private Material originalMaterial;
 
     private BreakOnDamaged[] barrels;
 
@@ -88,10 +86,6 @@ public class Trainer : StaticInstance<Trainer> {
     [SerializeField] private float acceleration;
     [SerializeField] private float maxSpeed;
     private Rigidbody2D rb;
-
-    private void SetOriginalMaterial() {
-        originalMaterial = visual.material;
-    }
 
     private void SubToRageEvents() {
         // enter rage if break barrel

@@ -42,12 +42,12 @@ public class StraightShootBehavior : MonoBehaviour, IAttacker {
 
         if (hasShootAnim) {
             timedActionBehavior = new TimedActionBehavior(
-            hasStats.            EnemyStats.AttackCooldown,
+            hasStats.EnemyStats.AttackCooldown,
             () => TriggerShootAnimation());
         }
         else {
             timedActionBehavior = new TimedActionBehavior(
-            hasStats.            EnemyStats.AttackCooldown,
+            hasStats.EnemyStats.AttackCooldown,
             () => ShootProjectile());
         }
     }

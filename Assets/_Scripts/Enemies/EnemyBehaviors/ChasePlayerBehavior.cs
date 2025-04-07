@@ -7,6 +7,8 @@ public class ChasePlayerBehavior : MonoBehaviour, IEffectable, IEnemyMovement {
     private NavMeshAgent agent;
     private Knockback knockback;
 
+    [SerializeField] private bool useExternalSpeedOverride;
+
     private void Awake() {
 
         hasStats = GetComponent<IHasEnemyStats>();
@@ -25,8 +27,11 @@ public class ChasePlayerBehavior : MonoBehaviour, IEffectable, IEnemyMovement {
         }
 
         agent.isStopped = false;
-        agent.speed = hasStats.EnemyStats.MoveSpeed;
         agent.SetDestination(PlayerMovement.Instance.CenterPos);
+
+        if (!useExternalSpeedOverride) {
+            agent.speed = hasStats.EnemyStats.MoveSpeed;
+        }
     }
 
     private void OnEnable() {

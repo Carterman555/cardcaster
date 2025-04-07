@@ -192,12 +192,13 @@ public class TheFakeDealer : MonoBehaviour, IHasEnemyStats, IBoss {
 
     [Header("Lasers")]
     [SerializeField] private StraightMovement laserPrefab;
-    [SerializeField] private Transform shootPoint;
 
     [SerializeField] private float shootCooldown;
     [SerializeField] private float laserSpeed;
     [SerializeField] private float laserDamage;
     [SerializeField] private float laserRotateAngle;
+
+    [SerializeField] private ParticleSystem laserShootParticles;
 
     private IEnumerator ShootLasers() {
 
@@ -209,13 +210,17 @@ public class TheFakeDealer : MonoBehaviour, IHasEnemyStats, IBoss {
             yield return new WaitForSeconds(shootCooldown);
 
             for (int i = 0; i < numOfLasers; i++) {
-                StraightMovement laser = laserPrefab.Spawn(shootPoint.position, Containers.Instance.Projectiles);
-
                 float rotation = 360f / numOfLasers;
-                Vector2 thisLaserDirection = shootDirection.RotateDirection(i * rotation);
+                Vector2 thisLaserDirection = shootDirection.RotateDirection(i * rotation).normalized;
+
+                float distance = 1f;
+                Vector2 shootPos = (Vector2)centerPoint.position + (thisLaserDirection * distance);
+                StraightMovement laser = laserPrefab.Spawn(shootPos, Containers.Instance.Projectiles);
 
                 laser.Setup(thisLaserDirection, laserSpeed);
                 laser.GetComponent<DamageOnContact>().Setup(laserDamage, 0f);
+
+                laserShootParticles.Spawn(shootPos, Containers.Instance.Effects);
             }
             shootDirection.RotateDirection(laserRotateAngle);
         }

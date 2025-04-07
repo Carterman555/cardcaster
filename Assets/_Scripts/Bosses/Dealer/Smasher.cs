@@ -24,6 +24,13 @@ public class Smasher : MonoBehaviour {
     [SerializeField] private BoxCollider2D col;
     private Rigidbody2D rb;
 
+    [Header("Visual")]
+    [SerializeField] private ParticleSystem collideParticles;
+    [SerializeField] private ParticleSystem sideCollideParticles;
+    private float speedBeforeCollision;
+
+    [SerializeField] private ParticleSystem trailParticles;
+
     [SerializeField] private GameObject arrow;
 
     private void Awake() {
@@ -35,12 +42,17 @@ public class Smasher : MonoBehaviour {
     }
 
     private void Update() {
+        
+        if (rb.velocity.magnitude > 0) {
+            speedBeforeCollision = rb.velocity.magnitude;
+        }
+
         if (!smashing) {
             rb.velocity = Vector2.zero;
 
             smashTimer += Time.deltaTime;
             if (smashTimer > smashCooldown.Value) {
-                Smash();
+                StartSmashing();
             }
         }
         else if (smashing) {
@@ -48,6 +60,7 @@ public class Smasher : MonoBehaviour {
 
             bool hitObstacle = rb.velocity.magnitude == 0;
             if (hitObstacle) {
+                OnSmash();
                 ResetSmash();
             }
             else if (rb.velocity.magnitude < slowMovingThreshold) {
@@ -62,24 +75,26 @@ public class Smasher : MonoBehaviour {
         }
     }
 
-    private void OnCollisionEnter2D(Collision2D collision) {
-        if (smashing && collision.gameObject.TryGetComponent(out Smasher smasher)) {
-            ResetSmash();
-        }
-    }
-
     private void FixedUpdate() {
         if (smashing) {
             rb.velocity = Mathf.MoveTowards(rb.velocity.magnitude, maxSpeed, acceleration * Time.fixedDeltaTime) * currentDirection;
         }
     }
 
-    public void Smash() {
+    private void OnCollisionEnter2D(Collision2D collision) {
+        if (smashing && collision.gameObject.TryGetComponent(out Smasher smasher)) {
+            OnSmash();
+            ResetSmash();
+        }
+    }
+
+    public void StartSmashing() {
         smashing = true;
 
         // make sure vel is not 0, so doesn't register as hit something right away
         rb.velocity = Mathf.MoveTowards(rb.velocity.magnitude, maxSpeed, acceleration * Time.fixedDeltaTime) * currentDirection;
 
+        trailParticles.Play();
         arrow.SetActive(false);
     }
 
@@ -93,6 +108,9 @@ public class Smasher : MonoBehaviour {
 
         lastDirection = currentDirection;
         currentDirection = GetRandomValidDirection();
+
+        SetTrailParticlePosition();
+        trailParticles.Stop();
 
         arrow.SetActive(true);
         arrow.transform.up = currentDirection;
@@ -116,6 +134,63 @@ public class Smasher : MonoBehaviour {
         }
 
         return validDirections.RandomItem();
+    }
+
+    private void OnSmash() {
+
+        // collide particles
+        float collideBurstCountMult = 1.5f;
+        SetBurstCount(collideParticles, (int)(speedBeforeCollision * collideBurstCountMult));
+        collideParticles.Play();
+
+        // side collide particles
+        if (currentDirection == Vector2.up) {
+            sideCollideParticles.transform.SetLocalPositionAndRotation(new(0, 3.3f), Quaternion.identity);
+        }
+        else if (currentDirection == Vector2.down) {
+            sideCollideParticles.transform.SetLocalPositionAndRotation(new(0, 0.3f), Quaternion.identity);
+        }
+        else if (currentDirection == Vector2.left) {
+            sideCollideParticles.transform.SetLocalPositionAndRotation(new(-1.5f, 2f), Quaternion.Euler(0, 0, 90));
+        }
+        else if (currentDirection == Vector2.right) {
+            sideCollideParticles.transform.SetLocalPositionAndRotation(new(1.5f, 2f), Quaternion.Euler(0, 0, 90));
+        }
+
+        float sideCollideBurstCountMult = 1.5f;
+        SetBurstCount(sideCollideParticles, (int)(speedBeforeCollision * sideCollideBurstCountMult));
+
+        Vector2 boxPos = (Vector2)transform.position + (col.offset * transform.localScale) + (currentDirection * 0.2f);
+        bool obstacleAhead = Physics2D.OverlapBox(boxPos, col.size * transform.localScale * 0.98f, 0f, GameLayers.ObstacleLayerMask);
+        if (obstacleAhead) {
+            sideCollideParticles.Play();
+        }
+
+        // camera shake
+        float cameraShakeMult = 0.025f;
+        CameraShaker.Instance.ShakeCamera(speedBeforeCollision * cameraShakeMult);
+    }
+
+    private void SetTrailParticlePosition() {
+        if (currentDirection == Vector2.up) {
+            trailParticles.transform.SetLocalPositionAndRotation(new(0, 3.3f), Quaternion.identity);
+        }
+        else if (currentDirection == Vector2.down) {
+            trailParticles.transform.SetLocalPositionAndRotation(new(0, 3.3f), Quaternion.identity);
+        }
+        else if (currentDirection == Vector2.left) {
+            trailParticles.transform.SetLocalPositionAndRotation(new(1.5f, 2f), Quaternion.Euler(0, 0, 90));
+        }
+        else if (currentDirection == Vector2.right) {
+            trailParticles.transform.SetLocalPositionAndRotation(new(-1.5f, 2f), Quaternion.Euler(0, 0, 90));
+        }
+    }
+
+    private void SetBurstCount(ParticleSystem particles, int count) {
+        var emission = particles.emission;
+        var burst = emission.GetBurst(0);
+        burst.count = count;
+        emission.SetBurst(0, burst);
     }
 
     private void OnDrawGizmos() {

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 using UnityEngine.Localization.SmartFormat.Utilities;
+using DG.Tweening;
 
 public class Smasher : MonoBehaviour {
 
@@ -21,28 +22,59 @@ public class Smasher : MonoBehaviour {
     private float smashTimer;
     private bool smashing;
 
+    [SerializeField] private EnemyTouchDamage touchDamage;
     [SerializeField] private BoxCollider2D col;
     private Rigidbody2D rb;
 
     [Header("Visual")]
+    [SerializeField] private SpriteRenderer visual;
+
+    [SerializeField] private ConstructEffect constructEffect;
+
     [SerializeField] private ParticleSystem collideParticles;
     [SerializeField] private ParticleSystem sideCollideParticles;
     private float speedBeforeCollision;
 
     [SerializeField] private ParticleSystem trailParticles;
 
-    [SerializeField] private GameObject arrow;
+    [SerializeField] private GameObject path;
+    [SerializeField] private SpriteRenderer pathBackground;
+    [SerializeField] private SpriteRenderer pathArrows;
 
     private void Awake() {
         rb = GetComponent<Rigidbody2D>();
     }
 
     private void OnEnable() {
+        constructEffect.OnConstructed += OnContructed;
+
         ResetSmash();
+
+        visual.Fade(0.5f);
+        path.SetActive(false);
+        touchDamage.enabled = false;
+    }
+
+    private void OnDisable() {
+        constructEffect.OnConstructed -= OnContructed;
+    }
+
+    private void OnContructed() {
+        ResetSmash();
+
+        visual.Fade(0.5f);
+        visual.DOKill();
+        visual.DOFade(1f, duration: 0.3f).OnComplete(() => {
+            touchDamage.enabled = true;
+        });
     }
 
     private void Update() {
         
+        if (constructEffect.Constructing) {
+            return;
+        }
+
         if (rb.velocity.magnitude > 0) {
             speedBeforeCollision = rb.velocity.magnitude;
         }
@@ -95,7 +127,14 @@ public class Smasher : MonoBehaviour {
         rb.velocity = Mathf.MoveTowards(rb.velocity.magnitude, maxSpeed, acceleration * Time.fixedDeltaTime) * currentDirection;
 
         trailParticles.Play();
-        arrow.SetActive(false);
+
+        pathBackground.DOKill();
+        pathBackground.DOFade(0f, duration: 0.3f);
+
+        pathArrows.DOKill();
+        pathArrows.DOFade(0f, duration: 0.3f).OnComplete(() => {
+            path.SetActive(false);
+        });
     }
 
     private void ResetSmash() {
@@ -112,8 +151,8 @@ public class Smasher : MonoBehaviour {
         SetTrailParticlePosition();
         trailParticles.Stop();
 
-        arrow.SetActive(true);
-        arrow.transform.up = currentDirection;
+        path.SetActive(true);
+        SetupPath();
     }
 
     private Vector2 GetRandomValidDirection() {
@@ -186,6 +225,33 @@ public class Smasher : MonoBehaviour {
         }
     }
 
+    private void SetupPath() {
+
+        if (currentDirection != Vector2.down) {
+            path.transform.up = currentDirection;
+        }
+        else if (currentDirection == Vector2.down) {
+            // the arrows don't show when path.transform.up = Vector2.down, so manually set rotation for this one
+            path.transform.localRotation = Quaternion.Euler(0f, 0f, 180f);
+        }
+
+        Vector2 pos = (Vector2)transform.position + (col.offset * transform.localScale);
+        RaycastHit2D hit = Physics2D.BoxCast(pos, col.size, 0f, currentDirection, 99f, GameLayers.WallLayerMask);
+
+        float pathLength = hit.distance + (col.size.x * 0.5f);
+        pathBackground.transform.localScale = new(pathBackground.transform.localScale.x, pathLength, pathBackground.transform.localScale.z);
+        pathArrows.size = new Vector3(pathArrows.size.x, pathLength);
+
+
+        pathBackground.Fade(0f);
+        pathBackground.DOKill();
+        pathBackground.DOFade(20f / 255f, duration: 0.3f);
+
+        pathArrows.Fade(0f);
+        pathArrows.DOKill();
+        pathArrows.DOFade(40f / 255f, duration: 0.3f);
+    }
+
     private void SetBurstCount(ParticleSystem particles, int count) {
         var emission = particles.emission;
         var burst = emission.GetBurst(0);
@@ -193,14 +259,15 @@ public class Smasher : MonoBehaviour {
         emission.SetBurst(0, burst);
     }
 
-    private void OnDrawGizmos() {
+    public Tween DoFadeOut() {
+        visual.DOKill();
+        return visual.DOFade(0f, duration: 0.6f);
+    }
 
+    private void OnDrawGizmos() {
         foreach (Vector2 direction in directions) {
             Vector2 pos = (Vector2)transform.position + (col.offset * transform.localScale) + (direction * 0.2f);
             Gizmos.DrawWireCube(pos, col.size * transform.localScale * 0.98f);
         }
-
-        float length = 5f;
-        Gizmos.DrawLine(transform.position, transform.position + ((Vector3)currentDirection * length));
     }
 }

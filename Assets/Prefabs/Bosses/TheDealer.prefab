@@ -15043,9 +15043,11 @@ MonoBehaviour:
   - {x: -8, y: 6}
   - {x: 0, y: 6}
   - {x: 8, y: 6}
-  - {x: -4, y: -6}
-  - {x: 4, y: -6}
-  smashCooldown: 2
+  - {x: -4, y: 0}
+  - {x: 4, y: 0}
+  - {x: -8, y: -6}
+  - {x: 0, y: -6}
+  - {x: 8, y: -6}
   redMaterial: {fileID: 2100000, guid: 1ba86cbcf887f3a4684df6994dfaba5f, type: 2}
   visual: {fileID: 4802675512571427162}
   sparksFake: {fileID: 3035007274772066227}

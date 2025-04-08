@@ -138,7 +138,7 @@ Transform:
   m_GameObject: {fileID: 2724240067394890965}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0.7, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -172,7 +172,7 @@ Transform:
   m_GameObject: {fileID: 3307114027732884083}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.71, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -207,7 +207,7 @@ Transform:
   m_GameObject: {fileID: 4424740918961332925}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.2, z: 0}
+  m_LocalPosition: {x: 0, y: -0.496, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -5160,7 +5160,7 @@ Transform:
   m_GameObject: {fileID: 4979540377221942571}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.2, z: 0}
+  m_LocalPosition: {x: 0, y: 0.505, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -15245,7 +15245,9 @@ MonoBehaviour:
   slowMovingTime: 0.2
   touchDamage: {fileID: 5051751175820281481}
   col: {fileID: 16197778074952838}
+  effectsSize: 1
   visual: {fileID: 7682327818677035707}
+  directionalVisuals: {fileID: 1988474629251104138}
   constructEffect: {fileID: 5460153944768683692}
   collideParticles: {fileID: 493359759988601807}
   sideCollideParticles: {fileID: 4827086235434065684}

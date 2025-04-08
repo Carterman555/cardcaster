@@ -27,7 +27,10 @@ public class Smasher : MonoBehaviour {
     private Rigidbody2D rb;
 
     [Header("Visual")]
+    [SerializeField] private float effectsSize;
+
     [SerializeField] private SpriteRenderer visual;
+    [SerializeField] private Transform directionalVisuals;
 
     [SerializeField] private ConstructEffect constructEffect;
 
@@ -61,6 +64,7 @@ public class Smasher : MonoBehaviour {
 
     private void OnContructed() {
         ResetSmash();
+        Invoke(nameof(SetupVisuals), 0.1f); // delay so side collide particles play on correct side
 
         visual.Fade(0.5f);
         visual.DOKill();
@@ -94,11 +98,13 @@ public class Smasher : MonoBehaviour {
             if (hitObstacle) {
                 OnSmash();
                 ResetSmash();
+                Invoke(nameof(SetupVisuals), 0.1f); // delay so side collide particles play on correct side
             }
             else if (rb.velocity.magnitude < slowMovingThreshold) {
                 slowMovingTimer += Time.deltaTime;
                 if (slowMovingTimer > slowMovingTime) {
                     ResetSmash();
+                    Invoke(nameof(SetupVisuals), 0.1f); // delay so side collide particles play on correct side
                 }
             }
             else {
@@ -117,6 +123,7 @@ public class Smasher : MonoBehaviour {
         if (smashing && collision.gameObject.TryGetComponent(out Smasher smasher)) {
             OnSmash();
             ResetSmash();
+            Invoke(nameof(SetupVisuals), 0.1f); // delay so side collide particles play on correct side
         }
     }
 
@@ -147,8 +154,18 @@ public class Smasher : MonoBehaviour {
 
         lastDirection = currentDirection;
         currentDirection = GetRandomValidDirection();
+    }
 
-        SetTrailParticlePosition();
+    private void SetupVisuals() {
+        if (currentDirection != Vector2.down) {
+            directionalVisuals.up = currentDirection;
+        }
+        else if (currentDirection == Vector2.down) {
+            // the arrows don't show when directionalVisuals.up = Vector2.down, so manually set rotation for this one
+            directionalVisuals.localRotation = Quaternion.Euler(0f, 0f, 180f);
+        }
+
+
         trailParticles.Stop();
 
         path.SetActive(true);
@@ -178,26 +195,12 @@ public class Smasher : MonoBehaviour {
     private void OnSmash() {
 
         // collide particles
-        float collideBurstCountMult = 1.5f;
-        SetBurstCount(collideParticles, (int)(speedBeforeCollision * collideBurstCountMult));
+        float collideBurstCountMult = 0.5f;
+        SetBurstCount(collideParticles, (int)(speedBeforeCollision * effectsSize * collideBurstCountMult));
         collideParticles.Play();
 
-        // side collide particles
-        if (currentDirection == Vector2.up) {
-            sideCollideParticles.transform.SetLocalPositionAndRotation(new(0, 3.3f), Quaternion.identity);
-        }
-        else if (currentDirection == Vector2.down) {
-            sideCollideParticles.transform.SetLocalPositionAndRotation(new(0, 0.3f), Quaternion.identity);
-        }
-        else if (currentDirection == Vector2.left) {
-            sideCollideParticles.transform.SetLocalPositionAndRotation(new(-1.5f, 2f), Quaternion.Euler(0, 0, 90));
-        }
-        else if (currentDirection == Vector2.right) {
-            sideCollideParticles.transform.SetLocalPositionAndRotation(new(1.5f, 2f), Quaternion.Euler(0, 0, 90));
-        }
-
-        float sideCollideBurstCountMult = 1.5f;
-        SetBurstCount(sideCollideParticles, (int)(speedBeforeCollision * sideCollideBurstCountMult));
+        float sideCollideBurstCountMult = 0.5f;
+        SetBurstCount(sideCollideParticles, (int)(speedBeforeCollision * effectsSize * sideCollideBurstCountMult));
 
         Vector2 boxPos = (Vector2)transform.position + (col.offset * transform.localScale) + (currentDirection * 0.2f);
         bool obstacleAhead = Physics2D.OverlapBox(boxPos, col.size * transform.localScale * 0.98f, 0f, GameLayers.ObstacleLayerMask);
@@ -206,34 +209,11 @@ public class Smasher : MonoBehaviour {
         }
 
         // camera shake
-        float cameraShakeMult = 0.025f;
-        CameraShaker.Instance.ShakeCamera(speedBeforeCollision * cameraShakeMult);
-    }
-
-    private void SetTrailParticlePosition() {
-        if (currentDirection == Vector2.up) {
-            trailParticles.transform.SetLocalPositionAndRotation(new(0, 3.3f), Quaternion.identity);
-        }
-        else if (currentDirection == Vector2.down) {
-            trailParticles.transform.SetLocalPositionAndRotation(new(0, 3.3f), Quaternion.identity);
-        }
-        else if (currentDirection == Vector2.left) {
-            trailParticles.transform.SetLocalPositionAndRotation(new(1.5f, 2f), Quaternion.Euler(0, 0, 90));
-        }
-        else if (currentDirection == Vector2.right) {
-            trailParticles.transform.SetLocalPositionAndRotation(new(-1.5f, 2f), Quaternion.Euler(0, 0, 90));
-        }
+        float cameraShakeMult = 0.01f;
+        CameraShaker.Instance.ShakeCamera(speedBeforeCollision * effectsSize * cameraShakeMult);
     }
 
     private void SetupPath() {
-
-        if (currentDirection != Vector2.down) {
-            path.transform.up = currentDirection;
-        }
-        else if (currentDirection == Vector2.down) {
-            // the arrows don't show when path.transform.up = Vector2.down, so manually set rotation for this one
-            path.transform.localRotation = Quaternion.Euler(0f, 0f, 180f);
-        }
 
         Vector2 pos = (Vector2)transform.position + (col.offset * transform.localScale);
         RaycastHit2D hit = Physics2D.BoxCast(pos, col.size, 0f, currentDirection, 99f, GameLayers.WallLayerMask);

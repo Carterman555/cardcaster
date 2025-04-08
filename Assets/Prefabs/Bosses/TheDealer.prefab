@@ -15021,7 +15021,7 @@ MonoBehaviour:
     Duration:
       MinValue: 20
       MaxValue: 20
-  debugStartSecondStage: 0
+  debugStartSecondStage: 1
   anim: {fileID: 3887365593034165796}
   centerPoint: {fileID: 2512676828727106287}
   debugState: 1
@@ -15039,6 +15039,7 @@ MonoBehaviour:
   laserRotateAngle: 25
   laserShootParticles: {fileID: 3657101344572115843, guid: 835a0cb0b06eb534e9c470d25b236a9b, type: 3}
   smasherPrefab: {fileID: 6572754046408632783, guid: f66b761bfdcc84848bbdfd121cfe827f, type: 3}
+  smallSmasherPrefab: {fileID: 6572754046408632783, guid: 15417a8a164db2c478b78cf830210884, type: 3}
   smasherPositions:
   - {x: -8, y: 6}
   - {x: 0, y: 6}
@@ -15048,6 +15049,13 @@ MonoBehaviour:
   - {x: -8, y: -6}
   - {x: 0, y: -6}
   - {x: 8, y: -6}
+  smallSmasherPositions:
+  - {x: -4, y: 7.5}
+  - {x: 4, y: 7.5}
+  - {x: 8, y: 1.5}
+  - {x: -8, y: 1.5}
+  - {x: 4, y: -4.5}
+  - {x: -4, y: -4.5}
   redMaterial: {fileID: 2100000, guid: 1ba86cbcf887f3a4684df6994dfaba5f, type: 2}
   visual: {fileID: 4802675512571427162}
   sparksFake: {fileID: 3035007274772066227}

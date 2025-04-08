@@ -232,7 +232,9 @@ public class TheFakeDealer : MonoBehaviour, IHasEnemyStats, IBoss {
 
     [Header("Smashers")]
     [SerializeField] private Smasher smasherPrefab;
+    [SerializeField] private Smasher smallSmasherPrefab;
     [SerializeField] private Vector2[] smasherPositions;
+    [SerializeField] private Vector2[] smallSmasherPositions;
 
     private List<Smasher> smashers;
 
@@ -242,6 +244,14 @@ public class TheFakeDealer : MonoBehaviour, IHasEnemyStats, IBoss {
             Vector2 pos = (Vector2)Room.GetCurrentRoom().transform.position + smasherPositions[i];
             Smasher smasher = smasherPrefab.Spawn(pos, Containers.Instance.Projectiles);
             smashers.Add(smasher);
+        }
+
+        if (!inFirstStage) {
+            for (int i = 0; i < smallSmasherPositions.Count(); i++) {
+                Vector2 pos = (Vector2)Room.GetCurrentRoom().transform.position + smallSmasherPositions[i];
+                Smasher smasher = smallSmasherPrefab.Spawn(pos, Containers.Instance.Projectiles);
+                smashers.Add(smasher);
+            }
         }
     }
 

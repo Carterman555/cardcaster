@@ -234,8 +234,6 @@ public class TheFakeDealer : MonoBehaviour, IHasEnemyStats, IBoss {
     [SerializeField] private Smasher smasherPrefab;
     [SerializeField] private Vector2[] smasherPositions;
 
-    [SerializeField] private float smashCooldown;
-
     private List<Smasher> smashers;
 
     private void SpawnSmashers() {
@@ -249,7 +247,9 @@ public class TheFakeDealer : MonoBehaviour, IHasEnemyStats, IBoss {
 
     private void RemoveSmashers() {
         foreach (Smasher smasher in smashers) {
-            smasher.gameObject.ReturnToPool();
+            smasher.DoFadeOut().OnComplete(() => {
+                smasher.gameObject.ReturnToPool();
+            });
         }
         smashers.Clear();
     }

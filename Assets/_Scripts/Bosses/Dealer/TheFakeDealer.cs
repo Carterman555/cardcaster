@@ -7,13 +7,20 @@ using System.Linq;
 using TreeEditor;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.InputSystem;
+using UnityEngine.Localization;
+using UnityEngine.Serialization;
 
 [Serializable]
 public enum FakeDealerState {
-    BetweenStates = 0,
-    Swing = 1,
-    Lasers = 2,
-    Smashers = 3
+    StartingDialog,
+    RealRevealDialog,
+    FakeDeathDialog,
+    RealDeathDialog,
+    BetweenStates,
+    Swing,
+    Lasers,
+    Smashers
 }
 
 [Serializable]
@@ -35,7 +42,6 @@ public class TheFakeDealer : MonoBehaviour, IHasEnemyStats, IBoss {
     private float stateTimer;
 
     private bool inFirstStage;
-    [SerializeField] private bool debugStartSecondStage;
 
     [SerializeField] private Animator anim;
     private EnemyHealth health;
@@ -45,8 +51,10 @@ public class TheFakeDealer : MonoBehaviour, IHasEnemyStats, IBoss {
 
     [SerializeField] private Transform centerPoint;
 
+    [Header("Debug")]
     [SerializeField] private bool debugState;
     [ConditionalHide("debugState")][SerializeField] private FakeDealerState stateToDebug;
+    [SerializeField] private bool debugStartSecondStage;
 
     private void Awake() {
         InitializeDurationDict();
@@ -64,15 +72,18 @@ public class TheFakeDealer : MonoBehaviour, IHasEnemyStats, IBoss {
     }
 
     private void OnEnable() {
+        health.DeathEventTrigger.AddListener(OnDeath);
+
         stateTimer = 0f;
-        ChangeState(FakeDealerState.BetweenStates);
+        ChangeState(FakeDealerState.StartingDialog);
 
         inFirstStage = !debugStartSecondStage;
 
         StartCoroutine(FadeInRed());
         UpdateVisual();
 
-        health.DeathEventTrigger.AddListener(OnDeath);
+        // dialog
+        DialogBox.Instance.ShowText(startDialogs.RandomItem());
     }
 
     private void OnDisable() {
@@ -80,6 +91,15 @@ public class TheFakeDealer : MonoBehaviour, IHasEnemyStats, IBoss {
     }
 
     private void Update() {
+
+        if (currentState == FakeDealerState.StartingDialog ||
+            currentState == FakeDealerState.RealRevealDialog ||
+            currentState == FakeDealerState.FakeDeathDialog ||
+            currentState == FakeDealerState.RealDeathDialog) {
+
+            HandleDialog();
+            return;
+        }
 
         stateTimer += Time.deltaTime;
         if (stateTimer > stateDurations[currentState].Value) {
@@ -97,6 +117,8 @@ public class TheFakeDealer : MonoBehaviour, IHasEnemyStats, IBoss {
             }
         }
     }
+
+    
 
     private void ChangeToRandomState(FakeDealerState stateToAvoid) {
         FakeDealerState[] allStates = Enum.GetValues(typeof(FakeDealerState)) as FakeDealerState[];
@@ -312,5 +334,49 @@ public class TheFakeDealer : MonoBehaviour, IHasEnemyStats, IBoss {
             emission.enabled = !inFirstStage;
         }
     }
+
+    #endregion
+
+    #region Dialog
+
+    [Header("Dialog")]
+    [SerializeField] private InputActionReference nextDialogInput;
+
+    [FormerlySerializedAs("startDialogs1")]
+    [SerializeField] private LocalizedString[] startDialogs;
+    private Queue<LocalizedString> dialogQueue = new();
+
+    private void HandleDialog() {
+        if (currentState == FakeDealerState.StartingDialog) {
+            if (nextDialogInput.action.WasPerformedThisFrame()) {
+                DialogBox.Instance.Hide();
+                BossManager.Instance.ResumeEnterBossPlayer();
+
+                ChangeState(FakeDealerState.BetweenStates);
+            }
+        }
+        else if (currentState == FakeDealerState.RealRevealDialog) {
+            if (nextDialogInput.action.WasPerformedThisFrame()) {
+                if (dialogQueue.Count == 0) {
+                    // unpause fight
+
+                    ChangeState(FakeDealerState.BetweenStates);
+                }
+                else {
+                    DialogBox.Instance.ShowText(dialogQueue.Dequeue());
+                }
+            }
+        }
+        else if (currentState == FakeDealerState.FakeDeathDialog) {
+
+        }
+        else if (currentState == FakeDealerState.RealDeathDialog) {
+
+        }
+        else {
+            Debug.LogError("Trying to handle dialog when dialog state not active!");
+        }
+    }
+
     #endregion
 }

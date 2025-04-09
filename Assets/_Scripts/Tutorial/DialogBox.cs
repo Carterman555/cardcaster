@@ -27,17 +27,17 @@ public class DialogBox : MonoBehaviour, IInitializable {
 
     [SerializeField] private InputActionReference nextDialogAction;
 
-    private bool showing;
-
     private LocalizedString locText;
+    private bool showNextDialogText;
 
     public void ShowText(LocalizedString locText, bool showNextDialogText = true, InputActionReference dialogAction = null) {
+        this.locText = locText;
+        this.showNextDialogText = showNextDialogText;
 
         if (!gameObject.activeSelf) {
             FeedbackPlayerReference.Play("DialogBox");
         }
 
-        this.locText = locText;
         locText.StringChanged += UpdateText;
 
         string text = locText.GetLocalizedString();
@@ -66,5 +66,11 @@ public class DialogBox : MonoBehaviour, IInitializable {
 
     private void UpdateText(string value) {
         dialogText.text = value;
+
+        string inputStr = InputManager.Instance.GetBindingText(nextDialogAction, shortDisplayName: false);
+        nextDialogText.text = "[" + inputStr + "]";
+        if (!showNextDialogText) {
+            nextDialogText.text = "";
+        }
     }
 }

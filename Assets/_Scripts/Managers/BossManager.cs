@@ -2,9 +2,10 @@ using Cinemachine;
 using MoreMountains.Feedbacks;
 using System;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
-public class BossManager : MonoBehaviour {
+public class BossManager : StaticInstance<BossManager> {
 
     public static event Action OnStartBossFight;
     public static event Action OnBossKilled;
@@ -20,7 +21,8 @@ public class BossManager : MonoBehaviour {
 
     private Room room;
 
-    private void Awake() {
+    protected override void Awake() {
+        base.Awake();
         playerHealth = PlayerMovement.Instance.GetComponent<PlayerHealth>();
     }
 
@@ -46,12 +48,13 @@ public class BossManager : MonoBehaviour {
 
         GameStateManager.Instance.SetGameState(GameState.CutScene);
 
-        SpawnBoss(bossRoom.GetBossSpawnPoint().position);
+        ScriptableBoss boss = SpawnBoss(bossRoom.GetBossSpawnPoint().position);
 
         staticCamera.transform.position = new Vector3(bossRoom.GetBossSpawnPoint().position.x, bossRoom.GetBossSpawnPoint().position.y, -10f);
 
-        bool versingDealer = GameSceneManager.Instance.Level == 3;
+        bool versingDealer = boss.Prefab.TryGetComponent(out TheFakeDealer theFakeDealer);
         enterBossRoomPlayer.GetFeedbackOfType<MMF_HoldingPause>().AutoResume = !versingDealer;
+        enterBossRoomPlayer.Initialization();
         enterBossRoomPlayer.PlayFeedbacks();
 
         playerHealth.DeathEventTrigger.AddListener(OnPlayerDefeated);
@@ -63,7 +66,7 @@ public class BossManager : MonoBehaviour {
         enterBossRoomPlayer.ResumeFeedbacks();
     }
 
-    private void SpawnBoss(Vector2 spawnPoint) {
+    private ScriptableBoss SpawnBoss(Vector2 spawnPoint) {
         int currentLevel = GameSceneManager.Instance.Level;
         List<ScriptableBoss> possibleBosses = ResourceSystem.Instance.GetBosses(currentLevel);
         ScriptableBoss chosenBoss = possibleBosses.RandomItem();
@@ -76,6 +79,8 @@ public class BossManager : MonoBehaviour {
         bossHealthUI.Setup(chosenBoss.LocName, bossHealth);
 
         bossHealth.DeathEventTrigger.AddListener(OnBossDefeated);
+
+        return chosenBoss;
     }
 
     public void OnEnterRoomPlayerCompleted() {

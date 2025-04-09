@@ -25,7 +25,7 @@ public class LevelText : MonoBehaviour {
     }
 
     private void UpdateText(Locale locale) {
-        EnvironmentType environmentType = GameSceneManager.Instance.GetEnvironment();
+        EnvironmentType environmentType = GameSceneManager.Instance.CurrentEnvironment;
 
         if (environmentType == EnvironmentType.Stone) {
             text.text = stoneLocString.GetLocalizedString();

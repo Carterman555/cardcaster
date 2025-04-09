@@ -40,7 +40,7 @@ public class ChasePlayerBehavior : MonoBehaviour, IEffectable, IEnemyMovement {
 
     private void OnDisable() {
 
-        if (Helpers.GameStopping() || GameSceneManager.Instance.IsSceneLoading()) {
+        if (Helpers.GameStopping() || GameSceneManager.Instance.IsSceneLoading) {
             return;
         }
 

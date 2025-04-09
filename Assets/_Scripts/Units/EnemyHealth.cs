@@ -47,7 +47,7 @@ public class EnemyHealth : MonoBehaviour, IDamagable {
 
         maxHealth = stats.MaxHealth;
         if (increaseHealthPerLevel) {
-            float proportionIncrease = perLevelProportionToIncrease * (GameSceneManager.Instance.GetLevel() - 1);
+            float proportionIncrease = perLevelProportionToIncrease * (GameSceneManager.Instance.Level - 1);
             maxHealth = stats.MaxHealth + (stats.MaxHealth * proportionIncrease);
         }
 

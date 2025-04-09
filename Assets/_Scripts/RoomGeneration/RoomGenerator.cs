@@ -33,7 +33,7 @@ public class RoomGenerator : StaticInstance<RoomGenerator> {
             OnCompleteGeneration?.Invoke();
         }
         else {
-            GenerateRooms(GameSceneManager.Instance.GetEnvironment());
+            GenerateRooms(GameSceneManager.Instance.CurrentEnvironment);
         }
     }
 

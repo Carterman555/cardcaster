@@ -218,28 +218,24 @@ public class DialogStep : BaseTutorialStep {
     public override void OnEnterStep() {
         base.OnEnterStep();
 
-        string dialogText = "";
+        LocalizedString locDialog;
         if (inputDependentDialog) {
             if (InputManager.Instance.GetControlScheme() == ControlSchemeType.Keyboard) {
-                dialogText = keyboardDialog.GetLocalizedString();
+                locDialog = keyboardDialog;
             }
             else if (InputManager.Instance.GetControlScheme() == ControlSchemeType.Controller) {
-                dialogText = controllerDialog.GetLocalizedString();
+                locDialog = controllerDialog;
             }
             else {
                 Debug.LogWarning("No matching control scheme type!");
+                locDialog = dialog;
             }
         }
         else {
-            dialogText = dialog.GetLocalizedString();
+            locDialog = dialog;
         }
 
-        if (dialogAction != null) {
-            string actionText = InputManager.Instance.GetBindingText(dialogAction, shortDisplayName: false);
-            dialogText = dialogText.Replace("{ACTION}", actionText);
-        }
-
-        DialogBox.Instance.ShowText(dialogText);
+        DialogBox.Instance.ShowText(locDialog, dialogAction: dialogAction);
 
         nextStepInput.action.performed += CompleteStep;
     }
@@ -278,28 +274,24 @@ public class EventDialogStep : BaseTutorialStep {
     public override void OnEnterStep() {
         base.OnEnterStep();
 
-        string dialogText = "";
+        LocalizedString locDialog;
         if (inputDependentDialog) {
             if (InputManager.Instance.GetControlScheme() == ControlSchemeType.Keyboard) {
-                dialogText = keyboardDialog.GetLocalizedString();
+                locDialog = keyboardDialog;
             }
             else if (InputManager.Instance.GetControlScheme() == ControlSchemeType.Controller) {
-                dialogText = controllerDialog.GetLocalizedString();
+                locDialog = controllerDialog;
             }
             else {
                 Debug.LogWarning("No matching control scheme type!");
+                locDialog = dialog;
             }
         }
         else {
-            dialogText = dialog.GetLocalizedString();
+            locDialog = dialog;
         }
 
-        if (dialogAction != null) {
-            string actionText = InputManager.Instance.GetBindingText(dialogAction, shortDisplayName: false);
-            dialogText = dialogText.Replace("{ACTION}", actionText);
-        }
-
-        DialogBox.Instance.ShowText(dialogText, showNextDialogText: false);
+        DialogBox.Instance.ShowText(locDialog, showNextDialogText: false, dialogAction);
 
         nextStepEvent.AddListener(CompleteStep);
     }
@@ -483,8 +475,7 @@ public class PickupEssenceStep : BaseTutorialStep {
     public override void OnEnterStep() {
         base.OnEnterStep();
 
-        string dialogText = dialog.GetLocalizedString();
-        DialogBox.Instance.ShowText(dialogText, showNextDialogText: false);
+        DialogBox.Instance.ShowText(dialog, showNextDialogText: false);
 
         DropEssence();
 
@@ -530,8 +521,7 @@ public class HoleStep : BaseTutorialStep {
     public override void OnEnterStep() {
         base.OnEnterStep();
 
-        string dialogText = dialog.GetLocalizedString();
-        DialogBox.Instance.ShowText(dialogText, showNextDialogText: false);
+        DialogBox.Instance.ShowText(dialog, showNextDialogText: false);
 
         createHoleParticles.Play();
 

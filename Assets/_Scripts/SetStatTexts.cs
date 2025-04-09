@@ -8,6 +8,6 @@ public class SetStatTexts : MonoBehaviour {
 
     private void OnEnable() {
         KillCount = GameStatsTracker.Instance.GetKills();
-        Level = GameSceneManager.Instance.GetLevel();
+        Level = GameSceneManager.Instance.Level;
     }
 }

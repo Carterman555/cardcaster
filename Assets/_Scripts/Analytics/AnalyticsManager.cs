@@ -85,11 +85,11 @@ public class AnalyticsManager : MonoBehaviour {
         PlayerDeathEvent playerDeathEvent = new() {
             RunTime = GameTime,
             Room = Room.GetCurrentRoom().name,
-            Level = GameSceneManager.Instance.GetLevel()
+            Level = GameSceneManager.Instance.Level
         };
 
         AnalyticsService.Instance.RecordEvent(playerDeathEvent);
-        if (debug) print($"Record death: {GameTime}, {Room.GetCurrentRoom().name}, {GameSceneManager.Instance.GetLevel()}");
+        if (debug) print($"Record death: {GameTime}, {Room.GetCurrentRoom().name}, {GameSceneManager.Instance.Level}");
     }
 
 

@@ -83,7 +83,6 @@ public class EnemyHealth : MonoBehaviour, IDamagable {
     }
 
     [ContextMenu("Die")]
-    [Command]
     public void Die() {
 
         if (Dead) {

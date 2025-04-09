@@ -683,6 +683,26 @@ MonoBehaviour:
     m_Key: clearData
     m_Metadata:
       m_Items: []
+  - m_Id: 4340279236104192
+    m_Key: DealerStarting1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4346930253008896
+    m_Key: DealerStarting2-1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4350171925712896
+    m_Key: DealerStarting2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4350576340504576
+    m_Key: DealerStarting3
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4350753709232128
+    m_Key: DealerStarting4
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

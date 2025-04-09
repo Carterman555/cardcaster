@@ -15021,11 +15021,11 @@ MonoBehaviour:
     Duration:
       MinValue: 20
       MaxValue: 20
-  debugStartSecondStage: 1
   anim: {fileID: 3887365593034165796}
   centerPoint: {fileID: 2512676828727106287}
   debugState: 1
   stateToDebug: 3
+  debugStartSecondStage: 1
   swordRotate: {fileID: 8468655487895110190}
   sword1Renderer: {fileID: 5832003789959896266}
   sword2Renderer: {fileID: 7368805656976827978}
@@ -15060,6 +15060,43 @@ MonoBehaviour:
   visual: {fileID: 4802675512571427162}
   sparksFake: {fileID: 3035007274772066227}
   sparksReal: {fileID: 3956839116295093506}
+  nextDialogInput: {fileID: -110675408553890393, guid: 50afa068aa51bd149a1f3d07794c53d5, type: 3}
+  startDialogs:
+  - m_TableReference:
+      m_TableCollectionName: GUID:e2b89126a54df984f885da2bac4cb92f
+    m_TableEntryReference:
+      m_KeyId: 4340279236104192
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  - m_TableReference:
+      m_TableCollectionName: GUID:e2b89126a54df984f885da2bac4cb92f
+    m_TableEntryReference:
+      m_KeyId: 4350171925712896
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  - m_TableReference:
+      m_TableCollectionName: GUID:e2b89126a54df984f885da2bac4cb92f
+    m_TableEntryReference:
+      m_KeyId: 4350576340504576
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  - m_TableReference:
+      m_TableCollectionName: GUID:e2b89126a54df984f885da2bac4cb92f
+    m_TableEntryReference:
+      m_KeyId: 4350753709232128
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  references:
+    version: 2
+    RefIds: []
 --- !u!114 &7842081825320602579
 MonoBehaviour:
   m_ObjectHideFlags: 0

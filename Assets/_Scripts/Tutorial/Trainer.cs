@@ -120,7 +120,7 @@ public class Trainer : StaticInstance<Trainer> {
             return;
         }
 
-        DialogBox.Instance.ShowText(breakBarrelString.GetLocalizedString(), showNextDialogText: false);
+        DialogBox.Instance.ShowText(breakBarrelString, showNextDialogText: false);
         EnterRage();
     }
 
@@ -140,7 +140,7 @@ public class Trainer : StaticInstance<Trainer> {
 
         if (playedCard is ScriptableTeleportCard && !playerInRoomTwo) {
 
-            DialogBox.Instance.ShowText(wrongTeleportString.GetLocalizedString(), showNextDialogText: false);
+            DialogBox.Instance.ShowText(wrongTeleportString, showNextDialogText: false);
             EnterRage();
         }
     }
@@ -156,7 +156,7 @@ public class Trainer : StaticInstance<Trainer> {
             return;
         }
 
-        DialogBox.Instance.ShowText(teleportAwayString.GetLocalizedString(), showNextDialogText: false);
+        DialogBox.Instance.ShowText(teleportAwayString, showNextDialogText: false);
 
         TeleportToPoint(roomOneTeleportPoint);
 
@@ -173,7 +173,7 @@ public class Trainer : StaticInstance<Trainer> {
         bool fireOrSwingCard = card == fireCard || card is ScriptableSwordSwingCard;
 
         if (fireOrSwingCard && tutorial.InGiveCardsStep()) {
-            DialogBox.Instance.ShowText(insufficientEssenceString.GetLocalizedString(), showNextDialogText: false);
+            DialogBox.Instance.ShowText(insufficientEssenceString, showNextDialogText: false);
             EnterRage();
         }
     }

@@ -14,8 +14,8 @@ public class GameSceneManager : Singleton<GameSceneManager> {
 
     public bool Tutorial { get; private set; }
 
-    private EnvironmentType currentEnvironment;
-    private int level;
+    public EnvironmentType CurrentEnvironment { get; private set; }
+    public int Level { get; private set; }
 
     private const int LEVELS_PER_ENVIRONMENT = 1;
 
@@ -23,14 +23,14 @@ public class GameSceneManager : Singleton<GameSceneManager> {
 
     private MMF_Player sceneLoadPlayer;
 
-    private bool isSceneLoading;
+    public bool IsSceneLoading { get; private set; }
 
     // needed only for when starting game in game scene
     protected override void Awake() {
         base.Awake();
 
-        level = 1;
-        currentEnvironment = EnvironmentType.Stone;
+        Level = 1;
+        CurrentEnvironment = EnvironmentType.Stone;
         Tutorial = debugStartTutorial;
 
         sceneLoadPlayer = GetComponent<MMF_Player>();
@@ -43,8 +43,8 @@ public class GameSceneManager : Singleton<GameSceneManager> {
     }
 
     public void StartGame(bool tutorial = false) {
-        level = 1;
-        currentEnvironment = EnvironmentType.Stone;
+        Level = 1;
+        CurrentEnvironment = EnvironmentType.Stone;
         Tutorial = tutorial;
 
         LoadGameScene();
@@ -54,11 +54,11 @@ public class GameSceneManager : Singleton<GameSceneManager> {
 
     [Command]
     public void NextLevel() {
-        OnLevelComplete?.Invoke(level);
+        OnLevelComplete?.Invoke(Level);
 
-        level++;
+        Level++;
 
-        if (level > MAX_LEVEL) {
+        if (Level > MAX_LEVEL) {
             OnWinGame?.Invoke();
             FeedbackPlayerReference.Play("DemoComplete");
             return;
@@ -81,44 +81,32 @@ public class GameSceneManager : Singleton<GameSceneManager> {
         MMF_LoadScene loadGameFeedback = sceneLoadPlayer.GetFeedbackOfType<MMF_LoadScene>("Load Game Scene");
         loadGameFeedback.Play(Vector3.zero);
 
-        isSceneLoading = true;
+        IsSceneLoading = true;
     }
 
     private void LoadMenuScene() {
         MMF_LoadScene loadGameFeedback = sceneLoadPlayer.GetFeedbackOfType<MMF_LoadScene>("Load Menu Scene");
         loadGameFeedback.Play(Vector3.zero);
 
-        isSceneLoading = true;
+        IsSceneLoading = true;
     }
 
     private void UpdateEnvironmentType() {
 
         // with levelsPerEnvironment = 2 then level 1 and 2 become 0 (stone), 3 and 4 become 1 (smooth stone), and 5 and 6 become 2 (blue stone)
-        int environmentNum = Mathf.CeilToInt(((float)level / LEVELS_PER_ENVIRONMENT) - 1);
-        currentEnvironment = (EnvironmentType)environmentNum;
+        int environmentNum = Mathf.CeilToInt(((float)Level / LEVELS_PER_ENVIRONMENT) - 1);
+        CurrentEnvironment = (EnvironmentType)environmentNum;
     }
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode loadSceneMode) {
         if (scene != SceneManager.GetSceneByName("AdditiveLoadingScreen")) {
-            isSceneLoading = false;
+            IsSceneLoading = false;
         }
-    }
-
-    public int GetLevel() {
-        return level;
     }
 
     // the level in the environment
     public int GetSubLevel() {
-        int subLevel = ((level - 1) % LEVELS_PER_ENVIRONMENT) + 1;
+        int subLevel = ((Level - 1) % LEVELS_PER_ENVIRONMENT) + 1;
         return subLevel;
-    }
-
-    public EnvironmentType GetEnvironment() {
-        return currentEnvironment;
-    }
-
-    public bool IsSceneLoading() {
-        return isSceneLoading;
     }
 }

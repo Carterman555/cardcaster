@@ -50,6 +50,8 @@ public class BossManager : MonoBehaviour {
 
         staticCamera.transform.position = new Vector3(bossRoom.GetBossSpawnPoint().position.x, bossRoom.GetBossSpawnPoint().position.y, -10f);
 
+        bool versingDealer = GameSceneManager.Instance.Level == 3;
+        enterBossRoomPlayer.GetFeedbackOfType<MMF_HoldingPause>().AutoResume = !versingDealer;
         enterBossRoomPlayer.PlayFeedbacks();
 
         playerHealth.DeathEventTrigger.AddListener(OnPlayerDefeated);
@@ -57,8 +59,12 @@ public class BossManager : MonoBehaviour {
         OnStartBossFight?.Invoke();
     }
 
+    public void ResumeEnterBossPlayer() {
+        enterBossRoomPlayer.ResumeFeedbacks();
+    }
+
     private void SpawnBoss(Vector2 spawnPoint) {
-        int currentLevel = GameSceneManager.Instance.GetLevel();
+        int currentLevel = GameSceneManager.Instance.Level;
         List<ScriptableBoss> possibleBosses = ResourceSystem.Instance.GetBosses(currentLevel);
         ScriptableBoss chosenBoss = possibleBosses.RandomItem();
 

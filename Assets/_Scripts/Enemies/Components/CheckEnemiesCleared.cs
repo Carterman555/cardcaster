@@ -9,7 +9,7 @@ public class CheckEnemiesCleared : MonoBehaviour {
     private static bool isOnCooldown = false;
 
     private void OnDisable() {
-        if (Helpers.GameStopping() || GameSceneManager.Instance.IsSceneLoading()) {
+        if (Helpers.GameStopping() || GameSceneManager.Instance.IsSceneLoading) {
             return;
         }
 

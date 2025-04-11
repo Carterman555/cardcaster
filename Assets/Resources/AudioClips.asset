@@ -208,9 +208,9 @@ MonoBehaviour:
     PitchVariation: 0
   teleport:
     Clips:
-    - {fileID: 8300000, guid: a6c0aca13b83f6e4e88bd1c73308564d, type: 3}
+    - {fileID: 8300000, guid: e801e16dc5def064ca8d6a0694e4d576, type: 3}
     Volume: 1
-    PitchVariation: 0
+    PitchVariation: 0.1
   explode:
     Clips:
     - {fileID: 8300000, guid: c9afb7bf845b08e4f95dd08c57ebc073, type: 3}

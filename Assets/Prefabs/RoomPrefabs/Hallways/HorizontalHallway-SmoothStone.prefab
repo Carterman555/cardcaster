@@ -1624,7 +1624,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 5523412247354549612, guid: aaf813fa1e4707847b1e6486a5b2e3d5, type: 3}
       propertyPath: m_Name
-      value: HorizontalHallway-SmoothStoneN
+      value: HorizontalHallway-SmoothStone
       objectReference: {fileID: 0}
     - target: {fileID: 8927245960358128749, guid: aaf813fa1e4707847b1e6486a5b2e3d5, type: 3}
       propertyPath: m_LocalPosition.x

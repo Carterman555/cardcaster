@@ -22,7 +22,7 @@ MonoBehaviour:
     m_FallbackState: 0
     m_WaitForCompletion: 0
     m_LocalVariables: []
-  category:
+  locCategory:
     m_TableReference:
       m_TableCollectionName: GUID:e2b89126a54df984f885da2bac4cb92f
     m_TableEntryReference:
@@ -44,8 +44,10 @@ MonoBehaviour:
   cost: 2
   rarity: 2
   stackType: 2
+  inDemo: 1
   startUnlocked: 0
   unlockLevel: 1
+  memoryCard: 0
   abilityAttributes: 9
   baseStats:
     BaseDamage: -1

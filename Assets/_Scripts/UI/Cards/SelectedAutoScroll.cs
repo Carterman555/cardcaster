@@ -17,7 +17,17 @@ public class SelectedAutoScroll : MonoBehaviour
         if (EventSystem.current.currentSelectedGameObject == null) {
             return;
         }
+    }
 
+    private void OnEnable() {
+        PanelCardButton.OnSelected_PanelCard += UpdateScroll;
+    }
+
+    private void OnDisable() {
+        PanelCardButton.OnSelected_PanelCard -= UpdateScroll;
+    }
+
+    private void UpdateScroll(PanelCardButton panelCardButton) {
         HandleScrollDown();
         HandleScrollUp();
     }

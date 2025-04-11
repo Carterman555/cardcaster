@@ -73,7 +73,7 @@ public class CardImage : MonoBehaviour {
         }
 
         titleText.text = card.Name.GetLocalizedString();
-        catagoryText.text = card.Category.GetLocalizedString();
+        catagoryText.text = card.LocCategory.GetLocalizedString();
         descriptionText.text = card.Description.GetLocalizedString();
     }
 }

@@ -11,8 +11,7 @@ public class AllCardsPanel : StaticInstance<AllCardsPanel> {
     [SerializeField] private Transform discardCardsContainer;
     [SerializeField] private Transform handCardsContainer;
 
-    private List<PanelCardButton> panelCardButtons = new();
-
+    public List<PanelCardButton> PanelCardButtons { get; private set; } = new();
 
     private void OnEnable() {
         UpdateCards();
@@ -52,13 +51,11 @@ public class AllCardsPanel : StaticInstance<AllCardsPanel> {
             PanelCardButton newCard = panelCardPrefab.Spawn(container);
             newCard.Setup(card, cardLocation, cardIndex);
 
-            panelCardButtons.Add(newCard);
+            PanelCardButtons.Add(newCard);
         }
     }
 
     #region Controller Input
-
-    [SerializeField] private PanUI panUI;
 
     private bool toSetupControllerInput;
 
@@ -70,7 +67,7 @@ public class AllCardsPanel : StaticInstance<AllCardsPanel> {
             return;
         }
 
-        if (panelCardButtons.Count > 0) {
+        if (PanelCardButtons.Count > 0) {
             SetupControllerCardSelection();
 
         }
@@ -82,12 +79,7 @@ public class AllCardsPanel : StaticInstance<AllCardsPanel> {
     private void SetupControllerCardSelection() {
 
         //... select the first card
-        panelCardButtons[0].GetComponent<Button>().Select();
-
-        //... the scroll will be controlled by which card is selected so disable the other way to scroll
-        panUI.enabled = false;
-
-
+        PanelCardButtons[0].GetComponent<Button>().Select();
     }
 
     #endregion

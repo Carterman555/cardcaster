@@ -1,13 +1,19 @@
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Profiling;
 
 public class MouseTracker : StaticInstance<MouseTracker> {
 
 
     void Update() {
-        transform.position = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
+        Profiler.BeginSample("Sample 1");
+        transform.position = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        Profiler.EndSample();
+
+        Profiler.BeginSample("Sample 2");
         UpdateHoveredObjects();
+        Profiler.EndSample();
     }
 
     public Vector2 ToMouseDirection(Vector2 origin) {

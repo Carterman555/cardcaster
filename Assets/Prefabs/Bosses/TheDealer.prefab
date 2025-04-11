@@ -15005,19 +15005,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scriptableBoss: {fileID: 11400000, guid: 2b2ac4c601a13e0438d80fa1a277e9a1, type: 2}
   stateDurationsList:
-  - State: 0
+  - State: 4
     Duration:
       MinValue: 2
       MaxValue: 2
-  - State: 1
+  - State: 5
     Duration:
       MinValue: 10
       MaxValue: 10
-  - State: 2
+  - State: 6
     Duration:
       MinValue: 10
       MaxValue: 10
-  - State: 3
+  - State: 7
     Duration:
       MinValue: 20
       MaxValue: 20

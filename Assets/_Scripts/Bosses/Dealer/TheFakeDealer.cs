@@ -4,7 +4,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using TreeEditor;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.InputSystem;
@@ -118,7 +117,7 @@ public class TheFakeDealer : MonoBehaviour, IHasEnemyStats, IBoss {
         }
     }
 
-    
+
 
     private void ChangeToRandomState(FakeDealerState stateToAvoid) {
         FakeDealerState[] allStates = Enum.GetValues(typeof(FakeDealerState)) as FakeDealerState[];
@@ -150,7 +149,9 @@ public class TheFakeDealer : MonoBehaviour, IHasEnemyStats, IBoss {
         }
 
         stateTimer = 0;
-        stateDurations[newState].Randomize();
+        if (stateDurations.ContainsKey(newState)) {
+            stateDurations[newState].Randomize();
+        }
 
         if (previousState == FakeDealerState.BetweenStates) {
         }

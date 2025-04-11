@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using UnityEngine.Localization;
+using UnityEngine.Serialization;
 
 public abstract class ScriptableCardBase : ScriptableObject, ICollectable {
 
@@ -13,8 +14,9 @@ public abstract class ScriptableCardBase : ScriptableObject, ICollectable {
     [SerializeField] private LocalizedString locName;
     public LocalizedString Name => locName;
 
-    [SerializeField] private LocalizedString category;
-    public LocalizedString Category => category;
+    [FormerlySerializedAs("category")]
+    [SerializeField] private LocalizedString locCategory;
+    public LocalizedString LocCategory => locCategory;
 
     [SerializeField] private LocalizedString description;
     public LocalizedString Description => description;
@@ -32,11 +34,17 @@ public abstract class ScriptableCardBase : ScriptableObject, ICollectable {
     [SerializeField] private StackType stackType;
     public StackType StackType => stackType;
 
+    [SerializeField] private bool inDemo;
+    public bool InDemo => inDemo;
+
     [SerializeField] private bool startUnlocked;
     public bool StartUnlocked => startUnlocked;
 
     [ConditionalHideReversed("startUnlocked")] [SerializeField] private int unlockLevel = 1;
     public int UnlockLevel => unlockLevel;
+
+    [SerializeField] private bool memoryCard;
+    public bool MemoryCard => memoryCard;
 
     public virtual void OnInstanceCreated() {
     }

@@ -4,6 +4,9 @@ public class GameStateManager : StaticInstance<GameStateManager> {
 
     public static event Action<GameState> OnGameStateChanged;
 
+    private static bool inDemo = true;
+    public static bool InDemo => inDemo;
+
     private GameState currentState;
 
     protected override void Awake() {

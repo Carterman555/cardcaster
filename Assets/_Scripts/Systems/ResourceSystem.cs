@@ -32,7 +32,12 @@ public class ResourceSystem : Singleton<ResourceSystem> {
         Enemies = Resources.LoadAll<ScriptableEnemy>("Enemies").ToList();
         Bosses = Resources.LoadAll<ScriptableBoss>("Bosses").ToList();
 
-        AllCards = Resources.LoadAll<ScriptableCardBase>("Cards").ToList();
+        if (GameStateManager.InDemo) {
+            AllCards = Resources.LoadAll<ScriptableCardBase>("Cards").Where(c => c.InDemo).ToList();
+        }
+        else {
+            AllCards = Resources.LoadAll<ScriptableCardBase>("Cards").ToList();
+        }
 
         UpdateUnlockedCards();
     }

@@ -17,6 +17,8 @@ public class PanUI : MonoBehaviour {
         if (!horizontal) panDirection.x = 0;
         if (!vertical) panDirection.y = 0;
 
+        panDirection.Normalize();
+
         targetTransform.anchoredPosition -= panDirection * panSpeed * Time.unscaledDeltaTime;
     }
 }

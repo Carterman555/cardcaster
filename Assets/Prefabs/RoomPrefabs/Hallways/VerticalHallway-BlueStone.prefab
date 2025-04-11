@@ -1624,7 +1624,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 5523412247354549612, guid: 8e2403430e5795c438c597e18fd4a800, type: 3}
       propertyPath: m_Name
-      value: VerticalHallway-Stone 2
+      value: VerticalHallway-BlueStone
       objectReference: {fileID: 0}
     - target: {fileID: 8927245960358128749, guid: 8e2403430e5795c438c597e18fd4a800, type: 3}
       propertyPath: m_LocalPosition.x

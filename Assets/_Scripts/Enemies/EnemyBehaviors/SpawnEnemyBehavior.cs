@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Profiling;
 
 public class SpawnEnemyBehavior : MonoBehaviour {
 
@@ -21,7 +22,7 @@ public class SpawnEnemyBehavior : MonoBehaviour {
         hasStats = GetComponent<IHasEnemyStats>();
 
         timedActionBehavior = new TimedActionBehavior(
-            hasStats.            EnemyStats.AttackCooldown,
+            hasStats.EnemyStats.AttackCooldown,
             () => TriggerSpawnAnimation()
         );
     }
@@ -48,7 +49,10 @@ public class SpawnEnemyBehavior : MonoBehaviour {
 
     // played by animation
     public void SpawnEnemy() {
+
+        Profiler.BeginSample("SpawnEnemy");
         Enemy spawnedEnemy = enemyToSpawn.Spawn(spawnPoint.position, Containers.Instance.Enemies);
+        Profiler.EndSample();
 
         if (customSFX) {
             AudioManager.Instance.PlaySound(spawnSFX);

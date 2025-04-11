@@ -1,4 +1,5 @@
 using MoreMountains.Feedbacks;
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -8,16 +9,29 @@ public class EssenceDrop : MonoBehaviour {
     private BobMovement bobMovement;
     private MMF_Player launchPlayer;
 
+    [SerializeField] private TriggerEventInvoker wallTrigger;
+
     private void Awake() {
         bobMovement = GetComponent<BobMovement>();
         launchPlayer = GetComponent<MMF_Player>();
     }
 
     private void OnEnable() {
+        launchPlayer.Events.OnComplete.AddListener(OnLaunchComplete);
+        wallTrigger.OnTriggerEnter += OnHitWall;
+
         bobMovement.enabled = false;
 
         launchPlayer.PlayFeedbacks();
-        launchPlayer.Events.OnComplete.AddListener(OnLaunchComplete);
+    }
+
+    private void OnDisable() {
+        wallTrigger.OnTriggerEnter -= OnHitWall;
+    }
+
+    private void OnHitWall() {
+        launchPlayer.StopFeedbacks();
+        bobMovement.enabled = true;
     }
 
     private void OnTriggerEnter2D(Collider2D collision) {

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: BossRoom-Stone
   m_EditorClassIdentifier: 
   roomType: 3
-  environmentType: 2
+  environmentType: 0
   roomPrefab: {fileID: 3084685571954290978, guid: e48a51b4227ad0941a310cf7a1437cd3, type: 3}
   noEnemies: 0
   scriptableEnemyComposition: {fileID: 0}

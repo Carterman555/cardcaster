@@ -129,4 +129,11 @@ public class DebugManager : StaticInstance<DebugManager> {
     private void ApplyPlayerStatModifiers() {
         StatsManager.AddPlayerStatModifiers(startingPlayerStatModifiers);
     }
+
+    [SerializeField] private EssenceDrop essencePrefab;
+
+    [Command]
+    private void SpawnEssence(Vector2 pos) {
+        essencePrefab.Spawn(pos);
+    }
 }

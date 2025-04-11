@@ -50,8 +50,8 @@ MonoBehaviour:
   memoryCard: 0
   abilityAttributes: 1
   abilityStatsModifierPercentage:
-    BaseDamage: 0
-    KnockbackStrength: 25
+    BaseDamage: 25
+    KnockbackStrength: 0
     AreaSize: 0
     Duration: 0
     ProjectileSpeed: 0

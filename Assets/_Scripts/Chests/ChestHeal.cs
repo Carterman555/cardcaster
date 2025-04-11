@@ -64,7 +64,7 @@ public class ChestHeal : MonoBehaviour, IChestItem {
         transform.SetParent(Containers.Instance.Drops);
 
         suckMovement.enabled = true;
-        suckMovement.Setup(PlayerMovement.Instance.transform);
+        suckMovement.Setup(PlayerMovement.Instance.CenterTransform);
 
         suckMovement.OnReachTarget += ShrinkAndHeal;
     }

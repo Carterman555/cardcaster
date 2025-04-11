@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: DealerBossRoom-BlueStone
   m_EditorClassIdentifier: 
   roomType: 3
-  environmentType: 0
+  environmentType: 2
   roomPrefab: {fileID: 3084685571954290978, guid: 72efd1f31dc551349836bf376187ab9b, type: 3}
   noEnemies: 0
   scriptableEnemyComposition: {fileID: 0}

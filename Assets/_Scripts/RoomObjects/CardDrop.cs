@@ -77,7 +77,7 @@ public class CardDrop : MonoBehaviour {
         transform.SetParent(Containers.Instance.Drops);
 
         suckMovement.enabled = true;
-        suckMovement.Setup(PlayerMovement.Instance.transform);
+        suckMovement.Setup(PlayerMovement.Instance.CenterTransform);
 
         suckMovement.OnReachTarget += ShrinkAndGainCard;
     }

@@ -18,6 +18,7 @@ public class PlayerMovement : StaticInstance<PlayerMovement>, IChangesFacing, IH
     [SerializeField] private Animator anim;
 
     [SerializeField] private Transform centerPoint;
+    public Transform CenterTransform => centerPoint;
     public Vector3 CenterPos => centerPoint.position;
 
     protected override void Awake() {

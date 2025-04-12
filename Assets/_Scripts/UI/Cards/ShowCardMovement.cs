@@ -65,10 +65,15 @@ public class ShowCardMovement : MonoBehaviour {
         if (showState == ShowState.Showing) {
             showState = ShowState.Moving;
 
+            handCard.CurrentCardState = HandCard.CardState.Moving;
+
             moveTween = rectTransform.DOAnchorPos(hidePos, duration);
             canvasGroup.DOFade(fade, duration).OnComplete(() => {
                 showState = ShowState.Hidden;
-                handCard.CurrentCardState = HandCard.CardState.ReadyToPlay;
+
+                if (handCard.CurrentCardState == HandCard.CardState.Moving) {
+                    handCard.CurrentCardState = HandCard.CardState.ReadyToPlay;
+                }
             });
         }
         else if (showState == ShowState.Moving) {

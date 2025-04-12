@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class GameLayers {
 
+    public static int DefaultLayer => 0;
     public static int GroundLayer => 3;
     public static int PlayerLayer => 6;
     public static int EnemyLayer => 7;

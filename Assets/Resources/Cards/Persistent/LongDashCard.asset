@@ -22,7 +22,7 @@ MonoBehaviour:
     m_FallbackState: 0
     m_WaitForCompletion: 0
     m_LocalVariables: []
-  category:
+  locCategory:
     m_TableReference:
       m_TableCollectionName: GUID:e2b89126a54df984f885da2bac4cb92f
     m_TableEntryReference:
@@ -42,10 +42,12 @@ MonoBehaviour:
     m_LocalVariables: []
   sprite: {fileID: 705838880, guid: d638d131cac6f4d45aeb96fc55848241, type: 3}
   cost: 3
-  rarity: 0
+  rarity: 1
   stackType: 0
+  inDemo: 0
   startUnlocked: 1
   unlockLevel: 1
+  memoryCard: 0
   maxLevel: 4
   statModifiersPerLevel:
   - PlayerStatType: 8

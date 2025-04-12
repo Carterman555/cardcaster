@@ -213,6 +213,6 @@ MonoBehaviour:
     PitchVariation: 0.1
   explode:
     Clips:
-    - {fileID: 8300000, guid: c9afb7bf845b08e4f95dd08c57ebc073, type: 3}
+    - {fileID: 8300000, guid: 15be0f57abb8b7e40a730d4449a05be1, type: 3}
     Volume: 1
-    PitchVariation: 0
+    PitchVariation: 0.1

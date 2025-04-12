@@ -28,7 +28,7 @@ public class BlindedCyclops : Enemy {
         shootBehavior.enabled = false;
         circleSlashBehavior.enabled = true;
 
-        //... keep the same cooldown so player cannot prevent attack by going in and out of cyclops range
+        // keep the same cooldown so player cannot prevent attack by going in and out of cyclops range
         circleSlashBehavior.SetActionTimeRemaining(timer);
     }
 
@@ -41,7 +41,7 @@ public class BlindedCyclops : Enemy {
         shootBehavior.enabled = true;
         circleSlashBehavior.enabled = false;
 
-        //... keep the same cooldown so player cannot prevent attack by going in and out of cyclops range
+        // keep the same cooldown so player cannot prevent attack by going in and out of cyclops range
         shootBehavior.SetActionTimer(timer);
     }
 }

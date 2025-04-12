@@ -124,7 +124,7 @@ public class CardKeyboardInput : MonoBehaviour, IPointerEnterHandler, IPointerEx
             return;
         }
 
-        if (IsPlayingAnyCard() && handCard.CurrentCardState == CardState.ReadyToPlay) {
+        if (IsPlayingAnyCard() || handCard.CurrentCardState != CardState.ReadyToPlay) {
             return;
         }
 

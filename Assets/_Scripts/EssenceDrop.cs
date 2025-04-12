@@ -31,7 +31,7 @@ public class EssenceDrop : MonoBehaviour {
 
     private void OnHitWall() {
         launchPlayer.StopFeedbacks();
-        bobMovement.enabled = true;
+        OnLaunchComplete();
     }
 
     private void OnTriggerEnter2D(Collider2D collision) {

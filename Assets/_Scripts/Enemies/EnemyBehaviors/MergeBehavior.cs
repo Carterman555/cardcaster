@@ -52,7 +52,7 @@ public class MergeBehavior : MonoBehaviour {
     }
 
     private void TryAddMergable(GameObject @object) {
-        if (@object.TryGetComponent(out MergeBehavior mergable)) {
+        if (@object.TryGetComponent(out MergeBehavior mergable) && mergable != this) {
 
             // if they merge to the same enemy, they can merge
             if (mergable.SameMergePrefab(mergedEnemyPrefab)) {

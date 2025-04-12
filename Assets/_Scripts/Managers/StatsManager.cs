@@ -16,7 +16,17 @@ public class StatsManager : MonoBehaviour {
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
     private static void Init() {
         scriptablePlayer = Resources.Load<ScriptablePlayer>("Player");
+    }
 
+    private void OnEnable() {
+        GameSceneManager.OnStartGame += ClearStats;
+    }
+
+    private void OnDisable() {
+        GameSceneManager.OnStartGame -= ClearStats;
+    }
+
+    public static void ClearStats() {
         statModifiers = new();
         UpdatePlayerStats();
         print("Clear stat modifiers");

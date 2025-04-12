@@ -22,7 +22,7 @@ MonoBehaviour:
     SwordSize: 1
     DashSpeed: 15
     DashDistance: 4
-    BaseDashAttackDamage: 8
+    BaseDashAttackDamage: 10
     DashRechargeSpeed: 2
     CritChance: 0.1
     CritDamageMult: 2

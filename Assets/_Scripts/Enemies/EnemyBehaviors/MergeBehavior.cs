@@ -121,7 +121,12 @@ public class MergeBehavior : MonoBehaviour {
 
             //... the merged enemy pos is between the two merging enemies
             Vector2 mergedEnemyPos = (transform.position + mergingPartner.transform.position) / 2;
-            mergedEnemyPrefab.Spawn(mergedEnemyPos, Containers.Instance.Enemies);
+            Enemy mergedEnemy = mergedEnemyPrefab.Spawn(mergedEnemyPos, Containers.Instance.Enemies);
+
+            // so player can't farm infinite essence
+            if (mergedEnemy.TryGetComponent(out DropEssenceOnDeath dropEssenceOnDeath)) {
+                dropEssenceOnDeath.IsEnabled = false;
+            }
 
             AudioManager.Instance.PlaySound(AudioManager.Instance.AudioClips.Merge);
 

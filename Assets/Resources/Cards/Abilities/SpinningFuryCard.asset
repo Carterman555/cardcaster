@@ -56,6 +56,7 @@ MonoBehaviour:
     Duration: 5
     ProjectileSpeed: 0
     Cooldown: 0
+  modifiesSword: 1
   <IsPositional>k__BackingField: 0
   <IsModifiable>k__BackingField: 1
   incompatibleAbilities: 02000000

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using UnityEditor.Localization.Plugins.XLIFF.V12;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,22 +11,21 @@ public class EssenceUIManager : StaticInstance<EssenceUIManager> {
 
     private void OnEnable() {
         DeckManager.OnEssenceChanged_Amount += UpdateEssenceSprites;
-        DeckManager.OnMaxEssenceChanged_Amount += UpdateEssenceAmount;
+        DeckManager.OnMaxEssenceChanged_Amount += UpdateEssenceMaxAmount;
 
-        SetEssenceImageList();
-    }
-    private void OnDisable() {
-        DeckManager.OnEssenceChanged_Amount -= UpdateEssenceSprites;
-        DeckManager.OnMaxEssenceChanged_Amount -= UpdateEssenceAmount;
-    }
-
-    private void SetEssenceImageList() {
         essenceIcons = new();
         foreach (Transform essenceIcon in transform) {
             if (essenceIcon.gameObject.activeSelf) {
                 essenceIcons.Add(essenceIcon);
             }
         }
+
+        UpdateEssenceSprites(DeckManager.Instance.Essence);
+        UpdateEssenceMaxAmount(StatsManager.PlayerStats.MaxEssence);
+    }
+    private void OnDisable() {
+        DeckManager.OnEssenceChanged_Amount -= UpdateEssenceSprites;
+        DeckManager.OnMaxEssenceChanged_Amount -= UpdateEssenceMaxAmount;
     }
 
     private void UpdateEssenceSprites(int amount) {
@@ -40,8 +40,7 @@ public class EssenceUIManager : StaticInstance<EssenceUIManager> {
         }
     }
 
-    private void UpdateEssenceAmount(int maxEssence) {
-
+    private void UpdateEssenceMaxAmount(int maxEssence) {
         while (maxEssence > essenceIcons.Count) {
             Transform essenceIcon = essenceIconPrefab.Spawn(transform);
             essenceIcons.Add(essenceIcon);

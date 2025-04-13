@@ -32,6 +32,7 @@ public class ShowCardMovement : MonoBehaviour {
         delayedCommand = ShowState.None;
         showState = ShowState.Hidden;
 
+        canvasGroup.DOKill();
         canvasGroup.alpha = fade;
     }
 
@@ -46,6 +47,8 @@ public class ShowCardMovement : MonoBehaviour {
             showState = ShowState.Moving;
 
             moveTween = rectTransform.DOAnchorPos(showPos, duration);
+
+            canvasGroup.DOKill();
             canvasGroup.DOFade(1f, duration).OnComplete(() => {
                 showState = ShowState.Showing;
             });
@@ -68,6 +71,8 @@ public class ShowCardMovement : MonoBehaviour {
             handCard.CurrentCardState = HandCard.CardState.Moving;
 
             moveTween = rectTransform.DOAnchorPos(hidePos, duration);
+
+            canvasGroup.DOKill();
             canvasGroup.DOFade(fade, duration).OnComplete(() => {
                 showState = ShowState.Hidden;
 
@@ -83,9 +88,11 @@ public class ShowCardMovement : MonoBehaviour {
 
     public void OnPositioningCard() {
         showState = ShowState.Showing;
+
+        canvasGroup.DOKill();
         canvasGroup.DOFade(1f, duration);
     }
-    
+
     private void Update() {
 
         if (delayedCommand != ShowState.None) {

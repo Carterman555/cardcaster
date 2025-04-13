@@ -21,6 +21,5 @@ public class ClearDataButton : GameButton {
 
         ES3.DeleteFile();
         ResourceSystem.Instance.UpdateUnlockedCards();
-        print("data cleared");
     }
 }

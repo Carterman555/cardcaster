@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -11,6 +12,10 @@ public abstract class ScriptableAbilityCardBase : ScriptableCardBase {
     [FormerlySerializedAs("abilityStats")]
     [SerializeField] private AbilityStats baseStats;
     public AbilityStats Stats { get; private set; }
+
+    [Tooltip("If true, this will apply damage and knockback modifiers to player stats")]
+    [SerializeField] private bool modifiesSword;
+    private List<PlayerStatModifier> appliedPlayerStatModifiers = new();
 
     [field: SerializeField] public bool IsPositional { get; private set; }
     [field: SerializeField] public bool IsModifiable { get; private set; } = true;
@@ -133,6 +138,11 @@ public abstract class ScriptableAbilityCardBase : ScriptableCardBase {
 
     public virtual void Stop() {
         AbilityManager.Instance.RemoveActiveAbility(this);
+
+        if (modifiesSword) {
+            StatsManager.RemovePlayerStatModifiers(appliedPlayerStatModifiers.ToArray());
+            appliedPlayerStatModifiers.Clear();
+        }
     }
 
     public virtual void ApplyModifier(AbilityStats statsModifier, AbilityAttribute abilityAttributesToModify, GameObject effectPrefab) {
@@ -141,6 +151,32 @@ public abstract class ScriptableAbilityCardBase : ScriptableCardBase {
         if (abilityAttributesToModify.HasFlag(AbilityAttribute.DealsDamage)) {
             newStats.BaseDamage *= statsModifier.Damage.PercentToMult();
             newStats.KnockbackStrength *= statsModifier.KnockbackStrength.PercentToMult();
+
+            if (modifiesSword) {
+                PlayerStatModifier damageModifier = new() {
+                    Value = statsModifier.Damage.PercentToMult(),
+                    PlayerStatType = PlayerStatType.Damage,
+                    ModifyType = ModifyType.Multiplicative
+                };
+                PlayerStatModifier dashDamageModifier = new() {
+                    Value = statsModifier.Damage.PercentToMult(),
+                    PlayerStatType = PlayerStatType.DashAttackDamage,
+                    ModifyType = ModifyType.Multiplicative
+                };
+                PlayerStatModifier knockbackModifier = new() {
+                    Value = statsModifier.KnockbackStrength.PercentToMult(),
+                    PlayerStatType = PlayerStatType.KnockbackStrength,
+                    ModifyType = ModifyType.Multiplicative
+                };
+
+                StatsManager.AddPlayerStatModifier(damageModifier);
+                StatsManager.AddPlayerStatModifier(dashDamageModifier);
+                StatsManager.AddPlayerStatModifier(knockbackModifier);
+
+                appliedPlayerStatModifiers.Add(damageModifier);
+                appliedPlayerStatModifiers.Add(dashDamageModifier);
+                appliedPlayerStatModifiers.Add(knockbackModifier);
+            }
         }
         if (abilityAttributesToModify.HasFlag(AbilityAttribute.HasArea)) {
             newStats.AreaSize *= statsModifier.AreaSize.PercentToMult();

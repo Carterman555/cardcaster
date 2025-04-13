@@ -77,10 +77,10 @@ public class CircleStraightShootBehavior : MonoBehaviour {
         }
 
         if (customSFX) {
-            AudioManager.Instance.PlaySound(shootSFX);
+            AudioManager.Instance.PlaySingleSound(shootSFX);
         }
         else {
-            AudioManager.Instance.PlaySound(AudioManager.Instance.AudioClips.BasicEnemyShoot);
+            AudioManager.Instance.PlaySingleSound(AudioManager.Instance.AudioClips.BasicEnemyShoot);
         }
     }
 

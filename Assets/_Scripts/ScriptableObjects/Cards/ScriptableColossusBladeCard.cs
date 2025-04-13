@@ -1,4 +1,5 @@
 using DG.Tweening;
+using Mono.CSharp;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -67,6 +68,7 @@ public class ScriptableColossusBladeCard : ScriptableStatsModifierCard {
 
     public override void ApplyModifier(AbilityStats statsModifier, AbilityAttribute abilityAttributesToModify, GameObject effectPrefab) {
         base.ApplyModifier(statsModifier, abilityAttributesToModify, effectPrefab);
+        
         if (effectPrefab != null) {
             effectPrefabs.Add(effectPrefab);
         }

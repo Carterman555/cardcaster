@@ -103,10 +103,21 @@ public class Minion : Enemy {
         float offsetValue = 0.5f;
 
         Vector3 firstOffset = new(-offsetValue, 0);
-        splitEnemyPrefab.Spawn(transform.position + firstOffset, Containers.Instance.Enemies);
+        Enemy firstEnemy = splitEnemyPrefab.Spawn(transform.position + firstOffset, Containers.Instance.Enemies);
 
         Vector3 secondOffset = new(offsetValue, 0);
-        splitEnemyPrefab.Spawn(transform.position + secondOffset, Containers.Instance.Enemies);
+        Enemy secondEnemy = splitEnemyPrefab.Spawn(transform.position + secondOffset, Containers.Instance.Enemies);
+
+        // to prevent player from farming infinite essence
+        bool dropEssenceDisabled = TryGetComponent(out DropEssenceOnDeath dropEssenceOnDeath) && !dropEssenceOnDeath.IsEnabled;
+        if (dropEssenceDisabled) {
+            if (firstEnemy.TryGetComponent(out DropEssenceOnDeath dropEssenceOnDeath1)) {
+                dropEssenceOnDeath1.IsEnabled = false;
+            }
+            if (secondEnemy.TryGetComponent(out DropEssenceOnDeath dropEssenceOnDeath2)) {
+                dropEssenceOnDeath2.IsEnabled = false;
+            }
+        }
     }
 
     #endregion

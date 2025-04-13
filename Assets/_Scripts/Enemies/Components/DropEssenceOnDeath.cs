@@ -14,6 +14,10 @@ public class DropEssenceOnDeath : MonoBehaviour {
 
     [SerializeField] private float yVariation = 1f;
 
+    //... can't use enabled because it's false when the gameobject is not active which happens
+    //... right as the enemy dies and would drop the essence, so it never would
+    public bool IsEnabled;
+
     private void Awake() {
         health = GetComponent<EnemyHealth>();
 
@@ -25,6 +29,11 @@ public class DropEssenceOnDeath : MonoBehaviour {
     }
 
     private void DropEssence() {
+
+        if (!IsEnabled) {
+            return;
+        }
+
         int amount = GenerateRandomDropAmount();
         for (int i = 0; i < amount; i++) {
             float yOffset = Random.Range(-yVariation, yVariation);

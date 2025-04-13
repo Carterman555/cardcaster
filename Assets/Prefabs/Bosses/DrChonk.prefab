@@ -325,6 +325,7 @@ GameObject:
   - component: {fileID: 1206499748571781939}
   - component: {fileID: 8987095808021778562}
   - component: {fileID: -2327778949296054411}
+  - component: {fileID: 6149234201596225412}
   - component: {fileID: -4242213799015855196}
   - component: {fileID: 3829760610537316383}
   m_Layer: 7
@@ -571,6 +572,24 @@ MonoBehaviour:
   essencePrefab: {fileID: 3327677883894410736, guid: 12e28bcb234b1b548ae2d9e6745360a6, type: 3}
   avgDropAmount: 5
   dropAmountVariation: 1
+  yVariation: 2
+--- !u!114 &6149234201596225412
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4111830215114382718}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38e9c250821dd684880f7914de8d26bb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  essencePrefab: {fileID: 3327677883894410736, guid: 12e28bcb234b1b548ae2d9e6745360a6, type: 3}
+  dropAmount:
+    MinValue: 1
+    MaxValue: 1
+  dropChancePerDmg: 0.03
   yVariation: 2
 --- !u!114 &-4242213799015855196
 MonoBehaviour:

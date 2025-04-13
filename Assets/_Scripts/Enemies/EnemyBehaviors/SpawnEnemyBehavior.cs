@@ -50,9 +50,12 @@ public class SpawnEnemyBehavior : MonoBehaviour {
     // played by animation
     public void SpawnEnemy() {
 
-        Profiler.BeginSample("SpawnEnemy");
         Enemy spawnedEnemy = enemyToSpawn.Spawn(spawnPoint.position, Containers.Instance.Enemies);
-        Profiler.EndSample();
+
+        // so player can't farm infinite essence
+        if (spawnedEnemy.TryGetComponent(out DropEssenceOnDeath dropEssenceOnDeath)) {
+            dropEssenceOnDeath.IsEnabled = false;
+        }
 
         if (customSFX) {
             AudioManager.Instance.PlaySound(spawnSFX);

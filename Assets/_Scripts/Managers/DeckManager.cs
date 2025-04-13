@@ -29,9 +29,6 @@ public class DeckManager : Singleton<DeckManager> {
 
     [SerializeField] private CardAmount[] startingCardPool;
 
-    [SerializeField] private int baseMaxEssence;
-    private int maxEssence;
-
     #region Get Methods
 
     public List<ScriptableCardBase> GetCardsInDeck() {
@@ -54,9 +51,8 @@ public class DeckManager : Singleton<DeckManager> {
     #endregion
 
     public void UpdateMaxEssence() {
-        maxEssence = StatsManager.PlayerStats.MaxEssence;
-        Essence = Mathf.Min(Essence, maxEssence);
-        OnMaxEssenceChanged_Amount?.Invoke(maxEssence);
+        Essence = Mathf.Min(Essence, StatsManager.PlayerStats.MaxEssence);
+        OnMaxEssenceChanged_Amount?.Invoke(StatsManager.PlayerStats.MaxEssence);
     }
 
     public void UpdateHandSize() {
@@ -92,8 +88,7 @@ public class DeckManager : Singleton<DeckManager> {
             return;
         }
 
-        Essence = Mathf.Clamp(Essence + amount, 0, maxEssence);
-
+        Essence = Mathf.Clamp(Essence + amount, 0, StatsManager.PlayerStats.MaxEssence);
         OnEssenceChanged_Amount?.Invoke(Essence);
     }
 
@@ -113,8 +108,6 @@ public class DeckManager : Singleton<DeckManager> {
     }
 
     private void OnStartGame() {
-        maxEssence = baseMaxEssence;
-
         ClearDeckAndEssence();
         if (!GameSceneManager.Instance.Tutorial) {
             GiveStartingCards();
@@ -137,7 +130,8 @@ public class DeckManager : Singleton<DeckManager> {
 
         OnClearCards?.Invoke(); // clears handcards
 
-        Essence = maxEssence;
+        Essence = StatsManager.PlayerStats.MaxEssence;
+
         OnEssenceChanged_Amount?.Invoke(Essence);
     }
 

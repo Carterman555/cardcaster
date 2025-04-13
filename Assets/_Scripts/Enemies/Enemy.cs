@@ -18,6 +18,12 @@ public class Enemy : MonoBehaviour, IHasEnemyStats, IEffectable {
         SubToPlayerTriggerEvents();
         playerTracker.GetComponent<CircleCollider2D>().radius = EnemyStats.AttackRange;
         OnAnySpawn?.Invoke(this);
+
+        // needed because mergebehavior and spawnbehavior disable dropping essence so player can't farm
+        // it might get disabled right after this by one of those
+        if (TryGetComponent(out DropEssenceOnDeath dropEssenceOnDeath)) {
+            dropEssenceOnDeath.IsEnabled = true;
+        }
     }
 
     protected virtual void OnDisable() {

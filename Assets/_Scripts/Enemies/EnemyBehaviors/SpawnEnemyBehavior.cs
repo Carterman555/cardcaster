@@ -51,6 +51,7 @@ public class SpawnEnemyBehavior : MonoBehaviour {
     public void SpawnEnemy() {
 
         Enemy spawnedEnemy = enemyToSpawn.Spawn(spawnPoint.position, Containers.Instance.Enemies);
+        spawnedEnemy.SetFromSpawnBehavior(true);
 
         // so player can't farm infinite essence
         if (spawnedEnemy.TryGetComponent(out DropEssenceOnDeath dropEssenceOnDeath)) {

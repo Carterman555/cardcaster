@@ -1,3 +1,6 @@
+using System;
+using System.Linq;
+using TMPro;
 using UnityEngine;
 
 public class Minion : Enemy {
@@ -9,7 +12,16 @@ public class Minion : Enemy {
     [SerializeField] private bool isMergable;
 
     [SerializeField] private bool splitOnDeath;
-    [ConditionalHide("splitOnDeath")] [SerializeField] private Enemy splitEnemyPrefab;
+    [ConditionalHide("splitOnDeath")][SerializeField] private Minion splitEnemyPrefab;
+
+    //... prevent the player from farming infinite essence by only dropping essences, if the 
+    //... enemy is the smallest size it has been
+    [SerializeField] private Enemy[] minionSizeOrder;
+    public string MinReachedSize { get; private set; }
+    public void SetMinReachedSize(string value) {
+        MinReachedSize = RemoveCloneFromName(value);
+        GetComponentInChildren<TextMeshPro>().text = MinReachedSize;
+    }
 
     protected override void Awake() {
         base.Awake();
@@ -21,9 +33,13 @@ public class Minion : Enemy {
             mergeBehavior = GetComponent<MergeBehavior>();
             mergeBehavior.AllowMerging();
         }
+    }
 
+    protected override void OnEnable() {
+        base.OnEnable();
         moveBehavior.enabled = true;
         attackBehavior.enabled = false;
+        SetMinReachedSize(name); // gets reset but might get set right after by split or merge
     }
 
     private void Start() {
@@ -103,20 +119,30 @@ public class Minion : Enemy {
         float offsetValue = 0.5f;
 
         Vector3 firstOffset = new(-offsetValue, 0);
-        Enemy firstEnemy = splitEnemyPrefab.Spawn(transform.position + firstOffset, Containers.Instance.Enemies);
+        Minion firstMinion = splitEnemyPrefab.Spawn(transform.position + firstOffset, Containers.Instance.Enemies);
+        firstMinion.SetFromSpawnBehavior(FromSpawnBehavior);
 
         Vector3 secondOffset = new(offsetValue, 0);
-        Enemy secondEnemy = splitEnemyPrefab.Spawn(transform.position + secondOffset, Containers.Instance.Enemies);
+        Minion secondMinion = splitEnemyPrefab.Spawn(transform.position + secondOffset, Containers.Instance.Enemies);
+        secondMinion.SetFromSpawnBehavior(FromSpawnBehavior);
 
-        // to prevent player from farming infinite essence
-        bool dropEssenceDisabled = TryGetComponent(out DropEssenceOnDeath dropEssenceOnDeath) && !dropEssenceOnDeath.IsEnabled;
-        if (dropEssenceDisabled) {
-            if (firstEnemy.TryGetComponent(out DropEssenceOnDeath dropEssenceOnDeath1)) {
-                dropEssenceOnDeath1.IsEnabled = false;
-            }
-            if (secondEnemy.TryGetComponent(out DropEssenceOnDeath dropEssenceOnDeath2)) {
-                dropEssenceOnDeath2.IsEnabled = false;
-            }
+        // prevent the player from farming infinite essence by only dropping essences, if the enemy is the smallest
+        // size it has been
+        string[] minionSizeOrderNames = minionSizeOrder.Select(m => RemoveCloneFromName(m.name)).ToArray();
+        int currentSmallestIndex = Array.IndexOf(minionSizeOrderNames, MinReachedSize);
+        int splitIndex = Array.IndexOf(minionSizeOrderNames, splitEnemyPrefab.name);
+
+        int smallestIndex = Mathf.Min(currentSmallestIndex, splitIndex);
+        firstMinion.SetMinReachedSize(minionSizeOrderNames[smallestIndex]);
+        secondMinion.SetMinReachedSize(minionSizeOrderNames[smallestIndex]);
+    }
+
+    private string RemoveCloneFromName(string name) {
+        if (name.EndsWith("(Clone)")) {
+            return name[..^7];
+        }
+        else {
+            return name;
         }
     }
 

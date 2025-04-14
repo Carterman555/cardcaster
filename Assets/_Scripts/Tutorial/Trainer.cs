@@ -170,7 +170,7 @@ public class Trainer : StaticInstance<Trainer> {
             return;
         }
 
-        bool fireOrSwingCard = card == fireCard || card is ScriptableSwordSwingCard;
+        bool fireOrSwingCard = card == fireCard || card is ScriptableSpinningFuryCard;
 
         if (fireOrSwingCard && tutorial.InGiveCardsStep()) {
             DialogBox.Instance.ShowText(insufficientEssenceString, showNextDialogText: false);

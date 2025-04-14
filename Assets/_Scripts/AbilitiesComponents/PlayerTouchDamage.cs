@@ -14,7 +14,7 @@ public class PlayerTouchDamage : MonoBehaviour, ITargetAttacker {
 
     private void OnTriggerEnter2D(Collider2D collision) {
         if (collision.gameObject.layer == GameLayers.EnemyLayer && collision.TryGetComponent(out IDamagable damagable) && !damagable.Dead) {
-            PlayerMeleeAttack.Instance.ExternalAttack(collision.gameObject, collision.transform.position, damageMult);
+            PlayerMeleeAttack.Instance.ExternalAttack(collision.gameObject, transform.position, damageMult);
 
             OnAttack?.Invoke();
             OnDamage_Target?.Invoke(collision.gameObject);

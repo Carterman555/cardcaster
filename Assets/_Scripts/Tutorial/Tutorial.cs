@@ -59,7 +59,7 @@ public class Tutorial : MonoBehaviour {
 
     [Header("Modify Step")]
     [SerializeField] private ScriptableModifierCardBase modifierCard;
-    [SerializeField] private ScriptableSwordSwingCard abilityCard;
+    [SerializeField] private ScriptableSpinningFuryCard abilityCard;
     [SerializeField] private Transform[] modifyEnemySpawnPoints;
 
     [Header("Essence Step")]
@@ -373,11 +373,11 @@ public class GiveTeleportCardStep : BaseTutorialStep {
 public class GiveModifyCardStep : BaseTutorialStep {
 
     private ScriptableModifierCardBase modifierCard;
-    private ScriptableSwordSwingCard abilityCard;
+    private ScriptableSpinningFuryCard abilityCard;
 
     private bool modifierPlayed;
 
-    public GiveModifyCardStep(ScriptableModifierCardBase modifierCard, ScriptableSwordSwingCard abilityCard) {
+    public GiveModifyCardStep(ScriptableModifierCardBase modifierCard, ScriptableSpinningFuryCard abilityCard) {
         this.modifierCard = modifierCard;
         this.abilityCard = abilityCard;
 

@@ -17,16 +17,16 @@ public class GameStateManager : StaticInstance<GameStateManager> {
     }
 
     private void OnEnable() {
-        RoomGenerator.OnCompleteGeneration += OnRoomGeneration;
+        CameraInvalidate.OnFinishLoading += OnFinishLoading;
         InputManager.OnActionMapChanged += OnActionMapChanged;
     }
 
     private void OnDisable() {
-        RoomGenerator.OnCompleteGeneration -= OnRoomGeneration;
+        CameraInvalidate.OnFinishLoading -= OnFinishLoading;
         InputManager.OnActionMapChanged -= OnActionMapChanged;
     }
 
-    private void OnRoomGeneration() {
+    private void OnFinishLoading() {
         currentState = GameState.Game;
     }
 

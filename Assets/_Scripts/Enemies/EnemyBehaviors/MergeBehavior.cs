@@ -23,6 +23,7 @@ public class MergeBehavior : MonoBehaviour {
 
     [SerializeField] private Enemy mergedEnemyPrefab;
 
+    private Enemy enemy;
     private Rigidbody2D rb;
 
     [Header("Merging Indicator")]
@@ -31,19 +32,20 @@ public class MergeBehavior : MonoBehaviour {
     private bool isHandlingIndicator;
 
     private void Awake() {
+        enemy = GetComponent<Enemy>();
         rb = GetComponent<Rigidbody2D>();
     }
 
     private void OnEnable() {
+        mergeTracker.OnEnterContact_GO += TryAddMergable;
+        mergeTracker.OnExitContact_GO += TryRemoveMergable;
+
         mergeTimer = 0;
         mergeStage = MergeStage.MergingNotAllowed;
         isMergeLeader = false;
         mergingPartner = null;
 
         AllowMerging();
-
-        mergeTracker.OnEnterContact_GO += TryAddMergable;
-        mergeTracker.OnExitContact_GO += TryRemoveMergable;
     }
 
     private void OnDisable() {
@@ -122,10 +124,13 @@ public class MergeBehavior : MonoBehaviour {
             //... the merged enemy pos is between the two merging enemies
             Vector2 mergedEnemyPos = (transform.position + mergingPartner.transform.position) / 2;
             Enemy mergedEnemy = mergedEnemyPrefab.Spawn(mergedEnemyPos, Containers.Instance.Enemies);
+            mergedEnemy.SetFromSpawnBehavior(enemy.FromSpawnBehavior);
 
-            // so player can't farm infinite essence
-            if (mergedEnemy.TryGetComponent(out DropEssenceOnDeath dropEssenceOnDeath)) {
-                dropEssenceOnDeath.IsEnabled = false;
+            if (TryGetComponent(out Minion thisMinion) && mergedEnemy is Minion mergedMinion) {
+                Minion partnerMinion = mergingPartner.GetComponent<Minion>();
+                // TODO - set min reached size to minion with min size name. either patner minion or thisMinion
+
+                mergedMinion.SetMinReachedSize(thisMinion.MinReachedSize);
             }
 
             AudioManager.Instance.PlaySound(AudioManager.Instance.AudioClips.Merge);

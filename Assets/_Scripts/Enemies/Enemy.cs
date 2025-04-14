@@ -9,6 +9,20 @@ public class Enemy : MonoBehaviour, IHasEnemyStats, IEffectable {
 
     protected EnemyHealth health;
 
+    //... either spawned in from spawn behavior or merged/split from a minion who was
+    //... so no matter who many times minions merge/split the player can't farm essence
+    //... from the witch spawning minions
+    public bool FromSpawnBehavior { get; private set; }
+    public void SetFromSpawnBehavior(bool value) {
+        FromSpawnBehavior = value;
+
+        // so player can't farm infinite essence. also need to reset newly spawned minions which
+        // had drop essence disabled because I'm using spawning pool
+        if (TryGetComponent(out DropEssenceOnDeath dropEssenceOnDeath)) {
+            dropEssenceOnDeath.IsEnabled = !FromSpawnBehavior;
+        }
+    }
+
     protected virtual void Awake() {
         health = GetComponent<EnemyHealth>();
         moveBehaviours = GetComponents<IEnemyMovement>();
@@ -19,11 +33,7 @@ public class Enemy : MonoBehaviour, IHasEnemyStats, IEffectable {
         playerTracker.GetComponent<CircleCollider2D>().radius = EnemyStats.AttackRange;
         OnAnySpawn?.Invoke(this);
 
-        // needed because mergebehavior and spawnbehavior disable dropping essence so player can't farm
-        // it might get disabled right after this by one of those
-        if (TryGetComponent(out DropEssenceOnDeath dropEssenceOnDeath)) {
-            dropEssenceOnDeath.IsEnabled = true;
-        }
+        SetFromSpawnBehavior(false);
     }
 
     protected virtual void OnDisable() {

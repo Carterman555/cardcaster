@@ -1,9 +1,12 @@
 using Cinemachine;
 using MoreMountains.Tools;
+using System;
 using System.Collections;
 using UnityEngine;
 
 public class CameraInvalidate : MonoBehaviour {
+
+    public static event Action OnFinishLoading;
 
     private CinemachineConfiner2D confiner;
 
@@ -55,5 +58,6 @@ public class CameraInvalidate : MonoBehaviour {
         }
 
         MMAdditiveSceneLoadingManager.AllowUnload();
+        OnFinishLoading?.Invoke();
     }
 }

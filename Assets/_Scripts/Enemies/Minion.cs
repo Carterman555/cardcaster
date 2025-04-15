@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using System.Xml.Linq;
 using TMPro;
 using UnityEngine;
 
@@ -17,10 +18,23 @@ public class Minion : Enemy {
     //... prevent the player from farming infinite essence by only dropping essences, if the 
     //... enemy is the smallest size it has been
     [SerializeField] private Enemy[] minionSizeOrder;
+    private string[] minionSizeOrderNames;
+
     public string MinReachedSize { get; private set; }
     public void SetMinReachedSize(string value) {
-        MinReachedSize = RemoveCloneFromName(value);
+        string minName = RemoveCloneFromName(value);
+        if (!minionSizeOrderNames.Contains(minName)) {
+            Debug.LogError("minionSizeOrderNames does not contain name: " + minName);
+            return;
+        }
+
+        MinReachedSize = minName;
         GetComponentInChildren<TextMeshPro>().text = MinReachedSize;
+
+        if (TryGetComponent(out DropEssenceOnDeath dropEssenceOnDeath)) {
+            bool isMinSizeReached = MinReachedSize == RemoveCloneFromName(name);
+            dropEssenceOnDeath.IsEnabled = !FromSpawnBehavior && isMinSizeReached;
+        }
     }
 
     protected override void Awake() {
@@ -33,6 +47,8 @@ public class Minion : Enemy {
             mergeBehavior = GetComponent<MergeBehavior>();
             mergeBehavior.AllowMerging();
         }
+
+        minionSizeOrderNames = minionSizeOrder.Select(m => RemoveCloneFromName(m.name)).ToArray();
     }
 
     protected override void OnEnable() {
@@ -128,13 +144,14 @@ public class Minion : Enemy {
 
         // prevent the player from farming infinite essence by only dropping essences, if the enemy is the smallest
         // size it has been
-        string[] minionSizeOrderNames = minionSizeOrder.Select(m => RemoveCloneFromName(m.name)).ToArray();
-        int currentSmallestIndex = Array.IndexOf(minionSizeOrderNames, MinReachedSize);
-        int splitIndex = Array.IndexOf(minionSizeOrderNames, splitEnemyPrefab.name);
+        string minSizeName = MinSizeName(MinReachedSize, splitEnemyPrefab.name);
+        if (!minionSizeOrderNames.Contains(minSizeName)) {
+            Debug.LogError("minionSizeOrderNames does not contain minSizeName: " + minSizeName);
+            return;
+        }
 
-        int smallestIndex = Mathf.Min(currentSmallestIndex, splitIndex);
-        firstMinion.SetMinReachedSize(minionSizeOrderNames[smallestIndex]);
-        secondMinion.SetMinReachedSize(minionSizeOrderNames[smallestIndex]);
+        firstMinion.SetMinReachedSize(minSizeName);
+        secondMinion.SetMinReachedSize(minSizeName);
     }
 
     private string RemoveCloneFromName(string name) {
@@ -144,6 +161,27 @@ public class Minion : Enemy {
         else {
             return name;
         }
+    }
+
+    public string MinSizeName(string name1, string name2) {
+
+        name1 = RemoveCloneFromName(name1);
+        name2 = RemoveCloneFromName(name2);
+
+        if (!minionSizeOrderNames.Contains(name1)) {
+            Debug.LogError("minionSizeOrderNames does not contain name1: " + name1);
+            return "";
+        }
+        if (!minionSizeOrderNames.Contains(name2)) {
+            Debug.LogError("minionSizeOrderNames does not contain name2: " + name2);
+            return "";
+        }
+
+        int currentSmallestIndex = Array.IndexOf(minionSizeOrderNames, name1);
+        int splitIndex = Array.IndexOf(minionSizeOrderNames, name2);
+
+        int smallestIndex = Mathf.Min(currentSmallestIndex, splitIndex);
+        return minionSizeOrderNames[smallestIndex];
     }
 
     #endregion

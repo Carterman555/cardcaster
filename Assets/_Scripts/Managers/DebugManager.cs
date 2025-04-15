@@ -74,7 +74,7 @@ public class DebugManager : StaticInstance<DebugManager> {
     [Command("kill_enemies", MonoTargetType.All)]
     private void KillAllEnemies() {
         foreach (Transform enemy in Containers.Instance.Enemies) {
-            enemy.gameObject.ReturnToPool();
+            enemy.GetComponent<EnemyHealth>().Die();
         }
     }
 

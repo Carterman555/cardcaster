@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Xml.Linq;
 using UnityEngine;
 
 public class MergeBehavior : MonoBehaviour {
@@ -128,9 +129,8 @@ public class MergeBehavior : MonoBehaviour {
 
             if (TryGetComponent(out Minion thisMinion) && mergedEnemy is Minion mergedMinion) {
                 Minion partnerMinion = mergingPartner.GetComponent<Minion>();
-                // TODO - set min reached size to minion with min size name. either patner minion or thisMinion
-
-                mergedMinion.SetMinReachedSize(thisMinion.MinReachedSize);
+                string minName = partnerMinion.MinSizeName(partnerMinion.name, thisMinion.MinReachedSize);
+                mergedMinion.SetMinReachedSize(minName);
             }
 
             AudioManager.Instance.PlaySound(AudioManager.Instance.AudioClips.Merge);

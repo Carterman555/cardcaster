@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Assertions;
 
 public class DropEssenceOnDeath : MonoBehaviour {
 
@@ -18,8 +19,6 @@ public class DropEssenceOnDeath : MonoBehaviour {
     //... right as the enemy dies and would drop the essence, so it never would
     public bool IsEnabled;
 
-    [SerializeField] private bool debugAlwaysDrop;
-
     private void Awake() {
         health = GetComponent<EnemyHealth>();
 
@@ -37,11 +36,6 @@ public class DropEssenceOnDeath : MonoBehaviour {
         }
 
         int amount = GenerateRandomDropAmount();
-
-        if (debugAlwaysDrop) {
-            amount = 1;
-        }
-
         for (int i = 0; i < amount; i++) {
             float yOffset = Random.Range(-yVariation, yVariation);
             Vector3 essencePos = transform.position + Vector3.up * yOffset;

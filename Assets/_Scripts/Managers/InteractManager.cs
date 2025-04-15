@@ -5,6 +5,12 @@ public class InteractManager : StaticInstance<InteractManager> {
 
     private List<Interactable> interactablesWithinRange = new();
 
+    public void TryAddWithinRange(Interactable interactable) {
+        if (!interactablesWithinRange.Contains(interactable)) {
+            AddWithinRange(interactable);
+        }
+    }
+
     public void AddWithinRange(Interactable interactable) {
         interactablesWithinRange.Add(interactable);
         UpdateWhichCanInteract();
@@ -18,7 +24,7 @@ public class InteractManager : StaticInstance<InteractManager> {
 
     public void RemoveWithinRange(Interactable interactable) {
         interactablesWithinRange.Remove(interactable);
-        if (interactable.CanInteract()) {
+        if (interactable.CanInteract) {
             interactable.SetCantInteract();
         }
         UpdateWhichCanInteract();
@@ -31,7 +37,7 @@ public class InteractManager : StaticInstance<InteractManager> {
         }
 
         foreach (var interactable in interactablesWithinRange) {
-            if (interactable.CanInteract()) {
+            if (interactable.CanInteract) {
                 interactable.SetCantInteract();
             }
         }

@@ -30,6 +30,8 @@ public class ChestHeal : MonoBehaviour, IChestItem {
         this.chest = chest;
         this.collectableIndex = collectableIndex;
 
+        interactable.enabled = false;
+
         transform.position = chest.transform.position;
         transform.DOLocalMove(position, duration: 0.3f).SetEase(Ease.OutSine);
 

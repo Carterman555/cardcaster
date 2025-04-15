@@ -41,10 +41,6 @@ public class TrashCardManager : StaticInstance<TrashCardManager> {
             panelCardToTrash = panelCard;
             ShowSelectButton(panelCard);
         }
-        // if clicked the card a second time, trash it
-        else {
-            TrashCard(panelCard);
-        }
     }
 
     private void ShowSelectButton(PanelCardButton panelCard) {

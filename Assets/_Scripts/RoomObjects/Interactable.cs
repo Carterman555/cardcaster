@@ -36,6 +36,10 @@ public class Interactable : MonoBehaviour {
             return;
         }
 
+        if (collision.TryGetComponent(out InteractTrigger i) && !enabled) {
+            print("touch interact but not enabled");
+        }
+        
         if (collision.TryGetComponent(out InteractTrigger interactTrigger) && enabled) {
             InteractManager.Instance.AddWithinRange(this);
         }

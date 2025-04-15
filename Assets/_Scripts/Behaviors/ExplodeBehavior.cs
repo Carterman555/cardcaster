@@ -18,6 +18,9 @@ public class ExplodeBehavior : MonoBehaviour, ITargetAttacker {
     private float damage;
     private float knockbackStrength;
 
+    [SerializeField] private bool dealDifferentDamageAmount;
+    [ConditionalHide("dealDifferentDamageAmount")] [SerializeField] private LayerMask differentDamageLayerMask;
+    [ConditionalHide("dealDifferentDamageAmount")] [SerializeField] private float differentDamageAmount;
 
     [Header("Visual")]
     [SerializeField] private ParticleSystem explosionParticlesPrefab;
@@ -32,13 +35,29 @@ public class ExplodeBehavior : MonoBehaviour, ITargetAttacker {
     public void Explode(bool returnToPool = true) {
 
         // deal damage
-        float dmg = useIHasStats ? hasEnemyStats.EnemyStats.Damage : damage;
+        float damage = useIHasStats ? hasEnemyStats.EnemyStats.Damage : this.damage;
         Collider2D[] damagedColliders = DamageDealer.DealCircleDamage(targetLayerMask,
             transform.position,
             explosionRadius,
-            dmg,
+            damage,
             knockbackStrength);
-        
+
+        foreach (Collider2D col in damagedColliders) {
+            OnDamage_Target?.Invoke(col.gameObject);
+        }
+
+        if (dealDifferentDamageAmount) {
+            Collider2D[] differentDamagedColliders = DamageDealer.DealCircleDamage(differentDamageLayerMask,
+                transform.position,
+                explosionRadius,
+                differentDamageAmount,
+                knockbackStrength);
+
+            foreach (Collider2D col in differentDamagedColliders) {
+                OnDamage_Target?.Invoke(col.gameObject);
+            }
+        }
+
         // spawn particles
         if (explosionParticlesPrefab != null) {
             explosionParticlesPrefab.Spawn(transform.position, Containers.Instance.Effects);
@@ -50,12 +69,8 @@ public class ExplodeBehavior : MonoBehaviour, ITargetAttacker {
 
         AudioManager.Instance.PlaySound(AudioManager.Instance.AudioClips.Explode);
 
-        // invoke events
         OnAttack?.Invoke();
-        foreach (Collider2D col in damagedColliders) {
-            OnDamage_Target?.Invoke(col.gameObject);
-        }
-
+            
         // try to destroy this object
         if (returnToPool) {
             gameObject.ReturnToPool();

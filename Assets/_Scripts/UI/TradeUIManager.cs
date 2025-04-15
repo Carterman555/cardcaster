@@ -76,10 +76,6 @@ public class TradeUIManager : StaticInstance<TradeUIManager>, IInitializable {
             panelCardToTrade = panelCard;
             ShowSelectButton(panelCard);
         }
-        // if clicked the card a second time, trade it
-        else {
-            ShowTradeUI(panelCard);
-        }
     }
 
     private void ShowSelectButton(PanelCardButton panelCard) {

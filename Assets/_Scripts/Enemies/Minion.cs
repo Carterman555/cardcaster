@@ -29,7 +29,6 @@ public class Minion : Enemy {
         }
 
         MinReachedSize = minName;
-        GetComponentInChildren<TextMeshPro>().text = MinReachedSize;
 
         if (TryGetComponent(out DropEssenceOnDeath dropEssenceOnDeath)) {
             bool isMinSizeReached = MinReachedSize == RemoveCloneFromName(name);

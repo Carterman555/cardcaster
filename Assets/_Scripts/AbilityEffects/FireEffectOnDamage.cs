@@ -8,8 +8,10 @@ public class FireEffectOnDamage : MonoBehaviour, IAbilityEffect {
 
     private EffectOnDamage effectOnDamage;
 
+    private Coroutine onEnabledCor;
+
     private void OnEnable() {
-        StartCoroutine(OnEnableCor());
+        onEnabledCor = StartCoroutine(OnEnableCor());
     }
 
     private IEnumerator OnEnableCor() {
@@ -23,7 +25,12 @@ public class FireEffectOnDamage : MonoBehaviour, IAbilityEffect {
     }
 
     private void OnDisable() {
-        effectOnDamage.Disable();
+        if (onEnabledCor != null) {
+            StopCoroutine(onEnabledCor);
+        }
+        if (effectOnDamage != null) {
+            effectOnDamage.Disable();
+        }
     }
 
     private void InflictBurn(GameObject target) {

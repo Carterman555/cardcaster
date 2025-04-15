@@ -52,7 +52,7 @@ MonoBehaviour:
   abilityStatsModifierPercentage:
     BaseDamage: 0
     KnockbackStrength: 0
-    AreaSize: 50
+    AreaSize: 25
     Duration: -25
     ProjectileSpeed: 0
     Cooldown: 0

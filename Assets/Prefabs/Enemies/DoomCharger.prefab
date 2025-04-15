@@ -214,6 +214,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4308ccf77a796514ea8a0bff842a0a3c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  useExternalSpeedOverride: 0
 --- !u!114 &1889096313462252748
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -232,6 +233,11 @@ MonoBehaviour:
   useIHasStats: 1
   serializedExplosionRadius: 1
   explosionRadius: 3
+  dealDifferentDamageAmount: 1
+  differentDamageLayerMask:
+    serializedVersion: 2
+    m_Bits: 128
+  differentDamageAmount: 10
   explosionParticlesPrefab: {fileID: 6065135645941821456, guid: 5f3b7b52a057dae4a8769678b76618b4, type: 3}
   shakeCamera: 1
 --- !u!95 &7812749826847277617 stripped

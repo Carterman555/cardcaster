@@ -31,6 +31,10 @@ public class CameraLookInfluence : MonoBehaviour {
         framingTransposer.m_TrackedObjectOffset = new Vector3(Mathf.Abs(offset.x), offset.y, 0f);
     }
 
+    private void OnDisable() {
+        framingTransposer.m_TrackedObjectOffset = Vector3.zero;
+    }
+
     private Vector2 GetMouseOffset() {
         Vector2 mousePos = Input.mousePosition;
         Vector2 screenCenter = new Vector2(Screen.width / 2f, Screen.height / 2f);

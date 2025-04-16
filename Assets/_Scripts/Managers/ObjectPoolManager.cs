@@ -146,9 +146,13 @@ public static class ObjectPoolManager {
         }
     }
 
-    public static void TryReturnToPool(this GameObject objectToReturn) {
+    public static bool TryReturnToPool(this GameObject objectToReturn) {
         if (!objectToReturn.IsReturned()) {
             objectToReturn.ReturnToPool();
+            return true;
+        }
+        else {
+            return false;
         }
     }
 
@@ -170,6 +174,12 @@ public static class ObjectPoolManager {
 
         bool inPool = pool.InactiveObjects.Contains(objectToCheck);
         return inPool;
+    }
+
+    public static bool InPool(this GameObject objectToCheck) {
+        string goName = objectToCheck.name[..^7];
+        PooledObjectInfo pool = ObjectPoolList.Find(p => p.LookupString == goName);
+        return pool != null;
     }
 }
 

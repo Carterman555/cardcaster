@@ -5,7 +5,6 @@ using UnityEngine;
 public class ScriptableGhostCard : ScriptableStatsModifierCard {
 
     private PlayerFade ghostFadeEffect;
-
     private PlayerInvincibility playerInvincibility;
 
     protected override void Play(Vector2 position) {
@@ -13,12 +12,10 @@ public class ScriptableGhostCard : ScriptableStatsModifierCard {
 
         PlayerMeleeAttack.Instance.DisableAttack();
 
-        // ghost visuals
         float fadeAmount = 0.5f;
         ghostFadeEffect = PlayerFadeManager.Instance.AddFadeEffect(1, fadeAmount);
         ReferenceSystem.Instance.PlayerSwordVisual.enabled = false;
 
-        //... set invincible
         playerInvincibility = PlayerMovement.Instance.AddComponent<PlayerInvincibility>();
 
         //... make it move through objects
@@ -30,25 +27,12 @@ public class ScriptableGhostCard : ScriptableStatsModifierCard {
 
         PlayerMeleeAttack.Instance.AllowAttack();
 
-        // revert ghost visuals
         PlayerFadeManager.Instance.RemoveFadeEffect(ghostFadeEffect);
         ReferenceSystem.Instance.PlayerSwordVisual.enabled = true;
 
-        //... set not invincible
         Destroy(playerInvincibility);
 
         //... prevent from moving through objects
         Physics2D.IgnoreLayerCollision(GameLayers.InvinciblePlayerLayer, GameLayers.RoomObjectLayer, false);
     }
-
-
-    private void FadePlayer(float fadeAmount) {
-        SpriteRenderer[] playerSprites = PlayerMovement.Instance.GetComponentsInChildren<SpriteRenderer>();
-
-        foreach (SpriteRenderer playerSprite in playerSprites) {
-            playerSprite.Fade(fadeAmount);
-        }
-    }
-
-
 }

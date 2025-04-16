@@ -2,19 +2,6 @@ using UnityEngine;
 
 public class DropEssenceOnDamaged : MonoBehaviour {
 
-    private EnemyHealth health;
-
-    private void Awake() {
-        health = GetComponent<EnemyHealth>();
-
-        health.OnDamagedDetailed += TryDropEssence;
-
-    }
-
-    private void OnDestroy() {
-        health.OnDamagedDetailed -= TryDropEssence;
-    }
-
     [SerializeField] private EssenceDrop essencePrefab;
 
     [SerializeField] private RandomInt dropAmount;
@@ -22,7 +9,31 @@ public class DropEssenceOnDamaged : MonoBehaviour {
 
     [SerializeField] private float yVariation = 1f;
 
+    [SerializeField] private bool hasMax;
+    [ConditionalHide("hasMax")][SerializeField] private float maxDropAmount;
+    private float dropCount;
+
+    private EnemyHealth health;
+
+    private void Awake() {
+        health = GetComponent<EnemyHealth>();
+
+        health.OnDamagedDetailed += TryDropEssence;
+    }
+
+    private void OnEnable() {
+        dropCount = 0;
+    }
+
+    private void OnDestroy() {
+        health.OnDamagedDetailed -= TryDropEssence;
+    }
+
     private void TryDropEssence(float damage, bool shared, bool crit) {
+
+        if (hasMax && dropCount >= maxDropAmount) {
+            return;
+        }
 
         float dropChance = dropChancePerDmg * damage;
         dropChance = Mathf.Clamp01(dropChance);
@@ -34,6 +45,8 @@ public class DropEssenceOnDamaged : MonoBehaviour {
                 float yOffset = Random.Range(-yVariation, yVariation);
                 Vector3 essencePos = transform.position + Vector3.up * yOffset;
                 essencePrefab.Spawn(essencePos, Containers.Instance.Drops);
+
+                dropCount++;
             }
         }
     }

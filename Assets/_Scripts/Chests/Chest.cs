@@ -10,7 +10,7 @@ public class Chest : MonoBehaviour {
     [SerializeField] private Transform chestItemContainer;
     [SerializeField] private ChestCard chestCardPrefab;
     [SerializeField] private ChestHeal chestHealPrefab;
-    private List<IChestItem> chestItems = new();
+    public List<IChestItem> ChestItems { get; private set; } = new();
 
     private List<CardType> remainingPossibleCards;
 
@@ -83,19 +83,19 @@ public class Chest : MonoBehaviour {
             bool isHeal = hasHeal && healIndex == itemIndex;
             if (isHeal) {
                 ChestHeal chestHeal = chestHealPrefab.Spawn(transform.position, chestItemContainer);
-                chestHeal.Setup(this, itemIndex, GetItemPosition(itemIndex));
+                chestHeal.Setup(this, GetItemPosition(itemIndex));
 
-                chestItems.Add(chestHeal);
+                ChestItems.Add(chestHeal);
             }
             else {
                 ChestCard chestCard = chestCardPrefab.Spawn(transform.position, chestItemContainer);
-                chestCard.Setup(this, itemIndex, GetItemPosition(itemIndex));
+                chestCard.Setup(this, GetItemPosition(itemIndex));
 
                 CardType chosenCardType = ResourceSystem.Instance.GetRandomCardWeighted(remainingPossibleCards);
                 remainingPossibleCards.Remove(chosenCardType); // so won't choose two of the same card
                 chestCard.SetCard(ResourceSystem.Instance.GetCardInstance(chosenCardType));
 
-                chestItems.Add(chestCard);
+                ChestItems.Add(chestCard);
             }
         }
     }
@@ -110,18 +110,11 @@ public class Chest : MonoBehaviour {
         }
     }
 
-    public IEnumerator OnSelectCollectable(int selectedCollectableIndex) {
+    public IEnumerator OnSelectCollectable() {
 
         GetComponent<CreateMapIcon>().HideMapIcon();
 
         float duration = 0.5f;
-
-        // hide other collectables in chest
-        for (int collectableIndex = 0; collectableIndex < chestItems.Count; collectableIndex++) {
-            if (collectableIndex != selectedCollectableIndex) {
-                chestItems[collectableIndex].ReturnToChest(duration);
-            }
-        }
 
         yield return new WaitForSeconds(duration);
 

@@ -41,7 +41,7 @@ public class VerticalDoor : MonoBehaviour {
             anim.SetTrigger("openRight");
             hasBeenOpenedRight = true;
 
-            AudioManager.Instance.PlaySound(AudioManager.Instance.AudioClips.OpenDoor);
+            AudioManager.Instance.PlaySingleSound(AudioManager.Instance.AudioClips.OpenDoor);
         }
     }
     private void TryOpenLeft(GameObject player) {
@@ -50,7 +50,7 @@ public class VerticalDoor : MonoBehaviour {
             anim.SetTrigger("openLeft");
             hasBeenOpenedLeft = true;
 
-            AudioManager.Instance.PlaySound(AudioManager.Instance.AudioClips.OpenDoor);
+            AudioManager.Instance.PlaySingleSound(AudioManager.Instance.AudioClips.OpenDoor);
         }
     }
 

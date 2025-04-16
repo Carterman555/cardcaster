@@ -11,7 +11,7 @@ public class LocalizationManager : MonoBehaviour {
             return;
         }
 
-        string localIdentifier = GetIdentifierFromLanguage(SteamApps.GetAvailableGameLanguages());
+        string localIdentifier = GetIdentifierFromLanguage(SteamApps.GetCurrentGameLanguage());
         StartCoroutine(SetUnityLanguage(localIdentifier));
     }
 

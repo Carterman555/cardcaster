@@ -16459,10 +16459,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 4070943357736046014}
     m_Modifications:
-    - target: {fileID: 1553045839660891999, guid: f4723fd1b3c4aae4595e690435bb2fff, type: 3}
-      propertyPath: m_SortingOrder
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 8853365288736932361, guid: f4723fd1b3c4aae4595e690435bb2fff, type: 3}
       propertyPath: m_Name
       value: Forge

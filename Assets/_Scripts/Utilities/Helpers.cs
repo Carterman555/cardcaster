@@ -213,8 +213,12 @@ public static class Helpers {
 
         return transform.DOScale(Vector3.zero, duration).SetEase(Ease.InSine).OnComplete(() => {
             transform.DOKill();
+
+            bool inPool = transform.gameObject.InPool();
             transform.gameObject.TryReturnToPool();
-            transform.localScale = originalScale;
+            if (inPool) {
+                transform.localScale = originalScale;
+            }
         });
     }
 

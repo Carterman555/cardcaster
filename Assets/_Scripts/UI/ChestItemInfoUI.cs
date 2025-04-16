@@ -58,7 +58,7 @@ public class ChestItemInfoUI : MonoBehaviour, IInitializable {
             SetInfo(itemInfoToShow);
         }
 
-        //... if not showing the info of the item the player is on
+        // if not showing the info of the item the player is on, then move it down
         if (!IsPanelShowingInfo(itemInfoToShow)) {
 
             // if panel is moving up, move the panel down by reverting feedback (but don't set info yet, it will set at bottom pos)

@@ -40,7 +40,7 @@ public class EssenceDrop : MonoBehaviour {
         bool nearPlayer = GameLayers.AllPlayerLayerMask.ContainsLayer(collision.gameObject.layer);
 
         if (nearPlayer && !launching) {
-            StartCoroutine(MoveToPlayer(collision.transform));
+            StartCoroutine(MoveToPlayer());
         }
     }
 
@@ -51,22 +51,22 @@ public class EssenceDrop : MonoBehaviour {
         Collider2D[] cols = Physics2D.OverlapCircleAll(transform.position, radius, GameLayers.AllPlayerLayerMask);
         bool touchingPlayer = cols.Length > 0;
         if (touchingPlayer) {
-            StartCoroutine(MoveToPlayer(cols[0].transform));
+            StartCoroutine(MoveToPlayer());
         }
         else {
             bobMovement.enabled = true;
         }
     }
 
-    private IEnumerator MoveToPlayer(Transform player) {
+    private IEnumerator MoveToPlayer() {
         bobMovement.enabled = false;
 
         float velocity = 0;
         float acceleration = 0.1f;
 
-        while (Vector2.Distance(player.position, transform.position) > 0.5f) {
+        while (Vector2.Distance(PlayerMovement.Instance.CenterPos, transform.position) > 0.5f) {
             velocity += acceleration * Time.deltaTime;
-            transform.position = Vector2.MoveTowards(transform.position, player.position, velocity);
+            transform.position = Vector2.MoveTowards(transform.position, PlayerMovement.Instance.CenterPos, velocity);
             yield return null;
         }
 

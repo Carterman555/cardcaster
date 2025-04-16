@@ -34,6 +34,9 @@ public class CardDrop : MonoBehaviour {
     private void OnDisable() {
         interactable.OnChangeCanInteract -= SetShowCardInfo;
         interactable.OnInteract -= OnInteract;
+
+        shine.DOKill();
+        spriteRenderer.DOKill();
     }
 
     public void SetCard(ScriptableCardBase scriptableCard) {
@@ -49,7 +52,11 @@ public class CardDrop : MonoBehaviour {
 
         spriteRenderer.Fade(0f);
         spriteRenderer.DOFade(1f, duration: 1.5f).OnComplete(() => {
-            interactable.enabled = true;
+
+            // because the chestcard already sets the interactable enabled to true
+            if (this is not ChestCard) {
+                interactable.enabled = true;
+            }
         });
 
         changeShineColor.SetColor(scriptableCard.Rarity);

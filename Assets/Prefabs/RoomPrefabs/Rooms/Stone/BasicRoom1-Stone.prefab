@@ -31153,10 +31153,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Torch_7
       objectReference: {fileID: 0}
-    - target: {fileID: 7018084041215859211, guid: 0bdd4d3ca3999fe449c07c463a7b99e5, type: 3}
-      propertyPath: m_SortingOrder
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -31218,10 +31214,6 @@ PrefabInstance:
     - target: {fileID: 3795107500430556011, guid: 0bdd4d3ca3999fe449c07c463a7b99e5, type: 3}
       propertyPath: m_Name
       value: Torch_3
-      objectReference: {fileID: 0}
-    - target: {fileID: 7018084041215859211, guid: 0bdd4d3ca3999fe449c07c463a7b99e5, type: 3}
-      propertyPath: m_SortingOrder
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -31362,10 +31354,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Torch_6
       objectReference: {fileID: 0}
-    - target: {fileID: 7018084041215859211, guid: 0bdd4d3ca3999fe449c07c463a7b99e5, type: 3}
-      propertyPath: m_SortingOrder
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -31428,10 +31416,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Torch_8
       objectReference: {fileID: 0}
-    - target: {fileID: 7018084041215859211, guid: 0bdd4d3ca3999fe449c07c463a7b99e5, type: 3}
-      propertyPath: m_SortingOrder
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -31493,10 +31477,6 @@ PrefabInstance:
     - target: {fileID: 3795107500430556011, guid: 0bdd4d3ca3999fe449c07c463a7b99e5, type: 3}
       propertyPath: m_Name
       value: Torch_9
-      objectReference: {fileID: 0}
-    - target: {fileID: 7018084041215859211, guid: 0bdd4d3ca3999fe449c07c463a7b99e5, type: 3}
-      propertyPath: m_SortingOrder
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -31637,10 +31617,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Torch
       objectReference: {fileID: 0}
-    - target: {fileID: 7018084041215859211, guid: 0bdd4d3ca3999fe449c07c463a7b99e5, type: 3}
-      propertyPath: m_SortingOrder
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -31702,10 +31678,6 @@ PrefabInstance:
     - target: {fileID: 3795107500430556011, guid: 0bdd4d3ca3999fe449c07c463a7b99e5, type: 3}
       propertyPath: m_Name
       value: Torch_1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7018084041215859211, guid: 0bdd4d3ca3999fe449c07c463a7b99e5, type: 3}
-      propertyPath: m_SortingOrder
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -32355,10 +32327,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Torch_5
       objectReference: {fileID: 0}
-    - target: {fileID: 7018084041215859211, guid: 0bdd4d3ca3999fe449c07c463a7b99e5, type: 3}
-      propertyPath: m_SortingOrder
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -32377,10 +32345,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 4070943357736046014}
     m_Modifications:
-    - target: {fileID: 2144364565858301633, guid: a063a5caef563404f99042e3934f0445, type: 3}
-      propertyPath: m_SortingOrder
-      value: -1
-      objectReference: {fileID: 0}
     - target: {fileID: 3156817322395212403, guid: a063a5caef563404f99042e3934f0445, type: 3}
       propertyPath: m_Name
       value: Crate
@@ -32622,10 +32586,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Torch_2
       objectReference: {fileID: 0}
-    - target: {fileID: 7018084041215859211, guid: 0bdd4d3ca3999fe449c07c463a7b99e5, type: 3}
-      propertyPath: m_SortingOrder
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -32749,10 +32709,6 @@ PrefabInstance:
     - target: {fileID: 3795107500430556011, guid: 0bdd4d3ca3999fe449c07c463a7b99e5, type: 3}
       propertyPath: m_Name
       value: Torch_4
-      objectReference: {fileID: 0}
-    - target: {fileID: 7018084041215859211, guid: 0bdd4d3ca3999fe449c07c463a7b99e5, type: 3}
-      propertyPath: m_SortingOrder
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

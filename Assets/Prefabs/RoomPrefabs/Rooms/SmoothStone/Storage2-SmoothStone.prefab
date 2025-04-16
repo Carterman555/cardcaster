@@ -48,10 +48,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3038887189622624319, guid: de11213faf568ad4085521b8bf93c17b, type: 3}
-      propertyPath: m_SortingOrder
-      value: -1
-      objectReference: {fileID: 0}
     - target: {fileID: 3219774610696943759, guid: de11213faf568ad4085521b8bf93c17b, type: 3}
       propertyPath: m_Name
       value: Barrel_4
@@ -14701,10 +14697,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 4070943357736046014}
     m_Modifications:
-    - target: {fileID: 2144364565858301633, guid: a063a5caef563404f99042e3934f0445, type: 3}
-      propertyPath: m_SortingOrder
-      value: -1
-      objectReference: {fileID: 0}
     - target: {fileID: 3156817322395212403, guid: a063a5caef563404f99042e3934f0445, type: 3}
       propertyPath: m_Name
       value: Crate_9
@@ -14916,10 +14908,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 4070943357736046014}
     m_Modifications:
-    - target: {fileID: 2144364565858301633, guid: a063a5caef563404f99042e3934f0445, type: 3}
-      propertyPath: m_SortingOrder
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 3156817322395212403, guid: a063a5caef563404f99042e3934f0445, type: 3}
       propertyPath: m_Name
       value: Crate_7
@@ -14982,10 +14970,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 4070943357736046014}
     m_Modifications:
-    - target: {fileID: 2144364565858301633, guid: a063a5caef563404f99042e3934f0445, type: 3}
-      propertyPath: m_SortingOrder
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 3156817322395212403, guid: a063a5caef563404f99042e3934f0445, type: 3}
       propertyPath: m_Name
       value: Crate_5
@@ -15048,10 +15032,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 4070943357736046014}
     m_Modifications:
-    - target: {fileID: 2144364565858301633, guid: a063a5caef563404f99042e3934f0445, type: 3}
-      propertyPath: m_SortingOrder
-      value: -1
-      objectReference: {fileID: 0}
     - target: {fileID: 3156817322395212403, guid: a063a5caef563404f99042e3934f0445, type: 3}
       propertyPath: m_Name
       value: Crate
@@ -15114,10 +15094,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 4070943357736046014}
     m_Modifications:
-    - target: {fileID: 2144364565858301633, guid: a063a5caef563404f99042e3934f0445, type: 3}
-      propertyPath: m_SortingOrder
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 3156817322395212403, guid: a063a5caef563404f99042e3934f0445, type: 3}
       propertyPath: m_Name
       value: Crate_8
@@ -15180,10 +15156,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 4070943357736046014}
     m_Modifications:
-    - target: {fileID: 2144364565858301633, guid: a063a5caef563404f99042e3934f0445, type: 3}
-      propertyPath: m_SortingOrder
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 3156817322395212403, guid: a063a5caef563404f99042e3934f0445, type: 3}
       propertyPath: m_Name
       value: Crate_6
@@ -15308,10 +15280,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 4070943357736046014}
     m_Modifications:
-    - target: {fileID: 2144364565858301633, guid: a063a5caef563404f99042e3934f0445, type: 3}
-      propertyPath: m_SortingOrder
-      value: -1
-      objectReference: {fileID: 0}
     - target: {fileID: 3156817322395212403, guid: a063a5caef563404f99042e3934f0445, type: 3}
       propertyPath: m_Name
       value: Crate_12
@@ -15600,10 +15568,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3038887189622624319, guid: de11213faf568ad4085521b8bf93c17b, type: 3}
-      propertyPath: m_SortingOrder
-      value: -1
-      objectReference: {fileID: 0}
     - target: {fileID: 3219774610696943759, guid: de11213faf568ad4085521b8bf93c17b, type: 3}
       propertyPath: m_Name
       value: Barrel_6
@@ -15743,10 +15707,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3038887189622624319, guid: de11213faf568ad4085521b8bf93c17b, type: 3}
-      propertyPath: m_SortingOrder
-      value: -1
-      objectReference: {fileID: 0}
     - target: {fileID: 3219774610696943759, guid: de11213faf568ad4085521b8bf93c17b, type: 3}
       propertyPath: m_Name
       value: Barrel_1
@@ -15769,10 +15729,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 4070943357736046014}
     m_Modifications:
-    - target: {fileID: 2144364565858301633, guid: a063a5caef563404f99042e3934f0445, type: 3}
-      propertyPath: m_SortingOrder
-      value: 2
-      objectReference: {fileID: 0}
     - target: {fileID: 3156817322395212403, guid: a063a5caef563404f99042e3934f0445, type: 3}
       propertyPath: m_Name
       value: Crate_2
@@ -15835,10 +15791,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 4070943357736046014}
     m_Modifications:
-    - target: {fileID: 2144364565858301633, guid: a063a5caef563404f99042e3934f0445, type: 3}
-      propertyPath: m_SortingOrder
-      value: -1
-      objectReference: {fileID: 0}
     - target: {fileID: 3156817322395212403, guid: a063a5caef563404f99042e3934f0445, type: 3}
       propertyPath: m_Name
       value: Crate_3
@@ -15901,10 +15853,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 4070943357736046014}
     m_Modifications:
-    - target: {fileID: 2144364565858301633, guid: a063a5caef563404f99042e3934f0445, type: 3}
-      propertyPath: m_SortingOrder
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 3156817322395212403, guid: a063a5caef563404f99042e3934f0445, type: 3}
       propertyPath: m_Name
       value: Crate_10
@@ -16131,10 +16079,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3038887189622624319, guid: de11213faf568ad4085521b8bf93c17b, type: 3}
-      propertyPath: m_SortingOrder
-      value: -1
-      objectReference: {fileID: 0}
     - target: {fileID: 3219774610696943759, guid: de11213faf568ad4085521b8bf93c17b, type: 3}
       propertyPath: m_Name
       value: Barrel_5
@@ -16157,10 +16101,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 4070943357736046014}
     m_Modifications:
-    - target: {fileID: 2144364565858301633, guid: a063a5caef563404f99042e3934f0445, type: 3}
-      propertyPath: m_SortingOrder
-      value: -1
-      objectReference: {fileID: 0}
     - target: {fileID: 3156817322395212403, guid: a063a5caef563404f99042e3934f0445, type: 3}
       propertyPath: m_Name
       value: Crate_1
@@ -16366,10 +16306,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 4070943357736046014}
     m_Modifications:
-    - target: {fileID: 2144364565858301633, guid: a063a5caef563404f99042e3934f0445, type: 3}
-      propertyPath: m_SortingOrder
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 3156817322395212403, guid: a063a5caef563404f99042e3934f0445, type: 3}
       propertyPath: m_Name
       value: Crate_11
@@ -16432,10 +16368,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 4070943357736046014}
     m_Modifications:
-    - target: {fileID: 2144364565858301633, guid: a063a5caef563404f99042e3934f0445, type: 3}
-      propertyPath: m_SortingOrder
-      value: -1
-      objectReference: {fileID: 0}
     - target: {fileID: 3156817322395212403, guid: a063a5caef563404f99042e3934f0445, type: 3}
       propertyPath: m_Name
       value: Crate_4

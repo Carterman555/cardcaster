@@ -1,14 +1,13 @@
 using DG.Tweening;
+using System.Linq;
 using UnityEngine;
 
 public class ChestCard : CardDrop, IChestItem {
 
     private Chest chest;
-    private int collectableIndex;
 
-    public void Setup(Chest chest, int collectableIndex, Vector2 position) {
+    public void Setup(Chest chest, Vector2 position) {
         this.chest = chest;
-        this.collectableIndex = collectableIndex;
 
         transform.position = chest.transform.position;
         transform.DOLocalMove(position, duration: 0.3f).SetEase(Ease.OutSine);
@@ -21,7 +20,14 @@ public class ChestCard : CardDrop, IChestItem {
 
     protected override void OnInteract() {
         base.OnInteract();
-        StartCoroutine(chest.OnSelectCollectable(collectableIndex));
+        chest.StartCoroutine(chest.OnSelectCollectable());
+
+        // hide other collectables in chest
+        for (int collectableIndex = 0; collectableIndex < chest.ChestItems.Count; collectableIndex++) {
+            if (!chest.ChestItems[collectableIndex].Equals(this)) {
+                chest.ChestItems[collectableIndex].ReturnToChest(duration: 0.5f);
+            }
+        }
 
         AudioManager.Instance.PlaySound(AudioManager.Instance.AudioClips.GainChestCard);
     }

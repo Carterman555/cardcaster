@@ -53,7 +53,7 @@ MonoBehaviour:
     BaseDamage: 0
     KnockbackStrength: 0
     AreaSize: 0
-    Duration: 50
+    Duration: 25
     ProjectileSpeed: 0
     Cooldown: 0
   modifierImagePrefab: {fileID: -2071319084836149, guid: c6d28b118b972a744a66d705262b19cd, type: 3}

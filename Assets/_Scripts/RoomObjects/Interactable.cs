@@ -54,7 +54,13 @@ public class Interactable : MonoBehaviour {
             return;
         }
 
-        InteractManager.Instance.TryRemoveWithinRange(this);
+        try {
+            InteractManager.Instance.TryRemoveWithinRange(this);
+        }
+        catch (Exception e) {
+            Debug.Log(name);
+            Debug.LogException(e);
+        }
 
         spriteRenderer.material = originalMaterial;
 
@@ -102,8 +108,8 @@ public class Interactable : MonoBehaviour {
 
         interactableText = interactableTextPrefab.Spawn(transform);
 
-        interactableText.transform.DOKill();
-        transform.DOKill();
+        //interactableText.transform.DOKill();
+        //transform.DOKill();
 
         //... for some reason, there is a bug when setting pos in spawn method
         interactableText.transform.position = (Vector2)transform.position + textPosition;

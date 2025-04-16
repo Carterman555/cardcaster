@@ -10,7 +10,6 @@ public class ChestHeal : MonoBehaviour, IChestItem {
     private SuckMovement suckMovement;
 
     private Chest chest;
-    private int collectableIndex;
 
     private void Awake() {
         interactable = GetComponent<Interactable>();
@@ -26,9 +25,8 @@ public class ChestHeal : MonoBehaviour, IChestItem {
         interactable.OnInteract -= OnInteract;
     }
 
-    public void Setup(Chest chest, int collectableIndex, Vector2 position) {
+    public void Setup(Chest chest, Vector2 position) {
         this.chest = chest;
-        this.collectableIndex = collectableIndex;
 
         interactable.enabled = false;
 
@@ -53,7 +51,14 @@ public class ChestHeal : MonoBehaviour, IChestItem {
     private void OnInteract() {
         GoToPlayer();
 
-        StartCoroutine(chest.OnSelectCollectable(collectableIndex));
+        chest.StartCoroutine(chest.OnSelectCollectable());
+
+        // hide other collectables in chest
+        for (int collectableIndex = 0; collectableIndex < chest.ChestItems.Count; collectableIndex++) {
+            if (!chest.ChestItems[collectableIndex].Equals(this)) {
+                chest.ChestItems[collectableIndex].ReturnToChest(duration: 0.5f);
+            }
+        }
 
         AudioManager.Instance.PlaySound(AudioManager.Instance.AudioClips.GainChestCard);
     }

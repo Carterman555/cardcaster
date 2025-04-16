@@ -30525,10 +30525,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 4070943357736046014}
     m_Modifications:
-    - target: {fileID: 2144364565858301633, guid: a063a5caef563404f99042e3934f0445, type: 3}
-      propertyPath: m_SortingOrder
-      value: -1
-      objectReference: {fileID: 0}
     - target: {fileID: 3156817322395212403, guid: a063a5caef563404f99042e3934f0445, type: 3}
       propertyPath: m_Name
       value: Crate_2
@@ -30982,10 +30978,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 4070943357736046014}
     m_Modifications:
-    - target: {fileID: 2144364565858301633, guid: a063a5caef563404f99042e3934f0445, type: 3}
-      propertyPath: m_SortingOrder
-      value: -1
-      objectReference: {fileID: 0}
     - target: {fileID: 3156817322395212403, guid: a063a5caef563404f99042e3934f0445, type: 3}
       propertyPath: m_Name
       value: Crate_3
@@ -31869,10 +31861,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 4070943357736046014}
     m_Modifications:
-    - target: {fileID: 2144364565858301633, guid: a063a5caef563404f99042e3934f0445, type: 3}
-      propertyPath: m_SortingOrder
-      value: -1
-      objectReference: {fileID: 0}
     - target: {fileID: 3156817322395212403, guid: a063a5caef563404f99042e3934f0445, type: 3}
       propertyPath: m_Name
       value: Crate_4

@@ -57290,10 +57290,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3038887189622624319, guid: de11213faf568ad4085521b8bf93c17b, type: 3}
-      propertyPath: m_SortingOrder
-      value: -1
-      objectReference: {fileID: 0}
     - target: {fileID: 3219774610696943759, guid: de11213faf568ad4085521b8bf93c17b, type: 3}
       propertyPath: m_Name
       value: Barrel_5
@@ -57674,10 +57670,6 @@ PrefabInstance:
     - target: {fileID: 1212477916551052545, guid: de11213faf568ad4085521b8bf93c17b, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3038887189622624319, guid: de11213faf568ad4085521b8bf93c17b, type: 3}
-      propertyPath: m_SortingOrder
-      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 3219774610696943759, guid: de11213faf568ad4085521b8bf93c17b, type: 3}
       propertyPath: m_Name
@@ -58786,10 +58778,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3038887189622624319, guid: de11213faf568ad4085521b8bf93c17b, type: 3}
-      propertyPath: m_SortingOrder
-      value: -1
-      objectReference: {fileID: 0}
     - target: {fileID: 3219774610696943759, guid: de11213faf568ad4085521b8bf93c17b, type: 3}
       propertyPath: m_Name
       value: Barrel_2
@@ -59234,10 +59222,6 @@ PrefabInstance:
     - target: {fileID: 1212477916551052545, guid: de11213faf568ad4085521b8bf93c17b, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3038887189622624319, guid: de11213faf568ad4085521b8bf93c17b, type: 3}
-      propertyPath: m_SortingOrder
-      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 3219774610696943759, guid: de11213faf568ad4085521b8bf93c17b, type: 3}
       propertyPath: m_Name

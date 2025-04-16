@@ -38,11 +38,13 @@ public class CameraInvalidate : MonoBehaviour {
 
     private IEnumerator LoadWhileBaking() {
 
+        GetComponent<CameraLookInfluence>().enabled = false;
+
         //... unnessecary i think, but just in case camera is close to player for the first few frames, before moving away
         yield return new WaitForSeconds(0.1f);
 
         // wait until camera gets close enough to player before unloading the scene
-        float distanceThreshold = 3;
+        float distanceThreshold = 2f;
         float distanceThresholdSquared = distanceThreshold * distanceThreshold;
 
         float xDiff = PlayerMovement.Instance.CenterPos.x - Camera.main.transform.position.x;
@@ -56,6 +58,8 @@ public class CameraInvalidate : MonoBehaviour {
             yDiff = PlayerMovement.Instance.CenterPos.y - Camera.main.transform.position.y;
             distanceSquared = xDiff * xDiff + yDiff * yDiff;
         }
+
+        GetComponent<CameraLookInfluence>().enabled = true;
 
         MMAdditiveSceneLoadingManager.AllowUnload();
         OnFinishLoading?.Invoke();

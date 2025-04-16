@@ -36,7 +36,7 @@ public class HorizontalDoor : MonoBehaviour {
             anim.SetTrigger("openDown");
             hasBeenOpenedDown = true;
 
-            AudioManager.Instance.PlaySound(AudioManager.Instance.AudioClips.OpenDoor);
+            AudioManager.Instance.PlaySingleSound(AudioManager.Instance.AudioClips.OpenDoor);
         }
     }
     private void TryOpenUpwards(GameObject player) {
@@ -45,7 +45,7 @@ public class HorizontalDoor : MonoBehaviour {
             anim.SetTrigger("openUp");
             hasBeenOpenedUp = true;
 
-            AudioManager.Instance.PlaySound(AudioManager.Instance.AudioClips.OpenDoor);
+            AudioManager.Instance.PlaySingleSound(AudioManager.Instance.AudioClips.OpenDoor);
         }
     }
 

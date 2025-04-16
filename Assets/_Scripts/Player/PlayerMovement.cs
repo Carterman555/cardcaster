@@ -97,8 +97,9 @@ public class PlayerMovement : StaticInstance<PlayerMovement>, IChangesFacing, IH
 
     private bool isDashing;
 
-    private IEnumerator Dash() {
+    public float DashingTimeRemaining { get; private set; }
 
+    private IEnumerator Dash() {
         isDashing = true;
         rb.velocity = moveDirection.normalized * PlayerStats.DashSpeed;
         PlayerInvincibility dashInvincibility = gameObject.AddComponent<PlayerInvincibility>();
@@ -110,8 +111,11 @@ public class PlayerMovement : StaticInstance<PlayerMovement>, IChangesFacing, IH
         OnDash?.Invoke();
         OnDash_Direction?.Invoke(moveDirection.normalized);
 
-        float dashTime = PlayerStats.DashDistance / PlayerStats.DashSpeed;
-        yield return new WaitForSeconds(dashTime);
+        DashingTimeRemaining = PlayerStats.DashDistance / PlayerStats.DashSpeed;
+        while (DashingTimeRemaining > 0f) {
+            yield return null;
+            DashingTimeRemaining -= Time.deltaTime;
+        }
 
         isDashing = false;
         dashTimer = 0f;

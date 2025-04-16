@@ -42,11 +42,15 @@ public class PlayerMeleeAttack : StaticInstance<PlayerMeleeAttack>, ITargetAttac
             return;
         }
 
+        //... can attack if almost done dashing
+        float dashRemainingThreshold = 0.1f;
+
         attackTimer += Time.deltaTime;
         if (!Helpers.IsMouseOverUI() &&
             attackInput.action.triggered &&
             attackTimer > Stats.AttackCooldown &&
-            !AttackDisabled()) {
+            !AttackDisabled() &&
+            PlayerMovement.Instance.DashingTimeRemaining < dashRemainingThreshold) {
 
             Attack();
             attackTimer = 0f;

@@ -573,6 +573,7 @@ MonoBehaviour:
   avgDropAmount: 5
   dropAmountVariation: 1
   yVariation: 2
+  IsEnabled: 0
 --- !u!114 &6149234201596225412
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -591,6 +592,8 @@ MonoBehaviour:
     MaxValue: 1
   dropChancePerDmg: 0.03
   yVariation: 2
+  hasMax: 1
+  maxDropAmount: 15
 --- !u!114 &-4242213799015855196
 MonoBehaviour:
   m_ObjectHideFlags: 0

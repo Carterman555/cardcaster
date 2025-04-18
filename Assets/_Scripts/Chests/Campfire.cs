@@ -22,10 +22,12 @@ public class Campfire : MonoBehaviour {
         TrashCardManager.Instance.Activate();
 
         TrashCardManager.OnTrashCard += PutOutFire;
+        TrashCardManager.OnDeactivate += OnTrashingDeactivated;
     }
 
     private void PutOutFire() {
         TrashCardManager.OnTrashCard -= PutOutFire;
+        TrashCardManager.OnDeactivate -= OnTrashingDeactivated;
 
         GetComponent<CreateMapIcon>().HideMapIcon();
 
@@ -33,5 +35,10 @@ public class Campfire : MonoBehaviour {
 
         interactable.OnInteract -= OpenTrashUI;
         interactable.enabled = false;
+    }
+
+    private void OnTrashingDeactivated() {
+        TrashCardManager.OnTrashCard -= PutOutFire;
+        TrashCardManager.OnDeactivate -= OnTrashingDeactivated;
     }
 }

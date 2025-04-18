@@ -18,12 +18,12 @@ public class DebugManager : StaticInstance<DebugManager> {
 
     private void OnEnable() {
         RoomGenerator.OnCompleteGeneration += OnRoomsGenerated;
-        GameSceneManager.OnStartGame += OnStartGame;
+        GameSceneManager.OnStartGameLoadingStarted += OnStartGame;
     }
 
     private void OnDisable() {
         RoomGenerator.OnCompleteGeneration -= OnRoomsGenerated;
-        GameSceneManager.OnStartGame -= OnStartGame;
+        GameSceneManager.OnStartGameLoadingStarted -= OnStartGame;
     }
 
     private void OnStartGame() {

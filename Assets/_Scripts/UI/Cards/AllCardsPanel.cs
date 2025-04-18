@@ -39,6 +39,9 @@ public class AllCardsPanel : StaticInstance<AllCardsPanel> {
 
     private void SetCardsInContainer(Transform container, List<ScriptableCardBase> cards, CardLocation cardLocation) {
         container.ReturnChildrenToPool();
+
+        PanelCardButtons.Clear();
+
         for (int cardIndex = 0; cardIndex < cards.Count; cardIndex++) {
             ScriptableCardBase card = cards[cardIndex];
 
@@ -69,7 +72,6 @@ public class AllCardsPanel : StaticInstance<AllCardsPanel> {
 
         if (PanelCardButtons.Count > 0) {
             SetupControllerCardSelection();
-
         }
         else {
             toSetupControllerInput = true;

@@ -93,7 +93,7 @@ public class DeckManager : Singleton<DeckManager> {
     }
 
     private void OnEnable() {
-        GameSceneManager.OnStartGame += OnStartGame;
+        GameSceneManager.OnStartGameLoadingStarted += OnStartGame;
         GameSceneManager.OnLevelComplete += OnLevelComplete;
 
         //debugging so can start game in 'game' scene
@@ -103,7 +103,7 @@ public class DeckManager : Singleton<DeckManager> {
     }
 
     private void OnDisable() {
-        GameSceneManager.OnStartGame -= OnStartGame;
+        GameSceneManager.OnStartGameLoadingStarted -= OnStartGame;
         GameSceneManager.OnLevelComplete -= OnLevelComplete;
     }
 

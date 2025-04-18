@@ -6,7 +6,9 @@ using UnityEngine.SceneManagement;
 
 public class GameSceneManager : Singleton<GameSceneManager> {
 
-    public static event Action OnStartGame;
+    public static event Action OnStartGameLoadingStarted;
+    public static event Action OnStartGameLoadingCompleted;
+
     public static event Action<int> OnLevelComplete;
     public static event Action OnWinGame;
 
@@ -36,11 +38,14 @@ public class GameSceneManager : Singleton<GameSceneManager> {
         sceneLoadPlayer = GetComponent<MMF_Player>();
 
         SceneManager.sceneLoaded += OnSceneLoaded;
+        SceneManager.activeSceneChanged += OnSceneChanged;
 
         if (SceneManager.GetActiveScene() == SceneManager.GetSceneByName("Game")) {
-            OnStartGame?.Invoke();
+            OnStartGameLoadingStarted?.Invoke();
         }
     }
+
+    
 
     public void StartGame(bool tutorial = false) {
         Level = 1;
@@ -49,7 +54,7 @@ public class GameSceneManager : Singleton<GameSceneManager> {
 
         LoadGameScene();
 
-        OnStartGame?.Invoke();
+        OnStartGameLoadingStarted?.Invoke();
     }
 
     [Command]
@@ -80,6 +85,7 @@ public class GameSceneManager : Singleton<GameSceneManager> {
     private void LoadGameScene() {
         MMF_LoadScene loadGameFeedback = sceneLoadPlayer.GetFeedbackOfType<MMF_LoadScene>("Load Game Scene");
         loadGameFeedback.Play(Vector3.zero);
+        print("load game");
 
         IsSceneLoading = true;
     }
@@ -87,6 +93,7 @@ public class GameSceneManager : Singleton<GameSceneManager> {
     private void LoadMenuScene() {
         MMF_LoadScene loadGameFeedback = sceneLoadPlayer.GetFeedbackOfType<MMF_LoadScene>("Load Menu Scene");
         loadGameFeedback.Play(Vector3.zero);
+        print("load menu");
 
         IsSceneLoading = true;
     }
@@ -101,7 +108,17 @@ public class GameSceneManager : Singleton<GameSceneManager> {
     private void OnSceneLoaded(Scene scene, LoadSceneMode loadSceneMode) {
         if (scene != SceneManager.GetSceneByName("AdditiveLoadingScreen")) {
             IsSceneLoading = false;
+
+            print("On Scene Loaded: " + scene.name);
+
+            if (Level == 1) {
+                OnStartGameLoadingCompleted?.Invoke();
+            }
         }
+    }
+
+    private void OnSceneChanged(Scene previousScene, Scene newScene) {
+        print("On Scene Changed: previous = " + previousScene.name + ", new = " + newScene.name);
     }
 
     // the level in the environment

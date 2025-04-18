@@ -3934,10 +3934,6 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6303785393034956381, guid: 82fbade4f957f6b4c83c251161866105, type: 3}
-      propertyPath: m_Navigation.m_Mode
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 6303785393034956381, guid: 82fbade4f957f6b4c83c251161866105, type: 3}
       propertyPath: m_Navigation.m_SelectOnUp
       value: 
       objectReference: {fileID: 6567385890741344179}
@@ -4122,6 +4118,17 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 7335575627259165685}
   m_SourcePrefab: {fileID: 100100000, guid: 1e754299eac0a7641a7c05baf22037e1, type: 3}
+--- !u!114 &260103074852841277 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 118223048703193592, guid: 1e754299eac0a7641a7c05baf22037e1, type: 3}
+  m_PrefabInstance: {fileID: 159896902926636741}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2568804005800663635}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2568804005800663635 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2422418457975442582, guid: 1e754299eac0a7641a7c05baf22037e1, type: 3}
@@ -4781,7 +4788,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 786861982741797967, guid: a33bbb4b8c944d2419816025a3c2e3cf, type: 3}
       propertyPath: m_text
-      value: D-Pad/Up
+      value: D-Pad Up
       objectReference: {fileID: 0}
     - target: {fileID: 1076470667226628001, guid: a33bbb4b8c944d2419816025a3c2e3cf, type: 3}
       propertyPath: m_AnchorMax.y
@@ -4815,7 +4822,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1135399437141092081, guid: a33bbb4b8c944d2419816025a3c2e3cf, type: 3}
       propertyPath: m_text
-      value: D-Pad/Left
+      value: D-Pad Left
       objectReference: {fileID: 0}
     - target: {fileID: 1906070958378442976, guid: a33bbb4b8c944d2419816025a3c2e3cf, type: 3}
       propertyPath: m_BindingId
@@ -4871,7 +4878,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2556488952990817858, guid: a33bbb4b8c944d2419816025a3c2e3cf, type: 3}
       propertyPath: m_text
-      value: D-Pad/Right
+      value: D-Pad Right
       objectReference: {fileID: 0}
     - target: {fileID: 3256978269760186866, guid: a33bbb4b8c944d2419816025a3c2e3cf, type: 3}
       propertyPath: m_AnchorMax.y
@@ -5699,10 +5706,6 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6303785393034956381, guid: 82fbade4f957f6b4c83c251161866105, type: 3}
-      propertyPath: m_Navigation.m_Mode
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 6303785393034956381, guid: 82fbade4f957f6b4c83c251161866105, type: 3}
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.size
       value: 1
       objectReference: {fileID: 0}
@@ -5983,12 +5986,20 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6303785393034956381, guid: 82fbade4f957f6b4c83c251161866105, type: 3}
       propertyPath: m_Navigation.m_Mode
-      value: 2
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 6303785393034956381, guid: 82fbade4f957f6b4c83c251161866105, type: 3}
+      propertyPath: m_Navigation.m_WrapAround
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6303785393034956381, guid: 82fbade4f957f6b4c83c251161866105, type: 3}
       propertyPath: m_Navigation.m_SelectOnDown
       value: 
-      objectReference: {fileID: 6567385890741344179}
+      objectReference: {fileID: 260103074852841277}
+    - target: {fileID: 6303785393034956381, guid: 82fbade4f957f6b4c83c251161866105, type: 3}
+      propertyPath: m_Navigation.m_SelectOnLeft
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 6303785393034956381, guid: 82fbade4f957f6b4c83c251161866105, type: 3}
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.size
       value: 1
@@ -6196,7 +6207,7 @@ PrefabInstance:
       objectReference: {fileID: 9055704806070192308}
     - target: {fileID: 7330992257258493064, guid: f25dcd618d3acd64795bf8bb32edb6c9, type: 3}
       propertyPath: m_text
-      value: D-Pad/Down
+      value: D-Pad Down
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -6384,10 +6395,6 @@ PrefabInstance:
     - target: {fileID: 7302577570288098816, guid: a9c81260bbd65b44885bedcd14bd1063, type: 3}
       propertyPath: m_IsOn
       value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7302577570288098816, guid: a9c81260bbd65b44885bedcd14bd1063, type: 3}
-      propertyPath: m_Navigation.m_Mode
-      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7302577570288098816, guid: a9c81260bbd65b44885bedcd14bd1063, type: 3}
       propertyPath: m_Navigation.m_SelectOnUp
@@ -7141,10 +7148,6 @@ PrefabInstance:
     - target: {fileID: 6303785393034956381, guid: 82fbade4f957f6b4c83c251161866105, type: 3}
       propertyPath: m_Value
       value: 0.6
-      objectReference: {fileID: 0}
-    - target: {fileID: 6303785393034956381, guid: 82fbade4f957f6b4c83c251161866105, type: 3}
-      propertyPath: m_Navigation.m_Mode
-      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6303785393034956381, guid: 82fbade4f957f6b4c83c251161866105, type: 3}
       propertyPath: m_Navigation.m_SelectOnUp

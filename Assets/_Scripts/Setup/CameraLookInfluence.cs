@@ -1,6 +1,7 @@
 using UnityEngine;
 using Cinemachine;
 using UnityEngine.InputSystem;
+using System;
 
 public class CameraLookInfluence : MonoBehaviour {
 
@@ -10,29 +11,54 @@ public class CameraLookInfluence : MonoBehaviour {
     [SerializeField] private float joystickInfluence = 3f;
     [SerializeField] private InputActionReference aimAction;
 
+    private Vector2 desiredOffset = Vector2.zero;
+
+    private bool frozenCameraLook;
+    private Vector2 frozenOffset;
+
     void Awake() {
         CinemachineVirtualCamera virtualCamera = GetComponent<CinemachineVirtualCamera>();
         framingTransposer = virtualCamera.GetCinemachineComponent<CinemachineFramingTransposer>();
     }
 
-    void Update() {
-        
-        Vector2 offset = Vector2.zero;
-        if (InputManager.Instance.GetControlScheme() == ControlSchemeType.Keyboard) {
-            offset = GetMouseOffset();
-        }
-        else if (InputManager.Instance.GetControlScheme() == ControlSchemeType.Controller) {
-            offset = GetJoystickOffset();
-        }
-        else {
-            Debug.LogWarning($"ControlSchemeType not found {InputManager.Instance.GetControlScheme()}!");
-        }
-
-        framingTransposer.m_TrackedObjectOffset = new Vector3(Mathf.Abs(offset.x), offset.y, 0f);
+    private void OnEnable() {
+        ScriptableAbilityCardBase.OnStartPositioning += TryFreezeCameraLook;
+        ScriptableAbilityCardBase.OnStopPositioning += TryUnfreezeCameraLook;
     }
 
     private void OnDisable() {
+        ScriptableAbilityCardBase.OnStartPositioning -= TryFreezeCameraLook;
+        ScriptableAbilityCardBase.OnStopPositioning -= TryUnfreezeCameraLook;
+
         framingTransposer.m_TrackedObjectOffset = Vector3.zero;
+    }
+
+    void Update() {
+        
+        if (InputManager.Instance.GetControlScheme() == ControlSchemeType.Keyboard) {
+            desiredOffset = GetMouseOffset();
+        }
+        else if (InputManager.Instance.GetControlScheme() == ControlSchemeType.Controller) {
+            desiredOffset = GetJoystickOffset();
+        }
+        else {
+            desiredOffset = Vector2.zero;
+            Debug.LogWarning($"ControlSchemeType not found {InputManager.Instance.GetControlScheme()}!");
+        }
+
+        Vector3 offset = frozenCameraLook ? frozenOffset : desiredOffset;
+        framingTransposer.m_TrackedObjectOffset = new Vector3(Mathf.Abs(offset.x), offset.y, 0f);
+    }
+
+    private void TryFreezeCameraLook() {
+        if (InputManager.Instance.GetControlScheme() == ControlSchemeType.Controller) {
+            frozenCameraLook = true;
+            frozenOffset = desiredOffset;
+        }
+    }
+
+    private void TryUnfreezeCameraLook() {
+        frozenCameraLook = false;
     }
 
     private Vector2 GetMouseOffset() {

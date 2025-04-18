@@ -31,6 +31,16 @@ public class InputManager : Singleton<InputManager> {
         playerInput.deviceRegainedEvent.RemoveListener(TryUnpauseGame);
     }
 
+    public static event Action<GameObject> OnSelectedChanged;
+    private GameObject lastSelected;
+
+    private void Update() {
+        if (lastSelected != EventSystem.current.currentSelectedGameObject) {
+            lastSelected = EventSystem.current.currentSelectedGameObject;
+            OnSelectedChanged?.Invoke(EventSystem.current.currentSelectedGameObject);
+        }
+    }
+
     #region Control Scheme
 
     public static event Action OnControlsChanged;

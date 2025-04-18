@@ -8,28 +8,19 @@ public class SelectedAutoScroll : MonoBehaviour
 
     [SerializeField] private float spacing = 30f;
 
-    private void Update() {
-
-        if (InputManager.Instance.GetControlScheme() != ControlSchemeType.Controller) {
-            return;
-        }
-
-        if (EventSystem.current.currentSelectedGameObject == null) {
-            return;
-        }
-    }
-
     private void OnEnable() {
-        PanelCardButton.OnSelected_PanelCard += UpdateScroll;
+        InputManager.OnSelectedChanged += UpdateScroll;
     }
 
     private void OnDisable() {
-        PanelCardButton.OnSelected_PanelCard -= UpdateScroll;
+        InputManager.OnSelectedChanged -= UpdateScroll;
     }
 
-    private void UpdateScroll(PanelCardButton panelCardButton) {
-        HandleScrollDown();
-        HandleScrollUp();
+    private void UpdateScroll(GameObject selectedObject) {
+        if (selectedObject != null) {
+            HandleScrollDown();
+            HandleScrollUp();
+        }
     }
 
     private void HandleScrollDown() {

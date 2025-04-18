@@ -23,6 +23,8 @@ public abstract class ScriptableAbilityCardBase : ScriptableCardBase {
     [SerializeField] private CardType[] incompatibleAbilities;
     public CardType[] IncompatibleAbilities => incompatibleAbilities;
 
+    public static event Action OnStartPositioning;
+    public static event Action OnStopPositioning;
     private Coroutine positioningCardCoroutine;
 
     public bool IsCompatibleWithModifier(ScriptableModifierCardBase modifier) {
@@ -37,6 +39,7 @@ public abstract class ScriptableAbilityCardBase : ScriptableCardBase {
 
     public virtual void OnStartPositioningCard(Transform cardTransform) {
         positioningCardCoroutine = AbilityManager.Instance.StartCoroutine(PositioningCard(cardTransform));
+        OnStartPositioning?.Invoke();
     }
 
     private IEnumerator PositioningCard(Transform cardTransform) {
@@ -50,6 +53,7 @@ public abstract class ScriptableAbilityCardBase : ScriptableCardBase {
 
     public virtual void OnStopPositioningCard() {
         AbilityManager.Instance.StopCoroutine(positioningCardCoroutine);
+        OnStopPositioning?.Invoke();
     }
 
     public override void TryPlay(Vector2 position) {

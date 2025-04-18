@@ -164,7 +164,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 727889013641216
-    m_Localized: Increase the area of abilities by 50% (not projectiles)
+    m_Localized: Increase the area of abilities by 25% (not projectiles)
     m_Metadata:
       m_Items: []
   - m_Id: 727915769106432

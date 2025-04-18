@@ -18,6 +18,10 @@ public class MapCamera : MonoBehaviour {
         RoomGenerator.OnCompleteGeneration -= ResizeAndPositionMap;
     }
 
+    private void Update() {
+        Vector2 mouseScreenPos = Camera.main.WorldToScreenPoint(MouseTracker.Instance.transform.position);
+    }
+
     private void ResizeAndPositionMap() {
         SetPositions();
         CenterCamera();

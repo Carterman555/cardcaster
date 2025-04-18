@@ -79,9 +79,9 @@ public class PlayerMeleeAttack : StaticInstance<PlayerMeleeAttack>, ITargetAttac
             targetCols = DamageDealer.DealCircleDamage(targetLayerMask, attackCenter, GetAttackRadius(), Stats.BasicAttackDamage, Stats.KnockbackStrength, canCrit: true);
 
             slashPrefab.Spawn(PlayerMovement.Instance.CenterPos, GetAttackDirection().DirectionToRotation(), Containers.Instance.Effects);
-
-            AudioManager.Instance.PlaySound(AudioManager.Instance.AudioClips.Swing);
         }
+
+        AudioManager.Instance.PlaySound(AudioManager.Instance.AudioClips.Swing);
 
         PlayAttackFeedbacks(targetCols);
 

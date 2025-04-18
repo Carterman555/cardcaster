@@ -66,6 +66,11 @@ MonoBehaviour:
     - {fileID: 8300000, guid: f60b0a0169eb57c4bb48ea6c803b7b6a, type: 3}
     Volume: 0.762
     PitchVariation: 0
+  playerHeal:
+    Clips:
+    - {fileID: 8300000, guid: aa3ac61466acab24f9cce226768ca888, type: 3}
+    Volume: 1
+    PitchVariation: 0.1
   basicEnemyShoot:
     Clips:
     - {fileID: 8300000, guid: 1c392d540fc5d924994810b617eef041, type: 3}

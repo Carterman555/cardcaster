@@ -13,7 +13,7 @@ public class PlayerHealth : MonoBehaviour, IDamagable {
     public event Action<float, bool, bool> OnDamagedDetailed;
     public event Action<float> OnHealthChanged_HealthProportion;
 
-    public float HealthProportion => health / maxHealth;
+    public float HealthProportion => health / StatsManager.PlayerStats.MaxHealth;
     public bool Dead { get; private set; }
     public float CurrentHealth {
         get {
@@ -25,24 +25,29 @@ public class PlayerHealth : MonoBehaviour, IDamagable {
         }
     }
 
-    private float maxHealth;
-    private float health;
+    private static float health;
 
-    private void Awake() {
-        maxHealth = StatsManager.PlayerStats.MaxHealth;
-        health = maxHealth;
-    }
+    [SerializeField] private ParticleSystem healEffect;
 
     private void OnEnable() {
-        Dead = false;
-        health = maxHealth;
+        StatsManager.OnStatsChanged += TryIncreaseHealth;
+        GameSceneManager.OnStartGameLoadingCompleted += OnStartGame;
+        print("sub");
 
-        OnHealthChanged_HealthProportion?.Invoke(health / maxHealth);
-
-        StatsManager.OnStatsChanged += TrySetMaxHealth;
+        lastMaxHealth = StatsManager.PlayerStats.MaxHealth;
     }
 
-    
+    private void OnDisable() {
+        StatsManager.OnStatsChanged -= TryIncreaseHealth;
+        GameSceneManager.OnStartGameLoadingCompleted -= OnStartGame;
+        print("unsub");
+    }
+
+    private void OnStartGame() {
+        CurrentHealth = StatsManager.PlayerStats.MaxHealth;
+
+        Dead = false;
+    }
 
     public void Damage(float damage, bool shared = false, bool crit = false) {
 
@@ -50,17 +55,16 @@ public class PlayerHealth : MonoBehaviour, IDamagable {
             return;
         }
 
-        health -= damage;
+        CurrentHealth -= damage;
 
         AudioManager.Instance.PlaySound(AudioManager.Instance.AudioClips.Damaged);
 
-        OnHealthChanged_HealthProportion?.Invoke(health/maxHealth);
         DamagedEventTrigger?.Invoke();
 
         OnDamaged?.Invoke();
         OnDamagedDetailed?.Invoke(damage, shared, crit);
 
-        if (health <= 0) {
+        if (CurrentHealth <= 0) {
             Die();
         }
     }
@@ -82,29 +86,34 @@ public class PlayerHealth : MonoBehaviour, IDamagable {
         OnDeathAnimComplete?.Invoke();
     }
 
+    [Command]
     public void Heal(float amount) {
 
         if (Dead) {
             return;
         }
 
-        health = Mathf.MoveTowards(health, maxHealth, amount);
+        CurrentHealth = Mathf.MoveTowards(health, StatsManager.PlayerStats.MaxHealth, amount);
 
-        OnHealthChanged_HealthProportion?.Invoke(health / maxHealth);
+        healEffect.Play();
+
+        AudioManager.Instance.PlaySound(AudioManager.Instance.AudioClips.PlayerHeal);
     }
 
     public bool IsInvincible() {
         return TryGetComponent(out Invincibility invincibility);
     }
 
-    private void TrySetMaxHealth(PlayerStatType type) {
-        if (type == PlayerStatType.MaxHealth) {
-            float newMaxHealth = StatsManager.PlayerStats.MaxHealth;
-            float changeInMaxHealth = newMaxHealth - maxHealth;
-            maxHealth = newMaxHealth;
-            health = Mathf.MoveTowards(health, maxHealth, changeInMaxHealth);
+    private float lastMaxHealth;
 
-            OnHealthChanged_HealthProportion?.Invoke(health / maxHealth);
+    private void TryIncreaseHealth(PlayerStatType type) {
+        if (type == PlayerStatType.MaxHealth) {
+            float changeInMaxHealth = StatsManager.PlayerStats.MaxHealth - lastMaxHealth;
+            CurrentHealth = Mathf.MoveTowards(CurrentHealth, StatsManager.PlayerStats.MaxHealth, changeInMaxHealth);
+
+            lastMaxHealth = StatsManager.PlayerStats.MaxHealth;
         }
     }
+
+    
 }

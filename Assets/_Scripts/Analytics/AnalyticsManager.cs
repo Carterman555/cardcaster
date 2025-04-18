@@ -33,7 +33,7 @@ public class AnalyticsManager : MonoBehaviour {
         }
 #endif
 
-        GameSceneManager.OnStartGame += SetStartTimes;
+        GameSceneManager.OnStartGameLoadingStarted += SetStartTimes;
 
         playerHealth.DeathEventTrigger.AddListener(RecordDeathEvent);
 
@@ -54,7 +54,7 @@ public class AnalyticsManager : MonoBehaviour {
         }
 #endif
 
-        GameSceneManager.OnStartGame -= SetStartTimes;
+        GameSceneManager.OnStartGameLoadingStarted -= SetStartTimes;
 
         playerHealth.DeathEventTrigger.RemoveListener(RecordDeathEvent);
 

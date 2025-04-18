@@ -35,7 +35,7 @@ public class InputManager : Singleton<InputManager> {
     private GameObject lastSelected;
 
     private void Update() {
-        if (lastSelected != EventSystem.current.currentSelectedGameObject) {
+        if (EventSystem.current != null && lastSelected != EventSystem.current.currentSelectedGameObject) {
             lastSelected = EventSystem.current.currentSelectedGameObject;
             OnSelectedChanged?.Invoke(EventSystem.current.currentSelectedGameObject);
         }

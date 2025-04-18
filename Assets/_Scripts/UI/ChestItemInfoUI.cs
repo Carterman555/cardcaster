@@ -1,5 +1,7 @@
+using DG.Tweening;
 using MoreMountains.Feedbacks;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Localization;
 
@@ -29,6 +31,9 @@ public class ChestItemInfoUI : MonoBehaviour, IInitializable {
     private ItemInfo itemInfoShowing;
     private ItemInfo itemInfoToShow;
 
+    private ShowState showState;
+    private ShowState delayedCommand;
+
     public void SetCardInfo(ScriptableCardBase card) {
         itemInfoToShow = new() { Heal = false, Card = card };
         gameObject.SetActive(true);
@@ -46,49 +51,34 @@ public class ChestItemInfoUI : MonoBehaviour, IInitializable {
 
     private void Update() {
 
-        MMF_Player itemInfoPlayer = FeedbackPlayerReference.GetPlayer("ChestItemInfoPopup");
-
-        bool panelMoving = itemInfoPlayer.IsPlaying;
+        HandleDelayedCommand();
 
         // everytime the card switches info, it has to be in the bottom pos
         bool hoveringItem = itemInfoToShow != null;
-        bool panelAtBotPos = itemInfoPlayer.InFirstState();
-        if (hoveringItem && panelAtBotPos) {
-            itemInfoPlayer.PlayFeedbacks();
+        if (hoveringItem && showState == ShowState.Hidden) {
             SetInfo(itemInfoToShow);
+            Show();
         }
 
-        // if not showing the info of the item the player is on, then move it down
-        if (!IsPanelShowingInfo(itemInfoToShow)) {
-
-            // if panel is moving up, move the panel down by reverting feedback (but don't set info yet, it will set at bottom pos)
-            bool panelMovingUp = panelMoving && itemInfoPlayer.Direction == MMFeedbacks.Directions.TopToBottom;
-            if (panelMovingUp) {
-                itemInfoPlayer.Revert();
-            }
-
-            // if panel is at top, move the panel down by playing feedback (but don't set info yet, it will set at bottom pos)
-            bool panelAtTopPos = itemInfoPlayer.InSecondState();
-            if (panelAtTopPos) {
-                itemInfoPlayer.PlayFeedbacks();
-            }
+        if (!IsPanelShowingInfo()) {
+            Hide();
         }
     }
 
-    private bool IsPanelShowingInfo(ItemInfo itemInfo) {
+    private bool IsPanelShowingInfo() {
 
-        if (itemInfo == null || itemInfoShowing == null) {
+        if (itemInfoToShow == null || itemInfoShowing == null) {
             return false;
         }
 
-        bool sameHeal = itemInfo.Heal == itemInfoShowing.Heal;
+        bool sameHeal = itemInfoToShow.Heal == itemInfoShowing.Heal;
 
         // sameCard is true if the card types are the same or they're both null
         bool sameCard = false;
-        if (itemInfo.Card != null && itemInfoShowing.Card != null) {
-            sameCard = itemInfo.Card.CardType == itemInfoShowing.Card.CardType;
+        if (itemInfoToShow.Card != null && itemInfoShowing.Card != null) {
+            sameCard = itemInfoToShow.Card.CardType == itemInfoShowing.Card.CardType;
         }
-        else if (itemInfo.Card == null && itemInfo.Card == null) {
+        else if (itemInfoToShow.Card == null && itemInfoToShow.Card == null) {
             sameCard = true;
         }
 
@@ -106,6 +96,81 @@ public class ChestItemInfoUI : MonoBehaviour, IInitializable {
             cardImage.Setup(itemInfo.Card);
         }
     }
+
+    #region Movement
+
+    
+
+    private RectTransform rectTransform;
+
+    [SerializeField] private Vector2 hidePos, showPos;
+
+    const float duration = 0.2f;
+    const float fade = 0.7f;
+
+    private void Awake() {
+        rectTransform = GetComponent<RectTransform>();
+    }
+
+    private void OnEnable() {
+        delayedCommand = ShowState.None;
+        showState = ShowState.Hidden;
+    }
+
+    public void Show() {
+
+        if (!enabled) {
+            return;
+        }
+
+        if (showState == ShowState.Hidden) {
+            showState = ShowState.Moving;
+            
+            rectTransform.DOAnchorPos(showPos, duration).OnComplete(() => {
+                showState = ShowState.Showing;
+            });
+        }
+        else if (showState == ShowState.Moving) {
+            delayedCommand = ShowState.Showing;
+        }
+    }
+
+    public void Hide() {
+
+        if (!enabled) {
+            return;
+        }
+
+        if (showState == ShowState.Showing) {
+            showState = ShowState.Moving;
+
+            rectTransform.DOAnchorPos(hidePos, duration).OnComplete(() => {
+                showState = ShowState.Hidden;
+            });
+        }
+        else if (showState == ShowState.Moving) {
+            delayedCommand = ShowState.Hidden;
+        }
+    }
+
+    private void HandleDelayedCommand() {
+
+        if (delayedCommand != ShowState.None) {
+            if (showState != ShowState.Moving) {
+
+                if (delayedCommand == ShowState.Hidden) {
+                    Hide();
+                }
+                else if (delayedCommand == ShowState.Showing) {
+                    Show();
+                }
+
+                delayedCommand = ShowState.None;
+            }
+        }
+    }
+
+    #endregion
 }
 
 public class ItemInfo {

@@ -20,11 +20,11 @@ public class StatsManager : MonoBehaviour {
     }
 
     private void OnEnable() {
-        GameSceneManager.OnStartGame += ClearStats;
+        GameSceneManager.OnStartGameLoadingStarted += ClearStats;
     }
 
     private void OnDisable() {
-        GameSceneManager.OnStartGame -= ClearStats;
+        GameSceneManager.OnStartGameLoadingStarted -= ClearStats;
     }
 
     public static void ClearStats() {

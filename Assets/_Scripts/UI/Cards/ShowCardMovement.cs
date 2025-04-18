@@ -1,15 +1,14 @@
 using DG.Tweening;
 using UnityEngine;
 
+public enum ShowState { None, Hidden, Showing, Moving }
+
 public class ShowCardMovement : MonoBehaviour {
 
-    public enum ShowState { None, Hidden, Showing, Moving }
     private ShowState showState;
     private ShowState delayedCommand;
 
     private RectTransform rectTransform;
-
-    private Tween moveTween;
 
     private Vector2 hidePos, showPos;
 
@@ -36,7 +35,6 @@ public class ShowCardMovement : MonoBehaviour {
         canvasGroup.alpha = fade;
     }
 
-    [ContextMenu("Show")]
     public void Show() {
 
         if (!enabled) {
@@ -46,7 +44,7 @@ public class ShowCardMovement : MonoBehaviour {
         if (showState == ShowState.Hidden) {
             showState = ShowState.Moving;
 
-            moveTween = rectTransform.DOAnchorPos(showPos, duration);
+            rectTransform.DOAnchorPos(showPos, duration);
 
             canvasGroup.DOKill();
             canvasGroup.DOFade(1f, duration).OnComplete(() => {
@@ -58,7 +56,6 @@ public class ShowCardMovement : MonoBehaviour {
         }
     }
 
-    [ContextMenu("Hide")]
     public void Hide() {
 
         if (!enabled) {
@@ -70,7 +67,7 @@ public class ShowCardMovement : MonoBehaviour {
 
             handCard.CurrentCardState = HandCard.CardState.Moving;
 
-            moveTween = rectTransform.DOAnchorPos(hidePos, duration);
+            rectTransform.DOAnchorPos(hidePos, duration);
 
             canvasGroup.DOKill();
             canvasGroup.DOFade(fade, duration).OnComplete(() => {

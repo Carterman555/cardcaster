@@ -5,6 +5,7 @@ using UnityEngine.Localization;
 public class TrashCardManager : StaticInstance<TrashCardManager> {
 
     public static event Action OnTrashCard;
+    public static event Action OnDeactivate;
 
     private bool active;
 
@@ -28,6 +29,8 @@ public class TrashCardManager : StaticInstance<TrashCardManager> {
         SelectButton.OnSelect_PanelCard -= TrashCard;
 
         panelCardToTrash = null;
+
+        OnDeactivate?.Invoke();
     }
 
     public bool IsActive() {

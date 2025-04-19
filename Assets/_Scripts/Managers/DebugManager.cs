@@ -12,7 +12,7 @@ public class DebugManager : StaticInstance<DebugManager> {
 
     private void Start() {
         if (playerInvincible) {
-            PlayerMovement.Instance.AddComponent<Invincibility>();
+            PlayerMovement.Instance.AddComponent<PlayerInvincibility>();
         }
     }
 

@@ -25,13 +25,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 237778308170200849}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: -0.46638665, w: 0.88458097}
+  m_LocalRotation: {x: -0, y: -0, z: -0.46638665, w: 0.88458097}
   m_LocalPosition: {x: 0.179, y: 0.7, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3040041959164623321}
-  m_Father: {fileID: 5775655431456473009}
+  m_Father: {fileID: 5899715198675390214}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -55.6}
 --- !u!114 &2596624723124555834
 MonoBehaviour:
@@ -87,7 +87,6 @@ GameObject:
   m_Component:
   - component: {fileID: 3040041959164623321}
   - component: {fileID: 524770867445226067}
-  - component: {fileID: 3673410799856191900}
   m_Layer: 0
   m_Name: Blaster
   m_TagString: Untagged
@@ -163,27 +162,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!95 &3673410799856191900
-Animator:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6570480239841389426}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 5294627988498544098, guid: 57839396430756546bbf0311103999a6, type: 3}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!1001 &7273941719131161911
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -224,6 +202,10 @@ PrefabInstance:
       propertyPath: m_WasSpriteAssigned
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2595042869523141569, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
     - target: {fileID: 3807084815282453126, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -348,7 +330,7 @@ PrefabInstance:
     - {fileID: -2736141077457755013, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects:
-    - targetCorrespondingSourceObject: {fileID: 3807084815282453126, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
+    - targetCorrespondingSourceObject: {fileID: 3831935200979323441, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
       insertIndex: -1
       addedObject: {fileID: 628353838662205002}
     m_AddedComponents:
@@ -379,9 +361,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83180820e87499c44a09cbfa34602608, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!4 &5775655431456473009 stripped
+--- !u!4 &5899715198675390214 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 3807084815282453126, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
+  m_CorrespondingSourceObject: {fileID: 3831935200979323441, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
   m_PrefabInstance: {fileID: 7273941719131161911}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &7481704768261658980 stripped
@@ -428,6 +410,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4308ccf77a796514ea8a0bff842a0a3c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  useExternalSpeedOverride: 0
 --- !u!114 &7032819161898582784
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -451,7 +434,7 @@ MonoBehaviour:
   stopAimingOnAnimStart: 0
   enemyAnim: {fileID: 7812749826847277617}
   hasWeapon: 0
-  weaponAnim: {fileID: 3673410799856191900}
+  weaponAnim: {fileID: 0}
   customSFX: 0
   shootSFX:
     Clips: []
@@ -473,6 +456,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 18240
   castRadius: 0.5
+  checkSightInterval: 0.5
 --- !u!95 &7812749826847277617 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 621019451974682374, guid: d26e40392c042dc4d8c237ede2183746, type: 3}

@@ -1,7 +1,6 @@
 using UnityEngine;
 using Cinemachine;
 using UnityEngine.InputSystem;
-using System;
 
 public class CameraLookInfluence : MonoBehaviour {
 

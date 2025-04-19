@@ -8,7 +8,7 @@ public class ScriptableLaunchCard : ScriptableAbilityCardBase {
     public float raycastStep = 0.1f;
     public LayerMask obstacleLayer;
 
-    private Invincibility playerInvincibility;
+    private PlayerInvincibility playerInvincibility;
 
     [Header("Path Visual")]
     [SerializeField] private SpriteRenderer pathVisualPrefab;
@@ -104,7 +104,8 @@ public class ScriptableLaunchCard : ScriptableAbilityCardBase {
         ReferenceSystem.Instance.PlayerWeaponParent.transform.DORotate(rot, duration: 0.3f);
 
         //... make invincible
-        playerInvincibility = playerTransform.AddComponent<Invincibility>();
+        playerInvincibility = playerTransform.AddComponent<PlayerInvincibility>();
+        Debug.Log("Launch: Add invincibility");
 
         launchEffects = launchEffectsPrefab.Spawn(playerTransform.position, playerTransform);
         launchEffects.transform.up = launchDirection;
@@ -150,6 +151,7 @@ public class ScriptableLaunchCard : ScriptableAbilityCardBase {
 
         //... make not invincible
         Destroy(playerInvincibility);
+        Debug.Log("Launch: Remove invincibility");
 
         // take off effects
         foreach (GameObject abilityEffect in abilityEffects) {

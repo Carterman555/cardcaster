@@ -2,9 +2,8 @@ using UnityEngine;
 
 public class PlayGameButton : GameButton {
 
-    [SerializeField] private bool tutorialButton;
-
-    [SerializeField] private bool noTutorialDebug;
+    [SerializeField] private bool alwaysTutorial;
+    [SerializeField] private bool neverTutorial;
 
     protected override void OnClick() {
         base.OnClick();
@@ -13,10 +12,15 @@ public class PlayGameButton : GameButton {
             ES3.Save("TutorialCompleted", false);
         }
 
-        bool startTutorial = tutorialButton || !ES3.Load<bool>("TutorialCompleted");
-
-        if (noTutorialDebug) {
+        bool startTutorial;
+        if (alwaysTutorial) {
+            startTutorial = true;
+        }
+        else if (neverTutorial) {
             startTutorial = false;
+        }
+        else {
+            startTutorial = !ES3.Load<bool>("TutorialCompleted");
         }
 
         GameSceneManager.Instance.StartGame(startTutorial);

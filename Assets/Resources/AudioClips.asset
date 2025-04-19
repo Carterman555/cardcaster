@@ -68,7 +68,7 @@ MonoBehaviour:
     PitchVariation: 0
   playerHeal:
     Clips:
-    - {fileID: 8300000, guid: aa3ac61466acab24f9cce226768ca888, type: 3}
+    - {fileID: 8300000, guid: ab784bec0ad85e24db053473c9080c3c, type: 3}
     Volume: 1
     PitchVariation: 0.1
   basicEnemyShoot:

@@ -1,3 +1,4 @@
+using MoreMountains.Feedbacks;
 using QFSW.QC;
 using System;
 using UnityEngine;
@@ -8,7 +9,6 @@ public class PlayerHealth : MonoBehaviour, IDamagable {
     public UnityEvent DeathEventTrigger;
     public event Action OnDeathAnimComplete; // only invokes for player right now from the deathfeedbacks
 
-    public UnityEvent DamagedEventTrigger;
     public event Action OnDamaged;
     public event Action<float, bool, bool> OnDamagedDetailed;
     public event Action<float> OnHealthChanged_HealthProportion;
@@ -26,13 +26,15 @@ public class PlayerHealth : MonoBehaviour, IDamagable {
     }
 
     private static float health;
+    private float lastMaxHealth;
 
+    [SerializeField] private MMF_Player damagedFeedbacks;
     [SerializeField] private ParticleSystem healEffect;
+
 
     private void OnEnable() {
         StatsManager.OnStatsChanged += TryIncreaseHealth;
         GameSceneManager.OnStartGameLoadingCompleted += OnStartGame;
-        print("sub");
 
         lastMaxHealth = StatsManager.PlayerStats.MaxHealth;
     }
@@ -40,7 +42,6 @@ public class PlayerHealth : MonoBehaviour, IDamagable {
     private void OnDisable() {
         StatsManager.OnStatsChanged -= TryIncreaseHealth;
         GameSceneManager.OnStartGameLoadingCompleted -= OnStartGame;
-        print("unsub");
     }
 
     private void OnStartGame() {
@@ -59,14 +60,14 @@ public class PlayerHealth : MonoBehaviour, IDamagable {
 
         AudioManager.Instance.PlaySound(AudioManager.Instance.AudioClips.Damaged);
 
-        DamagedEventTrigger?.Invoke();
-
-        OnDamaged?.Invoke();
-        OnDamagedDetailed?.Invoke(damage, shared, crit);
+        damagedFeedbacks.PlayFeedbacks();
 
         if (CurrentHealth <= 0) {
             Die();
         }
+
+        OnDamaged?.Invoke();
+        OnDamagedDetailed?.Invoke(damage, shared, crit);
     }
 
     [ContextMenu("Die")]
@@ -104,7 +105,6 @@ public class PlayerHealth : MonoBehaviour, IDamagable {
         return TryGetComponent(out Invincibility invincibility);
     }
 
-    private float lastMaxHealth;
 
     private void TryIncreaseHealth(PlayerStatType type) {
         if (type == PlayerStatType.MaxHealth) {
@@ -114,6 +114,4 @@ public class PlayerHealth : MonoBehaviour, IDamagable {
             lastMaxHealth = StatsManager.PlayerStats.MaxHealth;
         }
     }
-
-    
 }

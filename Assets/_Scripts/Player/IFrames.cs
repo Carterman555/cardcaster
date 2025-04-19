@@ -1,4 +1,3 @@
-using QFSW.QC;
 using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -12,27 +11,36 @@ public class IFrames : MonoBehaviour {
     [SerializeField] private PlayerHealth playerHealth;
     private PlayerFadeManager playerVisual;
 
-    private Invincibility playerInvincibility;
+    private PlayerInvincibility playerInvincibility;
 
     private void Awake() {
         playerVisual = GetComponent<PlayerFadeManager>();
     }
 
-    [Command]
-    public void OnDamaged() {
+    private void OnEnable() {
+        playerHealth.OnDamaged += OnDamaged;
+    }
+
+    private void OnDisable() {
+        playerHealth.OnDamaged -= OnDamaged;
+
+        if (playerInvincibility != null) {
+            Destroy(playerInvincibility);
+        }
+    }
+
+    private void OnDamaged() {
         StartCoroutine(Flash());
     }
 
     private IEnumerator Flash() {
-
-        yield return null; // wait a frame to see if dead
 
         if (playerHealth.Dead) {
             yield break;
         }
 
         //... set player invincible
-        playerInvincibility = PlayerMeleeAttack.Instance.AddComponent<Invincibility>();
+        playerInvincibility = PlayerMeleeAttack.Instance.AddComponent<PlayerInvincibility>();
 
         for (int i = 0; i < flashAmount; i++) {
             PlayerFade playerFade = playerVisual.AddFadeEffect(10, 0);
@@ -46,11 +54,5 @@ public class IFrames : MonoBehaviour {
 
         //... remove player invincibility
         Destroy(playerInvincibility);
-    }
-
-    private void OnDisable() {
-        if (playerInvincibility != null) {
-            Destroy(playerInvincibility);
-        }
     }
 }

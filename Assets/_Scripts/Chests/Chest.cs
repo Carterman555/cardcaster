@@ -109,7 +109,7 @@ public class Chest : MonoBehaviour {
             return Vector2.zero;
         }
     }
-
+    
     public IEnumerator OnSelectCollectable() {
 
         GetComponent<CreateMapIcon>().HideMapIcon();

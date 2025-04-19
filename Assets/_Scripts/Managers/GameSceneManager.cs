@@ -29,6 +29,14 @@ public class GameSceneManager : Singleton<GameSceneManager> {
 
     // needed only for when starting game in game scene
     protected override void Awake() {
+        
+        // only play this setup code for first instance
+        if (Instance != null) {
+            base.Awake(); // this will destroy the new instance
+            return;
+        }
+
+        //... this set the instance to this
         base.Awake();
 
         Level = 1;
@@ -38,14 +46,15 @@ public class GameSceneManager : Singleton<GameSceneManager> {
         sceneLoadPlayer = GetComponent<MMF_Player>();
 
         SceneManager.sceneLoaded += OnSceneLoaded;
-        SceneManager.activeSceneChanged += OnSceneChanged;
 
         if (SceneManager.GetActiveScene() == SceneManager.GetSceneByName("Game")) {
             OnStartGameLoadingStarted?.Invoke();
         }
     }
 
-    
+    private void OnDestroy() {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
 
     public void StartGame(bool tutorial = false) {
         Level = 1;
@@ -85,7 +94,6 @@ public class GameSceneManager : Singleton<GameSceneManager> {
     private void LoadGameScene() {
         MMF_LoadScene loadGameFeedback = sceneLoadPlayer.GetFeedbackOfType<MMF_LoadScene>("Load Game Scene");
         loadGameFeedback.Play(Vector3.zero);
-        print("load game");
 
         IsSceneLoading = true;
     }
@@ -93,7 +101,6 @@ public class GameSceneManager : Singleton<GameSceneManager> {
     private void LoadMenuScene() {
         MMF_LoadScene loadGameFeedback = sceneLoadPlayer.GetFeedbackOfType<MMF_LoadScene>("Load Menu Scene");
         loadGameFeedback.Play(Vector3.zero);
-        print("load menu");
 
         IsSceneLoading = true;
     }
@@ -106,19 +113,14 @@ public class GameSceneManager : Singleton<GameSceneManager> {
     }
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode loadSceneMode) {
+
         if (scene != SceneManager.GetSceneByName("AdditiveLoadingScreen")) {
             IsSceneLoading = false;
-
-            print("On Scene Loaded: " + scene.name);
 
             if (Level == 1) {
                 OnStartGameLoadingCompleted?.Invoke();
             }
         }
-    }
-
-    private void OnSceneChanged(Scene previousScene, Scene newScene) {
-        print("On Scene Changed: previous = " + previousScene.name + ", new = " + newScene.name);
     }
 
     // the level in the environment

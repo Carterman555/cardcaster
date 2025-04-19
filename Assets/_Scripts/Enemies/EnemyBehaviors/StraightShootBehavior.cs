@@ -65,7 +65,7 @@ public class StraightShootBehavior : MonoBehaviour, IAttacker {
 
     private Vector2 shootDirection;
 
-    private void TriggerShootAnimation() {
+    public void TriggerShootAnimation() {
         string attackTriggerString = specialAttack ? "specialAttack" : "attack";
         enemyAnim.SetTrigger(attackTriggerString);
 

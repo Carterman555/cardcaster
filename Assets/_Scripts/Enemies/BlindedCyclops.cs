@@ -1,5 +1,3 @@
-using UnityEngine;
-
 // useless
 public class BlindedCyclops : Enemy {
 

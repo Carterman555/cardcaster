@@ -1,6 +1,5 @@
 using System.Linq;
 using UnityEngine;
-using UnityEngine.Profiling;
 
 public class MouseTracker : StaticInstance<MouseTracker> {
 

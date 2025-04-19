@@ -2,7 +2,6 @@ using Cinemachine;
 using MoreMountains.Feedbacks;
 using System;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class BossManager : StaticInstance<BossManager> {

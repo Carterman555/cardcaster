@@ -4,7 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LevelMapIcons : StaticInstance<LevelMapIcons> {
+public class LevelMapIconsOld : StaticInstance<LevelMapIconsOld> {
 
     private bool setup;
 

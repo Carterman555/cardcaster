@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Linq;
 
-public class MapCamera : MonoBehaviour {
+public class MapCameraOld : MonoBehaviour {
 
     private Camera cam;
 

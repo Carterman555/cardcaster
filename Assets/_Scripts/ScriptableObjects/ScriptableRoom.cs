@@ -26,6 +26,9 @@ public class ScriptableRoom : ScriptableObject {
     [SerializeField] private EnvironmentType environmentType;
     public EnvironmentType EnvironmentType => environmentType;
 
+    [SerializeField] private Sprite mapIcon;
+    public Sprite MapIcon => mapIcon;
+
     [SerializeField] private Room roomPrefab;
     public Room Prefab => roomPrefab;
 

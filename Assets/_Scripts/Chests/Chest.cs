@@ -38,7 +38,6 @@ public class Chest : MonoBehaviour {
 
     private void SetupRemainingCardsList() {
 
-        int currentLevel = GameSceneManager.Instance.Level;
         remainingPossibleCards = ResourceSystem.Instance.GetUnlockedCards();
         if (!RewardSpawner.CanGainWisdomCard() && remainingPossibleCards.Contains(CardType.WisdomsHold)) {
             remainingPossibleCards.Remove(CardType.WisdomsHold);

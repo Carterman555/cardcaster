@@ -169,7 +169,7 @@ public class Room : MonoBehaviour {
         DOTween.To(() => roomLight.intensity, x => roomLight.intensity = x, 1, duration: 1f);
 
         //... show room on minimap
-        LevelMapIcons.Instance.ShowMapIcon(mapIcon);
+        LevelMapIconsOld.Instance.ShowMapIcon(mapIcon);
 
         exitTrigger.OnEnterContact += OnExitRoom;
 
@@ -211,6 +211,4 @@ public class Room : MonoBehaviour {
             }
         }
     }
-
-    
 }

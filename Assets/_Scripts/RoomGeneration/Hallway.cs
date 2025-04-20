@@ -45,7 +45,7 @@ public class Hallway : MonoBehaviour {
             LightPartially();
 
             //... show room on minimap
-            LevelMapIcons.Instance.ShowMapIcon(mapIcon);
+            LevelMapIconsOld.Instance.ShowMapIcon(mapIcon);
         }
     }
 

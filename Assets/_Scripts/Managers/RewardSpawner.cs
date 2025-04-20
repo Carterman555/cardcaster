@@ -13,15 +13,24 @@ public class RewardSpawner : MonoBehaviour {
     [SerializeField] private Chest chestPrefab;
     [SerializeField] private Campfire campfirePrefab;
 
+    private static bool usedWisdomsHoldCard;
+
     private void OnEnable() {
         CheckEnemiesCleared.OnEnemiesCleared += TrySpawnReward;
         BossManager.OnBossKilled += SpawnBossReward;
 
+        HandCard.OnAnyCardUsed_Button += OnUseCard;
+        GameSceneManager.OnStartGameLoadingCompleted += ResetUsedWisdomCard;
+
         chestChance = startingChestChance;
     }
+
     private void OnDisable() {
         CheckEnemiesCleared.OnEnemiesCleared -= TrySpawnReward;
         BossManager.OnBossKilled -= SpawnBossReward;
+
+        HandCard.OnAnyCardUsed_Button -= OnUseCard;
+        GameSceneManager.OnStartGameLoadingCompleted -= ResetUsedWisdomCard;
     }
 
     private void TrySpawnReward() {
@@ -90,6 +99,10 @@ public class RewardSpawner : MonoBehaviour {
             }
         }
 
+        if (!CanGainWisdomCard() && possibleCardsToSpawn.Contains(CardType.WisdomsHold)) {
+            possibleCardsToSpawn.Remove(CardType.WisdomsHold);
+        }
+
         CardType choosenCardType = ResourceSystem.Instance.GetRandomCardWeighted(possibleCardsToSpawn);
         StartCoroutine(SpawnBossCardCor(bossRoom.GetBossSpawnPoint().position, ResourceSystem.Instance.GetCardInstance(choosenCardType)));
     }
@@ -101,5 +114,20 @@ public class RewardSpawner : MonoBehaviour {
 
         CardDrop newCardDrop = cardDropPrefab.Spawn(position, Containers.Instance.Drops);
         newCardDrop.SetCard(scriptableCard);
+    }
+
+    private void OnUseCard(HandCard card) {
+        if (card.GetCard() is ScriptableWisdomsHoldCard) {
+            usedWisdomsHoldCard = true;
+        }
+    }
+
+    private void ResetUsedWisdomCard() {
+        usedWisdomsHoldCard = false;
+    }
+
+    public static bool CanGainWisdomCard() {
+        bool hasWisdomCard = DeckManager.Instance.GetAllCards().Any(c => c is ScriptableWisdomsHoldCard);
+        return !usedWisdomsHoldCard && !hasWisdomCard;
     }
 }

@@ -60,9 +60,12 @@ public class CardsUIManager : StaticInstance<CardsUIManager> {
             handCards.RemoveAt(handCards.Count - 1);
         }
 
-        while (handSize > handCards.Count) {
+        bool canDrawCard = DeckManager.Instance.GetCardsInHand()[handCards.Count] != null;
+        while (handSize > handCards.Count && canDrawCard) {
             int index = handCards.Count;
             DrawCard(index);
+
+            canDrawCard = DeckManager.Instance.GetCardsInHand()[handCards.Count] != null;
         }
 
         UpdateCardButtons();

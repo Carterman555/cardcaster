@@ -43,6 +43,14 @@ public class DeckManager : Singleton<DeckManager> {
         return cardsInHand;
     }
 
+    public List<ScriptableCardBase> GetAllCards() {
+        List<ScriptableCardBase> allCards = new();
+        allCards.AddRange(cardsInDeck);
+        allCards.AddRange(cardsInDiscard);
+        allCards.AddRange(cardsInHand);
+        return allCards;
+    }
+
     public int GetHandSize() {
         int handSize = cardsInHand.Where(card => card != null).Count();
         return handSize;
@@ -121,7 +129,7 @@ public class DeckManager : Singleton<DeckManager> {
     }
 
     public void ClearDeckAndEssence() {
-         
+
         cardsInHand = new ScriptableCardBase[StatsManager.PlayerStats.HandSize];
 
         cardsInDeck.Clear();

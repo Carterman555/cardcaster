@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using UnityEngine.Localization;
+using UnityEngine.Tilemaps;
 
 public class TrashCardManager : StaticInstance<TrashCardManager> {
 
@@ -13,8 +14,11 @@ public class TrashCardManager : StaticInstance<TrashCardManager> {
 
     [SerializeField] private LocalizedString burnLocString;
 
+    private bool trashedCard;
+
     public void Activate() {
         active = true;
+        trashedCard = false;
 
         PanelCardButton.OnClicked_PanelCard += OnCardClicked;
         SelectButton.OnSelect_PanelCard += TrashCard;
@@ -39,21 +43,26 @@ public class TrashCardManager : StaticInstance<TrashCardManager> {
 
     private void OnCardClicked(PanelCardButton panelCard) {
 
-        // if clicked the card for the first time
+        if (trashedCard) {
+            return;
+        }
+
         if (panelCardToTrash != panelCard) {
             panelCardToTrash = panelCard;
-            ShowSelectButton(panelCard);
+            SelectButton.Instance.Show(burnLocString, panelCard);
         }
     }
 
-    private void ShowSelectButton(PanelCardButton panelCard) {
-        SelectButton.Instance.Show(burnLocString, panelCard);
-    }
-
     private void TrashCard(PanelCardButton panelCard) {
+
+        if (trashedCard) {
+            return;
+        }
+
         panelCard.Trash();
 
         panelCardToTrash = null;
+        trashedCard = true;
 
         SelectButton.Instance.Hide();
 

@@ -1,4 +1,5 @@
 using System;
+using UnityEngine.InputSystem.LowLevel;
 
 public class GameStateManager : StaticInstance<GameStateManager> {
 
@@ -27,7 +28,7 @@ public class GameStateManager : StaticInstance<GameStateManager> {
     }
 
     private void OnFinishLoading() {
-        currentState = GameState.Game;
+        SetGameState(GameState.Game);
     }
 
     private void OnActionMapChanged(string mapActionName) {

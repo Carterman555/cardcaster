@@ -13,6 +13,10 @@ public class ShopCardSpawn : MonoBehaviour {
         ShopCard shopItem = shopItemPrefab.Spawn(transform.position, transform);
 
         List<CardType> possibleCards = ResourceSystem.Instance.GetUnlockedCards();
+        if (!RewardSpawner.CanGainWisdomCard() && possibleCards.Contains(CardType.WisdomsHold)) {
+            possibleCards.Remove(CardType.WisdomsHold);
+        }
+
         CardType choosenCardType = ResourceSystem.Instance.GetRandomCardWeighted(possibleCards);
         ScriptableCardBase choosenCard = ResourceSystem.Instance.GetCardInstance(choosenCardType);
 

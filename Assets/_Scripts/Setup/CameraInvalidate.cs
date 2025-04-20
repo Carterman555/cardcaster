@@ -44,7 +44,7 @@ public class CameraInvalidate : MonoBehaviour {
         yield return new WaitForSeconds(0.1f);
 
         // wait until camera gets close enough to player before unloading the scene
-        float distanceThreshold = 2f;
+        float distanceThreshold = 4f;
         float distanceThresholdSquared = distanceThreshold * distanceThreshold;
 
         float xDiff = PlayerMovement.Instance.CenterPos.x - Camera.main.transform.position.x;

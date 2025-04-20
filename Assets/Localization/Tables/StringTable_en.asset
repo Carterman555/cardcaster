@@ -236,7 +236,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 728378430197760
-    m_Localized: Increase hand size by 1
+    m_Localized: Increase hand size by 1 (Keeps increase when this is trashed)
     m_Metadata:
       m_Items: []
   - m_Id: 731446701985792

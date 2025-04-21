@@ -1878,7 +1878,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hallwayLight: {fileID: 4489148606251934642}
-  mapIconToSpawn: {fileID: 5606438257067107107}
+  mapIcon: {fileID: 21300000, guid: 822a0f76461e7ad4a8c62bcc0c9b59e9, type: 3}
 --- !u!114 &1771139911335594480
 MonoBehaviour:
   m_ObjectHideFlags: 0

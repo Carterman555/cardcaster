@@ -76,6 +76,7 @@ namespace AllIn1SpriteShader
             else
             {
                 Image image = objDuplicate.AddComponent<Image>();
+                image.GetComponent<RectTransform>().sizeDelta = target.GetComponent<RectTransform>().sizeDelta;
                 image.sprite = ownImage.sprite;
                 image.material = outlineMaterial;
             }

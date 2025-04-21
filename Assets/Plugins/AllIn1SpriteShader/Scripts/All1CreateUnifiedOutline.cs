@@ -12,6 +12,8 @@ namespace AllIn1SpriteShader
     {
         [SerializeField] private Material outlineMaterial = null;
         [SerializeField] private Transform outlineParentTransform = null;
+        [SerializeField] private bool spawnThisImage;
+        [SerializeField] private bool startFadedOut;
 
         [Space]
         [Header("Only needed if Sprite (ignored if UI)")]
@@ -40,7 +42,10 @@ namespace AllIn1SpriteShader
                 List<Transform> children = new List<Transform>();
                 GetAllChildren(transform, ref children);
                 foreach (Transform t in children) CreateOutlineSpriteDuplicate(t.gameObject);
-                CreateOutlineSpriteDuplicate(gameObject);
+
+                if (spawnThisImage) {
+                    CreateOutlineSpriteDuplicate(gameObject);
+                }
 
                 DestroyImmediate(this);
             }
@@ -79,6 +84,12 @@ namespace AllIn1SpriteShader
                 image.GetComponent<RectTransform>().sizeDelta = target.GetComponent<RectTransform>().sizeDelta;
                 image.sprite = ownImage.sprite;
                 image.material = outlineMaterial;
+
+                if (startFadedOut) {
+                    Color color = image.color;
+                    color.a = 0;
+                    image.color = color;
+                }
             }
         }
 

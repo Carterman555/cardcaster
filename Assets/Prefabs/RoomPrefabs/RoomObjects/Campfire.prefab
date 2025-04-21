@@ -149,7 +149,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db31cb68110f1814dbb19a9c4619ef7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  chestIconPrefab: {fileID: 3823268717416569964, guid: 0acd516ef83dea547b6478d2eb4de394, type: 3}
+  mapIconSprite: {fileID: 5205277784834249249, guid: 31602c47e58526646b97d41812655e04, type: 3}
+  mapIconSize: {x: 30, y: 30}
 --- !u!1 &8990063016616871222
 GameObject:
   m_ObjectHideFlags: 0

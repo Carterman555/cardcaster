@@ -35,7 +35,7 @@ public class Hallway : MonoBehaviour {
         if (connectingRoomNums.Contains(room.GetRoomNum())) {
             LightPartially();
 
-            MinimapManager.Instance.StartCoroutine(MinimapManager.Instance.ShowMapIcon(transform));
+            MinimapManager.Instance.StartCoroutine(MinimapManager.Instance.ShowRoomOrHallIcon(transform));
         }
     }
 

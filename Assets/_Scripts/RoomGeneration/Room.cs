@@ -35,7 +35,6 @@ public class Room : MonoBehaviour {
 
     [SerializeField] private Light2D roomLight;
     [SerializeField] private SpriteRenderer mapIconToSpawn;
-    private SpriteRenderer mapIcon;
 
     #region Get Methods
 
@@ -113,8 +112,6 @@ public class Room : MonoBehaviour {
         if (roomNum == 1) {
             RoomGenerator.OnCompleteGeneration += OnEnterRoom;
         }
-
-        mapIcon.name = "RoomMapIcon" + roomNum;
     }
 
     private void OnEnable() {
@@ -122,20 +119,9 @@ public class Room : MonoBehaviour {
 
         roomCleared = scriptableRoom.NoEnemies;
         roomLight.intensity = 0;
-
-        SetupMapIcon();
     }
     private void OnDisable() {
         exitTrigger.OnEnterContact -= OnEnterRoom;
-
-        Destroy(mapIcon.gameObject);
-    }
-
-    // spawn the map icon as a child of LevelMapIcons so LevelMapIcons can create a unified outline around all the
-    // rooms and hallways
-    private void SetupMapIcon() {
-        mapIcon = mapIconToSpawn.Spawn(mapIconToSpawn.transform.position, Containers.Instance.RoomMapIcons);
-        mapIconToSpawn.enabled = false;
     }
 
     public void CreateEnterAndExitTriggers(PossibleDoorway doorway) {
@@ -168,7 +154,7 @@ public class Room : MonoBehaviour {
         //... brighten room
         DOTween.To(() => roomLight.intensity, x => roomLight.intensity = x, 1, duration: 1f);
 
-        MinimapManager.Instance.StartCoroutine(MinimapManager.Instance.ShowMapIcon(transform));
+        MinimapManager.Instance.StartCoroutine(MinimapManager.Instance.ShowRoomOrHallIcon(transform));
 
         exitTrigger.OnEnterContact += OnExitRoom;
 

@@ -1,10 +1,13 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CreateMapIcon : MonoBehaviour {
 
-    [SerializeField] private SpriteRenderer chestIconPrefab;
-    private SpriteRenderer mapIcon;
+    [SerializeField] private Sprite mapIconSprite;
+    private Image mapIcon;
+
+    [SerializeField] private Vector2 mapIconSize;
 
     private bool showingMapIcon;
 
@@ -52,7 +55,7 @@ public class CreateMapIcon : MonoBehaviour {
     public void ShowMapIcon() {
         if (!showingMapIcon) {
             showingMapIcon = true;
-            mapIcon = chestIconPrefab.Spawn(transform.position, Containers.Instance.MapIcons);
+            mapIcon = MinimapManager.Instance.SpawnObjectIcon(mapIconSprite, transform.position, mapIconSize);
         }
     }
 

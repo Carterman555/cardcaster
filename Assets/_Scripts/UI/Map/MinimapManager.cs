@@ -11,8 +11,11 @@ using UnityEngine.UI;
 
 public class MinimapManager : StaticInstance<MinimapManager> {
 
-    [SerializeField] private RectTransform miniMapIcons;
-    [SerializeField] private Image mapIconPrefab;
+    [SerializeField] private RectTransform miniMapIconContainer;
+    [SerializeField] private Transform outlineIconContainer;
+
+    [SerializeField] private Image roomHallMapIconPrefab;
+    [SerializeField] private Image objectMapIconPrefab;
 
     [SerializeField] private float minimapScaleFactor;
 
@@ -23,7 +26,6 @@ public class MinimapManager : StaticInstance<MinimapManager> {
     private const float WORLD_TO_MINIMAP_SCALE = 100f;
 
     private void OnEnable() {
-        Room.OnAnyRoomEnter_Room += SpawnRoom;
         RoomGenerator.OnCompleteGeneration += SpawnAllRoomsAndHalls;
 
         roomAndHallwayIcons.Clear();
@@ -31,7 +33,6 @@ public class MinimapManager : StaticInstance<MinimapManager> {
     }
 
     private void OnDisable() {
-        Room.OnAnyRoomEnter_Room -= SpawnRoom;
         RoomGenerator.OnCompleteGeneration -= SpawnAllRoomsAndHalls;
     }
 
@@ -50,7 +51,11 @@ public class MinimapManager : StaticInstance<MinimapManager> {
             SpawnHallway(hallway);
         }
 
-        miniMapIcons.GetComponent<All1CreateUnifiedOutline>().CreateUnifiedOutline();
+        miniMapIconContainer.GetComponent<All1CreateUnifiedOutline>().CreateUnifiedOutline();
+
+        foreach (Transform outlineTransform in outlineIconContainer) {
+            outlineTransform.GetComponent<Image>().Fade(0);
+        }
 
         yield return null;
 
@@ -58,7 +63,7 @@ public class MinimapManager : StaticInstance<MinimapManager> {
     }
 
     private void SpawnRoom(Room room) {
-        Image roomIcon = mapIconPrefab.Spawn(miniMapIcons);
+        Image roomIcon = roomHallMapIconPrefab.Spawn(miniMapIconContainer);
         roomIcon.sprite = room.GetScriptableRoom().MapIcon;
         RectTransform roomIconTransform = roomIcon.GetComponent<RectTransform>();
         roomIconTransform.anchoredPosition = WorldToIconPos(GetTileMapCenterPos(room.transform));
@@ -66,14 +71,15 @@ public class MinimapManager : StaticInstance<MinimapManager> {
         roomIcon.SetNativeSize();
         roomIconTransform.sizeDelta = roomIconTransform.sizeDelta * minimapScaleFactor;
 
+        roomIcon.name = $"RoomIcon{roomAndHallwayIcons.Count + 1}";
+
         roomIcon.Fade(0f);
 
         roomAndHallwayIcons.Add(room.transform, roomIcon);
-        print("added: " + roomIconTransform.name);
     }
 
     private void SpawnHallway(Hallway hallway) {
-        Image hallIcon = mapIconPrefab.Spawn(miniMapIcons);
+        Image hallIcon = roomHallMapIconPrefab.Spawn(miniMapIconContainer);
         hallIcon.sprite = hallway.MapIcon;
         RectTransform hallIconTransform = hallIcon.GetComponent<RectTransform>();
         hallIconTransform.anchoredPosition = WorldToIconPos(GetTileMapCenterPos(hallway.transform));
@@ -81,20 +87,29 @@ public class MinimapManager : StaticInstance<MinimapManager> {
         hallIcon.SetNativeSize();
         hallIconTransform.sizeDelta = hallIconTransform.sizeDelta * minimapScaleFactor;
 
+        hallIcon.name = $"HallIcon{roomAndHallwayIcons.Count + 1}";
+
         hallIcon.Fade(0f);
 
         roomAndHallwayIcons.Add(hallway.transform, hallIcon);
-        print("added: " + hallIconTransform.name);
     }
 
     private void Update() {
-        miniMapIcons.anchoredPosition = -WorldToIconPos(PlayerMovement.Instance.CenterPos);
+        miniMapIconContainer.anchoredPosition = -WorldToIconPos(PlayerMovement.Instance.CenterPos);
     }
 
-    public IEnumerator ShowMapIcon(Transform roomOrHallway) {
+    public IEnumerator ShowRoomOrHallIcon(Transform roomOrHallway) {
 
+        int count = 0;
+        int threshold = 60;
         while (!spawnedIcons) {
             yield return null;
+
+            count++;
+            if (count > threshold) {
+                Debug.LogError("Tried to show hallway or room but icons haven't been spawned! - " + roomOrHallway.name);
+                yield break;
+            }
         }
 
         if (!roomAndHallwayIcons.ContainsKey(roomOrHallway)) {
@@ -103,6 +118,25 @@ public class MinimapManager : StaticInstance<MinimapManager> {
         }
 
         roomAndHallwayIcons[roomOrHallway].DOFade(1f, duration: 0.5f);
+
+        string outlineName = roomAndHallwayIcons[roomOrHallway].name + "Outline";
+        Transform outline = outlineIconContainer.Find(outlineName);
+        if (outline == null) {
+            Debug.LogError("Could not find outline for room or hall icon!");
+            yield break;
+        }
+        outline.GetComponent<Image>().DOFade(1f, duration: 0.5f);
+    }
+
+    public Image SpawnObjectIcon(Sprite sprite, Vector2 worldPos, Vector2 size) {
+        Image objectIcon = objectMapIconPrefab.Spawn(miniMapIconContainer);
+        objectIcon.sprite = sprite;
+
+        RectTransform objectIconTransform = objectIcon.GetComponent<RectTransform>();
+        objectIconTransform.anchoredPosition = WorldToIconPos(worldPos);
+        objectIconTransform.sizeDelta = size;
+
+        return objectIcon;
     }
 
     private Vector2 WorldToIconPos(Vector2 worldPos) {

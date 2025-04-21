@@ -7,8 +7,6 @@ public class Containers : StaticInstance<Containers> {
     [field: SerializeField] public Transform Projectiles { get; private set; }
     [field: SerializeField] public Transform Drops { get; private set; }
     [field: SerializeField] public Transform Rooms { get; private set; }
-    [field: SerializeField] public Transform MapIcons { get; private set; }
-    [field: SerializeField] public Transform RoomMapIcons { get; private set; }
     [field: SerializeField] public Transform Hallways { get; private set; }
     [field: SerializeField] public Transform RoomOverlapCheckers { get; private set; }
     [field: SerializeField] public Transform EnvironmentObjects { get; private set; }
@@ -28,8 +26,6 @@ public class Containers : StaticInstance<Containers> {
                 return Drops;
             case Container.Rooms:
                 return Rooms;
-            case Container.LevelMapIcons:
-                return MapIcons;
             case Container.Hallways:
                 return Hallways;
             case Container.RoomOverlapCheckers:
@@ -55,5 +51,4 @@ public enum Container {
     RoomOverlapCheckers = 5,
     EnvironmentObjects = 6,
     Effects = 7,
-    LevelMapIcons = 8
 }

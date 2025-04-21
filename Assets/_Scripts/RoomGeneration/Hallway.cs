@@ -10,27 +10,18 @@ public class Hallway : MonoBehaviour {
 
     private int[] connectingRoomNums = new int[2];
 
-    [SerializeField] private SpriteRenderer mapIconToSpawn;
-    private SpriteRenderer mapIcon;
+    [SerializeField] private Sprite mapIcon;
+    public Sprite MapIcon => mapIcon;
 
     private void OnEnable() {
         connectingRoomNums = new int[2];
         hallwayLight.intensity = 0f;
-
-        SetupMapIcon();
 
         Room.OnAnyRoomEnter_Room += TryLightPartially;
     }
 
     private void OnDisable() {
         Room.OnAnyRoomEnter_Room -= TryLightPartially;
-    }
-
-    // spawn the map icon as a child of LevelMapIcons so LevelMapIcons can create a unified outline around all the
-    // rooms and hallways
-    private void SetupMapIcon() {
-        mapIcon = mapIconToSpawn.Spawn(mapIconToSpawn.transform.position, Containers.Instance.RoomMapIcons);
-        mapIconToSpawn.enabled = false;
     }
 
     private void TryLightPartially(Room room) {
@@ -44,8 +35,7 @@ public class Hallway : MonoBehaviour {
         if (connectingRoomNums.Contains(room.GetRoomNum())) {
             LightPartially();
 
-            //... show room on minimap
-            LevelMapIconsOld.Instance.ShowMapIcon(mapIcon);
+            MinimapManager.Instance.StartCoroutine(MinimapManager.Instance.ShowMapIcon(transform));
         }
     }
 

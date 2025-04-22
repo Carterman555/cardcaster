@@ -18,6 +18,7 @@ public class MinimapManager : StaticInstance<MinimapManager> {
     [SerializeField] private Image objectMapIconPrefab;
 
     [SerializeField] private float minimapScaleFactor;
+    public float MinimapScaleFactor => minimapScaleFactor;
 
     private Dictionary<Transform, Image> roomAndHallwayIcons = new();
 

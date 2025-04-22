@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -13,18 +14,16 @@ public class MapManager : MonoBehaviour {
 
     [Header("To Copy From Minimap")]
     [SerializeField] private Transform mapIconContainer;
-    [SerializeField] private Transform mapOutlineIconContainer;
 
     [SerializeField] private Transform miniMapIconContainer;
     [SerializeField] private Transform miniMapOutlineIconContainer;
 
+    [SerializeField] private RectTransform playerMiniMapIcon;
+    private RectTransform playerMapIcon;
+
     private List<Image> spawnedImages = new();
 
     private void OnEnable() {
-        StartCoroutine(SetupMap());
-    }
-
-    private IEnumerator SetupMap() {
         spawnedImages.Clear();
 
         float miniMapToMapScaleFactor = mapScaleFactor / MinimapManager.Instance.MinimapScaleFactor;
@@ -33,28 +32,39 @@ public class MapManager : MonoBehaviour {
             .Where(i => i != miniMapIconContainer.GetComponent<Image>()).ToArray();
 
         foreach (Image miniMapImage in iconImages) {
-            Image mapImage = miniMapImage.Spawn(mapOutlineIconContainer);
+            Image mapImage = miniMapImage.Spawn(mapIconContainer);
 
             RectTransform mapImageTransform = mapImage.GetComponent<RectTransform>();
             RectTransform minimapImageTransform = miniMapImage.GetComponent<RectTransform>();
 
             mapImageTransform.anchoredPosition = minimapImageTransform.anchoredPosition * miniMapToMapScaleFactor;
             mapImageTransform.sizeDelta = minimapImageTransform.sizeDelta * miniMapToMapScaleFactor;
+            mapImage.Fade(miniMapImage.color.a);
+
+            if (MinimapManager.Instance.RoomIconTransforms.ContainsKey(miniMapImage)) {
+                Button roomTeleportButton = mapImage.AddComponent<Button>();
+                //roomTeleportButton.colors.normalColor = Color.gray; - TODO
+            }
 
             spawnedImages.Add(mapImage);
-
-            mapImage.Fade(1f); // debug 
         }
 
-        mapIconContainerResizer.ResizeAndPosition(transform.localScale.x);
+        playerMapIcon = playerMiniMapIcon.Spawn(mapIconContainer);
+        playerMapIcon.anchoredPosition = WorldToIconPos(PlayerMovement.Instance.CenterPos);
+        playerMapIcon.sizeDelta = playerMiniMapIcon.sizeDelta * miniMapToMapScaleFactor;
+        playerMapIcon.SetSiblingIndex(playerMapIcon.parent.childCount - 1); // so appears above all other icons
 
-        yield return new WaitForSeconds(1f);
+        //... scale needs to be one or it will mess up map icon container resizing
+        transform.localScale = Vector3.one;
+
+        mapIconContainerResizer.ResizeAndPosition();
     }
 
     private void OnDisable() {
         foreach (Image mapImage in spawnedImages) {
             mapImage.gameObject.ReturnToPool();
         }
+        playerMapIcon.gameObject.ReturnToPool();
     }
 
     private Vector2 WorldToIconPos(Vector2 worldPos) {

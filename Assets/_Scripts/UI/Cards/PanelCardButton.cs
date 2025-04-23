@@ -55,7 +55,6 @@ public class PanelCardButton : GameButton, ISelectHandler {
         burnImages = GetComponentsInChildren<Image>();
         for (int i = 0; i < burnImages.Length; i++) {
             Image image = burnImages[i];
-            burnMaterialInstance.name = "burn " + i;
             image.material = burnMaterialInstance;
         }
     }

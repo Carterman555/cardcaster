@@ -52,7 +52,7 @@ public class DebugManager : StaticInstance<DebugManager> {
 
     [Command]
     private void ClearRoom() {
-        Room.GetCurrentRoom().SetRoomCleared();
+        Room.GetCurrentRoom().IsRoomCleared = true;
 
         KillAllEnemies();
 
@@ -65,7 +65,7 @@ public class DebugManager : StaticInstance<DebugManager> {
     private void ClearAllRooms() {
         Room[] rooms = FindObjectsOfType<Room>();
         foreach (Room room in rooms) {
-            room.SetRoomCleared();
+            room.IsRoomCleared = true;
         }
 
         ClearRoom();

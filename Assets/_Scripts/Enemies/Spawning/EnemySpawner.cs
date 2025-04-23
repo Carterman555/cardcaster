@@ -33,7 +33,7 @@ public class EnemySpawner : StaticInstance<EnemySpawner> {
         }
 
         // don't spawn if room is already cleared
-        if (room.IsRoomCleared()) {
+        if (room.IsRoomCleared) {
             return;
         }
         

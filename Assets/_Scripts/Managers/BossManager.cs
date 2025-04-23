@@ -38,7 +38,7 @@ public class BossManager : StaticInstance<BossManager> {
 
         bool isBossRoom = room.TryGetComponent(out BossRoom bossRoom);
 
-        if (isBossRoom && !room.IsRoomCleared()) {
+        if (isBossRoom && !room.IsRoomCleared) {
             StartBossFight(bossRoom);
         }
     }

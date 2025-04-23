@@ -43,18 +43,18 @@ public class ScriptableTeleportCard : ScriptableAbilityCardBase {
             return;
         }
 
-        // fade out instantly, then fade in with delay
-        PlayerFade playerFade = PlayerFadeManager.Instance.AddFadeEffect(0, 0f);
-        PlayerFadeManager.Instance.RemoveFadeEffect(playerFade);
+        AudioManager.Instance.PlaySound(AudioManager.Instance.AudioClips.Teleport);
+
+        PlayerFadeManager.Instance.GetComponent<Animator>().SetTrigger("teleportFadeIn");
 
         CreateVisualClone(PlayerMovement.Instance.transform.position);
 
         if (IsValidTeleportPos(position)) {
-            TeleportPlayer(position);
+            PlayerMovement.Instance.transform.position = position;
         }
         else {
             Vector2 validPosition = RaycastToFindPosition(position);
-            TeleportPlayer(validPosition);
+            PlayerMovement.Instance.transform.position = position;
         }
 
         base.Stop();
@@ -91,10 +91,6 @@ public class ScriptableTeleportCard : ScriptableAbilityCardBase {
             .IsValidPosition(pos);
 
         return validPos;
-    }
-
-    private void TeleportPlayer(Vector2 position) {
-        PlayerMovement.Instance.transform.position = position;
     }
 
     [SerializeField] private SpriteRenderer visualClonePrefab;

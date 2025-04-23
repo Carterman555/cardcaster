@@ -31,7 +31,7 @@ public class Room : MonoBehaviour {
     [SerializeField] private DoorBlocker doorBlockerPrefab;
     [SerializeField] private DoorBlocker sideDoorBlockerPrefab;
 
-    private bool roomCleared;
+    public bool IsRoomCleared { get; set; }
 
     [SerializeField] private Light2D roomLight;
     [SerializeField] private SpriteRenderer mapIconToSpawn;
@@ -85,15 +85,7 @@ public class Room : MonoBehaviour {
         return roomNum;
     }
 
-    public bool IsRoomCleared() {
-        return roomCleared;
-    }
-
     #endregion
-
-    public void SetRoomCleared() {
-        roomCleared = true;
-    }
 
     public void AddCreatedDoorway(PossibleDoorway possibleDoorway) {
         createdDoorways.Add(possibleDoorway);
@@ -101,7 +93,6 @@ public class Room : MonoBehaviour {
 
     public void SetRoomNum(int roomNum) {
         this.roomNum = roomNum;
-
 
         IHasRoomNum[] hasRoomNumChildren = GetComponentsInChildren<IHasRoomNum>();
         foreach (IHasRoomNum hasRoomNum in hasRoomNumChildren) {
@@ -117,7 +108,7 @@ public class Room : MonoBehaviour {
     private void OnEnable() {
         enterTrigger.OnEnterContact += OnEnterRoom;
 
-        roomCleared = scriptableRoom.NoEnemies;
+        IsRoomCleared = scriptableRoom.NoEnemies;
         roomLight.intensity = 0;
     }
     private void OnDisable() {
@@ -147,7 +138,7 @@ public class Room : MonoBehaviour {
         currentRoomNum = roomNum;
         currentRoom = this;
 
-        if (!roomCleared) {
+        if (!IsRoomCleared) {
             CreateDoorwayBlockers();
         }
 
@@ -179,6 +170,10 @@ public class Room : MonoBehaviour {
         BossManager.OnBossKilled -= SetRoomCleared;
 
         OnAnyRoomExit_Room?.Invoke(this);
+    }
+
+    private void SetRoomCleared() {
+        IsRoomCleared = true;
     }
 
     private void CreateDoorwayBlockers() {

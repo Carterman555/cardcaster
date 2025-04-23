@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 public class MapManager : MonoBehaviour {
@@ -42,8 +43,36 @@ public class MapManager : MonoBehaviour {
             mapImage.Fade(miniMapImage.color.a);
 
             if (MinimapManager.Instance.RoomIconTransforms.ContainsKey(miniMapImage)) {
-                Button roomTeleportButton = mapImage.AddComponent<Button>();
-                //roomTeleportButton.colors.normalColor = Color.gray; - TODO
+
+                if (mapImage.TryGetComponent(out Button _button)) {
+                    _button.enabled = Room.GetCurrentRoom().IsRoomCleared;
+                }
+                else {
+                    mapImage.AddComponent<Button>();
+                    Button button = mapImage.GetComponent<Button>();
+
+                    ColorBlock colorBlock = new ColorBlock() {
+                        normalColor = Color.gray,
+                        highlightedColor = new Color(0.75f, 0.75f, 0.75f),
+                        pressedColor = new Color(0.75f, 0.75f, 0.75f),
+                        selectedColor = Color.gray,
+                        disabledColor = Color.gray,
+                        colorMultiplier = 2
+                    };
+
+                    button.colors = colorBlock;
+
+                    button.enabled = Room.GetCurrentRoom().IsRoomCleared;
+                }
+
+                if (mapImage.TryGetComponent(out RoomTeleportButton roomTeleport)) {
+                    roomTeleport.SetRoom(MinimapManager.Instance.RoomIconTransforms[miniMapImage]);
+                }
+                else {
+                    RoomTeleportButton roomTeleportButton = mapImage.AddComponent<RoomTeleportButton>();
+                    roomTeleportButton.SetRoom(MinimapManager.Instance.RoomIconTransforms[miniMapImage]);
+                }
+
             }
 
             spawnedImages.Add(mapImage);

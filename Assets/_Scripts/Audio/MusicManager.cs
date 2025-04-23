@@ -54,7 +54,7 @@ public class MusicManager : Singleton<MusicManager> {
     }
 
     private void TryTransitionToCombatMusic(Room room) {
-        if (!room.IsRoomCleared()) {
+        if (!room.IsRoomCleared) {
             TransitionMusic(MusicType.Combat);
         }
     }
@@ -85,7 +85,7 @@ public class MusicManager : Singleton<MusicManager> {
         }
 
         bool playerInRoom = Room.GetCurrentRoom() != null;
-        bool inCombat = playerInRoom && !Room.GetCurrentRoom().IsRoomCleared();
+        bool inCombat = playerInRoom && !Room.GetCurrentRoom().IsRoomCleared;
         if (inCombat) {
             casualMusicTimer = 0;
             return;

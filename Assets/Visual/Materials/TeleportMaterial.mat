@@ -7,12 +7,13 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: GhostMaterial
+  m_Name: TeleportMaterial
   m_Shader: {fileID: 4800000, guid: a36b7719ff0465b42ab1407d67672c5f, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
   - GHOST_ON
+  - HOLOGRAM_ON
   m_InvalidKeywords: []
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -116,8 +117,8 @@ Material:
     - _FlickerAlpha: 0
     - _FlickerFreq: 0.2
     - _FlickerPercent: 0.05
-    - _GhostBlend: 0.7
-    - _GhostColorBoost: 1
+    - _GhostBlend: 0.26
+    - _GhostColorBoost: 2.15
     - _GhostTransparency: 0
     - _GlitchAmount: 3
     - _GlitchSize: 1
@@ -139,11 +140,11 @@ Material:
     - _HandDrawnSpeed: 5
     - _HitEffectBlend: 1
     - _HitEffectGlow: 5
-    - _HologramBlend: 1
+    - _HologramBlend: 0.23
     - _HologramMaxAlpha: 0.75
     - _HologramMinAlpha: 0.1
-    - _HologramStripesAmount: 0.1
-    - _HologramStripesSpeed: 4.5
+    - _HologramStripesAmount: 0.13
+    - _HologramStripesSpeed: 20
     - _HologramUnmodAmount: 0
     - _HsvBright: 1
     - _HsvSaturation: 1
@@ -237,7 +238,7 @@ Material:
     - _GradTopRightCol: {r: 1, g: 1, b: 0, a: 1}
     - _GreyscaleTintColor: {r: 1, g: 1, b: 1, a: 1}
     - _HitEffectColor: {r: 1, g: 1, b: 1, a: 1}
-    - _HologramStripeColor: {r: 0, g: 1, b: 1, a: 1}
+    - _HologramStripeColor: {r: 1, g: 1, b: 1, a: 1}
     - _InnerOutlineColor: {r: 1, g: 0, b: 0, a: 1}
     - _OutlineColor: {r: 1, g: 1, b: 1, a: 1}
     - _OverlayColor: {r: 1, g: 1, b: 1, a: 1}

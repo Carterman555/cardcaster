@@ -1,8 +1,11 @@
 using UnityEngine;
 using System.Collections.Generic;
 using System.Linq;
+using System;
 
 public class PlayerFadeManager : StaticInstance<PlayerFadeManager> {
+
+    public static event Action OnTeleportFadedOut;
 
     private SpriteRenderer[] playerSprites;
 
@@ -53,5 +56,9 @@ public class PlayerFadeManager : StaticInstance<PlayerFadeManager> {
         foreach (SpriteRenderer playerSprite in playerSprites) {
             playerSprite.Fade(fadeAmount);
         }
+    }
+
+    private void InvokeTeleportFadeEvent() {
+        OnTeleportFadedOut?.Invoke();
     }
 }

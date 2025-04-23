@@ -47,6 +47,37 @@ SortingGroup:
   m_SortingLayer: 4
   m_SortingOrder: 0
   m_SortAtRoot: 0
+--- !u!1 &8112446651954444370
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7943463938671744231}
+  m_Layer: 0
+  m_Name: TeleportPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7943463938671744231
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8112446651954444370}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 4.99, y: -0.04, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4706346033755580023}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &310264201191620966
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3206,9 +3237,17 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2394718490218990673, guid: 4723c0ded694bfb4b9bd66f2d1dae76b, type: 3}
+      propertyPath: teleportPoint
+      value: 
+      objectReference: {fileID: 7943463938671744231}
+    - target: {fileID: 2394718490218990673, guid: 4723c0ded694bfb4b9bd66f2d1dae76b, type: 3}
       propertyPath: scriptableRoom
       value: 
       objectReference: {fileID: 11400000, guid: 953443e5540d2f04b9b3396569c0fbc5, type: 2}
+    - target: {fileID: 2394718490218990673, guid: 4723c0ded694bfb4b9bd66f2d1dae76b, type: 3}
+      propertyPath: hasTeleportPoint
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2394718490218990673, guid: 4723c0ded694bfb4b9bd66f2d1dae76b, type: 3}
       propertyPath: possibleDoorways.Array.size
       value: 2
@@ -20539,6 +20578,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 5378690074485086980, guid: 4723c0ded694bfb4b9bd66f2d1dae76b, type: 3}
       insertIndex: -1
       addedObject: {fileID: 4752241573795717503}
+    - targetCorrespondingSourceObject: {fileID: 5378690074485086980, guid: 4723c0ded694bfb4b9bd66f2d1dae76b, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7943463938671744231}
     - targetCorrespondingSourceObject: {fileID: 8884452204527657620, guid: 4723c0ded694bfb4b9bd66f2d1dae76b, type: 3}
       insertIndex: -1
       addedObject: {fileID: 6810730106705417349}

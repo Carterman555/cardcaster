@@ -25,7 +25,7 @@ public class RoomTeleportButton : MonoBehaviour {
     }
 
     public void SetRoom(Transform room) {
-        roomPos = room.position;
+        roomPos = room.GetComponent<Room>().GetTeleportPos();
 
         setup = true;
     }
@@ -44,6 +44,12 @@ public class RoomTeleportButton : MonoBehaviour {
     private void FadeOutPlayer() {
         MMF_Player toggleMapPlayer = FeedbackPlayerReference.GetPlayer("ToggleMap");
         toggleMapPlayer.Events.OnComplete.RemoveListener(FadeOutPlayer);
+
+        GameSceneManager.Instance.StartCoroutine(FadeOutPlayerCor());
+    }
+    private IEnumerator FadeOutPlayerCor() {
+
+        yield return new WaitForSeconds(0.3f);
 
         Animator anim = PlayerFadeManager.Instance.GetComponent<Animator>();
         anim.SetTrigger("teleportFade");

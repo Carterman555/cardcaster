@@ -45,7 +45,8 @@ public class MapManager : MonoBehaviour {
             if (MinimapManager.Instance.RoomIconTransforms.ContainsKey(miniMapImage)) {
 
                 if (mapImage.TryGetComponent(out Button _button)) {
-                    _button.enabled = Room.GetCurrentRoom().IsRoomCleared;
+                    bool inHallway = Room.GetCurrentRoom() == null;
+                    _button.enabled = inHallway || Room.GetCurrentRoom().IsRoomCleared;
                 }
                 else {
                     mapImage.AddComponent<Button>();
@@ -62,7 +63,8 @@ public class MapManager : MonoBehaviour {
 
                     button.colors = colorBlock;
 
-                    button.enabled = Room.GetCurrentRoom().IsRoomCleared;
+                    bool inHallway = Room.GetCurrentRoom() == null;
+                    button.enabled = inHallway || Room.GetCurrentRoom().IsRoomCleared;
                 }
 
                 if (mapImage.TryGetComponent(out RoomTeleportButton roomTeleport)) {

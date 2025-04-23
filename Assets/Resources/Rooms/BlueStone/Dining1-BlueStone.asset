@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   roomType: 1
   environmentType: 2
+  MapIcon: {fileID: 21300000, guid: a7c4d86ba2db9284e9de4bccf339dff2, type: 3}
   roomPrefab: {fileID: 3084685571954290978, guid: b32604dafd79d134cbd2d3b49e4c3634, type: 3}
   noEnemies: 0
   scriptableEnemyComposition: {fileID: 11400000, guid: 810ab2576527e5742905d6f1e18ee38b, type: 2}

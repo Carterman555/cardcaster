@@ -16,6 +16,7 @@ public class Room : MonoBehaviour {
     private static int currentRoomNum;
 
     [SerializeField] private ScriptableRoom scriptableRoom;
+    public ScriptableRoom ScriptableRoom => scriptableRoom;
 
     private int roomNum;
 
@@ -34,16 +35,14 @@ public class Room : MonoBehaviour {
     public bool IsRoomCleared { get; set; }
 
     [SerializeField] private Light2D roomLight;
-    [SerializeField] private SpriteRenderer mapIconToSpawn;
+
+    [SerializeField] private bool hasTeleportPoint;
+    [SerializeField, ConditionalHide("hasTeleportPoint")] private Transform teleportPoint;
 
     #region Get Methods
 
     public static Room GetCurrentRoom() {
         return currentRoom;
-    }
-
-    public ScriptableRoom GetScriptableRoom() {
-        return scriptableRoom;
     }
 
     public List<PossibleDoorway> GetPossibleDoorways() {
@@ -83,6 +82,15 @@ public class Room : MonoBehaviour {
 
     public int GetRoomNum() {
         return roomNum;
+    }
+
+    public Vector2 GetTeleportPos() {
+        if (hasTeleportPoint) {
+            return teleportPoint.position;
+        }
+        else {
+            return transform.position;
+        }
     }
 
     #endregion

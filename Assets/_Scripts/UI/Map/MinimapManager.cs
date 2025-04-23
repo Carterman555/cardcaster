@@ -66,7 +66,7 @@ public class MinimapManager : StaticInstance<MinimapManager> {
 
     private void SpawnRoom(Room room) {
         Image roomIcon = roomHallMapIconPrefab.Spawn(miniMapIconContainer);
-        roomIcon.sprite = room.GetScriptableRoom().MapIcon;
+        roomIcon.sprite = room.ScriptableRoom.MapIcon;
         RectTransform roomIconTransform = roomIcon.GetComponent<RectTransform>();
         roomIconTransform.anchoredPosition = WorldToIconPos(GetTileMapCenterPos(room.transform));
 

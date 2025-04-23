@@ -3,15 +3,9 @@ using UnityEngine;
 public class UnitEffectVisuals : MonoBehaviour {
 
     private SpriteRenderer visual;
-    private Material originalMaterial;
 
     private void Awake() {
         visual = GetComponent<SpriteRenderer>();
-        originalMaterial = visual.material;
-    }
-
-    private void OnEnable() {
-        visual.material = originalMaterial;
     }
 
     public ParticleSystem AddParticleEffect(ParticleSystem particleEffectPrefab) {

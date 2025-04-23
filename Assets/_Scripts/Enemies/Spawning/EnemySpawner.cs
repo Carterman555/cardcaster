@@ -37,7 +37,7 @@ public class EnemySpawner : StaticInstance<EnemySpawner> {
             return;
         }
         
-        currentEnemyComposition = room.GetScriptableRoom().ScriptableEnemyComposition;
+        currentEnemyComposition = room.ScriptableRoom.ScriptableEnemyComposition;
         currentWaveIndex = 0;
 
         SpawnCurrentWave();

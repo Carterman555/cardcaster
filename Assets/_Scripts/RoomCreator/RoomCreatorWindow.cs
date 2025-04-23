@@ -116,7 +116,7 @@ public class RoomCreatorWindow : EditorWindow {
         }
 
         if (ConditionalButton("Create Minimap Sprite", mainRoom != null)) {
-            SetupMinimapSprite(mainRoom);
+            SetupMinimapSprite();
         }
 
         GUILayout.Space(5);
@@ -168,11 +168,12 @@ public class RoomCreatorWindow : EditorWindow {
 
         scriptableRooms = EditorGUILayout.ObjectField("Rooms", scriptableRooms, typeof(ScriptableRooms), true) as ScriptableRooms;
 
-        if (ConditionalButton("Create All Minimap Sprites", scriptableRooms != null)) {
-            foreach (GameObject room in scriptableRooms.Rooms) {
-                SetupMinimapSprite(room);
-            }
-        }
+        // just in case I want to setup or remake multiple rooms automatically
+        //if (ConditionalButton("Example setup multiple rooms", scriptableRooms != null)) {
+        //    foreach (GameObject room in scriptableRooms.Rooms) {
+        //        ExampleSetupRoom(room);
+        //    }
+        //}
     }
 
     private bool ConditionalButton(string text, bool activeCondition) {
@@ -191,34 +192,29 @@ public class RoomCreatorWindow : EditorWindow {
 
     #region Minimap Icon
 
-    private void SetupMinimapSprite(GameObject room) {
+    private void SetupMinimapSprite() {
 
-        Undo.RecordObject(room, "Setup Minimap Sprite");
+        if (mainRoom.GetComponent<Room>().ScriptableRoom == null) {
+            Debug.LogError("Scriptable Room is not set!");
+            return;
+        }
+
+        Undo.RecordObject(mainRoom, "Setup Minimap Sprite");
 
         // Create sprite
-        SetTilemaps(room);
+        SetTilemaps(mainRoom);
 
         Tilemap[] tilemaps = new Tilemap[] { groundTilemap, topWallsTilemap, botWallsTilemap };
 
-        string fileName = room.name + "-MinimapIcon";
+        string fileName = mainRoom.name + "-MinimapIcon";
 
         RoomMapSpriteCreator roomMiniMapSpriteCreator = new RoomMapSpriteCreator();
         roomMiniMapSpriteCreator.CreateMiniMapSprite(fileName, tilemaps);
 
         // Set sprite
-        string miniMapIconName = "MinimapIcon";
-        Transform miniMapIconTransform = room.transform.Find(miniMapIconName);
-        if (miniMapIconTransform == null) Debug.LogError("Could not find MinimapIcon by name!");
-
         string filePath = roomMiniMapSpriteCreator.GetFilePath();
         Sprite miniMapSprite = AssetDatabase.LoadAssetAtPath<Sprite>(filePath);
-        miniMapIconTransform.GetComponent<SpriteRenderer>().sprite = miniMapSprite;
-
-        // Position sprite - broken rn
-        //Vector2 tileMapsCenter = roomMiniMapSpriteCreator.GetTileMapsCenter();
-        //miniMapIconTransform.position = tileMapsCenter;
-
-        EditorUtility.SetDirty(room);
+        mainRoom.GetComponent<Room>().ScriptableRoom.MapIcon = miniMapSprite;
     }
 
     #endregion

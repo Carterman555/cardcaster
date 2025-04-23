@@ -79,10 +79,6 @@ PrefabInstance:
       propertyPath: m_WasSpriteAssigned
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 2595042869523141569, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
     - target: {fileID: 3807084815282453126, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -383,6 +379,7 @@ MonoBehaviour:
   shootSFX:
     Clips: []
     Volume: 0
+    PitchVariation: 0
 --- !u!114 &6153550554082725706
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -407,6 +404,7 @@ MonoBehaviour:
     Clips:
     - {fileID: 8300000, guid: 5e4e91980cfc9b44ba9536ec9d6c2282, type: 3}
     Volume: 0.5
+    PitchVariation: 0
 --- !u!95 &7812749826847277617 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 621019451974682374, guid: d26e40392c042dc4d8c237ede2183746, type: 3}

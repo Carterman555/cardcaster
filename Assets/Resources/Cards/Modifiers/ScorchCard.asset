@@ -41,7 +41,7 @@ MonoBehaviour:
     m_WaitForCompletion: 0
     m_LocalVariables: []
   sprite: {fileID: 1276986863, guid: d638d131cac6f4d45aeb96fc55848241, type: 3}
-  cost: 1
+  cost: 2
   rarity: 2
   stackType: 2
   inDemo: 1

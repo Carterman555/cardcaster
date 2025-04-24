@@ -1,26 +1,24 @@
-public class GameStatsTracker : StaticInstance<GameStatsTracker> {
+using System;
 
-    private int kills;
+public class GameStatsTracker : Singleton<GameStatsTracker> {
+
+    public int Kills { get; private set; }
 
     private void OnEnable() {
-        kills = 0;
-
+        GameSceneManager.OnStartGameLoadingCompleted += OnGameStart;
         EnemyHealth.OnAnyDeath += IncrementKills;
     }
 
     private void OnDisable() {
+        GameSceneManager.OnStartGameLoadingCompleted -= OnGameStart;
         EnemyHealth.OnAnyDeath -= IncrementKills;
     }
 
+    private void OnGameStart() {
+        Kills = 0;
+    }
+
     private void IncrementKills(EnemyHealth health) {
-        kills++;
+        Kills++;
     }
-
-    #region Get Methods
-
-    public int GetKills() {
-        return kills;
-    }
-
-    #endregion
 }

@@ -242,6 +242,7 @@ MonoBehaviour:
   avgDropAmount: 0.8
   dropAmountVariation: 0.5
   yVariation: 1
+  IsEnabled: 0
 --- !u!114 &-3599747744444464393
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -416,9 +417,9 @@ MonoBehaviour:
   hasHealth: 1
   health: {fileID: 5414848298468351723}
   overrideDamage: 1
-  damage: 1
-  overrideKnockback: 0
-  knockbackStrength: 0
+  damage: 0.5
+  overrideKnockback: 1
+  knockbackStrength: 1
 --- !u!1 &4973828884281687063
 GameObject:
   m_ObjectHideFlags: 0

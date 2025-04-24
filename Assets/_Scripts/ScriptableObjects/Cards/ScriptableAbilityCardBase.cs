@@ -102,6 +102,8 @@ public abstract class ScriptableAbilityCardBase : ScriptableCardBase {
         bool hasDuration = abilityAttributes.HasFlag(AbilityAttribute.HasDuration);
         if (hasDuration) {
             durationStopCoroutine = AbilityManager.Instance.StartCoroutine(StopAfterDuration());
+
+            AbilityIndicatorManager.Instance.AddIndicator(this);
         }
     }
 
@@ -138,6 +140,27 @@ public abstract class ScriptableAbilityCardBase : ScriptableCardBase {
     private IEnumerator StopAfterDuration() {
         yield return new WaitForSeconds(Stats.Duration);
         Stop();
+    }
+
+    private Coroutine durationStopCoroutine;
+
+    // this method is played instead of the Play() when it's already active (some cards can stack on themselves instead
+    // of just extending the duration
+    public void ResetDuration() {
+
+        if (positioningCardCoroutine != null) {
+            AbilityManager.Instance.StopCoroutine(positioningCardCoroutine);
+        }
+
+        if (IsModifiable) {
+            AbilityManager.Instance.ApplyModifiers(this);
+            DeckManager.Instance.DiscardStackedCards();
+        }
+
+        AbilityManager.Instance.StopCoroutine(durationStopCoroutine);
+        durationStopCoroutine = AbilityManager.Instance.StartCoroutine(StopAfterDuration());
+
+        AbilityIndicatorManager.Instance.ResetDurationOfIndicator(this);
     }
 
     public virtual void Stop() {
@@ -196,25 +219,6 @@ public abstract class ScriptableAbilityCardBase : ScriptableCardBase {
         }
 
         Stats = newStats;
-    }
-
-    private Coroutine durationStopCoroutine;
-
-    // this method is played instead of the Play() when it's already active (some cards can stack on themselves instead
-    // of just extending the duration
-    public void ResetDuration() {
-
-        if (positioningCardCoroutine != null) {
-            AbilityManager.Instance.StopCoroutine(positioningCardCoroutine);
-        }
-
-        if (IsModifiable) {
-            AbilityManager.Instance.ApplyModifiers(this);
-            DeckManager.Instance.DiscardStackedCards();
-        }
-
-        AbilityManager.Instance.StopCoroutine(durationStopCoroutine);
-        durationStopCoroutine = AbilityManager.Instance.StartCoroutine(StopAfterDuration());
     }
 }
 

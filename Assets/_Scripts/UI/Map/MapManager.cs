@@ -42,11 +42,14 @@ public class MapManager : MonoBehaviour {
             mapImageTransform.sizeDelta = minimapImageTransform.sizeDelta * miniMapToMapScaleFactor;
             mapImage.Fade(miniMapImage.color.a);
 
-            if (MinimapManager.Instance.RoomIconTransforms.ContainsKey(miniMapImage)) {
+            bool isRoomIcon = MinimapManager.Instance.RoomIconDict.ContainsKey(miniMapImage);
+            if (isRoomIcon) {
+
+                Room roomOfIcon = MinimapManager.Instance.RoomIconDict[miniMapImage];
 
                 if (mapImage.TryGetComponent(out Button _button)) {
                     bool inHallway = Room.GetCurrentRoom() == null;
-                    _button.enabled = inHallway || Room.GetCurrentRoom().IsRoomCleared;
+                    _button.enabled = (inHallway || Room.GetCurrentRoom().IsRoomCleared) && roomOfIcon.IsRoomCleared;
                 }
                 else {
                     mapImage.AddComponent<Button>();
@@ -64,15 +67,15 @@ public class MapManager : MonoBehaviour {
                     button.colors = colorBlock;
 
                     bool inHallway = Room.GetCurrentRoom() == null;
-                    button.enabled = inHallway || Room.GetCurrentRoom().IsRoomCleared;
+                    button.enabled = (inHallway || Room.GetCurrentRoom().IsRoomCleared) && roomOfIcon.IsRoomCleared;
                 }
 
                 if (mapImage.TryGetComponent(out RoomTeleportButton roomTeleport)) {
-                    roomTeleport.SetRoom(MinimapManager.Instance.RoomIconTransforms[miniMapImage]);
+                    roomTeleport.SetRoom(roomOfIcon);
                 }
                 else {
                     RoomTeleportButton roomTeleportButton = mapImage.AddComponent<RoomTeleportButton>();
-                    roomTeleportButton.SetRoom(MinimapManager.Instance.RoomIconTransforms[miniMapImage]);
+                    roomTeleportButton.SetRoom(roomOfIcon);
                 }
 
             }

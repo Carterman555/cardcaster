@@ -531,6 +531,50 @@ MonoBehaviour:
   playerSword: {fileID: 0}
   playerSwordVisual: {fileID: 0}
   cameraConfiner: {fileID: 0}
+--- !u!1 &1876309958802724637
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 9190997906947402189}
+  - component: {fileID: 3118397091506336235}
+  m_Layer: 0
+  m_Name: GameStatsTracker
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &9190997906947402189
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1876309958802724637}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 9138537760632337751}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3118397091506336235
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1876309958802724637}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e1e078c3489ea340a3902be1ed69f23, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2383478387253553769
 GameObject:
   m_ObjectHideFlags: 0
@@ -715,7 +759,6 @@ MonoBehaviour:
     Amount: 7
   - CardType: 19
     Amount: 7
-  baseMaxEssence: 6
 --- !u!1 &3718070589907718167
 GameObject:
   m_ObjectHideFlags: 0
@@ -971,6 +1014,7 @@ Transform:
   - {fileID: 4342525870872324283}
   - {fileID: 7120651172310583948}
   - {fileID: 4279192432420305983}
+  - {fileID: 9190997906947402189}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &8542190569636602293

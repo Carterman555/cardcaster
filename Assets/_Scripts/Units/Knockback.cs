@@ -52,6 +52,11 @@ public class Knockback : MonoBehaviour {
 
         if (GetKnockbackResistance() == 0) {
             Debug.LogError(gameObject.name + ": KnockbackResistance Cannot be 0!");
+            return;
+        }
+
+        if (strength == 0) {
+            Debug.LogWarning("Knockback dealt to " + gameObject.name + " has strength of 0"); 
         }
 
         float knockbackFactor = 12f;

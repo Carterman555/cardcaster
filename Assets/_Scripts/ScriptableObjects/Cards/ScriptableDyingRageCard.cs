@@ -31,6 +31,8 @@ public class ScriptableDyingRageCard : ScriptableAbilityCardBase {
         }
     }
 
+    // this way of doing things will lead to problems if one dying rage card is played multiple times
+    // and it can stack. but I have set dying rage to 'reset duration' instead of 'stackable'
     private void UpdateDamage(float proportion) {
 
         float maxHealthProportionForDamage = 0.25f;
@@ -38,7 +40,7 @@ public class ScriptableDyingRageCard : ScriptableAbilityCardBase {
         bool shouldApplyDamage = proportion < maxHealthProportionForDamage;
 
         if (shouldApplyDamage && !applyingDamageModifier) {
-            StatsManager.RemovePlayerStatModifiers(statModifiers);
+            StatsManager.AddPlayerStatModifiers(statModifiers);
             applyingDamageModifier = true;
         }
         else if (!shouldApplyDamage && applyingDamageModifier) {

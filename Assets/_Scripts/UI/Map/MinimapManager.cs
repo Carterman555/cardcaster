@@ -21,7 +21,7 @@ public class MinimapManager : StaticInstance<MinimapManager> {
     public float MinimapScaleFactor => minimapScaleFactor;
 
     private Dictionary<Transform, Image> roomAndHallwayIcons = new();
-    public Dictionary<Image, Transform> RoomIconTransforms = new();
+    public Dictionary<Image, Room> RoomIconDict = new();
 
     private bool spawnedIcons;
 
@@ -78,7 +78,7 @@ public class MinimapManager : StaticInstance<MinimapManager> {
         roomIcon.Fade(0f);
 
         roomAndHallwayIcons.Add(room.transform, roomIcon);
-        RoomIconTransforms.Add(roomIcon, room.transform);
+        RoomIconDict.Add(roomIcon, room);
     }
 
     private void SpawnHallway(Hallway hallway) {

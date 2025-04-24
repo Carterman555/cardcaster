@@ -43,7 +43,7 @@ MonoBehaviour:
   sprite: {fileID: 1097045672, guid: d638d131cac6f4d45aeb96fc55848241, type: 3}
   cost: 2
   rarity: 1
-  stackType: 0
+  stackType: 1
   inDemo: 1
   startUnlocked: 1
   unlockLevel: 1
@@ -56,6 +56,7 @@ MonoBehaviour:
     Duration: 10
     ProjectileSpeed: 0
     Cooldown: 0
+  modifiesSword: 0
   <IsPositional>k__BackingField: 0
   <IsModifiable>k__BackingField: 0
   incompatibleAbilities: 

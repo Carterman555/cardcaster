@@ -24,8 +24,8 @@ public class RoomTeleportButton : MonoBehaviour {
         setup = false;
     }
 
-    public void SetRoom(Transform room) {
-        roomPos = room.GetComponent<Room>().GetTeleportPos();
+    public void SetRoom(Room room) {
+        roomPos = room.GetTeleportPos();
 
         setup = true;
     }

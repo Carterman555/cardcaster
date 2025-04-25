@@ -29,4 +29,4 @@ MonoBehaviour:
     BaseProjectileDamageMult: 1
     AllDamageMult: 1
     MaxEssence: 6
-    HandSize: 6
+    HandSize: 3

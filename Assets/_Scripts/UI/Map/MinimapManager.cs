@@ -43,14 +43,15 @@ public class MinimapManager : StaticInstance<MinimapManager> {
     }
     private IEnumerator SpawnAllRoomsAndHallsCor() {
 
-        Room[] rooms = FindObjectsOfType<Room>();
-        foreach (Room room in rooms) {
-            SpawnRoom(room);
-        }
-
+        // spawn hallways first to appear under rooms, so doesn't look weird when selecting room to teleport to
         Hallway[] hallways = FindObjectsOfType<Hallway>();
         foreach (Hallway hallway in hallways) {
             SpawnHallway(hallway);
+        }
+
+        Room[] rooms = FindObjectsOfType<Room>();
+        foreach (Room room in rooms) {
+            SpawnRoom(room);
         }
 
         miniMapIconContainer.GetComponent<All1CreateUnifiedOutline>().CreateUnifiedOutline();

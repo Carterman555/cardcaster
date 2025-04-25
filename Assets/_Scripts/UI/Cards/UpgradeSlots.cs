@@ -8,9 +8,11 @@ public class UpgradeSlots : MonoBehaviour {
     [SerializeField] private Sprite unupgradedSprite;
     [SerializeField] private Sprite upgradedSprite;
 
+    private Image upgradeSlotToFill;
+
     public void Setup(ScriptablePersistentCard card) {
         card.UnsubOnLevelUp();
-        card.OnLevelUp += LevelUp;
+        card.OnLevelUp += OnLevelUp;
 
         for (int i = 0; i < upgradeSlots.Length; i++) {
             if (i < card.MaxLevel) {
@@ -28,9 +30,25 @@ public class UpgradeSlots : MonoBehaviour {
             }
 
         }
+
+        upgradeSlotToFill = null;
     }
 
-    private void LevelUp(int level) {
-        upgradeSlots[level - 1].sprite = upgradedSprite;
+    // seperate when the card levels up and when the upgrade slot image is updated for polish
+    private void OnLevelUp(int level) {
+        if (upgradeSlotToFill != null) {
+            Debug.LogError("On level up persistent, but upgradeSlotToFill is not null! FillInUpgradeSlot() was probably " +
+                "not played when it should've been");
+            return;
+        }
+
+        upgradeSlotToFill = upgradeSlots[level - 1];
+    }
+
+    // played by PersistentUpgradePlayer
+    public void TryFillInUpgradeSlot() {
+        if (upgradeSlotToFill != null) {
+            upgradeSlotToFill.sprite = upgradedSprite;
+        }
     }
 }

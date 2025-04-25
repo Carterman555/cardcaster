@@ -38,11 +38,6 @@ public class ScriptablePersistentCard : ScriptableCardBase {
 
         // unsub from all things that subbed to it
         OnLevelUp = null;
-
-        // remove all the stat modifiers it added
-        for (int i = 0; i < CurrentLevel; i++) {
-            StatsManager.RemovePlayerStatModifiers(statModifiersPerLevel);
-        }
     }
 
     public void UnsubOnLevelUp() {

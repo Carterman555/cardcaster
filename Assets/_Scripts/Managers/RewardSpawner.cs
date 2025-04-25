@@ -19,7 +19,7 @@ public class RewardSpawner : MonoBehaviour {
         CheckEnemiesCleared.OnEnemiesCleared += TrySpawnReward;
         BossManager.OnBossKilled += SpawnBossReward;
 
-        HandCard.OnAnyCardUsed_Button += OnUseCard;
+        HandCard.OnAnyCardUsed_HandCard += OnUseCard;
         GameSceneManager.OnStartGameLoadingCompleted += ResetUsedWisdomCard;
 
         chestChance = startingChestChance;
@@ -29,7 +29,7 @@ public class RewardSpawner : MonoBehaviour {
         CheckEnemiesCleared.OnEnemiesCleared -= TrySpawnReward;
         BossManager.OnBossKilled -= SpawnBossReward;
 
-        HandCard.OnAnyCardUsed_Button -= OnUseCard;
+        HandCard.OnAnyCardUsed_HandCard -= OnUseCard;
         GameSceneManager.OnStartGameLoadingCompleted -= ResetUsedWisdomCard;
     }
 

@@ -171,18 +171,23 @@ public class DeckManager : Singleton<DeckManager> {
         ShuffleDiscardToDeck();
     }
 
-    public void OnUseCard(int indexInHand, bool modifierCard = false) {
-
+    public void DiscardHandCard(int indexInHand) {
         ChangeEssenceAmount(-cardsInHand[indexInHand].Cost);
 
-        if (modifierCard) {
-            cardsInModifierStack.Add(cardsInHand[indexInHand]);
-            cardsInHand[indexInHand] = null;
-        }
-        else { // discard card
-            cardsInDiscard.Add(cardsInHand[indexInHand]);
-            cardsInHand[indexInHand] = null;
-        }
+        cardsInDiscard.Add(cardsInHand[indexInHand]);
+        cardsInHand[indexInHand] = null;
+
+        TryDrawCard(indexInHand);
+        TryDrawOtherCards();
+
+        RemoveHandGaps();
+    }
+
+    public void StackHandCard(int indexInHand) {
+        ChangeEssenceAmount(-cardsInHand[indexInHand].Cost);
+
+        cardsInModifierStack.Add(cardsInHand[indexInHand]);
+        cardsInHand[indexInHand] = null;
 
         TryDrawCard(indexInHand);
         TryDrawOtherCards();

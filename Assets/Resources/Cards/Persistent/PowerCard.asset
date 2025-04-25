@@ -48,7 +48,7 @@ MonoBehaviour:
   startUnlocked: 0
   unlockLevel: 2
   memoryCard: 0
-  maxLevel: 3
+  maxLevel: 1
   statModifiersPerLevel:
   - PlayerStatType: 14
     ModifyType: 0

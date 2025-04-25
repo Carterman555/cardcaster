@@ -8,10 +8,5 @@ public class ScriptableWisdomsHoldCard : ScriptablePersistentCard {
         base.Play(position);
         DeckManager.Instance.UpdateHandSize();
     }
-
-    // when wisdoms hold is trashed, it doesn't remove the hand size increase (base.OnRemoved would do that)
-    public override void OnRemoved() {
-        UnsubOnLevelUp();
-    }
 }
 

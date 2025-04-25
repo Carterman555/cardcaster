@@ -10,7 +10,7 @@ public class CardsUIManager : StaticInstance<CardsUIManager> {
     private List<HandCard> handCards = new();
 
     private void OnEnable() {
-        HandCard.OnAnyCardUsed_Button += OnCardUsed;
+        HandCard.OnAnyCardUsed_HandCard += OnCardUsed;
 
         DeckManager.OnGainCardToHand += DrawCardToEnd;
         DeckManager.OnTrashCardInHand += UpdateCardButtons;
@@ -22,7 +22,7 @@ public class CardsUIManager : StaticInstance<CardsUIManager> {
     }
 
     private void OnDisable() {
-        HandCard.OnAnyCardUsed_Button -= OnCardUsed;
+        HandCard.OnAnyCardUsed_HandCard -= OnCardUsed;
 
         DeckManager.OnGainCardToHand -= DrawCardToEnd;
         DeckManager.OnTrashCardInHand -= UpdateCardButtons;

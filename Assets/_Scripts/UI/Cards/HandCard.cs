@@ -1,5 +1,6 @@
 using DG.Tweening;
 using MoreMountains.Feedbacks;
+using Steamworks;
 using System;
 using System.Collections;
 using TMPro;
@@ -9,7 +10,7 @@ using UnityEngine.SceneManagement;
 
 public class HandCard : MonoBehaviour {
 
-    public static event Action<HandCard> OnAnyCardUsed_Button;
+    public static event Action<HandCard> OnAnyCardUsed_HandCard;
     public static event Action<ScriptableCardBase> OnAnyCardUsed_Card;
 
     public static event Action<ScriptableCardBase> OnAnyStartPlaying_Card;
@@ -30,6 +31,8 @@ public class HandCard : MonoBehaviour {
     [Header("Feedback Players")]
     [SerializeField] private MMF_Player toHandPlayer;
     [SerializeField] private MMF_Player useCardPlayer;
+    [SerializeField] private MMF_Player usePersistentCardPlayer;
+    [SerializeField] private MMF_Player maxPersistentCardPlayer;
     [SerializeField] private MMRotationShaker cantPlayShaker;
 
     [Header("Input Actions")]
@@ -166,15 +169,7 @@ public class HandCard : MonoBehaviour {
         toMovePos = Vector3.zero;
     }
 
-    private void OnUsedCard() {
-        if (GameStateManager.Instance.GetCurrentState() != GameState.Game) {
-            return;
-        }
 
-        OnAnyCardUsed_Card?.Invoke(card);
-        OnAnyCardUsed_Button?.Invoke(this);
-        playingAnyCard = false;
-    }
 
     public void OnStartPlayingCard() {
 
@@ -199,12 +194,46 @@ public class HandCard : MonoBehaviour {
 
         CurrentCardState = CardState.Played;
 
-        useCardPlayer.PlayFeedbacks();
+        bool trashingCard = false;
 
-        bool stackCard = card is ScriptableModifierCardBase;
-        DeckManager.Instance.OnUseCard(cardIndex, stackCard);
+        if (card is ScriptablePersistentCard persistentCard) {
+            if (persistentCard.CurrentLevel == persistentCard.MaxLevel) {
+                maxPersistentCardPlayer.PlayFeedbacks();
+                trashingCard = true; // trashes the card in OnUsedCard
+            }
+            else {
+                usePersistentCardPlayer.PlayFeedbacks();
+            }
+        }
+        else {
+            useCardPlayer.PlayFeedbacks();
+        }
+
+        if (!trashingCard) {
+            bool stackCard = card is ScriptableModifierCardBase;
+            if (stackCard) {
+                DeckManager.Instance.StackHandCard(cardIndex);
+            }
+            else {
+                DeckManager.Instance.DiscardHandCard(cardIndex);
+            }
+        }
 
         AudioManager.Instance.PlaySound(AudioManager.Instance.AudioClips.PlayCard, uiSound: false);
+    }
+
+    private void OnUsedCard() {
+        if (GameStateManager.Instance.GetCurrentState() != GameState.Game) {
+            return;
+        }
+
+        if (card is ScriptablePersistentCard persistentCard && persistentCard.CurrentLevel == persistentCard.MaxLevel) {
+            DeckManager.Instance.TrashCard(CardLocation.Hand, cardIndex);
+        }
+
+        OnAnyCardUsed_Card?.Invoke(card);
+        OnAnyCardUsed_HandCard?.Invoke(this);
+        playingAnyCard = false;
     }
 
     #region Visuals

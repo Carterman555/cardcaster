@@ -27,7 +27,8 @@ public class CardKeyboardInput : MonoBehaviour, IPointerEnterHandler, IPointerEx
         SubCancelEvents();
 
         //... make sure not following the mouse
-        StopFollowingMouse();
+        followMouse.enabled = false;
+        handCard.ShowPlayInput();
 
         moveCardOnHover = true;
     }
@@ -150,22 +151,18 @@ public class CardKeyboardInput : MonoBehaviour, IPointerEnterHandler, IPointerEx
         }
     }
 
-    private void StopFollowingMouse() {
-        followMouse.enabled = false;
-        moveCardOnHover = true;
-        handCard.ShowPlayInput();
-    }
-
     private void TryPlayCard() {
         if (setToCancel) {
             handCard.CancelCard(followMouse.enabled);
-            StopFollowingMouse();
+            moveCardOnHover = true;
         }
         else {
             handCard.TryPlayCard(MouseTracker.Instance.transform.position);
         }
 
-        moveCardOnHover = true;
+        followMouse.enabled = false;
+        handCard.ShowPlayInput();
+
 
         //... hide cancel card panel
         FeedbackPlayerOld.PlayInReverse("CancelCard");

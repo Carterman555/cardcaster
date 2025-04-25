@@ -1,3 +1,4 @@
+using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,6 +12,9 @@ public class AbilityIndicator : MonoBehaviour {
     private float totalDuration;
     private float durationLeft;
 
+    private bool completed;
+    private float SCALE_DURATION = 0.15f;
+
     public void Setup(ScriptableAbilityCardBase abilityCard) {
         CardType = abilityCard.CardType;
         iconImage.sprite = abilityCard.Sprite;
@@ -18,12 +22,28 @@ public class AbilityIndicator : MonoBehaviour {
 
         totalDuration = abilityCard.Stats.Duration;
         durationLeft = abilityCard.Stats.Duration;
+
+        transform.DOKill();
+        transform.DOScale(1f, SCALE_DURATION);
+
+        completed = false;
     }
 
     private void Update() {
+
+        if (completed) {
+            return;
+        }
+
         if (durationLeft < 0f) {
             AbilityIndicatorManager.Instance.RemoveIndicatorFromList(this);
-            gameObject.ReturnToPool();
+
+            transform.DOKill();
+            transform.DOScale(0f, SCALE_DURATION).OnComplete(() => {
+                gameObject.ReturnToPool();
+            });
+
+            completed = true;
         }
 
         durationLeft -= Time.deltaTime;

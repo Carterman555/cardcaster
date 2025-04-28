@@ -26,7 +26,7 @@ public class UnitEffect : MonoBehaviour {
     }
 
     // to remove all effects when unit is returned to pool
-    private void OnDisable() {
+    protected virtual void OnDisable() {
         Destroy(this);
     }
 }

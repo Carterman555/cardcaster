@@ -12,6 +12,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: DoomCharger
       objectReference: {fileID: 0}
+    - target: {fileID: 617611260473894985, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
+      propertyPath: m_Size.x
+      value: 0.47506475
+      objectReference: {fileID: 0}
+    - target: {fileID: 617611260473894985, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
+      propertyPath: m_Size.y
+      value: 0.65354276
+      objectReference: {fileID: 0}
+    - target: {fileID: 617611260473894985, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
+      propertyPath: m_Offset.x
+      value: 0.04199481
+      objectReference: {fileID: 0}
+    - target: {fileID: 617611260473894985, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
+      propertyPath: m_Offset.y
+      value: -0.17322862
+      objectReference: {fileID: 0}
     - target: {fileID: 621019451974682374, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
       propertyPath: m_Controller
       value: 

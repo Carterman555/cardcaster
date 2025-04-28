@@ -282,6 +282,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: Scattershot
       objectReference: {fileID: 0}
+    - target: {fileID: 617611260473894985, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
+      propertyPath: m_Size.x
+      value: 0.75100225
+      objectReference: {fileID: 0}
+    - target: {fileID: 617611260473894985, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
+      propertyPath: m_Size.y
+      value: 1.4735839
+      objectReference: {fileID: 0}
+    - target: {fileID: 617611260473894985, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
+      propertyPath: m_Offset.x
+      value: 0.1684396
+      objectReference: {fileID: 0}
+    - target: {fileID: 617611260473894985, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
+      propertyPath: m_Offset.y
+      value: -0.23679197
+      objectReference: {fileID: 0}
     - target: {fileID: 621019451974682374, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
       propertyPath: m_Controller
       value: 
@@ -557,6 +573,11 @@ MonoBehaviour:
   enemyAnim: {fileID: 7812749826847277617}
   hasWeapon: 0
   weaponAnim: {fileID: 0}
+  customSFX: 0
+  shootSFX:
+    Clips: []
+    Volume: 0
+    PitchVariation: 0
   bulletCount: 4
 --- !u!95 &7812749826847277617 stripped
 Animator:

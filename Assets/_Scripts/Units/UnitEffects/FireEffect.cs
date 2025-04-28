@@ -4,11 +4,13 @@ using UnityEngine;
 public class FireEffect : UnitEffect {
     private IDamagable damagable;
 
+    private ParticleSystem fireParticles;
+
     public override void Setup(bool removeAfterDuration = false, float duration = 0) {
         base.Setup(removeAfterDuration, duration);
 
         damagable = GetComponent<IDamagable>();
-        GetComponentInChildren<UnitEffectVisuals>().AddParticleEffect(AssetSystem.Instance.UnitFireParticles);
+        fireParticles = GetComponentInChildren<UnitEffectVisuals>().AddParticleEffect(AssetSystem.Instance.UnitFireParticles);
 
         StartCoroutine(Burn());
     }
@@ -22,6 +24,13 @@ public class FireEffect : UnitEffect {
                 damagePerSecond *= StatsManager.PlayerStats.AllDamageMult;
             }
             damagable.Damage(damagePerSecond);
+        }
+    }
+
+    protected override void OnDisable() {
+        base.OnDisable();
+        if (fireParticles != null) {
+            fireParticles.gameObject.TryReturnToPool();
         }
     }
 }

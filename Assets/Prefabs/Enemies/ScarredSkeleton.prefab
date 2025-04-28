@@ -451,6 +451,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: ScarredSkeleton
       objectReference: {fileID: 0}
+    - target: {fileID: 617611260473894985, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
+      propertyPath: m_Size.x
+      value: 0.6310444
+      objectReference: {fileID: 0}
+    - target: {fileID: 617611260473894985, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
+      propertyPath: m_Size.y
+      value: 1.4974066
+      objectReference: {fileID: 0}
+    - target: {fileID: 617611260473894985, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
+      propertyPath: m_Offset.x
+      value: 0.06285912
+      objectReference: {fileID: 0}
+    - target: {fileID: 617611260473894985, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
+      propertyPath: m_Offset.y
+      value: -0.23777139
+      objectReference: {fileID: 0}
     - target: {fileID: 621019451974682374, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
       propertyPath: m_Controller
       value: 
@@ -691,6 +707,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4308ccf77a796514ea8a0bff842a0a3c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  useExternalSpeedOverride: 0
 --- !u!114 &-5145827645362001838
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -722,6 +739,7 @@ MonoBehaviour:
     - {fileID: 8300000, guid: d3a7cbfeada2db946b1fb845e027c259, type: 3}
     - {fileID: 8300000, guid: 4d7ee1d6a147c204b8020c299a1dc6f4, type: 3}
     Volume: 0.267
+    PitchVariation: 0
 --- !u!114 &-6390835054937521312
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -738,6 +756,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1856
   castRadius: 0.5
+  checkSightInterval: 0.5
 --- !u!95 &7812749826847277617 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 621019451974682374, guid: d26e40392c042dc4d8c237ede2183746, type: 3}

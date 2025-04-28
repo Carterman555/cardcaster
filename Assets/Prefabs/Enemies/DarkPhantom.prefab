@@ -47,6 +47,22 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 617611260473894985, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
+      propertyPath: m_Size.x
+      value: 0.74836653
+      objectReference: {fileID: 0}
+    - target: {fileID: 617611260473894985, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
+      propertyPath: m_Size.y
+      value: 1.5081058
+      objectReference: {fileID: 0}
+    - target: {fileID: 617611260473894985, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
+      propertyPath: m_Offset.x
+      value: 0.014517337
+      objectReference: {fileID: 0}
+    - target: {fileID: 617611260473894985, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
+      propertyPath: m_Offset.y
+      value: -0.22501847
+      objectReference: {fileID: 0}
     - target: {fileID: 621019451974682374, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
       propertyPath: m_Controller
       value: 
@@ -305,6 +321,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4308ccf77a796514ea8a0bff842a0a3c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  useExternalSpeedOverride: 0
 --- !u!114 &5702455124387599294
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -329,6 +346,11 @@ MonoBehaviour:
   enemyAnim: {fileID: 7812749826847277617}
   hasWeapon: 0
   weaponAnim: {fileID: 0}
+  customSFX: 0
+  shootSFX:
+    Clips: []
+    Volume: 0
+    PitchVariation: 0
 --- !u!114 &1074727650544039705
 MonoBehaviour:
   m_ObjectHideFlags: 0

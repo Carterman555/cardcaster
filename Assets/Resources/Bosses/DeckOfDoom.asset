@@ -30,7 +30,7 @@ MonoBehaviour:
     AttackSpeed: 5
     KnockbackStrength: 1
     AttackRange: 0
-  <PossibleLevels>k__BackingField: 01000000
+  <PossibleLevels>k__BackingField: 03000000
   references:
     version: 2
     RefIds: []

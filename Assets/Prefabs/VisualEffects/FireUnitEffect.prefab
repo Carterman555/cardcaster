@@ -27,8 +27,8 @@ Transform:
   m_GameObject: {fileID: 6232416469060277083}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.08, y: 0.19, z: 0}
-  m_LocalScale: {x: 1, y: 1.1267605, z: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5667777853156523222}
@@ -4878,8 +4878,8 @@ Transform:
   m_GameObject: {fileID: 6847446951515788484}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.9199998, z: 0}
-  m_LocalScale: {x: 1, y: 1.1267605, z: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5667777853156523222}
@@ -9723,6 +9723,7 @@ GameObject:
   - component: {fileID: 264984613782256890}
   - component: {fileID: 6797801485266107839}
   - component: {fileID: 3168784243097430830}
+  - component: {fileID: -137944527370028564}
   m_Layer: 0
   m_Name: FireUnitEffect
   m_TagString: Untagged
@@ -10010,8 +10011,8 @@ ParticleSystem:
     startColor:
       serializedVersion: 2
       minMaxState: 2
-      minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 0.7924528, g: 0.7924528, b: 0.7924528, a: 0.43529412}
+      minColor: {r: 1, g: 1, b: 1, a: 0.49019608}
+      maxColor: {r: 0.7924528, g: 0.7924528, b: 0.7924528, a: 0.30588236}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -14568,3 +14569,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: faa5763c576886a45ab05afd75e7f426, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &-137944527370028564
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7965134482077225069}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 290e581e83c59904c9dae6b0d8cca2c1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mainParticles: {fileID: 6797801485266107839}
+  pixel2Particles: {fileID: 7873440193517708668}
+  glowParticles: {fileID: 3128676855941201467}

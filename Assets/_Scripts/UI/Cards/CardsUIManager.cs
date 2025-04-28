@@ -10,10 +10,8 @@ public class CardsUIManager : StaticInstance<CardsUIManager> {
     private List<HandCard> handCards = new();
 
     private void OnEnable() {
-        HandCard.OnAnyCardUsed_HandCard += OnCardUsed;
-
         DeckManager.OnGainCardToHand += DrawCardToEnd;
-        DeckManager.OnTrashCardInHand += UpdateCardButtons;
+        DeckManager.OnTrashCardInHand += OnTrashCard;
         DeckManager.OnReplaceCardInHand += UpdateCardButtons;
         DeckManager.OnClearCards += OnClearCards;
         DeckManager.OnHandSizeChanged_Size += OnHandSizeChanged;
@@ -22,10 +20,8 @@ public class CardsUIManager : StaticInstance<CardsUIManager> {
     }
 
     private void OnDisable() {
-        HandCard.OnAnyCardUsed_HandCard -= OnCardUsed;
-
         DeckManager.OnGainCardToHand -= DrawCardToEnd;
-        DeckManager.OnTrashCardInHand -= UpdateCardButtons;
+        DeckManager.OnTrashCardInHand -= OnTrashCard;
         DeckManager.OnReplaceCardInHand -= UpdateCardButtons;
         DeckManager.OnClearCards -= OnClearCards;
         DeckManager.OnHandSizeChanged_Size -= OnHandSizeChanged;
@@ -44,6 +40,14 @@ public class CardsUIManager : StaticInstance<CardsUIManager> {
         DrawCard(index);
 
         UpdateCardButtons();
+    }
+
+    private void OnTrashCard(bool usingCard) {
+        // if using the card (persistent trash when using), then don't update the card buttons because TryReplaceUsedCard and
+        // TrySpawnCardsToEnd still need to update the amount of card buttons. And using the card will invoke UpdateCardButtons
+        if (!usingCard) {
+            UpdateCardButtons();
+        }
     }
 
     private void OnClearCards() {
@@ -71,24 +75,25 @@ public class CardsUIManager : StaticInstance<CardsUIManager> {
         UpdateCardButtons();
     }
 
-    private void OnCardUsed(HandCard handCard) {
-
+    public void ReturnUsedCard(HandCard handCard) {
         // return the card button
         handCard.gameObject.ReturnToPool();
         handCards.Remove(handCard);
+    }
 
+    public void TryReplaceUsedCard(HandCard handCard) {
         // respawn the card button if it was replaced (most likely will)
         if (GetHandSize() > handCards.Count) {
             DrawCard(handCard.GetIndex());
         }
+    }
 
+    public void TrySpawnCardsToEnd() {
         // spawn more cards to end. This happens when modifier cards are used on an ability and so they all
         // become available to be drawn to the deck
         while (GetHandSize() > handCards.Count) {
             DrawCardToEnd();
         }
-
-        UpdateCardButtons();
     }
 
     // spawn in a new card and set it up
@@ -107,7 +112,7 @@ public class CardsUIManager : StaticInstance<CardsUIManager> {
         AudioManager.Instance.PlaySingleSound(AudioManager.Instance.AudioClips.DrawCard, uiSound: true);
     }
 
-    private void UpdateCardButtons() {
+    public void UpdateCardButtons() {
         UpdateScriptableCards();
         UpdateCardIndexes();
         UpdateCardPositions();

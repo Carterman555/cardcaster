@@ -3,10 +3,10 @@ using UnityEngine.UI;
 
 public class DisabledButtonFade : MonoBehaviour {
 
-    [SerializeField] private Image[] imagesToUpdate;
+    [SerializeField] private CanvasGroup cardImageCanvasGroup;
     [SerializeField] private float deactiveFade;
 
-    private bool deactiveColor;
+    private bool faded;
 
     private Button button;
 
@@ -15,20 +15,13 @@ public class DisabledButtonFade : MonoBehaviour {
     }
 
     private void Update() {
-        if (!deactiveColor && !button.interactable) {
-            SetFade(deactiveFade);
-            deactiveColor = true;
+        if (!faded && !button.interactable) {
+            cardImageCanvasGroup.alpha = deactiveFade;
+            faded = true;
         }
-        else if (deactiveColor && button.interactable) {
-            SetFade(1f);
-            deactiveColor = false;
-        }
-    }
-
-
-    private void SetFade(float fade) {
-        foreach (var image in imagesToUpdate) {
-            image.Fade(fade);
+        else if (faded && button.interactable) {
+            cardImageCanvasGroup.alpha = 1f;
+            faded = false;
         }
     }
 }

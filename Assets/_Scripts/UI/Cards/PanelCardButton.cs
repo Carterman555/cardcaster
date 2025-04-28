@@ -60,7 +60,7 @@ public class PanelCardButton : GameButton, ISelectHandler {
     }
 
     public void Trash() {
-        DeckManager.Instance.TrashCard(cardLocation, cardIndex);
+        DeckManager.Instance.TrashCard(cardLocation, cardIndex, usingCard: false);
         StartCoroutine(TrashCardVisual());
     }
 

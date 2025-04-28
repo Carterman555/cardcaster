@@ -10,7 +10,6 @@ using UnityEngine.SceneManagement;
 
 public class HandCard : MonoBehaviour {
 
-    public static event Action<HandCard> OnAnyCardUsed_HandCard;
     public static event Action<ScriptableCardBase> OnAnyCardUsed_Card;
 
     public static event Action<ScriptableCardBase> OnAnyStartPlaying_Card;
@@ -227,13 +226,20 @@ public class HandCard : MonoBehaviour {
             return;
         }
 
-        if (card is ScriptablePersistentCard persistentCard && persistentCard.CurrentLevel == persistentCard.MaxLevel) {
-            DeckManager.Instance.TrashCard(CardLocation.Hand, cardIndex);
+        playingAnyCard = false;
+
+        CardsUIManager.Instance.ReturnUsedCard(this);
+
+        bool maxedOutPersistent = card is ScriptablePersistentCard persistentCard && persistentCard.CurrentLevel == persistentCard.MaxLevel;
+        if (maxedOutPersistent) {
+            DeckManager.Instance.TrashCard(CardLocation.Hand, cardIndex, usingCard: true);
         }
 
+        CardsUIManager.Instance.TryReplaceUsedCard(this);
+        CardsUIManager.Instance.TrySpawnCardsToEnd();
+        CardsUIManager.Instance.UpdateCardButtons();
+
         OnAnyCardUsed_Card?.Invoke(card);
-        OnAnyCardUsed_HandCard?.Invoke(this);
-        playingAnyCard = false;
     }
 
     #region Visuals
@@ -263,10 +269,6 @@ public class HandCard : MonoBehaviour {
             if (modifierCard.StackType == StackType.NotStackable && AbilityManager.Instance.IsModifierActive(modifierCard)) {
                 hotkeyText.text = "<color=\"red\">Won't Apply!\r\n<size=20>Modifier Already Active</size>";
             }
-        }
-
-        if (card is ScriptableAbilityCardBase abilityCard) {
-
         }
     }
 

@@ -9,7 +9,7 @@ public class DeckManager : Singleton<DeckManager> {
 
     // events for the cardUIManager to update the card UI
     public static event Action OnGainCardToHand;
-    public static event Action OnTrashCardInHand;
+    public static event Action<bool> OnTrashCardInHand;
     public static event Action OnReplaceCardInHand;
     public static event Action OnClearCards;
 
@@ -221,7 +221,7 @@ public class DeckManager : Singleton<DeckManager> {
         }
     }
 
-    public void TrashCard(CardLocation cardLocation, int cardIndex) {
+    public void TrashCard(CardLocation cardLocation, int cardIndex, bool usingCard) {
         if (cardLocation == CardLocation.Deck) {
             cardsInDeck[cardIndex].OnRemoved();
             cardsInDeck.RemoveAt(cardIndex);
@@ -236,7 +236,7 @@ public class DeckManager : Singleton<DeckManager> {
                 cardsInHand[cardIndex] = null;
                 RemoveHandGaps();
             }
-            OnTrashCardInHand?.Invoke();
+            OnTrashCardInHand?.Invoke(usingCard);
         }
     }
 

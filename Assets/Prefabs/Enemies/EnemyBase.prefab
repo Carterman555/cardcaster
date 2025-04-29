@@ -201,7 +201,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   overrideKnockback: 0
   overrideKnockbackResistance: 0
-  stunTimeAfterKnockback: 0.5
+  stunTimeAfterKnockback: 0.25
 --- !u!114 &-5537846848555564483
 MonoBehaviour:
   m_ObjectHideFlags: 0

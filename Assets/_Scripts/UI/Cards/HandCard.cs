@@ -185,6 +185,10 @@ public class HandCard : MonoBehaviour {
     }
 
     public void TryPlayCard(Vector2 playPosition) {
+        if (GameStateManager.Instance.GetCurrentState() != GameState.Game) {
+            return;
+        }
+
         if (!card.CanPlay()) {
             return;
         }

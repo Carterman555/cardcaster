@@ -82,7 +82,6 @@ public class ModifierImage : MonoBehaviour {
                 // switch to red x
                 float scaleDuration = 0.15f;
 
-                transform.DOKill();
                 transform.DOScale(0, scaleDuration).OnComplete(() => {
                     image.sprite = xSprite;
                     transform.DOScale(1, scaleDuration);
@@ -112,7 +111,6 @@ public class ModifierImage : MonoBehaviour {
     private void SwitchToModifierImage() {
         float scaleDuration = 0.15f;
 
-        transform.DOKill();
         transform.DOScale(0, scaleDuration).OnComplete(() => {
             image.sprite = modifier.Sprite;
             transform.DOScale(1, scaleDuration);

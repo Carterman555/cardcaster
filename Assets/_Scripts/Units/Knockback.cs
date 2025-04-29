@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.AI;
 
 [RequireComponent(typeof(Rigidbody2D))]
 public class Knockback : MonoBehaviour {
@@ -11,9 +12,6 @@ public class Knockback : MonoBehaviour {
 
     [SerializeField] private bool overrideKnockback;
     [ConditionalHide("overrideKnockback")][SerializeField] private float overrideKnockbackResistance;
-
-    [SerializeField] private float stunTimeAfterKnockback;
-    private float stunTimerAfterKnockback;
 
     private float GetKnockbackResistance() {
         if (overrideKnockback) {
@@ -67,7 +65,6 @@ public class Knockback : MonoBehaviour {
         rb.velocity = knockbackForce * knockbackFactor * direction.normalized;
 
         applyingKnockback = true;
-        stunTimerAfterKnockback = stunTimeAfterKnockback;
     }
 
     public void FixedUpdate() {
@@ -77,13 +74,7 @@ public class Knockback : MonoBehaviour {
             rb.velocity = Vector2.MoveTowards(rb.velocity, Vector2.zero, knockbackDeacceleration * Time.fixedDeltaTime);
 
             if (rb.velocity == Vector2.zero) {
-                stunTimerAfterKnockback -= Time.fixedDeltaTime;
-                if (stunTimerAfterKnockback < 0) {
-                    applyingKnockback = false;
-                }
-            }
-            else {
-                stunTimerAfterKnockback = stunTimeAfterKnockback;
+                applyingKnockback = false;
             }
         }
     }

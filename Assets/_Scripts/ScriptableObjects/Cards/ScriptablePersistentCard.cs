@@ -24,6 +24,14 @@ public class ScriptablePersistentCard : ScriptableCardBase {
         if (CurrentLevel < maxLevel) {
             StatsManager.AddPlayerStatModifiers(statModifiersPerLevel);
             CurrentLevel++;
+
+            if (CurrentLevel < maxLevel) {
+                AudioManager.Instance.PlaySound(AudioManager.Instance.AudioClips.UpgradePersisent);
+            }
+            else if (CurrentLevel == maxLevel) {
+                AudioManager.Instance.PlaySound(AudioManager.Instance.AudioClips.MaxPersisent);
+            }
+
             OnLevelUp?.Invoke(CurrentLevel);
         }
     }

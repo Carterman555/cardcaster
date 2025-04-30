@@ -1,9 +1,16 @@
+using DG.Tweening;
+using QFSW.QC;
 using UnityEngine;
 
 public class HealerMinion : Enemy {
 
     private BounceMoveBehaviour bounceMoveBehaviour;
     private Rigidbody2D rb;
+
+    [SerializeField] private float jumpPower;
+    [SerializeField] private float jumpDuration;
+
+    private bool jumping;
 
     protected override void Awake() {
         base.Awake();
@@ -15,37 +22,23 @@ public class HealerMinion : Enemy {
     protected override void OnEnable() {
         base.OnEnable();
 
+        jumping = false;
         bounceMoveBehaviour.enabled = true;
-        gettingSucked = false;
-    }
-
-    [Header("Getting Sucked")]
-    private Vector2 suckCenter;
-    private bool gettingSucked;
-    [SerializeField] private float suckAcceleration;
-    [SerializeField] private float maxSuckSpeed;
-
-    public void SuckToChonk(Vector2 suckCenter) {
-        bounceMoveBehaviour.enabled = false;
-
-        this.suckCenter = suckCenter;
-        gettingSucked = true;
-
-        GetComponentInChildren<SpriteRenderer>().sortingOrder = 1;
-    }
-
-    public void StopSuck() {
-        bounceMoveBehaviour.enabled = true;
-        gettingSucked = false;
 
         GetComponentInChildren<SpriteRenderer>().sortingOrder = 0;
     }
 
-    private void FixedUpdate() {
-        if (gettingSucked) {
-            Vector2 suckDirection = (suckCenter - (Vector2)transform.position).normalized;
-            rb.velocity = Vector2.MoveTowards(rb.velocity, suckDirection * maxSuckSpeed, suckAcceleration * Time.fixedDeltaTime);
+    private void OnTriggerEnter2D(Collider2D collision) {
+        if (!jumping && collision.name == "HealerMinionTrigger") {
+            jumping = true;
+            bounceMoveBehaviour.enabled = false;
+
+            GetComponentInChildren<SpriteRenderer>().sortingOrder = 1;
+
+            transform.DOJump(collision.transform.position, jumpPower, numJumps: 1, jumpDuration).SetEase(Ease.Linear).OnComplete(() => {
+                // TODO - heal drchonk (drChonk.Heal())
+                gameObject.ReturnToPool();
+            });
         }
     }
-
 }

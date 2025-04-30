@@ -64,12 +64,13 @@ public class CardsUIManager : StaticInstance<CardsUIManager> {
             handCards.RemoveAt(handCards.Count - 1);
         }
 
-        bool canDrawCard = DeckManager.Instance.GetCardsInHand()[handCards.Count] != null;
-        while (handSize > handCards.Count && canDrawCard) {
+        // if space in hand and card to draw
+        bool canDrawCard = handSize > handCards.Count && DeckManager.Instance.GetCardsInHand()[handCards.Count] != null;
+        while (canDrawCard) {
             int index = handCards.Count;
             DrawCard(index);
 
-            canDrawCard = DeckManager.Instance.GetCardsInHand()[handCards.Count] != null;
+            canDrawCard = handSize > handCards.Count && DeckManager.Instance.GetCardsInHand()[handCards.Count] != null;
         }
 
         UpdateCardButtons();

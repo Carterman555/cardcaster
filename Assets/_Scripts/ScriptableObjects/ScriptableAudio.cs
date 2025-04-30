@@ -47,6 +47,9 @@ public class ScriptableAudio : ScriptableObject {
     [SerializeField] private AudioClips drChonkEat;
     public AudioClips DrChonkEat => drChonkEat;
 
+    [SerializeField] private AudioClips drChonkSmash;
+    public AudioClips DrChonkSmash => drChonkSmash;
+
     [SerializeField] private AudioClips drChonkHeal;
     public AudioClips DrChonkHeal => drChonkHeal;
 

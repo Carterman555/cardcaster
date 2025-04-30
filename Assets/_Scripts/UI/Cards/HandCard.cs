@@ -184,6 +184,7 @@ public class HandCard : MonoBehaviour {
         OnAnyStartPlaying_Card?.Invoke(card);
     }
 
+    // played by mmf_player
     public void TryPlayCard(Vector2 playPosition) {
         if (GameStateManager.Instance.GetCurrentState() != GameState.Game) {
             return;

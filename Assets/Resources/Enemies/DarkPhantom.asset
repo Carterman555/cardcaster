@@ -18,11 +18,10 @@ MonoBehaviour:
   <Stats>k__BackingField:
     MaxHealth: 12
     KnockbackResistance: 0.75
-    MoveSpeed: 3
+    MoveSpeed: 2.5
     Damage: 3
-    AttackSpeed: 0.5
+    AttackSpeed: 0.3
     KnockbackStrength: 1
-    WalkSpeed: 0.5
     AttackRange: 4
   <Difficulty>k__BackingField: 1
   <Tags>k__BackingField: 2

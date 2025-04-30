@@ -144,6 +144,16 @@ MonoBehaviour:
     - {fileID: 8300000, guid: 93521d69466bf984592a3cc3f273b889, type: 3}
     Volume: 1
     PitchVariation: 0
+  upgradePersisent:
+    Clips:
+    - {fileID: 8300000, guid: 092f371c48c52794f8313148693700f8, type: 3}
+    Volume: 1
+    PitchVariation: 0.1
+  maxPersisent:
+    Clips:
+    - {fileID: 8300000, guid: 559a1d7bd2f5f1f4295bc12280e75be2, type: 3}
+    Volume: 1
+    PitchVariation: 0.1
   openDoor:
     Clips:
     - {fileID: 8300000, guid: 6e7f495bda3eb0646873170c39fdf419, type: 3}

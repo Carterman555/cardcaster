@@ -7,6 +7,15 @@ public class FleePlayerBehavior : MonoBehaviour, IEffectable, IEnemyMovement {
     private NavMeshAgent agent;
     private Knockback knockback;
 
+    private bool movingToTargetPos;
+    private Vector2 targetPosition;
+
+    [SerializeField] private SpriteRenderer debugTargetPosCircle;
+    [SerializeField] private SpriteRenderer debugTryTargetPosCirclePrefab;
+
+    [SerializeField] private float searchDistance;
+    [SerializeField] private float radius;
+
     private void Awake() {
         hasStats = GetComponent<IHasEnemyStats>();
 
@@ -25,35 +34,52 @@ public class FleePlayerBehavior : MonoBehaviour, IEffectable, IEnemyMovement {
 
         agent.isStopped = false;
         agent.speed = hasStats.EnemyStats.MoveSpeed;
-        TryEscapeFromPlayer();
+
+        if (movingToTargetPos) {
+            float distanceToTargetThreshold = 1f;
+            bool nearTargetPos = Vector2.Distance(transform.position, targetPosition) < distanceToTargetThreshold;
+            if (nearTargetPos) {
+                movingToTargetPos = false;
+            }            
+        }
+        else {
+            if (TryFindFleePosition()) {
+                agent.SetDestination(targetPosition);
+                debugTargetPosCircle.transform.position = targetPosition;
+                movingToTargetPos = true;
+            }
+        }
     }
 
-    private void TryEscapeFromPlayer() {
-        Vector3 directionToPlayer = PlayerMovement.Instance.CenterPos - transform.position;
-        Vector3 desiredEscapeDirection = -directionToPlayer.normalized;
+    private bool TryFindFleePosition() {
+        Vector2 directionToPlayer = PlayerMovement.Instance.CenterPos - transform.position;
+        Vector2 desiredEscapeDirection = -directionToPlayer.normalized;
 
-        int maxAttempts = 10;
+        float degreeIncrement = 10f;
+        int maxAttempts = Mathf.RoundToInt(180f / degreeIncrement);
         for (int i = 0; i < maxAttempts; i++) {
 
-            float runAwayDistance = 10f;
+            float degrees = i * degreeIncrement;
 
-            // Calculate potential escape position
-            Vector3 potentialEscapePosition = transform.position + desiredEscapeDirection * runAwayDistance;
-
-            // Check if the position is on the NavMesh
-            NavMeshHit hit;
-            if (NavMesh.SamplePosition(potentialEscapePosition, out hit, runAwayDistance, NavMesh.AllAreas)) {
-                // Valid position found, set it as the destination
-                agent.SetDestination(hit.position);
-                return;
+            Vector3 escapeDirection1 = Quaternion.Euler(0, 0, degrees) * desiredEscapeDirection;
+            Vector3 potentialEscapePosition1 = transform.position + escapeDirection1 * searchDistance;
+            debugTryTargetPosCirclePrefab.Spawn(potentialEscapePosition1, transform);
+            if (NavMesh.SamplePosition(potentialEscapePosition1, out NavMeshHit hit, radius, NavMesh.AllAreas)) {
+                targetPosition = hit.position;
+                return true;
             }
 
-            // If we reach here, the position wasn't valid. Adjust the direction slightly and try again.
-            desiredEscapeDirection = Quaternion.Euler(0, Random.Range(-45f, 45f), 0) * desiredEscapeDirection;
+            Vector3 escapeDirection2 = Quaternion.Euler(0, 0, -degrees) * desiredEscapeDirection;
+            Vector3 potentialEscapePosition2 = transform.position + escapeDirection2 * searchDistance;
+            debugTryTargetPosCirclePrefab.Spawn(potentialEscapePosition2, transform);
+            if (NavMesh.SamplePosition(potentialEscapePosition2, out NavMeshHit hit2, radius, NavMesh.AllAreas)) {
+                targetPosition = hit2.position;
+                return true;
+            }
         }
 
-        // If we've exhausted all attempts, just don't move
-        Debug.LogWarning("Couldn't find a valid escape position");
+        targetPosition = Vector3.zero;
+        return false;
     }
 
     private void OnDisable() {

@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Unity.VisualScripting;
@@ -12,7 +13,7 @@ public class DrChonk : MonoBehaviour, IHasEnemyStats, IBoss {
     private DrChonkState currentState;
     private DrChonkState previousActionState;
 
-    private readonly DrChonkState[] actionStates = new DrChonkState[] { DrChonkState.EatMinions, DrChonkState.Roll, DrChonkState.ShootMinions };
+    private readonly DrChonkState[] actionStates = new DrChonkState[] { DrChonkState.Smash, DrChonkState.Roll, DrChonkState.ShootMinions };
 
     [SerializeField] private List<DrChunkStateDurationPair> stateDurationsList;
     private Dictionary<DrChonkState, RandomFloat> stateDurations = new();
@@ -21,9 +22,12 @@ public class DrChonk : MonoBehaviour, IHasEnemyStats, IBoss {
     [SerializeField] private Transform centerPoint;
 
     [SerializeField] private Animator anim;
+    private EnemyHealth health;
+
+    [SerializeField] private float healAmount;
 
     [SerializeField] private bool debugState;
-    [ConditionalHide("debugState")] [SerializeField] private DrChonkState stateToDebug;
+    [ConditionalHide("debugState")][SerializeField] private DrChonkState stateToDebug;
 
     private void Awake() {
         health = GetComponent<EnemyHealth>();
@@ -48,7 +52,6 @@ public class DrChonk : MonoBehaviour, IHasEnemyStats, IBoss {
         bounceMoveBehaviour.enabled = false;
         straightShootBehavior.enabled = false;
 
-        SubEatMinionMethods();
         SubShootMinionMethods();
         SubBounceMethods();
 
@@ -56,7 +59,6 @@ public class DrChonk : MonoBehaviour, IHasEnemyStats, IBoss {
         SpawnStartingMinions();
     }
     private void OnDisable() {
-        UnsubEatMinionMethods();
         UnsubShootMinionMethods();
         UnsubBounceMethods();
 
@@ -85,7 +87,7 @@ public class DrChonk : MonoBehaviour, IHasEnemyStats, IBoss {
 
         if (currentState == DrChonkState.BetweenStates) {
         }
-        else if (currentState == DrChonkState.EatMinions) {
+        else if (currentState == DrChonkState.Smash) {
         }
         else if (currentState == DrChonkState.Roll) {
         }
@@ -115,15 +117,8 @@ public class DrChonk : MonoBehaviour, IHasEnemyStats, IBoss {
         if (previousState == DrChonkState.BetweenStates) {
 
         }
-        else if (previousState == DrChonkState.EatMinions) {
+        else if (previousState == DrChonkState.Smash) {
 
-            OnStopSucking();
-
-            // close mouth
-            anim.SetBool("mouthOpen", false);
-            suckEffect.SetActive(false);
-
-            suckAudioSource.Stop();
         }
         else if (previousState == DrChonkState.Roll) {
             bounceMoveBehaviour.enabled = false;
@@ -141,12 +136,9 @@ public class DrChonk : MonoBehaviour, IHasEnemyStats, IBoss {
         if (newState == DrChonkState.BetweenStates) {
 
         }
-        else if (newState == DrChonkState.EatMinions) {
-            // open mouth
-            anim.SetBool("mouthOpen", true);
-            suckEffect.SetActive(true);
-
-            suckAudioSource.Play();
+        else if (newState == DrChonkState.Smash) {
+            slowSmashing = true;
+            StartCoroutine(SmashUpdate());
         }
         else if (newState == DrChonkState.Roll) {
             bounceMoveBehaviour.enabled = true;
@@ -182,70 +174,72 @@ public class DrChonk : MonoBehaviour, IHasEnemyStats, IBoss {
         }
     }
 
-    #region Eating Minions
-
-    [Header("Eat Minions")]
-    [SerializeField] private TriggerContactTracker suckMinionTrigger;
-    [SerializeField] private TriggerContactTracker eatMinionTrigger;
-
-    [SerializeField] private Transform suckCenter;
-
-    [SerializeField] private float eatMinionHealAmount;
-
-    [SerializeField] private GameObject suckEffect;
-    [SerializeField] private ParticleSystem healEffectPrefab;
-
-    [SerializeField] private AudioSource suckAudioSource;
-
-    private List<HealerMinion> healersSucking = new();
-
-    private EnemyHealth health;
-
-    private void SubEatMinionMethods() {
-        suckMinionTrigger.OnEnterContact_GO += TrySuckMinion;
-        eatMinionTrigger.OnEnterContact_GO += TryEatMinion;
+    public void Heal() {
+        health.Heal(healAmount);
+        AudioManager.Instance.PlaySound(AudioManager.Instance.AudioClips.DrChonkHeal);
     }
 
-    private void UnsubEatMinionMethods() {
-        suckMinionTrigger.OnEnterContact_GO -= TrySuckMinion;
-        eatMinionTrigger.OnEnterContact_GO -= TryEatMinion;
-    }
+    #region Smash
 
-    private void TrySuckMinion(GameObject collisionObject) {
-        if (currentState == DrChonkState.EatMinions) {
-            if (collisionObject.TryGetComponent(out HealerMinion healerMinion)) {
-                // suck in minion
-                healerMinion.SuckToChonk(suckCenter.position);
-                healersSucking.Add(healerMinion);
+    [Header("Smash")]
+    [SerializeField] private StraightMovement shockwaveProjectile;
+    [SerializeField] private int projectileCount;
+    [SerializeField] private float shockwaveDamage;
+    [SerializeField] private float shockwaveKnockbackStrength;
+
+    [SerializeField] private RandomInt slowSmashAmount;
+    [SerializeField] private RandomInt quickSmashAmount;
+
+    [SerializeField] private float slowSmashCooldown;
+    [SerializeField] private float quickSmashCooldown;
+
+    private bool slowSmashing;
+
+    private bool thisShotIsAlternate;
+
+    private IEnumerator SmashUpdate() {
+        while (currentState == DrChonkState.Smash) {
+
+            int amount = slowSmashing ? slowSmashAmount.Randomize() : quickSmashAmount.Randomize();
+            float cooldown = slowSmashing ? slowSmashCooldown : quickSmashCooldown;
+            for (int i = 0; i < amount; i++) {
+                yield return new WaitForSeconds(cooldown);
+
+                anim.SetTrigger("smash");
             }
+
+            slowSmashing = !slowSmashing;
         }
     }
 
-    private void TryEatMinion(GameObject collisionObject) {
-        if (currentState == DrChonkState.EatMinions) {
-            if (collisionObject.TryGetComponent(out HealerMinion healerMinion)) {
-                // eat minion
-                collisionObject.ReturnToPool();
+    // played by animation
+    public void CreateShockwaves() {
 
-                // heal
-                health.Heal(eatMinionHealAmount);
+        // Calculate the angle between each shockwave
+        float angleStep = 360f / projectileCount;
+        float angle = 0f;
 
-                // heal effect
-                healEffectPrefab.Spawn(centerPoint.position, Containers.Instance.Effects);
-
-                healersSucking.Remove(healerMinion);
-
-                AudioManager.Instance.PlaySound(AudioManager.Instance.AudioClips.DrChonkEat);
-                AudioManager.Instance.PlaySound(AudioManager.Instance.AudioClips.DrChonkHeal);
-            }
+        if (thisShotIsAlternate) {
+            angle = angleStep * 0.5f;
         }
-    }
+        thisShotIsAlternate = !thisShotIsAlternate;
 
-    private void OnStopSucking() {
-        foreach (HealerMinion minion in healersSucking) {
-            minion.StopSuck();
+        for (int i = 0; i < projectileCount; i++) {
+            Vector2 projectileDirection = angle.RotationToDirection();
+
+            float distanceFromCenter = 1f;
+
+            Vector2 spawnPosition = (Vector2)transform.position + projectileDirection * distanceFromCenter;
+            StraightMovement projectile = shockwaveProjectile
+                .Spawn(spawnPosition, Containers.Instance.Projectiles);
+            projectile.Setup(projectileDirection);
+            projectile.GetComponent<DamageOnContact>().Setup(shockwaveDamage, shockwaveKnockbackStrength);
+            projectile.transform.up = projectileDirection;
+
+            angle += angleStep;
         }
-        healersSucking.Clear();
+
+        AudioManager.Instance.PlaySingleSound(AudioManager.Instance.AudioClips.DrChonkSmash);
     }
 
     #endregion
@@ -315,7 +309,7 @@ public class DrChonk : MonoBehaviour, IHasEnemyStats, IBoss {
 [Serializable]
 public enum DrChonkState {
     BetweenStates = 0,
-    EatMinions = 1,
+    Smash = 1,
     Roll = 2,
     ShootMinions = 3
 }

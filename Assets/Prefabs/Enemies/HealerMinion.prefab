@@ -181,11 +181,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3807084815282453126, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1.259635
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 3807084815282453126, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.32599497
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3807084815282453126, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
       propertyPath: m_LocalPosition.z
@@ -414,8 +414,10 @@ MonoBehaviour:
   scriptableEnemy: {fileID: 11400000, guid: eec324ac9eafb674eb8929d0f27e8fbb, type: 2}
   playerTracker: {fileID: 4392500090413742484}
   anim: {fileID: 7812749826847277617}
-  suckAcceleration: 2
-  maxSuckSpeed: 4
+  jumpPower: 2
+  jumpDuration: 0.75
+  jumpEase: 1
+  debugJumpPos: {x: 6, y: 0}
 --- !u!114 &-7541718081894400129
 MonoBehaviour:
   m_ObjectHideFlags: 0

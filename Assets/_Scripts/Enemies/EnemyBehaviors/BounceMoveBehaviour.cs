@@ -18,10 +18,14 @@ public class BounceMoveBehaviour : MonoBehaviour, IEffectable, IEnemyMovement {
     [SerializeField] private Transform centerPoint;
 
     [SerializeField] private bool hasBounceVariation;
-    [ConditionalHide("hasBounceVariation")][SerializeField] private float bounceVariation;
+    [SerializeField, ConditionalHide("hasBounceVariation")] private float bounceVariation;
 
     [SerializeField] private bool twoWayFacing = true;
-    [ConditionalHideReversed("twoWayFacing")] [SerializeField] private float facingAngleOffset;
+    [SerializeField, ConditionalHideReversed("twoWayFacing")] private float facingAngleOffset;
+    
+    [SerializeField] private bool hasFacingTarget;
+    [SerializeField, ConditionalHide("hasFacingTarget")] private Transform facingTarget;
+    private Transform FacingTransform => hasFacingTarget ? facingTarget : transform;
 
     [SerializeField] private bool hasMoveSFX;
     [ConditionalHide("hasMoveSFX")][SerializeField] private AudioClips moveSFX;
@@ -47,7 +51,7 @@ public class BounceMoveBehaviour : MonoBehaviour, IEffectable, IEnemyMovement {
     private void OnDisable() {
         // reset direction facing
         if (!twoWayFacing) {
-            transform.rotation = Quaternion.identity;
+            FacingTransform.rotation = Quaternion.identity;
         }
 
         rb.velocity = Vector2.zero;
@@ -63,6 +67,11 @@ public class BounceMoveBehaviour : MonoBehaviour, IEffectable, IEnemyMovement {
         float randomDegrees = UnityEngine.Random.Range(0f, 360f);
         velocity.RotateDirection(randomDegrees);
 
+        UpdateFacing(velocity);
+    }
+
+    public void SetDirection(Vector2 direction) {
+        velocity = direction * hasStats.EnemyStats.MoveSpeed;
         UpdateFacing(velocity);
     }
 
@@ -128,16 +137,16 @@ public class BounceMoveBehaviour : MonoBehaviour, IEffectable, IEnemyMovement {
         else {
             Vector2 faceDirection = velocity.normalized;
             faceDirection.RotateDirection(facingAngleOffset);
-            transform.up = faceDirection;
+            FacingTransform.up = faceDirection;
         }
     }
 
     private void FaceRight() {
-        transform.rotation = Quaternion.Euler(new Vector3(transform.rotation.eulerAngles.x, 0f, transform.rotation.eulerAngles.z));
+        FacingTransform.rotation = Quaternion.Euler(new Vector3(transform.rotation.eulerAngles.x, 0f, transform.rotation.eulerAngles.z));
     }
 
     private void FaceLeft() {
-        transform.rotation = Quaternion.Euler(new Vector3(transform.rotation.eulerAngles.x, 180f, transform.rotation.eulerAngles.z));
+        FacingTransform.rotation = Quaternion.Euler(new Vector3(transform.rotation.eulerAngles.x, 180f, transform.rotation.eulerAngles.z));
     }
 
     private IEnumerator MoveSFX() {

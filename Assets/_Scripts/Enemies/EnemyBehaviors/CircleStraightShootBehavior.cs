@@ -5,6 +5,7 @@ public class CircleStraightShootBehavior : MonoBehaviour {
     [SerializeField] private StraightMovement projectilePrefab;
     [SerializeField] private int projectileCount;
     [SerializeField] private float attackCooldownMult = 1f;
+    [SerializeField] private float distanceFromCenter = 1f;
 
     [SerializeField] private bool alternateShootDirection;
     private bool thisShotIsAlternate;
@@ -63,8 +64,6 @@ public class CircleStraightShootBehavior : MonoBehaviour {
 
         for (int i = 0; i < projectileCount; i++) {
             Vector2 projectileDirection = angle.RotationToDirection();
-
-            float distanceFromCenter = 1f;
 
             Vector2 spawnPosition = (Vector2)transform.position + projectileDirection * distanceFromCenter;
             StraightMovement projectile = projectilePrefab

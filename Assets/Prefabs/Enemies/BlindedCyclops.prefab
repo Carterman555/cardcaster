@@ -390,9 +390,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cff5b0e8fc033b44283230e5770bc028, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  projectilePrefab: {fileID: 6752470997021300203, guid: e69148efdcfdb6b44ae087b03545a617, type: 3}
+  projectilePrefab: {fileID: 6752470997021300203, guid: 64cd7184d7534b641a04726457de183e, type: 3}
   projectileCount: 4
   attackCooldownMult: 2
+  distanceFromCenter: 1.5
   alternateShootDirection: 1
   anim: {fileID: 7812749826847277617}
   specialAttack: 1

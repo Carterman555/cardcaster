@@ -1,4 +1,5 @@
 using DG.Tweening;
+using Mono.CSharp;
 using UnityEngine;
 
 /// <summary>
@@ -54,7 +55,7 @@ public class ScriptableTeleportCard : ScriptableAbilityCardBase {
         }
         else {
             Vector2 validPosition = RaycastToFindPosition(position);
-            PlayerMovement.Instance.transform.position = position;
+            PlayerMovement.Instance.transform.position = validPosition;
         }
 
         base.Stop();
@@ -81,13 +82,13 @@ public class ScriptableTeleportCard : ScriptableAbilityCardBase {
             }
         }
 
-        // If no valid point is found, return the player's current position
         return playerPosition;
     }
 
     public bool IsValidTeleportPos(Vector2 pos) {
         bool validPos = new RoomPositionHelper()
             .SetObstacleAvoidance(1f)
+            .SetMustBeOnGroundTile(true)
             .IsValidPosition(pos);
 
         return validPos;

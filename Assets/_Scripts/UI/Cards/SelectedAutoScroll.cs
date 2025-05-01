@@ -17,9 +17,11 @@ public class SelectedAutoScroll : MonoBehaviour
     }
 
     private void UpdateScroll(GameObject selectedObject) {
-        if (selectedObject != null) {
-            HandleScrollDown();
-            HandleScrollUp();
+        if (InputManager.Instance.GetControlScheme() == ControlSchemeType.Controller) {
+            if (selectedObject != null) {
+                HandleScrollDown();
+                HandleScrollUp();
+            }
         }
     }
 

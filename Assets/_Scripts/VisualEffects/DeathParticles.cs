@@ -12,6 +12,7 @@ public class DeathParticles : MonoBehaviour {
     [ConditionalHide("hasParticlePoint")][SerializeField] private Transform particlePoint;
 
     [SerializeField] private bool playOnDeathEvent = true;
+    [SerializeField] private bool playOnDisable = false;
 
     [SerializeField] private bool playSFX;
     [ConditionalHide("playSFX")] [SerializeField] private AudioClips deathSFX;
@@ -28,6 +29,10 @@ public class DeathParticles : MonoBehaviour {
 
     private void OnDisable() {
         health.DeathEventTrigger.RemoveListener(GenerateParticles);
+
+        if (playOnDisable && !Helpers.GameStopping()) {
+            GenerateParticles();
+        }
     }
 
     public void GenerateParticles() {

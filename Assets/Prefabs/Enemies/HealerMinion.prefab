@@ -312,6 +312,14 @@ PrefabInstance:
       value: 0.28624672
       objectReference: {fileID: 0}
     - target: {fileID: 8999610040005324296, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
+      propertyPath: playOnDisable
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8999610040005324296, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
+      propertyPath: playOnDeathEvent
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8999610040005324296, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
       propertyPath: deathParticlesColor.b
       value: 0.34901962
       objectReference: {fileID: 0}
@@ -416,8 +424,6 @@ MonoBehaviour:
   anim: {fileID: 7812749826847277617}
   jumpPower: 2
   jumpDuration: 0.75
-  jumpEase: 1
-  debugJumpPos: {x: 6, y: 0}
 --- !u!114 &-7541718081894400129
 MonoBehaviour:
   m_ObjectHideFlags: 0

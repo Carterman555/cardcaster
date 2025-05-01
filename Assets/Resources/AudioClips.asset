@@ -104,6 +104,11 @@ MonoBehaviour:
     - {fileID: 8300000, guid: 90f2cb03e105f3d439ac87db9f4a2ac5, type: 3}
     Volume: 1
     PitchVariation: 0
+  drChonkSmash:
+    Clips:
+    - {fileID: 8300000, guid: 37d3291e066408a43bcf60d651991f9a, type: 3}
+    Volume: 1
+    PitchVariation: 0
   drChonkHeal:
     Clips:
     - {fileID: 8300000, guid: f11ea60fd259cad4e820d3eaf8f0a5cc, type: 3}

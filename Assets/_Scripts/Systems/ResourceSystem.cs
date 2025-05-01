@@ -91,7 +91,18 @@ public class ResourceSystem : Singleton<ResourceSystem> {
         return default;
 
         float GetCardWeight(CardType cardType) {
-            Rarity rarity = AllCards.FirstOrDefault(c => c.CardType == cardType).Rarity;
+            Rarity cardRarity = AllCards.FirstOrDefault(c => c.CardType == cardType).Rarity;
+            float weight = GetRarityWeight(cardRarity);
+
+            // persistent cards are half as likely
+            if (AllCards.First(c => c.CardType == cardType) is ScriptablePersistentCard) {
+                weight *= 0.5f;
+            }
+
+            return weight;
+        }
+
+        float GetRarityWeight(Rarity rarity) {
             switch (rarity) {
                 case Rarity.Common: return 1f;
                 case Rarity.Uncommon: return 0.66f;

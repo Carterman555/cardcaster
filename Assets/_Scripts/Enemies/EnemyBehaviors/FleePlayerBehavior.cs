@@ -10,9 +10,6 @@ public class FleePlayerBehavior : MonoBehaviour, IEffectable, IEnemyMovement {
     private bool movingToTargetPos;
     private Vector2 targetPosition;
 
-    [SerializeField] private SpriteRenderer debugTargetPosCircle;
-    [SerializeField] private SpriteRenderer debugTryTargetPosCirclePrefab;
-
     [SerializeField] private float searchDistance;
     [SerializeField] private float radius;
 
@@ -45,7 +42,6 @@ public class FleePlayerBehavior : MonoBehaviour, IEffectable, IEnemyMovement {
         else {
             if (TryFindFleePosition()) {
                 agent.SetDestination(targetPosition);
-                debugTargetPosCircle.transform.position = targetPosition;
                 movingToTargetPos = true;
             }
         }
@@ -63,7 +59,6 @@ public class FleePlayerBehavior : MonoBehaviour, IEffectable, IEnemyMovement {
 
             Vector3 escapeDirection1 = Quaternion.Euler(0, 0, degrees) * desiredEscapeDirection;
             Vector3 potentialEscapePosition1 = transform.position + escapeDirection1 * searchDistance;
-            debugTryTargetPosCirclePrefab.Spawn(potentialEscapePosition1, transform);
             if (NavMesh.SamplePosition(potentialEscapePosition1, out NavMeshHit hit, radius, NavMesh.AllAreas)) {
                 targetPosition = hit.position;
                 return true;
@@ -71,7 +66,6 @@ public class FleePlayerBehavior : MonoBehaviour, IEffectable, IEnemyMovement {
 
             Vector3 escapeDirection2 = Quaternion.Euler(0, 0, -degrees) * desiredEscapeDirection;
             Vector3 potentialEscapePosition2 = transform.position + escapeDirection2 * searchDistance;
-            debugTryTargetPosCirclePrefab.Spawn(potentialEscapePosition2, transform);
             if (NavMesh.SamplePosition(potentialEscapePosition2, out NavMeshHit hit2, radius, NavMesh.AllAreas)) {
                 targetPosition = hit2.position;
                 return true;

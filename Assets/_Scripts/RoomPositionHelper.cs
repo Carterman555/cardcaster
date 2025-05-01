@@ -52,7 +52,7 @@ public class RoomPositionHelper {
         return this;
     }
 
-    public RoomPositionHelper MustBeOnGroundTile(bool value) {
+    public RoomPositionHelper SetMustBeOnGroundTile(bool value) {
         this.mustBeOnGroundTile = value;
         return this;
     }
@@ -87,7 +87,8 @@ public class RoomPositionHelper {
         if (Room.GetCurrentRoom() == null)
             return false;
 
-        if (!IsPointInPolygon(Room.GetCurrentRoom().GetComponent<PolygonCollider2D>(), point))
+        PolygonCollider2D currentRoomCollider = Room.GetCurrentRoom().GetComponent<PolygonCollider2D>();
+        if (!currentRoomCollider.OverlapPoint(point)) // OverlapPoint = is point inside collider
             return false;
 
         if (mustBeOnGroundTile && !OnlyOnGroundTile(Room.GetCurrentRoom(), point))
@@ -112,10 +113,6 @@ public class RoomPositionHelper {
 
 
     #region Base Methods
-
-    private bool IsPointInPolygon(PolygonCollider2D col, Vector2 point) {
-        return col.OverlapPoint(point);
-    }
 
     private bool OnlyOnGroundTile(Room room, Vector2 point) {
         bool onGroundTile = OnTile(room.GetGroundTilemap(), point);

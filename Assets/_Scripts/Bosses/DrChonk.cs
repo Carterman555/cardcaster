@@ -118,7 +118,7 @@ public class DrChonk : MonoBehaviour, IHasEnemyStats, IBoss {
 
         }
         else if (previousState == DrChonkState.Smash) {
-
+            StopCoroutine(smashUpdateCor);
         }
         else if (previousState == DrChonkState.Roll) {
             bounceMoveBehaviour.enabled = false;
@@ -138,7 +138,7 @@ public class DrChonk : MonoBehaviour, IHasEnemyStats, IBoss {
         }
         else if (newState == DrChonkState.Smash) {
             slowSmashing = true;
-            StartCoroutine(SmashUpdate());
+            smashUpdateCor = StartCoroutine(SmashUpdate());
         }
         else if (newState == DrChonkState.Roll) {
             bounceMoveBehaviour.enabled = true;
@@ -170,17 +170,20 @@ public class DrChonk : MonoBehaviour, IHasEnemyStats, IBoss {
             spawnDirection.RotateDirection(rotationBetweenMinions);
 
             Vector2 pos = (Vector2)centerPoint.position + (spawnDirection * startingHealersDistance);
-            healerMinionPrefab.Spawn(pos, Containers.Instance.Enemies);
+            GameObject healerMinion = healerMinionPrefab.Spawn(pos, Containers.Instance.Enemies);
+            healerMinion.GetComponent<BounceMoveBehaviour>().SetDirection(spawnDirection);
         }
     }
 
-    [SerializeField] private ParticleSystem healEffectPrefab;
+    [SerializeField] private ParticleSystem healEffect;
 
     public void Heal() {
         health.Heal(healAmount);
         AudioManager.Instance.PlaySound(AudioManager.Instance.AudioClips.DrChonkHeal);
 
-        healEffectPrefab.Spawn(centerPoint.position, Containers.Instance.Effects);
+        // to correct rotation when boss has different rotation due to BounceMoveBehaviour
+        healEffect.transform.rotation = Quaternion.identity;
+        healEffect.Play();
     }
 
     #region Smash
@@ -203,9 +206,10 @@ public class DrChonk : MonoBehaviour, IHasEnemyStats, IBoss {
 
     private bool thisShotIsAlternate;
 
-    private IEnumerator SmashUpdate() {
-        while (currentState == DrChonkState.Smash) {
+    private Coroutine smashUpdateCor;
 
+    private IEnumerator SmashUpdate() {
+        while (true) {
             int amount = slowSmashing ? slowSmashAmount.Randomize() : quickSmashAmount.Randomize();
             float cooldown = slowSmashing ? slowSmashCooldown : quickSmashCooldown;
             for (int i = 0; i < amount; i++) {

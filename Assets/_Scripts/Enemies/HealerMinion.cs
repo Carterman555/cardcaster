@@ -36,7 +36,15 @@ public class HealerMinion : Enemy {
             GetComponentInChildren<SpriteRenderer>().sortingOrder = 1;
 
             transform.DOJump(collision.transform.position, jumpPower, numJumps: 1, jumpDuration).SetEase(Ease.Linear).OnComplete(() => {
-                // TODO - heal drchonk (drChonk.Heal())
+                
+                DrChonk drChonk = collision.GetComponentInParent<DrChonk>();
+                if (drChonk == null) {
+                    Debug.LogError("Could not find DrChonk component in collision parent!");
+                    return;
+                }
+
+                drChonk.Heal();
+
                 gameObject.ReturnToPool();
             });
         }

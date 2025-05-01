@@ -174,9 +174,13 @@ public class DrChonk : MonoBehaviour, IHasEnemyStats, IBoss {
         }
     }
 
+    [SerializeField] private ParticleSystem healEffectPrefab;
+
     public void Heal() {
         health.Heal(healAmount);
         AudioManager.Instance.PlaySound(AudioManager.Instance.AudioClips.DrChonkHeal);
+
+        healEffectPrefab.Spawn(centerPoint.position, Containers.Instance.Effects);
     }
 
     #region Smash
@@ -192,6 +196,8 @@ public class DrChonk : MonoBehaviour, IHasEnemyStats, IBoss {
 
     [SerializeField] private float slowSmashCooldown;
     [SerializeField] private float quickSmashCooldown;
+
+    [SerializeField] private ParticleSystem smashParticles;
 
     private bool slowSmashing;
 
@@ -238,6 +244,10 @@ public class DrChonk : MonoBehaviour, IHasEnemyStats, IBoss {
 
             angle += angleStep;
         }
+
+        smashParticles.Play();
+
+        CameraShaker.Instance.ShakeCamera(1.5f);
 
         AudioManager.Instance.PlaySingleSound(AudioManager.Instance.AudioClips.DrChonkSmash);
     }

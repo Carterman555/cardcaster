@@ -53,7 +53,7 @@ public class BlackHole : MonoBehaviour, IAbilityStatsSetup, ITargetAttacker {
 
             float attackRadius = contactTracker.GetComponent<CircleCollider2D>().radius;
 
-            Collider2D[] damagedCols = DamageDealer.DealCircleDamage(GameLayers.EnemyLayerMask, transform.position, attackRadius, damage, 0);
+            Collider2D[] damagedCols = DamageDealer.DealCircleDamage(GameLayers.EnemyLayerMask, transform.position, transform.position, attackRadius, damage, 0);
 
             foreach (Collider2D col in damagedCols) {
                 OnDamage_Target?.Invoke(col.gameObject);

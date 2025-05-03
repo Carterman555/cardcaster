@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,11 +9,15 @@ public class UpgradeSlots : MonoBehaviour {
     [SerializeField] private Sprite unupgradedSprite;
     [SerializeField] private Sprite upgradedSprite;
 
+    [SerializeField] private bool isHandCard;
+
     private Image upgradeSlotToFill;
 
     public void Setup(ScriptablePersistentCard card) {
-        card.UnsubOnLevelUp();
-        card.OnLevelUp += OnLevelUp;
+        if (isHandCard) {
+            card.UnsubOnLevelUp();
+            card.OnLevelUp += OnLevelUp;
+        }
 
         for (int i = 0; i < upgradeSlots.Length; i++) {
             if (i < card.MaxLevel) {

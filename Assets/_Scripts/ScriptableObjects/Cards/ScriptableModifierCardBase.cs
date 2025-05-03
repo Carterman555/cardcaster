@@ -9,8 +9,6 @@ public class ScriptableModifierCardBase : ScriptableCardBase {
     [SerializeField] private AbilityStats abilityStatsModifierPercentage;
     public AbilityStats StatsModifier => abilityStatsModifierPercentage;
 
-    [SerializeField] private ModifierImage modifierImagePrefab;
-
     [SerializeField] private bool appliesEffect;
     [ConditionalHide("appliesEffect")][SerializeField] private GameObject effectPrefab;
 
@@ -21,13 +19,6 @@ public class ScriptableModifierCardBase : ScriptableCardBase {
 
     protected override void Play(Vector2 position) {
         base.Play(position);
-
-        if (StackType == StackType.Stackable || !AbilityManager.Instance.IsModifierActive(this)) {
-            Vector2 canvasPos = Camera.main.WorldToScreenPoint(position);
-            ModifierImage modifierImage = modifierImagePrefab.Spawn(canvasPos, Containers.Instance.HUD);
-            modifierImage.Setup(this);
-        }
-
         AbilityManager.Instance.AddModifier(this);
     }
 

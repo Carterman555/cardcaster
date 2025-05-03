@@ -4304,6 +4304,7 @@ MonoBehaviour:
   playFifthCardInput: {fileID: -3012362030779160134, guid: 50afa068aa51bd149a1f3d07794c53d5, type: 3}
   playSixthCardInput: {fileID: 1371200559049933552, guid: 50afa068aa51bd149a1f3d07794c53d5, type: 3}
   cardImage: {fileID: 8781295295215984585}
+  modifierImagePrefab: {fileID: -2071319084836149, guid: c6d28b118b972a744a66d705262b19cd, type: 3}
   hotkeyText: {fileID: 4834253411405777544}
   incompatitableText: {fileID: 2547107600795234371}
 --- !u!114 &1003905658556653661
@@ -4601,6 +4602,10 @@ PrefabInstance:
     - target: {fileID: 3743829804592937165, guid: 41fd9c5da03600041b2e95f3db6b7df0, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4525021074102674615, guid: 41fd9c5da03600041b2e95f3db6b7df0, type: 3}
+      propertyPath: isHandCard
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5169134153107113384, guid: 41fd9c5da03600041b2e95f3db6b7df0, type: 3}
       propertyPath: m_AnchorMax.y

@@ -1,10 +1,11 @@
 using DG.Tweening;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class ModifierImage : MonoBehaviour {
 
-    [SerializeField] private Vector2 firstModifierPos;
+    [SerializeField] private Vector2 firstModifierLocalPos;
 
     private ScriptableModifierCardBase modifier;
     private Image image;
@@ -41,10 +42,12 @@ public class ModifierImage : MonoBehaviour {
         GridLayoutGroup modifiersGrid = Containers.Instance.ActiveModifierImages.GetComponent<GridLayoutGroup>();
         
         int modifiersPerRow = modifiersGrid.constraintCount;
-        int modifierNumber = AbilityManager.Instance.ActiveModifierCount();
+        int modifierNumber = AbilityManager.Instance.ActiveModifierCount() - 1;
         Vector2 gridPos = new(modifierNumber % modifiersPerRow, -(modifierNumber / modifiersPerRow));
 
         float spacing = modifiersGrid.cellSize.x + modifiersGrid.spacing.x;
+        Vector2 firstModifierPos = (Vector2)modifiersGrid.transform.position + firstModifierLocalPos;
+
         Vector2 targetPos = firstModifierPos + (gridPos * spacing);
 
         float moveDuration = 0.3f;

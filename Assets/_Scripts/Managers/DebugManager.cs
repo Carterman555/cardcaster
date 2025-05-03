@@ -130,12 +130,4 @@ public class DebugManager : StaticInstance<DebugManager> {
     private void ApplyPlayerStatModifiers() {
         StatsManager.AddPlayerStatModifiers(startingPlayerStatModifiers);
     }
-
-    [Command]
-    private void RunCardSimulation() {
-        for (int i = 0; i < 10000; i++) {
-            CardType card = ResourceSystem.Instance.GetRandomCardWeighted(ResourceSystem.Instance.GetAllCards());
-            print(card + " - " + ResourceSystem.Instance.AllCards.First(c => c.CardType == card).Rarity);
-        }
-    }
 }

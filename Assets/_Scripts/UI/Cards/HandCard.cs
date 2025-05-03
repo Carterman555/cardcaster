@@ -233,7 +233,10 @@ public class HandCard : MonoBehaviour {
 
         playingAnyCard = false;
 
+
         CardsUIManager.Instance.ReturnUsedCard(this);
+
+        ScriptableCardBase usedCard = card;
 
         bool maxedOutPersistent = card is ScriptablePersistentCard persistentCard && persistentCard.CurrentLevel == persistentCard.MaxLevel;
         if (maxedOutPersistent) {
@@ -244,7 +247,7 @@ public class HandCard : MonoBehaviour {
         CardsUIManager.Instance.TrySpawnCardsToEnd();
         CardsUIManager.Instance.UpdateCardButtons();
 
-        OnAnyCardUsed_Card?.Invoke(card);
+        OnAnyCardUsed_Card?.Invoke(usedCard);
     }
 
     #region Visuals

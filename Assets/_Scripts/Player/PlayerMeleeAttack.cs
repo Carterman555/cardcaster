@@ -76,7 +76,7 @@ public class PlayerMeleeAttack : StaticInstance<PlayerMeleeAttack>, ITargetAttac
         else {
             // deal damage
             Vector2 attackCenter = (Vector2)PlayerMovement.Instance.CenterPos + (GetAttackDirection() * GetAttackRadius());
-            targetCols = DamageDealer.DealCircleDamage(targetLayerMask, attackCenter, GetAttackRadius(), Stats.BasicAttackDamage, Stats.KnockbackStrength, canCrit: true);
+            targetCols = DamageDealer.DealCircleDamage(targetLayerMask, PlayerMovement.Instance.CenterPos, attackCenter, GetAttackRadius(), Stats.BasicAttackDamage, Stats.KnockbackStrength, canCrit: true);
 
             slashPrefab.Spawn(PlayerMovement.Instance.CenterPos, GetAttackDirection().DirectionToRotation(), Containers.Instance.Effects);
         }

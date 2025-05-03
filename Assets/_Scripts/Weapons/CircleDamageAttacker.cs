@@ -7,7 +7,7 @@ public class CircleDamageAttacker : MonoBehaviour, ITargetAttacker {
     public event Action OnAttack;
 
     public void DealDamage(LayerMask targetLayerMask, float attackRadius, float damage, float knockbackStrength) {
-        Collider2D[] targets = DamageDealer.DealCircleDamage(targetLayerMask, transform.position, attackRadius, damage, knockbackStrength);
+        Collider2D[] targets = DamageDealer.DealCircleDamage(targetLayerMask, transform.position, transform.position, attackRadius, damage, knockbackStrength);
 
         OnAttack?.Invoke();
         foreach (Collider2D target in targets) {

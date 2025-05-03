@@ -1,5 +1,6 @@
 using QFSW.QC;
 using System.Collections.Generic;
+using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -130,10 +131,11 @@ public class DebugManager : StaticInstance<DebugManager> {
         StatsManager.AddPlayerStatModifiers(startingPlayerStatModifiers);
     }
 
-    [SerializeField] private EssenceDrop essencePrefab;
-
     [Command]
-    private void SpawnEssence(Vector2 pos) {
-        essencePrefab.Spawn(pos);
+    private void RunCardSimulation() {
+        for (int i = 0; i < 10000; i++) {
+            CardType card = ResourceSystem.Instance.GetRandomCardWeighted(ResourceSystem.Instance.GetAllCards());
+            print(card + " - " + ResourceSystem.Instance.AllCards.First(c => c.CardType == card).Rarity);
+        }
     }
 }

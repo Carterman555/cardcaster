@@ -44,7 +44,7 @@ MonoBehaviour:
   cost: 3
   rarity: 2
   stackType: 0
-  inDemo: 0
+  inDemo: 1
   startUnlocked: 1
   unlockLevel: 1
   memoryCard: 0

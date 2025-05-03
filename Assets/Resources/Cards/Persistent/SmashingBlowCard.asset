@@ -48,11 +48,11 @@ MonoBehaviour:
   startUnlocked: 0
   unlockLevel: 1
   memoryCard: 0
-  maxLevel: 6
+  maxLevel: 5
   statModifiersPerLevel:
   - PlayerStatType: 9
     ModifyType: 0
-    Value: 2
+    Value: 1.5
   references:
     version: 2
     RefIds: []

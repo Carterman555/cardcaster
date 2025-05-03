@@ -51,6 +51,7 @@ public class PlayerDashAttack : MonoBehaviour {
 
         DamageDealer.DealCapsuleDamage(
             targetLayerMask,
+            playerMovement.CenterPos,
             pos, attackSize, angle,
             Stats.DashAttackDamage, Stats.KnockbackStrength, canCrit: true);
 

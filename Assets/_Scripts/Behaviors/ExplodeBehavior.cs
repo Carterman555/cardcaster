@@ -39,6 +39,7 @@ public class ExplodeBehavior : MonoBehaviour, ITargetAttacker {
         float knockbackStrength = useIHasStats ? hasEnemyStats.EnemyStats.KnockbackStrength : this.knockbackStrength;
         Collider2D[] damagedColliders = DamageDealer.DealCircleDamage(targetLayerMask,
             transform.position,
+            transform.position,
             explosionRadius,
             damage,
             knockbackStrength);
@@ -49,6 +50,7 @@ public class ExplodeBehavior : MonoBehaviour, ITargetAttacker {
 
         if (dealDifferentDamageAmount) {
             Collider2D[] differentDamagedColliders = DamageDealer.DealCircleDamage(differentDamageLayerMask,
+                transform.position,
                 transform.position,
                 explosionRadius,
                 differentDamageAmount,

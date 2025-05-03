@@ -181,7 +181,7 @@ public class DrChonk : MonoBehaviour, IHasEnemyStats, IBoss {
         health.Heal(healAmount);
         AudioManager.Instance.PlaySound(AudioManager.Instance.AudioClips.DrChonkHeal);
 
-        // to correct rotation when boss has different rotation due to BounceMoveBehaviour
+        //... to correct rotation when boss has different rotation due to BounceMoveBehaviour
         healEffect.transform.rotation = Quaternion.identity;
         healEffect.Play();
     }

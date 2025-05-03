@@ -41,6 +41,7 @@ public class CircleSlashBehavior : MonoBehaviour {
         DamageDealer.DealCircleDamage(
             GameLayers.PlayerLayerMask,
             centerPoint.position,
+            centerPoint.position,
             hasStats.EnemyStats.AttackRange,
             hasStats.EnemyStats.Damage,
             hasStats.EnemyStats.KnockbackStrength

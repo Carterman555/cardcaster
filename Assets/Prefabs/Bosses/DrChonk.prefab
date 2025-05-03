@@ -398,7 +398,7 @@ MonoBehaviour:
   centerPoint: {fileID: 1044121333785347722}
   anim: {fileID: 4239218035097059229}
   healAmount: 0
-  debugState: 1
+  debugState: 0
   stateToDebug: 2
   healerMinionPrefab: {fileID: 7481704768261658980, guid: df1e1c62ee40e4144a5ec062019e6f03, type: 3}
   startingHealersDistance: 5

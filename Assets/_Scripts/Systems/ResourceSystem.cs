@@ -116,39 +116,6 @@ public class ResourceSystem : Singleton<ResourceSystem> {
         }
     }
 
-    [Command]
-    private void PrintExpectedProbabilities() {
-
-        foreach (CardType card in GetAllCards()) {
-            print(card + " - " + GetCardWeight(card));
-        }
-
-        float GetCardWeight(CardType cardType) {
-            Rarity cardRarity = AllCards.FirstOrDefault(c => c.CardType == cardType).Rarity;
-            float weight = GetRarityWeight(cardRarity);
-
-            // persistent cards are half as likely
-            if (AllCards.First(c => c.CardType == cardType) is ScriptablePersistentCard) {
-                weight *= 0.5f;
-            }
-
-            return weight;
-        }
-
-        float GetRarityWeight(Rarity rarity) {
-            switch (rarity) {
-                case Rarity.Common: return 1f;
-                case Rarity.Uncommon: return 0.66f;
-                case Rarity.Rare: return 0.33f;
-                case Rarity.Epic: return 0.25f;
-                case Rarity.Mythic: return 0.15f;
-                default:
-                    Debug.LogError("Rarity not supported!");
-                    return 0f;
-            }
-        }
-    }
-
     private ScriptableCardBase CloneCard(ScriptableCardBase original) {
         if (original == null) return null;
 

@@ -279,7 +279,7 @@ MonoBehaviour:
       MinValue: 8
       MaxValue: 15
   anim: {fileID: 4039351960834069205}
-  debugState: 1
+  debugState: 0
   stateToDebug: 2
   spinAudioSource: {fileID: 16486262209884157}
   shootDelay: 2
@@ -330,6 +330,8 @@ MonoBehaviour:
   bounceVariation: 0
   twoWayFacing: 1
   facingAngleOffset: 0
+  hasFacingTarget: 0
+  facingTarget: {fileID: 0}
   hasMoveSFX: 0
   moveSFX:
     Clips: []
@@ -445,6 +447,7 @@ MonoBehaviour:
   hasParticlePoint: 1
   particlePoint: {fileID: 2512676828727106287}
   playOnDeathEvent: 0
+  playOnDisable: 0
   playSFX: 1
   deathSFX:
     Clips:

@@ -88,8 +88,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b92c82d3417f1b14f913c3e251922e29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  firstModifierPos: {x: 86.25, y: 1005}
-  modifierSpacing: 127.5
+  firstModifierLocalPos: {x: 86.25, y: 63.25}
   dissolveMaterial: {fileID: 2100000, guid: 1a8538629ce34024aa2a86b4564529f6, type: 2}
   dissolveSpeed: 0.75
   xSprite: {fileID: -1183330171, guid: bde6d022855f93745baad1d32c2ac2bc, type: 3}

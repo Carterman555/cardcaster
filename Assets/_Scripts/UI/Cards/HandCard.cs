@@ -7,6 +7,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
+using UnityEngine.UIElements;
 
 public class HandCard : MonoBehaviour {
 
@@ -214,9 +215,13 @@ public class HandCard : MonoBehaviour {
         }
 
         if (!trashingCard) {
-            bool stackCard = card is ScriptableModifierCardBase;
-            if (stackCard) {
+            if (card is ScriptableModifierCardBase modifierCard) {
                 DeckManager.Instance.StackHandCard(cardIndex);
+
+                if (modifierCard.StackType == StackType.Stackable || !AbilityManager.Instance.IsModifierActive(modifierCard)) {
+                    ModifierImage modifierImage = modifierImagePrefab.Spawn(transform.position, Containers.Instance.HUD);
+                    modifierImage.Setup(modifierCard);
+                }
             }
             else {
                 DeckManager.Instance.DiscardHandCard(cardIndex);
@@ -254,6 +259,7 @@ public class HandCard : MonoBehaviour {
 
     [Header("Visual")]
     [SerializeField] private CardImage cardImage;
+    [SerializeField] private ModifierImage modifierImagePrefab;
 
     [SerializeField] private TextMeshProUGUI hotkeyText;
 

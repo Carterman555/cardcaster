@@ -19,7 +19,6 @@ public class BossFightReposition : MonoBehaviour {
     private void Awake() {
         rectTransform = GetComponent<RectTransform>();
         originalPos = rectTransform.anchoredPosition;
-        print(originalPos);
     }
 
     private void OnEnable() {

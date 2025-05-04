@@ -10,7 +10,8 @@ public class BreakOnDamaged : MonoBehaviour, IDamagable {
 
     private Animator anim;
 
-    [SerializeField] private ParticleSystem breakParticlesPrefab;
+    [SerializeField] private ParticleSystem breakParticles;
+    [SerializeField] private AudioClips breakSfx;
 
     private void Awake() {
         anim = GetComponent<Animator>();
@@ -23,12 +24,18 @@ public class BreakOnDamaged : MonoBehaviour, IDamagable {
     public void Damage(float damage, bool shared = false, bool crit = false) {
         Dead = true;
 
-        anim.SetTrigger("break");
+        //... spawned so particles don't get destroyed when gameobject does
+        ParticleSystem spawnedParticles = breakParticles.Spawn(breakParticles.transform.position, Containers.Instance.Effects);
+        spawnedParticles.Play();
 
-        ParticleSystem particles = breakParticlesPrefab.Spawn(transform.position, Containers.Instance.Effects);
-        particles.Play();
+        if (anim != null) {
+            anim.SetTrigger("break");
+        }
+        else {
+            gameObject.TryReturnToPool();
+        }
 
-        AudioManager.Instance.PlaySound(AudioManager.Instance.AudioClips.BreakBarrel);
+        AudioManager.Instance.PlaySound(breakSfx);
 
         OnDamaged?.Invoke();
         OnDamagedDetailed?.Invoke(damage, shared, crit);

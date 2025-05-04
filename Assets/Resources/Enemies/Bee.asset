@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df8d0c02ff44cd34db700f8d5c89336d, type: 3}
+  m_Name: Bee
+  m_EditorClassIdentifier: 
+  <Name>k__BackingField: Twisted Goblin
+  <Description>k__BackingField: description
+  <Prefab>k__BackingField: {fileID: -1547448208438695654, guid: 82d6be02c3ce468419b8a25b6681e6c0, type: 3}
+  <Stats>k__BackingField:
+    MaxHealth: 10
+    KnockbackResistance: 0.75
+    MoveSpeed: 2
+    Damage: 3
+    AttackSpeed: 2
+    KnockbackStrength: 1
+    AttackRange: 1.5
+  <Difficulty>k__BackingField: 1
+  <Tags>k__BackingField: 0

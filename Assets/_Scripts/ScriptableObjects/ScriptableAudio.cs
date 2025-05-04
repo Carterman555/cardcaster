@@ -103,9 +103,6 @@ public class ScriptableAudio : ScriptableObject {
     [SerializeField] private AudioClips gainChestCard;
     public AudioClips GainChestCard => gainChestCard;
 
-    [SerializeField] private AudioClips breakBarrel;
-    public AudioClips BreakBarrel => breakBarrel;
-
     [Header("UI")]
 
 

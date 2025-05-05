@@ -20,20 +20,22 @@ public class SwarmMovementBehavior : MonoBehaviour {
     public SwarmMovementBehavior Leader { get; set; }
     public bool InSwarm => Leader != null;
 
-    [SerializeField] private TriggerEventInvoker swarmTrigger;
+    public bool Shuffling { get; set; }
 
+    [SerializeField] private TriggerEventInvoker swarmTrigger;
+    
     private Vector2 desiredPos;
-    public NavMeshAgent Agent { get; private set; }
+    private NavMeshAgent agent;
 
     private IHasEnemyStats hasStats;
 
     private void Awake() {
-        Agent = GetComponent<NavMeshAgent>();
-        Agent.updateRotation = false;
-        Agent.updateUpAxis = false;
+        agent = GetComponent<NavMeshAgent>();
+        agent.updateRotation = false;
+        agent.updateUpAxis = false;
 
         hasStats = GetComponent<IHasEnemyStats>();
-        Agent.speed = hasStats.EnemyStats.MoveSpeed;
+        agent.speed = hasStats.EnemyStats.MoveSpeed;
     }
 
     private void OnEnable() {
@@ -42,6 +44,17 @@ public class SwarmMovementBehavior : MonoBehaviour {
         Leader = null;
         IsLeader = false;
         unitsInSwarm = new List<SwarmMovementBehavior>();
+    }
+
+    private void Update() {
+        if (Shuffling) {
+            float distanceThreshold = 0.1f;
+            if (agent.remainingDistance < distanceThreshold) {
+                float shuffleRadius = 1.5f;
+                Vector2 randomPos = Leader.swarmDestination + (UnityEngine.Random.insideUnitCircle * shuffleRadius);
+                agent.SetDestination(randomPos);
+            }
+        }
     }
 
     private void OnSwarmTriggerEnter(Collider2D col) {
@@ -60,6 +73,8 @@ public class SwarmMovementBehavior : MonoBehaviour {
             else {
                 Leader = this;
                 IsLeader = true;
+                unitsInSwarm.Add(this);
+
                 print(GetInstanceID() + ": set to leader");
             }
         }
@@ -67,9 +82,7 @@ public class SwarmMovementBehavior : MonoBehaviour {
 
     public void SetDesiredPos(Vector2 desiredPos) {
         this.desiredPos = desiredPos;
-        Agent.SetDestination(desiredPos);
-
-        print(GetInstanceID() + ": set desired pos to " + desiredPos);
+        agent.SetDestination(desiredPos);
     }
 
 
@@ -79,6 +92,8 @@ public class SwarmMovementBehavior : MonoBehaviour {
     [SerializeField] private int[] ringPositionCounts;
 
     private List<SwarmMovementBehavior> unitsInSwarm;
+
+    private Vector2 swarmDestination = Vector2.zero;
 
     public void JoinSwarm(SwarmMovementBehavior joiningUnit) {
 
@@ -91,12 +106,21 @@ public class SwarmMovementBehavior : MonoBehaviour {
 
         joiningUnit.Leader = this;
         unitsInSwarm.Add(joiningUnit);
-        UpdateUnitPositions();
+
+        StopAndSwarmAroundLeader();
     }
 
     public void SetSwarmDestination(Vector2 destination) {
-        List<Vector3> positions = GetPositionsAround(destination, ringDistances, ringPositionCounts);
 
+        print("Setting swarm destination to " + destination);
+
+        foreach (SwarmMovementBehavior unit in unitsInSwarm) {
+            unit.Shuffling = false;
+        }
+
+        swarmDestination = destination;
+
+        List<Vector3> positions = GetPositionsAround(destination, ringDistances, ringPositionCounts);
         int positionIndex = 0;
         foreach (SwarmMovementBehavior unit in unitsInSwarm) {
             unit.SetDesiredPos(positions[positionIndex]);
@@ -106,6 +130,28 @@ public class SwarmMovementBehavior : MonoBehaviour {
                 Debug.LogError("Ran out of positions for swarm!");
             }
         }
+    }
+
+    public void StopAndSwarmAroundLeader() {
+        if (!IsLeader) {
+            Debug.LogError("Trying to swarm around leader, but not through leader!");
+            return;
+        }
+
+        SetSwarmDestination(transform.position);
+    }
+
+    public void StopAndShuffle() {
+        if (!IsLeader) {
+            Debug.LogError("Trying to shuffle, but not through leader!");
+            return;
+        }
+
+        foreach (SwarmMovementBehavior unit in unitsInSwarm) {
+            unit.Shuffling = true;
+        }
+
+        swarmDestination = transform.position;
     }
 
     public bool IsSwarmMoving() {
@@ -119,7 +165,7 @@ public class SwarmMovementBehavior : MonoBehaviour {
         bool swarmMoving = false;
         foreach (SwarmMovementBehavior unit in unitsInSwarm) {
             float distanceThreshold = 0.1f;
-            if (unit.Agent.remainingDistance > distanceThreshold) {
+            if (unit.agent.remainingDistance > distanceThreshold) {
                 swarmMoving = true;
             }
         }
@@ -128,7 +174,10 @@ public class SwarmMovementBehavior : MonoBehaviour {
     }
 
     private void UpdateUnitPositions() {
-        SetSwarmDestination(transform.position);
+        bool destinationSet = swarmDestination != Vector2.zero;
+        if (destinationSet) {
+            SetSwarmDestination(swarmDestination);
+        }
     }
 
     private List<Vector3> GetPositionsAround(Vector2 centerPosition, float[] ringDistances, int[] ringPositionCounts) {

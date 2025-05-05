@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: -4026846413475061730}
   - component: {fileID: 6964909507217876673}
   - component: {fileID: 3439772877592667734}
+  - component: {fileID: 5219978990330493592}
   m_Layer: 10
   m_Name: BlueBush2
   m_TagString: BluePlant
@@ -166,6 +167,18 @@ MonoBehaviour:
     Clips: []
     Volume: 0
     PitchVariation: 0
+--- !u!114 &5219978990330493592
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6586402331342424620}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f75c41d065921a4fa0421d4c20b770d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &8177496002345189390
 PrefabInstance:
   m_ObjectHideFlags: 0

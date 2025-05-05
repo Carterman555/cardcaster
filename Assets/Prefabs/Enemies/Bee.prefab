@@ -250,14 +250,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5243637420451758526, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
       propertyPath: m_Height
-      value: 0.55
+      value: 0.22
       objectReference: {fileID: 0}
     - target: {fileID: 5243637420451758526, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
       propertyPath: m_Radius
-      value: 0.34
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 5243637420451758526, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
       propertyPath: m_BaseOffset
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5243637420451758526, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
+      propertyPath: m_StoppingDistance
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7684566445724823258, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
@@ -358,6 +362,7 @@ MonoBehaviour:
   scriptableEnemy: {fileID: 11400000, guid: 2c90bbe1afdffa149b654620edfcc857, type: 2}
   playerTracker: {fileID: 2899262595723621407}
   anim: {fileID: 8693357842044784570}
+  reproduceTime: 3
 --- !u!114 &1545570904434104788
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -372,8 +377,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   swarmTrigger: {fileID: 8846564972412375469}
   ringDistances:
-  - 1.5
-  ringPositionCounts: 05000000
+  - 1
+  - 2
+  ringPositionCounts: 050000000a000000
 --- !u!95 &8693357842044784570 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 621019451974682374, guid: d26e40392c042dc4d8c237ede2183746, type: 3}

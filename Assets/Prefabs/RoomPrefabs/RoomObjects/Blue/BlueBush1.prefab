@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 181472244456709541}
   m_Layer: 10
   m_Name: BlueBush1
-  m_TagString: Untagged
+  m_TagString: BluePlant
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -149,6 +149,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakParticles: {fileID: 9106505573739595549}
+  breakSfx:
+    Clips: []
+    Volume: 0
+    PitchVariation: 0
 --- !u!114 &181472244456709541
 MonoBehaviour:
   m_ObjectHideFlags: 0

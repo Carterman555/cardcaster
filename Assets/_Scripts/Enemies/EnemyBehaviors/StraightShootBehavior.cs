@@ -1,11 +1,10 @@
 using System;
 using UnityEngine;
 
-public class StraightShootBehavior : MonoBehaviour, IAttacker {
+public class StraightShootBehavior : MonoBehaviour {
 
     public event Action<Vector2> OnShoot_Direction;
     public event Action<GameObject> OnShoot_Projectile;
-    public event Action OnAttack;
 
     public event Action OnShootAnim;
 
@@ -112,7 +111,6 @@ public class StraightShootBehavior : MonoBehaviour, IAttacker {
 
         InvokeShootDirectionEvent(shootDirection.normalized);
         InvokeShootProjectileEvent(newProjectile.gameObject);
-        InvokeAttackEvent();
     }
 
     protected void PlaySFX() {
@@ -130,9 +128,6 @@ public class StraightShootBehavior : MonoBehaviour, IAttacker {
     }
     protected void InvokeShootProjectileEvent(GameObject projectile) {
         OnShoot_Projectile?.Invoke(projectile);
-    }
-    protected void InvokeAttackEvent() {
-        OnAttack?.Invoke();
     }
 
     public void SetShootTarget(ShootTarget shootTarget) {

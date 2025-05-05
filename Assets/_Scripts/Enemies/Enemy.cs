@@ -86,7 +86,7 @@ public class Enemy : MonoBehaviour, IHasEnemyStats, IEffectable {
 
     #region Animation
 
-    [SerializeField] private Animator anim;
+    [SerializeField] protected Animator anim;
 
     private IEnemyMovement[] moveBehaviours;
 

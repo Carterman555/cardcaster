@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 3191511776147404715}
   - component: {fileID: -8241143785080991522}
   - component: {fileID: -4169323189993058843}
+  - component: {fileID: 1488948991827303786}
   m_Layer: 10
   m_Name: BlueGrass1
   m_TagString: BluePlant
@@ -166,6 +167,18 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0.28125}
   serializedVersion: 2
   m_Radius: 0.40625
+--- !u!114 &1488948991827303786
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4211967582947537724}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f75c41d065921a4fa0421d4c20b770d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &5565190103267826032
 PrefabInstance:
   m_ObjectHideFlags: 0

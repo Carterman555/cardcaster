@@ -14,7 +14,7 @@ using UnityEngine.AI;
  * with random movement
  * A bee joins a swarm if they are close enough. once a bee is in a swarm, they don't leave
  */
-public class SwarmMovementBehavior : MonoBehaviour {
+public class SwarmMovementBehavior : MonoBehaviour, IEffectable, IEnemyMovement {
 
     public bool IsLeader { get; private set; }
     public SwarmMovementBehavior Leader { get; set; }
@@ -25,9 +25,10 @@ public class SwarmMovementBehavior : MonoBehaviour {
     [SerializeField] private TriggerEventInvoker swarmTrigger;
     
     private Vector2 desiredPos;
-    private NavMeshAgent agent;
 
+    private NavMeshAgent agent;
     private IHasEnemyStats hasStats;
+    private Knockback knockback;
 
     private void Awake() {
         agent = GetComponent<NavMeshAgent>();
@@ -36,17 +37,25 @@ public class SwarmMovementBehavior : MonoBehaviour {
 
         hasStats = GetComponent<IHasEnemyStats>();
         agent.speed = hasStats.EnemyStats.MoveSpeed;
+
+        knockback = GetComponent<Knockback>();
     }
 
     private void OnEnable() {
         swarmTrigger.OnTriggerEnter_Col += OnSwarmTriggerEnter;
 
-        Leader = null;
-        IsLeader = false;
-        unitsInSwarm = new List<SwarmMovementBehavior>();
+        Leader = this;
+        IsLeader = true;
+        unitsInSwarm = new HashSet<SwarmMovementBehavior>() { this };
     }
 
     private void Update() {
+
+        if (IsMoving() && agent.isStopped) {
+            agent.isStopped = false;
+            return;
+        }
+
         if (Shuffling) {
             float distanceThreshold = 0.1f;
             if (agent.remainingDistance < distanceThreshold) {
@@ -74,8 +83,6 @@ public class SwarmMovementBehavior : MonoBehaviour {
                 Leader = this;
                 IsLeader = true;
                 unitsInSwarm.Add(this);
-
-                print(GetInstanceID() + ": set to leader");
             }
         }
     }
@@ -85,13 +92,23 @@ public class SwarmMovementBehavior : MonoBehaviour {
         agent.SetDestination(desiredPos);
     }
 
+    public void OnAddEffect(UnitEffect unitEffect) {
+        if (unitEffect is StopMovement) {
+            agent.isStopped = true;
+        }
+    }
+
+    public bool IsMoving() {
+        bool hasStopEffect = TryGetComponent(out StopMovement stopMovement);
+        return !hasStopEffect && !knockback.IsApplyingKnockback() && enabled;
+    }
 
     #region Swarm Leader
 
     [SerializeField] private float[] ringDistances;
     [SerializeField] private int[] ringPositionCounts;
 
-    private List<SwarmMovementBehavior> unitsInSwarm;
+    private HashSet<SwarmMovementBehavior> unitsInSwarm;
 
     private Vector2 swarmDestination = Vector2.zero;
 
@@ -102,8 +119,6 @@ public class SwarmMovementBehavior : MonoBehaviour {
             return;
         }
 
-        print(joiningUnit.gameObject.GetInstanceID() + " is joining swarm where leader is " + GetInstanceID());
-
         joiningUnit.Leader = this;
         unitsInSwarm.Add(joiningUnit);
 
@@ -111,8 +126,6 @@ public class SwarmMovementBehavior : MonoBehaviour {
     }
 
     public void SetSwarmDestination(Vector2 destination) {
-
-        print("Setting swarm destination to " + destination);
 
         foreach (SwarmMovementBehavior unit in unitsInSwarm) {
             unit.Shuffling = false;
@@ -171,6 +184,14 @@ public class SwarmMovementBehavior : MonoBehaviour {
         }
 
         return swarmMoving;
+    }
+
+    public HashSet<SwarmMovementBehavior> GetUnitsInSwarm() {
+        if (!IsLeader) {
+            Debug.LogError("Trying to get units in swarm, but not through leader!");
+        }
+
+        return unitsInSwarm;
     }
 
     private void UpdateUnitPositions() {

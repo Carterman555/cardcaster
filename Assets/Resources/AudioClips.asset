@@ -50,11 +50,9 @@ MonoBehaviour:
     PitchVariation: 0
   dash:
     Clips:
-    - {fileID: 8300000, guid: e162347363c88a94f8f2a0cb1616fab7, type: 3}
-    - {fileID: 8300000, guid: 81a6581a13b155f4faea97910cdbeead, type: 3}
-    - {fileID: 8300000, guid: a5065fe71125987438215875ec5c8a4e, type: 3}
-    Volume: 0.4
-    PitchVariation: 0
+    - {fileID: 8300000, guid: 0734b448103e90c4a8182461c772d6b6, type: 3}
+    Volume: 0.12
+    PitchVariation: 0.1
   collectEssence:
     Clips:
     - {fileID: 8300000, guid: cfd8ee1d950c2e248a1127c74ca96b0b, type: 3}
@@ -187,11 +185,6 @@ MonoBehaviour:
     Clips:
     - {fileID: 8300000, guid: f3f70106499a4294cb6baface6151c67, type: 3}
     Volume: 1
-    PitchVariation: 0
-  breakBarrel:
-    Clips:
-    - {fileID: 8300000, guid: e1f7eb8f3f55b7448a607918caecb355, type: 3}
-    Volume: 0.3
     PitchVariation: 0
   openPanel:
     Clips:

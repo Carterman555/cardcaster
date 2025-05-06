@@ -129,9 +129,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   breakParticles: {fileID: 6990776418471825517}
   breakSfx:
-    Clips: []
-    Volume: 0
-    PitchVariation: 0
+    Clips:
+    - {fileID: 8300000, guid: 42c9c7bd9c94ca043bb95beccb1324ec, type: 3}
+    Volume: 0.5
+    PitchVariation: 0.1
 --- !u!58 &-4576341531232150602
 CircleCollider2D:
   m_ObjectHideFlags: 0

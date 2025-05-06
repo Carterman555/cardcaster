@@ -5,11 +5,16 @@ public class UnitEffect : MonoBehaviour {
     private bool removeAfterDuration;
     private float duration;
 
+    private void OnEnable() {
+        IEffectable[] effectables = GetComponents<IEffectable>();
+        foreach (IEffectable effectable in effectables) {
+            effectable.OnAddEffect(this);
+        }
+    }
+
     public virtual void Setup(bool removeAfterDuration = false, float duration = 0) {
         this.removeAfterDuration = removeAfterDuration;
         this.duration = duration;
-
-        GetComponent<IEffectable>().OnAddEffect(this);
     }
 
     public void SetDuration(float duration) {

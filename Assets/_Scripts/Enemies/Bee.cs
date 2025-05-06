@@ -6,6 +6,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.UIElements;
 
+// Script execution order reason: needs invoke ChangeSwarmState in onEnable after swarmMovementBehavior sets itself to leader in onEnable
 public class Bee : Enemy {
 
     private SwarmMovementBehavior swarmMovement;
@@ -18,10 +19,13 @@ public class Bee : Enemy {
     [SerializeField] private float reproduceTime;
     private float reproduceTimer;
 
-    private float shootTimer;
-    [SerializeField] private float shootCooldownRandomVariation;
-
     private bool debugSetBluePlants; // testing
+
+    private enum SwarmState { MovingToPlant, Wandering, Reproducing }
+    private SwarmState swarmState; // all bees in a swarm always have the same swarmState
+
+    private enum BeeState { FollowingSwarmBehavior, ShootingStinger, LaunchAtPlayer }
+    private BeeState beeState;
 
     protected override void Awake() {
         base.Awake();
@@ -45,6 +49,8 @@ public class Bee : Enemy {
         }
 
         reproduceTimer = float.PositiveInfinity;
+
+        ChangeSwarmState(SwarmState.MovingToPlant);
     }
 
     private void OnPlantDisabled(GameObject plant) {
@@ -72,41 +78,50 @@ public class Bee : Enemy {
         }
         // end testing
 
-        HandleMovementAndReproduction();
 
-        shootTimer -= Time.deltaTime;
-        if (shootTimer < 0f) {
-            shootTimer = EnemyStats.AttackCooldown + UnityEngine.Random.Range(-shootCooldownRandomVariation, shootCooldownRandomVariation);
-            anim.SetTrigger("attack");
+        if (swarmMovement.IsLeader) {
+            HandleControllingSwarm();
         }
+
+        HandleShooting();
     }
 
-    private void HandleMovementAndReproduction() {
-        if (swarmMovement.IsLeader && bluePlantsInRoom.Count > 0) {
+    private void HandleControllingSwarm() {
+        switch (swarmState) {
+            case SwarmState.MovingToPlant:
 
-            if (!swarmMovement.IsSwarmMoving()) {
-                reproducingPlant = GetClosestPlant();
-                bool atBluePlant = Vector2.Distance(transform.position, reproducingPlant.position) < 0.1f;
-                if (!atBluePlant) {
-                    swarmMovement.SetSwarmDestination(reproducingPlant.position);
-                }
-                else if (!swarmMovement.Shuffling) {
-                    swarmMovement.StopAndShuffle();
-                }
-            }
-
-            if (swarmMovement.Shuffling) {
-                if (reproducingPlant == null) {
-                    reproducingPlant = GetClosestPlant();
-                    reproduceTimer = float.PositiveInfinity;
-                    print("plant not active, find new plant");
+                if (bluePlantsInRoom.Count == 0) {
+                    ChangeSwarmState(SwarmState.Wandering);
                     return;
                 }
 
-                bool timerSet = reproduceTimer != float.PositiveInfinity;
-                if (!timerSet) {
-                    reproduceTimer = reproduceTime;
-                    print("Set timer");
+                if (!swarmMovement.IsSwarmMoving()) {
+                    reproducingPlant = GetClosestPlant();
+                    bool atBluePlant = Vector2.Distance(transform.position, reproducingPlant.position) < 0.1f;
+                    if (atBluePlant) {
+                        ChangeSwarmState(SwarmState.Reproducing);
+                    }
+                    else {
+                        swarmMovement.SetSwarmDestination(reproducingPlant.position);
+                    }
+                }
+
+                break;
+
+            case SwarmState.Wandering:
+                // TODO
+                break;
+
+            case SwarmState.Reproducing:
+
+                if (bluePlantsInRoom.Count == 0) {
+                    ChangeSwarmState(SwarmState.Wandering);
+                    return;
+                }
+
+                if (reproducingPlant == null) {
+                    ChangeSwarmState(SwarmState.MovingToPlant);
+                    return;
                 }
 
                 reproduceTimer -= Time.deltaTime;
@@ -116,36 +131,39 @@ public class Bee : Enemy {
 
                     swarmMovement.StopAndSwarmAroundLeader();
 
-
                     reproducingPlant = GetClosestPlant();
-                    reproduceTimer = float.PositiveInfinity;
-                    print("Broke plant");
+
+                    ChangeSwarmState(SwarmState.MovingToPlant);
                 }
-            }
-            else {
-                reproduceTimer = float.PositiveInfinity;
-            }
+
+                break;
         }
     }
 
-    // played by anim method invoker, well not yet (unless I forgot to remove this)
-    public void ShootProjectile() {
-        StraightMovement newProjectile = projectilePrefab.Spawn(shootPoint.position, Containers.Instance.Projectiles);
+    private void ChangeSwarmState(SwarmState swarmState) {
 
-        if (!stopAimingOnAnimStart) {
-            shootDirection = GetShootDirection();
+        if (!swarmMovement.IsLeader) {
+            Debug.LogError("Trying to change swarm state, but not through leader!");
+            return;
         }
 
-        if (hasShootVariation) {
-            float randomAngle = UnityEngine.Random.Range(-shootVariation, shootVariation);
-            shootDirection.RotateDirection(randomAngle);
+        Bee[] beesInSwarm = swarmMovement.GetUnitsInSwarm().Select(u => u.GetComponent<Bee>()).ToArray();
+        foreach (Bee bee in beesInSwarm) {
+            bee.swarmState = swarmState;
         }
 
-        newProjectile.Setup(shootDirection.normalized);
+        switch (swarmState) {
+            case SwarmState.MovingToPlant:
+                break;
 
-        float dmg = overrideDamage ? damage : hasStats.EnemyStats.Damage;
-        newProjectile.GetComponent<DamageOnContact>().Setup(dmg, hasStats.EnemyStats.KnockbackStrength);
-        PlaySFX();
+            case SwarmState.Wandering:
+                break;
+
+            case SwarmState.Reproducing:
+                reproduceTimer = reproduceTime;
+                swarmMovement.StopAndShuffle();
+                break;
+        }
     }
 
     private Transform GetClosestPlant() {
@@ -165,7 +183,74 @@ public class Bee : Enemy {
         if (closestPlant == null) {
             Debug.Log("Could not find closest plant!");
         }
-        
+
         return closestPlant;
     }
+
+    #region Shoot Stinger
+
+    private float shootTimer;
+    [SerializeField] private float shootCooldownRandomVariation;
+    [SerializeField] private StraightMovement stingerPrefab;
+    [SerializeField] private Transform shootPoint;
+
+    private Vector2 shootDirection;
+
+    [SerializeField] private float delayBeforeShoot;
+    [SerializeField] private float delayAfterShoot;
+    private float beforeShootTimer;
+    private float afterShootTimer;
+
+    private StopMovement shootStopMovement;
+
+    private void HandleShooting() {
+
+        if (beeState != BeeState.ShootingStinger) {
+            shootTimer -= Time.deltaTime;
+            if (shootTimer < 0f) {
+                shootStopMovement = gameObject.AddComponent<StopMovement>();
+
+                shootTimer = EnemyStats.AttackCooldown + UnityEngine.Random.Range(-shootCooldownRandomVariation, shootCooldownRandomVariation);
+                beforeShootTimer = delayBeforeShoot;
+
+                bool playerToRight = PlayerMovement.Instance.CenterPos.x > transform.position.x;
+                float yAngle = playerToRight ? 0f : 180f;
+                transform.rotation = Quaternion.Euler(new Vector3(transform.rotation.eulerAngles.x, yAngle, transform.rotation.eulerAngles.z));
+
+                beeState = BeeState.ShootingStinger;
+            }
+        }
+        else if (beeState == BeeState.ShootingStinger) {
+
+            beforeShootTimer -= Time.deltaTime;
+            if (beforeShootTimer < 0f) {
+                anim.SetTrigger("attack");
+                shootDirection = PlayerMovement.Instance.CenterPos - transform.position;
+
+                beforeShootTimer = float.PositiveInfinity;
+            }
+
+            afterShootTimer -= Time.deltaTime;
+            if (afterShootTimer < 0f) {
+                Destroy(shootStopMovement);
+
+                afterShootTimer = float.PositiveInfinity;
+
+                beeState = BeeState.FollowingSwarmBehavior;
+            }
+        }
+    }
+
+    // played by anim method invoker
+    public void ShootProjectile() {
+        StraightMovement newProjectile = stingerPrefab.Spawn(shootPoint.position, Containers.Instance.Projectiles);
+        newProjectile.Setup(shootDirection.normalized);
+        newProjectile.GetComponent<DamageOnContact>().Setup(EnemyStats.Damage, EnemyStats.KnockbackStrength);
+
+        AudioManager.Instance.PlaySound(AudioManager.Instance.AudioClips.BasicEnemyShoot);
+
+        afterShootTimer = delayAfterShoot;
+    }
+
+    #endregion
 }

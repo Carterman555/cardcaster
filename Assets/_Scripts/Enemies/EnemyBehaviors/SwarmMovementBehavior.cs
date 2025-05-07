@@ -12,7 +12,7 @@ using UnityEngine.AI;
  * The leader leads the swarm to the nearest plant, then stops their to create a new bee. If there are
  * no plants the bees try to keep a distance from the player (but they are slow), while also wandering
  * with random movement
- * A bee joins a swarm if they are close enough. once a bee is in a swarm, they don't leave
+ * A bee joins a swarm if they are close enough.
  */
 public class SwarmMovementBehavior : MonoBehaviour, IEffectable, IEnemyMovement {
 
@@ -64,6 +64,11 @@ public class SwarmMovementBehavior : MonoBehaviour, IEffectable, IEnemyMovement 
                 agent.SetDestination(randomPos);
             }
         }
+    }
+
+    public void LeaveSwarm() {
+        Leader.unitsInSwarm.Remove(this);
+        Leader = null;
     }
 
     private void OnSwarmTriggerEnter(Collider2D col) {
@@ -125,6 +130,32 @@ public class SwarmMovementBehavior : MonoBehaviour, IEffectable, IEnemyMovement 
         StopAndSwarmAroundLeader();
     }
 
+    private void OnDisable() {
+
+        if (IsLeader) {
+            unitsInSwarm.Remove(this);
+            if (unitsInSwarm.Count > 0) {
+
+                SwarmMovementBehavior newLeader = null;
+                foreach (SwarmMovementBehavior swarmMovement in unitsInSwarm) {
+                    if (newLeader == null) {
+                        swarmMovement.IsLeader = true;
+                        swarmMovement.Leader = swarmMovement;
+                        swarmMovement.unitsInSwarm = unitsInSwarm;
+                    }
+                    else {
+                        swarmMovement.IsLeader = false;
+                        swarmMovement.Leader = newLeader;
+                    }
+                }
+            }
+
+            Leader = null;
+            IsLeader = false;
+            unitsInSwarm.Clear();
+        }
+    }
+
     public void SetSwarmDestination(Vector2 destination) {
 
         foreach (SwarmMovementBehavior unit in unitsInSwarm) {
@@ -171,6 +202,10 @@ public class SwarmMovementBehavior : MonoBehaviour, IEffectable, IEnemyMovement 
 
         if (!IsLeader) {
             Debug.LogError("Trying to check if swarm is moving, but not through leader!");
+            return false;
+        }
+
+        if (!enabled) {
             return false;
         }
 

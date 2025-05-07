@@ -132,6 +132,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 174481253933899696, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
+      propertyPath: m_UseFullKinematicContacts
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 226976224992304211, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
       propertyPath: m_Name
       value: Bee
@@ -302,15 +306,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8999610040005324296, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
       propertyPath: deathParticlesColor.b
-      value: 0.19215688
+      value: 0.427451
       objectReference: {fileID: 0}
     - target: {fileID: 8999610040005324296, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
       propertyPath: deathParticlesColor.g
-      value: 0.5137255
+      value: 0.7058824
       objectReference: {fileID: 0}
     - target: {fileID: 8999610040005324296, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
       propertyPath: deathParticlesColor.r
-      value: 0.27058825
+      value: 0.7843138
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: -2736141077457755013, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
@@ -367,14 +371,15 @@ MonoBehaviour:
   playerTracker: {fileID: 2899262595723621407}
   anim: {fileID: 8693357842044784570}
   reproduceTime: 3
-  shootCooldownRandomVariation: 3
+  shootChance: 0.05
   stingerPrefab: {fileID: -1897301476388012080, guid: 94dcd3b5954dc624e95394b84cb6cb58, type: 3}
   shootPoint: {fileID: 2685148296906252545}
   delayBeforeShoot: 1
   delayAfterShoot: 0.5
-  attemptLaunchCooldown: 0
-  launchChance: 0
-  launchSpeed: 0
+  attemptLaunchCooldown: 5
+  launchChance: 0.518
+  launchAcceleration: 15
+  launchSpeed: 15
 --- !u!114 &1545570904434104788
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -1,15 +1,19 @@
+using MoreMountains.Tools;
 using QFSW.QC;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.AI;
 using UnityEngine.UIElements;
 
 // Script execution order reason: needs invoke ChangeSwarmState in onEnable after swarmMovementBehavior sets itself to leader in onEnable
 public class Bee : Enemy {
 
     private SwarmMovementBehavior swarmMovement;
+    private Rigidbody2D rb;
+    private NavMeshAgent agent;
 
     // TODO - remove flowers from list that get destroyed
     private List<Transform> bluePlantsInRoom;
@@ -24,13 +28,15 @@ public class Bee : Enemy {
     private enum SwarmState { MovingToPlant, Wandering, Reproducing }
     private SwarmState swarmState; // all bees in a swarm always have the same swarmState
 
-    private enum BeeState { FollowingSwarmBehavior, ShootingStinger, LaunchAtPlayer }
+    private enum BeeState { FollowingSwarmBehavior, ShootingStinger, Launching }
     private BeeState beeState;
 
     protected override void Awake() {
         base.Awake();
 
         swarmMovement = GetComponent<SwarmMovementBehavior>();
+        rb = GetComponent<Rigidbody2D>();
+        agent = GetComponent<NavMeshAgent>();
     }
 
     protected override void OnEnable() {
@@ -49,6 +55,11 @@ public class Bee : Enemy {
         }
 
         reproduceTimer = float.PositiveInfinity;
+
+        shootTimer = EnemyStats.AttackCooldown + UnityEngine.Random.Range(-shootCooldownRandomVariation, shootCooldownRandomVariation);
+        attemptLaunchTimer = attemptLaunchCooldown;
+
+        anim.SetBool("Launching", false);
 
         ChangeSwarmState(SwarmState.MovingToPlant);
     }
@@ -84,6 +95,8 @@ public class Bee : Enemy {
         }
 
         HandleShooting();
+
+        HandleLaunch();
     }
 
     private void HandleControllingSwarm() {
@@ -205,7 +218,7 @@ public class Bee : Enemy {
 
     private void HandleShooting() {
 
-        if (beeState != BeeState.ShootingStinger) {
+        if (beeState == BeeState.FollowingSwarmBehavior) {
             shootTimer -= Time.deltaTime;
             if (shootTimer < 0f) {
                 shootStopMovement = gameObject.AddComponent<StopMovement>();
@@ -250,6 +263,48 @@ public class Bee : Enemy {
         AudioManager.Instance.PlaySound(AudioManager.Instance.AudioClips.BasicEnemyShoot);
 
         afterShootTimer = delayAfterShoot;
+    }
+
+    #endregion
+
+
+    #region Launch
+
+    [SerializeField] private float attemptLaunchCooldown;
+    private float attemptLaunchTimer;
+
+    [SerializeField, Range(0f, 1f)] private float launchChance;
+
+    [SerializeField] private float launchSpeed;
+
+    private Vector2 launchDirection;
+
+    private void HandleLaunch() {
+
+        if (beeState == BeeState.FollowingSwarmBehavior) {
+
+            attemptLaunchTimer -= Time.deltaTime;
+            if (attemptLaunchTimer < 0f) {
+                attemptLaunchTimer = attemptLaunchCooldown;
+
+                if (UnityEngine.Random.value < launchChance) {
+                    print("Launch");
+
+                    anim.SetBool("Launching", true);
+                    swarmMovement.enabled = false;
+                    agent.enabled = false;
+
+                    launchDirection = transform.position - PlayerMovement.Instance.CenterPos;
+
+                    beeState = BeeState.Launching;
+
+                }
+            }
+        }
+        else if (beeState == BeeState.Launching) {
+            Vector2 movement = launchDirection * launchSpeed * Time.deltaTime;
+            rb.MovePosition(rb.position + movement);
+        }
     }
 
     #endregion

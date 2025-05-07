@@ -20,7 +20,7 @@ MonoBehaviour:
     KnockbackResistance: 0.75
     MoveSpeed: 2
     Damage: 3
-    AttackSpeed: 0.5
+    AttackSpeed: 1
     KnockbackStrength: 1
     AttackRange: 1.5
   <Difficulty>k__BackingField: 1

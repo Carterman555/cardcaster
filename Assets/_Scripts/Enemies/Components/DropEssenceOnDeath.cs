@@ -16,7 +16,7 @@ public class DropEssenceOnDeath : MonoBehaviour {
 
     //... can't use enabled because it's false when the gameobject is not active which happens
     //... right as the enemy dies and would drop the essence, so it never would
-    public bool IsEnabled;
+    public bool IsEnabled { get; set; }
 
     private void Awake() {
         health = GetComponent<EnemyHealth>();

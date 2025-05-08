@@ -140,6 +140,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Bee
       objectReference: {fileID: 0}
+    - target: {fileID: 226976224992304211, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 617611260473894985, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
       propertyPath: m_Size.x
       value: 0.73165923
@@ -182,11 +186,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3807084815282453126, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 3.432
+      value: 4.37
       objectReference: {fileID: 0}
     - target: {fileID: 3807084815282453126, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.856
+      value: -2.01
       objectReference: {fileID: 0}
     - target: {fileID: 3807084815282453126, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
       propertyPath: m_LocalPosition.z
@@ -258,14 +262,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5243637420451758526, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
       propertyPath: m_Height
-      value: 0.22
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 5243637420451758526, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
       propertyPath: m_Radius
-      value: 0.1
+      value: 0.4
       objectReference: {fileID: 0}
     - target: {fileID: 5243637420451758526, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
       propertyPath: m_BaseOffset
+      value: 0.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 5243637420451758526, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
+      propertyPath: m_AutoBraking
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5243637420451758526, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
@@ -371,13 +379,16 @@ MonoBehaviour:
   playerTracker: {fileID: 2899262595723621407}
   anim: {fileID: 8693357842044784570}
   reproduceTime: 3
-  shootChance: 0.05
+  shootCooldown:
+    MinValue: 10
+    MaxValue: 25
   stingerPrefab: {fileID: -1897301476388012080, guid: 94dcd3b5954dc624e95394b84cb6cb58, type: 3}
   shootPoint: {fileID: 2685148296906252545}
   delayBeforeShoot: 1
   delayAfterShoot: 0.5
-  attemptLaunchCooldown: 5
-  launchChance: 0.518
+  attemptLaunchCooldown:
+    MinValue: 20
+    MaxValue: 200
   launchAcceleration: 15
   launchSpeed: 15
 --- !u!114 &1545570904434104788
@@ -393,10 +404,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   swarmTrigger: {fileID: 8846564972412375469}
+  positionVariability: 0.3
   ringDistances:
-  - 1
-  - 2
+  - 0.75
+  - 1.5
   ringPositionCounts: 050000000a000000
+  distanceToOrganizeSwarm: 3
+  debugCirclePrefab: {fileID: 413840611555864778, guid: a5c6f021c5263534486ae05a919c0b47, type: 3}
 --- !u!95 &8693357842044784570 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 621019451974682374, guid: d26e40392c042dc4d8c237ede2183746, type: 3}

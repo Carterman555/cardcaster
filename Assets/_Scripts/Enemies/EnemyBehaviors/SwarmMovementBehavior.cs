@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -18,17 +19,20 @@ public class SwarmMovementBehavior : MonoBehaviour, IEffectable, IEnemyMovement 
 
     public bool IsLeader { get; private set; }
     public SwarmMovementBehavior Leader { get; set; }
-    public bool InSwarm => Leader != null;
+    public bool InSwarm => Leader != null && Leader.unitsInSwarm.Count > 1;
 
     public bool Shuffling { get; set; }
 
     [SerializeField] private TriggerEventInvoker swarmTrigger;
-    
-    private Vector2 desiredPos;
+
+    [SerializeField] private float positionVariability;
 
     private NavMeshAgent agent;
     private IHasEnemyStats hasStats;
     private Knockback knockback;
+
+    [SerializeField] private bool showDebugText;
+    private DebugText debugText;
 
     private void Awake() {
         agent = GetComponent<NavMeshAgent>();
@@ -46,10 +50,40 @@ public class SwarmMovementBehavior : MonoBehaviour, IEffectable, IEnemyMovement 
 
         Leader = this;
         IsLeader = true;
-        unitsInSwarm = new HashSet<SwarmMovementBehavior>() { this };
+        unitsInSwarm = new List<SwarmMovementBehavior>() { this };
+    }
+
+    private void OnDisable() {
+        LeaveSwarm();
+    }
+
+    private void Start() {
+        if (showDebugText) {
+            debugText = DebugText.Create(transform, new Vector2(0, 1f), "");
+        }
     }
 
     private void Update() {
+
+        // debug start
+        if (showDebugText) {
+            if (IsLeader) {
+                debugText.SetText(GetInstanceID() + ": Leader, swarm amount = " + unitsInSwarm.Count + " Leader = " + Leader.GetInstanceID());
+            }
+            else {
+                if (Leader != null) {
+                    debugText.SetText(GetInstanceID() + ": Member, Leader = " + Leader.GetInstanceID());
+                }
+                else {
+                    debugText.SetText(GetInstanceID() + ": No leader");
+                }
+            }
+        }
+        // debug end
+
+        if (IsLeader) {
+            LeaderUpdate();
+        }
 
         if (IsMoving() && agent.isStopped) {
             agent.isStopped = false;
@@ -67,13 +101,32 @@ public class SwarmMovementBehavior : MonoBehaviour, IEffectable, IEnemyMovement 
     }
 
     public void LeaveSwarm() {
+
         Leader.unitsInSwarm.Remove(this);
-        Leader = null;
+        Shuffling = false;
+
+        if (IsLeader) {
+            if (unitsInSwarm.Count > 0) {
+
+                SwarmMovementBehavior newLeader = unitsInSwarm.RandomItem();
+                newLeader.unitsInSwarm = unitsInSwarm;
+
+                foreach (SwarmMovementBehavior swarmMovement in newLeader.unitsInSwarm) {
+                    swarmMovement.IsLeader = false;
+                    swarmMovement.Leader = newLeader;
+                }
+                newLeader.IsLeader = true;
+            }
+        }
+
+        Leader = this;
+        IsLeader = true;
+        unitsInSwarm = new List<SwarmMovementBehavior> { this };
     }
 
     private void OnSwarmTriggerEnter(Collider2D col) {
 
-        if (InSwarm) {
+        if (InSwarm || !enabled) {
             return;
         }
 
@@ -87,14 +140,16 @@ public class SwarmMovementBehavior : MonoBehaviour, IEffectable, IEnemyMovement 
             else {
                 Leader = this;
                 IsLeader = true;
-                unitsInSwarm.Add(this);
+
+                otherSwarmMovement.Leader = this;
+                otherSwarmMovement.IsLeader = false;
+                unitsInSwarm.Add(otherSwarmMovement);
             }
         }
     }
 
-    public void SetDesiredPos(Vector2 desiredPos) {
-        this.desiredPos = desiredPos;
-        agent.SetDestination(desiredPos);
+    public void SetDestination(Vector2 destination) {
+        agent.SetDestination(destination);
     }
 
     public void OnAddEffect(UnitEffect unitEffect) {
@@ -105,7 +160,7 @@ public class SwarmMovementBehavior : MonoBehaviour, IEffectable, IEnemyMovement 
 
     public bool IsMoving() {
         bool hasStopEffect = TryGetComponent(out StopMovement stopMovement);
-        return !hasStopEffect && !knockback.IsApplyingKnockback() && enabled;
+        return !hasStopEffect && !knockback.IsApplyingKnockback() && enabled && agent.enabled && agent.isOnNavMesh;
     }
 
     #region Swarm Leader
@@ -113,9 +168,13 @@ public class SwarmMovementBehavior : MonoBehaviour, IEffectable, IEnemyMovement 
     [SerializeField] private float[] ringDistances;
     [SerializeField] private int[] ringPositionCounts;
 
-    private HashSet<SwarmMovementBehavior> unitsInSwarm;
+    private List<SwarmMovementBehavior> unitsInSwarm;
 
     private Vector2 swarmDestination = Vector2.zero;
+
+    private void LeaderUpdate() {
+
+    }
 
     public void JoinSwarm(SwarmMovementBehavior joiningUnit) {
 
@@ -124,39 +183,27 @@ public class SwarmMovementBehavior : MonoBehaviour, IEffectable, IEnemyMovement 
             return;
         }
 
+        if (unitsInSwarm.Contains(joiningUnit)) {
+            return;
+        }
+
+        joiningUnit.IsLeader = false;
         joiningUnit.Leader = this;
         unitsInSwarm.Add(joiningUnit);
 
-        StopAndSwarmAroundLeader();
+        UpdateUnitPositions();
     }
 
-    private void OnDisable() {
-
-        if (IsLeader) {
-            unitsInSwarm.Remove(this);
-            if (unitsInSwarm.Count > 0) {
-
-                SwarmMovementBehavior newLeader = null;
-                foreach (SwarmMovementBehavior swarmMovement in unitsInSwarm) {
-                    if (newLeader == null) {
-                        swarmMovement.IsLeader = true;
-                        swarmMovement.Leader = swarmMovement;
-                        swarmMovement.unitsInSwarm = unitsInSwarm;
-                    }
-                    else {
-                        swarmMovement.IsLeader = false;
-                        swarmMovement.Leader = newLeader;
-                    }
-                }
-            }
-
-            Leader = null;
-            IsLeader = false;
-            unitsInSwarm.Clear();
-        }
-    }
+    [SerializeField] private bool debugShowDestinations;
+    [SerializeField] private GameObject debugCirclePrefab;
+    private List<GameObject> debugCircles = new();
 
     public void SetSwarmDestination(Vector2 destination) {
+
+        foreach (GameObject circle in debugCircles) {
+            circle.ReturnToPool();
+        }
+        debugCircles.Clear();
 
         foreach (SwarmMovementBehavior unit in unitsInSwarm) {
             unit.Shuffling = false;
@@ -165,9 +212,16 @@ public class SwarmMovementBehavior : MonoBehaviour, IEffectable, IEnemyMovement 
         swarmDestination = destination;
 
         List<Vector3> positions = GetPositionsAround(destination, ringDistances, ringPositionCounts);
+
         int positionIndex = 0;
         foreach (SwarmMovementBehavior unit in unitsInSwarm) {
-            unit.SetDesiredPos(positions[positionIndex]);
+            Vector3 randomVariability = UnityEngine.Random.insideUnitCircle * positionVariability;
+            unit.SetDestination(positions[positionIndex] + randomVariability);
+
+            if (debugShowDestinations) {
+                GameObject circle = debugCirclePrefab.Spawn(positions[positionIndex] + randomVariability);
+                debugCircles.Add(circle);
+            }
 
             positionIndex++;
             if (positionIndex >= positions.Count) {
@@ -185,7 +239,7 @@ public class SwarmMovementBehavior : MonoBehaviour, IEffectable, IEnemyMovement 
         SetSwarmDestination(transform.position);
     }
 
-    public void StopAndShuffle() {
+    public void Shuffle(Vector2 shufflePos) {
         if (!IsLeader) {
             Debug.LogError("Trying to shuffle, but not through leader!");
             return;
@@ -195,7 +249,7 @@ public class SwarmMovementBehavior : MonoBehaviour, IEffectable, IEnemyMovement 
             unit.Shuffling = true;
         }
 
-        swarmDestination = transform.position;
+        swarmDestination = shufflePos;
     }
 
     public bool IsSwarmMoving() {
@@ -221,7 +275,7 @@ public class SwarmMovementBehavior : MonoBehaviour, IEffectable, IEnemyMovement 
         return swarmMoving;
     }
 
-    public HashSet<SwarmMovementBehavior> GetUnitsInSwarm() {
+    public List<SwarmMovementBehavior> GetUnitsInSwarm() {
         if (!IsLeader) {
             Debug.LogError("Trying to get units in swarm, but not through leader!");
         }

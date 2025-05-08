@@ -1,12 +1,10 @@
-using MoreMountains.Tools;
 using QFSW.QC;
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEditor.Rendering;
 using UnityEngine;
 using UnityEngine.AI;
-using UnityEngine.UIElements;
+using UnityEngine.WSA;
 
 // Script execution order reason: needs invoke ChangeSwarmState in onEnable after swarmMovementBehavior sets itself to leader in onEnable
 public class Bee : Enemy {
@@ -22,8 +20,6 @@ public class Bee : Enemy {
 
     [SerializeField] private float reproduceTime;
     private float reproduceTimer;
-
-    private bool debugSetBluePlants; // testing
 
     private enum SwarmState { MovingToPlant, Wandering, Reproducing }
     private SwarmState swarmState; // all bees in a swarm always have the same swarmState
@@ -56,8 +52,8 @@ public class Bee : Enemy {
 
         reproduceTimer = float.PositiveInfinity;
 
-        shootTimer = EnemyStats.AttackCooldown;
-        attemptLaunchTimer = attemptLaunchCooldown;
+        shootTimer = shootCooldown.Randomize() * EnemyStats.AttackCooldown;
+        launchTimer = attemptLaunchCooldown.Randomize();
 
         anim.SetBool("launching", false);
 
@@ -72,30 +68,11 @@ public class Bee : Enemy {
     protected override void Update() {
         base.Update();
 
-        // testing
-        if (!debugSetBluePlants && Room.GetCurrentRoom() != null) {
-            Transform[] allObjectsInRoom = Room.GetCurrentRoom().GetComponentsInChildren<Transform>();
-            bluePlantsInRoom = allObjectsInRoom.Where(g => g.CompareTag("BluePlant")).ToList();
-
-            foreach (Transform plant in bluePlantsInRoom) {
-                plant.GetComponent<MonoBehaviourEventInvoker>().OnDisabled += OnPlantDisabled;
-            }
-
-            debugSetBluePlants = true;
-        }
-
-        if (!debugSetBluePlants) {
-            return;
-        }
-        // end testing
-
-
         if (swarmMovement.IsLeader) {
             HandleControllingSwarm();
         }
 
         HandleShooting();
-
         HandleLaunch();
     }
 
@@ -108,15 +85,13 @@ public class Bee : Enemy {
                     return;
                 }
 
-                if (!swarmMovement.IsSwarmMoving()) {
-                    reproducingPlant = GetClosestPlant();
-                    bool atBluePlant = Vector2.Distance(transform.position, reproducingPlant.position) < 0.1f;
-                    if (atBluePlant) {
-                        ChangeSwarmState(SwarmState.Reproducing);
-                    }
-                    else {
-                        swarmMovement.SetSwarmDestination(reproducingPlant.position);
-                    }
+                reproducingPlant = GetClosestPlant();
+                bool anyBeeNearPlant = swarmMovement.GetUnitsInSwarm().Any(u => Vector2.SqrMagnitude(u.transform.position - reproducingPlant.position) < 0.5f);
+                if (anyBeeNearPlant) {
+                    ChangeSwarmState(SwarmState.Reproducing);
+                }
+                else if (!swarmMovement.IsSwarmMoving()) {
+                    swarmMovement.SetSwarmDestination(reproducingPlant.position);
                 }
 
                 break;
@@ -142,9 +117,8 @@ public class Bee : Enemy {
                     scriptableEnemy.Prefab.Spawn(reproducingPlant.transform.position);
                     reproducingPlant.GetComponent<BreakOnDamaged>().Damage(0f);
 
-                    swarmMovement.StopAndSwarmAroundLeader();
-
                     reproducingPlant = GetClosestPlant();
+                    swarmMovement.SetSwarmDestination(reproducingPlant.position);
 
                     ChangeSwarmState(SwarmState.MovingToPlant);
                 }
@@ -167,14 +141,25 @@ public class Bee : Enemy {
 
         switch (swarmState) {
             case SwarmState.MovingToPlant:
+                foreach (Bee bee in beesInSwarm) {
+                    bee.IncreaseAgentAvoidance();
+                }
                 break;
 
             case SwarmState.Wandering:
+                foreach (Bee bee in beesInSwarm) {
+                    bee.IncreaseAgentAvoidance();
+                }
                 break;
 
             case SwarmState.Reproducing:
                 reproduceTimer = reproduceTime;
-                swarmMovement.StopAndShuffle();
+
+                reproducingPlant = GetClosestPlant();
+                swarmMovement.Shuffle(reproducingPlant.position);
+                foreach (Bee bee in beesInSwarm) {
+                    bee.DecreaseAgentAvoidance();
+                }
                 break;
         }
     }
@@ -194,16 +179,38 @@ public class Bee : Enemy {
         }
 
         if (closestPlant == null) {
-            Debug.Log("Could not find closest plant!");
+            Debug.LogError("Could not find closest plant!");
         }
 
         return closestPlant;
     }
 
+    private void DecreaseAgentAvoidance() {
+        float largeAvoidanceOffset = 0.05f;
+        agent.baseOffset = largeAvoidanceOffset;
+
+        float largeAvoidanceRadius = 0.05f;
+        agent.radius = largeAvoidanceRadius;
+
+        float largeAvoidanceHeight = 0.05f;
+        agent.height = largeAvoidanceHeight;
+    }
+
+    private void IncreaseAgentAvoidance() {
+        float largeAvoidanceOffset = 0;
+        agent.baseOffset = largeAvoidanceOffset;
+
+        float largeAvoidanceRadius = 0.4f;
+        agent.radius = largeAvoidanceRadius;
+
+        float largeAvoidanceHeight = 0.5f;
+        agent.height = largeAvoidanceHeight;
+    }
+
     #region Shoot Stinger
 
     private float shootTimer;
-    [SerializeField, Range(0f, 1f)] private float shootChance;
+    [SerializeField] private RandomFloat shootCooldown;
     [SerializeField] private StraightMovement stingerPrefab;
     [SerializeField] private Transform shootPoint;
 
@@ -221,19 +228,17 @@ public class Bee : Enemy {
         if (beeState == BeeState.FollowingSwarmBehavior) {
             shootTimer -= Time.deltaTime;
             if (shootTimer < 0f) {
-                shootTimer = EnemyStats.AttackCooldown;
+                shootTimer = shootCooldown.Randomize() * EnemyStats.AttackCooldown;
 
-                if (UnityEngine.Random.value < shootChance) {
-                    shootStopMovement = gameObject.AddComponent<StopMovement>();
+                shootStopMovement = gameObject.AddComponent<StopMovement>();
 
-                    beforeShootTimer = delayBeforeShoot;
+                beforeShootTimer = delayBeforeShoot;
 
-                    bool playerToRight = PlayerMovement.Instance.CenterPos.x > transform.position.x;
-                    float yAngle = playerToRight ? 0f : 180f;
-                    transform.rotation = Quaternion.Euler(new Vector3(transform.rotation.eulerAngles.x, yAngle, transform.rotation.eulerAngles.z));
+                bool playerToRight = PlayerMovement.Instance.CenterPos.x > transform.position.x;
+                float yAngle = playerToRight ? 0f : 180f;
+                transform.rotation = Quaternion.Euler(new Vector3(transform.rotation.eulerAngles.x, yAngle, transform.rotation.eulerAngles.z));
 
-                    beeState = BeeState.ShootingStinger;
-                }
+                beeState = BeeState.ShootingStinger;
             }
         }
         else if (beeState == BeeState.ShootingStinger) {
@@ -273,53 +278,54 @@ public class Bee : Enemy {
 
     #region Launch
 
-    [SerializeField] private float attemptLaunchCooldown;
-    private float attemptLaunchTimer;
-
-    [SerializeField, Range(0f, 1f)] private float launchChance;
+    [SerializeField] private RandomFloat attemptLaunchCooldown;
+    private float launchTimer;
 
     [SerializeField] private float launchAcceleration;
     [SerializeField] private float launchSpeed;
 
     private Vector2 launchDirection;
 
+    [Command]
+    private void LaunchLeader() {
+        if (swarmMovement.Leader) {
+            launchTimer = 0;
+        }
+    }
+
     private void HandleLaunch() {
 
         if (beeState == BeeState.FollowingSwarmBehavior) {
 
-            attemptLaunchTimer -= Time.deltaTime;
-            if (attemptLaunchTimer < 0f) {
-                attemptLaunchTimer = attemptLaunchCooldown;
+            launchTimer -= Time.deltaTime;
+            if (launchTimer < 0f) {
+                launchTimer = attemptLaunchCooldown.Randomize();
 
-                if (UnityEngine.Random.value < launchChance) {
-                    anim.SetBool("launching", true);
+                anim.SetBool("launching", true);
 
-                    swarmMovement.LeaveSwarm();
+                swarmMovement.enabled = false;
+                agent.enabled = false;
 
-                    swarmMovement.enabled = false;
-                    agent.enabled = false;
+                Vector2 toPlayerDirection = (PlayerMovement.Instance.CenterPos - transform.position).normalized;
+                launchDirection = toPlayerDirection;
 
-                    Vector2 toPlayerDirection = (PlayerMovement.Instance.CenterPos - transform.position).normalized;
-                    launchDirection = toPlayerDirection;
+                bool playerToRight = PlayerMovement.Instance.CenterPos.x > transform.position.x;
+                float yAngle = playerToRight ? 0f : 180f;
 
-                    bool playerToRight = PlayerMovement.Instance.CenterPos.x > transform.position.x;
-                    float yAngle = playerToRight ? 0f : 180f;
+                bool playerBelowBee = PlayerMovement.Instance.CenterPos.y < transform.position.y;
+                float toPlayerAngle = toPlayerDirection.DirectionToRotation().eulerAngles.z + 50f;
 
-                    bool playerBelowBee = PlayerMovement.Instance.CenterPos.y < transform.position.y;
-                    float toPlayerAngle = toPlayerDirection.DirectionToRotation().eulerAngles.z + 50f;
-
-                    float launchAngle = toPlayerAngle;
-                    if (!playerToRight) {
-                        launchAngle = 310f - toPlayerAngle;
-                    }
-
-                    transform.rotation = Quaternion.Euler(
-                        transform.rotation.eulerAngles.x,
-                        yAngle,
-                        launchAngle);
-
-                    beeState = BeeState.Launching;
+                float launchAngle = toPlayerAngle;
+                if (!playerToRight) {
+                    launchAngle = 310f - toPlayerAngle;
                 }
+
+                transform.rotation = Quaternion.Euler(
+                    transform.rotation.eulerAngles.x,
+                    yAngle,
+                    launchAngle);
+
+                beeState = BeeState.Launching;
             }
         }
         else if (beeState == BeeState.Launching) {

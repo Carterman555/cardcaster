@@ -186,11 +186,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3807084815282453126, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 4.37
+      value: 4.54
       objectReference: {fileID: 0}
     - target: {fileID: 3807084815282453126, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -2.01
+      value: -0.26
       objectReference: {fileID: 0}
     - target: {fileID: 3807084815282453126, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
       propertyPath: m_LocalPosition.z
@@ -341,6 +341,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 226976224992304211, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1545570904434104788}
+    - targetCorrespondingSourceObject: {fileID: 226976224992304211, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5527388733711450622}
   m_SourcePrefab: {fileID: 100100000, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
 --- !u!114 &2899262595723621407 stripped
 MonoBehaviour:
@@ -405,12 +408,27 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   swarmTrigger: {fileID: 8846564972412375469}
   positionVariability: 0.3
+  showDebugText: 0
   ringDistances:
   - 0.75
   - 1.5
   ringPositionCounts: 050000000a000000
-  distanceToOrganizeSwarm: 3
+  debugShowDestinations: 0
   debugCirclePrefab: {fileID: 413840611555864778, guid: a5c6f021c5263534486ae05a919c0b47, type: 3}
+--- !u!114 &5527388733711450622
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8294837421443421423}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee1a326d08c15f543a98aae059ed227b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  flip: 0
+  useAgent: 1
 --- !u!95 &8693357842044784570 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 621019451974682374, guid: d26e40392c042dc4d8c237ede2183746, type: 3}

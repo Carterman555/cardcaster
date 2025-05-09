@@ -12,6 +12,7 @@ public class Bee : Enemy {
     private SwarmMovementBehavior swarmMovement;
     private Rigidbody2D rb;
     private NavMeshAgent agent;
+    private FaceMoveDirectionBehavior faceBehavior;
 
     // TODO - remove flowers from list that get destroyed
     private List<Transform> bluePlantsInRoom;
@@ -33,6 +34,7 @@ public class Bee : Enemy {
         swarmMovement = GetComponent<SwarmMovementBehavior>();
         rb = GetComponent<Rigidbody2D>();
         agent = GetComponent<NavMeshAgent>();
+        faceBehavior = GetComponent<FaceMoveDirectionBehavior>();
     }
 
     protected override void OnEnable() {
@@ -235,8 +237,7 @@ public class Bee : Enemy {
                 beforeShootTimer = delayBeforeShoot;
 
                 bool playerToRight = PlayerMovement.Instance.CenterPos.x > transform.position.x;
-                float yAngle = playerToRight ? 0f : 180f;
-                transform.rotation = Quaternion.Euler(new Vector3(transform.rotation.eulerAngles.x, yAngle, transform.rotation.eulerAngles.z));
+                faceBehavior.ForceFace(playerToRight);
 
                 beeState = BeeState.ShootingStinger;
             }
@@ -254,6 +255,8 @@ public class Bee : Enemy {
             afterShootTimer -= Time.deltaTime;
             if (afterShootTimer < 0f) {
                 Destroy(shootStopMovement);
+
+                faceBehavior.StopForcing();
 
                 afterShootTimer = float.PositiveInfinity;
 
@@ -310,6 +313,8 @@ public class Bee : Enemy {
                 launchDirection = toPlayerDirection;
 
                 bool playerToRight = PlayerMovement.Instance.CenterPos.x > transform.position.x;
+                faceBehavior.ForceFace(playerToRight);
+
                 float yAngle = playerToRight ? 0f : 180f;
 
                 bool playerBelowBee = PlayerMovement.Instance.CenterPos.y < transform.position.y;

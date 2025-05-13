@@ -23,7 +23,7 @@ public class ResourceSystem : Singleton<ResourceSystem> {
     }
 
     private void AssembleResources() {
-        LevelLayouts = Resources.LoadAll<ScriptableLevelLayout>("Layouts").ToList();
+        LevelLayouts = Resources.LoadAll<ScriptableLevelLayout>("LevelLayouts").ToList();
 
         Rooms = Resources.LoadAll<ScriptableRoom>("Rooms")
             .GroupBy(r => r.RoomType)

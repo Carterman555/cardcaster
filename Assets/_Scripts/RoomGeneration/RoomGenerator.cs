@@ -85,18 +85,20 @@ public class RoomGenerator : StaticInstance<RoomGenerator> {
         ClearOverlapCheckers();
         SetupUsedRoomsDict();
 
-        ScriptableLevelLayout layoutData = ResourceSystem.Instance.GetRandomLayout();
+        ScriptableLevelLayout levelLayout = ResourceSystem.Instance.GetRandomLayout();
+
+        if (debug) Debug.Log("Trying to generate layout with " + levelLayout.name);
 
         // spawn first room checker
         RoomOverlapChecker newRoomChecker = roomOverlapCheckerPrefab.Spawn(Vector2.zero, Containers.Instance.RoomOverlapCheckers);
-        Room entranceRoomPrefab = GetRandomUniqueRoom(layoutData.LevelLayout.roomType).Prefab;
+        Room entranceRoomPrefab = GetRandomUniqueRoom(levelLayout.RoomConnections[0].RoomType).Prefab;
         newRoomChecker.Setup(entranceRoomPrefab, null);
         roomOverlapCheckers.Add(newRoomChecker);
 
-        SetChildrensChecker(layoutData.LevelLayout, newRoomChecker, entranceRoomPrefab);
+        SetChildrensChecker(levelLayout, levelLayout.RoomConnections[0], newRoomChecker, entranceRoomPrefab);
 
         // spawn all other room checkers
-        yield return StartCoroutine(SpawnRoomCheckers(layoutData.LevelLayout));
+        yield return StartCoroutine(SpawnRoomCheckers(levelLayout));
 
         isGeneratingRooms = false;
     }
@@ -115,12 +117,17 @@ public class RoomGenerator : StaticInstance<RoomGenerator> {
         }
     }
 
-    private IEnumerator SpawnRoomCheckers(RoomConnection layout) {
-        if (debug) Debug.Log($"Starting SpawnRoomCheckers for layout with {layout.connectedRooms.Count} connected rooms");
+    private IEnumerator SpawnRoomCheckers(ScriptableLevelLayout levelLayout) {
+        if (debug) Debug.Log($"Starting SpawnRoomCheckers for layout with {levelLayout.RoomConnections.Length} connected rooms");
 
-        // Recursively go through each room type in layout
-        foreach (RoomConnection subLayout in layout.connectedRooms) {
-            if (debug) Debug.Log($"Processing subLayout of type {subLayout.roomType}");
+        foreach (RoomConnection roomConnection in levelLayout.RoomConnections) {
+
+            // already setup first room, so skip
+            if (roomConnection == levelLayout.RoomConnections[0]) {
+                continue;
+            }
+
+            if (debug) Debug.Log($"Processing subLayout of type {roomConnection.RoomType}");
             bool canSpawn = false;
             ScriptableRoom newRoomScriptable = null;
             Room newRoomPrefab = null;
@@ -130,7 +137,7 @@ public class RoomGenerator : StaticInstance<RoomGenerator> {
             // Until it spawns a room that can be spawned
             while (!canSpawn) {
                 if (debug)
-                    Debug.Log($"Attempt #{tryRoomCounter} to spawn room of type {subLayout.roomType} to connect to {subLayout.ParentRoomOverlapChecker.GetRoomPrefab().name}");
+                    Debug.Log($"Attempt #{tryRoomCounter} to spawn room of type {roomConnection.RoomType} to connect to {roomConnection.ParentRoomOverlapChecker.GetRoomPrefab().name}");
 
                 tryRoomCounter++;
                 int tryRoomAmount = 5;
@@ -141,13 +148,13 @@ public class RoomGenerator : StaticInstance<RoomGenerator> {
                     yield break; // exits method
                 }
 
-                newRoomScriptable = GetRandomUniqueRoom(subLayout.roomType);
+                newRoomScriptable = GetRandomUniqueRoom(roomConnection.RoomType);
                 newRoomPrefab = newRoomScriptable.Prefab;
                 if (debug)
                     Debug.Log($"Selected room: {newRoomScriptable.name}");
 
                 // Try to spawn this room
-                yield return StartCoroutine(TrySpawnRoomChecker(newRoomPrefab, subLayout.ParentRoomOverlapChecker, (success) => canSpawn = success));
+                yield return StartCoroutine(TrySpawnRoomChecker(newRoomPrefab, roomConnection.ParentRoomOverlapChecker, (success) => canSpawn = success));
             }
 
             usedRooms[newRoomScriptable.RoomType].Add(newRoomScriptable);
@@ -155,12 +162,7 @@ public class RoomGenerator : StaticInstance<RoomGenerator> {
                 Debug.Log($"Successfully spawned room: {newRoomScriptable.name}");
 
             RoomOverlapChecker newRoomChecker = roomOverlapCheckers.Last();
-            SetChildrensChecker(subLayout, newRoomChecker, newRoomPrefab);
-
-            if (!failedRoomCreation) {
-                if (debug) Debug.Log("Starting recursive spawn for connected rooms");
-                yield return StartCoroutine(SpawnRoomCheckers(subLayout)); // Recursive spawn
-            }
+            SetChildrensChecker(levelLayout, roomConnection, newRoomChecker, newRoomPrefab);
         }
     }
 
@@ -189,9 +191,10 @@ public class RoomGenerator : StaticInstance<RoomGenerator> {
         return newRoomScriptable;
     }
 
-    private void SetChildrensChecker(RoomConnection layout, RoomOverlapChecker newRoomChecker, Room roomPrefab) {
-        foreach (RoomConnection subLayout in layout.connectedRooms) {
-            subLayout.ParentRoomOverlapChecker = newRoomChecker;
+    private void SetChildrensChecker(ScriptableLevelLayout levelLayout, RoomConnection roomConnection, RoomOverlapChecker newRoomChecker, Room roomPrefab) {
+        foreach (string connectedRoomID in roomConnection.ConnectedRoomIDs) {
+            RoomConnection childRoomConnection = levelLayout.RoomConnections.First(c => c.RoomID == connectedRoomID);
+            childRoomConnection.ParentRoomOverlapChecker = newRoomChecker;
         }
     }
 

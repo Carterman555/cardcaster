@@ -58,12 +58,14 @@ public class Bee : Enemy {
 
         reproduceTimer = float.PositiveInfinity;
 
-        shootTimer = shootCooldown.Randomize() * EnemyStats.AttackCooldown;
-        launchTimer = attemptLaunchCooldown.Randomize();
-
         anim.SetBool("launching", false);
 
-        ChangeSwarmState(SwarmState.MovingToPlant);
+        if (bluePlantsInRoom.Count > 0) {
+            ChangeSwarmState(SwarmState.MovingToPlant);
+        }
+        else if (bluePlantsInRoom.Count == 0) {
+            ChangeSwarmState(SwarmState.Wandering);
+        }
     }
 
     private void OnPlantDisabled(GameObject plant) {
@@ -132,9 +134,6 @@ public class Bee : Enemy {
                     reproducingPlant.GetComponent<BreakOnDamaged>().Damage(0f);
 
                     if (bluePlantsInRoom.Count > 0) {
-                        reproducingPlant = GetClosestPlant();
-                        swarmMovement.SetSwarmDestination(reproducingPlant.position);
-
                         ChangeSwarmState(SwarmState.MovingToPlant);
                     }
                     else {
@@ -164,8 +163,9 @@ public class Bee : Enemy {
                     bee.IncreaseAgentAvoidance();
                 }
 
-                reproducingPlant = GetClosestPlant();
-                swarmMovement.SetSwarmDestination(reproducingPlant.position);
+                //... delay to wait for plant to get destroyed and new bee to join swarm
+                Invoke(nameof(MoveToNearestPlant), 0.1f);
+
                 break;
 
             case SwarmState.Wandering:
@@ -188,6 +188,13 @@ public class Bee : Enemy {
                 swarmMovement.Shuffle(reproducingPlant.position);
 
                 break;
+        }
+    }
+
+    private void MoveToNearestPlant() {
+        if (swarmMovement.IsLeader) {
+            reproducingPlant = GetClosestPlant();
+            swarmMovement.SetSwarmDestination(reproducingPlant.position);
         }
     }
 
@@ -255,8 +262,7 @@ public class Bee : Enemy {
         float randomMoveDistance = Random.Range(1f, 2f);
 
         if (currentlyCloseToPlayer) {
-            print("Too close");
-            if (swarmMovement.AnyUnitNearSwarmDest()) {
+            if (swarmMovement.AnyUnitNearSwarmDest(distanceThreshold: 1f) || !swarmMovement.SwarmDestinationSet) {
                 Vector2 fromPlayerDirection = (transform.position - PlayerMovement.Instance.CenterPos).normalized;
 
                 float randomFleeDegrees = Random.Range(-moveDirectionVariation, moveDirectionVariation);
@@ -267,8 +273,7 @@ public class Bee : Enemy {
             }
         }
         else if (currentlyFarFromPlayer) {
-            print("Too far");
-            if (swarmMovement.AnyUnitNearSwarmDest()) {
+            if (swarmMovement.AnyUnitNearSwarmDest(distanceThreshold: 1f) || !swarmMovement.SwarmDestinationSet) {
                 Vector2 toPlayerDirection = (PlayerMovement.Instance.CenterPos - transform.position).normalized;
 
                 float randomChaseDegrees = Random.Range(-moveDirectionVariation, moveDirectionVariation);
@@ -279,7 +284,6 @@ public class Bee : Enemy {
             }
         }
         else {
-            print("Using wander movement");
             swarmMovement.SetSwarmDestination(wanderMovement.TargetDestination);
         }
 
@@ -290,8 +294,7 @@ public class Bee : Enemy {
     #region Shoot Stinger
 
     [Header("Shoot")]
-    private float shootTimer;
-    [SerializeField] private RandomFloat shootCooldown;
+    [SerializeField] private float chanceToShootPerSecond;
     [SerializeField] private StraightMovement stingerPrefab;
     [SerializeField] private Transform shootPoint;
 
@@ -307,10 +310,8 @@ public class Bee : Enemy {
     private void HandleShooting() {
 
         if (beeState == BeeState.FollowingSwarmBehavior) {
-            shootTimer -= Time.deltaTime;
-            if (shootTimer < 0f) {
-                shootTimer = shootCooldown.Randomize() * EnemyStats.AttackCooldown;
-
+            bool shoot = Random.value < chanceToShootPerSecond * Time.deltaTime;
+            if (shoot) {
                 shootStopMovement = gameObject.AddComponent<StopMovement>();
 
                 beforeShootTimer = delayBeforeShoot;
@@ -359,34 +360,19 @@ public class Bee : Enemy {
 
 
     #region Launch
-
-    [SerializeField] private RandomFloat attemptLaunchCooldown;
-    private float launchTimer;
+    [SerializeField] private float chanceToLaunchPerSecond;
 
     [SerializeField] private float launchAcceleration;
     [SerializeField] private float launchSpeed;
 
     private Vector2 launchDirection;
 
-    [Command]
-    private void LaunchLeader() {
-        if (swarmMovement.Leader) {
-            launchTimer = 0;
-        }
-    }
-
     private void HandleLaunch() {
 
         if (beeState == BeeState.FollowingSwarmBehavior) {
-
-            launchTimer -= Time.deltaTime;
-            if (launchTimer < 0f) {
-                launchTimer = attemptLaunchCooldown.Randomize();
-
-
+            if (Random.value < chanceToLaunchPerSecond * Time.deltaTime) {
                 swarmMovement.enabled = false;
                 agent.enabled = false;
-
 
                 Vector2 toPlayerDirection = (PlayerMovement.Instance.CenterPos - transform.position).normalized;
                 launchDirection = toPlayerDirection;

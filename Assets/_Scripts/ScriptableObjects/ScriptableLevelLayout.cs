@@ -1,22 +1,19 @@
-using UnityEngine;
 using System;
+using System.Collections;
 using System.Collections.Generic;
-using UnityEngine.Serialization;
+using UnityEngine;
 
 [Serializable]
 public class RoomConnection {
-    public RoomType roomType;
-    public List<RoomConnection> connectedRooms = new();
-    
-    //... this is the room overlap checker of the connecting room it was created from and it's used in the
-    //... generation process
+    public string RoomID; // Unique identifier
+    public RoomType RoomType;
+    public List<string> ConnectedRoomIDs = new(); // Store IDs instead of direct references
+
     [HideInInspector] public RoomOverlapChecker ParentRoomOverlapChecker;
 }
 
-[CreateAssetMenu(fileName = "New Dungeon Layout", menuName = "Dungeon/Dungeon Layout")]
+[CreateAssetMenu(fileName = "LevelLayout", menuName = "Level Layout")]
 public class ScriptableLevelLayout : ScriptableObject {
-
-    [FormerlySerializedAs("entranceRoom")]
-    [SerializeField] private RoomConnection roomLayout;
-    public RoomConnection LevelLayout => roomLayout;
+    [SerializeField] private RoomConnection[] roomConnections;
+    public RoomConnection[] RoomConnections => roomConnections;
 }

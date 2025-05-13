@@ -1,0 +1,90 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ede8c0e028cefc84197d1b350e990cf6, type: 3}
+  m_Name: LevelLayout 1
+  m_EditorClassIdentifier: 
+  roomConnections:
+  - RoomID: Entrance
+    RoomType: 5
+    ConnectedRoomIDs:
+    - Normal1
+    ParentRoomOverlapChecker: {fileID: 0}
+  - RoomID: Normal1
+    RoomType: 0
+    ConnectedRoomIDs:
+    - Normal2
+    ParentRoomOverlapChecker: {fileID: 0}
+  - RoomID: Normal2
+    RoomType: 0
+    ConnectedRoomIDs:
+    - Hub1
+    ParentRoomOverlapChecker: {fileID: 0}
+  - RoomID: Hub1
+    RoomType: 1
+    ConnectedRoomIDs:
+    - Normal3
+    - Normal4
+    ParentRoomOverlapChecker: {fileID: 0}
+  - RoomID: Normal3
+    RoomType: 0
+    ConnectedRoomIDs:
+    - Reward1
+    ParentRoomOverlapChecker: {fileID: 0}
+  - RoomID: Reward1
+    RoomType: 2
+    ConnectedRoomIDs: []
+    ParentRoomOverlapChecker: {fileID: 0}
+  - RoomID: Normal4
+    RoomType: 0
+    ConnectedRoomIDs:
+    - Boss
+    - Hub2
+    ParentRoomOverlapChecker: {fileID: 0}
+  - RoomID: Boss
+    RoomType: 3
+    ConnectedRoomIDs:
+    - Exit
+    ParentRoomOverlapChecker: {fileID: 0}
+  - RoomID: Exit
+    RoomType: 6
+    ConnectedRoomIDs:
+    - Exit
+    ParentRoomOverlapChecker: {fileID: 0}
+  - RoomID: Hub2
+    RoomType: 1
+    ConnectedRoomIDs:
+    - Normal5
+    - Normal7
+    ParentRoomOverlapChecker: {fileID: 0}
+  - RoomID: Normal5
+    RoomType: 0
+    ConnectedRoomIDs:
+    - Normal6
+    ParentRoomOverlapChecker: {fileID: 0}
+  - RoomID: Normal6
+    RoomType: 0
+    ConnectedRoomIDs:
+    - Reward2
+    ParentRoomOverlapChecker: {fileID: 0}
+  - RoomID: Reward2
+    RoomType: 2
+    ConnectedRoomIDs: []
+    ParentRoomOverlapChecker: {fileID: 0}
+  - RoomID: Normal7
+    RoomType: 0
+    ConnectedRoomIDs:
+    - Shop
+    ParentRoomOverlapChecker: {fileID: 0}
+  - RoomID: Shop
+    RoomType: 4
+    ConnectedRoomIDs: []
+    ParentRoomOverlapChecker: {fileID: 0}

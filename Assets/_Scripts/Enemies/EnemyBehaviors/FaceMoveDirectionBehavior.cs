@@ -36,7 +36,8 @@ public class FaceMoveDirectionBehavior : MonoBehaviour {
         float facingLeftRotation = flip ? 0 : 180;
 
         float desiredRotation = faceRight ? facingRightRotation : facingLeftRotation;
-        if (transform.rotation.eulerAngles.y != desiredRotation) {
+        float minVelocityToFlipFacing = 0.25f;
+        if (transform.rotation.eulerAngles.y != desiredRotation && Mathf.Abs(xVel) > minVelocityToFlipFacing) {
             transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles.x, desiredRotation, transform.rotation.eulerAngles.z);
         }
     }

@@ -385,18 +385,14 @@ MonoBehaviour:
   playerTracker: {fileID: 2899262595723621407}
   anim: {fileID: 8693357842044784570}
   reproduceTime: 3
-  fleeDistance: 8
-  chaseDistance: 12
-  shootCooldown:
-    MinValue: 10
-    MaxValue: 25
+  fleeDistance: 5
+  chaseDistance: 10
+  chanceToShootPerSecond: 0.1
   stingerPrefab: {fileID: -1897301476388012080, guid: 94dcd3b5954dc624e95394b84cb6cb58, type: 3}
   shootPoint: {fileID: 2685148296906252545}
   delayBeforeShoot: 1
   delayAfterShoot: 0.5
-  attemptLaunchCooldown:
-    MinValue: 20
-    MaxValue: 200
+  chanceToLaunchPerSecond: 0.01
   launchAcceleration: 15
   launchSpeed: 15
 --- !u!114 &1545570904434104788
@@ -413,11 +409,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   swarmTrigger: {fileID: 8846564972412375469}
   positionVariability: 0.3
-  showDebugText: 0
+  showDebugText: 1
   ringDistances:
   - 0.75
   - 1.5
-  ringPositionCounts: 050000000a000000
+  - 2.25
+  - 3
+  ringPositionCounts: 050000000a0000001400000028000000
   debugShowDestinations: 1
   debugCirclePrefab: {fileID: 413840611555864778, guid: a5c6f021c5263534486ae05a919c0b47, type: 3}
 --- !u!114 &4044733068576081875

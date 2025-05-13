@@ -95,6 +95,7 @@ public static class Helpers {
         return Quaternion.Euler(0, 0, angleDegrees);
     }
 
+    // will always return normalized direction
     public static Vector2 RotationToDirection(this float degrees) {
         return Quaternion.Euler(0, 0, degrees) * Vector2.up;
     }

@@ -209,7 +209,14 @@ public class SwarmMovementBehavior : MonoBehaviour, IEffectable, IEnemyMovement 
             unit.Shuffling = false;
         }
 
-        swarmDestination = destination;
+        float maxDistance = 2f;
+        if (NavMesh.SamplePosition(destination, out NavMeshHit hit, maxDistance, NavMesh.AllAreas)) {
+            swarmDestination = hit.position;
+        }
+        else {
+            Debug.LogWarning("Could not find valid nav mesh position near set swarm destination!");
+            return;
+        }
 
         List<Vector3> positions = GetPositionsAround(destination, ringDistances, ringPositionCounts);
 
@@ -239,6 +246,17 @@ public class SwarmMovementBehavior : MonoBehaviour, IEffectable, IEnemyMovement 
         SetSwarmDestination(transform.position);
     }
 
+    public void StopAtCurrentPositions() {
+        if (!IsLeader) {
+            Debug.LogError("Trying to stop swarm, but not through leader!");
+            return;
+        }
+
+        foreach (SwarmMovementBehavior unit in unitsInSwarm) {
+            unit.SetDestination(unit.transform.position);
+        }
+    }
+
     public void Shuffle(Vector2 shufflePos) {
         if (!IsLeader) {
             Debug.LogError("Trying to shuffle, but not through leader!");
@@ -252,27 +270,43 @@ public class SwarmMovementBehavior : MonoBehaviour, IEffectable, IEnemyMovement 
         swarmDestination = shufflePos;
     }
 
-    public bool IsSwarmMoving() {
+    public bool AnyUnitNearSwarmDest() {
+        if (!IsLeader) {
+            Debug.LogError("Trying to check if any unit near swarm dest, but not through leader!");
+            return false;
+        }
+
+        bool swarmDestinationSet = swarmDestination != Vector2.zero;
+        if (!enabled || !swarmDestinationSet) {
+            return false;
+        }
+
+        float thresholdSquared = 0.05f;
+        return unitsInSwarm.Any(u => Vector2.SqrMagnitude((Vector2)u.transform.position - swarmDestination) < thresholdSquared);
+    }
+
+    public bool AllUnitsNearSwarmDest() {
 
         if (!IsLeader) {
             Debug.LogError("Trying to check if swarm is moving, but not through leader!");
             return false;
         }
 
-        if (!enabled) {
+        bool swarmDestinationSet = swarmDestination != Vector2.zero;
+        if (!enabled || !swarmDestinationSet) {
             return false;
         }
 
-        // if any units are moving, count the swarm as moving
-        bool swarmMoving = false;
-        foreach (SwarmMovementBehavior unit in unitsInSwarm) {
-            float distanceThreshold = 0.1f;
-            if (unit.agent.remainingDistance > distanceThreshold) {
-                swarmMoving = true;
-            }
-        }
+        // calculate the radius of a circle that would fit the swarm
+        float unitArea = agent.radius * agent.height * 2;
+        float swarmArea = unitArea * unitsInSwarm.Count;
+        float radiusBuffer = 1f;
+        float radius = Mathf.Sqrt(swarmArea / Mathf.PI) + radiusBuffer;
+        float radiusSquared = radius * radius;
 
-        return swarmMoving;
+        //... check if all units are within that radius of the swarm destination
+        bool swarmNearDestination = unitsInSwarm.All(u => Vector2.SqrMagnitude((Vector2)u.transform.position - swarmDestination) < radiusSquared);
+        return swarmNearDestination;
     }
 
     public List<SwarmMovementBehavior> GetUnitsInSwarm() {

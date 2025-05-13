@@ -142,7 +142,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 226976224992304211, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 617611260473894985, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
       propertyPath: m_Size.x
@@ -186,11 +186,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3807084815282453126, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 4.54
+      value: 3.432
       objectReference: {fileID: 0}
     - target: {fileID: 3807084815282453126, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.26
+      value: 0.856
       objectReference: {fileID: 0}
     - target: {fileID: 3807084815282453126, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
       propertyPath: m_LocalPosition.z
@@ -343,6 +343,9 @@ PrefabInstance:
       addedObject: {fileID: 1545570904434104788}
     - targetCorrespondingSourceObject: {fileID: 226976224992304211, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
       insertIndex: -1
+      addedObject: {fileID: 4044733068576081875}
+    - targetCorrespondingSourceObject: {fileID: 226976224992304211, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
+      insertIndex: -1
       addedObject: {fileID: 5527388733711450622}
   m_SourcePrefab: {fileID: 100100000, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
 --- !u!114 &2899262595723621407 stripped
@@ -382,6 +385,8 @@ MonoBehaviour:
   playerTracker: {fileID: 2899262595723621407}
   anim: {fileID: 8693357842044784570}
   reproduceTime: 3
+  fleeDistance: 8
+  chaseDistance: 12
   shootCooldown:
     MinValue: 10
     MaxValue: 25
@@ -413,8 +418,25 @@ MonoBehaviour:
   - 0.75
   - 1.5
   ringPositionCounts: 050000000a000000
-  debugShowDestinations: 0
+  debugShowDestinations: 1
   debugCirclePrefab: {fileID: 413840611555864778, guid: a5c6f021c5263534486ae05a919c0b47, type: 3}
+--- !u!114 &4044733068576081875
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8294837421443421423}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24009c887275a4d4d94836d17a58c483, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scrollSpeed: 0.5
+  obstacleScrollSpeedMult: 5
+  maxDestinationDistance: 2
+  setAgentDestination: 0
+  showGizmosLine: 0
 --- !u!114 &5527388733711450622
 MonoBehaviour:
   m_ObjectHideFlags: 0

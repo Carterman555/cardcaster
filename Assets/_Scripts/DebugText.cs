@@ -16,6 +16,11 @@ public class DebugText : MonoBehaviour {
         textMeshPro = GetComponent<TextMeshPro>();
     }
 
+    private void Update() {
+        //.. so doesn't flip text when unit flips
+        transform.rotation = Quaternion.identity;
+    }
+
     public void SetText(string text) {
         textMeshPro.text = text;
     }

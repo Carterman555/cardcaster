@@ -35,7 +35,7 @@ public class ChasePlayerBehavior : MonoBehaviour, IEffectable, IEnemyMovement {
     }
 
     private void OnEnable() {
-        agent.isStopped = false; // moved from awake: might cause bugs
+        agent.isStopped = false;
     }
 
     private void OnDisable() {

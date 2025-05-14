@@ -13,6 +13,8 @@ public class CardKeyboardInput : MonoBehaviour, IPointerEnterHandler, IPointerEx
 
     private bool mouseDownOnCard;
 
+    public bool PositioningCard => followMouse.enabled;
+
     private void Awake() {
         handCard = GetComponent<HandCard>();
         followMouse = GetComponent<MMFollowTarget>();
@@ -26,6 +28,7 @@ public class CardKeyboardInput : MonoBehaviour, IPointerEnterHandler, IPointerEx
     private void OnEnable() {
         SubCancelEvents();
 
+
         //... make sure not following the mouse
         followMouse.enabled = false;
         handCard.ShowPlayInput();
@@ -35,7 +38,7 @@ public class CardKeyboardInput : MonoBehaviour, IPointerEnterHandler, IPointerEx
 
     private void OnDisable() {
         if (handCard.CurrentCardState == CardState.Playing) {
-            handCard.CancelCard(followMouse.enabled);
+            handCard.CancelCard();
         }
 
         UnsubCancelEvents();
@@ -153,7 +156,7 @@ public class CardKeyboardInput : MonoBehaviour, IPointerEnterHandler, IPointerEx
 
     private void TryPlayCard() {
         if (setToCancel) {
-            handCard.CancelCard(followMouse.enabled);
+            handCard.CancelCard();
             moveCardOnHover = true;
         }
         else {
@@ -170,17 +173,33 @@ public class CardKeyboardInput : MonoBehaviour, IPointerEnterHandler, IPointerEx
 
     #region Cancelling
 
-
     private bool setToCancel;
 
     private void SubCancelEvents() {
         CancelCardPanel.OnSetToCancel += SetToCancel;
         CancelCardPanel.OnSetToPlay += SetToPlay;
+        InputManager.OnActionMapChanged += OnActionMapChanged;
     }
 
     private void UnsubCancelEvents() {
         CancelCardPanel.OnSetToCancel -= SetToCancel;
         CancelCardPanel.OnSetToPlay -= SetToPlay;
+        InputManager.OnActionMapChanged -= OnActionMapChanged;
+    }
+
+    private void OnActionMapChanged(string actionMap) {
+        if (handCard.CurrentCardState == CardState.Playing) {
+            handCard.CancelCard();
+            moveCardOnHover = true;
+
+            mouseDownOnCard = false;
+
+            followMouse.enabled = false;
+            handCard.ShowPlayInput();
+
+            //... hide cancel card panel
+            FeedbackPlayerOld.PlayInReverse("CancelCard");
+        }
     }
 
     private void SetToCancel() {

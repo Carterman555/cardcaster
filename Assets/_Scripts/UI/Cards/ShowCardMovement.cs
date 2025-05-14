@@ -44,6 +44,7 @@ public class ShowCardMovement : MonoBehaviour {
         if (showState == ShowState.Hidden) {
             showState = ShowState.Moving;
 
+            rectTransform.DOKill();
             rectTransform.DOAnchorPos(showPos, duration);
 
             canvasGroup.DOKill();
@@ -67,10 +68,11 @@ public class ShowCardMovement : MonoBehaviour {
 
             handCard.CurrentCardState = HandCard.CardState.Moving;
 
-            rectTransform.DOAnchorPos(hidePos, duration);
+            rectTransform.DOKill();
+            rectTransform.DOAnchorPos(hidePos, duration).SetUpdate(true);
 
             canvasGroup.DOKill();
-            canvasGroup.DOFade(fade, duration).OnComplete(() => {
+            canvasGroup.DOFade(fade, duration).SetUpdate(true).OnComplete(() => {
                 showState = ShowState.Hidden;
 
                 if (handCard.CurrentCardState == HandCard.CardState.Moving) {

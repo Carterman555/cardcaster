@@ -15023,9 +15023,9 @@ MonoBehaviour:
       MaxValue: 20
   anim: {fileID: 3887365593034165796}
   centerPoint: {fileID: 2512676828727106287}
-  debugState: 1
+  debugState: 0
   stateToDebug: 3
-  debugStartSecondStage: 1
+  debugStartSecondStage: 0
   swordRotate: {fileID: 8468655487895110190}
   sword1Renderer: {fileID: 5832003789959896266}
   sword2Renderer: {fileID: 7368805656976827978}
@@ -15149,7 +15149,6 @@ MonoBehaviour:
   avgDropAmount: 5
   dropAmountVariation: 1
   yVariation: 2
-  IsEnabled: 0
 --- !u!114 &-3110184942699136218
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15201,6 +15200,7 @@ MonoBehaviour:
   hasParticlePoint: 1
   particlePoint: {fileID: 2512676828727106287}
   playOnDeathEvent: 0
+  playOnDisable: 0
   playSFX: 1
   deathSFX:
     Clips:

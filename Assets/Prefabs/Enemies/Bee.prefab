@@ -409,14 +409,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   swarmTrigger: {fileID: 8846564972412375469}
   positionVariability: 0.3
-  showDebugText: 1
+  showDebugText: 0
   ringDistances:
   - 0.75
   - 1.5
   - 2.25
   - 3
   ringPositionCounts: 050000000a0000001400000028000000
-  debugShowDestinations: 1
+  debugShowDestinations: 0
   debugCirclePrefab: {fileID: 413840611555864778, guid: a5c6f021c5263534486ae05a919c0b47, type: 3}
 --- !u!114 &4044733068576081875
 MonoBehaviour:

@@ -21,7 +21,8 @@ public class CardControllerInput : MonoBehaviour {
     private HandCard handCard;
     private ShowCardMovement showCardMovement;
 
-    private bool movingCard; // true if able to move card with joystick
+    //... true if able to move card with joystick
+    public bool MovingCard { get; private set; }
 
     private void Awake() {
         handCard = GetComponent<HandCard>();
@@ -30,10 +31,10 @@ public class CardControllerInput : MonoBehaviour {
 
     private void OnDisable() {
         if (handCard.CurrentCardState == CardState.Playing) {
-            handCard.CancelCard(movingCard);
+            handCard.CancelCard();
         }
 
-        movingCard = false;
+        MovingCard = false;
     }
 
     private void Update() {
@@ -79,12 +80,12 @@ public class CardControllerInput : MonoBehaviour {
         bool pressedCancelInput = cancelAction.action.WasReleasedThisFrame();
         if (pressedCancelInput || PressedOtherPlayInput()) {
             if (handCard.CurrentCardState == CardState.Playing) {
-                handCard.CancelCard(movingCard);
+                handCard.CancelCard();
             }
-            movingCard = false;
+            MovingCard = false;
         }
 
-        if (handCard.CurrentCardState == CardState.Playing && movingCard) {
+        if (handCard.CurrentCardState == CardState.Playing && MovingCard) {
             Vector3 direction = moveCardAction.action.ReadValue<Vector2>().normalized;
 
             // can't move off screen
@@ -106,7 +107,7 @@ public class CardControllerInput : MonoBehaviour {
     }
 
     private void MoveToCenter() {
-        movingCard = true;
+        MovingCard = true;
         handCard.CurrentCardState = CardState.Moving;
 
         Vector2 screenCenterPos = new Vector2(Screen.width / 2f, Screen.height / 2f);

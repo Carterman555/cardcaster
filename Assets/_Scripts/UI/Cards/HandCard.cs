@@ -310,7 +310,9 @@ public class HandCard : MonoBehaviour {
 
     #region Handle Cancelling
 
-    public void CancelCard(bool positioningCard) {
+    
+
+    public void CancelCard() {
 
         CurrentCardState = CardState.Moving;
 
@@ -324,11 +326,14 @@ public class HandCard : MonoBehaviour {
             abilityCard.Cancel();
         }
 
+        bool positioningCard = (cardKeyboardInput.enabled && cardKeyboardInput.PositioningCard) ||
+            (cardControllerInput.enabled && cardControllerInput.MovingCard);
+
         if (positioningCard) {
             float duration = 0.3f;
 
             rectTransform.DOKill();
-            rectTransform.DOAnchorPos(showPos, duration).OnComplete(() => {
+            rectTransform.DOAnchorPos(showPos, duration).SetUpdate(true).OnComplete(() => {
                 showCardMovement.Hide();
             });
         }

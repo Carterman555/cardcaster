@@ -70,7 +70,7 @@ public class PlayerMeleeAttack : StaticInstance<PlayerMeleeAttack>, ITargetAttac
         weapon.Swing();
 
         Collider2D[] targetCols;
-        if (playerDashAttack.GetCanDashAttack(GetAttackDirection())) {
+        if (playerDashAttack.CanDashAttack(GetAttackDirection())) {
             targetCols = playerDashAttack.DashAttack();
         }
         else {

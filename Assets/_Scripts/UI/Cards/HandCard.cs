@@ -195,6 +195,8 @@ public class HandCard : MonoBehaviour {
             return;
         }
 
+        ShowPlayInput();
+
         card.TryPlay(playPosition);
 
         CurrentCardState = CardState.Played;
@@ -321,6 +323,8 @@ public class HandCard : MonoBehaviour {
         if (!playingCardThisFrame) {
             playingAnyCard = false;
         }
+
+        ShowPlayInput();
 
         if (card is ScriptableAbilityCardBase abilityCard) {
             abilityCard.Cancel();

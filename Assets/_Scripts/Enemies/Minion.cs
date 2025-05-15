@@ -121,7 +121,7 @@ public class Minion : Enemy {
         SpawnTwoMinions();
     }
 
-    #region Split On Destroy
+    #region Split On Death
 
     private void SpawnTwoMinions() {
 

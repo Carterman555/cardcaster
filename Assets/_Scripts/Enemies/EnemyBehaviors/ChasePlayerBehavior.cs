@@ -46,7 +46,9 @@ public class ChasePlayerBehavior : MonoBehaviour, IEffectable, IEnemyMovement {
 
         // if disabled by enemy script, not from dying
         if (!GetComponent<EnemyHealth>().Dead) {
-            agent.isStopped = true;
+            if (agent.isOnNavMesh) {
+                agent.isStopped = true;
+            }
         }
     }
 

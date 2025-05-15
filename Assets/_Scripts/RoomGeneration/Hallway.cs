@@ -46,7 +46,7 @@ public class Hallway : MonoBehaviour {
     }
 
     private void OnTriggerEnter2D(Collider2D collision) {
-        if (collision.gameObject.layer == GameLayers.PlayerLayer && enabled) {
+        if (GameLayers.AllPlayerLayerMask.ContainsLayer(collision.gameObject.layer) && enabled) {
             LightFully();
         }
     }

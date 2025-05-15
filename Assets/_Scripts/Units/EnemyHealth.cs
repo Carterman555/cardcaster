@@ -6,7 +6,6 @@ public class EnemyHealth : MonoBehaviour, IDamagable {
 
     public static event Action<EnemyHealth> OnAnyDeath;
     public UnityEvent DeathEventTrigger;
-    public event Action OnDeathAnimComplete; // only invokes for player right now from the deathfeedbacks
 
     public UnityEvent DamagedEventTrigger;
     public event Action OnDamaged;
@@ -96,10 +95,6 @@ public class EnemyHealth : MonoBehaviour, IDamagable {
         if (returnOnDeath) {
             gameObject.ReturnToPool();
         }
-    }
-
-    public void InvokeDeathAnimComplete() {
-        OnDeathAnimComplete?.Invoke();
     }
 
     public void Heal(float amount) {

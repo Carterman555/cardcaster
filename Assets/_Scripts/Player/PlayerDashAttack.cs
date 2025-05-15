@@ -10,6 +10,7 @@ public class PlayerDashAttack : MonoBehaviour {
     [SerializeField] private float windowToAttack = 0.5f;
     private float dashTimer;
 
+    private Vector2 dashStartPos;
     private Vector2 dashDirection;
 
     [SerializeField] private Transform slashPrefab;
@@ -22,14 +23,15 @@ public class PlayerDashAttack : MonoBehaviour {
     }
 
     private void OnEnable() {
-        playerMovement.OnDash_Direction += OnDash;
+        playerMovement.OnDash_Direction += OnStartDash;
     }
 
     private void OnDisable() {
-        playerMovement.OnDash_Direction -= OnDash;
+        playerMovement.OnDash_Direction -= OnStartDash;
     }
 
-    private void OnDash(Vector2 dashDirection) {
+    private void OnStartDash(Vector2 dashDirection) {
+        dashStartPos = transform.position;
         this.dashDirection = dashDirection;
         dashTimer = windowToAttack;
     }
@@ -61,10 +63,12 @@ public class PlayerDashAttack : MonoBehaviour {
         return cols;
     }
 
-    public bool GetCanDashAttack(Vector2 attackDirection) {
+    // has to wait until almost done dashing though also (that logic is handled in player melee attack)
+    public bool CanDashAttack(Vector2 attackDirection) {
+        bool completedOverHalfOfDash = Vector2.Distance(transform.position, dashStartPos) > Stats.DashDistance * 0.5f;
         bool withinDashWindow = dashTimer > 0;
         bool directionsMatch = DirectionsWithinRange(dashDirection, attackDirection, maxAngle: 60f);
-        return withinDashWindow && directionsMatch;
+        return completedOverHalfOfDash && withinDashWindow && directionsMatch;
     }
 
     private bool DirectionsWithinRange(Vector3 dir1, Vector3 dir2, float maxAngle) {

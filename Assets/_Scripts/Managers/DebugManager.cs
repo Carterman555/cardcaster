@@ -75,7 +75,10 @@ public class DebugManager : StaticInstance<DebugManager> {
     [Command("kill_enemies", MonoTargetType.All)]
     private void KillAllEnemies() {
         foreach (Transform enemy in Containers.Instance.Enemies) {
-            enemy.GetComponent<EnemyHealth>().Die();
+            //enemy.GetComponent<EnemyHealth>().Die();
+            if (enemy.gameObject.activeSelf) {
+                enemy.gameObject.ReturnToPool();
+            }
         }
     }
 
@@ -83,6 +86,7 @@ public class DebugManager : StaticInstance<DebugManager> {
     [SerializeField] private bool printMouseOver;
 
     private void PrintMouseOver() {
+
         // Convert mouse position to world position
         Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 

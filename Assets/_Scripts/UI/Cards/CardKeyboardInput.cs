@@ -164,8 +164,6 @@ public class CardKeyboardInput : MonoBehaviour, IPointerEnterHandler, IPointerEx
         }
 
         followMouse.enabled = false;
-        handCard.ShowPlayInput();
-
 
         //... hide cancel card panel
         FeedbackPlayerOld.PlayInReverse("CancelCard");
@@ -195,7 +193,6 @@ public class CardKeyboardInput : MonoBehaviour, IPointerEnterHandler, IPointerEx
             mouseDownOnCard = false;
 
             followMouse.enabled = false;
-            handCard.ShowPlayInput();
 
             //... hide cancel card panel
             FeedbackPlayerOld.PlayInReverse("CancelCard");

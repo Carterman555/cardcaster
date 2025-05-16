@@ -67,7 +67,7 @@ public class RoomGenerator : StaticInstance<RoomGenerator> {
 
     private int attemptNum = 0;
 
-    public ScriptableRoom DebugSecondRoom { get; set; }
+    [SerializeField] private ScriptableRoom debugSecondRoom;
 
     private IEnumerator GenerateLayout() {
         do {
@@ -155,8 +155,8 @@ public class RoomGenerator : StaticInstance<RoomGenerator> {
                 newRoomScriptable = GetRandomUniqueRoom(roomConnection.RoomType);
 
                 // \/ debug \/
-                if (DebugSecondRoom != null && i == 1) {
-                    newRoomScriptable = DebugSecondRoom;
+                if (debugSecondRoom != null && i == 1) {
+                    newRoomScriptable = debugSecondRoom;
                 }
                 // /\ debug /\
 

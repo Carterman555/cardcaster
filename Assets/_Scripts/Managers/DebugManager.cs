@@ -31,7 +31,6 @@ public class DebugManager : StaticInstance<DebugManager> {
     private void OnStartGame() {
         GiveStartingCards();
         ApplyPlayerStatModifiers();
-        StartCoroutine(SetSecondRoom());
     }
 
     private void Update() {
@@ -135,17 +134,5 @@ public class DebugManager : StaticInstance<DebugManager> {
 
     private void ApplyPlayerStatModifiers() {
         StatsManager.AddPlayerStatModifiers(startingPlayerStatModifiers);
-    }
-
-
-    [SerializeField] private ScriptableRoom debugRoom;
-
-    private IEnumerator SetSecondRoom() {
-
-        while (RoomGenerator.Instance == null) {
-            yield return null;
-        }
-
-        RoomGenerator.Instance.DebugSecondRoom = debugRoom;
     }
 }

@@ -1,4 +1,6 @@
 using QFSW.QC;
+using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEditor.Rendering;
@@ -16,7 +18,6 @@ public class Bee : Enemy {
     private WanderMovementBehavior wanderMovement;
     private FaceMoveDirectionBehavior faceBehavior;
 
-    // TODO - remove flowers from list that get destroyed
     private List<Transform> bluePlantsInRoom;
 
     private Transform reproducingPlant;
@@ -30,6 +31,9 @@ public class Bee : Enemy {
     private enum BeeState { FollowingSwarmBehavior, ShootingStinger, Launching }
     private BeeState beeState;
 
+    private DebugText stateDebugText;
+    private DebugText plantDebugText;
+
     protected override void Awake() {
         base.Awake();
 
@@ -39,10 +43,21 @@ public class Bee : Enemy {
         swarmMovement = GetComponent<SwarmMovementBehavior>();
         wanderMovement = GetComponent<WanderMovementBehavior>();
         faceBehavior = GetComponent<FaceMoveDirectionBehavior>();
+
+        stateDebugText = DebugText.Create(transform, new Vector2(0, 1.3f), "");
+        plantDebugText = DebugText.Create(transform, new Vector2(0, 1f), "");
     }
 
     protected override void OnEnable() {
         base.OnEnable();
+
+        reproducingPlant = null;
+
+        // renable cause could be disabled from launch
+        swarmMovement.enabled = true;
+        agent.enabled = true;
+
+        beeState = BeeState.FollowingSwarmBehavior;
 
         if (Room.GetCurrentRoom() != null) {
             Transform[] allObjectsInRoom = Room.GetCurrentRoom().GetComponentsInChildren<Transform>();
@@ -68,13 +83,33 @@ public class Bee : Enemy {
         }
     }
 
+    protected override void OnDisable() {
+        base.OnDisable();
+
+        foreach (Transform plant in bluePlantsInRoom) {
+            plant.GetComponent<MonoBehaviourEventInvoker>().OnDisabled -= OnPlantDisabled;
+        }
+        bluePlantsInRoom.Clear();
+    }
+
     private void OnPlantDisabled(GameObject plant) {
         plant.GetComponent<MonoBehaviourEventInvoker>().OnDisabled -= OnPlantDisabled;
         bluePlantsInRoom.Remove(plant.transform);
+
+        if (swarmMovement.IsLeader) {
+            if (bluePlantsInRoom.Count > 0) {
+                ChangeSwarmState(SwarmState.MovingToPlant);
+            }
+            else {
+                ChangeSwarmState(SwarmState.Wandering);
+            }
+        }
     }
 
     protected override void Update() {
         base.Update();
+
+        stateDebugText.SetText(swarmState.ToPrettyString());
 
         if (swarmMovement.IsLeader && beeState != BeeState.Launching) {
             HandleControllingSwarm();
@@ -94,6 +129,7 @@ public class Bee : Enemy {
                 }
 
                 reproducingPlant = GetClosestPlant();
+                plantDebugText.SetText(reproducingPlant.GetInstanceID().ToString());
                 bool anyBeeNearPlant = swarmMovement.GetUnitsInSwarm().Any(u => Vector2.SqrMagnitude(u.transform.position - reproducingPlant.position) < 0.5f);
                 if (anyBeeNearPlant) {
                     ChangeSwarmState(SwarmState.Reproducing);
@@ -123,22 +159,17 @@ public class Bee : Enemy {
                     return;
                 }
 
-                if (reproducingPlant == null) {
+                if (reproducingPlant == null || !reproducingPlant.gameObject.activeSelf) {
                     ChangeSwarmState(SwarmState.MovingToPlant);
                     return;
                 }
 
                 reproduceTimer -= Time.deltaTime;
                 if (reproduceTimer < 0f) {
-                    scriptableEnemy.Prefab.Spawn(reproducingPlant.transform.position);
-                    reproducingPlant.GetComponent<BreakOnDamaged>().Damage(0f);
+                    scriptableEnemy.Prefab.Spawn(reproducingPlant.transform.position, Containers.Instance.Enemies);
 
-                    if (bluePlantsInRoom.Count > 0) {
-                        ChangeSwarmState(SwarmState.MovingToPlant);
-                    }
-                    else {
-                        ChangeSwarmState(SwarmState.Wandering);
-                    }
+                    //... this will indirectly invoke OnPlantDisabled
+                    reproducingPlant.GetComponent<BreakOnDamaged>().Damage(0f);
                 }
 
                 break;
@@ -164,7 +195,7 @@ public class Bee : Enemy {
                 }
 
                 //... delay to wait for plant to get destroyed and new bee to join swarm
-                Invoke(nameof(MoveToNearestPlant), 0.1f);
+                StartCoroutine(DelayedMoveToNearestPlant());
 
                 break;
 
@@ -185,15 +216,23 @@ public class Bee : Enemy {
                 reproduceTimer = reproduceTime;
 
                 reproducingPlant = GetClosestPlant();
+                plantDebugText.SetText(reproducingPlant.GetInstanceID().ToString());
+
                 swarmMovement.Shuffle(reproducingPlant.position);
 
                 break;
         }
     }
 
-    private void MoveToNearestPlant() {
+    private IEnumerator DelayedMoveToNearestPlant() {
+
+        float delay = 0.1f;
+        yield return new WaitForSeconds(delay);
+
         if (swarmMovement.IsLeader) {
             reproducingPlant = GetClosestPlant();
+            plantDebugText.SetText(reproducingPlant.GetInstanceID().ToString());
+
             swarmMovement.SetSwarmDestination(reproducingPlant.position);
         }
     }
@@ -202,6 +241,11 @@ public class Bee : Enemy {
         float minDistanceSquared = float.MaxValue;
         Transform closestPlant = null;
         foreach (Transform plant in bluePlantsInRoom) {
+
+            if (!plant.gameObject.activeSelf) {
+                Debug.LogError("Inactive plant is in list!");
+                return null;
+            }
 
             float xDiff = transform.position.x - plant.position.x;
             float yDiff = transform.position.y - plant.position.y;
@@ -259,13 +303,13 @@ public class Bee : Enemy {
         bool currentlyFarFromPlayer = playerDistanceSquared > chaseDistance * chaseDistance;
 
         float moveDirectionVariation = 45f;
-        float randomMoveDistance = Random.Range(1f, 2f);
+        float randomMoveDistance = UnityEngine.Random.Range(1f, 2f);
 
         if (currentlyCloseToPlayer) {
             if (swarmMovement.AnyUnitNearSwarmDest(distanceThreshold: 1f) || !swarmMovement.SwarmDestinationSet) {
                 Vector2 fromPlayerDirection = (transform.position - PlayerMovement.Instance.CenterPos).normalized;
 
-                float randomFleeDegrees = Random.Range(-moveDirectionVariation, moveDirectionVariation);
+                float randomFleeDegrees = UnityEngine.Random.Range(-moveDirectionVariation, moveDirectionVariation);
                 fromPlayerDirection.RotateDirection(randomFleeDegrees);
 
                 Vector2 targetPos = (Vector2)transform.position + fromPlayerDirection * randomMoveDistance;
@@ -276,7 +320,7 @@ public class Bee : Enemy {
             if (swarmMovement.AnyUnitNearSwarmDest(distanceThreshold: 1f) || !swarmMovement.SwarmDestinationSet) {
                 Vector2 toPlayerDirection = (PlayerMovement.Instance.CenterPos - transform.position).normalized;
 
-                float randomChaseDegrees = Random.Range(-moveDirectionVariation, moveDirectionVariation);
+                float randomChaseDegrees = UnityEngine.Random.Range(-moveDirectionVariation, moveDirectionVariation);
                 toPlayerDirection.RotateDirection(randomChaseDegrees);
 
                 Vector2 targetPos = (Vector2)transform.position + toPlayerDirection * randomMoveDistance;
@@ -310,7 +354,7 @@ public class Bee : Enemy {
     private void HandleShooting() {
 
         if (beeState == BeeState.FollowingSwarmBehavior) {
-            bool shoot = Random.value < chanceToShootPerSecond * Time.deltaTime;
+            bool shoot = UnityEngine.Random.value < chanceToShootPerSecond * Time.deltaTime;
             if (shoot) {
                 shootStopMovement = gameObject.AddComponent<StopMovement>();
 
@@ -370,7 +414,7 @@ public class Bee : Enemy {
     private void HandleLaunch() {
 
         if (beeState == BeeState.FollowingSwarmBehavior) {
-            if (Random.value < chanceToLaunchPerSecond * Time.deltaTime) {
+            if (UnityEngine.Random.value < chanceToLaunchPerSecond * Time.deltaTime) {
                 swarmMovement.enabled = false;
                 agent.enabled = false;
 
@@ -382,23 +426,20 @@ public class Bee : Enemy {
 
                 float yAngle = playerToRight ? 0f : 180f;
 
-                bool playerBelowBee = PlayerMovement.Instance.CenterPos.y < transform.position.y;
-                float toPlayerAngle = toPlayerDirection.DirectionToRotation().eulerAngles.z + 50f;
+                float toPlayerRotation = toPlayerDirection.DirectionToRotation().eulerAngles.z + 50f;
 
-                float launchAngle = toPlayerAngle;
+                float launchRotation = toPlayerRotation;
                 if (!playerToRight) {
-                    launchAngle = 310f - toPlayerAngle;
+                    launchRotation = 310f - toPlayerRotation;
                 }
 
                 transform.rotation = Quaternion.Euler(
                     transform.rotation.eulerAngles.x,
                     yAngle,
-                    launchAngle);
+                    launchRotation);
 
 
                 anim.SetBool("launching", true);
-
-
 
                 beeState = BeeState.Launching;
             }
@@ -409,7 +450,7 @@ public class Bee : Enemy {
     }
 
     private void OnCollisionEnter2D(Collision2D collision) {
-        if (beeState == BeeState.Launching && collision.gameObject.layer == GameLayers.WallLayer) {
+        if (beeState == BeeState.Launching && GameLayers.ObstacleLayerMask.ContainsLayer(collision.gameObject.layer)) {
             GetComponent<DropEssenceOnDeath>().IsEnabled = false; // sets to enabled when bee is enabled (in enemy script)
             health.Die();
         }

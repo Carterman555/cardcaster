@@ -1,12 +1,12 @@
 using DG.Tweening;
 using System.Collections.Generic;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "LaunchCard", menuName = "Cards/Launch Card")]
 public class ScriptableLaunchCard : ScriptableAbilityCardBase {
     public float raycastStep = 0.1f;
-    public LayerMask obstacleLayer;
 
     private PlayerInvincibility playerInvincibility;
 
@@ -20,7 +20,7 @@ public class ScriptableLaunchCard : ScriptableAbilityCardBase {
 
     [SerializeField] private TriggerContactTracker wallTriggerPrefab;
     private TriggerContactTracker wallTrigger;
-    private float checkFactor = 0.75f; // make smaller
+    private float checkFactor = 0.75f;
 
     [SerializeField] private float launchSpeed;
     private Tween launchTween;
@@ -37,14 +37,17 @@ public class ScriptableLaunchCard : ScriptableAbilityCardBase {
         base.OnStartPositioningCard(cardTransform);
 
         pathVisual = pathVisualPrefab.Spawn(PlayerMovement.Instance.CenterPos, PlayerMovement.Instance.transform);
+
+        float fade = pathVisual.color.a;
+        pathVisual.Fade(0f);
+        pathVisual.DOKill();
+        pathVisual.DOFade(fade, duration: 0.2f).SetDelay(0.1f); // delay to make sure path rotation is set towards the card position
     }
 
     protected override void PositioningUpdate(Vector2 cardPosition) {
         base.PositioningUpdate(cardPosition);
 
         launchDirection = (cardPosition - (Vector2)pathVisual.transform.position).normalized;
-
-        //... point path towards mouse
         pathVisual.transform.up = launchDirection;
 
         // scale path towards end of room
@@ -53,9 +56,11 @@ public class ScriptableLaunchCard : ScriptableAbilityCardBase {
         float checkDistance = 100f;
         float distanceFromPlayer = 1.5f;
         Vector2 origin = (Vector2)pathVisual.transform.position + (launchDirection * distanceFromPlayer);
-        RaycastHit2D hit = Physics2D.BoxCast(origin, new Vector2(pathWidth * checkFactor, 1f), pathVisual.transform.eulerAngles.z, launchDirection, checkDistance, obstacleLayer);
+        RaycastHit2D hit = Physics2D.BoxCast(origin, new Vector2(pathWidth * checkFactor, 1f), pathVisual.transform.eulerAngles.z, launchDirection, checkDistance, GameLayers.WallLayerMask);
 
         if (hit.collider == null) {
+            Debug.Log($"origin: {origin}\npathWidth: {pathWidth}\ncheckFactor {checkFactor}\npathVisual.transform.eulerAngles.z: {pathVisual.transform.eulerAngles.z}" +
+                $"\nlaunchDirection: {launchDirection}\ncheckDistance: {checkDistance}");
             Debug.LogError("Could Not Find Wall!");
         }
         else if (hit.distance > 1f) {
@@ -73,6 +78,7 @@ public class ScriptableLaunchCard : ScriptableAbilityCardBase {
         base.Play(position);
 
         Transform playerTransform = PlayerMovement.Instance.transform;
+        Vector2 playerCenterPos = PlayerMovement.Instance.CenterPos;
 
         PlayerMovement.Instance.DisableMoveInput();
         PlayerMeleeAttack.Instance.DisableAttack();
@@ -83,7 +89,7 @@ public class ScriptableLaunchCard : ScriptableAbilityCardBase {
         launchTween = DOTween.To(() => playerRb.velocity, x => playerRb.velocity = x, launchDirection * launchSpeed, launchFullSpeedTime);
 
         // make deal damage
-        damageDealer = damageDealerPrefab.Spawn(playerTransform.position, playerTransform);
+        damageDealer = damageDealerPrefab.Spawn(playerCenterPos, playerTransform);
         damageDealer.SetDamageMult(Stats.Damage);
         damageDealer.GetComponent<CircleCollider2D>().radius = Stats.AreaSize;
 
@@ -92,7 +98,7 @@ public class ScriptableLaunchCard : ScriptableAbilityCardBase {
         Physics2D.IgnoreLayerCollision(GameLayers.InvinciblePlayerLayer, GameLayers.RoomObjectLayer, true);
 
         // make it stop when hit wall
-        wallTrigger = wallTriggerPrefab.Spawn(playerTransform.position, playerTransform);
+        wallTrigger = wallTriggerPrefab.Spawn(playerCenterPos, playerTransform);
         wallTrigger.GetComponent<CircleCollider2D>().radius = Stats.AreaSize * checkFactor;
         wallTrigger.OnEnterContact_GO += TryStopLaunch;
 
@@ -105,9 +111,8 @@ public class ScriptableLaunchCard : ScriptableAbilityCardBase {
 
         //... make invincible
         playerInvincibility = playerTransform.AddComponent<PlayerInvincibility>();
-        Debug.Log("Launch: Add invincibility");
 
-        launchEffects = launchEffectsPrefab.Spawn(playerTransform.position, playerTransform);
+        launchEffects = launchEffectsPrefab.Spawn(playerCenterPos, playerTransform);
         launchEffects.transform.up = launchDirection;
     }
 
@@ -151,7 +156,6 @@ public class ScriptableLaunchCard : ScriptableAbilityCardBase {
 
         //... make not invincible
         Destroy(playerInvincibility);
-        Debug.Log("Launch: Remove invincibility");
 
         // take off effects
         foreach (GameObject abilityEffect in abilityEffects) {

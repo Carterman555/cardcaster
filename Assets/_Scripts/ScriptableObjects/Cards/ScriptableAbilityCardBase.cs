@@ -39,6 +39,9 @@ public abstract class ScriptableAbilityCardBase : ScriptableCardBase {
 
     public virtual void OnStartPositioningCard(Transform cardTransform) {
         positioningCardCoroutine = AbilityManager.Instance.StartCoroutine(PositioningCard(cardTransform));
+
+        Stats = baseStats;
+
         OnStartPositioning?.Invoke();
     }
 
@@ -83,8 +86,6 @@ public abstract class ScriptableAbilityCardBase : ScriptableCardBase {
 
     protected override void Play(Vector2 position) {
         base.Play(position);
-
-        Stats = baseStats;
 
         if (positioningCardCoroutine != null) {
             OnStopPositioningCard();

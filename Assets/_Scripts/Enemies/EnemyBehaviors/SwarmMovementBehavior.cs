@@ -132,11 +132,19 @@ public class SwarmMovementBehavior : MonoBehaviour, IEffectable, IEnemyMovement 
 
         if (col.TryGetComponent(out SwarmTrigger swarmTrigger)) {
             SwarmMovementBehavior otherSwarmMovement = swarmTrigger.GetComponentInParent<SwarmMovementBehavior>();
-            otherSwarmMovement.Leader.JoinSwarm(this);
+            if (otherSwarmMovement.enabled) {
+                otherSwarmMovement.Leader.JoinSwarm(this);
+            }
         }
     }
 
     public void SetDestination(Vector2 destination) {
+
+        if (!agent.enabled || !agent.isOnNavMesh) {
+            Debug.LogError($"{gameObject.GetInstanceID()}: Try to set destination of agent which is disabled or not on nav mesh.");
+            return;
+        }
+
         agent.SetDestination(destination);
     }
 

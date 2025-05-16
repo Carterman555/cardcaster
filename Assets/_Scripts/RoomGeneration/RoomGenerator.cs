@@ -67,6 +67,8 @@ public class RoomGenerator : StaticInstance<RoomGenerator> {
 
     private int attemptNum = 0;
 
+    public ScriptableRoom DebugSecondRoom { get; set; }
+
     private IEnumerator GenerateLayout() {
         do {
             attemptNum++;
@@ -120,12 +122,14 @@ public class RoomGenerator : StaticInstance<RoomGenerator> {
     private IEnumerator SpawnRoomCheckers(ScriptableLevelLayout levelLayout) {
         if (debug) Debug.Log($"Starting SpawnRoomCheckers for layout with {levelLayout.RoomConnections.Length} connected rooms");
 
-        foreach (RoomConnection roomConnection in levelLayout.RoomConnections) {
+        for (int i = 0; i < levelLayout.RoomConnections.Length; i++) {
 
             // already setup first room, so skip
-            if (roomConnection == levelLayout.RoomConnections[0]) {
+            if (i == 0) {
                 continue;
             }
+
+            RoomConnection roomConnection = levelLayout.RoomConnections[i];
 
             if (debug) Debug.Log($"Processing subLayout of type {roomConnection.RoomType}");
             bool canSpawn = false;
@@ -149,6 +153,13 @@ public class RoomGenerator : StaticInstance<RoomGenerator> {
                 }
 
                 newRoomScriptable = GetRandomUniqueRoom(roomConnection.RoomType);
+
+                // \/ debug \/
+                if (DebugSecondRoom != null && i == 1) {
+                    newRoomScriptable = DebugSecondRoom;
+                }
+                // /\ debug /\
+
                 newRoomPrefab = newRoomScriptable.Prefab;
                 if (debug)
                     Debug.Log($"Selected room: {newRoomScriptable.name}");

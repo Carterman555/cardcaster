@@ -6,11 +6,15 @@ using UnityEditor;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using static UnityEngine.UI.Image;
 
 // matches the points of the polygon colliders for the room and the camera confiner
 public class RoomColliderMatcher {
 
-    private enum Corner { TopLeft, TopRight, BottomLeft, BottomRight }
+    private enum Corner {
+        OuterTopLeft, OuterTopRight, OuterBottomLeft, OuterBottomRight,
+        InnerTopLeft, InnerTopRight, InnerBottomLeft, InnerBottomRight
+    }
 
     private PolygonCollider2D roomCollider;
     private PolygonCollider2D camConfinerCollider;
@@ -198,106 +202,548 @@ public class RoomColliderMatcher {
 
         float minHeight = Camera.main.orthographicSize * 2f;
         float minWidth = minHeight * Camera.main.aspect;
+
         camConfinerPoints = EnsureMinimumDimensions(camConfinerPoints, minWidth, minHeight);
         camConfinerPoints = AddPadding(camConfinerPoints);
+        // TODO - Remove concaves and intersections
 
         camConfinerCollider.points = camConfinerPoints.ToArray();
     }
 
     /// <summary>
-    /// Go through each point.
+    /// Go through each inner point.
     ///     Find the 2 distances (vertical and horizontal) between itself and the points across the room
     ///     If the horizontal distance is less than the min width
     ///         expand points on both sides (each halfway) (could be 2 or 3 points)
     ///     If the vertical distance is less than the min height
     ///         expand points on both sides (each halfway) (could be 2 or 3 points)
-    ///     
     /// 
-    /// Remove concaves and intersections
     /// </summary>
     private List<Vector2> EnsureMinimumDimensions(List<Vector2> points, float minWidth, float minHeight) {
         List<Vector2> newPoints = new List<Vector2>(points);
 
-        for (int pointIndex = 0; pointIndex < newPoints.Count; pointIndex++) {
+        for (int currentIndex = 0; currentIndex < newPoints.Count; currentIndex++) {
 
             // Use modulo to wrap around
-            int prevIndex = (pointIndex - 1 + newPoints.Count) % newPoints.Count;
-            int nextIndex = (pointIndex + 1) % newPoints.Count;
+            int prevIndex = (currentIndex - 1 + newPoints.Count) % newPoints.Count;
+            int nextIndex = (currentIndex + 1) % newPoints.Count;
 
             Vector2 previousPoint = newPoints[prevIndex];
-            Vector2 currentPoint = newPoints[pointIndex];
+            Vector2 currentPoint = newPoints[currentIndex];
             Vector2 nextPoint = newPoints[nextIndex];
 
             Corner currentCorner = GetPointCorner(previousPoint, currentPoint, nextPoint);
 
-            if (currentCorner == Corner.TopLeft) {
+            if (currentCorner == Corner.InnerTopLeft) {
 
-                // check across to the right
-                int searchIndex1 = pointIndex;
-                int searchIndex2 = (searchIndex1 + 1) % newPoints.Count;
+                Debug.Log($"Expanding With Inner Top Left Corner Point: {currentPoint}");
 
-                for (int i = nextIndex; i < newPoints.Count; i++) {
-                    searchIndex1++;
-                    searchIndex2 = (searchIndex1 + 1) % newPoints.Count;
+                int[] horizontalAcrossPointIndexes = null;
+                float minHorizontalDistance = float.PositiveInfinity;
+
+                int[] verticalAcrossPointIndexes = null;
+                float minVerticalDistance = float.PositiveInfinity;
+
+                for (int searchIndex1 = 0; searchIndex1 < newPoints.Count; searchIndex1++) {
+                    int searchIndex2 = (searchIndex1 + 1) % newPoints.Count;
 
                     Vector2 point1 = newPoints[searchIndex1];
                     Vector2 point2 = newPoints[searchIndex2];
 
-                    bool pointsMakeVerticalLine = point1.x == point2.x; // they either make vertical or horizontal line
-                    if (!pointsMakeVerticalLine) {
-                        continue;
-                    }
+                    Debug.Log($"  Search points {point1} and {point2}");
 
-                    bool acrossFromPoint = point1.y <= currentPoint.y && point2.y > currentPoint.y;
-                    if (acrossFromPoint) {
+                    bool pointsMakeVerticalLine = point1.x == point2.x;
+                    bool pointsMakeHorizontalLine = point1.y == point2.y;
+                    if (pointsMakeVerticalLine) {
 
-                        //... could be point2.x instead of point1.x because they're equal
-                        float horizontalDistance = Mathf.Abs(point1.x - currentPoint.x);
-                        if (horizontalDistance < minWidth) {
-                            float totalExpansion = minWidth - horizontalDistance;
-                            float oneSideExpension = Mathf.CeilToInt(totalExpansion / 2f);
-
-                            currentPoint.x -= oneSideExpension;
-                            point1.x += oneSideExpension;
-                            point2.x += oneSideExpension;
+                        if (currentPoint.x >= point1.x) {
+                            continue;
                         }
 
-                        break;
+                        float minY = Mathf.Min(point1.y, point2.y);
+                        float maxY = Mathf.Max(point1.y, point2.y);
+                        bool betweenYPositions = minY <= currentPoint.y && maxY >= currentPoint.y;
+                        if (betweenYPositions) {
+                            Debug.Log($"    Points are across horizontally");
+
+                            float horizontalDistance = Mathf.Abs(point1.x - currentPoint.x);
+                            if (horizontalDistance < minHorizontalDistance) {
+                                horizontalAcrossPointIndexes = new int[] { searchIndex1, searchIndex2 };
+                                minHorizontalDistance = horizontalDistance;
+                            }
+                        }
+                    }
+                    else if (pointsMakeHorizontalLine) {
+
+                        if (currentPoint.y <= point1.y) {
+                            continue;
+                        }
+
+                        float minX = Mathf.Min(point1.x, point2.x);
+                        float maxX = Mathf.Max(point1.x, point2.x);
+                        bool betweenXPositions = minX <= currentPoint.x && maxX >= currentPoint.x;
+                        if (betweenXPositions) {
+                            Debug.Log($"    Points are across vertically");
+
+                            float verticalDistance = Mathf.Abs(point1.y - currentPoint.y);
+                            if (verticalDistance < minVerticalDistance) {
+                                verticalAcrossPointIndexes = new int[] { searchIndex1, searchIndex2 };
+                                minVerticalDistance = verticalDistance;
+                            }
+                        }
+                    }
+                    else {
+                        Debug.LogError("Points don't make vertical or horizontal line!");
+                        continue;
                     }
                 }
 
-                // check across downwards
-                searchIndex1 = pointIndex;
-                searchIndex2 = (searchIndex1 - 1) % newPoints.Count;
+                if (minVerticalDistance == float.PositiveInfinity) {
+                    Debug.LogError("Did not find points that were across vertically!");
+                    return newPoints;
+                }
 
-                for (int i = 0; i < newPoints.Count; i++) {
-                    searchIndex1--;
-                    searchIndex2 = (searchIndex1 - 1) % newPoints.Count;
+                if (minHorizontalDistance == float.PositiveInfinity) {
+                    Debug.LogError("Did not find points that were across horizontally!");
+                    return newPoints;
+                }
+
+                if (minHorizontalDistance < minWidth) {
+                    float totalExpansion = minWidth - minHorizontalDistance;
+                    float oneSideExpansion = Mathf.CeilToInt(totalExpansion / 2f);
+
+                    Vector2 original = currentPoint;
+                    currentPoint.x -= oneSideExpansion;
+                    newPoints[currentIndex] = currentPoint;
+
+                    nextPoint.x -= oneSideExpansion;
+                    newPoints[nextIndex] = nextPoint;
+
+                    Vector2 point1 = newPoints[horizontalAcrossPointIndexes[0]];
+                    Vector2 original1 = point1;
+                    point1.x += oneSideExpansion;
+                    newPoints[horizontalAcrossPointIndexes[0]] = point1;
+
+                    Vector2 point2 = newPoints[horizontalAcrossPointIndexes[1]];
+                    Vector2 original2 = point2;
+                    point2.x += oneSideExpansion;
+                    newPoints[horizontalAcrossPointIndexes[1]] = point2;
+
+                    Debug.Log($"  Expanding horizontally:\n" +
+                              $"    Corner: {original} > {currentPoint}\n" +
+                              $"    Opposite 1: {original1} > {point1}\n" +
+                              $"    Opposite 2: {original2} > {point2}");
+                }
+
+                if (minVerticalDistance < minHeight) {
+                    float totalExpansion = minHeight - minVerticalDistance;
+                    float oneSideExpansion = Mathf.CeilToInt(totalExpansion / 2f);
+
+                    Vector2 original = currentPoint;
+                    currentPoint.y += oneSideExpansion;
+                    newPoints[currentIndex] = currentPoint;
+
+                    previousPoint.y += oneSideExpansion;
+                    newPoints[prevIndex] = previousPoint;
+
+                    Vector2 point1 = newPoints[verticalAcrossPointIndexes[0]];
+                    Vector2 original1 = point1;
+                    point1.y -= oneSideExpansion;
+                    newPoints[verticalAcrossPointIndexes[0]] = point1;
+
+                    Vector2 point2 = newPoints[verticalAcrossPointIndexes[1]];
+                    Vector2 original2 = point2;
+                    point2.y -= oneSideExpansion;
+                    newPoints[verticalAcrossPointIndexes[1]] = point2;
+
+                    Debug.Log($"  Expanding vertically:\n" +
+                              $"    Corner: {original} > {currentPoint}\n" +
+                              $"    Opposite 1: {original1} > {point1}\n" +
+                              $"    Opposite 2: {original2} > {point2}");
+                }
+            }
+            else if (currentCorner == Corner.InnerTopRight) {
+
+                Debug.Log($"Expanding With Inner Top Right Corner Point: {currentPoint}");
+
+                int[] horizontalAcrossPointIndexes = null;
+                float minHorizontalDistance = float.PositiveInfinity;
+
+                int[] verticalAcrossPointIndexes = null;
+                float minVerticalDistance = float.PositiveInfinity;
+
+                for (int searchIndex1 = 0; searchIndex1 < newPoints.Count; searchIndex1++) {
+                    int searchIndex2 = (searchIndex1 + 1) % newPoints.Count;
 
                     Vector2 point1 = newPoints[searchIndex1];
                     Vector2 point2 = newPoints[searchIndex2];
 
-                    bool pointsMakeVerticalLine = point1.x == point2.x; // they either make vertical or horizontal line
-                    if (!pointsMakeVerticalLine) {
-                        continue;
-                    }
+                    Debug.Log($"  Search points {point1} and {point2}");
 
-                    bool acrossFromPoint = point1.y <= currentPoint.y && point2.y > currentPoint.y;
-                    if (acrossFromPoint) {
+                    bool pointsMakeVerticalLine = point1.x == point2.x;
+                    bool pointsMakeHorizontalLine = point1.y == point2.y;
+                    if (pointsMakeVerticalLine) {
 
-                        //... could be point2.x instead of point1.x because they're equal
-                        float horizontalDistance = Mathf.Abs(point1.x - currentPoint.x);
-                        if (horizontalDistance < minWidth) {
-                            float totalExpansion = minWidth - horizontalDistance;
-                            float oneSideExpension = Mathf.CeilToInt(totalExpansion / 2f);
-
-                            currentPoint.x -= oneSideExpension;
-                            point1.x += oneSideExpension;
-                            point2.x += oneSideExpension;
+                        if (currentPoint.x <= point1.x) {
+                            continue;
                         }
 
-                        break;
+                        float minY = Mathf.Min(point1.y, point2.y);
+                        float maxY = Mathf.Max(point1.y, point2.y);
+                        bool betweenYPositions = minY <= currentPoint.y && maxY >= currentPoint.y;
+                        if (betweenYPositions) {
+                            Debug.Log($"    Points are across horizontally");
+
+                            float horizontalDistance = Mathf.Abs(point1.x - currentPoint.x);
+                            if (horizontalDistance < minHorizontalDistance) {
+                                horizontalAcrossPointIndexes = new int[] { searchIndex1, searchIndex2 };
+                                minHorizontalDistance = horizontalDistance;
+                            }
+                        }
                     }
+                    else if (pointsMakeHorizontalLine) {
+
+                        if (currentPoint.y <= point1.y) {
+                            continue;
+                        }
+
+                        float minX = Mathf.Min(point1.x, point2.x);
+                        float maxX = Mathf.Max(point1.x, point2.x);
+                        bool betweenXPositions = minX <= currentPoint.x && maxX >= currentPoint.x;
+                        if (betweenXPositions) {
+                            Debug.Log($"    Points are across vertically");
+
+                            float verticalDistance = Mathf.Abs(point1.y - currentPoint.y);
+                            if (verticalDistance < minVerticalDistance) {
+                                verticalAcrossPointIndexes = new int[] { searchIndex1, searchIndex2 };
+                                minVerticalDistance = verticalDistance;
+                            }
+                        }
+                    }
+                    else {
+                        Debug.LogError("Points don't make vertical or horizontal line!");
+                        continue;
+                    }
+                }
+
+                if (minVerticalDistance == float.PositiveInfinity) {
+                    Debug.LogError("Did not find points that were across vertically!");
+                    return newPoints;
+                }
+
+                if (minHorizontalDistance == float.PositiveInfinity) {
+                    Debug.LogError("Did not find points that were across horizontally!");
+                    return newPoints;
+                }
+
+                if (minHorizontalDistance < minWidth) {
+                    float totalExpansion = minWidth - minHorizontalDistance;
+                    float oneSideExpansion = Mathf.CeilToInt(totalExpansion / 2f);
+
+                    Vector2 original = currentPoint;
+                    currentPoint.x += oneSideExpansion;
+                    newPoints[currentIndex] = currentPoint;
+
+                    previousPoint.x += oneSideExpansion;
+                    newPoints[prevIndex] = previousPoint;
+
+                    Vector2 point1 = newPoints[horizontalAcrossPointIndexes[0]];
+                    Vector2 original1 = point1;
+                    point1.x -= oneSideExpansion;
+                    newPoints[horizontalAcrossPointIndexes[0]] = point1;
+
+                    Vector2 point2 = newPoints[horizontalAcrossPointIndexes[1]];
+                    Vector2 original2 = point2;
+                    point2.x -= oneSideExpansion;
+                    newPoints[horizontalAcrossPointIndexes[1]] = point2;
+
+                    Debug.Log($"  Expanding horizontally:\n" +
+                              $"    Corner: {original} > {currentPoint}\n" +
+                              $"    Opposite 1: {original1} > {point1}\n" +
+                              $"    Opposite 2: {original2} > {point2}");
+                }
+
+                if (minVerticalDistance < minHeight) {
+                    float totalExpansion = minHeight - minVerticalDistance;
+                    float oneSideExpansion = Mathf.CeilToInt(totalExpansion / 2f);
+
+                    Vector2 original = currentPoint;
+                    currentPoint.y += oneSideExpansion;
+                    newPoints[currentIndex] = currentPoint;
+
+                    nextPoint.y += oneSideExpansion;
+                    newPoints[nextIndex] = nextPoint;
+
+                    Vector2 point1 = newPoints[verticalAcrossPointIndexes[0]];
+                    Vector2 original1 = point1;
+                    point1.y -= oneSideExpansion;
+                    newPoints[verticalAcrossPointIndexes[0]] = point1;
+
+                    Vector2 point2 = newPoints[verticalAcrossPointIndexes[1]];
+                    Vector2 original2 = point2;
+                    point2.y -= oneSideExpansion;
+                    newPoints[verticalAcrossPointIndexes[1]] = point2;
+
+                    Debug.Log($"  Expanding vertically:\n" +
+                              $"    Corner: {original} > {currentPoint}\n" +
+                              $"    Opposite 1: {original1} > {point1}\n" +
+                              $"    Opposite 2: {original2} > {point2}");
+                }
+            }
+            else if (currentCorner == Corner.InnerBottomLeft) {
+
+                Debug.Log($"Expanding With Inner Bottom Left Corner Point: {currentPoint}");
+
+                int[] horizontalAcrossPointIndexes = null;
+                float minHorizontalDistance = float.PositiveInfinity;
+
+                int[] verticalAcrossPointIndexes = null;
+                float minVerticalDistance = float.PositiveInfinity;
+
+                for (int searchIndex1 = 0; searchIndex1 < newPoints.Count; searchIndex1++) {
+                    int searchIndex2 = (searchIndex1 + 1) % newPoints.Count;
+
+                    Vector2 point1 = newPoints[searchIndex1];
+                    Vector2 point2 = newPoints[searchIndex2];
+
+                    Debug.Log($"  Search points {point1} and {point2}");
+
+                    bool pointsMakeVerticalLine = point1.x == point2.x;
+                    bool pointsMakeHorizontalLine = point1.y == point2.y;
+                    if (pointsMakeVerticalLine) {
+
+                        if (currentPoint.x >= point1.x) {
+                            continue;
+                        }
+
+                        float minY = Mathf.Min(point1.y, point2.y);
+                        float maxY = Mathf.Max(point1.y, point2.y);
+                        bool betweenYPositions = minY <= currentPoint.y && maxY >= currentPoint.y;
+                        if (betweenYPositions) {
+                            Debug.Log($"    Points are across horizontally");
+
+                            float horizontalDistance = Mathf.Abs(point1.x - currentPoint.x);
+                            if (horizontalDistance < minHorizontalDistance) {
+                                horizontalAcrossPointIndexes = new int[] { searchIndex1, searchIndex2 };
+                                minHorizontalDistance = horizontalDistance;
+                            }
+                        }
+                    }
+                    else if (pointsMakeHorizontalLine) {
+
+                        if (currentPoint.y >= point1.y) {
+                            continue;
+                        }
+
+                        float minX = Mathf.Min(point1.x, point2.x);
+                        float maxX = Mathf.Max(point1.x, point2.x);
+                        bool betweenXPositions = minX <= currentPoint.x && maxX >= currentPoint.x;
+                        if (betweenXPositions) {
+                            Debug.Log($"    Points are across vertically");
+
+                            float verticalDistance = Mathf.Abs(point1.y - currentPoint.y);
+                            if (verticalDistance < minVerticalDistance) {
+                                verticalAcrossPointIndexes = new int[] { searchIndex1, searchIndex2 };
+                                minVerticalDistance = verticalDistance;
+                            }
+                        }
+                    }
+                    else {
+                        Debug.LogError("Points don't make vertical or horizontal line!");
+                        continue;
+                    }
+                }
+
+                if (minVerticalDistance == float.PositiveInfinity) {
+                    Debug.LogError("Did not find points that were across vertically!");
+                    return newPoints;
+                }
+
+                if (minHorizontalDistance == float.PositiveInfinity) {
+                    Debug.LogError("Did not find points that were across horizontally!");
+                    return newPoints;
+                }
+
+                if (minHorizontalDistance < minWidth) {
+                    float totalExpansion = minWidth - minHorizontalDistance;
+                    float oneSideExpansion = Mathf.CeilToInt(totalExpansion / 2f);
+
+                    Vector2 original = currentPoint;
+                    currentPoint.x -= oneSideExpansion;
+                    newPoints[currentIndex] = currentPoint;
+
+                    previousPoint.x -= oneSideExpansion;
+                    newPoints[prevIndex] = previousPoint;
+
+                    Vector2 point1 = newPoints[horizontalAcrossPointIndexes[0]];
+                    Vector2 original1 = point1;
+                    point1.x += oneSideExpansion;
+                    newPoints[horizontalAcrossPointIndexes[0]] = point1;
+
+                    Vector2 point2 = newPoints[horizontalAcrossPointIndexes[1]];
+                    Vector2 original2 = point2;
+                    point2.x += oneSideExpansion;
+                    newPoints[horizontalAcrossPointIndexes[1]] = point2;
+
+                    Debug.Log($"  Expanding horizontally:\n" +
+                              $"    Corner: {original} > {currentPoint}\n" +
+                              $"    Opposite 1: {original1} > {point1}\n" +
+                              $"    Opposite 2: {original2} > {point2}");
+                }
+
+                if (minVerticalDistance < minHeight) {
+                    float totalExpansion = minHeight - minVerticalDistance;
+                    float oneSideExpansion = Mathf.CeilToInt(totalExpansion / 2f);
+
+                    Vector2 original = currentPoint;
+                    currentPoint.y -= oneSideExpansion;
+                    newPoints[currentIndex] = currentPoint;
+
+                    nextPoint.y -= oneSideExpansion;
+                    newPoints[nextIndex] = nextPoint;
+
+                    Vector2 point1 = newPoints[verticalAcrossPointIndexes[0]];
+                    Vector2 original1 = point1;
+                    point1.y += oneSideExpansion;
+                    newPoints[verticalAcrossPointIndexes[0]] = point1;
+
+                    Vector2 point2 = newPoints[verticalAcrossPointIndexes[1]];
+                    Vector2 original2 = point2;
+                    point2.y += oneSideExpansion;
+                    newPoints[verticalAcrossPointIndexes[1]] = point2;
+
+                    Debug.Log($"  Expanding vertically:\n" +
+                              $"    Corner: {original} > {currentPoint}\n" +
+                              $"    Opposite 1: {original1} > {point1}\n" +
+                              $"    Opposite 2: {original2} > {point2}");
+                }
+            }
+            else if (currentCorner == Corner.InnerBottomRight) {
+
+                Debug.Log($"Expanding With Inner Bottom Right Corner Point: {currentPoint}");
+
+                int[] horizontalAcrossPointIndexes = null;
+                float minHorizontalDistance = float.PositiveInfinity;
+
+                int[] verticalAcrossPointIndexes = null;
+                float minVerticalDistance = float.PositiveInfinity;
+
+                for (int searchIndex1 = 0; searchIndex1 < newPoints.Count; searchIndex1++) {
+                    int searchIndex2 = (searchIndex1 + 1) % newPoints.Count;
+
+                    Vector2 point1 = newPoints[searchIndex1];
+                    Vector2 point2 = newPoints[searchIndex2];
+
+                    Debug.Log($"  Search points {point1} and {point2}");
+
+                    bool pointsMakeVerticalLine = point1.x == point2.x;
+                    bool pointsMakeHorizontalLine = point1.y == point2.y;
+                    if (pointsMakeVerticalLine) {
+
+                        if (currentPoint.x <= point1.x) {
+                            continue;
+                        }
+
+                        float minY = Mathf.Min(point1.y, point2.y);
+                        float maxY = Mathf.Max(point1.y, point2.y);
+                        bool betweenYPositions = minY <= currentPoint.y && maxY >= currentPoint.y;
+                        if (betweenYPositions) {
+                            Debug.Log($"    Points are across horizontally");
+
+                            float horizontalDistance = Mathf.Abs(point1.x - currentPoint.x);
+                            if (horizontalDistance < minHorizontalDistance) {
+                                horizontalAcrossPointIndexes = new int[] { searchIndex1, searchIndex2 };
+                                minHorizontalDistance = horizontalDistance;
+                            }
+                        }
+                    }
+                    else if (pointsMakeHorizontalLine) {
+
+                        if (currentPoint.y >= point1.y) {
+                            continue;
+                        }
+
+                        float minX = Mathf.Min(point1.x, point2.x);
+                        float maxX = Mathf.Max(point1.x, point2.x);
+                        bool betweenXPositions = minX <= currentPoint.x && maxX >= currentPoint.x;
+                        if (betweenXPositions) {
+                            Debug.Log($"    Points are across vertically");
+
+                            float verticalDistance = Mathf.Abs(point1.y - currentPoint.y);
+                            if (verticalDistance < minVerticalDistance) {
+                                verticalAcrossPointIndexes = new int[] { searchIndex1, searchIndex2 };
+                                minVerticalDistance = verticalDistance;
+                            }
+                        }
+                    }
+                    else {
+                        Debug.LogError("Points don't make vertical or horizontal line!");
+                        continue;
+                    }
+                }
+
+                if (minVerticalDistance == float.PositiveInfinity) {
+                    Debug.LogError("Did not find points that were across vertically!");
+                    return newPoints;
+                }
+
+                if (minHorizontalDistance == float.PositiveInfinity) {
+                    Debug.LogError("Did not find points that were across horizontally!");
+                    return newPoints;
+                }
+
+                if (minHorizontalDistance < minWidth) {
+                    float totalExpansion = minWidth - minHorizontalDistance;
+                    float oneSideExpansion = Mathf.CeilToInt(totalExpansion / 2f);
+
+                    Vector2 original = currentPoint;
+                    currentPoint.x += oneSideExpansion;
+                    newPoints[currentIndex] = currentPoint;
+
+                    nextPoint.x += oneSideExpansion;
+                    newPoints[nextIndex] = nextPoint;
+
+                    Vector2 point1 = newPoints[horizontalAcrossPointIndexes[0]];
+                    Vector2 original1 = point1;
+                    point1.x -= oneSideExpansion;
+                    newPoints[horizontalAcrossPointIndexes[0]] = point1;
+
+                    Vector2 point2 = newPoints[horizontalAcrossPointIndexes[1]];
+                    Vector2 original2 = point2;
+                    point2.x -= oneSideExpansion;
+                    newPoints[horizontalAcrossPointIndexes[1]] = point2;
+
+                    Debug.Log($"  Expanding horizontally:\n" +
+                              $"    Corner: {original} > {currentPoint}\n" +
+                              $"    Opposite 1: {original1} > {point1}\n" +
+                              $"    Opposite 2: {original2} > {point2}");
+                }
+
+                if (minVerticalDistance < minHeight) {
+                    float totalExpansion = minHeight - minVerticalDistance;
+                    float oneSideExpansion = Mathf.CeilToInt(totalExpansion / 2f);
+
+                    Vector2 original = currentPoint;
+                    currentPoint.y -= oneSideExpansion;
+                    newPoints[currentIndex] = currentPoint;
+
+                    previousPoint.y -= oneSideExpansion;
+                    newPoints[prevIndex] = previousPoint;
+
+                    Vector2 point1 = newPoints[verticalAcrossPointIndexes[0]];
+                    Vector2 original1 = point1;
+                    point1.y += oneSideExpansion;
+                    newPoints[verticalAcrossPointIndexes[0]] = point1;
+
+                    Vector2 point2 = newPoints[verticalAcrossPointIndexes[1]];
+                    Vector2 original2 = point2;
+                    point2.y += oneSideExpansion;
+                    newPoints[verticalAcrossPointIndexes[1]] = point2;
+
+                    Debug.Log($"  Expanding vertically:\n" +
+                              $"    Corner: {original} > {currentPoint}\n" +
+                              $"    Opposite 1: {original1} > {point1}\n" +
+                              $"    Opposite 2: {original2} > {point2}");
                 }
             }
         }
@@ -322,21 +768,17 @@ public class RoomColliderMatcher {
             Vector2 offset = Vector2.zero;
 
             Corner corner = GetPointCorner(previousPoint, currentPoint, nextPoint);
-            switch (corner) {
-                case Corner.TopLeft:
-                    offset = new Vector2(-offsetValue, offsetValue);
-                    break;
-                case Corner.TopRight:
-                    offset = new Vector2(offsetValue, offsetValue);
-                    break;
-                case Corner.BottomLeft:
-                    offset = new Vector2(-offsetValue, -offsetValue);
-                    break;
-                case Corner.BottomRight:
-                    offset = new Vector2(offsetValue, -offsetValue);
-                    break;
-                default:
-                    break;
+            if (corner == Corner.OuterTopLeft || corner == Corner.InnerTopLeft) {
+                offset = new Vector2(-offsetValue, offsetValue);
+            }
+            else if (corner == Corner.OuterTopRight || corner == Corner.InnerTopRight) {
+                offset = new Vector2(offsetValue, offsetValue);
+            }
+            else if (corner == Corner.OuterBottomRight || corner == Corner.InnerBottomRight) {
+                offset = new Vector2(offsetValue, -offsetValue);
+            }
+            else if (corner == Corner.OuterBottomLeft || corner == Corner.InnerBottomLeft) {
+                offset = new Vector2(-offsetValue, -offsetValue);
             }
 
             paddedPoints.Add(currentPoint + offset);
@@ -347,44 +789,36 @@ public class RoomColliderMatcher {
 
     private Corner GetPointCorner(Vector2 previousPoint, Vector2 currentPoint, Vector2 nextPoint) {
 
-        bool outerTopRightCorner = currentPoint.x > previousPoint.x &&
-            currentPoint.y > nextPoint.y;
-
-        bool innerTopRightCorner = currentPoint.y < previousPoint.y &&
-            currentPoint.x < nextPoint.x;
-
-        if (outerTopRightCorner || innerTopRightCorner) {
-            return Corner.TopRight;
+        if (currentPoint.x > previousPoint.x && currentPoint.y > nextPoint.y) {
+            return Corner.OuterTopRight;
         }
 
-        bool outerBotRightCorner = currentPoint.y < previousPoint.y &&
-            currentPoint.x > nextPoint.x;
-
-        bool innerBotRightCorner = currentPoint.x < previousPoint.x &&
-            currentPoint.y > nextPoint.y;
-
-        if (outerBotRightCorner || innerBotRightCorner) {
-            return Corner.BottomRight;
+        if (currentPoint.y < previousPoint.y && currentPoint.x < nextPoint.x) {
+            return Corner.InnerTopRight;
         }
 
-        bool outerTopLeftCorner = currentPoint.y > previousPoint.y &&
-           currentPoint.x < nextPoint.x;
-
-        bool innerTopLeftCorner = currentPoint.x > previousPoint.x &&
-            currentPoint.y < nextPoint.y;
-
-        if (outerTopLeftCorner || innerTopLeftCorner) {
-            return Corner.TopLeft;
+        if (currentPoint.y < previousPoint.y && currentPoint.x > nextPoint.x) {
+            return Corner.OuterBottomRight;
         }
 
-        bool outerBotLeftCorner = currentPoint.x < previousPoint.x &&
-           currentPoint.y < nextPoint.y;
+        if (currentPoint.x < previousPoint.x && currentPoint.y > nextPoint.y) {
+            return Corner.InnerBottomRight;
+        }
 
-        bool innerBotLeftCorner = currentPoint.y > previousPoint.y &&
-            currentPoint.x > nextPoint.x;
+        if (currentPoint.y > previousPoint.y && currentPoint.x < nextPoint.x) {
+            return Corner.OuterTopLeft;
+        }
 
-        if (outerBotLeftCorner || innerBotLeftCorner) {
-            return Corner.BottomLeft;
+        if (currentPoint.x > previousPoint.x && currentPoint.y < nextPoint.y) {
+            return Corner.InnerTopLeft;
+        }
+
+        if (currentPoint.x < previousPoint.x && currentPoint.y < nextPoint.y) {
+            return Corner.OuterBottomLeft;
+        }
+
+        if (currentPoint.y > previousPoint.y && currentPoint.x > nextPoint.x) {
+            return Corner.InnerBottomLeft;
         }
 
         Debug.LogError("Could not find point corner type!");

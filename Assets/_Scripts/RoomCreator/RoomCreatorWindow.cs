@@ -47,7 +47,7 @@ public class RoomCreatorWindow : EditorWindow {
 
             SetTilemaps();
 
-            Undo.RecordObjects(new UnityEngine.Object[] { groundTilemap, topWallsTilemap, botWallsTilemap }, "Create Wall Tiles");
+            Undo.RecordObjects(new Object[] { groundTilemap, topWallsTilemap, botWallsTilemap }, "Create Wall Tiles");
 
             roomTilemapCreator = Resources.Load<RoomTilemapCreator>("RoomTilemapCreator");
             roomTilemapCreator.CreateRoomTiles(environmentType, groundTilemap, topWallsTilemap, botWallsTilemap);

@@ -8,7 +8,6 @@ using TMPro;
 using DG.Tweening;
 using System.Linq;
 using MoreMountains.Feedbacks;
-using System.Collections;
 
 /// <summary>
 /// A static class for general helpful methods

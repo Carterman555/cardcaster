@@ -20,6 +20,8 @@ public class ClearDataButton : GameButton {
         warningPopup.OnAccepted -= ClearData;
 
         ES3.DeleteFile();
+        print("Delete file");
+
         ResourceSystem.Instance.UpdateUnlockedCards();
     }
 }

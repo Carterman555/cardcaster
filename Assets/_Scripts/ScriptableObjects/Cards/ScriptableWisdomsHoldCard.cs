@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "WisdomsHoldCard", menuName = "Cards/Wisdom's Hold Card")]

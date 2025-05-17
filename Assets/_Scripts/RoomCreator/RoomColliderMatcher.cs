@@ -3,10 +3,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEditor;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.Tilemaps;
-using static UnityEngine.UI.Image;
 
 // matches the points of the polygon colliders for the room and the camera confiner
 public class RoomColliderMatcher {

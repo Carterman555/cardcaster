@@ -1,12 +1,8 @@
-using QFSW.QC;
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEditor.Rendering;
 using UnityEngine;
 using UnityEngine.AI;
-using UnityEngine.WSA;
 
 // Script execution order reason: needs invoke ChangeSwarmState in onEnable after swarmMovementBehavior sets itself to leader in onEnable
 public class Bee : Enemy {
@@ -31,9 +27,6 @@ public class Bee : Enemy {
     private enum BeeState { FollowingSwarmBehavior, ShootingStinger, Launching }
     private BeeState beeState;
 
-    private DebugText stateDebugText;
-    private DebugText plantDebugText;
-
     protected override void Awake() {
         base.Awake();
 
@@ -43,9 +36,6 @@ public class Bee : Enemy {
         swarmMovement = GetComponent<SwarmMovementBehavior>();
         wanderMovement = GetComponent<WanderMovementBehavior>();
         faceBehavior = GetComponent<FaceMoveDirectionBehavior>();
-
-        stateDebugText = DebugText.Create(transform, new Vector2(0, 1.3f), "");
-        plantDebugText = DebugText.Create(transform, new Vector2(0, 1f), "");
     }
 
     protected override void OnEnable() {
@@ -109,8 +99,6 @@ public class Bee : Enemy {
     protected override void Update() {
         base.Update();
 
-        stateDebugText.SetText(swarmState.ToPrettyString());
-
         if (swarmMovement.IsLeader && beeState != BeeState.Launching) {
             HandleControllingSwarm();
         }
@@ -129,7 +117,6 @@ public class Bee : Enemy {
                 }
 
                 reproducingPlant = GetClosestPlant();
-                plantDebugText.SetText(reproducingPlant.GetInstanceID().ToString());
                 bool anyBeeNearPlant = swarmMovement.GetUnitsInSwarm().Any(u => Vector2.SqrMagnitude(u.transform.position - reproducingPlant.position) < 0.5f);
                 if (anyBeeNearPlant) {
                     ChangeSwarmState(SwarmState.Reproducing);
@@ -216,7 +203,6 @@ public class Bee : Enemy {
                 reproduceTimer = reproduceTime;
 
                 reproducingPlant = GetClosestPlant();
-                plantDebugText.SetText(reproducingPlant.GetInstanceID().ToString());
 
                 swarmMovement.Shuffle(reproducingPlant.position);
 
@@ -231,7 +217,6 @@ public class Bee : Enemy {
 
         if (swarmMovement.IsLeader) {
             reproducingPlant = GetClosestPlant();
-            plantDebugText.SetText(reproducingPlant.GetInstanceID().ToString());
 
             swarmMovement.SetSwarmDestination(reproducingPlant.position);
         }

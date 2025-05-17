@@ -117,7 +117,7 @@ public class DeckManager : Singleton<DeckManager> {
 
     private void OnStartGame() {
         ClearDeckAndEssence();
-        if (!GameSceneManager.Instance.Tutorial) {
+        if (!GameSceneManager.Instance.InTutorial) {
             GiveStartingCards();
         }
     }
@@ -214,7 +214,7 @@ public class DeckManager : Singleton<DeckManager> {
 
         // if gains a locked card, unlock it
         bool cardLocked = !ResourceSystem.Instance.GetUnlockedCards().Any(c => c == card.CardType);
-        if (cardLocked && !GameSceneManager.Instance.Tutorial) {
+        if (cardLocked && !GameSceneManager.Instance.InTutorial) {
             ResourceSystem.Instance.UnlockCard(card.CardType);
             FeedbackPlayerOld.Play("NewCardUnlocked");
             NewCardUnlockedPanel.Instance.Setup(card);

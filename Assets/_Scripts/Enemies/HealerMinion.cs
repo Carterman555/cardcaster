@@ -1,5 +1,4 @@
 using DG.Tweening;
-using QFSW.QC;
 using UnityEngine;
 
 public class HealerMinion : Enemy {

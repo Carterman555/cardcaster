@@ -11,7 +11,7 @@ public class Tutorial : MonoBehaviour {
     public static event Action OnTutorialRoomStart;
 
     [Header("Main")]
-    [SerializeField] private TriggerContactTracker startTutorialTrigger;
+    [SerializeField] private TriggerEventInvoker startTutorialTrigger;
 
     private BaseTutorialStep[] tutorialSteps;
     private int currentStepIndex;
@@ -39,7 +39,6 @@ public class Tutorial : MonoBehaviour {
     [SerializeField] private LocalizedString modifyCard2LocString;
     [SerializeField] private LocalizedString essenceLocString;
     [SerializeField] private LocalizedString holeLocString;
-
 
     [Header("Combat Step")]
     [SerializeField] private InputActionReference attackAction;
@@ -76,12 +75,22 @@ public class Tutorial : MonoBehaviour {
     }
 
     private void OnEnable() {
-        startTutorialTrigger.OnEnterContact += TryStartTutorial;
-
+        startTutorialTrigger.OnTriggerEnter += TryStartTutorial;
         PlayerMovement.Instance.GetComponent<PlayerHealth>().OnDeathAnimComplete += OnPlayerDeath;
+
+        Vector2 playerTutorialPos = new Vector2(-6f, 0);
+        PlayerMovement.Instance.GetComponent<Rigidbody2D>().MovePosition(playerTutorialPos);
+
+        Invoke(nameof(EnableStartTrigger), Time.deltaTime);
     }
+
+    // it wasn't enabled at the start because the player is touching it before it's repositioned to playerTutorialPos 
+    private void EnableStartTrigger() {
+        startTutorialTrigger.GetComponent<Collider2D>().enabled = true;
+    }
+
     private void OnDisable() {
-        startTutorialTrigger.OnEnterContact -= TryStartTutorial;
+        startTutorialTrigger.OnTriggerEnter -= TryStartTutorial;
 
         if (tutorialActive) {
             CurrentTutorialStep.OnStepCompleted -= NextTutorialStep;
@@ -93,6 +102,7 @@ public class Tutorial : MonoBehaviour {
     }
 
     private void TryStartTutorial() {
+
         if (!tutorialActive) {
             StartTutorial();
         }
@@ -133,9 +143,6 @@ public class Tutorial : MonoBehaviour {
         //... so move to next step when this step is completed
         CurrentTutorialStep.OnStepCompleted += NextTutorialStep;
         CurrentTutorialStep.OnEnterStep();
-
-        Vector2 playerTutorialPos = new Vector2(-6f, 0);
-        PlayerMovement.Instance.transform.position = playerTutorialPos;
     }
 
     private void NextTutorialStep() {

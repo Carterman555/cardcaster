@@ -1203,7 +1203,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   debugStartTutorial: 0
-  debugStartingLevel: 3
+  debugStartingLevel: 2
 --- !u!114 &5230994697478813194
 MonoBehaviour:
   m_ObjectHideFlags: 0

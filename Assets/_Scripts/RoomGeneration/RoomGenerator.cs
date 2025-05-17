@@ -39,7 +39,11 @@ public class RoomGenerator : StaticInstance<RoomGenerator> {
 
     public void GenerateRooms(EnvironmentType environmentType) {
         currentEnvironmentType = environmentType;
-        //currentEnvironmentType = EnvironmentType.BlueStone;
+
+        if (debugForceEnv) {
+            currentEnvironmentType = debugForceEnvType;
+        }
+
         StartCoroutine(GenerateRoomsCor());
     }
 
@@ -56,23 +60,27 @@ public class RoomGenerator : StaticInstance<RoomGenerator> {
         OnCompleteGeneration?.Invoke();
     }
 
+    private void RemoveOverlapCheckers() {
+        foreach (RoomOverlapChecker overlapChecker in roomOverlapCheckers) {
+            overlapChecker.gameObject.ReturnToPool();
+        }
+        roomOverlapCheckers.Clear();
+    }
+
     #region Generate Layout
 
     [Header("Generate Layout")]
     [SerializeField] private RoomOverlapChecker roomOverlapCheckerPrefab;
-    [SerializeField] private bool debug;
 
     private bool failedRoomCreation;
     private Dictionary<RoomType, List<ScriptableRoom>> usedRooms;
 
     private int attemptNum = 0;
 
-    [SerializeField] private ScriptableRoom debugSecondRoom;
-
     private IEnumerator GenerateLayout() {
         do {
             attemptNum++;
-            if (debug) Debug.Log($"ATTEMPT {attemptNum} TO GENERATE LAYOUT");
+            if (debugLogs) Debug.Log($"ATTEMPT {attemptNum} TO GENERATE LAYOUT");
 
             failedRoomCreation = false;
             yield return StartCoroutine(TryGenerateLayout());
@@ -89,7 +97,7 @@ public class RoomGenerator : StaticInstance<RoomGenerator> {
 
         ScriptableLevelLayout levelLayout = ResourceSystem.Instance.GetRandomLayout();
 
-        if (debug) Debug.Log("Trying to generate layout with " + levelLayout.name);
+        if (debugLogs) Debug.Log("Trying to generate layout with " + levelLayout.name);
 
         // spawn first room checker
         RoomOverlapChecker newRoomChecker = roomOverlapCheckerPrefab.Spawn(Vector2.zero, Containers.Instance.RoomOverlapCheckers);
@@ -120,7 +128,7 @@ public class RoomGenerator : StaticInstance<RoomGenerator> {
     }
 
     private IEnumerator SpawnRoomCheckers(ScriptableLevelLayout levelLayout) {
-        if (debug) Debug.Log($"Starting SpawnRoomCheckers for layout with {levelLayout.RoomConnections.Length} connected rooms");
+        if (debugLogs) Debug.Log($"Starting SpawnRoomCheckers for layout with {levelLayout.RoomConnections.Length} connected rooms");
 
         for (int i = 0; i < levelLayout.RoomConnections.Length; i++) {
 
@@ -131,7 +139,7 @@ public class RoomGenerator : StaticInstance<RoomGenerator> {
 
             RoomConnection roomConnection = levelLayout.RoomConnections[i];
 
-            if (debug) Debug.Log($"Processing subLayout of type {roomConnection.RoomType}");
+            if (debugLogs) Debug.Log($"Processing subLayout of type {roomConnection.RoomType}");
             bool canSpawn = false;
             ScriptableRoom newRoomScriptable = null;
             Room newRoomPrefab = null;
@@ -140,14 +148,14 @@ public class RoomGenerator : StaticInstance<RoomGenerator> {
 
             // Until it spawns a room that can be spawned
             while (!canSpawn) {
-                if (debug)
+                if (debugLogs)
                     Debug.Log($"Attempt #{tryRoomCounter} to spawn room of type {roomConnection.RoomType} to connect to {roomConnection.ParentRoomOverlapChecker.GetRoomPrefab().name}");
 
                 tryRoomCounter++;
                 int tryRoomAmount = 5;
                 if (tryRoomCounter > tryRoomAmount) {
                     failedRoomCreation = true;
-                    if (debug)
+                    if (debugLogs)
                         Debug.Log($"Failed to create room after {tryRoomAmount} attempts");
                     yield break; // exits method
                 }
@@ -161,7 +169,7 @@ public class RoomGenerator : StaticInstance<RoomGenerator> {
                 // /\ debug /\
 
                 newRoomPrefab = newRoomScriptable.Prefab;
-                if (debug)
+                if (debugLogs)
                     Debug.Log($"Selected room: {newRoomScriptable.name}");
 
                 // Try to spawn this room
@@ -169,7 +177,7 @@ public class RoomGenerator : StaticInstance<RoomGenerator> {
             }
 
             usedRooms[newRoomScriptable.RoomType].Add(newRoomScriptable);
-            if (debug)
+            if (debugLogs)
                 Debug.Log($"Successfully spawned room: {newRoomScriptable.name}");
 
             RoomOverlapChecker newRoomChecker = roomOverlapCheckers.Last();
@@ -196,7 +204,7 @@ public class RoomGenerator : StaticInstance<RoomGenerator> {
             Debug.LogError("There are no rooms of type " + roomType + " available!");
         }
 
-        if (debug)
+        if (debugLogs)
             Debug.Log($"Found {availableRooms.Count} available rooms of type {roomType}");
         newRoomScriptable = availableRooms.RandomItem();
         return newRoomScriptable;
@@ -214,24 +222,24 @@ public class RoomGenerator : StaticInstance<RoomGenerator> {
     /// then return the position where the connection can be made
     /// </summary>
     private IEnumerator TrySpawnRoomChecker(Room newRoomPrefab, RoomOverlapChecker existingRoomChecker, Action<bool> callback) {
-        if (debug)
+        if (debugLogs)
             Debug.Log($"Attempting to spawn room checker for {newRoomPrefab.name}");
 
         RoomOverlapChecker newRoomChecker = roomOverlapCheckerPrefab.Spawn(Containers.Instance.RoomOverlapCheckers);
         newRoomChecker.Setup(newRoomPrefab, existingRoomChecker);
 
         foreach (PossibleDoorway existingDoorway in existingRoomChecker.GetPossibleDoorways()) {
-            if (debug)
+            if (debugLogs)
                 Debug.Log($"Checking doorway compatibility for {existingDoorway.GetSide()} side of {existingRoomChecker.GetRoomPrefab().name}");
 
             if (newRoomChecker.CanConnectToDoorwaySide(existingDoorway.GetSide())) {
 
                 PossibleDoorway[] newRoomDoorways = newRoomChecker.GetConnectingDoorways(existingDoorway.GetSide());
-                if (debug)
+                if (debugLogs)
                     Debug.Log($"Found {newRoomDoorways.Length} doorways in new room to connect to {existingDoorway.GetSide()} side");
 
                 foreach (PossibleDoorway newDoorway in newRoomDoorways) {
-                    if (debug)
+                    if (debugLogs)
                         Debug.Log($"Attempting to connect {existingDoorway.name} in {existingRoomChecker.GetRoomPrefab().name} to {newDoorway.name} in {newRoomPrefab.name}");
                     newRoomChecker.MoveToConnectionPos(existingDoorway, newDoorway);
 
@@ -239,7 +247,7 @@ public class RoomGenerator : StaticInstance<RoomGenerator> {
                     yield return null;
 
                     if (!newRoomChecker.OverlapsWithRoomChecker(roomOverlapCheckers)) {
-                        if (debug)
+                        if (debugLogs)
                             Debug.Log($"Successfully found valid position for {newRoomPrefab.name}");
 
                         roomOverlapCheckers.Add(newRoomChecker);
@@ -251,12 +259,12 @@ public class RoomGenerator : StaticInstance<RoomGenerator> {
                         yield break;
                     }
 
-                    if (debug) Debug.Log("Room overlaps with existing rooms, trying next doorway");
+                    if (debugLogs) Debug.Log("Room overlaps with existing rooms, trying next doorway");
                 }
             }
         }
 
-        if (debug)
+        if (debugLogs)
             Debug.Log($"Failed to find valid position for {newRoomPrefab.name}");
         newRoomChecker.gameObject.ReturnToPool();
         callback(false);
@@ -269,6 +277,8 @@ public class RoomGenerator : StaticInstance<RoomGenerator> {
     [Header("Spawn Rooms")]
     [SerializeField] private DoorwayTileDestroyer doorwayTileReplacer;
     [SerializeField] private Room trainingRoomPrefab;
+
+    [SerializeField] private CompositeCollider2D quickCameraConfiner;
 
     private Dictionary<RoomOverlapChecker, Room> spawnRoomsDict = new();
 
@@ -283,6 +293,7 @@ public class RoomGenerator : StaticInstance<RoomGenerator> {
         RoomOverlapChecker firstOverlapChecker = roomOverlapCheckers[0];
         Room firstRoom = firstOverlapChecker.GetRoomPrefab().Spawn(firstOverlapChecker.transform.position, Containers.Instance.Rooms);
         firstRoom.SetRoomNum(1);
+        firstRoom.GetComponent<CopyColliderToCamConfiner>().CopyCollider(quickCameraConfiner);
         spawnRoomsDict.Add(firstOverlapChecker, firstRoom);
 
         // go through each room checker
@@ -325,6 +336,13 @@ public class RoomGenerator : StaticInstance<RoomGenerator> {
         RemoveTilesForHallway(newRoom, connectingRoom, newDoorway, existingDoorway);
         RemoveObjectsForHallway(newDoorway.transform.position, existingDoorway.transform.position);
         AddRoomsToHallwayLight(hallway, connectingRoom.GetRoomNum(), newRoom.GetRoomNum());
+
+        // so quicker baking time at start
+        bool connectedToEntrance = roomOverlapChecker.GetParentChecker().GetRoomPrefab().ScriptableRoom.RoomType == RoomType.Entrance;
+        if (connectedToEntrance) {
+            newRoom.GetComponent<CopyColliderToCamConfiner>().CopyCollider(quickCameraConfiner);
+            hallway.GetComponent<CopyColliderToCamConfiner>().CopyCollider(quickCameraConfiner);
+        }
 
         // create enter and exit triggers
         newRoom.CreateEnterAndExitTriggers(newDoorway);
@@ -425,11 +443,12 @@ public class RoomGenerator : StaticInstance<RoomGenerator> {
     }
     #endregion
 
-    private void RemoveOverlapCheckers() {
-        foreach (RoomOverlapChecker overlapChecker in roomOverlapCheckers) {
-            overlapChecker.gameObject.ReturnToPool();
-        }
-        roomOverlapCheckers.Clear();
-    }
+
+    [Header("Debugging")]
+    [SerializeField] private bool debugLogs;
+    [SerializeField] private ScriptableRoom debugSecondRoom;
+
+    [SerializeField] private bool debugForceEnv;
+    [SerializeField, ConditionalHide("debugForceEnv")] private EnvironmentType debugForceEnvType;
 
 }

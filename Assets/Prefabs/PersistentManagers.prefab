@@ -1392,7 +1392,7 @@ MonoBehaviour:
         SecureLoad: 1
         UnloadMethod: 2
         AntiSpillSceneName: 
-        WaitForMethodCallToUnload: 1
+        WaitForMethodCallToUnload: 0
         BeforeEntryFadeDelay: 0
         EntryFadeDuration: 0.2
         AfterEntryFadeDelay: 0

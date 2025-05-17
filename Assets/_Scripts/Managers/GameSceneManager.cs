@@ -6,6 +6,8 @@ using UnityEngine.SceneManagement;
 
 public class GameSceneManager : Singleton<GameSceneManager> {
 
+    public static event Action OnLoadingCompleted;
+
     public static event Action OnStartGameLoadingStarted;
     public static event Action OnStartGameLoadingCompleted;
 
@@ -46,6 +48,7 @@ public class GameSceneManager : Singleton<GameSceneManager> {
         sceneLoadPlayer = GetComponent<MMF_Player>();
 
         SceneManager.sceneLoaded += OnSceneLoaded;
+        SceneManager.sceneUnloaded += OnSceneUnloaded;
 
         if (SceneManager.GetActiveScene() == SceneManager.GetSceneByName("Game")) {
             OnStartGameLoadingStarted?.Invoke();
@@ -54,6 +57,7 @@ public class GameSceneManager : Singleton<GameSceneManager> {
 
     private void OnDestroy() {
         SceneManager.sceneLoaded -= OnSceneLoaded;
+        SceneManager.sceneUnloaded -= OnSceneUnloaded;
     }
 
     public void StartGame(bool tutorial = false) {
@@ -113,13 +117,17 @@ public class GameSceneManager : Singleton<GameSceneManager> {
     }
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode loadSceneMode) {
-
         if (scene != SceneManager.GetSceneByName("AdditiveLoadingScreen")) {
-            IsSceneLoading = false;
-
             if (Level == 1) {
                 OnStartGameLoadingCompleted?.Invoke();
             }
+        }
+    }
+
+    private void OnSceneUnloaded(Scene scene) {
+        if (scene == SceneManager.GetSceneByName("AdditiveLoadingScreen")) {
+            IsSceneLoading = false;
+            OnLoadingCompleted?.Invoke();
         }
     }
 

@@ -293,7 +293,6 @@ public class RoomGenerator : StaticInstance<RoomGenerator> {
         RoomOverlapChecker firstOverlapChecker = roomOverlapCheckers[0];
         Room firstRoom = firstOverlapChecker.GetRoomPrefab().Spawn(firstOverlapChecker.transform.position, Containers.Instance.Rooms);
         firstRoom.SetRoomNum(1);
-        firstRoom.GetComponent<CopyColliderToCamConfiner>().CopyCollider(quickCameraConfiner);
         spawnRoomsDict.Add(firstOverlapChecker, firstRoom);
 
         // go through each room checker
@@ -336,13 +335,6 @@ public class RoomGenerator : StaticInstance<RoomGenerator> {
         RemoveTilesForHallway(newRoom, connectingRoom, newDoorway, existingDoorway);
         RemoveObjectsForHallway(newDoorway.transform.position, existingDoorway.transform.position);
         AddRoomsToHallwayLight(hallway, connectingRoom.GetRoomNum(), newRoom.GetRoomNum());
-
-        // so quicker baking time at start
-        bool connectedToEntrance = roomOverlapChecker.GetParentChecker().GetRoomPrefab().ScriptableRoom.RoomType == RoomType.Entrance;
-        if (connectedToEntrance) {
-            newRoom.GetComponent<CopyColliderToCamConfiner>().CopyCollider(quickCameraConfiner);
-            hallway.GetComponent<CopyColliderToCamConfiner>().CopyCollider(quickCameraConfiner);
-        }
 
         // create enter and exit triggers
         newRoom.CreateEnterAndExitTriggers(newDoorway);

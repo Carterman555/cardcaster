@@ -495,7 +495,6 @@ GameObject:
   - component: {fileID: 5378690074485086980}
   - component: {fileID: 4963077493875852055}
   - component: {fileID: 2394718490218990673}
-  - component: {fileID: -5249283647738573126}
   m_Layer: 2
   m_Name: RoomBase
   m_TagString: Untagged
@@ -600,20 +599,8 @@ MonoBehaviour:
   doorBlockerPrefab: {fileID: 8313895669592551187, guid: bbaed2e7b68be2e429a962ec140869c0, type: 3}
   sideDoorBlockerPrefab: {fileID: 8313895669592551187, guid: f7390d642d91aa44a95f6ec24ee93c2b, type: 3}
   roomLight: {fileID: 6406168845811474983}
-  mapIconToSpawn: {fileID: 0}
---- !u!114 &-5249283647738573126
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2779059601650462574}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ded8d90125264794da03f184074252ea, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cameraConfiner: {fileID: 6718819322449431240}
+  hasTeleportPoint: 0
+  teleportPoint: {fileID: 0}
 --- !u!1 &3241341797291460811
 GameObject:
   m_ObjectHideFlags: 0

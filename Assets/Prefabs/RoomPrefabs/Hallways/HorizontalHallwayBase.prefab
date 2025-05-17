@@ -1707,7 +1707,6 @@ GameObject:
   - component: {fileID: 8927245960358128749}
   - component: {fileID: 2761239655702280936}
   - component: {fileID: 5102952185578995108}
-  - component: {fileID: 7163467756194168071}
   m_Layer: 0
   m_Name: HorizontalHallwayBase
   m_TagString: Untagged
@@ -1794,19 +1793,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 7.0103827, y: 2.6052573}
   m_EdgeRadius: 0
---- !u!114 &7163467756194168071
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5523412247354549612}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ded8d90125264794da03f184074252ea, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cameraConfiner: {fileID: 8411477406442876479}
 --- !u!1 &6909353520559282726
 GameObject:
   m_ObjectHideFlags: 0

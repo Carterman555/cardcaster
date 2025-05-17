@@ -18,16 +18,20 @@ public class GameStateManager : StaticInstance<GameStateManager> {
     }
 
     private void OnEnable() {
-        CameraInvalidate.OnFinishLoading += OnFinishLoading;
+        GameSceneManager.OnLoadingCompleted += OnGameStart;
         InputManager.OnActionMapChanged += OnActionMapChanged;
+
+        if (!GameSceneManager.Instance.IsSceneLoading) {
+            OnGameStart();
+        }
     }
 
     private void OnDisable() {
-        CameraInvalidate.OnFinishLoading -= OnFinishLoading;
+        GameSceneManager.OnLoadingCompleted -= OnGameStart;
         InputManager.OnActionMapChanged -= OnActionMapChanged;
     }
 
-    private void OnFinishLoading() {
+    private void OnGameStart() {
         SetGameState(GameState.Game);
     }
 

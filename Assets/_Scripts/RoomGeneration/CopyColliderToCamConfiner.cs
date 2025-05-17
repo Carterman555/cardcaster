@@ -5,23 +5,22 @@ public class CopyColliderToCamConfiner : MonoBehaviour {
     [SerializeField] private PolygonCollider2D cameraConfiner;
 
     private void OnEnable() {
-        CopyCollider();
+        GameObject cameraConfinerComposite = ReferenceSystem.Instance.CameraConfiner;
+        CopyCollider(cameraConfinerComposite.GetComponent<CompositeCollider2D>());
     }
 
-    private void CopyCollider() {
-        GameObject cameraConfinerComposite = ReferenceSystem.Instance.CameraConfiner;
-        PolygonCollider2D targetCollider = cameraConfinerComposite.AddComponent<PolygonCollider2D>();
+    public void CopyCollider(CompositeCollider2D targetCompositeCollider) {
+        PolygonCollider2D targetPolygonCollider = targetCompositeCollider.gameObject.AddComponent<PolygonCollider2D>();
+        targetPolygonCollider.usedByComposite = true;
+        targetPolygonCollider.offset = cameraConfiner.offset;
 
-        targetCollider.usedByComposite = true;
-        targetCollider.offset = cameraConfiner.offset;
-
-        targetCollider.pathCount = cameraConfiner.pathCount;
+        targetPolygonCollider.pathCount = cameraConfiner.pathCount;
         for (int i = 0; i < cameraConfiner.pathCount; i++) {
             Vector2[] path = cameraConfiner.GetPath(i);
-            targetCollider.SetPath(i, path);
+            targetPolygonCollider.SetPath(i, path);
         }
 
         // Adjust for different positions if needed
-        targetCollider.offset += (Vector2)(cameraConfiner.transform.position - cameraConfinerComposite.transform.position);
+        targetPolygonCollider.offset += (Vector2)(cameraConfiner.transform.position - targetPolygonCollider.transform.position);
     }
 }

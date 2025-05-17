@@ -6,62 +6,44 @@ using UnityEngine;
 
 public class CameraInvalidate : MonoBehaviour {
 
-    public static event Action OnFinishLoading;
-
     private CinemachineConfiner2D confiner;
+
+    [SerializeField] private CompositeCollider2D allRoomsCollider;
+    [SerializeField] private CompositeCollider2D firstRoomsCollider;
 
     private void Awake() {
         confiner = GetComponent<CinemachineConfiner2D>();
     }
 
     private void OnEnable() {
-        RoomGenerator.OnCompleteGeneration += InvalidateCache;
-        Tutorial.OnTutorialRoomStart += InvalidateCache;
+        RoomGenerator.OnCompleteGeneration += QuickThenFullBake;
+        Tutorial.OnTutorialRoomStart += FullBake;
     }
     private void OnDisable() {
-        RoomGenerator.OnCompleteGeneration -= InvalidateCache;
-        Tutorial.OnTutorialRoomStart -= InvalidateCache;
+        RoomGenerator.OnCompleteGeneration -= QuickThenFullBake;
+        Tutorial.OnTutorialRoomStart -= FullBake;
     }
 
-    private void InvalidateCache() {
+    private void QuickThenFullBake() {
+        StartCoroutine(QuickThenFullBakeCor());
+    }
+
+    private IEnumerator QuickThenFullBakeCor() {
+        confiner.m_BoundingShape2D = firstRoomsCollider;
         confiner.InvalidateCache();
 
-        RemoveConfinerBoxCollider();
-        StartCoroutine(LoadWhileBaking());
+        float maxQuickBakeTime = 0.25f;
+        yield return new WaitForSeconds(maxQuickBakeTime);
+
+        Vector3 camPos = new Vector3(PlayerMovement.Instance.CenterPos.x, PlayerMovement.Instance.CenterPos.y, -10f);
+        confiner.ForceCameraPosition(camPos, Quaternion.identity);
+
+        confiner.m_BoundingShape2D = allRoomsCollider;
+        confiner.InvalidateCache();
     }
 
-    // it needs a box collider to prevent the camera from glitch when the rooms get spawned, but it needs to be destroyed to confine the
-    // camera properly
-    private void RemoveConfinerBoxCollider() {
-        Destroy(ReferenceSystem.Instance.CameraConfiner.GetComponent<BoxCollider2D>());
-    }
-
-    private IEnumerator LoadWhileBaking() {
-
-        GetComponent<CameraLookInfluence>().enabled = false;
-
-        //... unnessecary i think, but just in case camera is close to player for the first few frames, before moving away
-        yield return new WaitForSeconds(0.1f);
-
-        // wait until camera gets close enough to player before unloading the scene
-        float distanceThreshold = 4f;
-        float distanceThresholdSquared = distanceThreshold * distanceThreshold;
-
-        float xDiff = PlayerMovement.Instance.CenterPos.x - Camera.main.transform.position.x;
-        float yDiff = PlayerMovement.Instance.CenterPos.y - Camera.main.transform.position.y;
-        float distanceSquared = xDiff * xDiff + yDiff * yDiff;
-
-        while (distanceSquared > distanceThresholdSquared) {
-            yield return null;
-
-            xDiff = PlayerMovement.Instance.CenterPos.x - Camera.main.transform.position.x;
-            yDiff = PlayerMovement.Instance.CenterPos.y - Camera.main.transform.position.y;
-            distanceSquared = xDiff * xDiff + yDiff * yDiff;
-        }
-
-        GetComponent<CameraLookInfluence>().enabled = true;
-
-        MMAdditiveSceneLoadingManager.AllowUnload();
-        OnFinishLoading?.Invoke();
+    private void FullBake() {
+        confiner.m_BoundingShape2D = allRoomsCollider;
+        confiner.InvalidateCache();
     }
 }

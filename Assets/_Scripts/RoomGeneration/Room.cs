@@ -153,7 +153,9 @@ public class Room : MonoBehaviour {
         //... brighten room
         DOTween.To(() => roomLight.intensity, x => roomLight.intensity = x, 1, duration: 1f);
 
-        MinimapManager.Instance.StartCoroutine(MinimapManager.Instance.ShowRoomOrHallIcon(transform));
+        if (!GameSceneManager.Instance.InTutorial) {
+            MinimapManager.Instance.StartCoroutine(MinimapManager.Instance.ShowRoomOrHallIcon(transform));
+        }
 
         exitTrigger.OnEnterContact += OnExitRoom;
 

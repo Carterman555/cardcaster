@@ -17,6 +17,6 @@ public class PlayerDeathFeedbacksController : StaticInstance<PlayerDeathFeedback
     private void UpdateShowDeathScreen() {
 
         MMF_Feedbacks showScreen = deathFeedbacks.GetFeedbackOfType<MMF_Feedbacks>("Show Death Screen");
-        showScreen.Active = !GameSceneManager.Instance.Tutorial;
+        showScreen.Active = !GameSceneManager.Instance.InTutorial;
     }
 }

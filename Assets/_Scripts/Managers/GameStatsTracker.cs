@@ -1,5 +1,3 @@
-using System;
-
 public class GameStatsTracker : Singleton<GameStatsTracker> {
 
     public int Kills { get; private set; }

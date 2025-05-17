@@ -16,7 +16,7 @@ public class GameSceneManager : Singleton<GameSceneManager> {
 
     [SerializeField] private bool debugStartTutorial;
 
-    public bool Tutorial { get; private set; }
+    public bool InTutorial { get; private set; }
 
     public EnvironmentType CurrentEnvironment { get; private set; }
     public int Level { get; private set; }
@@ -24,6 +24,8 @@ public class GameSceneManager : Singleton<GameSceneManager> {
     private const int LEVELS_PER_ENVIRONMENT = 1;
 
     private const int MAX_LEVEL = 3;
+
+    [SerializeField] private int debugStartingLevel = 1;
 
     private MMF_Player sceneLoadPlayer;
 
@@ -42,8 +44,10 @@ public class GameSceneManager : Singleton<GameSceneManager> {
         base.Awake();
 
         Level = 1;
-        CurrentEnvironment = EnvironmentType.Stone;
-        Tutorial = debugStartTutorial;
+        Level = debugStartingLevel;
+
+        UpdateEnvironmentType();
+        InTutorial = debugStartTutorial;
 
         sceneLoadPlayer = GetComponent<MMF_Player>();
 
@@ -62,8 +66,10 @@ public class GameSceneManager : Singleton<GameSceneManager> {
 
     public void StartGame(bool tutorial = false) {
         Level = 1;
-        CurrentEnvironment = EnvironmentType.Stone;
-        Tutorial = tutorial;
+        Level = debugStartingLevel;
+
+        UpdateEnvironmentType();
+        InTutorial = tutorial;
 
         LoadGameScene();
 
@@ -87,7 +93,7 @@ public class GameSceneManager : Singleton<GameSceneManager> {
     }
 
     public void LoadTutorial() {
-        Tutorial = true;
+        InTutorial = true;
         LoadGameScene();
     }
 
@@ -118,7 +124,8 @@ public class GameSceneManager : Singleton<GameSceneManager> {
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode loadSceneMode) {
         if (scene != SceneManager.GetSceneByName("AdditiveLoadingScreen")) {
-            if (Level == 1) {
+            //if (Level == 1) {
+            if (Level == debugStartingLevel) {
                 OnStartGameLoadingCompleted?.Invoke();
             }
         }

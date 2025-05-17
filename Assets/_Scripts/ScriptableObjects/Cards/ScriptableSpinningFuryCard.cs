@@ -24,6 +24,8 @@ public class ScriptableSpinningFuryCard : ScriptableAbilityCardBase {
     protected override void Play(Vector2 position) {
         base.Play(position);
 
+        Debug.Log("Play");
+
         PlayerMeleeAttack.Instance.DisableAttack();
 
         // make sword autorotate
@@ -62,6 +64,8 @@ public class ScriptableSpinningFuryCard : ScriptableAbilityCardBase {
 
     public override void Stop() {
         base.Stop();
+
+        Debug.Log("Stop");
 
         PlayerMeleeAttack.Instance.AllowAttack();
 

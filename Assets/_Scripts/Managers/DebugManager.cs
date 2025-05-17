@@ -1,7 +1,5 @@
 using QFSW.QC;
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -20,12 +18,12 @@ public class DebugManager : StaticInstance<DebugManager> {
 
     private void OnEnable() {
         RoomGenerator.OnCompleteGeneration += OnRoomsGenerated;
-        GameSceneManager.OnStartGameLoadingStarted += OnStartGame;
+        GameSceneManager.OnStartGameLoadingCompleted += OnStartGame;
     }
 
     private void OnDisable() {
         RoomGenerator.OnCompleteGeneration -= OnRoomsGenerated;
-        GameSceneManager.OnStartGameLoadingStarted -= OnStartGame;
+        GameSceneManager.OnStartGameLoadingCompleted -= OnStartGame;
     }
 
     private void OnStartGame() {
@@ -134,5 +132,10 @@ public class DebugManager : StaticInstance<DebugManager> {
 
     private void ApplyPlayerStatModifiers() {
         StatsManager.AddPlayerStatModifiers(startingPlayerStatModifiers);
+    }
+
+    [Command]
+    private void SetTutorialCompleted(bool completed) {
+        ES3.Save("TutorialCompleted", completed);
     }
 }

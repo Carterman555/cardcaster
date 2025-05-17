@@ -8,10 +8,6 @@ public class PlayGameButton : GameButton {
     protected override void OnClick() {
         base.OnClick();
 
-        if (!ES3.KeyExists("TutorialCompleted")) {
-            ES3.Save("TutorialCompleted", false);
-        }
-
         bool startTutorial;
         if (alwaysTutorial) {
             startTutorial = true;
@@ -20,9 +16,9 @@ public class PlayGameButton : GameButton {
             startTutorial = false;
         }
         else {
-            startTutorial = !ES3.Load<bool>("TutorialCompleted");
+            startTutorial = !ES3.Load<bool>("TutorialCompleted", false);
         }
-
+        
         GameSceneManager.Instance.StartGame(startTutorial);
 
         if (startTutorial) {

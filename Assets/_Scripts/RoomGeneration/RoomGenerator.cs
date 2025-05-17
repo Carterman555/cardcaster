@@ -26,7 +26,7 @@ public class RoomGenerator : StaticInstance<RoomGenerator> {
     }
 
     private void Start() {
-        if (GameSceneManager.Instance.Tutorial) {
+        if (GameSceneManager.Instance.InTutorial) {
             SpawnTrainingRoom();
 
             MMAdditiveSceneLoadingManager.AllowUnload();
@@ -39,11 +39,6 @@ public class RoomGenerator : StaticInstance<RoomGenerator> {
 
     public void GenerateRooms(EnvironmentType environmentType) {
         currentEnvironmentType = environmentType;
-
-        if (debugForceEnv) {
-            currentEnvironmentType = debugForceEnvType;
-        }
-
         StartCoroutine(GenerateRoomsCor());
     }
 
@@ -439,8 +434,4 @@ public class RoomGenerator : StaticInstance<RoomGenerator> {
     [Header("Debugging")]
     [SerializeField] private bool debugLogs;
     [SerializeField] private ScriptableRoom debugSecondRoom;
-
-    [SerializeField] private bool debugForceEnv;
-    [SerializeField, ConditionalHide("debugForceEnv")] private EnvironmentType debugForceEnvType;
-
 }

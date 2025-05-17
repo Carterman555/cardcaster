@@ -397,7 +397,7 @@ MonoBehaviour:
       MaxValue: 10
   centerPoint: {fileID: 1044121333785347722}
   anim: {fileID: 4239218035097059229}
-  healAmount: 0
+  healAmount: 10
   debugState: 0
   stateToDebug: 2
   healerMinionPrefab: {fileID: 7481704768261658980, guid: df1e1c62ee40e4144a5ec062019e6f03, type: 3}
@@ -528,7 +528,6 @@ MonoBehaviour:
   avgDropAmount: 5
   dropAmountVariation: 1
   yVariation: 2
-  IsEnabled: 0
 --- !u!114 &6149234201596225412
 MonoBehaviour:
   m_ObjectHideFlags: 0

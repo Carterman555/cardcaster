@@ -1,9 +1,7 @@
 using DG.Tweening;
-using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using static HandCard;
-using static MoreMountains.Tools.MMFollowTarget;
 
 public class CardControllerInput : MonoBehaviour {
 

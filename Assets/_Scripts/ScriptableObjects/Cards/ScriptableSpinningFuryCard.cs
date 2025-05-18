@@ -19,12 +19,12 @@ public class ScriptableSpinningFuryCard : ScriptableAbilityCardBase {
     [SerializeField] private ParticleSystem swingSwordEffectsPrefab;
     private ParticleSystem swingSwordEffects;
 
+    private GameObject sfxAudioSource;
+
     private Coroutine updateCor;
 
     protected override void Play(Vector2 position) {
         base.Play(position);
-
-        Debug.Log("Play");
 
         PlayerMeleeAttack.Instance.DisableAttack();
 
@@ -45,6 +45,15 @@ public class ScriptableSpinningFuryCard : ScriptableAbilityCardBase {
 
         // effects
         swingSwordEffects = swingSwordEffectsPrefab.Spawn(sword.position, sword);
+
+        AbilityManager.Instance.StartCoroutine(PlaySfx());
+    }
+
+    private IEnumerator PlaySfx() {
+        float sfxDelay = 0.25f;
+        yield return new WaitForSeconds(sfxDelay);
+
+        sfxAudioSource = AudioManager.Instance.PlaySound(AudioManager.Instance.AudioClips.SpinningFury, loop: true);
     }
 
     // use update cor because sword size could change while sword is swinging
@@ -65,8 +74,6 @@ public class ScriptableSpinningFuryCard : ScriptableAbilityCardBase {
     public override void Stop() {
         base.Stop();
 
-        Debug.Log("Stop");
-
         PlayerMeleeAttack.Instance.AllowAttack();
 
         // stop autorotate
@@ -85,6 +92,8 @@ public class ScriptableSpinningFuryCard : ScriptableAbilityCardBase {
             abilityEffect.ReturnToPool();
         }
         abilityEffects.Clear();
+
+        sfxAudioSource.ReturnToPool();
     }
 
     private List<GameObject> abilityEffects = new();

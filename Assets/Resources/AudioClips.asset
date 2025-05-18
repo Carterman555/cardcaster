@@ -69,6 +69,11 @@ MonoBehaviour:
     - {fileID: 8300000, guid: ab784bec0ad85e24db053473c9080c3c, type: 3}
     Volume: 1
     PitchVariation: 0.1
+  spinningFury:
+    Clips:
+    - {fileID: 8300000, guid: 79f46eb7cc1f25e40a4d7cedd6f32584, type: 3}
+    Volume: 1
+    PitchVariation: 0
   basicEnemyShoot:
     Clips:
     - {fileID: 8300000, guid: 1c392d540fc5d924994810b617eef041, type: 3}

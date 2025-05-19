@@ -7,6 +7,9 @@ public class ReturnOnContact : MonoBehaviour {
     [SerializeField] private bool returnOther;
     [SerializeField, ConditionalHide("returnOther")] private GameObject returnTarget;
 
+    [SerializeField] private bool playSfx;
+    [SerializeField, ConditionalHide("playSfx")] private AudioClips returnSfx;
+
     // because sometimes trigger gets triggered by 2 objects that would return it in the same frame, and
     // only 1 of them should return the object to pool
     private bool returned;
@@ -23,6 +26,10 @@ public class ReturnOnContact : MonoBehaviour {
             }
             else {
                 returnTarget.ReturnToPool();
+            }
+
+            if (playSfx) {
+                AudioManager.Instance.PlaySingleSound(returnSfx);
             }
         }
     }

@@ -30,10 +30,10 @@ public class ScriptableHitShockwave : ScriptableAbilityCardBase {
 
     private List<GameObject> effectPrefabs = new();
 
-    public override void ApplyModifier(AbilityStats statsModifier, AbilityAttribute abilityAttributesToModify, GameObject effectPrefab) {
-        base.ApplyModifier(statsModifier, abilityAttributesToModify, effectPrefab);
-        if (effectPrefab != null) {
-            effectPrefabs.Add(effectPrefab);
+    public override void ApplyModifier(ScriptableModifierCardBase modifierCard) {
+        base.ApplyModifier(modifierCard);
+        if (modifierCard.AppliesEffect) {
+            effectPrefabs.Add(modifierCard.EffectPrefab);
         }
     }
 

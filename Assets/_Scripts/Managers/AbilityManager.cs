@@ -75,6 +75,7 @@ public class AbilityManager : StaticInstance<AbilityManager> {
     public static event Action OnApplyModifiers;
 
     private List<ScriptableModifierCardBase> activeModifiers = new();
+    public List<ScriptableModifierCardBase> ActiveModifiers => activeModifiers;
 
     public int ActiveModifierCount() {
         return activeModifiers.Count;
@@ -91,10 +92,10 @@ public class AbilityManager : StaticInstance<AbilityManager> {
         }
     }
 
-    public void ApplyModifiers(ScriptableAbilityCardBase card) {
-        foreach (var modifier in activeModifiers) {
-            if (card.IsCompatibleWithModifier(modifier)) {
-                modifier.ApplyToAbility(card);
+    public void ApplyModifiers(ScriptableAbilityCardBase abilityCard) {
+        foreach (var modifierCard in activeModifiers) {
+            if (abilityCard.IsCompatibleWithModifier(modifierCard)) {
+                abilityCard.ApplyModifier(modifierCard);
             }
         }
         activeModifiers.Clear();

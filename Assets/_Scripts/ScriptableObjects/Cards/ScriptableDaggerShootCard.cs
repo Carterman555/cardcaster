@@ -49,10 +49,10 @@ public class ScriptableDaggerShootCard : ScriptableAbilityCardBase {
 
     #region Effects
 
-    public override void ApplyModifier(AbilityStats statsModifier, AbilityAttribute abilityAttributesToModify, GameObject effectPrefab) {
-        base.ApplyModifier(statsModifier, abilityAttributesToModify, effectPrefab);
-        if (effectPrefab != null) {
-            abilityEffectPrefabs.Add(effectPrefab);
+    public override void ApplyModifier(ScriptableModifierCardBase modifierCard) {
+        base.ApplyModifier(modifierCard);
+        if (modifierCard.AppliesEffect) {
+            abilityEffectPrefabs.Add(modifierCard.EffectPrefab);
         }
     }
 

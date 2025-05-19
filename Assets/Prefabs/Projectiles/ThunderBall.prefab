@@ -9902,6 +9902,12 @@ MonoBehaviour:
     m_Bits: 1856
   returnOther: 0
   returnTarget: {fileID: 0}
+  playSfx: 1
+  returnSfx:
+    Clips:
+    - {fileID: 8300000, guid: 91686613b0856ee43b9cdd42b3cdcfc1, type: 3}
+    Volume: 0.1
+    PitchVariation: 0.1
 --- !u!114 &-1524069983150312726
 MonoBehaviour:
   m_ObjectHideFlags: 0

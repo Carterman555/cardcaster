@@ -138,7 +138,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   targetLayer:
     serializedVersion: 2
-    m_Bits: 128
+    m_Bits: 35968
   piercing: 1
 --- !u!114 &8094057064344473443
 MonoBehaviour:

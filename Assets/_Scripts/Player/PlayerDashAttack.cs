@@ -5,7 +5,6 @@ public class PlayerDashAttack : MonoBehaviour {
     private PlayerMovement playerMovement;
     private PlayerMeleeAttack playerMeleeAttack;
 
-    [SerializeField] private LayerMask targetLayerMask;
     [SerializeField] private Vector2 attackSize;
     [SerializeField] private float windowToAttack = 0.5f;
     private float dashTimer;
@@ -43,7 +42,7 @@ public class PlayerDashAttack : MonoBehaviour {
         float angle = attackDirection.DirectionToRotation().eulerAngles.z;
         Vector2 pos = (Vector2)playerMovement.CenterPos + (playerMeleeAttack.GetAttackDirection() * attackSize.x * 0.5f);
 
-        Collider2D[] cols = Physics2D.OverlapCapsuleAll(pos, attackSize, CapsuleDirection2D.Horizontal, angle, targetLayerMask);
+        Collider2D[] cols = Physics2D.OverlapCapsuleAll(pos, attackSize, CapsuleDirection2D.Horizontal, angle, GameLayers.PlayerTargetLayerMask);
 
         foreach (Collider2D col in cols) {
             if (col.TryGetComponent(out DropEssenceOnDeath dropEssenceOnDeath)) {
@@ -52,7 +51,7 @@ public class PlayerDashAttack : MonoBehaviour {
         }
 
         DamageDealer.DealCapsuleDamage(
-            targetLayerMask,
+            GameLayers.PlayerTargetLayerMask,
             playerMovement.CenterPos,
             pos, attackSize, angle,
             Stats.DashAttackDamage, Stats.KnockbackStrength, canCrit: true);

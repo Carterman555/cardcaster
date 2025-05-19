@@ -125,7 +125,7 @@ MonoBehaviour:
   thunderGolemArea:
     Clips:
     - {fileID: 8300000, guid: 13249c99cb198f94a8e4792a7fa4f6d6, type: 3}
-    Volume: 0.15
+    Volume: 0.05
     PitchVariation: 0.3
   drawCard:
     Clips:
@@ -215,6 +215,11 @@ MonoBehaviour:
     Clips:
     - {fileID: 8300000, guid: 22cf4120c8989514aa5b4dbbd29eee54, type: 3}
     Volume: 0.3
+    PitchVariation: 0
+  unlockCard:
+    Clips:
+    - {fileID: 8300000, guid: 5d7a47064b2ac2d40b17ed3a56924b55, type: 3}
+    Volume: 0.5
     PitchVariation: 0
   damaged:
     Clips:

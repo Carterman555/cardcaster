@@ -538,7 +538,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 1078243924381696
-    m_Localized: The Dealer
+    m_Localized: Thunder Golem
     m_Metadata:
       m_Items: []
   - m_Id: 1081345909985280
@@ -723,6 +723,10 @@ MonoBehaviour:
       m_Items: []
   - m_Id: 4350753709232128
     m_Localized: "You bring steel\u2014I bring style."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 18887233139904512
+    m_Localized: The Dealer
     m_Metadata:
       m_Items: []
   references:

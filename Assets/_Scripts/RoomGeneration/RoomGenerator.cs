@@ -399,7 +399,7 @@ public class RoomGenerator : StaticInstance<RoomGenerator> {
 
         Vector2 boxSize = new Vector2(xDistance + range, yDistance + range);
 
-        Collider2D[] cols = Physics2D.OverlapBoxAll(center, boxSize, 0, GameLayers.RoomObjectLayerMask);
+        Collider2D[] cols = Physics2D.OverlapBoxAll(center, boxSize, 0, GameLayers.AllRoomObjectLayerMask);
 
         foreach (Collider2D col in cols) {
             col.gameObject.ReturnToPool();

@@ -98,10 +98,10 @@ public class ScriptableSpinningFuryCard : ScriptableAbilityCardBase {
 
     private List<GameObject> abilityEffects = new();
 
-    public override void ApplyModifier(AbilityStats statsModifier, AbilityAttribute abilityAttributesToModify, GameObject effectPrefab) {
-        base.ApplyModifier(statsModifier, abilityAttributesToModify, effectPrefab);
-        if (effectPrefab != null) {
-            GameObject effect = effectPrefab.Spawn(ReferenceSystem.Instance.PlayerSword);
+    public override void ApplyModifier(ScriptableModifierCardBase modifierCard) {
+        base.ApplyModifier(modifierCard);
+        if (modifierCard.AppliesEffect) {
+            GameObject effect = modifierCard.EffectPrefab.Spawn(ReferenceSystem.Instance.PlayerSword);
             abilityEffects.Add(effect);
         }
     }

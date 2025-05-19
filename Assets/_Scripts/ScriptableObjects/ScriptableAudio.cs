@@ -87,7 +87,6 @@ public class ScriptableAudio : ScriptableObject {
     [SerializeField] private AudioClips maxPersisent;
     public AudioClips MaxPersisent => maxPersisent;
 
-
     [Header("Environment")]
 
     [SerializeField] private AudioClips openDoor;
@@ -125,6 +124,9 @@ public class ScriptableAudio : ScriptableObject {
 
     [SerializeField] private AudioClips buttonExit;
     public AudioClips ButtonExit => buttonExit;
+
+    [SerializeField] private AudioClips unlockCard;
+    public AudioClips UnlockCard => unlockCard;
 
     [Header("Misc")]
 

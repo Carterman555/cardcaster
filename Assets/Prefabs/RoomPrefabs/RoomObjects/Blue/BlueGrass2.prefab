@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: -5965827935435544790}
   - component: {fileID: -4576341531232150602}
   - component: {fileID: -3897150013596406833}
-  m_Layer: 10
+  m_Layer: 15
   m_Name: BlueGrass2
   m_TagString: BluePlant
   m_Icon: {fileID: 0}

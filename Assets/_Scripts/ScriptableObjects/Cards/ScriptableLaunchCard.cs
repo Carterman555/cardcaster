@@ -32,6 +32,8 @@ public class ScriptableLaunchCard : ScriptableAbilityCardBase {
     [SerializeField] private ParticleSystem launchEffectsPrefab;
     private ParticleSystem launchEffects;
 
+    private float positioningAreaSize;
+
     public override void OnStartPositioningCard(Transform cardTransform) {
         base.OnStartPositioningCard(cardTransform);
 
@@ -41,6 +43,12 @@ public class ScriptableLaunchCard : ScriptableAbilityCardBase {
         pathVisual.Fade(0f);
         pathVisual.DOKill();
         pathVisual.DOFade(fade, duration: 0.2f).SetDelay(0.1f); // delay to make sure path rotation is set towards the card position
+
+        // the modifier stats apply when card is played, but I still want the modifiers to effect the path visual size
+        positioningAreaSize = Stats.AreaSize;
+        foreach (ScriptableModifierCardBase modifier in AbilityManager.Instance.ActiveModifiers) {
+            positioningAreaSize *= modifier.StatsModifier.AreaSize.PercentToMult();
+        }
     }
 
     protected override void PositioningUpdate(Vector2 cardPosition) {
@@ -50,7 +58,9 @@ public class ScriptableLaunchCard : ScriptableAbilityCardBase {
         pathVisual.transform.up = launchDirection;
 
         // scale path towards end of room
-        float pathWidth = Stats.AreaSize * 2f;
+        float pathWidth = positioningAreaSize * 2f;
+
+        Debug.Log("Path width: " + pathWidth);
 
         float checkDistance = 100f;
         float distanceFromPlayer = 1.5f;
@@ -58,8 +68,6 @@ public class ScriptableLaunchCard : ScriptableAbilityCardBase {
         RaycastHit2D hit = Physics2D.BoxCast(origin, new Vector2(pathWidth * checkFactor, 1f), pathVisual.transform.eulerAngles.z, launchDirection, checkDistance, GameLayers.WallLayerMask);
 
         if (hit.collider == null) {
-            Debug.Log($"origin: {origin}\npathWidth: {pathWidth}\ncheckFactor {checkFactor}\npathVisual.transform.eulerAngles.z: {pathVisual.transform.eulerAngles.z}" +
-                $"\nlaunchDirection: {launchDirection}\ncheckDistance: {checkDistance}");
             Debug.LogError("Could Not Find Wall!");
         }
         else if (hit.distance > 1f) {
@@ -91,6 +99,7 @@ public class ScriptableLaunchCard : ScriptableAbilityCardBase {
         damageDealer = damageDealerPrefab.Spawn(playerCenterPos, playerTransform);
         damageDealer.SetDamageMult(Stats.Damage);
         damageDealer.GetComponent<CircleCollider2D>().radius = Stats.AreaSize;
+        
 
         //... make player move through objects
         Physics2D.IgnoreLayerCollision(GameLayers.PlayerLayer, GameLayers.RoomObjectLayer, true);
@@ -167,10 +176,10 @@ public class ScriptableLaunchCard : ScriptableAbilityCardBase {
         CameraShaker.Instance.ShakeCamera(0.4f);
     }
 
-    public override void ApplyModifier(AbilityStats statsModifier, AbilityAttribute abilityAttributesToModify, GameObject effectPrefab) {
-        base.ApplyModifier(statsModifier, abilityAttributesToModify, effectPrefab);
-        if (effectPrefab != null) {
-            GameObject effect = effectPrefab.Spawn(ReferenceSystem.Instance.PlayerSword);
+    public override void ApplyModifier(ScriptableModifierCardBase modifierCard) {
+        base.ApplyModifier(modifierCard);
+        if (modifierCard.AppliesEffect) {
+            GameObject effect = modifierCard.EffectPrefab.Spawn(ReferenceSystem.Instance.PlayerSword);
             abilityEffects.Add(effect);
         }
     }

@@ -175,26 +175,29 @@ public abstract class ScriptableAbilityCardBase : ScriptableCardBase {
         }
     }
 
-    public virtual void ApplyModifier(AbilityStats statsModifier, AbilityAttribute abilityAttributesToModify, GameObject effectPrefab) {
+    public virtual void ApplyModifier(ScriptableModifierCardBase modifier) {
         AbilityStats newStats = Stats;
 
+        //... the attributes that both the ability card and modifier card share
+        AbilityAttribute abilityAttributesToModify = AbilityAttributes & modifier.AbilityAttributes;
+
         if (abilityAttributesToModify.HasFlag(AbilityAttribute.DealsDamage)) {
-            newStats.BaseDamage *= statsModifier.Damage.PercentToMult();
-            newStats.KnockbackStrength *= statsModifier.KnockbackStrength.PercentToMult();
+            newStats.BaseDamage *= modifier.StatsModifier.Damage.PercentToMult();
+            newStats.KnockbackStrength *= modifier.StatsModifier.KnockbackStrength.PercentToMult();
 
             if (modifiesSword) {
                 PlayerStatModifier damageModifier = new() {
-                    Value = statsModifier.Damage.PercentToMult(),
+                    Value = modifier.StatsModifier.Damage.PercentToMult(),
                     PlayerStatType = PlayerStatType.Damage,
                     ModifyType = ModifyType.Multiplicative
                 };
                 PlayerStatModifier dashDamageModifier = new() {
-                    Value = statsModifier.Damage.PercentToMult(),
+                    Value = modifier.StatsModifier.Damage.PercentToMult(),
                     PlayerStatType = PlayerStatType.DashAttackDamage,
                     ModifyType = ModifyType.Multiplicative
                 };
                 PlayerStatModifier knockbackModifier = new() {
-                    Value = statsModifier.KnockbackStrength.PercentToMult(),
+                    Value = modifier.StatsModifier.KnockbackStrength.PercentToMult(),
                     PlayerStatType = PlayerStatType.KnockbackStrength,
                     ModifyType = ModifyType.Multiplicative
                 };
@@ -209,16 +212,16 @@ public abstract class ScriptableAbilityCardBase : ScriptableCardBase {
             }
         }
         if (abilityAttributesToModify.HasFlag(AbilityAttribute.HasArea)) {
-            newStats.AreaSize *= statsModifier.AreaSize.PercentToMult();
+            newStats.AreaSize *= modifier.StatsModifier.AreaSize.PercentToMult();
         }
         if (abilityAttributesToModify.HasFlag(AbilityAttribute.HasDuration)) {
-            newStats.Duration *= statsModifier.Duration.PercentToMult();
+            newStats.Duration *= modifier.StatsModifier.Duration.PercentToMult();
         }
         if (abilityAttributesToModify.HasFlag(AbilityAttribute.IsProjectile)) {
-            newStats.ProjectileSpeed *= statsModifier.ProjectileSpeed.PercentToMult();
+            newStats.ProjectileSpeed *= modifier.StatsModifier.ProjectileSpeed.PercentToMult();
         }
         if (abilityAttributesToModify.HasFlag(AbilityAttribute.HasCooldown)) {
-            newStats.Cooldown *= statsModifier.Cooldown.PercentToMult();
+            newStats.Cooldown *= modifier.StatsModifier.Cooldown.PercentToMult();
         }
 
         Stats = newStats;

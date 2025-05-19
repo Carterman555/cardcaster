@@ -10,7 +10,10 @@ public class ScriptableModifierCardBase : ScriptableCardBase {
     public AbilityStats StatsModifier => abilityStatsModifierPercentage;
 
     [SerializeField] private bool appliesEffect;
+    public bool AppliesEffect => appliesEffect;
+
     [ConditionalHide("appliesEffect")][SerializeField] private GameObject effectPrefab;
+    public GameObject EffectPrefab => effectPrefab;
 
     public override void TryPlay(Vector2 position) {
         base.TryPlay(position);
@@ -20,16 +23,6 @@ public class ScriptableModifierCardBase : ScriptableCardBase {
     protected override void Play(Vector2 position) {
         base.Play(position);
         AbilityManager.Instance.AddModifier(this);
-    }
-
-    public virtual void ApplyToAbility(ScriptableAbilityCardBase card) {
-
-        // apply stats modifier
-        //... the attributes that both the ability card and modifier card share
-        AbilityAttribute abilityAttributesToModify = card.AbilityAttributes & abilityAttributes;
-
-        if (!appliesEffect) effectPrefab = null;
-        card.ApplyModifier(StatsModifier, abilityAttributesToModify, effectPrefab);
     }
 }
 

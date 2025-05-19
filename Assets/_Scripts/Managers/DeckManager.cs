@@ -218,6 +218,8 @@ public class DeckManager : Singleton<DeckManager> {
             ResourceSystem.Instance.UnlockCard(card.CardType);
             FeedbackPlayerOld.Play("NewCardUnlocked");
             NewCardUnlockedPanel.Instance.Setup(card);
+
+            AudioManager.Instance.PlaySound(AudioManager.Instance.AudioClips.UnlockCard);
         }
     }
 

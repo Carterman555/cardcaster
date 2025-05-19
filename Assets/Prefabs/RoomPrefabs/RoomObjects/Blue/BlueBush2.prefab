@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 6964909507217876673}
   - component: {fileID: 3439772877592667734}
   - component: {fileID: 5219978990330493592}
-  m_Layer: 10
+  m_Layer: 15
   m_Name: BlueBush2
   m_TagString: BluePlant
   m_Icon: {fileID: 0}

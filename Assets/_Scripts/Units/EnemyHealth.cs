@@ -97,6 +97,11 @@ public class EnemyHealth : MonoBehaviour, IDamagable {
         }
     }
 
+    // played by boss animation method invoker
+    public void ReturnToPool() {
+        gameObject.ReturnToPool();
+    }
+
     public void Heal(float amount) {
 
         if (Dead) {

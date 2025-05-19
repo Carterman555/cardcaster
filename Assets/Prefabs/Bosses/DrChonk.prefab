@@ -148,7 +148,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 2100000, guid: 28c2e2c61f245e54da89e18c0db5150c, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -233,6 +233,20 @@ MonoBehaviour:
       - m_Target: {fileID: 1383755626373208146}
         m_TargetAssemblyTypeName: DrChonk, Assembly-CSharp
         m_MethodName: CreateShockwaves
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: -1558523491058040561}
+        m_TargetAssemblyTypeName: EnemyHealth, Assembly-CSharp
+        m_MethodName: ReturnToPool
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -430,11 +444,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   DeathEventTrigger:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 4239218035097059229}
+        m_TargetAssemblyTypeName: UnityEngine.Animator, UnityEngine
+        m_MethodName: SetTrigger
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: die
+          m_BoolArgument: 0
+        m_CallState: 2
   DamagedEventTrigger:
     m_PersistentCalls:
       m_Calls: []
-  returnOnDeath: 1
+  returnOnDeath: 0
   increaseHealthPerLevel: 0
   perLevelProportionToIncrease: 0
 --- !u!114 &512004819037131981
@@ -578,8 +604,8 @@ MonoBehaviour:
   deathParticlesColor: {r: 0.17254902, g: 0.8117647, b: 0.23921569, a: 1}
   hasParticlePoint: 0
   particlePoint: {fileID: 0}
-  playOnDeathEvent: 1
-  playOnDisable: 0
+  playOnDeathEvent: 0
+  playOnDisable: 1
   playSFX: 1
   deathSFX:
     Clips:

@@ -8,6 +8,8 @@ public class HeatSeekMovement : MonoBehaviour, ITargetProjectileMovement {
     private Transform target;
     private Rigidbody2D rb;
 
+    [SerializeField] private bool rotateObject;
+
     public GameObject GetObject() {
         return gameObject;
     }
@@ -18,18 +20,15 @@ public class HeatSeekMovement : MonoBehaviour, ITargetProjectileMovement {
 
     public void Setup(Transform target) {
         this.target = target;
-
-        Vector2 toTarget = target.position - transform.position;
-        transform.up = toTarget;
     }
 
     private void FixedUpdate() {
 
-        // move
-        rb.velocity = transform.up * moveSpeed;
-
-        // rotate
         Vector2 toTarget = target.position - transform.position;
-        transform.up = Vector3.MoveTowards(transform.up, toTarget, rotationSpeed * Time.fixedDeltaTime);
+        rb.velocity = Vector3.MoveTowards(rb.velocity, toTarget, rotationSpeed * Time.fixedDeltaTime);
+
+        if (rotateObject) {
+            transform.up = rb.velocity;
+        }
     }
 }

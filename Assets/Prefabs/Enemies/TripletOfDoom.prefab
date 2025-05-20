@@ -85,11 +85,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3807084815282453126, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 3.36
+      value: 7.01
       objectReference: {fileID: 0}
     - target: {fileID: 3807084815282453126, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.6
+      value: 1.95
       objectReference: {fileID: 0}
     - target: {fileID: 3807084815282453126, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
       propertyPath: m_LocalPosition.z
@@ -140,16 +140,20 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5015206911376298341, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
+      propertyPath: animationEvents.Array.data[0].m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1654557337332593708}
+    - target: {fileID: 5015206911376298341, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
       propertyPath: animationEvents.Array.data[0].m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5015206911376298341, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
       propertyPath: animationEvents.Array.data[0].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: Attack
+      value: ShootSkulls
       objectReference: {fileID: 0}
     - target: {fileID: 5015206911376298341, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
       propertyPath: animationEvents.Array.data[0].m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: CircleSlashBehavior, Assembly-CSharp
+      value: TripletOfDoom, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 5015206911376298341, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
       propertyPath: animationEvents.Array.data[0].m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
@@ -258,6 +262,8 @@ MonoBehaviour:
   playerTracker: {fileID: 8469260667080230261}
   anim: {fileID: 8693357842044784570}
   distanceToFlee: 3
+  skullsProjectilePrefab: {fileID: 174997754220608910, guid: 1c484468fdc66ca47a29cf067b04c0a6, type: 3}
+  shootPoint: {fileID: 2685148296906252545}
 --- !u!114 &3445884156673867180
 MonoBehaviour:
   m_ObjectHideFlags: 0

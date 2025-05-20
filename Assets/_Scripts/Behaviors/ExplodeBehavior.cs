@@ -1,65 +1,50 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
+
+[Serializable]
+public struct ExplosionTarget {
+    public LayerMask LayerMask;
+    public float ExplosionRadius;
+    public float Damage;
+    public float KnockbackStrength;
+}
 
 public class ExplodeBehavior : MonoBehaviour, ITargetAttacker {
 
     public event Action OnAttack;
     public event Action<GameObject> OnDamage_Target;
 
-    [SerializeField] private LayerMask targetLayerMask;
-
-    [Header("Stats")]
-    [SerializeField] private bool useIHasStats;
-    private IHasEnemyStats hasEnemyStats;
-
-    [SerializeField, ConditionalHideReversed("useIHasStats")] private float damage;
-    [SerializeField, ConditionalHideReversed("useIHasStats")] private float knockbackStrength;
-
-    [SerializeField] private bool serializedExplosionRadius;
-    [ConditionalHide("serializedExplosionRadius")] [SerializeField] private float explosionRadius;
-
-    [SerializeField] private bool dealDifferentDamageAmount;
-    [ConditionalHide("dealDifferentDamageAmount")] [SerializeField] private LayerMask differentDamageLayerMask;
-    [ConditionalHide("dealDifferentDamageAmount")] [SerializeField] private float differentDamageAmount;
+    // so can do different damage to different targets and add target through inspector or scripts
+    [SerializeField] private List<ExplosionTarget> serializedExplosionTargets;
+    public List<ExplosionTarget> AddedExplosionTargets { get; set; } = new();
 
     [Header("Visual")]
     [SerializeField] private ParticleSystem explosionParticlesPrefab;
     [SerializeField] private bool shakeCamera = true;
 
-    private void Awake() {
-        if (useIHasStats) {
-            hasEnemyStats = GetComponent<IHasEnemyStats>();
-        }
-    }
+    public void Explode() {
 
-    public void Explode(bool returnToPool = true) {
+        List<ExplosionTarget> allExplosionTargets = serializedExplosionTargets;
+        allExplosionTargets.AddRange(AddedExplosionTargets);
 
-        // deal damage
-        float damage = useIHasStats ? hasEnemyStats.EnemyStats.Damage : this.damage;
-        float knockbackStrength = useIHasStats ? hasEnemyStats.EnemyStats.KnockbackStrength : this.knockbackStrength;
-        Collider2D[] damagedColliders = DamageDealer.DealCircleDamage(targetLayerMask,
-            transform.position,
-            transform.position,
-            explosionRadius,
-            damage,
-            knockbackStrength);
+        foreach (ExplosionTarget target in allExplosionTargets) {
 
-        foreach (Collider2D col in damagedColliders) {
-            OnDamage_Target?.Invoke(col.gameObject);
-        }
-
-        if (dealDifferentDamageAmount) {
-            Collider2D[] differentDamagedColliders = DamageDealer.DealCircleDamage(differentDamageLayerMask,
+            Collider2D[] damagedColliders = DamageDealer.DealCircleDamage(
+                target.LayerMask,
                 transform.position,
                 transform.position,
-                explosionRadius,
-                differentDamageAmount,
-                knockbackStrength);
+                target.ExplosionRadius,
+                target.Damage,
+                target.KnockbackStrength
+            );
 
-            foreach (Collider2D col in differentDamagedColliders) {
+            foreach (Collider2D col in damagedColliders) {
                 OnDamage_Target?.Invoke(col.gameObject);
             }
         }
+
+        AddedExplosionTargets.Clear();
 
         // spawn particles
         if (explosionParticlesPrefab != null) {
@@ -73,23 +58,5 @@ public class ExplodeBehavior : MonoBehaviour, ITargetAttacker {
         AudioManager.Instance.PlaySound(AudioManager.Instance.AudioClips.Explode);
 
         OnAttack?.Invoke();
-            
-        // try to destroy this object
-        if (returnToPool) {
-            gameObject.ReturnToPool();
-        }
-    }
-
-    public void SetDamage(float damage) {
-        useIHasStats = false;
-        this.damage = damage;
-    }
-
-    public void SetExplosionRadius(float radius) {
-        explosionRadius = radius;
-    }
-
-    public void SetKnockbackStrength(float knockbackStrength) {
-        this.knockbackStrength = knockbackStrength;
     }
 }

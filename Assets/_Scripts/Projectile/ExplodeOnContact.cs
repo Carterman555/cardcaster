@@ -7,12 +7,19 @@ public class ExplodeOnContact : MonoBehaviour {
 
     private ExplodeBehavior explodeBehavior;
 
+    public GameObject ExcludedObject { get; set; }
+
     private void Awake() {
         explodeBehavior = GetComponent<ExplodeBehavior>();
     }
 
     private void OnTriggerEnter2D(Collider2D collision) {
-        explodeBehavior.Explode();
-    }
 
+        if (collision.gameObject == ExcludedObject) {
+            return;
+        }
+
+        explodeBehavior.Explode();
+        gameObject.ReturnToPool();
+    }
 }

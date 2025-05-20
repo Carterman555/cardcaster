@@ -15,6 +15,15 @@ public class DoomCharger : Enemy {
 
         moveBehavior = GetComponent<ChasePlayerBehavior>();
         explodeBehavior = GetComponent<ExplodeBehavior>();
+
+        ExplosionTarget playerExplosionTarget = new() {
+            LayerMask = GameLayers.PlayerLayerMask,
+            ExplosionRadius = 3f,
+            Damage = EnemyStats.Damage,
+            KnockbackStrength = EnemyStats.KnockbackStrength
+        };
+
+        explodeBehavior.AddedExplosionTargets.Add(playerExplosionTarget);
     }
 
     protected override void OnEnable() {
@@ -45,6 +54,7 @@ public class DoomCharger : Enemy {
         yield return new WaitForSeconds(explosionDelay);
 
         explodeBehavior.Explode();
+        gameObject.ReturnToPool();
 
         exploding = false;
     }

@@ -66,11 +66,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3807084815282453126, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 7.59
       objectReference: {fileID: 0}
     - target: {fileID: 3807084815282453126, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -3.5
       objectReference: {fileID: 0}
     - target: {fileID: 3807084815282453126, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
       propertyPath: m_LocalPosition.z
@@ -247,17 +247,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70a3a49f3117d6a40b368b3ed79d10c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetLayerMask:
-    serializedVersion: 2
-    m_Bits: 64
-  useIHasStats: 1
-  serializedExplosionRadius: 1
-  explosionRadius: 3
-  dealDifferentDamageAmount: 1
-  differentDamageLayerMask:
-    serializedVersion: 2
-    m_Bits: 35968
-  differentDamageAmount: 10
+  serializedExplosionTargets:
+  - LayerMask:
+      serializedVersion: 2
+      m_Bits: 35968
+    ExplosionRadius: 3
+    Damage: 10
+    KnockbackStrength: 1
   explosionParticlesPrefab: {fileID: 6065135645941821456, guid: 5f3b7b52a057dae4a8769678b76618b4, type: 3}
   shakeCamera: 1
 --- !u!95 &7812749826847277617 stripped

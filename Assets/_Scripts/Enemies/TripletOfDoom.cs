@@ -1,3 +1,5 @@
+using DG.Tweening;
+using MoreMountains.Tools;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -16,6 +18,12 @@ public class TripletOfDoom : Enemy {
 
         wanderMovement = GetComponent<WanderMovementBehavior>();
         chasePlayerMovement = GetComponent<ChasePlayerBehavior>();
+    }
+
+    protected override void OnEnable() {
+        base.OnEnable();
+
+        shootTimer = 0;
     }
 
     protected override void Update() {
@@ -73,8 +81,42 @@ public class TripletOfDoom : Enemy {
 
         shootTimer += Time.deltaTime;
         if (shootTimer > EnemyStats.AttackCooldown) {
-            HeatSeekMovement projectile = skullsProjectilePrefab.Spawn(shootPoint.position, Containers.Instance.Projectiles);
-            projectile.Setup(PlayerMovement.Instance.CenterTransform);
+            shootTimer = 0;
+
+            anim.SetTrigger("attack");
+        }
+    }
+
+    // played by AnimationMethodInvoker
+    public void ShootSkulls() {
+        HeatSeekMovement projectile = skullsProjectilePrefab.Spawn(shootPoint.position, Containers.Instance.Projectiles);
+        projectile.Setup(PlayerMovement.Instance.CenterTransform);
+
+        ExplosionTarget playerExplosionTarget = new() {
+            LayerMask = GameLayers.PlayerLayerMask,
+            ExplosionRadius = 3f,
+            Damage = EnemyStats.Damage,
+            KnockbackStrength = EnemyStats.KnockbackStrength
+        };
+
+        ExplodeBehavior[] explodeBehaviors = projectile.GetComponentsInChildren<ExplodeBehavior>();
+        foreach (ExplodeBehavior explodeBehavior in explodeBehaviors) {
+            explodeBehavior.AddedExplosionTargets.Add(playerExplosionTarget);
+        }
+
+        // so doesn't explode itself
+        ExplodeOnContact[] explodeOnContacts = projectile.GetComponentsInChildren<ExplodeOnContact>();
+        foreach (ExplodeOnContact explodeOnContact in explodeOnContacts) {
+            explodeOnContact.ExcludedObject = gameObject;
+        }
+
+        // so all explode projectiles spawn close together then spread out
+        MMAutoRotate[] rotators = projectile.GetComponentsInChildren<MMAutoRotate>();
+        foreach (MMAutoRotate rotator in rotators) {
+            rotator.OrbitRadius = 0f;
+
+            float orbitRadius = 0.7f;
+            DOTween.To(() => rotator.OrbitRadius, r => rotator.OrbitRadius = r, orbitRadius, duration: 0.3f);
         }
     }
 

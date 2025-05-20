@@ -23,6 +23,7 @@ GameObject:
   - component: {fileID: -738669564614439550}
   - component: {fileID: -714925471667397057}
   - component: {fileID: 7783729541228564949}
+  - component: {fileID: -9061222400602253413}
   m_Layer: 7
   m_Name: ThunderGolem
   m_TagString: Untagged
@@ -213,11 +214,29 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   DeathEventTrigger:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 4039351960834069205}
+        m_TargetAssemblyTypeName: UnityEngine.Animator, UnityEngine
+        m_MethodName: SetTrigger
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: die
+          m_BoolArgument: 0
+        m_CallState: 2
   DamagedEventTrigger:
     m_PersistentCalls:
       m_Calls: []
   returnOnDeath: 0
+  playSfxOnDeath: 1
+  deathSfx:
+    Clips:
+    - {fileID: 8300000, guid: 7c8bf7080edd0be45bc2ede86f2e3176, type: 3}
+    Volume: 0.25
+    PitchVariation: 0
   increaseHealthPerLevel: 0
   perLevelProportionToIncrease: 0
 --- !u!114 &3351410608047035514
@@ -302,7 +321,7 @@ MonoBehaviour:
   hasParticlePoint: 1
   particlePoint: {fileID: 2512676828727106287}
   playOnDeathEvent: 0
-  playOnDisable: 0
+  playOnDisable: 1
   playSFX: 1
   deathSFX:
     Clips:
@@ -382,6 +401,18 @@ MonoBehaviour:
     Volume: 0.2
     PitchVariation: 0.15
   stepCooldown: 0.4
+--- !u!114 &-9061222400602253413
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1338195640233062225}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f75c41d065921a4fa0421d4c20b770d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2132924319728316629
 GameObject:
   m_ObjectHideFlags: 0
@@ -595,7 +626,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d0d3dd3fc02ae944b2775d317389a93, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animationEvents: []
+  animationEvents:
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 7842081825320602579}
+        m_TargetAssemblyTypeName: EnemyHealth, Assembly-CSharp
+        m_MethodName: ReturnToPool
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &5328598035545211967
 MonoBehaviour:
   m_ObjectHideFlags: 0

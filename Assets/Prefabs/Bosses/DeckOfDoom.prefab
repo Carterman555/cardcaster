@@ -148,6 +148,7 @@ GameObject:
   - component: {fileID: 8221645877726648208}
   - component: {fileID: 7558040409948274480}
   - component: {fileID: -2277769799398756272}
+  - component: {fileID: 5740578018933176068}
   m_Layer: 7
   m_Name: DeckOfDoom
   m_TagString: Untagged
@@ -280,7 +281,7 @@ MonoBehaviour:
       MaxValue: 15
   anim: {fileID: 4039351960834069205}
   debugState: 0
-  stateToDebug: 3
+  stateToDebug: 2
   spinAudioSource: {fileID: 16486262209884157}
   shootDelay: 2
   deckSplitPrefab: {fileID: -4080490040357254744, guid: a778576d5c747a44aa3fe3811a42b366, type: 3}
@@ -357,11 +358,29 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   DeathEventTrigger:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 4039351960834069205}
+        m_TargetAssemblyTypeName: UnityEngine.Animator, UnityEngine
+        m_MethodName: SetTrigger
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: die
+          m_BoolArgument: 0
+        m_CallState: 2
   DamagedEventTrigger:
     m_PersistentCalls:
       m_Calls: []
   returnOnDeath: 0
+  playSfxOnDeath: 1
+  deathSfx:
+    Clips:
+    - {fileID: 8300000, guid: 7c8bf7080edd0be45bc2ede86f2e3176, type: 3}
+    Volume: 0.25
+    PitchVariation: 0
   increaseHealthPerLevel: 0
   perLevelProportionToIncrease: 0
 --- !u!114 &3351410608047035514
@@ -446,13 +465,25 @@ MonoBehaviour:
   hasParticlePoint: 1
   particlePoint: {fileID: 2512676828727106287}
   playOnDeathEvent: 0
-  playOnDisable: 0
+  playOnDisable: 1
   playSFX: 1
   deathSFX:
     Clips:
     - {fileID: 8300000, guid: 22f2f14b01f3b1c4cbc4a0431ad50b7f, type: 3}
     Volume: 0.964
     PitchVariation: 0
+--- !u!114 &5740578018933176068
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1338195640233062225}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f75c41d065921a4fa0421d4c20b770d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2675290753206742061
 GameObject:
   m_ObjectHideFlags: 0
@@ -666,7 +697,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d0d3dd3fc02ae944b2775d317389a93, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animationEvents: []
+  animationEvents:
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 7842081825320602579}
+        m_TargetAssemblyTypeName: EnemyHealth, Assembly-CSharp
+        m_MethodName: ReturnToPool
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &5149249023042724645
 GameObject:
   m_ObjectHideFlags: 0

@@ -14,6 +14,9 @@ public class EnemyHealth : MonoBehaviour, IDamagable {
 
     [SerializeField] private bool returnOnDeath = true;
 
+    [SerializeField] private bool playSfxOnDeath;
+    [SerializeField, ConditionalHide("playSfxOnDeath")] AudioClips deathSfx;
+
     private float maxHealth;
     private float health;
     public float CurrentHealth {
@@ -88,6 +91,10 @@ public class EnemyHealth : MonoBehaviour, IDamagable {
         }
 
         Dead = true;
+
+        if (playSfxOnDeath) {
+            AudioManager.Instance.PlaySound(deathSfx);
+        }
 
         DeathEventTrigger?.Invoke();
         OnAnyDeath?.Invoke(this);

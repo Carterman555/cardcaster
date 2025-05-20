@@ -71,13 +71,16 @@ public class BossManager : StaticInstance<BossManager> {
         ScriptableBoss chosenBoss = possibleBosses.RandomItem();
 
         GameObject bossObject = chosenBoss.Prefab.Spawn(spawnPoint, Containers.Instance.Enemies);
+        print("Boss spawn pos: " + spawnPoint);
+        print("Boss actual pos: " + bossObject.transform.position);
+
         boss = bossObject.GetComponent<IBoss>() as MonoBehaviour;
         bossHealth = boss.GetComponent<EnemyHealth>();
 
         //... setup the boss health bar
         bossHealthUI.Setup(chosenBoss.LocName, bossHealth);
 
-        bossHealth.DeathEventTrigger.AddListener(OnBossDefeated);
+        bossHealth.GetComponent<MonoBehaviourEventInvoker>().OnDisabled += OnBossDefeated;
 
         return chosenBoss;
     }
@@ -89,14 +92,18 @@ public class BossManager : StaticInstance<BossManager> {
         boss.enabled = true;
     }
 
-    private void OnBossDefeated() {
+    private void OnBossDefeated(GameObject bossObject) {
+
+        if (Helpers.GameStopping()) {
+            return;
+        }
 
         boss.enabled = false;
 
         // hide healthbar
         FeedbackPlayerOld.PlayInReverse("BossHealthPopup");
 
-        bossHealth.DeathEventTrigger.RemoveListener(OnBossDefeated);
+        bossHealth.GetComponent<MonoBehaviourEventInvoker>().OnDisabled -= OnBossDefeated;
         playerHealth.DeathEventTrigger.RemoveListener(OnPlayerDefeated);
 
         EnemyHealth[] enemyHealths = Containers.Instance.Enemies.GetComponentsInChildren<EnemyHealth>();
@@ -108,7 +115,7 @@ public class BossManager : StaticInstance<BossManager> {
     }
 
     private void OnPlayerDefeated() {
-        bossHealth.DeathEventTrigger.RemoveListener(OnBossDefeated);
+        bossHealth.GetComponent<MonoBehaviourEventInvoker>().OnDisabled -= OnBossDefeated;
         playerHealth.DeathEventTrigger.RemoveListener(OnPlayerDefeated);
     }
 }

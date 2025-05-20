@@ -32,7 +32,7 @@ public class DoomCharger : Enemy {
 
     protected override void Update() {
         base.Update();
-        if (PlayerWithinRange && !health.Dead && !exploding) {
+        if (playerWithinRange && !health.Dead && !exploding) {
             moveBehavior.enabled = false;
             StartCoroutine(DelayedExplode());
         }

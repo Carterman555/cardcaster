@@ -15,15 +15,15 @@ public class TwistedGoblin : Enemy {
         slashBehavior.enabled = false;
     }
 
-    protected override void OnPlayerEnteredRange(GameObject player) {
-        base.OnPlayerEnteredRange(player);
+    protected override void OnPlayerEnteredRange(Collider2D playerCol) {
+        base.OnPlayerEnteredRange(playerCol);
 
         moveBehavior.enabled = false;
         slashBehavior.enabled = true;
     }
 
-    protected override void OnPlayerExitedRange(GameObject player) {
-        base.OnPlayerExitedRange(player);
+    protected override void OnPlayerExitedRange(Collider2D playerCol) {
+        base.OnPlayerExitedRange(playerCol);
 
         moveBehavior.enabled = true;
         slashBehavior.enabled = false;

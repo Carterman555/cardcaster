@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df8d0c02ff44cd34db700f8d5c89336d, type: 3}
+  m_Name: TripletOfDoom
+  m_EditorClassIdentifier: 
+  <Name>k__BackingField: Triplet Of Doom
+  <Description>k__BackingField: description
+  <Prefab>k__BackingField: {fileID: 1654557337332593708, guid: 502f2c6425fdff24db49f7597d19e572, type: 3}
+  <Stats>k__BackingField:
+    MaxHealth: 12
+    KnockbackResistance: 1
+    MoveSpeed: 1.5
+    Damage: 3
+    AttackSpeed: 0.3
+    KnockbackStrength: 1
+    AttackRange: 8
+  <Difficulty>k__BackingField: 3
+  <Tags>k__BackingField: 2

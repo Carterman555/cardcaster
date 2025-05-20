@@ -10,4 +10,12 @@ public class TriggerEventInvoker : MonoBehaviour {
         OnTriggerEnter_Col?.Invoke(collision);
         OnTriggerEnter?.Invoke();
     }
+
+    public event Action<Collider2D> OnTriggerExit_Col;
+    public event Action OnTriggerExit;
+
+    private void OnTriggerExit2D(Collider2D collision) {
+        OnTriggerExit_Col?.Invoke(collision);
+        OnTriggerExit?.Invoke();
+    }
 }

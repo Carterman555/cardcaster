@@ -357,22 +357,22 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 8286574130999338475}
   m_SourcePrefab: {fileID: 100100000, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
---- !u!114 &4392500090413742484 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6343162823804091555, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
-  m_PrefabInstance: {fileID: 7273941719131161911}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 83180820e87499c44a09cbfa34602608, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &5775655431456473009 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3807084815282453126, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
   m_PrefabInstance: {fileID: 7273941719131161911}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &7008075748960684286 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 410835505700261321, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
+  m_PrefabInstance: {fileID: 7273941719131161911}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8991b0882f20e6c489ff72f01d92c6a6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7481704768261658980 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 226976224992304211, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
@@ -391,7 +391,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scriptableEnemy: {fileID: 11400000, guid: dfa83f16e97604842935ba03e3930a17, type: 2}
-  playerTracker: {fileID: 4392500090413742484}
+  playerTracker: {fileID: 7008075748960684286}
   anim: {fileID: 7812749826847277617}
   isMergable: 1
   splitOnDeath: 1

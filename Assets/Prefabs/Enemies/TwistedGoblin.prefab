@@ -240,17 +240,6 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 710740513736607756}
   m_SourcePrefab: {fileID: 100100000, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
---- !u!114 &2899262595723621407 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6343162823804091555, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
-  m_PrefabInstance: {fileID: 8087144431685241020}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 83180820e87499c44a09cbfa34602608, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &4966965114630648378 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3807084815282453126, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
@@ -274,7 +263,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scriptableEnemy: {fileID: 11400000, guid: 15bf6efdef5dc8f43a322a1f9752c22b, type: 2}
-  playerTracker: {fileID: 2899262595723621407}
+  playerTracker: {fileID: 8469260667080230261}
   anim: {fileID: 8693357842044784570}
 --- !u!114 &3445884156673867180
 MonoBehaviour:
@@ -316,6 +305,17 @@ MonoBehaviour:
   centerPoint: {fileID: 2685148296906252545}
   specialAttack: 0
   anim: {fileID: 8693357842044784570}
+--- !u!114 &8469260667080230261 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 410835505700261321, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
+  m_PrefabInstance: {fileID: 8087144431685241020}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8991b0882f20e6c489ff72f01d92c6a6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!95 &8693357842044784570 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 621019451974682374, guid: d26e40392c042dc4d8c237ede2183746, type: 3}

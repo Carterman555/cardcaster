@@ -44,7 +44,9 @@ public class TripletOfDoom : Enemy {
     protected override void OnPlayerExitedRange(Collider2D playerCol) {
         base.OnPlayerExitedRange(playerCol);
 
-        ChasePlayer();
+        if (!health.Dead) {
+            ChasePlayer();
+        }
     }
 
 

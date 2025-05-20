@@ -23,7 +23,7 @@ MonoBehaviour:
     m_LocalVariables: []
   <Prefab>k__BackingField: {fileID: 1338195640233062225, guid: f24834a6f750fae4c8b19527e74b5add, type: 3}
   <Stats>k__BackingField:
-    MaxHealth: 800
+    MaxHealth: 8
     KnockbackResistance: 100
     MoveSpeed: 4
     Damage: 3

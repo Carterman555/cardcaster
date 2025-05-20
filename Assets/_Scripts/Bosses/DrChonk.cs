@@ -44,6 +44,9 @@ public class DrChonk : MonoBehaviour, IHasEnemyStats, IBoss {
     }
 
     private void OnEnable() {
+        health.DeathEventTrigger.AddListener(OnDefeated);
+        SubShootMinionMethods();
+        SubBounceMethods();
 
         ChangeState(DrChonkState.BetweenStates);
 
@@ -52,22 +55,28 @@ public class DrChonk : MonoBehaviour, IHasEnemyStats, IBoss {
         bounceMoveBehaviour.enabled = false;
         straightShootBehavior.enabled = false;
 
-        SubShootMinionMethods();
-        SubBounceMethods();
-
         // spawn 5 healer minions surrounding boss
         SpawnStartingMinions();
     }
+
     private void OnDisable() {
+        health.DeathEventTrigger.RemoveListener(OnDefeated);
+    }
+
+    private void OnDefeated() {
         UnsubShootMinionMethods();
         UnsubBounceMethods();
 
-        if (!Helpers.GameStopping()) {
-            OnDefeated();
-        }
+        ChangeState(DrChonkState.BetweenStates);
+
+        DisableSpawnOnProjectiles();
     }
 
     private void Update() {
+
+        if (health.Dead) {
+            return;
+        }
 
         stateTimer += Time.deltaTime;
         if (stateTimer > stateDurations[currentState].Value) {
@@ -83,16 +92,6 @@ public class DrChonk : MonoBehaviour, IHasEnemyStats, IBoss {
             else {
                 ChangeState(DrChonkState.BetweenStates);
             }
-        }
-
-        if (currentState == DrChonkState.BetweenStates) {
-        }
-        else if (currentState == DrChonkState.Smash) {
-        }
-        else if (currentState == DrChonkState.Roll) {
-        }
-        else if (currentState == DrChonkState.ShootMinions) {
-
         }
     }
 
@@ -276,7 +275,6 @@ public class DrChonk : MonoBehaviour, IHasEnemyStats, IBoss {
 
     #endregion
 
-
     #region Shooting Minions
 
     private StraightShootBehavior straightShootBehavior;
@@ -315,9 +313,7 @@ public class DrChonk : MonoBehaviour, IHasEnemyStats, IBoss {
 
     #endregion
 
-    private void OnDefeated() {
-        DisableSpawnOnProjectiles();
-    }
+    
 }
 
 [Serializable]

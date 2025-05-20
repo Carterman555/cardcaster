@@ -14870,6 +14870,7 @@ GameObject:
   - component: {fileID: -738669564614439550}
   - component: {fileID: -714925471667397057}
   - component: {fileID: 7783729541228564949}
+  - component: {fileID: -3609037650567583071}
   m_Layer: 7
   m_Name: TheDealer
   m_TagString: Untagged
@@ -15116,6 +15117,12 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   returnOnDeath: 0
+  playSfxOnDeath: 1
+  deathSfx:
+    Clips:
+    - {fileID: 8300000, guid: 7c8bf7080edd0be45bc2ede86f2e3176, type: 3}
+    Volume: 0.25
+    PitchVariation: 0
   increaseHealthPerLevel: 0
   perLevelProportionToIncrease: 0
 --- !u!114 &3351410608047035514
@@ -15283,6 +15290,18 @@ MonoBehaviour:
     Volume: 0.2
     PitchVariation: 0.15
   stepCooldown: 0.4
+--- !u!114 &-3609037650567583071
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1338195640233062225}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f75c41d065921a4fa0421d4c20b770d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2922087842074600847
 GameObject:
   m_ObjectHideFlags: 0

@@ -186,6 +186,7 @@ public class RoomGenerator : StaticInstance<RoomGenerator> {
         List<ScriptableRoom> availableRooms = ResourceSystem.Instance.GetRooms(roomType)
             .Where(room => room.EnvironmentType == currentEnvironmentType)
             .Where(room => !usedRooms[roomType].Contains(room)) // comment to reuse same rooms because not enough yet
+            .Where(room => room.Active)
             .ToList();
 
         // doesn't need to be unique if reward room

@@ -41,18 +41,26 @@ public class ThunderGolem : MonoBehaviour, IHasEnemyStats, IBoss {
     }
 
     private void OnEnable() {
+        health.DeathEventTrigger.AddListener(OnDefeated);
+
         stateTimer = 0f;
 
         ChangeState(GolemState.BetweenStates);
-
-        health.DeathEventTrigger.AddListener(OnDeath);
     }
 
     private void OnDisable() {
-        health.DeathEventTrigger.RemoveListener(OnDeath);
+        health.DeathEventTrigger.RemoveListener(OnDefeated);
+    }
+
+    private void OnDefeated() {
+        ChangeState(GolemState.BetweenStates);
     }
 
     private void Update() {
+
+        if (health.Dead) {
+            return;
+        }
 
         stateTimer += Time.deltaTime;
         if (stateTimer > stateDurations[currentState].Value) {
@@ -75,20 +83,6 @@ public class ThunderGolem : MonoBehaviour, IHasEnemyStats, IBoss {
         GolemState[] availableStates = actionStates.Where(s => s != stateToAvoid).ToArray();
         GolemState newState = availableStates.RandomItem();
         ChangeState(newState);
-    }
-
-    private void OnDeath() {
-        StartCoroutine(OnDeathCor());
-    }
-    private IEnumerator OnDeathCor() {
-        ChangeState(GolemState.BetweenStates);
-
-        float delay = 1f;
-        yield return new WaitForSeconds(delay);
-
-        GetComponent<DeathParticles>().GenerateParticles();
-
-        gameObject.ReturnToPool();
     }
 
     private void ChangeState(GolemState newState) {

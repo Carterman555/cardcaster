@@ -37,4 +37,7 @@ public class ScriptableRoom : ScriptableObject {
     [ConditionalHideReversed("noEnemies")]
     [SerializeField] private ScriptableEnemyComposition scriptableEnemyComposition;
     public ScriptableEnemyComposition ScriptableEnemyComposition => scriptableEnemyComposition;
+
+    [SerializeField] private bool active = true;
+    public bool Active => active;
 }

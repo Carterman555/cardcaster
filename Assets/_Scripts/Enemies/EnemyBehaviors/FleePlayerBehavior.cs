@@ -10,9 +10,6 @@ public class FleePlayerBehavior : MonoBehaviour, IEffectable, IEnemyMovement {
     private bool movingToTargetPos;
     private Vector2 targetPosition;
 
-    [SerializeField] private float searchDistance;
-    [SerializeField] private float radius;
-
     private void Awake() {
         hasStats = GetComponent<IHasEnemyStats>();
 
@@ -58,7 +55,11 @@ public class FleePlayerBehavior : MonoBehaviour, IEffectable, IEnemyMovement {
             float degrees = i * degreeIncrement;
 
             Vector3 escapeDirection1 = Quaternion.Euler(0, 0, degrees) * desiredEscapeDirection;
+
+            float searchDistance = 3f;
             Vector3 potentialEscapePosition1 = transform.position + escapeDirection1 * searchDistance;
+
+            float radius = 1.5f;
             if (NavMesh.SamplePosition(potentialEscapePosition1, out NavMeshHit hit, radius, NavMesh.AllAreas)) {
                 targetPosition = hit.position;
                 return true;

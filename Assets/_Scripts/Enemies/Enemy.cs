@@ -16,8 +16,8 @@ public class Enemy : MonoBehaviour, IHasEnemyStats, IEffectable {
     [SerializeField] protected ScriptableEnemy scriptableEnemy;
     public EnemyStats EnemyStats => scriptableEnemy.Stats;
 
-    [SerializeField] private TriggerContactTracker playerTracker;
-    protected bool PlayerWithinRange => playerTracker.HasContact();
+    [SerializeField] private TriggerEventInvoker playerTracker;
+    protected bool playerWithinRange;
 
     protected virtual void Awake() {
         health = GetComponent<EnemyHealth>();
@@ -25,8 +25,8 @@ public class Enemy : MonoBehaviour, IHasEnemyStats, IEffectable {
     }
 
     protected virtual void OnEnable() {
-        playerTracker.OnEnterContact_GO += OnPlayerEnteredRange;
-        playerTracker.OnExitContact_GO += OnPlayerExitedRange;
+        playerTracker.OnTriggerEnter_Col += OnPlayerEnteredRange;
+        playerTracker.OnTriggerExit_Col += OnPlayerExitedRange;
 
         playerTracker.GetComponent<CircleCollider2D>().radius = EnemyStats.AttackRange;
         OnAnySpawn?.Invoke(this);
@@ -35,14 +35,14 @@ public class Enemy : MonoBehaviour, IHasEnemyStats, IEffectable {
     }
 
     protected virtual void OnDisable() {
-        playerTracker.OnEnterContact_GO -= OnPlayerEnteredRange;
-        playerTracker.OnExitContact_GO -= OnPlayerExitedRange;
+        playerTracker.OnTriggerEnter_Col -= OnPlayerEnteredRange;
+        playerTracker.OnTriggerExit_Col -= OnPlayerExitedRange;
 
         if (Helpers.GameStopping()) {
             return;
         }
 
-        OnPlayerExitedRange(PlayerMovement.Instance.gameObject);
+        OnPlayerExitedRange(PlayerMovement.Instance.GetComponent<Collider2D>());
     }
 
     protected virtual void Update() {
@@ -59,12 +59,12 @@ public class Enemy : MonoBehaviour, IHasEnemyStats, IEffectable {
         }
     }
 
-    protected virtual void OnPlayerEnteredRange(GameObject player) {
-
+    protected virtual void OnPlayerEnteredRange(Collider2D playerCol) {
+        playerWithinRange = true;
     }
 
-    protected virtual void OnPlayerExitedRange(GameObject player) {
-
+    protected virtual void OnPlayerExitedRange(Collider2D playerCol) {
+        playerWithinRange = false;
     }
 
     public virtual void OnAddEffect(UnitEffect unitEffect) {

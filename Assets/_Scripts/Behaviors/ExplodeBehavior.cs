@@ -12,11 +12,11 @@ public class ExplodeBehavior : MonoBehaviour, ITargetAttacker {
     [SerializeField] private bool useIHasStats;
     private IHasEnemyStats hasEnemyStats;
 
+    [SerializeField, ConditionalHideReversed("useIHasStats")] private float damage;
+    [SerializeField, ConditionalHideReversed("useIHasStats")] private float knockbackStrength;
+
     [SerializeField] private bool serializedExplosionRadius;
     [ConditionalHide("serializedExplosionRadius")] [SerializeField] private float explosionRadius;
-
-    private float damage;
-    private float knockbackStrength;
 
     [SerializeField] private bool dealDifferentDamageAmount;
     [ConditionalHide("dealDifferentDamageAmount")] [SerializeField] private LayerMask differentDamageLayerMask;

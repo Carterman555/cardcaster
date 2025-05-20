@@ -51,7 +51,7 @@ public class DarkPhantom : Enemy {
             return;
         }
 
-        if (PlayerWithinRange) {
+        if (playerWithinRange) {
             nearPlayerTeleportTimer += Time.deltaTime;
             if (nearPlayerTeleportTimer > nearPlayerTeleportTime.Value) {
                 nearPlayerTeleportTimer = 0;

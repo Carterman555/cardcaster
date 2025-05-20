@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class Scattershot : Enemy {
 
-    private FleePlayerBehavior fleePlayerBehavior;
+    private WanderMovementBehavior wanderMovement;
     private ShootStraightSpreadBehavior shootBehavior;
 
     [Header("Recoil")]
@@ -14,7 +14,7 @@ public class Scattershot : Enemy {
         base.Awake();
         rb = GetComponent<Rigidbody2D>();
 
-        fleePlayerBehavior = GetComponent<FleePlayerBehavior>();
+        wanderMovement = GetComponent<WanderMovementBehavior>();
         shootBehavior = GetComponent<ShootStraightSpreadBehavior>();
     }
 
@@ -29,16 +29,18 @@ public class Scattershot : Enemy {
         shootBehavior.OnShoot_Direction -= OnShoot;
     }
 
-    protected override void OnPlayerEnteredRange(GameObject player) {
-        base.OnPlayerEnteredRange(player);
+    protected override void OnPlayerEnteredRange(Collider2D playerCol) {
+        base.OnPlayerEnteredRange(playerCol);
 
-        fleePlayerBehavior.enabled = true;
+        wanderMovement.enabled = true;
+        wanderMovement.FleePlayer = true;
+
         shootBehavior.enabled = false;
     }
-    protected override void OnPlayerExitedRange(GameObject player) {
-        base.OnPlayerExitedRange(player);
+    protected override void OnPlayerExitedRange(Collider2D playerCol) {
+        base.OnPlayerExitedRange(playerCol);
 
-        fleePlayerBehavior.enabled = false;
+        wanderMovement.enabled = false;
         shootBehavior.enabled = true;
     }
 

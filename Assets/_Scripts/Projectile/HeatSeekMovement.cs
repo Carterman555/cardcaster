@@ -2,8 +2,8 @@ using UnityEngine;
 
 public class HeatSeekMovement : MonoBehaviour, ITargetProjectileMovement {
 
-    [SerializeField] private float moveSpeed;
-    [SerializeField] private float rotationSpeed;
+    [SerializeField] private float moveSpeed = 5;
+    [SerializeField] private float rotationSpeed = 2;
 
     private Transform target;
     private Rigidbody2D rb;

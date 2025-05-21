@@ -44,7 +44,7 @@ public class ScarredSkeleton : Enemy {
         base.OnAddEffect(unitEffect);
 
         if (unitEffect is StopMovement) {
-            if (!lineSight.InSight()) {
+            if (!lineSight.TargetInSight) {
                 EnterChaseState();
             }
         }

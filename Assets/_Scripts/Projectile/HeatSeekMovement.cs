@@ -24,8 +24,8 @@ public class HeatSeekMovement : MonoBehaviour, ITargetProjectileMovement {
 
     private void FixedUpdate() {
 
-        Vector2 toTarget = target.position - transform.position;
-        rb.velocity = Vector3.MoveTowards(rb.velocity, toTarget, rotationSpeed * Time.fixedDeltaTime);
+        Vector2 toTarget = (target.position - transform.position).normalized;
+        rb.velocity = Vector3.MoveTowards(rb.velocity, toTarget * moveSpeed, rotationSpeed * Time.fixedDeltaTime);
 
         if (rotateObject) {
             transform.up = rb.velocity;

@@ -16,6 +16,8 @@ public class LineSight : MonoBehaviour {
 
     private bool previouslyInSight;
 
+    public bool TargetInSight { get; private set; }
+
     public void SetTarget(Transform target) {
         this.target = target;
     }
@@ -27,12 +29,12 @@ public class LineSight : MonoBehaviour {
     private IEnumerator CheckSight() {
         while (enabled) {
             bool inSight = InSight();
-            if (inSight && !previouslyInSight) {
-                previouslyInSight = true;
+            if (inSight && !TargetInSight) {
+                TargetInSight = true;
                 OnEnterSight?.Invoke();
             }
-            else if (!inSight && previouslyInSight) {
-                previouslyInSight = false;
+            else if (!inSight && TargetInSight) {
+                TargetInSight = false;
                 OnExitSight?.Invoke();
             }
 
@@ -40,7 +42,7 @@ public class LineSight : MonoBehaviour {
         }
     }
 
-    public bool InSight() {
+    private bool InSight() {
 
         if (target == null) {
             Debug.LogWarning("Target not set in line sight!");

@@ -24,7 +24,7 @@ public class CameraShaker : StaticInstance<CameraShaker> {
     }
 
     private void UpdateCameraShakeAmount() {
-        float shakeAmount = SettingsManager.GetSettings().CameraShake;
+        float shakeAmount = SettingsManager.CurrentSettings.CameraShake;
         foreach (var listener in impulseListeners) {
             listener.m_Gain = shakeAmount;
             listener.m_ReactionSettings.m_AmplitudeGain = Mathf.Lerp(0f, maxReactionGain, shakeAmount);

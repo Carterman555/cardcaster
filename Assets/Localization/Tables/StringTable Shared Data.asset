@@ -408,7 +408,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 744185008754688
-    m_Key: displayMode
+    m_Key: language
     m_Metadata:
       m_Items: []
   - m_Id: 744482301022208
@@ -448,11 +448,11 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 753654669250560
-    m_Key: fullScreen
+    m_Key: english
     m_Metadata:
       m_Items: []
   - m_Id: 753843643617280
-    m_Key: fullScreenWindow
+    m_Key: chinese
     m_Metadata:
       m_Items: []
   - m_Id: 753937365340160

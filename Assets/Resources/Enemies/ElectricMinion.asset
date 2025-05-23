@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <Name>k__BackingField: Electric Minion
   <Description>k__BackingField: description
-  <Prefab>k__BackingField: {fileID: 3371207610790669074, guid: abfccce1f0dc6084ea516ec005e804dd, type: 3}
+  <Prefab>k__BackingField: {fileID: 4111330797113413730, guid: abfccce1f0dc6084ea516ec005e804dd, type: 3}
   <Stats>k__BackingField:
     MaxHealth: 12
     KnockbackResistance: 1

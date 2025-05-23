@@ -429,7 +429,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 744185008754688
-    m_Localized: Display Mode
+    m_Localized: Language
     m_Metadata:
       m_Items: []
   - m_Id: 744482301022208
@@ -469,11 +469,11 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 753654669250560
-    m_Localized: Full Screen
+    m_Localized: English
     m_Metadata:
       m_Items: []
   - m_Id: 753843643617280
-    m_Localized: Full Screen Window
+    m_Localized: Chinese
     m_Metadata:
       m_Items: []
   - m_Id: 753937365340160

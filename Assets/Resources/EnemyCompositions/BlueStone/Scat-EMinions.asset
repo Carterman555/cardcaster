@@ -10,19 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4c96040730651ab4482ffa55bdb9b4a3, type: 3}
-  m_Name: Scat-Minions
+  m_Name: Scat-EMinions
   m_EditorClassIdentifier: 
   enemyWaves:
   - EnemyAmounts:
-    - ScriptableEnemy: {fileID: 11400000, guid: 3cd631a20674cc24ca0da76c02764620, type: 2}
-      Amount:
-        MinValue: 3
-        MaxValue: 4
-    - ScriptableEnemy: {fileID: 11400000, guid: dfa83f16e97604842935ba03e3930a17, type: 2}
+    - ScriptableEnemy: {fileID: 11400000, guid: 6b680bacaebf2f64ba05c344e09f1569, type: 2}
       Amount:
         MinValue: 1
         MaxValue: 2
-    - ScriptableEnemy: {fileID: 11400000, guid: aa3136f2fce2e9648be10e6567a5ec98, type: 2}
+    - ScriptableEnemy: {fileID: 11400000, guid: 726a9962ea8e69245b15fae621ef923b, type: 2}
       Amount:
         MinValue: 1
         MaxValue: 1
@@ -31,20 +27,16 @@ MonoBehaviour:
         MinValue: 2
         MaxValue: 2
   - EnemyAmounts:
-    - ScriptableEnemy: {fileID: 11400000, guid: 3cd631a20674cc24ca0da76c02764620, type: 2}
+    - ScriptableEnemy: {fileID: 11400000, guid: f0b6a9a93dbb0c44ba7ba9c0fd0a2cf5, type: 2}
       Amount:
-        MinValue: 5
-        MaxValue: 6
-    - ScriptableEnemy: {fileID: 11400000, guid: dfa83f16e97604842935ba03e3930a17, type: 2}
-      Amount:
-        MinValue: 0
-        MaxValue: 3
+        MinValue: 3
+        MaxValue: 4
     - ScriptableEnemy: {fileID: 11400000, guid: 7d6a5e0b5ae736842a1118bfe8f20905, type: 2}
       Amount:
         MinValue: 1
         MaxValue: 1
   - EnemyAmounts:
-    - ScriptableEnemy: {fileID: 11400000, guid: aa3136f2fce2e9648be10e6567a5ec98, type: 2}
+    - ScriptableEnemy: {fileID: 11400000, guid: 726a9962ea8e69245b15fae621ef923b, type: 2}
       Amount:
         MinValue: 1
         MaxValue: 2

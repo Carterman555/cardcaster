@@ -1,5 +1,30 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1101 &-8387487294961179401
+AnimatorStateTransition:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 
+  m_Conditions:
+  - m_ConditionMode: 1
+    m_ConditionEvent: forceCharge
+    m_EventTreshold: 0
+  m_DstStateMachine: {fileID: 0}
+  m_DstState: {fileID: -5988005310675104661}
+  m_Solo: 0
+  m_Mute: 0
+  m_IsExit: 0
+  serializedVersion: 3
+  m_TransitionDuration: 0
+  m_TransitionOffset: 0
+  m_ExitTime: 0
+  m_HasExitTime: 0
+  m_HasFixedDuration: 1
+  m_InterruptionSource: 0
+  m_OrderedInterruption: 1
+  m_CanTransitionToSelf: 1
 --- !u!1101 &-8121598509061008105
 AnimatorStateTransition:
   m_ObjectHideFlags: 1
@@ -46,7 +71,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: dfacc78f990b9234482113d74ae84994, type: 2}
+  m_Motion: {fileID: 7400000, guid: 4b13b8a610c4df749954813b85f59165, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -77,11 +102,12 @@ AnimatorStateMachine:
     m_State: {fileID: -5988005310675104661}
     m_Position: {x: 610, y: 10, z: 0}
   m_ChildStateMachines: []
-  m_AnyStateTransitions: []
+  m_AnyStateTransitions:
+  - {fileID: -8387487294961179401}
   m_EntryTransitions: []
   m_StateMachineTransitions: {}
   m_StateMachineBehaviours: []
-  m_AnyStatePosition: {x: 320, y: -150, z: 0}
+  m_AnyStatePosition: {x: 630, y: -80, z: 0}
   m_EntryPosition: {x: 410, y: 220, z: 0}
   m_ExitPosition: {x: 840, y: 210, z: 0}
   m_ParentStateMachinePosition: {x: 800, y: 20, z: 0}
@@ -189,7 +215,7 @@ AnimatorController:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: MiniElectricMinion
+  m_Name: ElectricMinion
   serializedVersion: 5
   m_AnimatorParameters:
   - m_Name: move
@@ -205,6 +231,12 @@ AnimatorController:
     m_DefaultBool: 0
     m_Controller: {fileID: 9100000}
   - m_Name: stopCharging
+    m_Type: 9
+    m_DefaultFloat: 0
+    m_DefaultInt: 0
+    m_DefaultBool: 0
+    m_Controller: {fileID: 9100000}
+  - m_Name: forceCharge
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
@@ -245,7 +277,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: 651a62d6f41509543848900780904370, type: 2}
+  m_Motion: {fileID: 7400000, guid: 00c5eeddfbd5ad6488a699bfe1fcd067, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -272,7 +304,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: 49cb565317794a3439da29b58b106c5a, type: 2}
+  m_Motion: {fileID: 7400000, guid: f10dbee6785bd1145bdd0488db6990f5, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -325,7 +357,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: a7e1a7c35ad80a841ac2c79505dde407, type: 2}
+  m_Motion: {fileID: 7400000, guid: 68b1962c806d8664cb9d00a412d03b15, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -399,7 +431,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: 8eece42a11633ce4890424c9470528b4, type: 2}
+  m_Motion: {fileID: 7400000, guid: db20f9a326d253e408faadc6f2800064, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 

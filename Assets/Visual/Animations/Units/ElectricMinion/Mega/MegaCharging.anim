@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Charging
+  m_Name: MegaCharging
   serializedVersion: 7
   m_Legacy: 0
   m_Compressed: 0
@@ -51,7 +51,7 @@ AnimationClip:
   - serializedVersion: 2
     curve:
     - time: 0
-      value: {fileID: -110258848, guid: f4145a87a02d4ce44a0bb221b9c005ca, type: 3}
+      value: {fileID: 1445447267, guid: af74eec0b333e5c4290fbf33b82ae7f2, type: 3}
     attribute: m_Sprite
     path: 
     classID: 212
@@ -83,7 +83,7 @@ AnimationClip:
       isIntCurve: 0
       isSerializeReferenceCurve: 0
     pptrCurveMapping:
-    - {fileID: -110258848, guid: f4145a87a02d4ce44a0bb221b9c005ca, type: 3}
+    - {fileID: 1445447267, guid: af74eec0b333e5c4290fbf33b82ae7f2, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}

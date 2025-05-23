@@ -33,7 +33,11 @@ public class ElectricChain : MonoBehaviour {
                     ElectricChain electricChain = col.AddComponent<ElectricChain>();
                     electricChain.Setup(damage, electricityLeft - 1);
 
-                    DamageDealer.TryDealDamage(col.gameObject, transform.position, damage, 0, canCrit: true);
+                    bool immuneToElectricity = col.TryGetComponent(out ElectricMinion electricMinion);
+
+                    if (!immuneToElectricity) {
+                        DamageDealer.TryDealDamage(col.gameObject, transform.position, damage, 0, canCrit: true);
+                    }
 
                     // only spread one on other enemy
                     break;

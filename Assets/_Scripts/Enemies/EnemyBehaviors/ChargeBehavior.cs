@@ -1,9 +1,12 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
 public class ChargeBehavior : MonoBehaviour {
+
+    public event Action<bool> OnCharge; // bool: played by anim
 
     private float chargeTimer;
 
@@ -14,8 +17,13 @@ public class ChargeBehavior : MonoBehaviour {
     [SerializeField] private float initialSpeed;
     [SerializeField] private float deceleration;
 
-    public enum ChargeState { OnCooldown, ChargingUp, Moving }
+    public enum ChargeState { OnCooldown, ChargingUp, Launching }
     public ChargeState CurrentState { get; private set; }
+
+    [SerializeField] private bool hasSfx;
+    [SerializeField, ConditionalHide("hasSfx")] private AudioClips chargeUpSfx;
+    [SerializeField, ConditionalHide("hasSfx")] private AudioClips launchSfx;
+    private GameObject chargeUpAudioSource;
 
     private void Awake() {
         hasEnemyStats = GetComponent<IHasEnemyStats>();
@@ -23,8 +31,9 @@ public class ChargeBehavior : MonoBehaviour {
     }
 
     private void OnDisable() {
-        if (gameObject.activeSelf && CurrentState != ChargeState.OnCooldown) {
-            Debug.LogWarning("Disabled charge behavior while still in " + CurrentState + " which might cause issues!");
+        if (chargeUpAudioSource != null) {
+            chargeUpAudioSource.ReturnToPool();
+            chargeUpAudioSource = null;
         }
     }
 
@@ -35,11 +44,15 @@ public class ChargeBehavior : MonoBehaviour {
             CurrentState = ChargeState.ChargingUp;
             
             anim.SetTrigger("startCharging");
+
+            if (hasSfx) {
+                chargeUpAudioSource = AudioManager.Instance.PlaySingleSound(chargeUpSfx);
+            }
         }
     }
 
     private void FixedUpdate() {
-        if (CurrentState == ChargeState.Moving) {
+        if (CurrentState == ChargeState.Launching) {
             rb.velocity = Vector2.MoveTowards(rb.velocity, Vector2.zero, Time.fixedDeltaTime * deceleration);
 
             if (rb.velocity == Vector2.zero) {
@@ -51,10 +64,30 @@ public class ChargeBehavior : MonoBehaviour {
 
     // played by AnimationMethodInvoker
     public void Charge() {
-        CurrentState = ChargeState.Moving;
+        CurrentState = ChargeState.Launching;
 
         Vector2 toPlayerDirection = (PlayerMovement.Instance.CenterPos - transform.position).normalized;
         rb.velocity = toPlayerDirection * initialSpeed;
+
+        if (hasSfx) {
+            AudioManager.Instance.PlaySingleSound(launchSfx);
+            chargeUpAudioSource = null;
+        }
+
+        OnCharge?.Invoke(true);
+    }
+
+    public void Charge(Vector2 direction) {
+        CurrentState = ChargeState.Launching;
+
+        rb.velocity = direction.normalized * initialSpeed;
+
+        if (hasSfx) {
+            AudioManager.Instance.PlaySingleSound(launchSfx);
+            chargeUpAudioSource = null;
+        }
+
+        OnCharge?.Invoke(false);
     }
 
     private void OnCollisionEnter2D(Collision2D collision) {

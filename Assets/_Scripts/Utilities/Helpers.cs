@@ -105,6 +105,11 @@ public static class Helpers {
         return direction;
     }
 
+    public static Vector2 GetDirectionRotated(this Vector2 direction, float degrees) {
+        direction = Quaternion.Euler(0, 0, degrees) * direction;
+        return direction;
+    }
+
     public static float GetClosestDirection(Vector3 dir1, Vector3 dir2) {
         float _angle = Vector2.SignedAngle(dir1, dir2);
         return -Mathf.Sign(_angle);

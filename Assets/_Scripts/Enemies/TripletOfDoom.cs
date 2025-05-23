@@ -74,8 +74,11 @@ public class TripletOfDoom : Enemy {
 
     #region Shoot Exploding Skulls
 
+    [Header("Shoot Exploding Skulls")]
     [SerializeField] private HeatSeekMovement skullsProjectilePrefab;
     [SerializeField] private Transform shootPoint;
+
+    [SerializeField] private AudioClips shootSfx;
 
     private float shootTimer;
 
@@ -86,6 +89,8 @@ public class TripletOfDoom : Enemy {
             shootTimer = 0;
 
             anim.SetTrigger("attack");
+
+            AudioManager.Instance.PlaySound(shootSfx);
         }
     }
 

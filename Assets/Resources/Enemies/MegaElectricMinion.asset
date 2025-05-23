@@ -10,18 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: df8d0c02ff44cd34db700f8d5c89336d, type: 3}
-  m_Name: MiniElectricMinion
+  m_Name: MegaElectricMinion
   m_EditorClassIdentifier: 
-  <Name>k__BackingField: Mini Electric Minion
+  <Name>k__BackingField: Mega Electric Minion
   <Description>k__BackingField: description
-  <Prefab>k__BackingField: {fileID: 6213159452042388176, guid: 36b079320fbaee646949f9bb2cb2b664, type: 3}
+  <Prefab>k__BackingField: {fileID: 3371207610790669074, guid: bb3b0da5fb71e8249a8f9ef541875d0f, type: 3}
   <Stats>k__BackingField:
-    MaxHealth: 10
+    MaxHealth: 15
     KnockbackResistance: 1
     MoveSpeed: 2
     Damage: 3
     AttackSpeed: 0.3
     KnockbackStrength: 1
     AttackRange: 1
-  <Difficulty>k__BackingField: 1
+  <Difficulty>k__BackingField: 3
   <Tags>k__BackingField: 0

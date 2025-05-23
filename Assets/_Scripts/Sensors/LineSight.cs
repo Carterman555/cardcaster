@@ -28,7 +28,12 @@ public class LineSight : MonoBehaviour {
 
     private IEnumerator CheckSight() {
         while (enabled) {
-            bool inSight = InSight();
+
+            bool inSight = false;
+            if (target != null) {
+                inSight = InSight();
+            }
+
             if (inSight && !TargetInSight) {
                 TargetInSight = true;
                 OnEnterSight?.Invoke();

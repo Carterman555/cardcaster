@@ -46,15 +46,17 @@ public class AudioManager : Singleton<AudioManager> {
     }
 
     // when multiple of the same sound are played at the same time, ignore all but the first one
-    public void PlaySingleSound(AudioClips audioClips, float ignoreTime = 0.1f, bool uiSound = false) {
+    public GameObject PlaySingleSound(AudioClips audioClips, float ignoreTime = 0.1f, bool uiSound = false) {
 
         if (audioClipsTimers.Any(x => x.Clips == audioClips)) {
-            return;
+            return null;
         }
 
-        PlaySound(audioClips, uiSound);
+        GameObject audioSourceGO = PlaySound(audioClips, uiSound);
 
         audioClipsTimers.Add(new AudioClipsTimer(audioClips, ignoreTime));
+
+        return audioSourceGO;
     }
 
     public GameObject PlaySound(AudioClip audioClip, AudioMixerGroup audioMixerGroup, float vol, float pitch = 1f, bool loop = false) {
@@ -79,7 +81,7 @@ public class AudioManager : Singleton<AudioManager> {
     private IEnumerator ReturnOnComplete(GameObject audioSourceGO, float clipLength) {
         yield return new WaitForSeconds(clipLength);
 
-        audioSourceGO.ReturnToPool();
+        audioSourceGO.TryReturnToPool();
     }
 
     #region Stop SFX When In UI

@@ -205,15 +205,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8999610040005324296, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
       propertyPath: deathParticlesColor.b
-      value: 0.19215688
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8999610040005324296, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
       propertyPath: deathParticlesColor.g
-      value: 0.5137255
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8999610040005324296, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
       propertyPath: deathParticlesColor.r
-      value: 0.27058825
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: -2736141077457755013, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
@@ -264,6 +264,11 @@ MonoBehaviour:
   distanceToFlee: 3
   skullsProjectilePrefab: {fileID: 174997754220608910, guid: 1c484468fdc66ca47a29cf067b04c0a6, type: 3}
   shootPoint: {fileID: 2685148296906252545}
+  shootSfx:
+    Clips:
+    - {fileID: 8300000, guid: 53113582fe3eaea4cba4d9089b530e90, type: 3}
+    Volume: 0.5
+    PitchVariation: 0.1
 --- !u!114 &3445884156673867180
 MonoBehaviour:
   m_ObjectHideFlags: 0

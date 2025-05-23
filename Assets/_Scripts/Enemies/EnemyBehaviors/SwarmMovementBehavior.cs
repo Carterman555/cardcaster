@@ -138,8 +138,13 @@ public class SwarmMovementBehavior : MonoBehaviour, IEffectable, IEnemyMovement 
 
     public void SetDestination(Vector2 destination) {
 
-        if (!agent.enabled || !agent.isOnNavMesh) {
-            Debug.LogError($"{gameObject.GetInstanceID()}: Try to set destination of agent which is disabled or not on nav mesh.");
+        if (!agent.enabled) {
+            Debug.LogError($"{gameObject.GetInstanceID()}: Trying to set destination of agent which is disabled.");
+            return;
+        }
+
+        if (!agent.isOnNavMesh) {
+            Debug.LogError($"{gameObject.GetInstanceID()}: Trying to set destination of agent which is not on nav mesh.");
             return;
         }
 
@@ -226,7 +231,7 @@ public class SwarmMovementBehavior : MonoBehaviour, IEffectable, IEnemyMovement 
 
         int positionIndex = 0;
         foreach (SwarmMovementBehavior unit in unitsInSwarm) {
-            Vector3 randomVariability = UnityEngine.Random.insideUnitCircle * positionVariability;
+            Vector3 randomVariability = Random.insideUnitCircle * positionVariability;
             unit.SetDestination(positions[positionIndex] + randomVariability);
 
             positionIndex++;

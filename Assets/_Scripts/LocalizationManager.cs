@@ -3,26 +3,33 @@ using UnityEngine;
 using Steamworks;
 using UnityEngine.Localization.Settings;
 using QFSW.QC;
+using UnityEngine.Localization;
+using System;
 
-public class LocalizationManager : MonoBehaviour {
+public class LocalizationManager : Singleton<LocalizationManager> {
 
-    private void Start() {
+    private IEnumerator Start() {
+
+        int maxTries = 100;
+        int tryCount = 0;
+
         if (!SteamManager.Initialized) {
-            return;
+            yield return null;
+            tryCount++;
+
+            if (tryCount >= maxTries) {
+                yield break;
+            }
         }
 
-        string localIdentifier = GetIdentifierFromLanguage(SteamApps.GetCurrentGameLanguage());
-        StartCoroutine(SetUnityLanguage(localIdentifier));
+        if (SettingsManager.CurrentSettings.Language == "not set") {
+            string localIdentifier = GetLanguageCode();
+            SetUnityLanguage(localIdentifier);
+        }
     }
 
-    [Command]
-    private void PrintLanguage() {
-        if (!SteamManager.Initialized) {
-            print("Not initialized");
-            return;
-        }
-
-        print(SteamApps.GetCurrentGameLanguage());
+    public string GetLanguageCode() {
+        return GetIdentifierFromLanguage(SteamApps.GetCurrentGameLanguage());
     }
 
     private string GetIdentifierFromLanguage(string language) {
@@ -33,7 +40,10 @@ public class LocalizationManager : MonoBehaviour {
         }
     }
 
-    private IEnumerator SetUnityLanguage(string localeCode) {
+    public void SetUnityLanguage(string localeCode) {
+        StartCoroutine(SetUnityLanguageCor(localeCode));
+    }
+    private IEnumerator SetUnityLanguageCor(string localeCode) {
         yield return LocalizationSettings.InitializationOperation;
 
         var availableLocales = LocalizationSettings.AvailableLocales.Locales;
@@ -45,5 +55,15 @@ public class LocalizationManager : MonoBehaviour {
         }
 
         Debug.LogWarning($"Could not find locale for code: {localeCode}, using default");
+    }
+
+    [Command]
+    private void PrintLanguage() {
+        if (!SteamManager.Initialized) {
+            print("Not initialized");
+            return;
+        }
+
+        print(SteamApps.GetCurrentGameLanguage());
     }
 }

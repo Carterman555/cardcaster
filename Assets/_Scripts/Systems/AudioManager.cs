@@ -103,7 +103,7 @@ public class AudioManager : Singleton<AudioManager> {
         if (actionMap == "Gameplay") {
             sfxMixerGroup.audioMixer.GetFloat("SfxVolume", out sfxVolume);
 
-            float targetVolume = SliderValueToDecibels(SettingsManager.GetSettings().SFXVolume);
+            float targetVolume = SliderValueToDecibels(SettingsManager.CurrentSettings.SFXVolume);
 
             volumeFade = DOTween.To(() => sfxVolume, v => sfxVolume = v, targetVolume, duration: 0.5f).SetUpdate(true);
         }

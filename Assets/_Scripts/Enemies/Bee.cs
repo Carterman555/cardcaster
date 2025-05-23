@@ -170,6 +170,10 @@ public class Bee : Enemy {
             return;
         }
 
+        if (beeState == BeeState.Launching) {
+            return;
+        }
+
         Bee[] beesInSwarm = swarmMovement.GetUnitsInSwarm().Select(u => u.GetComponent<Bee>()).ToArray();
         foreach (Bee bee in beesInSwarm) {
             bee.swarmState = swarmState;
@@ -288,13 +292,13 @@ public class Bee : Enemy {
         bool currentlyFarFromPlayer = playerDistanceSquared > chaseDistance * chaseDistance;
 
         float moveDirectionVariation = 45f;
-        float randomMoveDistance = UnityEngine.Random.Range(1f, 2f);
+        float randomMoveDistance = Random.Range(1f, 2f);
 
         if (currentlyCloseToPlayer) {
             if (swarmMovement.AnyUnitNearSwarmDest(distanceThreshold: 1f) || !swarmMovement.SwarmDestinationSet) {
                 Vector2 fromPlayerDirection = (transform.position - PlayerMovement.Instance.CenterPos).normalized;
 
-                float randomFleeDegrees = UnityEngine.Random.Range(-moveDirectionVariation, moveDirectionVariation);
+                float randomFleeDegrees = Random.Range(-moveDirectionVariation, moveDirectionVariation);
                 fromPlayerDirection.RotateDirection(randomFleeDegrees);
 
                 Vector2 targetPos = (Vector2)transform.position + fromPlayerDirection * randomMoveDistance;
@@ -305,7 +309,7 @@ public class Bee : Enemy {
             if (swarmMovement.AnyUnitNearSwarmDest(distanceThreshold: 1f) || !swarmMovement.SwarmDestinationSet) {
                 Vector2 toPlayerDirection = (PlayerMovement.Instance.CenterPos - transform.position).normalized;
 
-                float randomChaseDegrees = UnityEngine.Random.Range(-moveDirectionVariation, moveDirectionVariation);
+                float randomChaseDegrees = Random.Range(-moveDirectionVariation, moveDirectionVariation);
                 toPlayerDirection.RotateDirection(randomChaseDegrees);
 
                 Vector2 targetPos = (Vector2)transform.position + toPlayerDirection * randomMoveDistance;
@@ -399,7 +403,7 @@ public class Bee : Enemy {
     private void HandleLaunch() {
 
         if (beeState == BeeState.FollowingSwarmBehavior) {
-            if (UnityEngine.Random.value < chanceToLaunchPerSecond * Time.deltaTime) {
+            if (Random.value < chanceToLaunchPerSecond * Time.deltaTime) {
                 swarmMovement.enabled = false;
                 agent.enabled = false;
 

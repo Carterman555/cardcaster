@@ -1,3 +1,4 @@
+using Febucci.UI;
 using UnityEngine;
 
 public class ReferenceSystem : StaticInstance<ReferenceSystem> {
@@ -13,6 +14,6 @@ public class ReferenceSystem : StaticInstance<ReferenceSystem> {
     public SpriteRenderer PlayerSwordVisual => playerSwordVisual;
 
     [Header("Misc")]
-    [SerializeField] private GameObject cameraConfiner;
-    public GameObject CameraConfiner => cameraConfiner;
+    [SerializeField] private TypewriterByCharacter dialogTypewriter;
+    public TypewriterByCharacter DialogTypewriter => dialogTypewriter;
 }

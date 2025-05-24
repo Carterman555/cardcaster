@@ -1,3 +1,4 @@
+using Febucci.UI;
 using System;
 using System.Collections;
 using System.Linq;
@@ -81,7 +82,8 @@ public class Tutorial : MonoBehaviour {
         Vector2 playerTutorialPos = new Vector2(-6f, 0);
         PlayerMovement.Instance.GetComponent<Rigidbody2D>().MovePosition(playerTutorialPos);
 
-        Invoke(nameof(EnableStartTrigger), Time.deltaTime);
+        int delayInFrames = 5;
+        Invoke(nameof(EnableStartTrigger), Time.deltaTime * delayInFrames);
     }
 
     // it wasn't enabled at the start because the player is touching it before it's repositioned to playerTutorialPos 
@@ -102,6 +104,8 @@ public class Tutorial : MonoBehaviour {
     }
 
     private void TryStartTutorial() {
+
+        print("start tutorial triggered");
 
         if (!tutorialActive) {
             StartTutorial();
@@ -503,7 +507,9 @@ public class PickupEssenceStep : BaseTutorialStep {
         yield return null;
 
         bool anyEssenceLeft = essenceInstances.Any(e => e.isActiveAndEnabled);
-        if (!anyEssenceLeft) {
+        bool dialogTextAnimating = ReferenceSystem.Instance.DialogTypewriter.isShowingText;
+
+        if (!anyEssenceLeft && !dialogTextAnimating) {
             DeckManager.OnEssenceChanged_Amount -= TryCompleteStep;
 
             base.CompleteStep();

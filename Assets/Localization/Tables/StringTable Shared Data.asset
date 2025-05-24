@@ -459,10 +459,6 @@ MonoBehaviour:
     m_Key: windowed
     m_Metadata:
       m_Items: []
-  - m_Id: 757972621332480
-    m_Key: rebindKeyboar
-    m_Metadata:
-      m_Items: []
   - m_Id: 758823704334336
     m_Key: reset
     m_Metadata:

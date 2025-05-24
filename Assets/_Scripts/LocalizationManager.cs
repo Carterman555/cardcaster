@@ -26,13 +26,22 @@ public class LocalizationManager : Singleton<LocalizationManager> {
             string localIdentifier = GetLanguageCode();
             SetUnityLanguage(localIdentifier);
         }
+        else {
+            SetUnityLanguage(SettingsManager.CurrentSettings.Language);
+        }
     }
 
-    public string GetLanguageCode() {
+    public static string GetLanguageCode() {
+
+        if (!SteamManager.Initialized) {
+            Debug.LogError("Trying to get language code, the SteamManager is not initialized!");
+            return "en";
+        }
+
         return GetIdentifierFromLanguage(SteamApps.GetCurrentGameLanguage());
     }
 
-    private string GetIdentifierFromLanguage(string language) {
+    private static string GetIdentifierFromLanguage(string language) {
         switch (language) {
             case "english": return "en";
             case "schinese": return "zh-Hans";

@@ -83,6 +83,7 @@ public class SettingsManager : MonoBehaviour, IInitializable {
 
     private void UpdateUI() {
         cameraShakeSlider.value = CurrentSettings.CameraShake;
+
         UpdateLanguageDropdown();
 
         vSyncToggle.isOn = CurrentSettings.vSync;
@@ -96,11 +97,10 @@ public class SettingsManager : MonoBehaviour, IInitializable {
     }
 
     private void UpdateLanguageDropdown() {
-        string languageCode = LocalizationManager.Instance.GetLanguageCode();
-        if (languageCode == "en") {
+        if (CurrentSettings.Language == "en") {
             languageDropdown.value = 0;
         }
-        else if (languageCode == "zh-Hans") {
+        else if (CurrentSettings.Language == "zh-Hans") {
             languageDropdown.value = 1;
         }
     }
@@ -136,7 +136,7 @@ public class SettingsManager : MonoBehaviour, IInitializable {
     }
 
     public void OnLanguageDropdownChanged(int languageValue) {
-
+        
         if (languageValue == 0) {
             string englishCode = "en";
             CurrentSettings.Language = englishCode;
@@ -240,10 +240,8 @@ public class SettingsManager : MonoBehaviour, IInitializable {
     private void LoadSettings() {
         CurrentSettings.CameraShake = PlayerPrefs.GetFloat("CameraShake", CurrentSettings.CameraShake);
 
-        CurrentSettings.Language = PlayerPrefs.GetString("Language", "not set");
-        if (CurrentSettings.Language != "not set") {
-            GameSceneManager.Instance.StartCoroutine(SetLoadedLanguage());
-        }
+        string defaultLanguage = LocalizationManager.GetLanguageCode();
+        CurrentSettings.Language = PlayerPrefs.GetString("Language", defaultLanguage);
 
         CurrentSettings.vSync = PlayerPrefs.GetInt("vSync", CurrentSettings.vSync ? 1 : 0) == 1; // use 0 as false and 1 as true
         CurrentSettings.FullScreenMode = (FullScreenMode)PlayerPrefs.GetInt("FullScreenMode", (int)CurrentSettings.FullScreenMode);
@@ -255,24 +253,6 @@ public class SettingsManager : MonoBehaviour, IInitializable {
         CurrentSettings.SFXVolume = PlayerPrefs.GetFloat("SFXVolume", CurrentSettings.SFXVolume);
         CurrentSettings.UIVolume = PlayerPrefs.GetFloat("UIVolume", CurrentSettings.UIVolume);
         CurrentSettings.MusicVolume = PlayerPrefs.GetFloat("MusicVolume", CurrentSettings.MusicVolume);
-    }
-
-    private IEnumerator SetLoadedLanguage() {
-
-        int maxAttempts = 100;
-        int attemptCounter = 0;
-
-        while (LocalizationManager.Instance == null) {
-
-            attemptCounter++;
-            if (attemptCounter >= maxAttempts) {
-                yield break;
-            }
-
-            yield return null;
-        }
-
-        LocalizationManager.Instance.SetUnityLanguage(CurrentSettings.Language);
     }
 
     #endregion

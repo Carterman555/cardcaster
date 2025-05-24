@@ -104,9 +104,6 @@ public class Tutorial : MonoBehaviour {
     }
 
     private void TryStartTutorial() {
-
-        print("start tutorial triggered");
-
         if (!tutorialActive) {
             StartTutorial();
         }
@@ -491,6 +488,7 @@ public class PickupEssenceStep : BaseTutorialStep {
         DropEssence();
 
         DeckManager.OnEssenceChanged_Amount += TryCompleteStep;
+        ReferenceSystem.Instance.DialogTypewriter.onTextShowed.AddListener(TryCompleteStep);
     }
 
     private void DropEssence() {
@@ -499,9 +497,10 @@ public class PickupEssenceStep : BaseTutorialStep {
         }
     }
 
-    private void TryCompleteStep(int n) => DeckManager.Instance.StartCoroutine(TryCompleteStep());
+    private void TryCompleteStep() => DeckManager.Instance.StartCoroutine(TryCompleteStepCor());
+    private void TryCompleteStep(int n) => DeckManager.Instance.StartCoroutine(TryCompleteStepCor());
 
-    private IEnumerator TryCompleteStep() {
+    private IEnumerator TryCompleteStepCor() {
 
         //... wait a frame for essence that just got picked up to get disabled
         yield return null;
@@ -511,6 +510,7 @@ public class PickupEssenceStep : BaseTutorialStep {
 
         if (!anyEssenceLeft && !dialogTextAnimating) {
             DeckManager.OnEssenceChanged_Amount -= TryCompleteStep;
+            ReferenceSystem.Instance.DialogTypewriter.onTextShowed.RemoveListener(TryCompleteStep);
 
             base.CompleteStep();
         }

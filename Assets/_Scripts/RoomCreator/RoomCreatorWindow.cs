@@ -3,6 +3,7 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using UnityEngine.Rendering.Universal;
+using Newtonsoft.Json.Bson;
 
 public class RoomCreatorWindow : EditorWindow {
 
@@ -116,7 +117,7 @@ public class RoomCreatorWindow : EditorWindow {
         }
 
         if (ConditionalButton("Create Minimap Sprite", mainRoom != null)) {
-            SetupMinimapSprite();
+            SetupMinimapSprite(mainRoom);
         }
 
         GUILayout.Space(5);
@@ -174,6 +175,12 @@ public class RoomCreatorWindow : EditorWindow {
         //        ExampleSetupRoom(room);
         //    }
         //}
+
+        if (ConditionalButton("Setup light shape for multiple rooms", scriptableRooms != null)) {
+            foreach (GameObject room in scriptableRooms.Rooms) {
+                SetupMinimapSprite(room);
+            }
+        }
     }
 
     private bool ConditionalButton(string text, bool activeCondition) {
@@ -192,21 +199,20 @@ public class RoomCreatorWindow : EditorWindow {
 
     #region Minimap Icon
 
-    private void SetupMinimapSprite() {
-
-        if (mainRoom.GetComponent<Room>().ScriptableRoom == null) {
+    private void SetupMinimapSprite(GameObject room) {
+        if (room.GetComponent<Room>().ScriptableRoom == null) {
             Debug.LogError("Scriptable Room is not set!");
             return;
         }
 
-        Undo.RecordObject(mainRoom, "Setup Minimap Sprite");
+        Undo.RecordObject(room, "Setup Minimap Sprite");
 
         // Create sprite
-        SetTilemaps(mainRoom);
+        SetTilemaps(room);
 
         Tilemap[] tilemaps = new Tilemap[] { groundTilemap, topWallsTilemap, botWallsTilemap };
 
-        string fileName = mainRoom.name + "-MinimapIcon";
+        string fileName = room.name + "-MinimapIcon";
 
         RoomMapSpriteCreator roomMiniMapSpriteCreator = new RoomMapSpriteCreator();
         roomMiniMapSpriteCreator.CreateMiniMapSprite(fileName, tilemaps);
@@ -214,7 +220,7 @@ public class RoomCreatorWindow : EditorWindow {
         // Set sprite
         string filePath = roomMiniMapSpriteCreator.GetFilePath();
         Sprite miniMapSprite = AssetDatabase.LoadAssetAtPath<Sprite>(filePath);
-        mainRoom.GetComponent<Room>().ScriptableRoom.MapIcon = miniMapSprite;
+        room.GetComponent<Room>().ScriptableRoom.MapIcon = miniMapSprite;
     }
 
     #endregion

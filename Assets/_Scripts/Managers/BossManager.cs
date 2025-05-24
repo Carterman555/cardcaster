@@ -71,8 +71,6 @@ public class BossManager : StaticInstance<BossManager> {
         ScriptableBoss chosenBoss = possibleBosses.RandomItem();
 
         GameObject bossObject = chosenBoss.Prefab.Spawn(spawnPoint, Containers.Instance.Enemies);
-        print("Boss spawn pos: " + spawnPoint);
-        print("Boss actual pos: " + bossObject.transform.position);
 
         boss = bossObject.GetComponent<IBoss>() as MonoBehaviour;
         bossHealth = boss.GetComponent<EnemyHealth>();

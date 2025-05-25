@@ -44,6 +44,10 @@ public class CardControllerInput : MonoBehaviour {
     }
 
     private void Update() {
+        if (GameStateManager.Instance.CurrentState != GameState.Game) {
+            return;
+        }
+
         HandleInput();
     }
 

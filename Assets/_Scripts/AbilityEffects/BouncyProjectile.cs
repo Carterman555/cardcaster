@@ -5,15 +5,21 @@ public class BouncyProjectile : MonoBehaviour {
     private GameObject projectile;
     private BounceOnContact bounceOnContact;
 
+    private ReturnOnContact returnOnContact;
+
     private void OnEnable() {
         if (transform.parent.gameObject.layer == GameLayers.ProjectileLayer) {
             projectile = transform.parent.gameObject;
 
             // make it bounce
-            if (projectile.TryGetComponent(out ReturnOnContact returnOnContact)) {
+            returnOnContact = projectile.GetComponentInChildren<ReturnOnContact>();
+            if (returnOnContact != null) {
                 returnOnContact.enabled = false;
             }
             bounceOnContact = projectile.AddComponent<BounceOnContact>();
+
+            //... bounce off the same layers that would have been destroyed by
+            bounceOnContact.BounceLayerMask = returnOnContact.LayerMask;
         }
         else {
             projectile = null;
@@ -27,8 +33,8 @@ public class BouncyProjectile : MonoBehaviour {
         }
 
         // disable the bounce
-        if (projectile.TryGetComponent(out ReturnOnContact returnOnContact)) {
-            returnOnContact.enabled = true;
+        if (returnOnContact != null) {
+            returnOnContact.enabled = false;
         }
         Destroy(bounceOnContact);
     }

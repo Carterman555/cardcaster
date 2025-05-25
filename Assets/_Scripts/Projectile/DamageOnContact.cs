@@ -1,5 +1,8 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class DamageOnContact : MonoBehaviour, ITargetAttacker {
 
@@ -13,19 +16,33 @@ public class DamageOnContact : MonoBehaviour, ITargetAttacker {
     private bool canCrit;
 
     [SerializeField] private bool piercing;
-    private bool canDamage;
+    private bool dealtDamage;
+
+    private struct TargetTimePair {
+        public Transform Target;
+        public float Time;
+    }
+
+    private List<TargetTimePair> recentTargets;
 
     public void Setup(float damage, float knockbackStrength, bool canCrit = false) {
         this.damage = damage;
         this.knockbackStrength = knockbackStrength;
         this.canCrit = canCrit;
 
-        canDamage = true;
+        dealtDamage = false;
+
+        recentTargets = new();
     }
 
     private void OnTriggerEnter2D(Collider2D collision) {
 
-        if (!canDamage) {
+        if (!piercing && dealtDamage) {
+            return;
+        }
+
+        bool recentlyDamagedTarget = recentTargets.Any(p => p.Target == collision.transform);
+        if (piercing && recentlyDamagedTarget) {
             return;
         }
 
@@ -39,14 +56,27 @@ public class DamageOnContact : MonoBehaviour, ITargetAttacker {
                 canCrit);
 
             if (dealtDamage) {
+                TargetTimePair targetTimePair = new() {
+                    Target = collision.transform,
+                    Time = Time.time
+                };
+                recentTargets.Add(targetTimePair);
+
                 OnDamage_Target?.Invoke(collision.gameObject);
             }
 
-            if (!piercing) {
-                canDamage = false;
-            }
+            this.dealtDamage = true;
 
             OnAttack?.Invoke();
+        }
+    }
+
+    private void Update() {
+        for (int i = recentTargets.Count - 1; i >= 0; i--) {
+            float attackAgainCooldown = 0.3f;
+            if (recentTargets[i].Time + attackAgainCooldown < Time.time) {
+                recentTargets.RemoveAt(i);
+            }
         }
     }
 }

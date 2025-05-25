@@ -36,7 +36,7 @@ public class PlayerMeleeAttack : StaticInstance<PlayerMeleeAttack>, ITargetAttac
 
         HandleAttackDirection();
 
-        if (GameStateManager.Instance.GetCurrentState() != GameState.Game) {
+        if (GameStateManager.Instance.CurrentState != GameState.Game) {
             return;
         }
 

@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class BounceOnContact : MonoBehaviour {
 
-    [SerializeField] private LayerMask bounceLayer = GameLayers.ObstacleLayerMask | GameLayers.EnemyLayerMask;
+    public LayerMask BounceLayerMask { get; set; }
     [SerializeField] private int maxBounces = 3;
     private int bounces;
 
@@ -23,19 +23,24 @@ public class BounceOnContact : MonoBehaviour {
     }
 
     private void Update() {
-        if (useRaycast) {
+        if (!useRaycast) {
+            return;
+        }
 
-            float checkDistance = 0.5f;
-            RaycastHit2D hit = Physics2D.Raycast(transform.position, rb.velocity.normalized, checkDistance, bounceLayer);
-            if (hit) {
-                bool bouncesLeft = bounces < maxBounces;
-                if (!bouncesLeft) {
-                    gameObject.ReturnToPool();
-                    return;
-                }
+        if (BounceLayerMask == 0) {
+            Debug.LogWarning("BounceLayerMask not set!");
+        }
 
-                Bounce(hit.collider);
+        float checkDistance = 0.5f;
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, rb.velocity.normalized, checkDistance, BounceLayerMask);
+        if (hit) {
+            bool bouncesLeft = bounces < maxBounces;
+            if (!bouncesLeft) {
+                gameObject.ReturnToPool();
+                return;
             }
+
+            Bounce(hit.collider);
         }
     }
 
@@ -45,7 +50,11 @@ public class BounceOnContact : MonoBehaviour {
             return;
         }
 
-        if (bounceLayer.ContainsLayer(collision.gameObject.layer)) {
+        if (BounceLayerMask == 0) {
+            Debug.LogWarning("BounceLayerMask not set!");
+        }
+
+        if (BounceLayerMask.ContainsLayer(collision.gameObject.layer)) {
             bool bouncesLeft = bounces < maxBounces;
             if (!bouncesLeft) {
                 gameObject.ReturnToPool();

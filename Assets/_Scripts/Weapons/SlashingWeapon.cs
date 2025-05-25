@@ -102,7 +102,7 @@ public class SlashingWeapon : MonoBehaviour {
 
     private void FixedUpdate() {
 
-        if (GameStateManager.Instance.GetCurrentState() != GameState.Game) {
+        if (GameStateManager.Instance.CurrentState != GameState.Game) {
             return;
         }
 

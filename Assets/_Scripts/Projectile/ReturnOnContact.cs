@@ -3,6 +3,7 @@ using UnityEngine;
 public class ReturnOnContact : MonoBehaviour {
 
     [SerializeField] private LayerMask layerMask;
+    public LayerMask LayerMask => layerMask;
 
     [SerializeField] private bool returnOther;
     [SerializeField, ConditionalHide("returnOther")] private GameObject returnTarget;

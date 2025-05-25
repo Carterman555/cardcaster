@@ -35,7 +35,7 @@ public class PlayerMovement : StaticInstance<PlayerMovement>, IChangesFacing, IH
 
     private void Update() {
 
-        if (GameStateManager.Instance.GetCurrentState() != GameState.Game) {
+        if (GameStateManager.Instance.CurrentState != GameState.Game) {
             anim.SetBool("move", false);
             return;
         }
@@ -65,7 +65,7 @@ public class PlayerMovement : StaticInstance<PlayerMovement>, IChangesFacing, IH
 
     private void FixedUpdate() {
 
-        if (GameStateManager.Instance.GetCurrentState() != GameState.Game) {
+        if (GameStateManager.Instance.CurrentState != GameState.Game) {
             rb.velocity = Vector2.zero;
             return;
         }
@@ -101,7 +101,9 @@ public class PlayerMovement : StaticInstance<PlayerMovement>, IChangesFacing, IH
 
     private IEnumerator Dash() {
         isDashing = true;
-        rb.velocity = moveDirection.normalized * PlayerStats.DashSpeed;
+
+        float dashSpeed = 4f;
+        rb.velocity = moveDirection.normalized * PlayerStats.DashDistance * dashSpeed;
         PlayerInvincibility dashInvincibility = gameObject.AddComponent<PlayerInvincibility>();
 
         dashFade = PlayerFadeManager.Instance.AddFadeEffect(0, 0.5f);
@@ -111,7 +113,7 @@ public class PlayerMovement : StaticInstance<PlayerMovement>, IChangesFacing, IH
         OnDash?.Invoke();
         OnDash_Direction?.Invoke(moveDirection.normalized);
 
-        DashingTimeRemaining = PlayerStats.DashDistance / PlayerStats.DashSpeed;
+        DashingTimeRemaining = 1 / dashSpeed;
         while (DashingTimeRemaining > 0f) {
             yield return null;
             DashingTimeRemaining -= Time.deltaTime;

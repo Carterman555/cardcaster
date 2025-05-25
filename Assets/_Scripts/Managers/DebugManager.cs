@@ -138,4 +138,12 @@ public class DebugManager : StaticInstance<DebugManager> {
     private void SetTutorialCompleted(bool completed) {
         ES3.Save("TutorialCompleted", completed);
     }
+
+    [SerializeField] private GameObject objectToSpawn;
+    [SerializeField] private Vector2 posToSpawn;
+
+    [Command]
+    private void SpawnObject() {
+        objectToSpawn.Spawn(posToSpawn);
+    }
 }

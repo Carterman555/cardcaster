@@ -69,6 +69,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ac6446cb17b22234cbc4927dd60a166c, type: 3}
+--- !u!198 &834128582282952311 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 6217111740562433388, guid: ac6446cb17b22234cbc4927dd60a166c, type: 3}
+  m_PrefabInstance: {fileID: 6761299104952474395}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &2318519885825928877 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 9077563857992332726, guid: ac6446cb17b22234cbc4927dd60a166c, type: 3}
@@ -327,7 +332,42 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 226976224992304211, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
       insertIndex: -1
       addedObject: {fileID: 7213159347615461502}
+    - targetCorrespondingSourceObject: {fileID: 6662536027617550773, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8704673399388962332}
   m_SourcePrefab: {fileID: 100100000, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
+--- !u!1 &4072430832388138114 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6662536027617550773, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
+  m_PrefabInstance: {fileID: 7273941719131161911}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &8704673399388962332
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4072430832388138114}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 092a0b7e18dbd4e44a0dd688810279dd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OnDisabled:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 834128582282952311}
+        m_TargetAssemblyTypeName: UnityEngine.ParticleSystem, UnityEngine
+        m_MethodName: Clear
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!4 &5899715198675390214 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3831935200979323441, guid: d26e40392c042dc4d8c237ede2183746, type: 3}

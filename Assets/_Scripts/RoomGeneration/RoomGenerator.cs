@@ -328,7 +328,9 @@ public class RoomGenerator : StaticInstance<RoomGenerator> {
 
         // spawn and setup in the hallway to connect the rooms
         Transform hallway = SpawnHallway(existingDoorway.GetSide(), existingDoorway.transform.position);
-        RemoveTilesForHallway(newRoom, connectingRoom, newDoorway, existingDoorway);
+        RemoveTilesForHallway(connectingRoom, existingDoorway);
+        RemoveTilesForHallway(newRoom, newDoorway);
+
         RemoveObjectsForHallway(newDoorway.transform.position, existingDoorway.transform.position);
         AddRoomsToHallwayLight(hallway, connectingRoom.GetRoomNum(), newRoom.GetRoomNum());
 
@@ -370,20 +372,21 @@ public class RoomGenerator : StaticInstance<RoomGenerator> {
         return hallwayPrefab.Spawn(hallwayPos, Quaternion.identity, Containers.Instance.Hallways);
     }
 
-    private void RemoveTilesForHallway(Room newRoom, Room existingRoom, PossibleDoorway newDoorway, PossibleDoorway existingDoorway) {
-        Tilemap connectingWallTilemap = existingDoorway.GetSide() == DoorwaySide.Top ?
-                            existingRoom.GetTopWallsTilemap() : existingRoom.GetBotWallsTilemap();
+    private void RemoveTilesForHallway(Room room, PossibleDoorway doorway) {
+        if (doorway.GetSide() == DoorwaySide.Top) {
+            doorwayTileReplacer.DestroyTiles(room.GetTopWallsTilemap(),
+                doorway.GetSide(),
+                doorway.transform.localPosition);
 
-        doorwayTileReplacer.DestroyTiles(connectingWallTilemap,
-            existingDoorway.GetSide(),
-            existingDoorway.transform.localPosition);
-
-        Tilemap newWallTilemap = newDoorway.GetSide() == DoorwaySide.Top ?
-            newRoom.GetTopWallsTilemap() : newRoom.GetBotWallsTilemap();
-
-        doorwayTileReplacer.DestroyTiles(newWallTilemap,
-            newDoorway.GetSide(),
-            newDoorway.transform.localPosition);
+            doorwayTileReplacer.DestroyTiles(room.GetGroundTilemap(),
+                doorway.GetSide(),
+                doorway.transform.localPosition);
+        }
+        else {
+            doorwayTileReplacer.DestroyTiles(room.GetBotWallsTilemap(),
+                doorway.GetSide(),
+                doorway.transform.localPosition);
+        }
     }
 
     private void RemoveObjectsForHallway(Vector2 newDoorwayPosition, Vector2 existingDoorwayPosition) {

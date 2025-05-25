@@ -3,17 +3,24 @@ using System.Linq;
 using UnityEngine;
 
 public static class ObjectPoolManager {
-    public static List<PooledObjectInfo> ObjectPoolList = new List<PooledObjectInfo>();
+    public static List<PooledObjectInfo> ObjectPoolList;
 
     // debugging
     private static string nameToDebug = "";
 
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
     private static void Init() {
-        ObjectPoolList = new List<PooledObjectInfo>();
+        ObjectPoolList = new();
+    }
+
+    // should be played when scene is unloaded
+    // might be able to avoid needing to reset pools if Spawn() removes destroyed objects from the pool
+    public static void ResetPools() {
+        ObjectPoolList = new();
     }
 
     public static GameObject Spawn(this GameObject objectToSpawn, Vector3 spawnPosition, Quaternion spawnRotation, Transform parent = null) {
+        
         if (objectToSpawn == null) {
             Debug.LogError("objectToSpawn Is Null!");
             return null;

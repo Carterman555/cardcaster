@@ -30,7 +30,7 @@ public class SteamManager : MonoBehaviour {
 				return new GameObject("SteamManager").AddComponent<SteamManager>();
 			}
 			else {
-				return s_instance;
+                return s_instance;
 			}
 		}
 	}

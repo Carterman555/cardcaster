@@ -240,8 +240,7 @@ public class SettingsManager : MonoBehaviour, IInitializable {
     private void LoadSettings() {
         CurrentSettings.CameraShake = PlayerPrefs.GetFloat("CameraShake", CurrentSettings.CameraShake);
 
-        string defaultLanguage = LocalizationManager.GetLanguageCode();
-        CurrentSettings.Language = PlayerPrefs.GetString("Language", defaultLanguage);
+        ScriptInitializer.Instance.StartCoroutine(LoadLanguage());
 
         CurrentSettings.vSync = PlayerPrefs.GetInt("vSync", CurrentSettings.vSync ? 1 : 0) == 1; // use 0 as false and 1 as true
         CurrentSettings.FullScreenMode = (FullScreenMode)PlayerPrefs.GetInt("FullScreenMode", (int)CurrentSettings.FullScreenMode);
@@ -253,6 +252,15 @@ public class SettingsManager : MonoBehaviour, IInitializable {
         CurrentSettings.SFXVolume = PlayerPrefs.GetFloat("SFXVolume", CurrentSettings.SFXVolume);
         CurrentSettings.UIVolume = PlayerPrefs.GetFloat("UIVolume", CurrentSettings.UIVolume);
         CurrentSettings.MusicVolume = PlayerPrefs.GetFloat("MusicVolume", CurrentSettings.MusicVolume);
+    }
+
+    private IEnumerator LoadLanguage() {
+
+        // wait for steamManager to initialize
+        yield return null;
+
+        string defaultLanguage = LocalizationManager.GetLanguageCode();
+        CurrentSettings.Language = PlayerPrefs.GetString("Language", defaultLanguage);
     }
 
     #endregion

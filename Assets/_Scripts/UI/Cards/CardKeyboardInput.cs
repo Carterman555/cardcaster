@@ -45,6 +45,11 @@ public class CardKeyboardInput : MonoBehaviour, IPointerEnterHandler, IPointerEx
     }
 
     private void Update() {
+
+        if (GameStateManager.Instance.CurrentState != GameState.Game) {
+            return;
+        }
+
         HandleHotkeyInput();
         HandleMouseInput();
     }
@@ -124,7 +129,7 @@ public class CardKeyboardInput : MonoBehaviour, IPointerEnterHandler, IPointerEx
 
     public void OnPointerDown(PointerEventData eventData) {
 
-        if (GameStateManager.Instance.GetCurrentState() != GameState.Game) {
+        if (GameStateManager.Instance.CurrentState != GameState.Game) {
             return;
         }
 

@@ -17,9 +17,6 @@ public class ScriptableGhostCard : ScriptableStatsModifierCard {
         ReferenceSystem.Instance.PlayerSwordVisual.enabled = false;
 
         playerInvincibility = PlayerMovement.Instance.AddComponent<PlayerInvincibility>();
-
-        //... make it move through objects
-        Physics2D.IgnoreLayerCollision(GameLayers.InvinciblePlayerLayer, GameLayers.RoomObjectLayer, true);
     }
 
     public override void Stop() {
@@ -31,8 +28,5 @@ public class ScriptableGhostCard : ScriptableStatsModifierCard {
         ReferenceSystem.Instance.PlayerSwordVisual.enabled = true;
 
         Destroy(playerInvincibility);
-
-        //... prevent from moving through objects
-        Physics2D.IgnoreLayerCollision(GameLayers.InvinciblePlayerLayer, GameLayers.RoomObjectLayer, false);
     }
 }

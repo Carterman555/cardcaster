@@ -20,7 +20,6 @@ public struct PlayerStats {
     public float KnockbackStrength;
     public float SwordSize;
 
-    public float DashSpeed;
     public float DashDistance;
     public float BaseDashAttackDamage;
     public float DashRechargeSpeed;
@@ -59,7 +58,6 @@ public enum PlayerStatType {
 
     SwordSize,
 
-    DashSpeed,
     DashDistance,
     DashAttackDamage,
     DashRechargeSpeed,

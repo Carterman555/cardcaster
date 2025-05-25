@@ -185,13 +185,18 @@ public class HandCard : MonoBehaviour {
 
     // played by mmf_player
     public void TryPlayCard(Vector2 playPosition) {
-        if (GameStateManager.Instance.GetCurrentState() != GameState.Game) {
+
+        if (GameStateManager.Instance.CurrentState != GameState.Game) {
             return;
         }
 
         if (!card.CanPlay()) {
             return;
         }
+
+        // play before card.TryPlay(playPosition); so it doesn't count as active because of this card
+        bool modifierAlreadyActive = card is ScriptableModifierCardBase modCard
+                            && AbilityManager.Instance.IsModifierActive(modCard);
 
         ShowPlayInput();
 
@@ -216,9 +221,10 @@ public class HandCard : MonoBehaviour {
 
         if (!trashingCard) {
             if (card is ScriptableModifierCardBase modifierCard) {
+
                 DeckManager.Instance.StackHandCard(cardIndex);
 
-                if (modifierCard.StackType == StackType.Stackable || !AbilityManager.Instance.IsModifierActive(modifierCard)) {
+                if (modifierCard.StackType == StackType.Stackable || !modifierAlreadyActive) {
                     ModifierImage modifierImage = modifierImagePrefab.Spawn(transform.position, Containers.Instance.HUD);
                     modifierImage.Setup(modifierCard);
                 }
@@ -232,7 +238,7 @@ public class HandCard : MonoBehaviour {
     }
 
     private void OnUsedCard() {
-        if (GameStateManager.Instance.GetCurrentState() != GameState.Game) {
+        if (GameStateManager.Instance.CurrentState != GameState.Game) {
             return;
         }
 

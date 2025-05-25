@@ -70,7 +70,7 @@ public class EnemyHealth : MonoBehaviour, IDamagable {
 
         health -= damage;
 
-        AudioManager.Instance.PlaySound(AudioManager.Instance.AudioClips.Damaged);
+        AudioManager.Instance.PlaySingleSound(AudioManager.Instance.AudioClips.Damaged);
 
         OnHealthChanged_HealthProportion?.Invoke(health/maxHealth);
         DamagedEventTrigger?.Invoke();
@@ -93,7 +93,7 @@ public class EnemyHealth : MonoBehaviour, IDamagable {
         Dead = true;
 
         if (playSfxOnDeath) {
-            AudioManager.Instance.PlaySound(deathSfx);
+            AudioManager.Instance.PlaySingleSound(deathSfx);
         }
 
         DeathEventTrigger?.Invoke();

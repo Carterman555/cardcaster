@@ -8,8 +8,6 @@ public class ChargeBehavior : MonoBehaviour {
 
     public event Action<bool> OnCharge; // bool: played by anim
 
-    private float chargeTimer;
-
     private IHasEnemyStats hasEnemyStats;
     [SerializeField] private Animator anim;
     private Rigidbody2D rb;
@@ -20,6 +18,8 @@ public class ChargeBehavior : MonoBehaviour {
     public enum ChargeState { OnCooldown, ChargingUp, Launching }
     public ChargeState CurrentState { get; private set; }
 
+    private float chargeTimer;
+
     [SerializeField] private bool hasSfx;
     [SerializeField, ConditionalHide("hasSfx")] private AudioClips chargeUpSfx;
     [SerializeField, ConditionalHide("hasSfx")] private AudioClips launchSfx;
@@ -28,6 +28,11 @@ public class ChargeBehavior : MonoBehaviour {
     private void Awake() {
         hasEnemyStats = GetComponent<IHasEnemyStats>();
         rb = GetComponent<Rigidbody2D>();
+    }
+
+    private void OnEnable() {
+        CurrentState = ChargeState.OnCooldown;
+        chargeTimer = 0;
     }
 
     private void OnDisable() {

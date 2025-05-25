@@ -101,7 +101,6 @@ public class StatsManager : MonoBehaviour {
         playerStats.AttackSpeed = Mathf.Max(playerStats.AttackSpeed, 0.1f);
         playerStats.KnockbackStrength = Mathf.Max(playerStats.KnockbackStrength, 0f);
         playerStats.SwordSize = Mathf.Max(playerStats.SwordSize, 0f);
-        playerStats.DashSpeed = Mathf.Max(playerStats.DashSpeed, 0f);
         playerStats.DashDistance = Mathf.Max(playerStats.DashDistance, 0f);
         playerStats.BaseDashAttackDamage = Mathf.Max(playerStats.BaseDashAttackDamage, 0f);
         playerStats.DashRechargeSpeed = Mathf.Max(playerStats.DashRechargeSpeed, 0f);
@@ -135,9 +134,6 @@ public class StatsManager : MonoBehaviour {
                 break;
             case PlayerStatType.SwordSize:
                 ApplyModification(ref playerStats.SwordSize, modifyType, value);
-                break;
-            case PlayerStatType.DashSpeed:
-                ApplyModification(ref playerStats.DashSpeed, modifyType, value);
                 break;
             case PlayerStatType.DashDistance:
                 ApplyModification(ref playerStats.DashDistance, modifyType, value);
@@ -198,7 +194,6 @@ public class StatsManager : MonoBehaviour {
                   $"AttackCooldown: {playerStats.AttackCooldown}\n" +
                   $"KnockbackStrength: {playerStats.KnockbackStrength}\n" +
                   $"SwordSize: {playerStats.SwordSize}\n" +
-                  $"DashSpeed: {playerStats.DashSpeed}\n" +
                   $"DashDistance: {playerStats.DashDistance}\n" +
                   $"BaseDashAttackDamage: {playerStats.BaseDashAttackDamage}\n" +
                   $"DashRechargeSpeed: {playerStats.DashRechargeSpeed}\n" +

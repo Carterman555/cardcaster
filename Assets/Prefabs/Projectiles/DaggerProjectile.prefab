@@ -157,6 +157,11 @@ MonoBehaviour:
     m_Bits: 1920
   returnOther: 0
   returnTarget: {fileID: 0}
+  playSfx: 0
+  returnSfx:
+    Clips: []
+    Volume: 0
+    PitchVariation: 0
 --- !u!114 &6611510374888311966
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -188,9 +193,9 @@ MonoBehaviour:
   hasHitParticles: 0
   hitTargetParticles: {fileID: 0}
   hitTargetParticlesColor: {r: 0, g: 0, b: 0, a: 0}
-  hasDestroyParticles: 0
-  destroyParticles: {fileID: 0}
-  destroyParticlesColor: {r: 0, g: 0, b: 0, a: 0}
+  hasDestroyParticles: 1
+  destroyParticles: {fileID: 1709629989399924173, guid: 22a723bf7c529e44d9f1f2994fffe609, type: 3}
+  destroyParticlesColor: {r: 0, g: 0, b: 0, a: 1}
   hasParticlePoint: 0
   particlePoint: {fileID: 0}
 --- !u!1 &8226154268037064845

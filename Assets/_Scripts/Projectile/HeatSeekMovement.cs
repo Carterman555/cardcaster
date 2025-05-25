@@ -10,6 +10,10 @@ public class HeatSeekMovement : MonoBehaviour, ITargetProjectileMovement {
 
     [SerializeField] private bool rotateObject;
 
+    // I couldn't figure out how to get the consistent rotation I wanted without using transform.up
+    // to track the direction
+    private Transform directionTracker;
+
     public GameObject GetObject() {
         return gameObject;
     }
@@ -18,17 +22,32 @@ public class HeatSeekMovement : MonoBehaviour, ITargetProjectileMovement {
         rb = GetComponent<Rigidbody2D>();
     }
 
+    private void OnEnable() {
+        if (directionTracker == null) {
+            directionTracker = new GameObject("Direction Tracker").transform;
+            directionTracker.SetParent(transform);
+            directionTracker.transform.position = transform.position;
+        }
+    }
+
     public void Setup(Transform target) {
         this.target = target;
+
+        Transform directionTransform = rotateObject ? transform : directionTracker;
+
+        Vector2 toTarget = target.position - transform.position;
+        directionTransform.up = toTarget;
     }
 
     private void FixedUpdate() {
 
-        Vector2 toTarget = (target.position - transform.position).normalized;
-        rb.velocity = Vector3.MoveTowards(rb.velocity, toTarget * moveSpeed, rotationSpeed * Time.fixedDeltaTime);
+        Transform directionTransform = rotateObject ? transform : directionTracker;
 
-        if (rotateObject) {
-            transform.up = rb.velocity;
-        }
+        // move
+        rb.velocity = directionTransform.up * moveSpeed;
+
+        // rotate
+        Vector2 toTarget = target.position - transform.position;
+        directionTransform.up = Vector3.MoveTowards(directionTransform.up, toTarget, rotationSpeed * Time.fixedDeltaTime);
     }
 }

@@ -7,13 +7,13 @@ public class GameStateManager : StaticInstance<GameStateManager> {
     private static bool inDemo = true;
     public static bool InDemo => inDemo;
 
-    private GameState currentState;
+    public GameState CurrentState { get; private set; }
 
     protected override void Awake() {
         base.Awake();
 
         //... the game is loading until the room is generated
-        currentState = GameState.Loading;
+        CurrentState = GameState.Loading;
     }
 
     private void OnEnable() {
@@ -43,12 +43,8 @@ public class GameStateManager : StaticInstance<GameStateManager> {
         }
     }
 
-    public GameState GetCurrentState() {
-        return currentState;
-    }
-
     public void SetGameState(GameState newState) {
-        currentState = newState;
+        CurrentState = newState;
         OnGameStateChanged?.Invoke(newState);
     }
 }

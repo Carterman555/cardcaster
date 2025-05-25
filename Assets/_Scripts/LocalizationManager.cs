@@ -9,7 +9,6 @@ using System;
 public class LocalizationManager : Singleton<LocalizationManager> {
 
     private IEnumerator Start() {
-
         int maxTries = 100;
         int tryCount = 0;
 

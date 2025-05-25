@@ -175,12 +175,6 @@ public class RoomCreatorWindow : EditorWindow {
         //        ExampleSetupRoom(room);
         //    }
         //}
-
-        if (ConditionalButton("Setup light shape for multiple rooms", scriptableRooms != null)) {
-            foreach (GameObject room in scriptableRooms.Rooms) {
-                SetupMinimapSprite(room);
-            }
-        }
     }
 
     private bool ConditionalButton(string text, bool activeCondition) {

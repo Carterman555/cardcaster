@@ -136,6 +136,9 @@ public class GameSceneManager : Singleton<GameSceneManager> {
             IsSceneLoading = false;
             OnLoadingCompleted?.Invoke();
         }
+        else if (scene == SceneManager.GetSceneByName("Game")) {
+            ObjectPoolManager.ResetPools();
+        }
     }
 
     // the level in the environment

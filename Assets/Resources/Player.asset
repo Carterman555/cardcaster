@@ -20,7 +20,7 @@ MonoBehaviour:
     AttackSpeed: 3
     KnockbackStrength: 1
     SwordSize: 1
-    DashSpeed: 15
+    DashSpeed: 4
     DashDistance: 4
     BaseDashAttackDamage: 10
     DashRechargeSpeed: 2

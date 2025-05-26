@@ -133,13 +133,12 @@ public class Trainer : StaticInstance<Trainer> {
         }
 
         //... wait for trigger to detect player entering next room
-        int framesToWait = 3;
-        yield return new WaitForSeconds(Time.deltaTime * framesToWait);
+        float secondsToWait = 0.1f;
+        yield return new WaitForSeconds(secondsToWait);
 
         bool playerInRoomTwo = roomTwoTrigger.HasContact();
 
         if (playedCard is ScriptableTeleportCard && !playerInRoomTwo) {
-
             DialogBox.Instance.ShowText(wrongTeleportString, showNextDialogText: false);
             EnterRage();
         }

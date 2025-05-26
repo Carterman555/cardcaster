@@ -55,10 +55,6 @@ public class Knockback : MonoBehaviour {
             return;
         }
 
-        if (strength == 0) {
-            Debug.LogWarning("Knockback dealt to " + gameObject.name + " has strength of 0"); 
-        }
-
         float knockbackFactor = 12f;
         float knockbackForce = strength / GetKnockbackResistance();
         rb.velocity = knockbackForce * knockbackFactor * direction.normalized;

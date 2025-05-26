@@ -530,7 +530,7 @@ MonoBehaviour:
   playerWeaponParent: {fileID: 0}
   playerSword: {fileID: 0}
   playerSwordVisual: {fileID: 0}
-  cameraConfiner: {fileID: 0}
+  dialogTypewriter: {fileID: 0}
 --- !u!1 &1876309958802724637
 GameObject:
   m_ObjectHideFlags: 0

@@ -82,8 +82,8 @@ public class Tutorial : MonoBehaviour {
         Vector2 playerTutorialPos = new Vector2(-6f, 0);
         PlayerMovement.Instance.GetComponent<Rigidbody2D>().MovePosition(playerTutorialPos);
 
-        int delayInFrames = 5;
-        Invoke(nameof(EnableStartTrigger), Time.deltaTime * delayInFrames);
+        float delayInSeconds = 0.1f;
+        Invoke(nameof(EnableStartTrigger), delayInSeconds);
     }
 
     // it wasn't enabled at the start because the player is touching it before it's repositioned to playerTutorialPos 

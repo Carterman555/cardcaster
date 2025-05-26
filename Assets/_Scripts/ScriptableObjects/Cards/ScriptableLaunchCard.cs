@@ -60,8 +60,6 @@ public class ScriptableLaunchCard : ScriptableAbilityCardBase {
         // scale path towards end of room
         float pathWidth = positioningAreaSize * 2f;
 
-        Debug.Log("Path width: " + pathWidth);
-
         float checkDistance = 100f;
         float distanceFromPlayer = 1.5f;
         Vector2 origin = (Vector2)pathVisual.transform.position + (launchDirection * distanceFromPlayer);

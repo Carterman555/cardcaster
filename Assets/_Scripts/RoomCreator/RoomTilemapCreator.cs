@@ -11,6 +11,8 @@ public class RoomTilemapCreator : ScriptableObject {
 
     [SerializeField] private TileSet[] tileSets;
 
+    [SerializeField] private TileBase[] groundTilesToIngore;
+
     // I realized I want to have variables instead of passing these through as parameters, but I haven't 
     // removed them as parameters yet
     private Tilemap groundTilemap;
@@ -54,7 +56,8 @@ public class RoomTilemapCreator : ScriptableObject {
                 Vector3Int tilemapPosition = new Vector3Int(x + bounds.min.x, y + bounds.min.y, 0);
 
                 // set the tile to the tileGrid
-                if (groundTilemap.HasTile(tilemapPosition)) {
+                TileBase tile = groundTilemap.GetTile(tilemapPosition);
+                if (tile != null && !groundTilesToIngore.Contains(tile)) {
                     //... add 1 because index 0 includes the walls so ground starts at (1, 1)
                     tileGrid[x + 1, y + 1] = TileType.Ground;
                 }

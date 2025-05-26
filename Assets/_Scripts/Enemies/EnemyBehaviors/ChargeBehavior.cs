@@ -43,15 +43,26 @@ public class ChargeBehavior : MonoBehaviour {
     }
 
     private void Update() {
-        chargeTimer += Time.deltaTime;
-        if (chargeTimer > hasEnemyStats.EnemyStats.AttackCooldown && CurrentState == ChargeState.OnCooldown) {
-            chargeTimer = 0;
-            CurrentState = ChargeState.ChargingUp;
-            
-            anim.SetTrigger("startCharging");
 
-            if (hasSfx) {
-                chargeUpAudioSource = AudioManager.Instance.PlaySingleSound(chargeUpSfx);
+        if (CurrentState == ChargeState.OnCooldown) {
+            chargeTimer += Time.deltaTime;
+
+            if (chargeTimer > hasEnemyStats.EnemyStats.AttackCooldown) {
+                chargeTimer = 0;
+                CurrentState = ChargeState.ChargingUp;
+
+                anim.SetTrigger("startCharging");
+
+                if (hasSfx) {
+                    chargeUpAudioSource = AudioManager.Instance.PlaySingleSound(chargeUpSfx);
+                }
+            }
+        }
+
+        if (CurrentState == ChargeState.Launching) {
+            if (rb.velocity == Vector2.zero) {
+                CurrentState = ChargeState.OnCooldown;
+                anim.SetTrigger("stopCharging");
             }
         }
     }
@@ -60,10 +71,7 @@ public class ChargeBehavior : MonoBehaviour {
         if (CurrentState == ChargeState.Launching) {
             rb.velocity = Vector2.MoveTowards(rb.velocity, Vector2.zero, Time.fixedDeltaTime * deceleration);
 
-            if (rb.velocity == Vector2.zero) {
-                CurrentState = ChargeState.OnCooldown;
-                anim.SetTrigger("stopCharging");
-            }
+            
         }
     }
 

@@ -32,13 +32,14 @@ public class MapManager : MonoBehaviour {
 
         foreach (Image miniMapImage in iconImages) {
             Image mapImage = miniMapImage.Spawn(mapIconContainer);
-            print("spawn: " + mapImage.name);
 
             RectTransform mapImageTransform = mapImage.GetComponent<RectTransform>();
             RectTransform minimapImageTransform = miniMapImage.GetComponent<RectTransform>();
 
             mapImageTransform.anchoredPosition = minimapImageTransform.anchoredPosition * miniMapToMapScaleFactor;
             mapImageTransform.sizeDelta = minimapImageTransform.sizeDelta * miniMapToMapScaleFactor;
+
+            mapImage.sprite = miniMapImage.sprite; // added line (might cause bugs)
             mapImage.Fade(miniMapImage.color.a);
 
             // add and setup teleport button to room icons
@@ -97,8 +98,6 @@ public class MapManager : MonoBehaviour {
     private void OnDisable() {
         foreach (Image mapImage in spawnedImages) {
             mapImage.gameObject.ReturnToPool();
-
-            print("return: " + mapImage.name);
         }
         playerMapIcon.gameObject.ReturnToPool();
     }

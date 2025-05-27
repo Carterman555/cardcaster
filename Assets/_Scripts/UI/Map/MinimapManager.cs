@@ -1,5 +1,6 @@
 using AllIn1SpriteShader;
 using DG.Tweening;
+using QFSW.QC;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -39,7 +40,6 @@ public class MinimapManager : StaticInstance<MinimapManager> {
         StartCoroutine(SpawnAllRoomsAndHallsCor());
     }
     private IEnumerator SpawnAllRoomsAndHallsCor() {
-
         // spawn hallways first to appear under rooms, so doesn't look weird when selecting room to teleport to
         Hallway[] hallways = FindObjectsOfType<Hallway>();
         foreach (Hallway hallway in hallways) {
@@ -63,6 +63,7 @@ public class MinimapManager : StaticInstance<MinimapManager> {
     }
 
     private void SpawnRoom(Room room) {
+
         Image roomIcon = roomHallMapIconPrefab.Spawn(miniMapIconContainer);
         roomIcon.sprite = room.ScriptableRoom.MapIcon;
         RectTransform roomIconTransform = roomIcon.GetComponent<RectTransform>();
@@ -102,12 +103,13 @@ public class MinimapManager : StaticInstance<MinimapManager> {
     public IEnumerator ShowRoomOrHallIcon(Transform roomOrHallway) {
 
         int count = 0;
-        int threshold = 60;
+        int maxCount = 60;
+        float tryShowDuration = 1f; // in seconds
         while (!spawnedIcons) {
-            yield return null;
+            yield return new WaitForSeconds(tryShowDuration / maxCount);
 
             count++;
-            if (count > threshold) {
+            if (count > maxCount) {
                 Debug.LogError("Tried to show hallway or room but icons haven't been spawned! - " + roomOrHallway.name);
                 yield break;
             }
@@ -127,6 +129,13 @@ public class MinimapManager : StaticInstance<MinimapManager> {
             yield break;
         }
         outline.GetComponent<Image>().DOFade(1f, duration: 0.5f);
+    }
+
+    [Command]
+    private void ShowAllMapIcons() {
+        foreach (Transform roomOrHallway in roomAndHallwayIcons.Keys) {
+            StartCoroutine(ShowRoomOrHallIcon(roomOrHallway));
+        }
     }
 
     public Image SpawnObjectIcon(Sprite sprite, Vector2 worldPos, Vector2 size) {

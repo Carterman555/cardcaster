@@ -1,4 +1,5 @@
 using Febucci.UI;
+using MoreMountains.Feedbacks;
 using UnityEngine;
 
 public class ReferenceSystem : StaticInstance<ReferenceSystem> {
@@ -13,7 +14,13 @@ public class ReferenceSystem : StaticInstance<ReferenceSystem> {
     [SerializeField] private SpriteRenderer playerSwordVisual;
     public SpriteRenderer PlayerSwordVisual => playerSwordVisual;
 
-    [Header("Misc")]
+    [Header("For Tutorial")]
     [SerializeField] private TypewriterByCharacter dialogTypewriter;
     public TypewriterByCharacter DialogTypewriter => dialogTypewriter;
+
+    [SerializeField] private MMF_Player cardsPanelFeedbacks;
+    public MMF_Player CardsPanelFeedbacks => cardsPanelFeedbacks;
+
+    [SerializeField] private MMF_Player mapPanelFeedbacks;
+    public MMF_Player MapPanelFeedbacks => mapPanelFeedbacks;
 }

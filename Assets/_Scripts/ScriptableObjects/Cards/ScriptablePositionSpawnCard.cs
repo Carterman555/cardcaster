@@ -1,12 +1,11 @@
 using System.Collections.Generic;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "New Card", menuName = "Cards/Position Spawn")]
 public class ScriptablePositionSpawnCard : ScriptableAbilityCardBase {
 
     [SerializeField] private GameObject objectToSpawn;
-
-    private List<GameObject> abilityEffectPrefabs = new();
 
     protected override void Play(Vector2 position) {
         base.Play(position);
@@ -17,7 +16,7 @@ public class ScriptablePositionSpawnCard : ScriptableAbilityCardBase {
             abilityStatsSetup.SetAbilityStats(Stats);
         }
 
-        SpawnAbilityEffects(newObject);
+        SpawnAbilityEffects(newObject.transform);
 
         // if something is spawned and it doesn't have a duration, it needs to invoke Stop() because normally it
         // is invoked after the duration, but it won't be without a duration
@@ -26,19 +25,30 @@ public class ScriptablePositionSpawnCard : ScriptableAbilityCardBase {
         }
     }
 
+    private List<EffectModifier> effectModifiers = new();
+
     public override void ApplyModifier(ScriptableModifierCardBase modifierCard) {
         base.ApplyModifier(modifierCard);
         if (modifierCard.AppliesEffect) {
-            abilityEffectPrefabs.Add(modifierCard.EffectPrefab);
+            effectModifiers.Add(modifierCard.EffectModifier);
         }
     }
 
-    // applies the effects set by the modifier
     // the effects are returned by ReturnOnDisable
-    private void SpawnAbilityEffects(GameObject spawnedObject) {
-        foreach (var abilityEffectPrefab in abilityEffectPrefabs) {
-            abilityEffectPrefab.Spawn(spawnedObject.transform);
+    private void SpawnAbilityEffects(Transform spawnedTransform) {
+        foreach (EffectModifier effectModifier in effectModifiers) {
+            effectModifier.EffectLogicPrefab.Spawn(spawnedTransform);
+
+            if (effectModifier.HasVisual) {
+                Transform visualTransform = spawnedTransform.Find("Visual");
+                if (visualTransform == null) {
+                    Debug.LogError($"Object {spawnedTransform.name} does not have child with name 'Visual'!");
+                    return;
+                }
+
+                effectModifier.EffectVisualPrefab.Spawn(visualTransform);
+            }
         }
-        abilityEffectPrefabs.Clear();
+        effectModifiers.Clear();
     }
 }

@@ -1,14 +1,13 @@
 using System.Collections;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class ElectricEffectOnDamage : MonoBehaviour, IAbilityEffect {
 
-    [SerializeField] private ParticleSystem electricAbilityParticlesPrefab;
-
     [SerializeField] private float damage;
     [SerializeField] private int chainSize;
 
-    private EffectOnDamage effectOnDamage;
+    private ITargetAttacker[] attackers = new ITargetAttacker[0];
 
     private void OnEnable() {
         StartCoroutine(OnEnableCor());
@@ -21,11 +20,16 @@ public class ElectricEffectOnDamage : MonoBehaviour, IAbilityEffect {
         //... this subscribes to the attackers' onDamage event
         yield return null;
 
-        effectOnDamage = new(Shock, transform.parent, electricAbilityParticlesPrefab);
+        attackers = transform.parent.GetComponentsInChildren<ITargetAttacker>();
+        foreach (ITargetAttacker attacker in attackers) {
+            attacker.OnDamage_Target += Shock;
+        }
     }
 
     private void OnDisable() {
-        effectOnDamage.Disable();
+        foreach (ITargetAttacker attacker in attackers) {
+            attacker.OnDamage_Target -= Shock;
+        }
     }
 
     private void Shock(GameObject target) {

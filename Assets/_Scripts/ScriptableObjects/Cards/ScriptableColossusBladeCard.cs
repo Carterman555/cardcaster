@@ -62,20 +62,25 @@ public class ScriptableColossusBladeCard : ScriptableStatsModifierCard {
 
     #region Handle Ability Effects
 
-    private List<GameObject> effectPrefabs = new List<GameObject>();
+    private List<EffectModifier> effectModifiers = new();
     private List<GameObject> effectInstances = new List<GameObject>();
 
     public override void ApplyModifier(ScriptableModifierCardBase modifierCard) {
         base.ApplyModifier(modifierCard);
         if (modifierCard.AppliesEffect) {
-            effectPrefabs.Add(modifierCard.EffectPrefab);
+            effectModifiers.Add(modifierCard.EffectModifier);
         }
     }
 
     private void ApplyEffects() {
-        foreach (GameObject effectPrefab in effectPrefabs) {
-            GameObject effect = effectPrefab.Spawn(PlayerMeleeAttack.Instance.transform);
-            effectInstances.Add(effect);
+        foreach (EffectModifier effectModifier in effectModifiers) {
+            GameObject effectLogicObject = effectModifier.EffectLogicPrefab.Spawn(PlayerMeleeAttack.Instance.transform);
+            effectInstances.Add(effectLogicObject);
+
+            if (effectModifier.HasVisual) {
+                GameObject effectVisualObject = effectModifier.EffectVisualPrefab.Spawn(ReferenceSystem.Instance.PlayerSwordVisual.transform);
+                effectInstances.Add(effectVisualObject);
+            }
         }
     }
 
@@ -83,7 +88,7 @@ public class ScriptableColossusBladeCard : ScriptableStatsModifierCard {
         foreach (GameObject effect in effectInstances) {
             effect.gameObject.ReturnToPool();
         }
-        effectPrefabs.Clear();
+        effectModifiers.Clear();
         effectInstances.Clear();
     }
 

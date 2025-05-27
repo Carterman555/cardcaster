@@ -19,7 +19,7 @@ public class ScriptableBoomerangSwordCard : ScriptableAbilityCardBase {
 
     protected override void Play(Vector2 position) {
 
-        base.Play(position);
+        PlayWithoutApplyingModifiers(position);
 
         attackPos = position;
 
@@ -35,6 +35,11 @@ public class ScriptableBoomerangSwordCard : ScriptableAbilityCardBase {
         // make sword autorotate
         autoRotate = ReferenceSystem.Instance.PlayerSword.AddComponent<MMAutoRotate>();
         autoRotate.RotationSpeed = new Vector3(0f, 0f, -rotateSpeed);
+
+        if (IsModifiable) {
+            AbilityManager.Instance.ApplyModifiers(this);
+            DeckManager.Instance.DiscardStackedCards();
+        }
     }
 
     private void SetupSwordTouchDamage() {
@@ -94,10 +99,10 @@ public class ScriptableBoomerangSwordCard : ScriptableAbilityCardBase {
         playerTouchDamage.gameObject.ReturnToPool();
 
         // remove ability effects
-        foreach (GameObject abilityEffect in abilityEffects) {
+        foreach (GameObject abilityEffect in effectObjects) {
             abilityEffect.ReturnToPool();
         }
-        abilityEffects.Clear();
+        effectObjects.Clear();
     }
 
     private Vector2 originalLocalPos;
@@ -107,13 +112,18 @@ public class ScriptableBoomerangSwordCard : ScriptableAbilityCardBase {
         sword.SetLocalPositionAndRotation(originalLocalPos, Quaternion.identity);
     }
 
-    private List<GameObject> abilityEffects = new();
+    private List<GameObject> effectObjects = new();
 
     public override void ApplyModifier(ScriptableModifierCardBase modifierCard) {
         base.ApplyModifier(modifierCard);
         if (modifierCard.AppliesEffect) {
-            GameObject effect = modifierCard.EffectPrefab.Spawn(ReferenceSystem.Instance.PlayerSword);
-            abilityEffects.Add(effect);
+            GameObject effectLogicObject = modifierCard.EffectModifier.EffectLogicPrefab.Spawn(ReferenceSystem.Instance.PlayerSword);
+            effectObjects.Add(effectLogicObject);
+
+            if (modifierCard.EffectModifier.HasVisual) {
+                GameObject effectVisualObject = modifierCard.EffectModifier.EffectVisualPrefab.Spawn(ReferenceSystem.Instance.PlayerSwordVisual.transform);
+                effectObjects.Add(effectVisualObject);
+            }
         }
     }
 }

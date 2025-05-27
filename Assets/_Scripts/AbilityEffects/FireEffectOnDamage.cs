@@ -3,33 +3,27 @@ using UnityEngine;
 
 public class FireEffectOnDamage : MonoBehaviour, IAbilityEffect {
 
-    [SerializeField] private ParticleSystem fireAbilityParticlesPrefab;
     [SerializeField] private float burnDuration;
-
-    private EffectOnDamage effectOnDamage;
 
     private Coroutine onEnabledCor;
 
+    private ITargetAttacker[] attackers = new ITargetAttacker[0];
+
     private void OnEnable() {
-        onEnabledCor = StartCoroutine(OnEnableCor());
-    }
+        attackers = transform.parent.GetComponentsInChildren<ITargetAttacker>();
 
-    private IEnumerator OnEnableCor() {
-
-        //... wait a frame before checking for attackers because an attacker could have been added
-        //... in the same frame. Like if they were both added from an ability card. This makes sure
-        //... this subscribes to the attackers' onDamage event
-        yield return null;
-
-        effectOnDamage = new(InflictBurn, attackerTransform: transform.parent, fireAbilityParticlesPrefab);
+        foreach (ITargetAttacker attacker in attackers) {
+            attacker.OnDamage_Target += InflictBurn;
+        }
     }
 
     private void OnDisable() {
         if (onEnabledCor != null) {
             StopCoroutine(onEnabledCor);
         }
-        if (effectOnDamage != null) {
-            effectOnDamage.Disable();
+
+        foreach (ITargetAttacker attacker in attackers) {
+            attacker.OnDamage_Target -= InflictBurn;
         }
     }
 

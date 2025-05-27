@@ -1,3 +1,5 @@
+using Mono.CSharp;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -15,7 +17,7 @@ public class ScriptableHitShockwave : ScriptableAbilityCardBase {
     public override void Stop() {
         base.Stop();
 
-        effectPrefabs.Clear();
+        effectModifiers.Clear();
 
         PlayerMeleeAttack.Instance.OnDamage_Target -= CreateShockwave;
     }
@@ -28,18 +30,18 @@ public class ScriptableHitShockwave : ScriptableAbilityCardBase {
         circleDamage.DealDamage(GameLayers.EnemyLayerMask, Stats.AreaSize, Stats.Damage, Stats.KnockbackStrength);
     }
 
-    private List<GameObject> effectPrefabs = new();
+    private List<EffectModifier> effectModifiers = new();
 
     public override void ApplyModifier(ScriptableModifierCardBase modifierCard) {
         base.ApplyModifier(modifierCard);
         if (modifierCard.AppliesEffect) {
-            effectPrefabs.Add(modifierCard.EffectPrefab);
+            effectModifiers.Add(modifierCard.EffectModifier);
         }
     }
 
     private void ApplyEffects(Transform attacker) {
-        foreach (GameObject effectPrefab in effectPrefabs) {
-            effectPrefab.Spawn(attacker);
+        foreach (EffectModifier effectModifier in effectModifiers) {
+            effectModifier.EffectLogicPrefab.Spawn(attacker);
         }
     }
 }

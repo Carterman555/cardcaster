@@ -27,10 +27,18 @@ public class PlayerMovement : StaticInstance<PlayerMovement>, IChangesFacing, IH
         knockback = GetComponent<Knockback>();
 
         facingRight = true;
+
+        ScriptableAbilityCardBase.OnStartPositioning += OnStartPositioningCard;
+        ScriptableAbilityCardBase.OnStopPositioning += OnStopPositioningCard;
     }
 
     private void OnDisable() {
         rb.velocity = Vector2.zero;
+    }
+
+    private void OnDestroy() {
+        ScriptableAbilityCardBase.OnStartPositioning -= OnStartPositioningCard;
+        ScriptableAbilityCardBase.OnStopPositioning -= OnStopPositioningCard;
     }
 
     private void Update() {
@@ -60,7 +68,7 @@ public class PlayerMovement : StaticInstance<PlayerMovement>, IChangesFacing, IH
             StartCoroutine(Dash());
         }
 
-        FaceAttackDirection();
+        HandleFacing();
     }
 
     private void FixedUpdate() {
@@ -135,11 +143,20 @@ public class PlayerMovement : StaticInstance<PlayerMovement>, IChangesFacing, IH
 
     private bool facingRight;
 
-    private void FaceAttackDirection() {
+    private Transform positioningCardTransform;
+
+    private void HandleFacing() {
 
         float attackXPos = PlayerMeleeAttack.Instance.GetAttackDirection().x;
 
         bool shouldFaceRight = attackXPos > 0;
+
+        bool positioningCard = positioningCardTransform != null;
+        if (positioningCard) {
+            Vector2 cardWorldPos = Camera.main.ScreenToWorldPoint(positioningCardTransform.position);
+            bool cardToRight = cardWorldPos.x > transform.position.x;
+            shouldFaceRight = cardToRight; 
+        }
 
         if (!facingRight && shouldFaceRight) {
             transform.rotation = Quaternion.Euler(new Vector3(transform.rotation.eulerAngles.x, 0f, transform.rotation.eulerAngles.z));
@@ -151,6 +168,14 @@ public class PlayerMovement : StaticInstance<PlayerMovement>, IChangesFacing, IH
             facingRight = false;
             OnChangedFacing?.Invoke(facingRight);
         }
+    }
+
+    private void OnStartPositioningCard(Transform cardTransform) {
+        positioningCardTransform = cardTransform;
+    }
+
+    private void OnStopPositioningCard(Transform cardTransform) {
+        positioningCardTransform = null;
     }
 
     #endregion

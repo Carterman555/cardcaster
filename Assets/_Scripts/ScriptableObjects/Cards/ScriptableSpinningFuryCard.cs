@@ -24,7 +24,6 @@ public class ScriptableSpinningFuryCard : ScriptableAbilityCardBase {
     private Coroutine updateCor;
 
     protected override void Play(Vector2 position) {
-        base.Play(position);
 
         PlayerMeleeAttack.Instance.DisableAttack();
 
@@ -45,6 +44,11 @@ public class ScriptableSpinningFuryCard : ScriptableAbilityCardBase {
 
         // effects
         swingSwordEffects = swingSwordEffectsPrefab.Spawn(sword.position, sword);
+
+        // need to spawn playerTouchDamage before invoking base.Play(position); which adds effects. need to
+        // add effects after spawning playerTouchDamage so the effects on damage can subscribe to the 
+        // playerTouchDamage onDamage event
+        base.Play(position);
 
         AbilityManager.Instance.StartCoroutine(PlaySfx());
     }
@@ -88,21 +92,26 @@ public class ScriptableSpinningFuryCard : ScriptableAbilityCardBase {
         swingSwordEffects.gameObject.ReturnToPool();
 
         // remove ability effects
-        foreach (GameObject abilityEffect in abilityEffects) {
-            abilityEffect.ReturnToPool();
+        foreach (GameObject effectModifier in effectModifierObjects) {
+            effectModifier.ReturnToPool();
         }
-        abilityEffects.Clear();
+        effectModifierObjects.Clear();
 
         sfxAudioSource.ReturnToPool();
     }
 
-    private List<GameObject> abilityEffects = new();
+    private List<GameObject> effectModifierObjects = new();
 
     public override void ApplyModifier(ScriptableModifierCardBase modifierCard) {
         base.ApplyModifier(modifierCard);
         if (modifierCard.AppliesEffect) {
-            GameObject effect = modifierCard.EffectPrefab.Spawn(ReferenceSystem.Instance.PlayerSword);
-            abilityEffects.Add(effect);
+            GameObject effectLogicObject = modifierCard.EffectModifier.EffectLogicPrefab.Spawn(ReferenceSystem.Instance.PlayerSword);
+            effectModifierObjects.Add(effectLogicObject);
+
+            if (modifierCard.EffectModifier.HasVisual) {
+                GameObject effectVisualObject = modifierCard.EffectModifier.EffectVisualPrefab.Spawn(ReferenceSystem.Instance.PlayerSword);
+                effectModifierObjects.Add(effectVisualObject);
+            }
         }
     }
 }

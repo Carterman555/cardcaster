@@ -57,7 +57,10 @@ MonoBehaviour:
     ProjectileSpeed: 0
     Cooldown: 0
   appliesEffect: 1
-  effectPrefab: {fileID: 5757657393520808529, guid: d7eeadb0bede36a44b448ab3569158ff, type: 3}
+  effectModifier:
+    EffectLogicPrefab: {fileID: 5757657393520808529, guid: d7eeadb0bede36a44b448ab3569158ff, type: 3}
+    HasVisual: 0
+    EffectVisualPrefab: {fileID: 0}
   references:
     version: 2
     RefIds: []

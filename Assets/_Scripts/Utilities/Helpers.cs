@@ -26,7 +26,7 @@ public static class Helpers {
         foreach (Transform child in t) child.gameObject.SetActive(active);
     }
 
-    public static bool IsAnyActiveChildren(this Transform t) {
+    public static bool AreAnyChildrenActive(this Transform t) {
         foreach (Transform child in t) {
             if (child.gameObject.activeSelf) return true;
         }

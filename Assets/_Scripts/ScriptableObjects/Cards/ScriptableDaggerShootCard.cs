@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "DaggerShootCard", menuName = "Cards/Dagger Shoot Card")]
@@ -7,8 +8,6 @@ public class ScriptableDaggerShootCard : ScriptableAbilityCardBase {
 
     [SerializeField] private StraightMovement daggerPrefab;
     [SerializeField] private float spawnOffsetValue;
-
-    private List<GameObject> abilityEffectPrefabs = new();
 
     private Coroutine shootCoroutine;
 
@@ -21,7 +20,7 @@ public class ScriptableDaggerShootCard : ScriptableAbilityCardBase {
     public override void Stop() {
         base.Stop();
 
-        abilityEffectPrefabs.Clear();
+        effectModifiers.Clear();
 
         DeckManager.Instance.StopCoroutine(shootCoroutine);
     }
@@ -49,18 +48,29 @@ public class ScriptableDaggerShootCard : ScriptableAbilityCardBase {
 
     #region Effects
 
+    private List<EffectModifier> effectModifiers = new();
+
     public override void ApplyModifier(ScriptableModifierCardBase modifierCard) {
         base.ApplyModifier(modifierCard);
         if (modifierCard.AppliesEffect) {
-            abilityEffectPrefabs.Add(modifierCard.EffectPrefab);
+            effectModifiers.Add(modifierCard.EffectModifier);
         }
     }
 
     // applies the effects set by the modifier
     private void ApplyEffects(StraightMovement straightMovement) {
+        foreach (EffectModifier effectModifier in effectModifiers) {
+            effectModifier.EffectLogicPrefab.Spawn(straightMovement.transform);
 
-        foreach (var abilityEffectPrefab in abilityEffectPrefabs) {
-            abilityEffectPrefab.Spawn(straightMovement.transform);
+            if (effectModifier.HasVisual) {
+                Transform visualTransform = straightMovement.transform.Find("Visual");
+                if (visualTransform == null) {
+                    Debug.LogError($"StraightShoot projectile {straightMovement.name} does not have child with name 'Visual'!");
+                    return;
+                }
+
+                effectModifier.EffectVisualPrefab.Spawn(visualTransform);
+            }
         }
     }
 

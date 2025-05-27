@@ -49,14 +49,14 @@ public class CameraLookInfluence : MonoBehaviour {
         framingTransposer.m_TrackedObjectOffset = new Vector3(Mathf.Abs(offset.x), offset.y, 0f);
     }
 
-    private void TryFreezeCameraLook() {
+    private void TryFreezeCameraLook(Transform cardTransform) {
         if (InputManager.Instance.GetControlScheme() == ControlSchemeType.Controller) {
             frozenCameraLook = true;
             frozenOffset = desiredOffset;
         }
     }
 
-    private void TryUnfreezeCameraLook() {
+    private void TryUnfreezeCameraLook(Transform cardTransform) {
         frozenCameraLook = false;
     }
 

@@ -24,7 +24,7 @@ public class ScriptableLaunchCard : ScriptableAbilityCardBase {
     [SerializeField] private float launchSpeed;
     private Tween launchTween;
 
-    private List<GameObject> abilityEffects = new();
+    private List<GameObject> effectModifierObjects = new();
 
     private Vector2 launchDirection;
 
@@ -166,10 +166,10 @@ public class ScriptableLaunchCard : ScriptableAbilityCardBase {
         Destroy(playerInvincibility);
 
         // take off effects
-        foreach (GameObject abilityEffect in abilityEffects) {
-            abilityEffect.ReturnToPool();
+        foreach (GameObject effectModifier in effectModifierObjects) {
+            effectModifier.ReturnToPool();
         }
-        abilityEffects.Clear();
+        effectModifierObjects.Clear();
 
         launchEffects.gameObject.ReturnToPool();
 
@@ -179,8 +179,13 @@ public class ScriptableLaunchCard : ScriptableAbilityCardBase {
     public override void ApplyModifier(ScriptableModifierCardBase modifierCard) {
         base.ApplyModifier(modifierCard);
         if (modifierCard.AppliesEffect) {
-            GameObject effect = modifierCard.EffectPrefab.Spawn(damageDealer.transform);
-            abilityEffects.Add(effect);
+            GameObject effectLogicObject = modifierCard.EffectModifier.EffectLogicPrefab.Spawn(damageDealer.transform);
+            effectModifierObjects.Add(effectLogicObject);
+
+            if (modifierCard.EffectModifier.HasVisual) {
+                GameObject effectVisualObject = modifierCard.EffectModifier.EffectVisualPrefab.Spawn(damageDealer.transform);
+                effectModifierObjects.Add(effectVisualObject);
+            }
         }
     }
 }

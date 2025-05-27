@@ -7,8 +7,6 @@ public class ScriptableStraightShootCard : ScriptableAbilityCardBase {
     [SerializeField] private StraightMovement projectilePrefab;
     [SerializeField] private float spawnOffsetValue;
 
-    private List<GameObject> abilityEffectPrefabs = new();
-
     private Vector3 shootPos;
 
     protected override void Play(Vector2 position) {
@@ -31,34 +29,45 @@ public class ScriptableStraightShootCard : ScriptableAbilityCardBase {
 
         // spawn and setup projectile
         StraightMovement straightMovement = projectilePrefab.Spawn(spawnPos, Containers.Instance.Projectiles);
+
         straightMovement.Setup(toShootDirection, Stats.ProjectileSpeed);
 
         float damage = Stats.Damage * StatsManager.PlayerStats.BaseProjectileDamageMult;
         straightMovement.GetComponent<DamageOnContact>().Setup(damage, Stats.KnockbackStrength, canCrit: true);
 
         // apply effect
-        ApplyEffects(straightMovement);
+        ApplyEffects(straightMovement.transform);
     }
 
     public override void Stop() {
         base.Stop();
-        abilityEffectPrefabs.Clear();
+        effectModifiers.Clear();
     }
 
     #region Effects
 
+    private List<EffectModifier> effectModifiers = new();
+
     public override void ApplyModifier(ScriptableModifierCardBase modifierCard) {
         base.ApplyModifier(modifierCard);
         if (modifierCard.AppliesEffect) {
-            abilityEffectPrefabs.Add(modifierCard.EffectPrefab);
+            effectModifiers.Add(modifierCard.EffectModifier);
         }
     }
 
-    // applies the effects set by the modifier
-    private void ApplyEffects(StraightMovement straightMovement) {
+    private void ApplyEffects(Transform attacker) {
+        foreach (EffectModifier effectModifier in effectModifiers) {
+            effectModifier.EffectLogicPrefab.Spawn(attacker);
 
-        foreach (var abilityEffectPrefab in abilityEffectPrefabs) {
-            abilityEffectPrefab.Spawn(straightMovement.transform);
+            if (effectModifier.HasVisual) {
+                Transform visualTransform = attacker.Find("Visual");
+                if (visualTransform == null) {
+                    Debug.LogError($"StraightShoot projectile {attacker.name} does not have child with name 'Visual'!");
+                    return;
+                }
+
+                effectModifier.EffectVisualPrefab.Spawn(visualTransform);
+            }
         }
     }
 

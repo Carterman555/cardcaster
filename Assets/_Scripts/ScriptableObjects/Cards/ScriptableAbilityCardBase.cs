@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Serialization;
+using UnityEngine.UIElements;
 
 public abstract class ScriptableAbilityCardBase : ScriptableCardBase {
 
@@ -23,9 +24,10 @@ public abstract class ScriptableAbilityCardBase : ScriptableCardBase {
     [SerializeField] private CardType[] incompatibleAbilities;
     public CardType[] IncompatibleAbilities => incompatibleAbilities;
 
-    public static event Action OnStartPositioning;
-    public static event Action OnStopPositioning;
+    public static event Action<Transform> OnStartPositioning;
+    public static event Action<Transform> OnStopPositioning;
     private Coroutine positioningCardCoroutine;
+    private Transform positioningCardTransform;
 
     public bool IsCompatibleWithModifier(ScriptableModifierCardBase modifier) {
         bool anyFlagsMatch = (abilityAttributes & modifier.AbilityAttributes) != 0;
@@ -38,17 +40,18 @@ public abstract class ScriptableAbilityCardBase : ScriptableCardBase {
     }
 
     public virtual void OnStartPositioningCard(Transform cardTransform) {
-        positioningCardCoroutine = AbilityManager.Instance.StartCoroutine(PositioningCard(cardTransform));
+        positioningCardTransform = cardTransform;
+        positioningCardCoroutine = AbilityManager.Instance.StartCoroutine(PositioningCard());
 
         Stats = baseStats;
 
-        OnStartPositioning?.Invoke();
+        OnStartPositioning?.Invoke(positioningCardTransform);
     }
 
-    private IEnumerator PositioningCard(Transform cardTransform) {
+    private IEnumerator PositioningCard() {
         while (true) {
             yield return null;
-            PositioningUpdate(Camera.main.ScreenToWorldPoint(cardTransform.position));
+            PositioningUpdate(Camera.main.ScreenToWorldPoint(positioningCardTransform.position));
         }
     }
 
@@ -56,7 +59,10 @@ public abstract class ScriptableAbilityCardBase : ScriptableCardBase {
 
     public virtual void OnStopPositioningCard() {
         AbilityManager.Instance.StopCoroutine(positioningCardCoroutine);
-        OnStopPositioning?.Invoke();
+
+        OnStopPositioning?.Invoke(positioningCardTransform);
+
+        positioningCardTransform = null;
     }
 
     public override void TryPlay(Vector2 position) {
@@ -96,6 +102,29 @@ public abstract class ScriptableAbilityCardBase : ScriptableCardBase {
         if (IsModifiable) {
             AbilityManager.Instance.ApplyModifiers(this);
             DeckManager.Instance.DiscardStackedCards();
+        }
+
+        AbilityManager.Instance.AddActiveAbility(this);
+
+        // only plays Stop method after duration if the ability card has duration, so if it doesn't
+        // then the card is responsible for invoking base.Stop to remove the active ability
+        bool hasDuration = abilityAttributes.HasFlag(AbilityAttribute.HasDuration);
+        if (hasDuration) {
+            durationStopCoroutine = AbilityManager.Instance.StartCoroutine(StopAfterDuration());
+
+            AbilityIndicatorManager.Instance.AddIndicator(this);
+        }
+    }
+    
+    // for abilities to control when to apply the modifiers, so they can add the effects after spawning their abilities
+    // not really clean code but idc anymore
+    protected void PlayWithoutApplyingModifiers(Vector2 position) {
+        base.Play(position);
+
+        Stats = baseStats;
+
+        if (positioningCardCoroutine != null) {
+            OnStopPositioningCard();
         }
 
         AbilityManager.Instance.AddActiveAbility(this);

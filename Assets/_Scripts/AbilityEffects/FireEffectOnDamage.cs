@@ -21,7 +21,7 @@ public class FireEffectOnDamage : MonoBehaviour, IAbilityEffect {
         //... this subscribes to the attackers' onDamage event
         yield return null;
 
-        effectOnDamage = new(InflictBurn, transform.parent, fireAbilityParticlesPrefab);
+        effectOnDamage = new(InflictBurn, attackerTransform: transform.parent, fireAbilityParticlesPrefab);
     }
 
     private void OnDisable() {

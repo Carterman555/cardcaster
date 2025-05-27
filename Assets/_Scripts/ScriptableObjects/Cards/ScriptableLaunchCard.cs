@@ -80,10 +80,13 @@ public class ScriptableLaunchCard : ScriptableAbilityCardBase {
     }
 
     protected override void Play(Vector2 position) {
-        base.Play(position);
-
         Transform playerTransform = PlayerMovement.Instance.transform;
         Vector2 playerCenterPos = PlayerMovement.Instance.CenterPos;
+
+        //... need to spawn damageDealer before base.Play(position); because it invokes ApplyModifier which uses damageDealer
+        damageDealer = damageDealerPrefab.Spawn(playerCenterPos, playerTransform);
+
+        base.Play(position);
 
         PlayerMovement.Instance.DisableMoveInput();
         PlayerMeleeAttack.Instance.DisableAttack();
@@ -94,7 +97,6 @@ public class ScriptableLaunchCard : ScriptableAbilityCardBase {
         launchTween = DOTween.To(() => playerRb.velocity, x => playerRb.velocity = x, launchDirection * launchSpeed, launchFullSpeedTime);
 
         // make deal damage
-        damageDealer = damageDealerPrefab.Spawn(playerCenterPos, playerTransform);
         damageDealer.SetDamageMult(Stats.Damage);
         damageDealer.GetComponent<CircleCollider2D>().radius = Stats.AreaSize;
         
@@ -177,7 +179,7 @@ public class ScriptableLaunchCard : ScriptableAbilityCardBase {
     public override void ApplyModifier(ScriptableModifierCardBase modifierCard) {
         base.ApplyModifier(modifierCard);
         if (modifierCard.AppliesEffect) {
-            GameObject effect = modifierCard.EffectPrefab.Spawn(ReferenceSystem.Instance.PlayerSword);
+            GameObject effect = modifierCard.EffectPrefab.Spawn(damageDealer.transform);
             abilityEffects.Add(effect);
         }
     }

@@ -729,6 +729,30 @@ MonoBehaviour:
     m_Localized: The Dealer
     m_Metadata:
       m_Items: []
+  - m_Id: 21730091821068288
+    m_Localized: You can see all of your cards by clicking the deck icon in the bottom
+      left corner.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 21731164019388416
+    m_Localized: You can see all of your cards with {ACTION}.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 21731451807363072
+    m_Localized: Good. You can also click the minimap in the top right corner to
+      open up the map.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 21732063152336896
+    m_Localized: Good. You can also press {ACTION} to open up the map.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 21732462424911872
+    m_Localized: While opening up the map, you can select a room to teleport there
+      as long as you're not in combat. And don't do it right now because I'm trying
+      to teach you.
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds:

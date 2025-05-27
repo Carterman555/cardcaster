@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class BounceOnContact : MonoBehaviour {
 
-    public LayerMask BounceLayerMask { get; set; }
+    public LayerMask BounceLayerMask;
     [SerializeField] private int maxBounces = 3;
     private int bounces;
 

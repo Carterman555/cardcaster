@@ -703,6 +703,26 @@ MonoBehaviour:
     m_Key: theDealer
     m_Metadata:
       m_Items: []
+  - m_Id: 21730091821068288
+    m_Key: openCardsKeyboardInstructions
+    m_Metadata:
+      m_Items: []
+  - m_Id: 21731164019388416
+    m_Key: openCardsControllerInstructions
+    m_Metadata:
+      m_Items: []
+  - m_Id: 21731451807363072
+    m_Key: mapKeyboardInstructions
+    m_Metadata:
+      m_Items: []
+  - m_Id: 21732063152336896
+    m_Key: mapControllerInstructions
+    m_Metadata:
+      m_Items: []
+  - m_Id: 21732462424911872
+    m_Key: mapTeleportInstructions
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

@@ -39,6 +39,11 @@ public class Tutorial : MonoBehaviour {
     [SerializeField] private LocalizedString modifyCard1LocString;
     [SerializeField] private LocalizedString modifyCard2LocString;
     [SerializeField] private LocalizedString essenceLocString;
+    [SerializeField] private LocalizedString openCardsKeyboardLocString;
+    [SerializeField] private LocalizedString openCardsControllerLocString;
+    [SerializeField] private LocalizedString openMapKeyboardLocString;
+    [SerializeField] private LocalizedString openMapControllerLocString;
+    [SerializeField] private LocalizedString mapTeleportLocString;
     [SerializeField] private LocalizedString holeLocString;
 
     [Header("Combat Step")]
@@ -66,6 +71,12 @@ public class Tutorial : MonoBehaviour {
     [SerializeField] private EssenceDrop essencePrefab;
     [SerializeField] private Transform[] essenceSpawnPoints;
 
+    [Header("Open Cards Step")]
+    [SerializeField] private InputActionReference openCardsInput;
+
+    [Header("Open Map Step")]
+    [SerializeField] private InputActionReference openMapInput;
+
     [Header("Hole Step")]
     [SerializeField] private GameObject hole;
     [SerializeField] private ParticleSystem createHoleParticles;
@@ -84,6 +95,8 @@ public class Tutorial : MonoBehaviour {
 
         float delayInSeconds = 0.1f;
         Invoke(nameof(EnableStartTrigger), delayInSeconds);
+
+        MinimapManager.Instance.StartCoroutine(MinimapManager.Instance.ShowRoomOrHallIcon(transform));
     }
 
     // it wasn't enabled at the start because the player is touching it before it's repositioned to playerTutorialPos 
@@ -125,18 +138,21 @@ public class Tutorial : MonoBehaviour {
 
         tutorialSteps = new BaseTutorialStep[] {
             new DialogStep(nextStepInput, correctWelcomeText),
-            new DialogStep(nextStepInput, faceKeyboardLocString, faceControllerLocString, faceInput),
-            new DialogStep(nextStepInput, combatLocString, attackAction),
-            new SpawnEnemyStep(practiceEnemy, enemySpawnPoint),
-            new EventDialogStep(PlayerMovement.Instance.OnDash, dashLocString, dashInput),
-            new DialogStep(nextStepInput, card1KeyboardLocString, card1ControllerLocString, firstCardInput),
-            new DialogStep(nextStepInput, card2KeyboardLocString, card2ControllerLocString, firstCardInput),
-            new GiveTeleportCardStep(teleportCard, roomTwoTrigger),
-            new DialogStep(nextStepInput, modifyCard1LocString),
-            new DialogStep(nextStepInput, modifyCard2LocString),
-            new GiveModifyCardStep(modifierCard, abilityCard),
-            new CombatModifyCardStep(practiceEnemy, modifyEnemySpawnPoints),
-            new PickupEssenceStep(essencePrefab, essenceSpawnPoints, essenceLocString),
+            //new DialogStep(nextStepInput, faceKeyboardLocString, faceControllerLocString, faceInput),
+            //new DialogStep(nextStepInput, combatLocString, attackAction),
+            //new SpawnEnemyStep(practiceEnemy, enemySpawnPoint),
+            //new EventDialogStep(PlayerMovement.Instance.OnDash, dashLocString, dashInput),
+            //new DialogStep(nextStepInput, card1KeyboardLocString, card1ControllerLocString, firstCardInput),
+            //new DialogStep(nextStepInput, card2KeyboardLocString, card2ControllerLocString, firstCardInput),
+            //new GiveTeleportCardStep(teleportCard, roomTwoTrigger),
+            //new DialogStep(nextStepInput, modifyCard1LocString),
+            //new DialogStep(nextStepInput, modifyCard2LocString),
+            //new GiveModifyCardStep(modifierCard, abilityCard),
+            //new CombatModifyCardStep(practiceEnemy, modifyEnemySpawnPoints),
+            //new PickupEssenceStep(essencePrefab, essenceSpawnPoints, essenceLocString),
+            new OpenCardsStep(openCardsKeyboardLocString, openCardsControllerLocString, openCardsInput),
+            new OpenMapStep(openMapKeyboardLocString, openMapControllerLocString, openMapInput),
+            new DialogStep(nextStepInput, mapTeleportLocString),
             new HoleStep(hole, createHoleParticles, holeLocString)
         };
         currentStepIndex = 0;
@@ -514,6 +530,86 @@ public class PickupEssenceStep : BaseTutorialStep {
 
             base.CompleteStep();
         }
+    }
+}
+
+public class OpenCardsStep : BaseTutorialStep {
+
+    private LocalizedString keyboardDialog;
+    private LocalizedString controllerDialog;
+
+    private InputActionReference openCardsAction;
+
+    public OpenCardsStep(LocalizedString keyboardDialog, LocalizedString controllerDialog, InputActionReference openCardsAction) {
+        this.keyboardDialog = keyboardDialog;
+        this.controllerDialog = controllerDialog;
+        this.openCardsAction = openCardsAction;
+    }
+
+    public override void OnEnterStep() {
+        base.OnEnterStep();
+
+        LocalizedString locDialog;
+        if (InputManager.Instance.GetControlScheme() == ControlSchemeType.Keyboard) {
+            locDialog = keyboardDialog;
+        }
+        else if (InputManager.Instance.GetControlScheme() == ControlSchemeType.Controller) {
+            locDialog = controllerDialog;
+        }
+        else {
+            Debug.LogError("No matching control scheme type!");
+            return;
+        }
+
+        DialogBox.Instance.ShowText(locDialog, showNextDialogText: false, dialogAction: openCardsAction);
+
+        ReferenceSystem.Instance.CardsPanelFeedbacks.Events.OnPlay.AddListener(CompleteStep);
+    }
+
+    protected override void CompleteStep() {
+        ReferenceSystem.Instance.CardsPanelFeedbacks.Events.OnPlay.RemoveListener(CompleteStep);
+
+        base.CompleteStep();
+    }
+}
+
+public class OpenMapStep : BaseTutorialStep {
+
+    private LocalizedString keyboardDialog;
+    private LocalizedString controllerDialog;
+
+    private InputActionReference openMapAction;
+
+    public OpenMapStep(LocalizedString keyboardDialog, LocalizedString controllerDialog, InputActionReference openMapAction) {
+        this.keyboardDialog = keyboardDialog;
+        this.controllerDialog = controllerDialog;
+        this.openMapAction = openMapAction;
+    }
+
+    public override void OnEnterStep() {
+        base.OnEnterStep();
+
+        LocalizedString locDialog;
+        if (InputManager.Instance.GetControlScheme() == ControlSchemeType.Keyboard) {
+            locDialog = keyboardDialog;
+        }
+        else if (InputManager.Instance.GetControlScheme() == ControlSchemeType.Controller) {
+            locDialog = controllerDialog;
+        }
+        else {
+            Debug.LogError("No matching control scheme type!");
+            return;
+        }
+
+        DialogBox.Instance.ShowText(locDialog, showNextDialogText: false, dialogAction: openMapAction);
+
+        ReferenceSystem.Instance.MapPanelFeedbacks.Events.OnPlay.AddListener(CompleteStep);
+    }
+
+    protected override void CompleteStep() {
+        ReferenceSystem.Instance.MapPanelFeedbacks.Events.OnPlay.RemoveListener(CompleteStep);
+
+        base.CompleteStep();
     }
 }
 

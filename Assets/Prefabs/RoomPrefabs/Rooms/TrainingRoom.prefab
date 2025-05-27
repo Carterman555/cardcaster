@@ -329,7 +329,6 @@ MonoBehaviour:
   damage: 10
   overrideKnockback: 1
   knockbackStrength: 1
-  debug: 1
 --- !u!1 &1982477827377252677
 GameObject:
   m_ObjectHideFlags: 0
@@ -12942,6 +12941,51 @@ MonoBehaviour:
     m_FallbackState: 0
     m_WaitForCompletion: 0
     m_LocalVariables: []
+  openCardsKeyboardLocString:
+    m_TableReference:
+      m_TableCollectionName: GUID:e2b89126a54df984f885da2bac4cb92f
+    m_TableEntryReference:
+      m_KeyId: 21730091821068288
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  openCardsControllerLocString:
+    m_TableReference:
+      m_TableCollectionName: GUID:e2b89126a54df984f885da2bac4cb92f
+    m_TableEntryReference:
+      m_KeyId: 21731164019388416
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  openMapKeyboardLocString:
+    m_TableReference:
+      m_TableCollectionName: GUID:e2b89126a54df984f885da2bac4cb92f
+    m_TableEntryReference:
+      m_KeyId: 21731451807363072
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  openMapControllerLocString:
+    m_TableReference:
+      m_TableCollectionName: GUID:e2b89126a54df984f885da2bac4cb92f
+    m_TableEntryReference:
+      m_KeyId: 21732063152336896
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  mapTeleportLocString:
+    m_TableReference:
+      m_TableCollectionName: GUID:e2b89126a54df984f885da2bac4cb92f
+    m_TableEntryReference:
+      m_KeyId: 21732462424911872
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
   holeLocString:
     m_TableReference:
       m_TableCollectionName: GUID:e2b89126a54df984f885da2bac4cb92f
@@ -12970,6 +13014,8 @@ MonoBehaviour:
   - {fileID: 7101461781240542880}
   - {fileID: 3844780734154532936}
   - {fileID: 6746088723039031712}
+  openCardsInput: {fileID: -8803055106376832457, guid: 50afa068aa51bd149a1f3d07794c53d5, type: 3}
+  openMapInput: {fileID: -1888232381002340338, guid: 50afa068aa51bd149a1f3d07794c53d5, type: 3}
   hole: {fileID: 6008340549961921154}
   createHoleParticles: {fileID: 4743211744468039618}
   references:

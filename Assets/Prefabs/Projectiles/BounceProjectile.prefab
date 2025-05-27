@@ -193,10 +193,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35d760a5bc481674c844fc521f584a74, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bounceLayer:
+  BounceLayerMask:
     serializedVersion: 2
     m_Bits: 1856
   maxBounces: 1
+  useRaycast: 0
 --- !u!114 &-5820090814659444734
 MonoBehaviour:
   m_ObjectHideFlags: 0

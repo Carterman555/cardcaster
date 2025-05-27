@@ -2,6 +2,7 @@ using QFSW.QC;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class RewardSpawner : MonoBehaviour {
@@ -66,12 +67,21 @@ public class RewardSpawner : MonoBehaviour {
     }
 
     [Command]
-    private void SpawnChest() {
+    private void SpawnChestDebug() {
         float avoidPlayerRadius = 2f;
         float obstacleAvoidanceRadius = 3.5f;
         Vector2 position = new RoomPositionHelper().GetRandomRoomPos(PlayerMovement.Instance.CenterPos, avoidPlayerRadius, obstacleAvoidanceRadius);
         Chest chest = Instantiate(chestPrefab, position, Quaternion.identity, Containers.Instance.Drops);
         chest.GetComponent<CreateMapIcon>().ShowMapIcon();
+    }
+
+    [Command]
+    private void SpawnCampfireDebug() {
+        float avoidPlayerRadius = 2f;
+        float obstacleAvoidanceRadius = 3.5f;
+        Vector2 position = new RoomPositionHelper().GetRandomRoomPos(PlayerMovement.Instance.CenterPos, avoidPlayerRadius, obstacleAvoidanceRadius);
+        Campfire campfire = Instantiate(campfirePrefab, position, Quaternion.identity, Containers.Instance.Drops);
+        campfire.GetComponent<CreateMapIcon>().ShowMapIcon();
     }
 
     [Header("Boss Loot")]

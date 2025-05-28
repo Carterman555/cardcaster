@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.Rendering;
 
 public class DamageOnContact : MonoBehaviour, ITargetAttacker {
 
@@ -36,6 +35,10 @@ public class DamageOnContact : MonoBehaviour, ITargetAttacker {
     }
 
     private void OnTriggerEnter2D(Collider2D collision) {
+
+        if (!enabled) {
+            return;
+        }
 
         if (!piercing && dealtDamage) {
             return;
@@ -72,6 +75,12 @@ public class DamageOnContact : MonoBehaviour, ITargetAttacker {
     }
 
     private void Update() {
+
+        if (recentTargets == null) {
+            Debug.LogError($"DamageOnContact has not been setup for {name}!");
+            return;
+        }
+
         for (int i = recentTargets.Count - 1; i >= 0; i--) {
             float attackAgainCooldown = 0.3f;
             if (recentTargets[i].Time + attackAgainCooldown < Time.time) {

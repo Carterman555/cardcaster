@@ -15,6 +15,10 @@ public class PlayerMeleeAttack : StaticInstance<PlayerMeleeAttack>, ITargetAttac
 
     [SerializeField] private SortingGroup weaponGroup;
 
+    [SerializeField] private float inputBufferTime;
+    private bool attackBuffered;
+    private float timeOfInput;
+
     private PlayerDashAttack playerDashAttack;
 
     private float attackTimer;
@@ -46,12 +50,21 @@ public class PlayerMeleeAttack : StaticInstance<PlayerMeleeAttack>, ITargetAttac
         attackTimer += Time.deltaTime;
         if (!Helpers.IsMouseOverUI() &&
             attackInput.action.triggered &&
-            attackTimer > Stats.AttackCooldown &&
             !AttackDisabled() &&
-            PlayerMovement.Instance.DashingTimeRemaining < dashRemainingThreshold) {
+            PlayerMovement.Instance.DashingTimeRemaining < dashRemainingThreshold &&
+            !attackBuffered) {
 
-            Attack();
-            attackTimer = 0f;
+            bool cooldownReset = attackTimer > Stats.AttackCooldown;
+            bool withinBufferTime = !cooldownReset && attackTimer > Stats.AttackCooldown - inputBufferTime;
+
+            if (cooldownReset) {
+                Attack();
+            }
+            else if (withinBufferTime) {
+                attackBuffered = true;
+                float timeLeftTilCooldownReset = Stats.AttackCooldown - attackTimer;
+                Invoke(nameof(Attack), timeLeftTilCooldownReset);
+            }
         }
 
         // hide sword and hand behind player head
@@ -64,6 +77,8 @@ public class PlayerMeleeAttack : StaticInstance<PlayerMeleeAttack>, ITargetAttac
     }
 
     private void Attack() {
+        attackBuffered = false;
+        attackTimer = 0f;
 
         weapon.Swing();
 

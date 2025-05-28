@@ -34,14 +34,11 @@ public class Scattershot : Enemy {
 
         wanderMovement.enabled = true;
         wanderMovement.FleePlayer = true;
-
-        shootBehavior.enabled = false;
     }
     protected override void OnPlayerExitedRange(Collider2D playerCol) {
         base.OnPlayerExitedRange(playerCol);
 
         wanderMovement.enabled = false;
-        shootBehavior.enabled = true;
     }
 
     private void OnShoot(Vector2 direction) {

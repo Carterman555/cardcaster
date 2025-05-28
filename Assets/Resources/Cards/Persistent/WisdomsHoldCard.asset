@@ -50,7 +50,7 @@ MonoBehaviour:
   memoryCard: 0
   maxLevel: 2
   statModifiersPerLevel:
-  - PlayerStatType: 16
+  - PlayerStatType: 15
     ModifyType: 0
     Value: 1
   references:

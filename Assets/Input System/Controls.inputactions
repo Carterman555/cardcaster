@@ -61,12 +61,12 @@
                 },
                 {
                     "name": "AimSword",
-                    "type": "PassThrough",
+                    "type": "Value",
                     "id": "2004a5ba-1dcd-4307-997b-32867df5e33a",
                     "expectedControlType": "Vector2",
                     "processors": "",
                     "interactions": "",
-                    "initialStateCheck": false
+                    "initialStateCheck": true
                 },
                 {
                     "name": "PlayFirstCard",
@@ -374,7 +374,7 @@
                     "isPartOfComposite": false
                 },
                 {
-                    "name": "up",
+                    "name": "Up",
                     "id": "52f50f68-fc84-43a3-b958-22f8bd67eaea",
                     "path": "<Gamepad>/rightStick/up",
                     "interactions": "",
@@ -385,7 +385,7 @@
                     "isPartOfComposite": true
                 },
                 {
-                    "name": "down",
+                    "name": "Down",
                     "id": "4d3c89bf-02f5-4be9-aaad-dafc95434fbf",
                     "path": "<Gamepad>/rightStick/down",
                     "interactions": "",
@@ -396,8 +396,8 @@
                     "isPartOfComposite": true
                 },
                 {
-                    "name": "left",
-                    "id": "52525fb9-8517-4818-9d5d-3621b62313b4",
+                    "name": "Left",
+                    "id": "91d51258-ff42-4a17-8025-9e5b544949f5",
                     "path": "<Gamepad>/rightStick/left",
                     "interactions": "",
                     "processors": "",
@@ -407,8 +407,8 @@
                     "isPartOfComposite": true
                 },
                 {
-                    "name": "right",
-                    "id": "5bbe5e27-e953-43ea-9efc-400bcfe930ba",
+                    "name": "Right",
+                    "id": "eefb5d09-85b4-4baa-903b-4921105cd871",
                     "path": "<Gamepad>/rightStick/right",
                     "interactions": "",
                     "processors": "",

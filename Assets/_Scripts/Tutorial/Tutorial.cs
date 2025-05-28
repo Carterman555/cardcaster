@@ -1,4 +1,3 @@
-using Febucci.UI;
 using System;
 using System.Collections;
 using System.Linq;
@@ -138,18 +137,18 @@ public class Tutorial : MonoBehaviour {
 
         tutorialSteps = new BaseTutorialStep[] {
             new DialogStep(nextStepInput, correctWelcomeText),
-            //new DialogStep(nextStepInput, faceKeyboardLocString, faceControllerLocString, faceInput),
-            //new DialogStep(nextStepInput, combatLocString, attackAction),
-            //new SpawnEnemyStep(practiceEnemy, enemySpawnPoint),
-            //new EventDialogStep(PlayerMovement.Instance.OnDash, dashLocString, dashInput),
-            //new DialogStep(nextStepInput, card1KeyboardLocString, card1ControllerLocString, firstCardInput),
-            //new DialogStep(nextStepInput, card2KeyboardLocString, card2ControllerLocString, firstCardInput),
-            //new GiveTeleportCardStep(teleportCard, roomTwoTrigger),
-            //new DialogStep(nextStepInput, modifyCard1LocString),
-            //new DialogStep(nextStepInput, modifyCard2LocString),
-            //new GiveModifyCardStep(modifierCard, abilityCard),
-            //new CombatModifyCardStep(practiceEnemy, modifyEnemySpawnPoints),
-            //new PickupEssenceStep(essencePrefab, essenceSpawnPoints, essenceLocString),
+            new DialogStep(nextStepInput, faceKeyboardLocString, faceControllerLocString, faceInput),
+            new DialogStep(nextStepInput, combatLocString, attackAction),
+            new SpawnEnemyStep(practiceEnemy, enemySpawnPoint),
+            new EventDialogStep(PlayerMovement.Instance.OnDash, dashLocString, dashInput),
+            new DialogStep(nextStepInput, card1KeyboardLocString, card1ControllerLocString, firstCardInput),
+            new DialogStep(nextStepInput, card2KeyboardLocString, card2ControllerLocString, firstCardInput),
+            new GiveTeleportCardStep(teleportCard, roomTwoTrigger),
+            new DialogStep(nextStepInput, modifyCard1LocString),
+            new DialogStep(nextStepInput, modifyCard2LocString),
+            new GiveModifyCardStep(modifierCard, abilityCard),
+            new CombatModifyCardStep(practiceEnemy, modifyEnemySpawnPoints),
+            new PickupEssenceStep(essencePrefab, essenceSpawnPoints, essenceLocString),
             new OpenCardsStep(openCardsKeyboardLocString, openCardsControllerLocString, openCardsInput),
             new OpenMapStep(openMapKeyboardLocString, openMapControllerLocString, openMapInput),
             new DialogStep(nextStepInput, mapTeleportLocString),

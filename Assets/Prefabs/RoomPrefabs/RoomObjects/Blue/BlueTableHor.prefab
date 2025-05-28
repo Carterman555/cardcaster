@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8941059225583771891}
   - component: {fileID: 6831673353261537250}
   - component: {fileID: 5010535331780837126}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: BlueTableHor
   m_TagString: Untagged
   m_Icon: {fileID: 0}

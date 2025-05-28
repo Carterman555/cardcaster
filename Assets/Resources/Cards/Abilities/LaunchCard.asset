@@ -61,12 +61,9 @@ MonoBehaviour:
   <IsModifiable>k__BackingField: 1
   incompatibleAbilities: 07000000
   raycastStep: 0.1
-  obstacleLayer:
-    serializedVersion: 2
-    m_Bits: 256
   pathVisualPrefab: {fileID: 2669051474583370226, guid: 5cbec3dce7a1dcf44bb2758c66637e18, type: 3}
   damageDealerPrefab: {fileID: 6934243973706104934, guid: e05e5091ba1891941947862d91f96eb7, type: 3}
-  wallTriggerPrefab: {fileID: 7161472512564696427, guid: 1c58ce2bbac713a4f9265ceffc8ec132, type: 3}
+  obstacleTriggerPrefab: {fileID: 6302929445627953329, guid: 1c58ce2bbac713a4f9265ceffc8ec132, type: 3}
   launchSpeed: 20
   launchEffectsPrefab: {fileID: 8999108393401452439, guid: f8130339e07081844a1a1df4b6dd1477, type: 3}
   references:

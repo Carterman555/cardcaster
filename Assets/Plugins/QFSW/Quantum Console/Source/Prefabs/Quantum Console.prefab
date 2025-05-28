@@ -577,7 +577,7 @@ MonoBehaviour:
   _initialiseOnStartup: 1
   _focusOnActivate: 1
   _closeOnSubmit: 0
-  _singletonMode: 0
+  _singletonMode: 1
   _autoScroll: 1
   _enableAutocomplete: 1
   _showPopupDisplay: 1

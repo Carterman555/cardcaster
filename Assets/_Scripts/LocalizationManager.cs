@@ -3,8 +3,13 @@ using UnityEngine;
 using Steamworks;
 using UnityEngine.Localization.Settings;
 using QFSW.QC;
-using UnityEngine.Localization;
-using System;
+using System.IO;
+using System.Text;
+
+#if UNITY_EDITOR
+using UnityEditor.Localization;
+using UnityEditor.Localization.Plugins.CSV;
+#endif
 
 public class LocalizationManager : Singleton<LocalizationManager> {
 
@@ -74,4 +79,14 @@ public class LocalizationManager : Singleton<LocalizationManager> {
 
         print(SteamApps.GetCurrentGameLanguage());
     }
+
+#if UNITY_EDITOR
+    [ContextMenu("Export")]
+    public void Export() {
+        var collection = LocalizationEditorSettings.GetStringTableCollection("StringTable");
+        using (var stream = new StreamWriter("LocalizationTable.csv", false, new UTF8Encoding(false))) {
+            Csv.Export(stream, collection);
+        }
+    }
+#endif
 }

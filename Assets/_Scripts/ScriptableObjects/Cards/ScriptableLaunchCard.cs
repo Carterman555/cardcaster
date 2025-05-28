@@ -17,8 +17,8 @@ public class ScriptableLaunchCard : ScriptableAbilityCardBase {
     [SerializeField] private PlayerTouchDamage damageDealerPrefab;
     private PlayerTouchDamage damageDealer;
 
-    [SerializeField] private TriggerContactTracker wallTriggerPrefab;
-    private TriggerContactTracker wallTrigger;
+    [SerializeField] private TriggerEventInvoker obstacleTriggerPrefab;
+    private TriggerEventInvoker obstacleTrigger;
     private float checkFactor = 0.75f;
 
     [SerializeField] private float launchSpeed;
@@ -63,7 +63,7 @@ public class ScriptableLaunchCard : ScriptableAbilityCardBase {
         float checkDistance = 100f;
         float distanceFromPlayer = 1.5f;
         Vector2 origin = (Vector2)pathVisual.transform.position + (launchDirection * distanceFromPlayer);
-        RaycastHit2D hit = Physics2D.BoxCast(origin, new Vector2(pathWidth * checkFactor, 1f), pathVisual.transform.eulerAngles.z, launchDirection, checkDistance, GameLayers.WallLayerMask);
+        RaycastHit2D hit = Physics2D.BoxCast(origin, new Vector2(pathWidth * checkFactor, 1f), pathVisual.transform.eulerAngles.z, launchDirection, checkDistance, GameLayers.ObstacleLayerMask);
 
         if (hit.collider == null) {
             Debug.LogError("Could Not Find Wall!");
@@ -100,15 +100,10 @@ public class ScriptableLaunchCard : ScriptableAbilityCardBase {
         damageDealer.SetDamageMult(Stats.Damage);
         damageDealer.GetComponent<CircleCollider2D>().radius = Stats.AreaSize;
         
-
-        //... make player move through objects
-        Physics2D.IgnoreLayerCollision(GameLayers.PlayerLayer, GameLayers.RoomObjectLayer, true);
-        Physics2D.IgnoreLayerCollision(GameLayers.InvinciblePlayerLayer, GameLayers.RoomObjectLayer, true);
-
         // make it stop when hit wall
-        wallTrigger = wallTriggerPrefab.Spawn(playerCenterPos, playerTransform);
-        wallTrigger.GetComponent<CircleCollider2D>().radius = Stats.AreaSize * checkFactor;
-        wallTrigger.OnEnterContact_GO += TryStopLaunch;
+        obstacleTrigger = obstacleTriggerPrefab.Spawn(playerCenterPos, playerTransform);
+        obstacleTrigger.GetComponent<CircleCollider2D>().radius = Stats.AreaSize * checkFactor;
+        obstacleTrigger.OnTriggerEnter_Col += TryStopLaunch;
 
         // move sword to point forward
         ReferenceSystem.Instance.PlayerWeaponParent.GetComponent<SlashingWeapon>().enabled = false;
@@ -126,30 +121,26 @@ public class ScriptableLaunchCard : ScriptableAbilityCardBase {
 
     // only stop the launch if the wall is in front of the player. This is to prevent the player from stopping
     // immediately after launching if backed up into wall
-    private void TryStopLaunch(GameObject wall) {
+    private void TryStopLaunch(Collider2D obstacle) {
         Vector2 playerPosition = PlayerMovement.Instance.CenterPos;
-        Vector2 contactPoint = wall.GetComponent<Collider2D>().ClosestPoint(playerPosition);
+        Vector2 contactPoint = obstacle.ClosestPoint(playerPosition);
 
         Vector2 toContactPoint = contactPoint - playerPosition;
         float dotProduct = Vector2.Dot(toContactPoint, launchDirection);
 
         bool contactPointInFrontOfPlayer = dotProduct > 0f;
         if (contactPointInFrontOfPlayer) {
-            StopLaunch(wall);
+            StopLaunch(obstacle);
         }
     }
 
-    private void StopLaunch(GameObject wall) {
+    private void StopLaunch(Collider2D obstacle) {
         base.Stop();
 
-        wallTrigger.OnEnterContact_GO -= TryStopLaunch;
+        obstacleTrigger.OnTriggerEnter_Col -= TryStopLaunch;
 
         PlayerMovement.Instance.AllowMoveInput();
         PlayerMeleeAttack.Instance.AllowAttack();
-
-        //... make player not move through objects and enemies
-        Physics2D.IgnoreLayerCollision(GameLayers.PlayerLayer, GameLayers.RoomObjectLayer, false);
-        Physics2D.IgnoreLayerCollision(GameLayers.InvinciblePlayerLayer, GameLayers.RoomObjectLayer, false);
 
         //... stop launch
         launchTween.Kill();
@@ -157,7 +148,7 @@ public class ScriptableLaunchCard : ScriptableAbilityCardBase {
         //... stop dealing damage
         damageDealer.gameObject.ReturnToPool();
 
-        wallTrigger.gameObject.ReturnToPool();
+        obstacleTrigger.gameObject.ReturnToPool();
 
         // move sword back to normal pos
         ReferenceSystem.Instance.PlayerWeaponParent.GetComponent<SlashingWeapon>().enabled = true;

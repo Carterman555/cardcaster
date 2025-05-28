@@ -281,7 +281,7 @@ MonoBehaviour:
       MaxValue: 15
   anim: {fileID: 4039351960834069205}
   debugState: 0
-  stateToDebug: 2
+  stateToDebug: 1
   spinAudioSource: {fileID: 16486262209884157}
   shootDelay: 2
   deckSplitPrefab: {fileID: -4080490040357254744, guid: a778576d5c747a44aa3fe3811a42b366, type: 3}

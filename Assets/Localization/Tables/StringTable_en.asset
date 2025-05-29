@@ -714,7 +714,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 4350171925712896
-    m_Localized: "Time to cut the deck\u2014and you."
+    m_Localized: Time to cut the deck... and you.
     m_Metadata:
       m_Items: []
   - m_Id: 4350576340504576
@@ -722,7 +722,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 4350753709232128
-    m_Localized: "You bring steel\u2014I bring style."
+    m_Localized: You bring steel. I bring style.
     m_Metadata:
       m_Items: []
   - m_Id: 18887233139904512
@@ -751,6 +751,14 @@ MonoBehaviour:
     m_Localized: While opening up the map, you can select a room to teleport there
       as long as you're not in combat. And don't do it right now because I'm trying
       to teach you.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 22501760726626304
+    m_Localized: Memory
+    m_Metadata:
+      m_Items: []
+  - m_Id: 22503373218410496
+    m_Localized: '{description}'
     m_Metadata:
       m_Items: []
   references:

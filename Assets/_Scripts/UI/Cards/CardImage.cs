@@ -23,6 +23,12 @@ public class CardImage : MonoBehaviour {
     [SerializeField] private UpgradeSlots upgradeSlots;
 
     public void Setup(ScriptableCardBase card) {
+
+        if (card == null) {
+            Debug.LogError("Trying to setup card image with null card!");
+            return;
+        }
+
         this.card = card;
 
         if (card is ScriptableAbilityCardBase) {

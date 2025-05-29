@@ -723,6 +723,14 @@ MonoBehaviour:
     m_Key: mapTeleportInstructions
     m_Metadata:
       m_Items: []
+  - m_Id: 22501760726626304
+    m_Key: memory
+    m_Metadata:
+      m_Items: []
+  - m_Id: 22503373218410496
+    m_Key: blankDescription
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

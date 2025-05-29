@@ -99,7 +99,9 @@ public enum CardType {
     LongDash,
     EssenceReserve,
     EssenceHarvest,
-    WisdomsHold
+    WisdomsHold,
+
+    BlankMemoryCard,
 }
 
 // what to do when play again while already playing

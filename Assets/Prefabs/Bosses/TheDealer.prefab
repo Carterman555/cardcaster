@@ -14868,8 +14868,6 @@ GameObject:
   - component: {fileID: -2277769799398756272}
   - component: {fileID: 6963393436620422442}
   - component: {fileID: -738669564614439550}
-  - component: {fileID: -714925471667397057}
-  - component: {fileID: 7783729541228564949}
   - component: {fileID: -3609037650567583071}
   m_Layer: 7
   m_Name: TheDealer
@@ -15006,19 +15004,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scriptableBoss: {fileID: 11400000, guid: 2b2ac4c601a13e0438d80fa1a277e9a1, type: 2}
   stateDurationsList:
-  - State: 4
+  - State: 2
     Duration:
       MinValue: 2
       MaxValue: 2
+  - State: 3
+    Duration:
+      MinValue: 10
+      MaxValue: 10
+  - State: 4
+    Duration:
+      MinValue: 10
+      MaxValue: 10
   - State: 5
-    Duration:
-      MinValue: 10
-      MaxValue: 10
-  - State: 6
-    Duration:
-      MinValue: 10
-      MaxValue: 10
-  - State: 7
     Duration:
       MinValue: 20
       MaxValue: 20
@@ -15091,6 +15089,31 @@ MonoBehaviour:
       m_TableCollectionName: GUID:e2b89126a54df984f885da2bac4cb92f
     m_TableEntryReference:
       m_KeyId: 4350753709232128
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  fleeDialogs:
+  - m_TableReference:
+      m_TableCollectionName: GUID:e2b89126a54df984f885da2bac4cb92f
+    m_TableEntryReference:
+      m_KeyId: 22530046127140864
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  - m_TableReference:
+      m_TableCollectionName: GUID:e2b89126a54df984f885da2bac4cb92f
+    m_TableEntryReference:
+      m_KeyId: 22530159771807744
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  - m_TableReference:
+      m_TableCollectionName: GUID:e2b89126a54df984f885da2bac4cb92f
+    m_TableEntryReference:
+      m_KeyId: 22530243838242816
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
@@ -15239,57 +15262,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58a0f8acedfc12f43978117cc983373e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &-714925471667397057
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1338195640233062225}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8f1ed07a53aae3c4ea9936ddb76a99aa, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  projectilePrefab: {fileID: 5448188816944050296, guid: dcbf4f21fbb520849bcee5f26125075e, type: 3}
-  shootPoint: {fileID: 7974871295546649947}
-  overrideDamage: 0
-  damage: 0
-  hasShootVariation: 1
-  shootVariation: 20
-  hasShootAnim: 0
-  specialAttack: 0
-  stopAimingOnAnimStart: 0
-  enemyAnim: {fileID: 0}
-  hasWeapon: 0
-  weaponAnim: {fileID: 0}
-  customSFX: 1
-  shootSFX:
-    Clips:
-    - {fileID: 8300000, guid: c8dd825771242bb4da94ccfd3abafbab, type: 3}
-    Volume: 0.2
-    PitchVariation: 0.1
---- !u!114 &7783729541228564949
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1338195640233062225}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f2a1fc403f7bcb24e9580d9e05ee5e89, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  walkClips:
-    Clips:
-    - {fileID: 8300000, guid: 4761f3afb7e86144789cd8fa6f231ff1, type: 3}
-    - {fileID: 8300000, guid: c2645e99858ff294a91003ca135b7370, type: 3}
-    - {fileID: 8300000, guid: 4ae09a6d50beff14ea3fb342690b1889, type: 3}
-    - {fileID: 8300000, guid: 8285606f73c2001488a18f94d14ab962, type: 3}
-    Volume: 0.2
-    PitchVariation: 0.15
-  stepCooldown: 0.4
 --- !u!114 &-3609037650567583071
 MonoBehaviour:
   m_ObjectHideFlags: 0

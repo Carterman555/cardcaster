@@ -14,7 +14,6 @@ public class ScriptableEssenceHarvestCard : ScriptablePersistentCard {
     protected override void Play(Vector2 position) {
         if (CurrentLevel < MaxLevel) {
             TotalDropMult += dropMultPerLevel;
-            Debug.Log("Upgraded: " + TotalDropMult);
         }
 
         base.Play(position);
@@ -23,6 +22,5 @@ public class ScriptableEssenceHarvestCard : ScriptablePersistentCard {
     public override void OnRemoved() {
         base.OnRemoved();
         TotalDropMult -= dropMultPerLevel * CurrentLevel;
-        Debug.Log("Removed: " + TotalDropMult);
     }
 }

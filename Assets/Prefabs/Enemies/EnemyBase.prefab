@@ -179,7 +179,7 @@ MonoBehaviour:
     Volume: 0
     PitchVariation: 0
   increaseHealthPerLevel: 1
-  perLevelProportionToIncrease: 0.25
+  perLevelProportionToIncrease: 0.15
 --- !u!114 &5577381940195422070
 MonoBehaviour:
   m_ObjectHideFlags: 0

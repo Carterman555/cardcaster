@@ -761,6 +761,18 @@ MonoBehaviour:
     m_Localized: '{description}'
     m_Metadata:
       m_Items: []
+  - m_Id: 22530046127140864
+    m_Localized: I was going easy
+    m_Metadata:
+      m_Items: []
+  - m_Id: 22530159771807744
+    m_Localized: "I\u2019ve bled for these decks. You just picked them up."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 22530243838242816
+    m_Localized: "You think this means you\u2019ve won? Cute."
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds:

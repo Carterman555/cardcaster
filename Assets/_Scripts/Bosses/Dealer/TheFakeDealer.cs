@@ -13,9 +13,7 @@ using UnityEngine.Serialization;
 [Serializable]
 public enum FakeDealerState {
     StartingDialog,
-    RealRevealDialog,
-    FakeDeathDialog,
-    RealDeathDialog,
+    FleeDialog,
     BetweenStates,
     Swing,
     Lasers,
@@ -71,7 +69,7 @@ public class TheFakeDealer : MonoBehaviour, IHasEnemyStats, IBoss {
     }
 
     private void OnEnable() {
-        health.DeathEventTrigger.AddListener(OnDeath);
+        health.DeathEventTrigger.AddListener(OnDefeated);
 
         stateTimer = 0f;
         ChangeState(FakeDealerState.StartingDialog);
@@ -80,21 +78,16 @@ public class TheFakeDealer : MonoBehaviour, IHasEnemyStats, IBoss {
 
         StartCoroutine(FadeInRed());
         UpdateVisual();
-
-        // dialog
-        DialogBox.Instance.ShowText(startDialogs.RandomItem());
     }
 
     private void OnDisable() {
-        health.DeathEventTrigger.RemoveListener(OnDeath);
+        health.DeathEventTrigger.RemoveListener(OnDefeated);
     }
 
     private void Update() {
 
         if (currentState == FakeDealerState.StartingDialog ||
-            currentState == FakeDealerState.RealRevealDialog ||
-            currentState == FakeDealerState.FakeDeathDialog ||
-            currentState == FakeDealerState.RealDeathDialog) {
+            currentState == FakeDealerState.FleeDialog) {
 
             HandleDialog();
             return;
@@ -117,26 +110,22 @@ public class TheFakeDealer : MonoBehaviour, IHasEnemyStats, IBoss {
         }
     }
 
-
-
     private void ChangeToRandomState(FakeDealerState stateToAvoid) {
         FakeDealerState[] allStates = Enum.GetValues(typeof(FakeDealerState)) as FakeDealerState[];
         FakeDealerState[] availableStates = allStates.Where(s => s != stateToAvoid && s != FakeDealerState.BetweenStates).ToArray();
         ChangeState(availableStates.RandomItem());
     }
 
-    private void OnDeath() {
-        StartCoroutine(OnDeathCor());
+    private void OnDefeated() {
+        StartCoroutine(OnDefeatCor());
     }
-    private IEnumerator OnDeathCor() {
+    private IEnumerator OnDefeatCor() {
         ChangeState(FakeDealerState.BetweenStates);
 
-        float delay = 1f;
-        yield return new WaitForSeconds(delay);
+        float showFleeDialogDelay = 2f;
+        yield return new WaitForSeconds(showFleeDialogDelay);
 
-        GetComponent<DeathParticles>().GenerateParticles();
-
-        gameObject.ReturnToPool();
+        ChangeState(FakeDealerState.FleeDialog);
     }
 
     private void ChangeState(FakeDealerState newState) {
@@ -153,21 +142,10 @@ public class TheFakeDealer : MonoBehaviour, IHasEnemyStats, IBoss {
             stateDurations[newState].Randomize();
         }
 
-        if (previousState == FakeDealerState.BetweenStates) {
-        }
-        else if (previousState == FakeDealerState.Swing) {
-            chasePlayerBehavior.enabled = false;
-        }
-        else if (previousState == FakeDealerState.Lasers) {
-        }
-        else if (previousState == FakeDealerState.Smashers) {
-            RemoveSmashers();
-        }
-
         if (newState == FakeDealerState.BetweenStates) {
         }
         else if (newState == FakeDealerState.Swing) {
-            EnterSwingState();
+            OnEnterSwingState();
         }
         else if (newState == FakeDealerState.Lasers) {
             StartCoroutine(ShootLasers());
@@ -175,6 +153,19 @@ public class TheFakeDealer : MonoBehaviour, IHasEnemyStats, IBoss {
         else if (newState == FakeDealerState.Smashers) {
             SpawnSmashers();
         }
+
+        if (previousState == FakeDealerState.BetweenStates) {
+        }
+        else if (previousState == FakeDealerState.Swing) {
+            OnExitSwingState();
+        }
+        else if (previousState == FakeDealerState.Lasers) {
+        }
+        else if (previousState == FakeDealerState.Smashers) {
+            RemoveSmashers();
+        }
+
+        OnChangeStateDialog();
     }
 
     #region Swing
@@ -188,8 +179,7 @@ public class TheFakeDealer : MonoBehaviour, IHasEnemyStats, IBoss {
     [SerializeField] private float acceleration;
     [SerializeField] private float swordSwingSpeed;
 
-    private void EnterSwingState() {
-
+    private void OnEnterSwingState() {
         swordRotate.gameObject.SetActive(true);
         swordRotate.enabled = false;
         swordRotate.RotationSpeed = new(0f, 0f, swordSwingSpeed);
@@ -203,10 +193,14 @@ public class TheFakeDealer : MonoBehaviour, IHasEnemyStats, IBoss {
             swordRotate.enabled = true;
         });
 
-
         agent.speed = swingMoveSpeed;
         agent.acceleration = acceleration;
         chasePlayerBehavior.enabled = true;
+    }
+
+    private void OnExitSwingState() {
+        swordRotate.gameObject.SetActive(false);
+        chasePlayerBehavior.enabled = false;
     }
 
     #endregion
@@ -318,22 +312,11 @@ public class TheFakeDealer : MonoBehaviour, IHasEnemyStats, IBoss {
     }
 
     private void UpdateVisual() {
-        bool realDealer = false;
+        sparksFake.gameObject.SetActive(true);
+        sparksReal.gameObject.SetActive(false);
 
-        if (realDealer) {
-            sparksFake.gameObject.SetActive(false);
-            sparksReal.gameObject.SetActive(true);
-
-            var emission = sparksReal.emission;
-            emission.enabled = !inFirstStage;
-        }
-        else {
-            sparksFake.gameObject.SetActive(true);
-            sparksReal.gameObject.SetActive(false);
-
-            var emission = sparksFake.emission;
-            emission.enabled = !inFirstStage;
-        }
+        var emission = sparksFake.emission;
+        emission.enabled = !inFirstStage;
     }
 
     #endregion
@@ -343,9 +326,20 @@ public class TheFakeDealer : MonoBehaviour, IHasEnemyStats, IBoss {
     [Header("Dialog")]
     [SerializeField] private InputActionReference nextDialogInput;
 
-    [FormerlySerializedAs("startDialogs1")]
     [SerializeField] private LocalizedString[] startDialogs;
-    private Queue<LocalizedString> dialogQueue = new();
+    [SerializeField] private LocalizedString[] fleeDialogs;
+
+    private void OnChangeStateDialog() {
+        if (currentState == FakeDealerState.StartingDialog) {
+            DialogBox.Instance.ShowText(startDialogs.RandomItem());
+        }
+        else if (currentState == FakeDealerState.FleeDialog) {
+            DialogBox.Instance.ShowText(fleeDialogs.RandomItem());
+        }
+        else {
+            // not dialog state, so do nothing
+        }
+    }
 
     private void HandleDialog() {
         if (currentState == FakeDealerState.StartingDialog) {
@@ -356,27 +350,61 @@ public class TheFakeDealer : MonoBehaviour, IHasEnemyStats, IBoss {
                 ChangeState(FakeDealerState.BetweenStates);
             }
         }
-        else if (currentState == FakeDealerState.RealRevealDialog) {
+        else if (currentState == FakeDealerState.FleeDialog) {
             if (nextDialogInput.action.WasPerformedThisFrame()) {
-                if (dialogQueue.Count == 0) {
-                    // unpause fight
+                DialogBox.Instance.Hide();
 
-                    ChangeState(FakeDealerState.BetweenStates);
-                }
-                else {
-                    DialogBox.Instance.ShowText(dialogQueue.Dequeue());
-                }
+                StartCoroutine(Flee());
             }
-        }
-        else if (currentState == FakeDealerState.FakeDeathDialog) {
-
-        }
-        else if (currentState == FakeDealerState.RealDeathDialog) {
-
         }
         else {
             Debug.LogError("Trying to handle dialog when dialog state not active!");
         }
+    }
+
+    #endregion
+
+    #region Flee
+
+    [SerializeField] private ParticleSystem fleeParticles;
+
+    [SerializeField] private float fleeStartSpeed;
+    [SerializeField] private float fleeAcceleration;
+    [SerializeField] private float fleeDistance;
+
+    private IEnumerator Flee() {
+
+        float beforeFleeDelay = 1f;
+        yield return new WaitForSeconds(beforeFleeDelay);
+
+        ParticleSystem fleeParticlesInstance = fleeParticles.Spawn(transform.position, Containers.Instance.Effects);
+
+        float fleeSpeed = fleeStartSpeed;
+        float distanceTraveled = 0;
+
+        int iterationCounter = 0;
+        int maxIterations = 1000;
+
+        while (distanceTraveled < fleeDistance) {
+
+            transform.position += Vector3.right * fleeSpeed * Time.deltaTime;
+            distanceTraveled += fleeSpeed * Time.deltaTime;
+
+            fleeSpeed += fleeAcceleration * Time.deltaTime;
+
+            fleeParticlesInstance.transform.position = transform.position;
+
+            iterationCounter++;
+            if (iterationCounter >= maxIterations) {
+                Debug.LogError("Max iterations reached!");
+                break;
+            }
+
+            yield return null;
+        }
+
+        print("done fleeing");
+        gameObject.ReturnToPool();
     }
 
     #endregion

@@ -52,6 +52,7 @@ MonoBehaviour:
   warningTime: 1
   surgeEffect: {fileID: 1516771206507532789}
   cardProjectile: {fileID: 8486744664390337449}
+  damage: 3
 --- !u!114 &3304406962378517718
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -12,6 +12,7 @@ public class CardSurge : MonoBehaviour {
     [Header("Surge Action")]
     [SerializeField] private ParticleSystem surgeEffect;
     [SerializeField] private StraightMovement cardProjectile;
+    [SerializeField] private float damage;
 
     public void Setup(TargetType targetType) {
         SetupPositionAndRotation(targetType);
@@ -65,6 +66,8 @@ public class CardSurge : MonoBehaviour {
 
         Vector2 direction = transform.eulerAngles.z.RotationToDirection();
         cardProjectile.Setup(direction);
+
+        cardProjectile.GetComponent<DamageOnContact>().Setup(damage, knockbackStrength: 1f);
 
         AudioManager.Instance.PlaySound(AudioManager.Instance.AudioClips.DeckOfDoomSurge);
     }

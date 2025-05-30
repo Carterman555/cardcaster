@@ -42,11 +42,12 @@ public class TheFakeDealer : MonoBehaviour, IHasEnemyStats, IBoss {
 
     [SerializeField] private Animator anim;
     private EnemyHealth health;
-    private Rigidbody2D rb;
     private NavMeshAgent agent;
     private ChasePlayerBehavior chasePlayerBehavior;
 
     [SerializeField] private Transform centerPoint;
+
+    private int defeatedAmount;
 
     [Header("Debug")]
     [SerializeField] private bool debugState;
@@ -54,10 +55,16 @@ public class TheFakeDealer : MonoBehaviour, IHasEnemyStats, IBoss {
     [SerializeField] private bool debugStartSecondStage;
 
     private void Awake() {
+
+        defeatedAmount = ES3.Load("DealerDefeatedAmount", 0);
+        if (defeatedAmount >= 4) {
+            GetComponent<TheRealDealer>().enabled = true;
+            enabled = false;
+        }
+
         InitializeDurationDict();
 
         health = GetComponent<EnemyHealth>();
-        rb = GetComponent<Rigidbody2D>();
         agent = GetComponent<NavMeshAgent>();
         chasePlayerBehavior = GetComponent<ChasePlayerBehavior>();
     }
@@ -78,6 +85,11 @@ public class TheFakeDealer : MonoBehaviour, IHasEnemyStats, IBoss {
 
         StartCoroutine(FadeInRed());
         UpdateVisual();
+
+        BossHealthUI.Instance.RemainAtSliver = true;
+
+        //... more bloody the more times he's been defeated
+        anim.SetInteger("defeatedAmount", defeatedAmount);
     }
 
     private void OnDisable() {
@@ -114,18 +126,6 @@ public class TheFakeDealer : MonoBehaviour, IHasEnemyStats, IBoss {
         FakeDealerState[] allStates = Enum.GetValues(typeof(FakeDealerState)) as FakeDealerState[];
         FakeDealerState[] availableStates = allStates.Where(s => s != stateToAvoid && s != FakeDealerState.BetweenStates).ToArray();
         ChangeState(availableStates.RandomItem());
-    }
-
-    private void OnDefeated() {
-        StartCoroutine(OnDefeatCor());
-    }
-    private IEnumerator OnDefeatCor() {
-        ChangeState(FakeDealerState.BetweenStates);
-
-        float showFleeDialogDelay = 2f;
-        yield return new WaitForSeconds(showFleeDialogDelay);
-
-        ChangeState(FakeDealerState.FleeDialog);
     }
 
     private void ChangeState(FakeDealerState newState) {
@@ -166,6 +166,31 @@ public class TheFakeDealer : MonoBehaviour, IHasEnemyStats, IBoss {
         }
 
         OnChangeStateDialog();
+    }
+
+    private void OnDefeated() {
+        StartCoroutine(OnDefeatCor());
+    }
+    private IEnumerator OnDefeatCor() {
+
+        defeatedAmount++;
+        ES3.Save("DealerDefeatedAmount", defeatedAmount);
+
+        Transform projectileContainer = Containers.Instance.Projectiles;
+        foreach (Transform projectile in projectileContainer) {
+            if (projectile.gameObject.activeSelf) {
+                projectile.gameObject.ReturnToPool();
+            }
+        }
+
+        // repeatedly set to between states so doesn't switch to action state
+        int showFleeDialogDelay = 2;
+        for (int i = 0; i < showFleeDialogDelay; i++) {
+            ChangeState(FakeDealerState.BetweenStates);
+            yield return new WaitForSeconds(1f);
+        }
+
+        ChangeState(FakeDealerState.FleeDialog);
     }
 
     #region Swing
@@ -223,9 +248,9 @@ public class TheFakeDealer : MonoBehaviour, IHasEnemyStats, IBoss {
 
         int numOfLasers = inFirstStage ? 2 : 4;
 
-        while (currentState == FakeDealerState.Lasers) {
-            yield return new WaitForSeconds(shootCooldown);
+        yield return new WaitForSeconds(shootCooldown);
 
+        while (currentState == FakeDealerState.Lasers) {
             for (int i = 0; i < numOfLasers; i++) {
                 float rotation = 360f / numOfLasers;
                 Vector2 thisLaserDirection = shootDirection.RotateDirection(i * rotation).normalized;
@@ -240,6 +265,8 @@ public class TheFakeDealer : MonoBehaviour, IHasEnemyStats, IBoss {
                 laserShootParticles.Spawn(shootPos, Containers.Instance.Effects);
             }
             shootDirection.RotateDirection(laserRotateAngle);
+
+            yield return new WaitForSeconds(shootCooldown);
         }
     }
 
@@ -366,11 +393,9 @@ public class TheFakeDealer : MonoBehaviour, IHasEnemyStats, IBoss {
 
     #region Flee
 
+    [Header("Flee")]
     [SerializeField] private ParticleSystem fleeParticles;
-
-    [SerializeField] private float fleeStartSpeed;
-    [SerializeField] private float fleeAcceleration;
-    [SerializeField] private float fleeDistance;
+    [SerializeField] private CardDrop cardDropPrefab;
 
     private IEnumerator Flee() {
 
@@ -378,33 +403,33 @@ public class TheFakeDealer : MonoBehaviour, IHasEnemyStats, IBoss {
         yield return new WaitForSeconds(beforeFleeDelay);
 
         ParticleSystem fleeParticlesInstance = fleeParticles.Spawn(transform.position, Containers.Instance.Effects);
+        fleeParticlesInstance.gameObject.SetActive(true);
 
-        float fleeSpeed = fleeStartSpeed;
-        float distanceTraveled = 0;
+        gameObject.ReturnToPool();
 
-        int iterationCounter = 0;
-        int maxIterations = 1000;
+        CardDrop memoryCard = cardDropPrefab.Spawn(transform.position, Containers.Instance.Drops);
 
-        while (distanceTraveled < fleeDistance) {
-
-            transform.position += Vector3.right * fleeSpeed * Time.deltaTime;
-            distanceTraveled += fleeSpeed * Time.deltaTime;
-
-            fleeSpeed += fleeAcceleration * Time.deltaTime;
-
-            fleeParticlesInstance.transform.position = transform.position;
-
-            iterationCounter++;
-            if (iterationCounter >= maxIterations) {
-                Debug.LogError("Max iterations reached!");
+        CardType cardType = CardType.BlankMemoryCard;
+        switch (defeatedAmount) {
+            case 1:
+                cardType = CardType.BlankMemoryCard;
                 break;
-            }
-
-            yield return null;
+            case 2:
+                cardType = CardType.BlankMemoryCard;
+                break;
+            case 3:
+                cardType = CardType.BlankMemoryCard;
+                break;
+            default:
+                break;
         }
 
-        print("done fleeing");
-        gameObject.ReturnToPool();
+        memoryCard.SetCard(ResourceSystem.Instance.GetCardInstance(cardType));
+    }
+
+    [ContextMenu("ResetDefeatedAmount")]
+    private void ResetDefeatedAmount() {
+        ES3.Save("DealerDefeatedAmount", 0);
     }
 
     #endregion

@@ -706,7 +706,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 4340279236104192
-    m_Localized: "Let\u2019s shuffle fate, shall we?"
+    m_Localized: Let us shuffle fate, shall we?
     m_Metadata:
       m_Items: []
   - m_Id: 4346930253008896
@@ -718,7 +718,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 4350576340504576
-    m_Localized: "Shuffle well. This hand\u2019s your last."
+    m_Localized: Shuffle well. This hand is your last.
     m_Metadata:
       m_Items: []
   - m_Id: 4350753709232128
@@ -766,11 +766,31 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 22530159771807744
-    m_Localized: "I\u2019ve bled for these decks. You just picked them up."
+    m_Localized: I bled for these decks. You just picked them up.
     m_Metadata:
       m_Items: []
   - m_Id: 22530243838242816
-    m_Localized: "You think this means you\u2019ve won? Cute."
+    m_Localized: You think this means you have won? Cute.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 22880694072930304
+    m_Localized: I had nothing once. I wont go back.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 22881057505177600
+    m_Localized: Fine. You want the real game? Lets bleed for it.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 22881141911351296
+    m_Localized: You broke the script. Now I break you.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 22898625666248704
+    m_Localized: Wait. wait. We can reshuffle. One more hand.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 22898761523949568
+    m_Localized: It was never supposed to end. Not like this.
     m_Metadata:
       m_Items: []
   references:

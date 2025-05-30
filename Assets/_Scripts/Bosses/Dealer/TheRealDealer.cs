@@ -6,6 +6,7 @@ using TreeEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Localization;
+using UnityEngine.UI;
 
 [Serializable]
 public enum RealDealerState {
@@ -59,10 +60,18 @@ public class TheRealDealer : MonoBehaviour, IHasEnemyStats, IBoss {
     }
 
     private void OnEnable() {
+
+        int defeatedAmount = ES3.Load("DealerDefeatedAmount", 0);
+        if (defeatedAmount < 3) {
+            enabled = false;
+            return;
+        }
+
         health.DeathEventTrigger.AddListener(OnDefeated);
+        HandCard.OnAnyCardUsed_Card += OnAnyCardUsed;
 
         stateTimer = 0f;
-        //ChangeState(RealDealerState.StartingDialog);
+        ChangeState(RealDealerState.StartingDialog);
 
         inFirstStage = !debugStartSecondStage;
 
@@ -70,13 +79,18 @@ public class TheRealDealer : MonoBehaviour, IHasEnemyStats, IBoss {
         UpdateVisual();
 
         anim.SetInteger("defeatedAmount", 3);
+
+        BecomeInvincible();
     }
 
     private void OnDisable() {
         health.DeathEventTrigger.RemoveListener(OnDefeated);
+        HandCard.OnAnyCardUsed_Card += OnAnyCardUsed;
     }
 
     private void Update() {
+
+        HandleInvincibility();
 
         if (currentState == RealDealerState.StartingDialog ||
             currentState == RealDealerState.DefeatedDialog) {
@@ -144,8 +158,53 @@ public class TheRealDealer : MonoBehaviour, IHasEnemyStats, IBoss {
     }
 
     private void OnDefeated() {
-        //ChangeState(RealDealerState.BetweenStates);
+        ChangeState(RealDealerState.BetweenStates);
     }
+
+    #region Invincibility
+
+    [Header("Invincibility")]
+    [SerializeField] private ParticleSystem invincibilityEffect;
+    [SerializeField] private float invincibilityDuration;
+    private float invincibilityTimer;
+
+    private Invincibility invincibility;
+
+    private void OnAnyCardUsed(ScriptableCardBase usedCard) {
+        if (usedCard.MemoryCard) {
+            RemoveInvincibility();
+        }
+    }
+
+    private void BecomeInvincible() {
+        invincibility = gameObject.AddComponent<Invincibility>();
+        invincibilityEffect.Play();
+        invincibilityEffect.Clear();
+
+        BossHealthUI.Instance.SetInvincible(true);
+    }
+
+    private void RemoveInvincibility() {
+        Destroy(invincibility);
+        invincibilityEffect.Stop();
+        invincibilityEffect.Clear();
+
+        BossHealthUI.Instance.SetInvincible(false);
+
+        invincibilityTimer = 0f;
+    }
+
+    private void HandleInvincibility() {
+        bool isInvincible = invincibility != null;
+        if (!isInvincible) {
+            invincibilityTimer += Time.deltaTime;
+            if (invincibilityTimer > invincibilityDuration) {
+                BecomeInvincible();
+            }
+        }
+    }
+
+    #endregion
 
     #region Visual
 

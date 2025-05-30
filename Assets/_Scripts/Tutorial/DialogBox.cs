@@ -56,7 +56,7 @@ public class DialogBox : MonoBehaviour, IInitializable {
     }
 
     public void Hide() {
-        locText.StringChanged += UpdateText;
+        locText.StringChanged -= UpdateText;
 
         if (gameObject.activeSelf) {
             FeedbackPlayerReference.Play("DialogBox");
@@ -70,6 +70,12 @@ public class DialogBox : MonoBehaviour, IInitializable {
         nextDialogText.text = "[" + inputStr + "]";
         if (!showNextDialogText) {
             nextDialogText.text = "";
+        }
+    }
+
+    private void OnDisable() {
+        if (locText != null) {
+            locText.StringChanged -= UpdateText;
         }
     }
 }

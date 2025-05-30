@@ -743,6 +743,26 @@ MonoBehaviour:
     m_Key: DealerFlee3
     m_Metadata:
       m_Items: []
+  - m_Id: 22880694072930304
+    m_Key: realDealerStart3
+    m_Metadata:
+      m_Items: []
+  - m_Id: 22881057505177600
+    m_Key: realDealerStart1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 22881141911351296
+    m_Key: realDealerStart2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 22898625666248704
+    m_Key: realDealerDefeat1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 22898761523949568
+    m_Key: realDealerDefeat2
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

@@ -1,3 +1,4 @@
+using DG.Tweening;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Localization;
@@ -12,6 +13,9 @@ public class BossHealthUI : StaticInstance<BossHealthUI>, IInitializable {
 
     [SerializeField] private TextMeshProUGUI bossNameText;
     [SerializeField] private Image healthFill;
+
+    [SerializeField] private Color normalColor;
+    [SerializeField] private Color invincibleColor;
 
     private EnemyHealth bossHealth;
 
@@ -51,5 +55,10 @@ public class BossHealthUI : StaticInstance<BossHealthUI>, IInitializable {
         bossNameText.text = bossName.GetLocalizedString();
     }
 
-    
+    public void SetInvincible(bool invincible) {
+        Color newColor = invincible ? invincibleColor : normalColor;
+
+        healthFill.DOKill();
+        healthFill.DOColor(newColor, duration: 0.3f);
+    }
 }

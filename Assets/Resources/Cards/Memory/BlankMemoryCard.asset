@@ -40,8 +40,8 @@ MonoBehaviour:
     m_FallbackState: 0
     m_WaitForCompletion: 0
     m_LocalVariables: []
-  sprite: {fileID: 5324263924718413467, guid: 59975ce93a119e945a78bb5f5587ae1d, type: 3}
-  cost: 1
+  sprite: {fileID: -794553797, guid: d638d131cac6f4d45aeb96fc55848241, type: 3}
+  cost: 0
   rarity: 0
   stackType: 0
   inDemo: 0

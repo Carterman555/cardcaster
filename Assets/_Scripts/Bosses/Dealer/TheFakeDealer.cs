@@ -55,18 +55,11 @@ public class TheFakeDealer : MonoBehaviour, IHasEnemyStats, IBoss {
     [SerializeField] private bool debugStartSecondStage;
 
     private void Awake() {
-
-        defeatedAmount = ES3.Load("DealerDefeatedAmount", 0);
-        if (defeatedAmount >= 4) {
-            GetComponent<TheRealDealer>().enabled = true;
-            enabled = false;
-        }
-
-        InitializeDurationDict();
-
         health = GetComponent<EnemyHealth>();
         agent = GetComponent<NavMeshAgent>();
         chasePlayerBehavior = GetComponent<ChasePlayerBehavior>();
+
+        InitializeDurationDict();
     }
 
     private void InitializeDurationDict() {
@@ -76,6 +69,13 @@ public class TheFakeDealer : MonoBehaviour, IHasEnemyStats, IBoss {
     }
 
     private void OnEnable() {
+
+        defeatedAmount = ES3.Load("DealerDefeatedAmount", 0);
+        if (defeatedAmount >= 3) {
+            enabled = false;
+            return;
+        }
+
         health.DeathEventTrigger.AddListener(OnDefeated);
 
         stateTimer = 0f;

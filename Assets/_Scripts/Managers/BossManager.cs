@@ -13,10 +13,12 @@ public class BossManager : StaticInstance<BossManager> {
     [SerializeField] private MMF_Player enterBossRoomPlayer;
     [SerializeField] private CinemachineVirtualCamera staticCamera;
 
-    private MonoBehaviour boss;
+    private GameObject boss;
     private EnemyHealth bossHealth;
 
     private PlayerHealth playerHealth;
+
+    private bool FightingDealer => GameSceneManager.Instance.Level == 3;
 
     protected override void Awake() {
         base.Awake();
@@ -43,12 +45,11 @@ public class BossManager : StaticInstance<BossManager> {
 
         GameStateManager.Instance.SetGameState(GameState.CutScene);
 
-        ScriptableBoss boss = SpawnBoss(bossRoom.GetBossSpawnPoint().position);
+        ScriptableBoss scriptableBoss = SpawnBoss(bossRoom.GetBossSpawnPoint().position);
 
         staticCamera.transform.position = new Vector3(bossRoom.GetBossSpawnPoint().position.x, bossRoom.GetBossSpawnPoint().position.y, -10f);
 
-        bool versingDealer = boss.Prefab.TryGetComponent(out TheFakeDealer theFakeDealer);
-        enterBossRoomPlayer.GetFeedbackOfType<MMF_HoldingPause>().AutoResume = !versingDealer;
+        enterBossRoomPlayer.GetFeedbackOfType<MMF_HoldingPause>().AutoResume = !FightingDealer;
         enterBossRoomPlayer.Initialization();
         enterBossRoomPlayer.PlayFeedbacks();
 
@@ -66,9 +67,13 @@ public class BossManager : StaticInstance<BossManager> {
         List<ScriptableBoss> possibleBosses = ResourceSystem.Instance.GetBosses(currentLevel);
         ScriptableBoss chosenBoss = possibleBosses.RandomItem();
 
-        GameObject bossObject = chosenBoss.Prefab.Spawn(spawnPoint, Containers.Instance.Enemies);
+        if (!FightingDealer) {
+            MonoBehaviour bossBehavior = chosenBoss.Prefab.GetComponent<IBoss>() as MonoBehaviour;
+            bossBehavior.enabled = false;
+        }
 
-        boss = bossObject.GetComponent<IBoss>() as MonoBehaviour;
+        boss = chosenBoss.Prefab.Spawn(spawnPoint, Containers.Instance.Enemies);
+
         bossHealth = boss.GetComponent<EnemyHealth>();
 
         //... setup the boss health bar
@@ -79,11 +84,14 @@ public class BossManager : StaticInstance<BossManager> {
         return chosenBoss;
     }
 
+    // played by feedback
     public void OnEnterRoomPlayerCompleted() {
         GameStateManager.Instance.SetGameState(GameState.Game);
 
-        //... enable boss
-        boss.enabled = true;
+        if (!FightingDealer) {
+            MonoBehaviour bossBehavior = boss.GetComponent<IBoss>() as MonoBehaviour;
+            bossBehavior.enabled = true;
+        }
     }
 
     private void OnBossDefeated(GameObject bossObject) {
@@ -91,8 +99,6 @@ public class BossManager : StaticInstance<BossManager> {
         if (Helpers.GameStopping()) {
             return;
         }
-
-        boss.enabled = false;
 
         // hide healthbar
         FeedbackPlayerOld.PlayInReverse("BossHealthPopup");

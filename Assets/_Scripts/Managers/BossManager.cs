@@ -8,17 +8,15 @@ public class BossManager : StaticInstance<BossManager> {
 
     public static event Action OnStartBossFight;
     public static event Action OnBossKilled;
+    public static event Action<GameObject> OnBossKilled_Boss;
 
     [SerializeField] private MMF_Player enterBossRoomPlayer;
     [SerializeField] private CinemachineVirtualCamera staticCamera;
-    [SerializeField] private BossHealthUI bossHealthUI;
 
     private MonoBehaviour boss;
     private EnemyHealth bossHealth;
 
     private PlayerHealth playerHealth;
-
-    private Room room;
 
     protected override void Awake() {
         base.Awake();
@@ -34,8 +32,6 @@ public class BossManager : StaticInstance<BossManager> {
     }
 
     private void TryStartBossFight(Room room) {
-        this.room = room;
-
         bool isBossRoom = room.TryGetComponent(out BossRoom bossRoom);
 
         if (isBossRoom && !room.IsRoomCleared) {
@@ -76,7 +72,7 @@ public class BossManager : StaticInstance<BossManager> {
         bossHealth = boss.GetComponent<EnemyHealth>();
 
         //... setup the boss health bar
-        bossHealthUI.Setup(chosenBoss.LocName, bossHealth);
+        BossHealthUI.Instance.Setup(chosenBoss.LocName, bossHealth);
 
         bossHealth.GetComponent<MonoBehaviourEventInvoker>().OnDisabled += OnBossDefeated;
 
@@ -110,6 +106,7 @@ public class BossManager : StaticInstance<BossManager> {
         }
 
         OnBossKilled?.Invoke();
+        OnBossKilled_Boss?.Invoke(bossObject);
     }
 
     private void OnPlayerDefeated() {

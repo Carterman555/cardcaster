@@ -83,9 +83,7 @@ public class GameSceneManager : Singleton<GameSceneManager> {
         Level++;
 
         if (Level > MAX_LEVEL) {
-            OnWinGame?.Invoke();
-            FeedbackPlayerReference.Play("DemoComplete");
-            return;
+            StartGame();
         }
 
         UpdateEnvironmentType();

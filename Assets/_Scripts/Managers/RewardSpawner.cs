@@ -17,7 +17,7 @@ public class RewardSpawner : MonoBehaviour {
 
     private void OnEnable() {
         CheckEnemiesCleared.OnEnemiesCleared += TrySpawnReward;
-        BossManager.OnBossKilled += SpawnBossReward;
+        BossManager.OnBossKilled_Boss += OnBossKilled;
 
         HandCard.OnAnyCardUsed_Card += OnUseCard;
         GameSceneManager.OnStartGameLoadingCompleted += ResetUsedWisdomCard;
@@ -27,7 +27,7 @@ public class RewardSpawner : MonoBehaviour {
 
     private void OnDisable() {
         CheckEnemiesCleared.OnEnemiesCleared -= TrySpawnReward;
-        BossManager.OnBossKilled -= SpawnBossReward;
+        BossManager.OnBossKilled_Boss -= OnBossKilled;
 
         HandCard.OnAnyCardUsed_Card -= OnUseCard;
         GameSceneManager.OnStartGameLoadingCompleted -= ResetUsedWisdomCard;
@@ -86,6 +86,12 @@ public class RewardSpawner : MonoBehaviour {
     [Header("Boss Loot")]
     [SerializeField] private bool bossUnlocksCardIfPossible = true;
     [SerializeField] private CardDrop cardDropPrefab;
+
+    private void OnBossKilled(GameObject boss) {
+        if (!boss.TryGetComponent(out TheFakeDealer theFakeDealer)) {
+            SpawnBossReward();
+        }
+    }
 
     [Command]
     private void SpawnBossReward() {

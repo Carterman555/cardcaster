@@ -1,18 +1,20 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using TreeEditor;
 using UnityEngine;
+using UnityEngine.InputSystem;
+using UnityEngine.Localization;
 
 [Serializable]
 public enum RealDealerState {
     StartingDialog,
-    RealRevealDialog,
-    FakeDeathDialog,
-    RealDeathDialog,
+    DefeatedDialog,
     BetweenStates,
-    Swing,
-    Lasers,
-    Smashers
+    BoomerangSwords,
+    Holograms,
+    CardAttack
 }
 
 [Serializable]
@@ -60,17 +62,85 @@ public class TheRealDealer : MonoBehaviour, IHasEnemyStats, IBoss {
         health.DeathEventTrigger.AddListener(OnDefeated);
 
         stateTimer = 0f;
-        //ChangeState(FakeDealerState.StartingDialog);
+        //ChangeState(RealDealerState.StartingDialog);
 
         inFirstStage = !debugStartSecondStage;
 
+        StartCoroutine(FadeInRed());
+        UpdateVisual();
 
+        anim.SetInteger("defeatedAmount", 3);
     }
 
     private void OnDisable() {
         health.DeathEventTrigger.RemoveListener(OnDefeated);
+    }
 
-        UpdateVisual();
+    private void Update() {
+
+        if (currentState == RealDealerState.StartingDialog ||
+            currentState == RealDealerState.DefeatedDialog) {
+
+            HandleDialog();
+            return;
+        }
+
+        stateTimer += Time.deltaTime;
+        if (stateTimer > stateDurations[currentState].Value) {
+
+            if (currentState == RealDealerState.BetweenStates) {
+                if (!debugState) {
+                    ChangeToRandomState(previousActionState);
+                }
+                else {
+                    ChangeState(stateToDebug);
+                }
+            }
+            else {
+                ChangeState(RealDealerState.BetweenStates);
+            }
+        }
+    }
+
+    private void ChangeToRandomState(RealDealerState stateToAvoid) {
+        RealDealerState[] allStates = Enum.GetValues(typeof(RealDealerState)) as RealDealerState[];
+        RealDealerState[] availableStates = allStates.Where(s => s != stateToAvoid && s != RealDealerState.BetweenStates).ToArray();
+        ChangeState(availableStates.RandomItem());
+    }
+
+    private void ChangeState(RealDealerState newState) {
+
+        RealDealerState previousState = currentState;
+        currentState = newState;
+
+        if (previousState != RealDealerState.BetweenStates) {
+            previousActionState = previousState;
+        }
+
+        stateTimer = 0;
+        if (stateDurations.ContainsKey(newState)) {
+            stateDurations[newState].Randomize();
+        }
+
+        if (newState == RealDealerState.BetweenStates) {
+        }
+        else if (newState == RealDealerState.BoomerangSwords) {
+        }
+        else if (newState == RealDealerState.Holograms) {
+        }
+        else if (newState == RealDealerState.CardAttack) {
+        }
+
+        if (previousState == RealDealerState.BetweenStates) {
+        }
+        else if (previousState == RealDealerState.BoomerangSwords) {
+        }
+        else if (previousState == RealDealerState.Holograms) {
+        }
+        else if (previousState == RealDealerState.CardAttack) {
+        }
+
+        OnChangeStateDialog();
     }
 
     private void OnDefeated() {
@@ -79,8 +149,31 @@ public class TheRealDealer : MonoBehaviour, IHasEnemyStats, IBoss {
 
     #region Visual
 
+    [Header("Visual")]
+    [SerializeField] private Material redMaterial;
+    [SerializeField] private SpriteRenderer visual;
+    private Material redMaterialInstance;
+
     [SerializeField] private ParticleSystem sparksFake;
     [SerializeField] private ParticleSystem sparksReal;
+
+    private IEnumerator FadeInRed() {
+
+        redMaterialInstance = new Material(redMaterial);
+        visual.material = redMaterialInstance;
+
+        float glow = 0f;
+
+        float finalGlow = 2f;
+        float glowFadeSpeed = 2f;
+
+        while (glow < finalGlow) {
+            redMaterialInstance.SetFloat("_ShineGlow", glow);
+            glow += glowFadeSpeed * Time.deltaTime;
+
+            yield return null;
+        }
+    }
 
     private void UpdateVisual() {
         sparksFake.gameObject.SetActive(false);
@@ -88,6 +181,48 @@ public class TheRealDealer : MonoBehaviour, IHasEnemyStats, IBoss {
 
         var emission = sparksReal.emission;
         emission.enabled = !inFirstStage;
+    }
+
+    #endregion
+
+    #region Dialog
+
+    [Header("Dialog")]
+    [SerializeField] private InputActionReference nextDialogInput;
+
+    [SerializeField] private LocalizedString[] startDialogs;
+    [SerializeField] private LocalizedString[] defeatedDialogs;
+
+    private void OnChangeStateDialog() {
+        if (currentState == RealDealerState.StartingDialog) {
+            DialogBox.Instance.ShowText(startDialogs.RandomItem());
+        }
+        else if (currentState == RealDealerState.DefeatedDialog) {
+            DialogBox.Instance.ShowText(defeatedDialogs.RandomItem());
+        }
+        else {
+            // not dialog state, so do nothing
+        }
+    }
+
+    private void HandleDialog() {
+        if (currentState == RealDealerState.StartingDialog) {
+            if (nextDialogInput.action.WasPerformedThisFrame()) {
+                DialogBox.Instance.Hide();
+                BossManager.Instance.ResumeEnterBossPlayer();
+
+                ChangeState(RealDealerState.BetweenStates);
+            }
+        }
+        else if (currentState == RealDealerState.DefeatedDialog) {
+            if (nextDialogInput.action.WasPerformedThisFrame()) {
+                DialogBox.Instance.Hide();
+
+            }
+        }
+        else {
+            Debug.LogError("Trying to handle dialog when dialog state not active!");
+        }
     }
 
     #endregion

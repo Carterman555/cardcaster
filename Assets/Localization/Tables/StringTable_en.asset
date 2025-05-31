@@ -753,6 +753,18 @@ MonoBehaviour:
       to teach you.
     m_Metadata:
       m_Items: []
+  - m_Id: 23214493969313792
+    m_Localized: Display Mode
+    m_Metadata:
+      m_Items: []
+  - m_Id: 23214614501027840
+    m_Localized: Full Screen
+    m_Metadata:
+      m_Items: []
+  - m_Id: 23214678552244224
+    m_Localized: Full Screen Window
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds:

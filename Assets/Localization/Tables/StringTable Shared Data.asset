@@ -761,6 +761,16 @@ MonoBehaviour:
       m_Items: []
   - m_Id: 22898761523949568
     m_Key: realDealerDefeat2
+  - m_Id: 23214493969313792
+    m_Key: displayMode
+    m_Metadata:
+      m_Items: []
+  - m_Id: 23214614501027840
+    m_Key: fullScreen
+    m_Metadata:
+      m_Items: []
+  - m_Id: 23214678552244224
+    m_Key: fullScreenWindow
     m_Metadata:
       m_Items: []
   m_Metadata:

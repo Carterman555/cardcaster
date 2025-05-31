@@ -864,7 +864,7 @@
                 {
                     "name": "ToggleCardPanel",
                     "type": "Button",
-                    "id": "aada29ef-380c-4f31-a5ff-b2234346550d",
+                    "id": "ae4bfbbe-259f-4251-8596-69e7164e0343",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -896,7 +896,18 @@
                 },
                 {
                     "name": "",
-                    "id": "afe3cf86-9de2-474d-ada4-f7241e9bf27c",
+                    "id": "54ff5a2e-52a2-4244-9354-a6a4217d0c7a",
+                    "path": "<Keyboard>/c",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard",
+                    "action": "ToggleCardPanel",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "439d19a2-47f9-406b-8c66-9e78d45bde7d",
                     "path": "<Gamepad>/leftShoulder",
                     "interactions": "",
                     "processors": "",

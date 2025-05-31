@@ -773,6 +773,14 @@ MonoBehaviour:
     m_Key: fullScreenWindow
     m_Metadata:
       m_Items: []
+  - m_Id: 23260224096727040
+    m_Key: accessibility
+    m_Metadata:
+      m_Items: []
+  - m_Id: 23260479190102016
+    m_Key: autoAim
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

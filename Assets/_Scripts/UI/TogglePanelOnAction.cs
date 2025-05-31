@@ -11,7 +11,7 @@ public class TogglePanelOnAction : MonoBehaviour {
 
     private MMF_Player feedbackPlayer;
 
-    [SerializeField] private List<MMF_Player> otherPanelTogglers;
+    [SerializeField] private GameObject[] otherPanels;
 
     private void Awake() {
         feedbackPlayer = GetComponent<MMF_Player>();
@@ -26,7 +26,7 @@ public class TogglePanelOnAction : MonoBehaviour {
 
     private void OnActionPerformed(InputAction.CallbackContext context) {
 
-        if (QuantumConsole.Instance.IsActive) {
+        if (QuantumConsole.Instance != null && QuantumConsole.Instance.IsActive) {
             return;
         }
 
@@ -34,7 +34,7 @@ public class TogglePanelOnAction : MonoBehaviour {
             return;
         }
 
-        if (otherPanelTogglers.Any(p => p.IsPlaying)) {
+        if (otherPanels.Any(p => p.activeSelf)) {
             return;
         }
 

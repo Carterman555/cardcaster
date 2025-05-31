@@ -13014,7 +13014,7 @@ MonoBehaviour:
   - {fileID: 7101461781240542880}
   - {fileID: 3844780734154532936}
   - {fileID: 6746088723039031712}
-  openCardsInput: {fileID: -8803055106376832457, guid: 50afa068aa51bd149a1f3d07794c53d5, type: 3}
+  openCardsInput: {fileID: 5554860697868460990, guid: 50afa068aa51bd149a1f3d07794c53d5, type: 3}
   openMapInput: {fileID: -1888232381002340338, guid: 50afa068aa51bd149a1f3d07794c53d5, type: 3}
   hole: {fileID: 6008340549961921154}
   createHoleParticles: {fileID: 4743211744468039618}

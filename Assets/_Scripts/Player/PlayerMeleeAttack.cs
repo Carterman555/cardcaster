@@ -49,7 +49,7 @@ public class PlayerMeleeAttack : StaticInstance<PlayerMeleeAttack>, ITargetAttac
 
         attackTimer += Time.deltaTime;
         if (!Helpers.IsMouseOverUI() &&
-            attackInput.action.triggered &&
+            attackInput.action.IsPressed() &&
             !AttackDisabled() &&
             PlayerMovement.Instance.DashingTimeRemaining < dashRemainingThreshold &&
             !attackBuffered) {

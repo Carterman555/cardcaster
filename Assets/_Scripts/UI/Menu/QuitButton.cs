@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.Localization;
+using UnityEngine.UI;
 
 public class QuitButton : GameButton {
 
@@ -11,7 +12,7 @@ public class QuitButton : GameButton {
     protected override void OnClick() {
         base.OnClick();
 
-        warningPopup.Setup(locWarning, canvasGroupToDisable);
+        warningPopup.Setup(locWarning, canvasGroupToDisable, GetComponent<Button>());
         warningPopup.OnAccepted += Quit;
     }
 

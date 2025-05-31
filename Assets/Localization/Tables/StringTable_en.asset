@@ -765,6 +765,14 @@ MonoBehaviour:
     m_Localized: Full Screen Window
     m_Metadata:
       m_Items: []
+  - m_Id: 23260224096727040
+    m_Localized: Accessibility
+    m_Metadata:
+      m_Items: []
+  - m_Id: 23260479190102016
+    m_Localized: Auto Aim
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds:

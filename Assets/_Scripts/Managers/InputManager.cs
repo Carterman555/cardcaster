@@ -1,4 +1,5 @@
-﻿using System;
+﻿using QFSW.QC;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -19,6 +20,8 @@ public class InputManager : Singleton<InputManager> {
 
         playerInput.deviceLostEvent.AddListener(TryPauseGame);
         playerInput.deviceRegainedEvent.AddListener(TryUnpauseGame);
+
+        UpdateGlobalActionMap(SceneManager.GetActiveScene(), LoadSceneMode.Single);
     }
 
     private void OnDisable() {
@@ -86,14 +89,16 @@ public class InputManager : Singleton<InputManager> {
         bool anyUIActive = actionMapUpdaters.Any(u => u.isActiveAndEnabled);
 
         if (anyUIActive) {
-            if (playerInput.currentActionMap.name != "UI") {
-                playerInput.SwitchCurrentActionMap("UI");
+            if (playerInput.actions.FindActionMap("Gameplay").enabled) {
+                playerInput.actions.FindActionMap("UI").Enable();
+                playerInput.actions.FindActionMap("Gameplay").Disable();
                 OnActionMapChanged?.Invoke("UI");
             }
         }
         else {
-            if (playerInput.currentActionMap.name != "Gameplay") {
-                playerInput.SwitchCurrentActionMap("Gameplay");
+            if (playerInput.actions.FindActionMap("UI").enabled) {
+                playerInput.actions.FindActionMap("Gameplay").Enable();
+                playerInput.actions.FindActionMap("UI").Disable();
                 OnActionMapChanged?.Invoke("Gameplay");
             }
         }
@@ -106,6 +111,13 @@ public class InputManager : Singleton<InputManager> {
         }
         else if (scene.name == "Menu") {
             playerInput.actions.FindActionMap("GameGlobal").Disable();
+        }
+    }
+
+    [Command, ContextMenu("Print active maps")]
+    private void PrintActiveMaps() {
+        foreach (var map in playerInput.actions.actionMaps) {
+            print($"{map.enabled}: {map.name}");
         }
     }
 

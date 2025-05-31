@@ -1,7 +1,12 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Visual/Animations/Units/Dealer.meta
 guid: ea31c088ade093946b790c2734855f24
 folderAsset: yes
 DefaultImporter:
+========
+guid: c7a1058c769b2f24eb7181c054340a94
+TextScriptImporter:
+>>>>>>>> 1cdfed9a (Shared - fix bugs):Assets/Localization/AddressableAssetsData/link.xml.meta
   externalObjects: {}
   userData: 
   assetBundleName: 

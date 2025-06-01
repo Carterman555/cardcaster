@@ -1,5 +1,3 @@
-using UnityEngine;
-
 public class PlayGameButton : GameButton {
 
     protected override void OnClick() {

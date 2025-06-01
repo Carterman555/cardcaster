@@ -743,6 +743,10 @@ MonoBehaviour:
     m_Key: autoAim
     m_Metadata:
       m_Items: []
+  - m_Id: 23605333623468032
+    m_Key: applyBindings
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

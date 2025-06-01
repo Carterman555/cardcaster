@@ -67,6 +67,10 @@ public class InputManager : Singleton<InputManager> {
     private void InvokeControlSchemeChangedEvent(PlayerInput playerInput) {
         if (GetControlScheme() == ControlSchemeType.Keyboard) {
             EventSystem.current.SetSelectedGameObject(null);
+            Cursor.visible = true;
+        }
+        else if (GetControlScheme() == ControlSchemeType.Controller) {
+            Cursor.visible = false;
         }
 
         if (GetControlScheme() != currentControlScheme) {
@@ -255,7 +259,6 @@ public class InputManager : Singleton<InputManager> {
 
     #endregion
 
-
     #region Controller Disconnect Pause
 
     private bool pausedFromDisconnect;
@@ -276,6 +279,31 @@ public class InputManager : Singleton<InputManager> {
     }
 
     #endregion
+
+    [Command, ContextMenu("Print All Gamepad Controls")]
+    private void PrintAllGamepadControls() {
+        foreach (var control in Gamepad.current.allControls) {
+            Debug.Log(control.ReadValueAsObject());
+        }
+    }
+
+    [Command, ContextMenu("Print Binding Groups")]
+    private void PrintBindingGroups() {
+        foreach (var action in playerInput.actions) {
+            foreach (var binding in action.bindings) {
+                print($"{binding.ToDisplayString()}, groups: {binding.groups.ToString()}");
+            }
+        }
+    }
+
+    [Command, ContextMenu("Print All Effective Paths")]
+    private void PrintBindingEffectivePath() {
+        foreach (var action in playerInput.actions) {
+            foreach (var binding in action.bindings) {
+                print($"{binding.effectivePath}");
+            }
+        }
+    }
 }
 
 public enum ControlSchemeType {

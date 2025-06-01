@@ -811,6 +811,10 @@ MonoBehaviour:
     m_Localized: Auto Aim
     m_Metadata:
       m_Items: []
+  - m_Id: 23605333623468032
+    m_Localized: Apply Bindings
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds:

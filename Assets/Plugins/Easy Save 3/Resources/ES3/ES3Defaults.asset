@@ -54,7 +54,6 @@ MonoBehaviour:
     - QFSW.QC.Serializers
     - QFSW.QC.Suggestors
     - QFSW.QC.UI
-    - Unity.InputSystem.RebindingUI
     showAdvancedSettings: 1
   addMgrToSceneAutomatically: 0
   autoUpdateReferences: 1

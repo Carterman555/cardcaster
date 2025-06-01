@@ -1,6 +1,8 @@
 using UnityEngine;
 using UnityEngine.Localization.Settings;
 using TMPro;
+using UnityEngine.Localization;
+using UnityEngine.Localization.Tables;
 
 public class BindingInputLocalization : MonoBehaviour {
 
@@ -25,10 +27,16 @@ public class BindingInputLocalization : MonoBehaviour {
     private void UpdateText() {
         bool inChinese = LocalizationSettings.SelectedLocale.Identifier.Code == "zh-Hans";
         if (inChinese) {
-            // Runtime approach to get the localized string
-            var localizedString = LocalizationSettings.StringDatabase.GetLocalizedString("StringTable", text.text);
-            if (!string.IsNullOrEmpty(localizedString)) {
-                text.text = localizedString;
+
+            var stringTable = LocalizationSettings.StringDatabase.GetTable("StringTable");
+            if (stringTable == null) {
+                Debug.LogError($"String table not found.");
+                return;
+            }
+
+            var entry = stringTable.GetEntry(text.text);
+            if (entry != null) {
+                text.text = entry.LocalizedValue;
             }
         }
         inputStr = text.text;

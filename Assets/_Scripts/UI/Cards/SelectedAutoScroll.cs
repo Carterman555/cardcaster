@@ -1,3 +1,4 @@
+using System.Linq;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -7,6 +8,8 @@ public class SelectedAutoScroll : MonoBehaviour
     [SerializeField] private RectTransform content;
 
     [SerializeField] private float spacing = 30f;
+
+    [SerializeField] private GameObject[] objectsToIgnore;
 
     private void OnEnable() {
         InputManager.OnSelectedChanged += UpdateScroll;
@@ -18,7 +21,7 @@ public class SelectedAutoScroll : MonoBehaviour
 
     private void UpdateScroll(GameObject selectedObject) {
         if (InputManager.Instance.GetControlScheme() == ControlSchemeType.Controller) {
-            if (selectedObject != null) {
+            if (selectedObject != null && !objectsToIgnore.Contains(selectedObject)) {
                 HandleScrollDown();
                 HandleScrollUp();
             }

@@ -23,6 +23,8 @@ public class PlayerMeleeAttack : StaticInstance<PlayerMeleeAttack>, ITargetAttac
 
     private float attackTimer;
 
+    [SerializeField] private TriggerContactTracker autoAttackTracker;
+
     private PlayerStats Stats => StatsManager.PlayerStats;
 
     private float GetAttackRadius() {
@@ -47,9 +49,12 @@ public class PlayerMeleeAttack : StaticInstance<PlayerMeleeAttack>, ITargetAttac
         //... can attack if almost done dashing
         float dashRemainingThreshold = 0.1f;
 
+        bool autoAttacking = SettingsManager.CurrentSettings.AutoAttack && autoAttackTracker.HasContact();
+        bool attemptingAttack = attackInput.action.IsPressed() || autoAttacking;
+
         attackTimer += Time.deltaTime;
         if (!Helpers.IsMouseOverUI() &&
-            attackInput.action.IsPressed() &&
+            attemptingAttack &&
             !AttackDisabled() &&
             PlayerMovement.Instance.DashingTimeRemaining < dashRemainingThreshold &&
             !attackBuffered) {
@@ -176,12 +181,12 @@ public class PlayerMeleeAttack : StaticInstance<PlayerMeleeAttack>, ITargetAttac
 
     [SerializeField] private InputActionReference aimSwordAction;
 
-    private Vector2 lastAimDirection; // that is not Vector2.zero
+    private Vector2 lastControllerAimDirection; // that is not Vector2.zero
 
     private void HandleAttackDirection() {
-        Vector2 aimDirection = aimSwordAction.action.ReadValue<Vector2>().normalized;
-        if (aimDirection != Vector2.zero) {
-            lastAimDirection = aimDirection;
+        Vector2 controllerAimDirection = aimSwordAction.action.ReadValue<Vector2>().normalized;
+        if (controllerAimDirection != Vector2.zero) {
+            lastControllerAimDirection = controllerAimDirection;
         }
 
         weapon.SetAttackDirection(GetAttackDirection());
@@ -189,11 +194,25 @@ public class PlayerMeleeAttack : StaticInstance<PlayerMeleeAttack>, ITargetAttac
 
     // aim the sword towards the mouse or with right joystick
     public Vector2 GetAttackDirection() {
+
+        if (SettingsManager.CurrentSettings.AutoAim) {
+            Transform[] enemies = Containers.Instance.Enemies
+                .GetComponentsInChildren<Transform>()
+                .Skip(1) // skip Containers.Instance.Enemies
+                .ToArray();
+
+            if (enemies.Length > 0) {
+                Vector2[] enemyDirections = enemies.Select(e => (Vector2)(e.transform.position - PlayerMovement.Instance.CenterPos)).ToArray();
+                Vector2 closestEnemyDirection = enemyDirections.OrderBy(d => (d.x * d.x) + (d.y * d.y)).FirstOrDefault();
+                return closestEnemyDirection.normalized;
+            }
+        }
+
         if (InputManager.Instance.GetControlScheme() == ControlSchemeType.Keyboard) {
             return MouseTracker.Instance.ToMouseDirection(PlayerMovement.Instance.CenterPos).normalized;
         }
         else if (InputManager.Instance.GetControlScheme() == ControlSchemeType.Controller) {
-            return lastAimDirection;
+            return lastControllerAimDirection;
         }
 
         Debug.LogError($"ControlSchemeType not found: {InputManager.Instance.GetControlScheme()}!");

@@ -60,7 +60,7 @@ public class TheRealDealer : MonoBehaviour, IHasEnemyStats, IBoss {
 
     private void OnEnable() {
 
-        int defeatedAmount = ES3.Load("DealerDefeatedAmount", 0);
+        int defeatedAmount = ES3.Load("DealerDefeatedAmount", 0, ES3EncryptionMigration.GetES3Settings());
         if (defeatedAmount < 3) {
             enabled = false;
             return;

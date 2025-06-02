@@ -70,7 +70,7 @@ public class TheFakeDealer : MonoBehaviour, IHasEnemyStats, IBoss {
 
     private void OnEnable() {
 
-        defeatedAmount = ES3.Load("DealerDefeatedAmount", 0);
+        defeatedAmount = ES3.Load("DealerDefeatedAmount", 0, ES3EncryptionMigration.GetES3Settings());
         if (defeatedAmount >= 3) {
             enabled = false;
             return;
@@ -174,7 +174,7 @@ public class TheFakeDealer : MonoBehaviour, IHasEnemyStats, IBoss {
     private IEnumerator OnDefeatCor() {
 
         defeatedAmount++;
-        ES3.Save("DealerDefeatedAmount", defeatedAmount);
+        ES3.Save("DealerDefeatedAmount", defeatedAmount, ES3EncryptionMigration.GetES3Settings());
 
         Transform projectileContainer = Containers.Instance.Projectiles;
         foreach (Transform projectile in projectileContainer) {
@@ -429,7 +429,7 @@ public class TheFakeDealer : MonoBehaviour, IHasEnemyStats, IBoss {
 
     [ContextMenu("ResetDefeatedAmount")]
     private void ResetDefeatedAmount() {
-        ES3.Save("DealerDefeatedAmount", 0);
+        ES3.Save("DealerDefeatedAmount", 0, ES3EncryptionMigration.GetES3Settings());
     }
 
     #endregion

@@ -47,8 +47,8 @@ public class SettingsManager : MonoBehaviour, IInitializable {
         public float UIVolume = 0.5f;
         public float MusicVolume = 0.5f;
 
-        public bool autoAttack = false;
-        public bool autoAim = false;
+        public bool AutoAttack = false;
+        public bool AutoAim = false;
     }
 
     public static GameSettings CurrentSettings;
@@ -99,8 +99,8 @@ public class SettingsManager : MonoBehaviour, IInitializable {
         UIVolumeSlider.value = CurrentSettings.UIVolume;
         musicVolumeSlider.value = CurrentSettings.MusicVolume;
 
-        autoAttackToggle.isOn = CurrentSettings.autoAttack;
-        autoAimToggle.isOn = CurrentSettings.autoAim;
+        autoAttackToggle.isOn = CurrentSettings.AutoAttack;
+        autoAimToggle.isOn = CurrentSettings.AutoAim;
 
         UpdateFullScreenModeDropdown();
         UpdateResolutionDropdown();
@@ -216,12 +216,12 @@ public class SettingsManager : MonoBehaviour, IInitializable {
     }
 
     public void OnAutoAttackToggled(bool active) {
-        CurrentSettings.autoAttack = active;
+        CurrentSettings.AutoAttack = active;
         OnSettingsChanged?.Invoke();
     }
 
     public void OnAutoAimToggled(bool active) {
-        CurrentSettings.autoAim = active;
+        CurrentSettings.AutoAim = active;
         OnSettingsChanged?.Invoke();
     }
 
@@ -257,8 +257,8 @@ public class SettingsManager : MonoBehaviour, IInitializable {
         PlayerPrefs.SetFloat("UIVolume", CurrentSettings.UIVolume);
         PlayerPrefs.SetFloat("MusicVolume", CurrentSettings.MusicVolume);
 
-        PlayerPrefs.SetInt("autoAttack", CurrentSettings.autoAttack ? 1 : 0); // use 0 as false and 1 as true
-        PlayerPrefs.SetInt("autoAim", CurrentSettings.autoAim ? 1 : 0); // use 0 as false and 1 as true
+        PlayerPrefs.SetInt("autoAttack", CurrentSettings.AutoAttack ? 1 : 0); // use 0 as false and 1 as true
+        PlayerPrefs.SetInt("autoAim", CurrentSettings.AutoAim ? 1 : 0); // use 0 as false and 1 as true
     }
 
     private void LoadSettings() {
@@ -277,8 +277,8 @@ public class SettingsManager : MonoBehaviour, IInitializable {
         CurrentSettings.UIVolume = PlayerPrefs.GetFloat("UIVolume", CurrentSettings.UIVolume);
         CurrentSettings.MusicVolume = PlayerPrefs.GetFloat("MusicVolume", CurrentSettings.MusicVolume);
 
-        CurrentSettings.autoAttack = PlayerPrefs.GetInt("autoAttack", CurrentSettings.autoAttack ? 1 : 0) == 1; // use 0 as false and 1 as true
-        CurrentSettings.autoAim = PlayerPrefs.GetInt("autoAim", CurrentSettings.autoAim ? 1 : 0) == 1; // use 0 as false and 1 as true
+        CurrentSettings.AutoAttack = PlayerPrefs.GetInt("autoAttack", CurrentSettings.AutoAttack ? 1 : 0) == 1; // use 0 as false and 1 as true
+        CurrentSettings.AutoAim = PlayerPrefs.GetInt("autoAim", CurrentSettings.AutoAim ? 1 : 0) == 1; // use 0 as false and 1 as true
     }
 
     private IEnumerator LoadLanguage() {

@@ -815,6 +815,10 @@ MonoBehaviour:
     m_Localized: Apply Bindings
     m_Metadata:
       m_Items: []
+  - m_Id: 23954288949489664
+    m_Localized: Auto Attack
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds:

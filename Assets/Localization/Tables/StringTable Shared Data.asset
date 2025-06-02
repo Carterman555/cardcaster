@@ -787,6 +787,10 @@ MonoBehaviour:
     m_Key: applyBindings
     m_Metadata:
       m_Items: []
+  - m_Id: 23954288949489664
+    m_Key: autoAttack
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

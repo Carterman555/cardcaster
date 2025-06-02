@@ -7967,7 +7967,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 786861982741797967, guid: a33bbb4b8c944d2419816025a3c2e3cf, type: 3}
       propertyPath: m_text
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1076470667226628001, guid: a33bbb4b8c944d2419816025a3c2e3cf, type: 3}
       propertyPath: m_AnchorMax.y
@@ -7987,7 +7987,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1135399437141092081, guid: a33bbb4b8c944d2419816025a3c2e3cf, type: 3}
       propertyPath: m_text
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1906070958378442979, guid: a33bbb4b8c944d2419816025a3c2e3cf, type: 3}
       propertyPath: m_AnchorMax.y
@@ -9296,7 +9296,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8858319129874807776, guid: a9c81260bbd65b44885bedcd14bd1063, type: 3}
       propertyPath: m_StringReference.m_TableEntryReference.m_KeyId
-      value: 23260479190102016
+      value: 23954288949489664
       objectReference: {fileID: 0}
     - target: {fileID: 8858319129874807776, guid: a9c81260bbd65b44885bedcd14bd1063, type: 3}
       propertyPath: m_UpdateString.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName

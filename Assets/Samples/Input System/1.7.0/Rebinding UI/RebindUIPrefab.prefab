@@ -146,7 +146,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d9b6e2d632e03543833ffcc8a21a03c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playClickSFX: 0
+  playClickSFX: 1
   customClickSFX: 0
   clickSFX:
     Clips: []
@@ -1059,7 +1059,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d9b6e2d632e03543833ffcc8a21a03c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playClickSFX: 0
+  playClickSFX: 1
   customClickSFX: 0
   clickSFX:
     Clips: []

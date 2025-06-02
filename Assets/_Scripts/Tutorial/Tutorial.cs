@@ -171,8 +171,6 @@ public class Tutorial : MonoBehaviour {
         bool noMoreSteps = currentStepIndex >= tutorialSteps.Length;
         if (noMoreSteps) {
             tutorialActive = false;
-            ES3.Save("TutorialCompleted", true);
-
             return;
         }
 

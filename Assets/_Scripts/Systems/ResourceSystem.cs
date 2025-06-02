@@ -45,7 +45,7 @@ public class ResourceSystem : Singleton<ResourceSystem> {
     public void UpdateUnlockedCards() {
         // convert to card type list in order to load and save the cards
         List<CardType> defaultUnlockedCards = AllCards.Where(c => c.StartUnlocked).Select(c => c.CardType).ToList();
-        UnlockedCards = ES3.Load("UnlockedCardTypes", defaultUnlockedCards);
+        UnlockedCards = ES3.Load("UnlockedCardTypes", defaultUnlockedCards, ES3EncryptionMigration.GetES3Settings());
     }
 
     public ScriptableLevelLayout GetRandomLayout() => LevelLayouts.RandomItem();
@@ -140,6 +140,6 @@ public class ResourceSystem : Singleton<ResourceSystem> {
         base.OnApplicationQuit();
 
         //... convert to card type list in order to load and save the cards
-        ES3.Save("UnlockedCardTypes", UnlockedCards);
+        ES3.Save("UnlockedCardTypes", UnlockedCards, ES3EncryptionMigration.GetES3Settings());
     }
 }

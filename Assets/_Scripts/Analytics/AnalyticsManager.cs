@@ -42,8 +42,6 @@ public class AnalyticsManager : MonoBehaviour {
         Room.OnAnyRoomEnter_Room += OnRoomEnter;
         CheckEnemiesCleared.OnEnemiesCleared += RecordRoomEndEvent;
         playerHealth.DeathEventTrigger.AddListener(RecordRoomEndEvent);
-
-        GameSceneManager.OnWinGame += RecordCompleteGameEvent;
     }
 
     private void OnDisable() {
@@ -63,8 +61,6 @@ public class AnalyticsManager : MonoBehaviour {
         Room.OnAnyRoomEnter_Room -= OnRoomEnter;
         CheckEnemiesCleared.OnEnemiesCleared -= RecordRoomEndEvent;
         playerHealth.DeathEventTrigger.RemoveListener(RecordRoomEndEvent);
-
-        GameSceneManager.OnWinGame -= RecordCompleteGameEvent;
     }
 
     [SerializeField] private bool playInEditor = false;
@@ -127,16 +123,6 @@ public class AnalyticsManager : MonoBehaviour {
 
         AnalyticsService.Instance.RecordEvent(roomEndEvent);
         if (debug) print($"Record room end: Room = {Room.GetCurrentRoom().name} Time = {Time.time - timeAtRoomEnter}, Health lost = {healthAtRoomEnter - playerHealth.CurrentHealth}, Survived = {!playerHealth.Dead}");
-    }
-
-
-    private void RecordCompleteGameEvent() {
-        CompleteGameEvent completeGameEvent = new() {
-            TimeToComplete = GameTime
-        };
-
-        AnalyticsService.Instance.RecordEvent(completeGameEvent);
-        if (debug) print($"Record game complete: {GameTime}");
     }
 
     #endregion

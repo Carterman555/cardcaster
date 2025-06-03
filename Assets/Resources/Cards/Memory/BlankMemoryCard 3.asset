@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b7dfdf002caf17848b25cd4a04c37ef2, type: 3}
-  m_Name: BlankMemoryCard
+  m_Name: BlankMemoryCard 3
   m_EditorClassIdentifier: 
-  cardType: 33
+  cardType: 35
   locName:
     m_TableReference:
       m_TableCollectionName: GUID:e2b89126a54df984f885da2bac4cb92f
@@ -35,7 +35,7 @@ MonoBehaviour:
     m_TableReference:
       m_TableCollectionName: GUID:e2b89126a54df984f885da2bac4cb92f
     m_TableEntryReference:
-      m_KeyId: 22503373218410496
+      m_KeyId: 24311558740799488
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
@@ -44,7 +44,6 @@ MonoBehaviour:
   cost: 0
   rarity: 0
   stackType: 0
-  inDemo: 0
   startUnlocked: 1
   unlockLevel: 1
   memoryCard: 1

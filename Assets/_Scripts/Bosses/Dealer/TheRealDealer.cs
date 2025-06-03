@@ -1,3 +1,4 @@
+using QFSW.QC;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -41,6 +42,8 @@ public class TheRealDealer : MonoBehaviour, IHasEnemyStats, IBoss {
     [SerializeField] private Animator anim;
     private EnemyHealth health;
 
+    private SpawnBlankMemoryCards spawnBlankMemoryCards;
+
     [Header("Debug")]
     [SerializeField] private bool debugState;
     [ConditionalHide("debugState")][SerializeField] private RealDealerState stateToDebug;
@@ -50,6 +53,7 @@ public class TheRealDealer : MonoBehaviour, IHasEnemyStats, IBoss {
         InitializeDurationDict();
 
         health = GetComponent<EnemyHealth>();
+        spawnBlankMemoryCards = GetComponent<SpawnBlankMemoryCards>();
     }
 
     private void InitializeDurationDict() {
@@ -80,6 +84,8 @@ public class TheRealDealer : MonoBehaviour, IHasEnemyStats, IBoss {
         anim.SetInteger("defeatedAmount", 3);
 
         BecomeInvincible();
+
+        spawnBlankMemoryCards.enabled = false;
     }
 
     private void OnDisable() {
@@ -116,8 +122,12 @@ public class TheRealDealer : MonoBehaviour, IHasEnemyStats, IBoss {
     }
 
     private void ChangeToRandomState(RealDealerState stateToAvoid) {
-        RealDealerState[] allStates = Enum.GetValues(typeof(RealDealerState)) as RealDealerState[];
-        RealDealerState[] availableStates = allStates.Where(s => s != stateToAvoid && s != RealDealerState.BetweenStates).ToArray();
+        RealDealerState[] actionStates = new RealDealerState[] { 
+            RealDealerState.BoomerangSwords,
+            RealDealerState.Holograms,
+            RealDealerState.CardAttack
+        };
+        RealDealerState[] availableStates = actionStates.Where(s => s != stateToAvoid).ToArray();
         ChangeState(availableStates.RandomItem());
     }
 
@@ -158,6 +168,7 @@ public class TheRealDealer : MonoBehaviour, IHasEnemyStats, IBoss {
 
     private void OnDefeated() {
         ChangeState(RealDealerState.BetweenStates);
+        spawnBlankMemoryCards.enabled = true;
     }
 
     #region Invincibility
@@ -270,6 +281,7 @@ public class TheRealDealer : MonoBehaviour, IHasEnemyStats, IBoss {
                 BossManager.Instance.ResumeEnterBossPlayer();
 
                 ChangeState(RealDealerState.BetweenStates);
+                spawnBlankMemoryCards.enabled = true;
             }
         }
         else if (currentState == RealDealerState.DefeatedDialog) {

@@ -14861,6 +14861,7 @@ GameObject:
   - component: {fileID: 1084650041739746032}
   - component: {fileID: 3268686136608364858}
   - component: {fileID: 4289147054109515426}
+  - component: {fileID: 4618278523374216532}
   - component: {fileID: 7842081825320602579}
   - component: {fileID: 3351410608047035514}
   - component: {fileID: 1767139438961328018}
@@ -15210,6 +15211,23 @@ MonoBehaviour:
   references:
     version: 2
     RefIds: []
+--- !u!114 &4618278523374216532
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1338195640233062225}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 95d76e504c4f22a449f627371acbc28e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  blankMemoryCardPrefab: {fileID: 617059064214003595, guid: 9a747fdf3408dea429e9a3a6489e8f10, type: 3}
+  spawnCooldown:
+    MinValue: 10
+    MaxValue: 15
+  amountToSpawn: 10
 --- !u!114 &7842081825320602579
 MonoBehaviour:
   m_ObjectHideFlags: 0

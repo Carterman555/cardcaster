@@ -728,7 +728,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 22503373218410496
-    m_Key: blankDescription
+    m_Key: memoryDescription1
     m_Metadata:
       m_Items: []
   - m_Id: 22530046127140864
@@ -789,6 +789,42 @@ MonoBehaviour:
       m_Items: []
   - m_Id: 23954288949489664
     m_Key: autoAttack
+    m_Metadata:
+      m_Items: []
+  - m_Id: 24311338451759104
+    m_Key: memoryDescription2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 24311558740799488
+    m_Key: memoryDescription3
+    m_Metadata:
+      m_Items: []
+  - m_Id: 24311777410838528
+    m_Key: memoryDescription4
+    m_Metadata:
+      m_Items: []
+  - m_Id: 24311860952985600
+    m_Key: memoryDescription5
+    m_Metadata:
+      m_Items: []
+  - m_Id: 24312162410196992
+    m_Key: memoryDescription6
+    m_Metadata:
+      m_Items: []
+  - m_Id: 24312268337344512
+    m_Key: memoryDescription7
+    m_Metadata:
+      m_Items: []
+  - m_Id: 24312354156998656
+    m_Key: memoryDescription8
+    m_Metadata:
+      m_Items: []
+  - m_Id: 24312472625115136
+    m_Key: memoryDescription9
+    m_Metadata:
+      m_Items: []
+  - m_Id: 24312530883997696
+    m_Key: memoryDescription10
     m_Metadata:
       m_Items: []
   m_Metadata:

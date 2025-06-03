@@ -236,7 +236,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 728378430197760
-    m_Localized: Increase hand size by 1 (Keeps increase when this is trashed)
+    m_Localized: Increase hand size by 1
     m_Metadata:
       m_Items: []
   - m_Id: 731446701985792
@@ -706,7 +706,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 4340279236104192
-    m_Localized: Let us shuffle fate, shall we?
+    m_Localized: Let's shuffle fate, shall we?
     m_Metadata:
       m_Items: []
   - m_Id: 4346930253008896
@@ -718,7 +718,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 4350576340504576
-    m_Localized: Shuffle well. This hand is your last.
+    m_Localized: Shuffle well. This hand's your last.
     m_Metadata:
       m_Items: []
   - m_Id: 4350753709232128
@@ -758,7 +758,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 22503373218410496
-    m_Localized: '{description}'
+    m_Localized: A boy practices card tricks alone while distant voices echo
     m_Metadata:
       m_Items: []
   - m_Id: 22530046127140864
@@ -770,15 +770,15 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 22530243838242816
-    m_Localized: You think this means you have won? Cute.
+    m_Localized: You think this means you've won? Cute.
     m_Metadata:
       m_Items: []
   - m_Id: 22880694072930304
-    m_Localized: I had nothing once. I wont go back.
+    m_Localized: I had nothing once. I won't go back.
     m_Metadata:
       m_Items: []
   - m_Id: 22881057505177600
-    m_Localized: Fine. You want the real game? Lets bleed for it.
+    m_Localized: Fine. You want the real game? Let's bleed for it.
     m_Metadata:
       m_Items: []
   - m_Id: 22881141911351296
@@ -791,6 +791,8 @@ MonoBehaviour:
       m_Items: []
   - m_Id: 22898761523949568
     m_Localized: It was never supposed to end. Not like this.
+    m_Metadata:
+      m_Items: []
   - m_Id: 23214493969313792
     m_Localized: Display Mode
     m_Metadata:
@@ -817,6 +819,42 @@ MonoBehaviour:
       m_Items: []
   - m_Id: 23954288949489664
     m_Localized: Auto Attack
+    m_Metadata:
+      m_Items: []
+  - m_Id: 24311338451759104
+    m_Localized: Father's seat remains vacant at the dinner table again tonight
+    m_Metadata:
+      m_Items: []
+  - m_Id: 24311558740799488
+    m_Localized: Half-burned parchment with words "disappointment" still visible
+    m_Metadata:
+      m_Items: []
+  - m_Id: 24311777410838528
+    m_Localized: Small hands casting card shapes on the wall by candlelight
+    m_Metadata:
+      m_Items: []
+  - m_Id: 24311860952985600
+    m_Localized: A perfect trick performed to an audience of none
+    m_Metadata:
+      m_Items: []
+  - m_Id: 24312162410196992
+    m_Localized: Breakfast grows cold as footsteps pass by the door
+    m_Metadata:
+      m_Items: []
+  - m_Id: 24312268337344512
+    m_Localized: Other children's laughter drifts from the village square
+    m_Metadata:
+      m_Items: []
+  - m_Id: 24312354156998656
+    m_Localized: A lucky charm that never brought any luck at all
+    m_Metadata:
+      m_Items: []
+  - m_Id: 24312472625115136
+    m_Localized: Reflection shows a child practicing confident smiles
+    m_Metadata:
+      m_Items: []
+  - m_Id: 24312530883997696
+    m_Localized: First card tournament win, celebrated in solitude
     m_Metadata:
       m_Items: []
   references:

@@ -34,9 +34,6 @@ public abstract class ScriptableCardBase : ScriptableObject, ICollectable {
     [SerializeField] private StackType stackType;
     public StackType StackType => stackType;
 
-    [SerializeField] private bool inDemo;
-    public bool InDemo => inDemo;
-
     [SerializeField] private bool startUnlocked;
     public bool StartUnlocked => startUnlocked;
 
@@ -101,7 +98,16 @@ public enum CardType {
     EssenceHarvest,
     WisdomsHold,
 
-    BlankMemoryCard,
+    BlankMemoryCard1,
+    BlankMemoryCard2,
+    BlankMemoryCard3,
+    BlankMemoryCard4,
+    BlankMemoryCard5,
+    BlankMemoryCard6,
+    BlankMemoryCard7,
+    BlankMemoryCard8,
+    BlankMemoryCard9,
+    BlankMemoryCard10,
 }
 
 // what to do when play again while already playing

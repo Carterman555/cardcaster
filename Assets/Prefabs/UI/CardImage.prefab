@@ -631,8 +631,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 1.2143, y: -61.9}
-  m_SizeDelta: {x: 157.5706, y: 82.9297}
+  m_AnchoredPosition: {x: 0.18486, y: -58.6}
+  m_SizeDelta: {x: 163.54, y: 93.5534}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!222 &6808443878890633918
 CanvasRenderer:
@@ -662,7 +662,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Increase the damage, but decrease the duration of your next ability
+  m_text: description
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: d6fd8257d87b2374f8d84cb7d78d8392, type: 2}
   m_sharedMaterial: {fileID: 3955962077340898542, guid: d6fd8257d87b2374f8d84cb7d78d8392, type: 2}
@@ -693,15 +693,15 @@ MonoBehaviour:
   m_fontSizeBase: 11
   m_fontWeight: 400
   m_enableAutoSizing: 0
-  m_fontSizeMin: 9.6
-  m_fontSizeMax: 14.4
+  m_fontSizeMin: 9
+  m_fontSizeMax: 11
   m_fontStyle: 0
   m_HorizontalAlignment: 1
   m_VerticalAlignment: 256
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
-  m_lineSpacing: 31.99
+  m_lineSpacing: 38.79
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
@@ -838,6 +838,7 @@ MonoBehaviour:
   - {fileID: 8470644080264757890}
   unupgradedSprite: {fileID: 9055288384050691313, guid: 3b70a2e978ce27e42a36c67d01035f5a, type: 3}
   upgradedSprite: {fileID: 6042929426810809261, guid: 3b70a2e978ce27e42a36c67d01035f5a, type: 3}
+  isHandCard: 0
 --- !u!1 &4788297258370560277
 GameObject:
   m_ObjectHideFlags: 0

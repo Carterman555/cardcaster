@@ -12,7 +12,6 @@ public class GameSceneManager : Singleton<GameSceneManager> {
     public static event Action OnStartGameLoadingCompleted;
 
     public static event Action<int> OnLevelComplete;
-    public static event Action OnWinGame;
 
     [SerializeField] private bool debugStartTutorial;
 

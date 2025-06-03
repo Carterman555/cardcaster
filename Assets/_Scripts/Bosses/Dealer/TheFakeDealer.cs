@@ -1,5 +1,6 @@
 using DG.Tweening;
 using MoreMountains.Tools;
+using QFSW.QC;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -90,6 +91,9 @@ public class TheFakeDealer : MonoBehaviour, IHasEnemyStats, IBoss {
 
         //... more bloody the more times he's been defeated
         anim.SetInteger("defeatedAmount", defeatedAmount);
+
+        //... only spawn blank memory cards when fighting real dealer
+        GetComponent<SpawnBlankMemoryCards>().enabled = false;
     }
 
     private void OnDisable() {
@@ -123,8 +127,12 @@ public class TheFakeDealer : MonoBehaviour, IHasEnemyStats, IBoss {
     }
 
     private void ChangeToRandomState(FakeDealerState stateToAvoid) {
-        FakeDealerState[] allStates = Enum.GetValues(typeof(FakeDealerState)) as FakeDealerState[];
-        FakeDealerState[] availableStates = allStates.Where(s => s != stateToAvoid && s != FakeDealerState.BetweenStates).ToArray();
+        FakeDealerState[] actionStates = new FakeDealerState[] {
+            FakeDealerState.Swing,
+            FakeDealerState.Lasers,
+            FakeDealerState.Smashers
+        };
+        FakeDealerState[] availableStates = actionStates.Where(s => s != stateToAvoid).ToArray();
         ChangeState(availableStates.RandomItem());
     }
 
@@ -409,16 +417,17 @@ public class TheFakeDealer : MonoBehaviour, IHasEnemyStats, IBoss {
 
         CardDrop memoryCard = cardDropPrefab.Spawn(transform.position, Containers.Instance.Drops);
 
-        CardType cardType = CardType.BlankMemoryCard;
+        // at this point defeatedAmount already been incremented from this defeat
+        CardType cardType = CardType.BlankMemoryCard1;
         switch (defeatedAmount) {
             case 1:
-                cardType = CardType.BlankMemoryCard;
+                cardType = CardType.BlankMemoryCard1;
                 break;
             case 2:
-                cardType = CardType.BlankMemoryCard;
+                cardType = CardType.BlankMemoryCard1;
                 break;
             case 3:
-                cardType = CardType.BlankMemoryCard;
+                cardType = CardType.BlankMemoryCard1;
                 break;
             default:
                 break;
@@ -430,6 +439,11 @@ public class TheFakeDealer : MonoBehaviour, IHasEnemyStats, IBoss {
     [ContextMenu("ResetDefeatedAmount")]
     private void ResetDefeatedAmount() {
         ES3.Save("DealerDefeatedAmount", 0, ES3EncryptionMigration.GetES3Settings());
+    }
+
+    [Command]
+    private void SetDefeatedAmount(int amount) {
+        ES3.Save("DealerDefeatedAmount", amount, ES3EncryptionMigration.GetES3Settings());
     }
 
     #endregion

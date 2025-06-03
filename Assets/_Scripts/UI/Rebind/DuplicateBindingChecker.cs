@@ -28,6 +28,8 @@ public class DuplicateBindingChecker : MonoBehaviour {
 
         bindingIndex = GetBindingIndex();
         appliedBinding = rebindActionUI.actionReference.action.bindings[bindingIndex];
+
+        UpdateChecker();
     }
 
     private void OnDisable() {
@@ -54,6 +56,10 @@ public class DuplicateBindingChecker : MonoBehaviour {
     }
 
     private void OnUpdateBinding(RebindActionUI rebindActionUI, string displayString, string deviceLayoutName, string controlPath) {
+        UpdateChecker();
+    }
+
+    private void UpdateChecker() {
         InputBinding binding = rebindActionUI.actionReference.action.bindings[bindingIndex];
         ContainsDuplicate = CheckDuplicateBindings(binding);
 

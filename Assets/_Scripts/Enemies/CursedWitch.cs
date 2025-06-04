@@ -46,7 +46,9 @@ public class CursedWitch : Enemy {
 
         if (closeToPlayer) {
             if (!fleeBehavior.enabled) {
-                fleeBehavior.enabled = true;
+                if (DebugManager.Instance.WitchFlee) {
+                    fleeBehavior.enabled = true;
+                }
             }
         }
         else if (!closeToPlayer) {

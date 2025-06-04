@@ -133,4 +133,10 @@ public class DebugManager : StaticInstance<DebugManager> {
     private void ApplyPlayerStatModifiers() {
         StatsManager.AddPlayerStatModifiers(startingPlayerStatModifiers);
     }
+
+
+    public bool WitchFlee { get; set; } = true;
+    public bool DamageLogic { get; set; } = true;
+    public bool DamageFeedback { get; set; } = true;
+
 }

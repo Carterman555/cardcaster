@@ -53,8 +53,8 @@ public class PlayerMeleeAttack : StaticInstance<PlayerMeleeAttack>, ITargetAttac
         bool attemptingAttack = attackInput.action.IsPressed() || autoAttacking;
 
         attackTimer += Time.deltaTime;
-        if (!Helpers.IsMouseOverUI() &&
-            attemptingAttack &&
+        if (attemptingAttack &&
+            !Helpers.IsMouseOverUI() &&
             !AttackDisabled() &&
             PlayerMovement.Instance.DashingTimeRemaining < dashRemainingThreshold &&
             !attackBuffered) {
@@ -94,14 +94,22 @@ public class PlayerMeleeAttack : StaticInstance<PlayerMeleeAttack>, ITargetAttac
         else {
             // deal damage
             Vector2 attackCenter = (Vector2)PlayerMovement.Instance.CenterPos + (GetAttackDirection() * GetAttackRadius());
-            targetCols = DamageDealer.DealCircleDamage(GameLayers.PlayerTargetLayerMask, PlayerMovement.Instance.CenterPos, attackCenter, GetAttackRadius(), Stats.BasicAttackDamage, Stats.KnockbackStrength, canCrit: true);
+
+            if (DebugManager.Instance.DamageLogic) {
+                targetCols = DamageDealer.DealCircleDamage(GameLayers.PlayerTargetLayerMask, PlayerMovement.Instance.CenterPos, attackCenter, GetAttackRadius(), Stats.BasicAttackDamage, Stats.KnockbackStrength, canCrit: true);
+            }
+            else {
+                targetCols = Physics2D.OverlapCircleAll(attackCenter, GetAttackRadius(), GameLayers.PlayerTargetLayerMask);
+            }
 
             slashPrefab.Spawn(PlayerMovement.Instance.CenterPos, GetAttackDirection().DirectionToRotation(), Containers.Instance.Effects);
         }
 
         AudioManager.Instance.PlaySound(AudioManager.Instance.AudioClips.Swing);
 
-        PlayAttackFeedbacks(targetCols);
+        if (DebugManager.Instance.DamageFeedback) {
+            PlayAttackFeedbacks(targetCols);
+        }
 
         // invoke events
         OnAttack?.Invoke();

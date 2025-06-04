@@ -3,15 +3,17 @@ using UnityEngine;
 
 public class BoomerangMovement : MonoBehaviour {
 
-    public event Action OnReturn;
+    public event Action<BoomerangMovement> OnReturn;
 
+    private Transform returnTarget;
     private Vector2 launchDirection;
     private float speed;
     private float acceleration;
 
     private bool returning;
 
-    public void Setup(Vector2 direction, float startingSpeed, float acceleration) {
+    public void Setup(Transform returnTarget, Vector2 direction, float startingSpeed, float acceleration) {
+        this.returnTarget = returnTarget;
         launchDirection = direction.normalized;
         speed = startingSpeed;
         this.acceleration = acceleration;
@@ -30,15 +32,13 @@ public class BoomerangMovement : MonoBehaviour {
             }
         }
         else {
-            Vector2 playerPos = PlayerMovement.Instance.CenterPos;
-            transform.position = Vector2.MoveTowards(transform.position, playerPos, speed * Time.fixedDeltaTime);
+            transform.position = Vector2.MoveTowards(transform.position, returnTarget.position, speed * Time.fixedDeltaTime);
 
             speed += acceleration * Time.fixedDeltaTime;
 
             float distanceThreshold = 0.1f;
-            if (Vector2.Distance(transform.position, playerPos) < distanceThreshold) {
-                OnReturn?.Invoke();
-                Destroy(this);
+            if (Vector2.Distance(transform.position, returnTarget.position) < distanceThreshold) {
+                OnReturn?.Invoke(this);
             }
         }
     }

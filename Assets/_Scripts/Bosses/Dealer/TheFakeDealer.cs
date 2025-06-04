@@ -39,7 +39,7 @@ public class TheFakeDealer : MonoBehaviour, IHasEnemyStats, IBoss {
     private Dictionary<FakeDealerState, RandomFloat> stateDurations = new();
     private float stateTimer;
 
-    private bool inFirstStage;
+    private bool inSecondStage;
 
     [SerializeField] private Animator anim;
     private EnemyHealth health;
@@ -82,7 +82,7 @@ public class TheFakeDealer : MonoBehaviour, IHasEnemyStats, IBoss {
         stateTimer = 0f;
         ChangeState(FakeDealerState.StartingDialog);
 
-        inFirstStage = !debugStartSecondStage;
+        inSecondStage = debugStartSecondStage;
 
         StartCoroutine(FadeInRed());
         UpdateVisual();
@@ -217,7 +217,7 @@ public class TheFakeDealer : MonoBehaviour, IHasEnemyStats, IBoss {
         swordRotate.enabled = false;
         swordRotate.RotationSpeed = new(0f, 0f, swordSwingSpeed);
 
-        sword2Renderer.gameObject.SetActive(!inFirstStage);
+        sword2Renderer.gameObject.SetActive(inSecondStage);
 
         sword1Renderer.Fade(0f);
         sword2Renderer.Fade(0f);
@@ -254,7 +254,7 @@ public class TheFakeDealer : MonoBehaviour, IHasEnemyStats, IBoss {
 
         Vector2 shootDirection = Vector2.up;
 
-        int numOfLasers = inFirstStage ? 2 : 4;
+        int numOfLasers = inSecondStage ? 4 : 2;
 
         yield return new WaitForSeconds(shootCooldown);
 
@@ -298,7 +298,7 @@ public class TheFakeDealer : MonoBehaviour, IHasEnemyStats, IBoss {
             smashers.Add(smasher);
         }
 
-        if (!inFirstStage) {
+        if (inSecondStage) {
             for (int i = 0; i < smallSmasherPositions.Count(); i++) {
                 Vector2 pos = (Vector2)Room.GetCurrentRoom().transform.position + smallSmasherPositions[i];
                 Smasher smasher = smallSmasherPrefab.Spawn(pos, Containers.Instance.Projectiles);
@@ -351,7 +351,7 @@ public class TheFakeDealer : MonoBehaviour, IHasEnemyStats, IBoss {
         sparksReal.gameObject.SetActive(false);
 
         var emission = sparksFake.emission;
-        emission.enabled = !inFirstStage;
+        emission.enabled = inSecondStage;
     }
 
     #endregion

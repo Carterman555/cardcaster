@@ -1,9 +1,12 @@
+using DG.Tweening;
+using MoreMountains.Tools;
 using QFSW.QC;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.AI;
 using UnityEngine.InputSystem;
 using UnityEngine.Localization;
 using UnityEngine.UI;
@@ -37,12 +40,14 @@ public class TheRealDealer : MonoBehaviour, IHasEnemyStats, IBoss {
     private Dictionary<RealDealerState, RandomFloat> stateDurations = new();
     private float stateTimer;
 
-    private bool inFirstStage;
+    private bool inSecondStage;
 
     [SerializeField] private Animator anim;
     private EnemyHealth health;
-
+    private NavMeshAgent agent;
     private SpawnBlankMemoryCards spawnBlankMemoryCards;
+
+    [SerializeField] private Transform centerTransform;
 
     [Header("Debug")]
     [SerializeField] private bool debugState;
@@ -53,6 +58,7 @@ public class TheRealDealer : MonoBehaviour, IHasEnemyStats, IBoss {
         InitializeDurationDict();
 
         health = GetComponent<EnemyHealth>();
+        agent = GetComponent<NavMeshAgent>();
         spawnBlankMemoryCards = GetComponent<SpawnBlankMemoryCards>();
     }
 
@@ -76,7 +82,7 @@ public class TheRealDealer : MonoBehaviour, IHasEnemyStats, IBoss {
         stateTimer = 0f;
         ChangeState(RealDealerState.StartingDialog);
 
-        inFirstStage = !debugStartSecondStage;
+        inSecondStage = debugStartSecondStage;
 
         StartCoroutine(FadeInRed());
         UpdateVisual();
@@ -122,7 +128,7 @@ public class TheRealDealer : MonoBehaviour, IHasEnemyStats, IBoss {
     }
 
     private void ChangeToRandomState(RealDealerState stateToAvoid) {
-        RealDealerState[] actionStates = new RealDealerState[] { 
+        RealDealerState[] actionStates = new RealDealerState[] {
             RealDealerState.BoomerangSwords,
             RealDealerState.Holograms,
             RealDealerState.CardAttack
@@ -148,6 +154,7 @@ public class TheRealDealer : MonoBehaviour, IHasEnemyStats, IBoss {
         if (newState == RealDealerState.BetweenStates) {
         }
         else if (newState == RealDealerState.BoomerangSwords) {
+            spawnBoomerangsCor = StartCoroutine(BoomerangSwordsCor());
         }
         else if (newState == RealDealerState.Holograms) {
         }
@@ -157,6 +164,17 @@ public class TheRealDealer : MonoBehaviour, IHasEnemyStats, IBoss {
         if (previousState == RealDealerState.BetweenStates) {
         }
         else if (previousState == RealDealerState.BoomerangSwords) {
+            StopCoroutine(spawnBoomerangsCor);
+
+            if (heatSeekSword != null && heatSeekSword.gameObject.activeSelf) {
+                heatSeekSword.gameObject.ReturnToPool();
+            }
+
+            foreach (MMAutoRotate swordCircle in swordCircles) {
+                if (swordCircle != null && swordCircle.gameObject.activeSelf) {
+                    swordCircle.gameObject.ReturnToPool();
+                }
+            }
         }
         else if (previousState == RealDealerState.Holograms) {
         }
@@ -249,7 +267,101 @@ public class TheRealDealer : MonoBehaviour, IHasEnemyStats, IBoss {
         sparksReal.gameObject.SetActive(true);
 
         var emission = sparksReal.emission;
-        emission.enabled = !inFirstStage;
+        emission.enabled = inSecondStage;
+    }
+
+    #endregion
+
+    #region Boomerang Swords
+
+    [Header("Boomerang Swords")]
+    private Coroutine spawnBoomerangsCor;
+
+    [SerializeField] private DealerBoomerangSword boomerangSwordPrefab;
+
+    [SerializeField] private RandomFloat boomerangDelayBeforeShoot;
+    [SerializeField] private float boomerangShootCooldown;
+    [SerializeField] private float boomerangStartingSpeed;
+    [SerializeField] private float boomerangAcceleration;
+
+    [SerializeField] private BoomerangCombination[] boomerangCombinations;
+    [SerializeField] private float boomerangSpawnDistance;
+
+    [SerializeField] private HeatSeekMovement heatSeekSwordPrefab;
+    private HeatSeekMovement heatSeekSword;
+
+    [SerializeField] private MMAutoRotate swordCirclePrefab;
+    private MMAutoRotate[] swordCircles = new MMAutoRotate[2];
+
+    private IEnumerator BoomerangSwordsCor() {
+
+        Vector2 roomCenter = FindObjectOfType<BossRoom>().GetBossSpawnPoint().position;
+        agent.SetDestination(roomCenter);
+
+        while (Vector2.Distance(roomCenter, transform.position) > 0.1f) {
+            yield return null;
+        }
+
+        agent.isStopped = true;
+
+        heatSeekSword = heatSeekSwordPrefab.Spawn(transform.position, Containers.Instance.Projectiles);
+        heatSeekSword.Setup(PlayerMovement.Instance.CenterTransform);
+
+        EnemyTouchDamage heatSeekSwordDamage = heatSeekSword.GetComponentInChildren<EnemyTouchDamage>();
+        heatSeekSwordDamage.enabled = false;
+
+        SpriteRenderer heatSeekSwordRenderer = heatSeekSword.GetComponentInChildren<SpriteRenderer>();
+        heatSeekSwordRenderer.Fade(0f);
+        heatSeekSwordRenderer.DOFade(1f, duration: 1.5f).OnComplete(() => {
+            heatSeekSwordDamage.enabled = true;
+        });
+
+        if (inSecondStage) {
+            for (int i = 0; i < 2; i++) {
+
+                Vector3 position = i == 0 ? Vector3.up * 13f : Vector3.down * 13f;
+                swordCircles[i] = swordCirclePrefab.Spawn(transform.position + position, Containers.Instance.Projectiles);
+
+                EnemyTouchDamage[] enemyTouchDamages = swordCircles[i].GetComponentsInChildren<EnemyTouchDamage>();
+                foreach (EnemyTouchDamage enemyTouchDamage in enemyTouchDamages) {
+                    enemyTouchDamage.enabled = false;
+                }
+
+                SpriteRenderer[] spriteRenderers = swordCircles[i].GetComponentsInChildren<SpriteRenderer>();
+                foreach (SpriteRenderer spriteRenderer in spriteRenderers) {
+                    spriteRenderer.Fade(0f);
+                    spriteRenderer.DOFade(1f, duration: 1.5f).OnComplete(() => {
+                        spriteRenderer.GetComponent<EnemyTouchDamage>().enabled = true;
+                    });
+                }
+
+                swordCircles[i].OrbitCenterTransform = transform;
+            }
+        }
+
+        while (true) {
+            yield return new WaitForSeconds(boomerangShootCooldown);
+
+            BoomerangCombination boomerangCombination = boomerangCombinations.RandomItem();
+
+            int orbitDirection = UnityEngine.Random.value > 0.5f ? 1 : -1;
+            boomerangDelayBeforeShoot.Randomize();
+
+            foreach (float angle in boomerangCombination.Angles) {
+
+                Vector2 spawnPos = (Vector2)centerTransform.position + (angle.RotationToDirection() * boomerangSpawnDistance);
+                DealerBoomerangSword boomerangSword = boomerangSwordPrefab.Spawn(spawnPos, Containers.Instance.Projectiles);
+
+                boomerangSword.Setup(
+                    centerTransform,
+                    boomerangCombination.Orbiting,
+                    orbitDirection,
+                    boomerangDelayBeforeShoot.Value,
+                    boomerangStartingSpeed,
+                    boomerangAcceleration
+                );
+            }
+        }
     }
 
     #endregion
@@ -296,4 +408,10 @@ public class TheRealDealer : MonoBehaviour, IHasEnemyStats, IBoss {
     }
 
     #endregion
+}
+
+[Serializable]
+public struct BoomerangCombination {
+    public float[] Angles;
+    public bool Orbiting;
 }

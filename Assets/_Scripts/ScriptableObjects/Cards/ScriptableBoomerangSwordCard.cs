@@ -10,7 +10,6 @@ public class ScriptableBoomerangSwordCard : ScriptableAbilityCardBase {
     private PlayerTouchDamage playerTouchDamage;
 
     [Header("Movement")]
-    private BoomerangMovement boomerangMovement;
     [SerializeField] private float acceleration;
     [SerializeField] private float rotateSpeed;
     private MMAutoRotate autoRotate;
@@ -70,15 +69,15 @@ public class ScriptableBoomerangSwordCard : ScriptableAbilityCardBase {
         // change parent to move independently of player
         sword.SetParent(Containers.Instance.Projectiles, true);
 
-        boomerangMovement = sword.AddComponent<BoomerangMovement>();
+        BoomerangMovement boomerangMovement = sword.AddComponent<BoomerangMovement>();
 
         Vector2 toAttackDirection = attackPos - sword.position;
-        boomerangMovement.Setup(toAttackDirection, Stats.ProjectileSpeed, acceleration);
+        boomerangMovement.Setup(PlayerMovement.Instance.CenterTransform, toAttackDirection, Stats.ProjectileSpeed, acceleration);
 
         boomerangMovement.OnReturn += OnSwordReturn;
     }
 
-    private void OnSwordReturn() {
+    private void OnSwordReturn(BoomerangMovement boomerangMovement) {
         base.Stop();
 
         boomerangMovement.OnReturn -= OnSwordReturn;
@@ -90,7 +89,8 @@ public class ScriptableBoomerangSwordCard : ScriptableAbilityCardBase {
         Transform swordParent = ReferenceSystem.Instance.PlayerWeaponParent;
         sword.SetParent(swordParent);
 
-        //... stop rotating
+        // stop boomeranging
+        Destroy(boomerangMovement);
         Destroy(autoRotate);
 
         ResetSwordTransform();

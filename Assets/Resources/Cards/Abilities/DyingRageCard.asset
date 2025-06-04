@@ -44,7 +44,6 @@ MonoBehaviour:
   cost: 2
   rarity: 1
   stackType: 1
-  inDemo: 1
   startUnlocked: 1
   unlockLevel: 1
   memoryCard: 0
@@ -58,10 +57,10 @@ MonoBehaviour:
     Cooldown: 0
   modifiesSword: 0
   <IsPositional>k__BackingField: 0
-  <IsModifiable>k__BackingField: 0
+  <IsModifiable>k__BackingField: 1
   incompatibleAbilities: 
   statModifiers:
-  - PlayerStatType: 14
+  - PlayerStatType: 13
     ModifyType: 1
     Value: 2
   references:

@@ -17,7 +17,7 @@ public enum RealDealerState {
     DefeatedDialog,
     BetweenStates,
     BoomerangSwords,
-    Holograms,
+    Bouncers,
     CardAttack
 }
 
@@ -36,9 +36,11 @@ public class TheRealDealer : MonoBehaviour, IHasEnemyStats, IBoss {
     private RealDealerState currentState;
     private RealDealerState previousActionState;
 
-    [SerializeField] private List<RealDealerDurationPair> stateDurationsList;
-    private Dictionary<RealDealerState, RandomFloat> stateDurations = new();
-    private float stateTimer;
+    private RealDealerState[] actionStates = new RealDealerState[] {
+            RealDealerState.BoomerangSwords,
+            RealDealerState.Bouncers,
+            RealDealerState.CardAttack
+    };
 
     private bool inSecondStage;
 
@@ -49,23 +51,19 @@ public class TheRealDealer : MonoBehaviour, IHasEnemyStats, IBoss {
 
     [SerializeField] private Transform centerTransform;
 
+    [SerializeField] private float delayBetweenStates;
+
+    private bool defeated;
+
     [Header("Debug")]
     [SerializeField] private bool debugState;
     [ConditionalHide("debugState")][SerializeField] private RealDealerState stateToDebug;
     [SerializeField] private bool debugStartSecondStage;
 
     private void Awake() {
-        InitializeDurationDict();
-
         health = GetComponent<EnemyHealth>();
         agent = GetComponent<NavMeshAgent>();
         spawnBlankMemoryCards = GetComponent<SpawnBlankMemoryCards>();
-    }
-
-    private void InitializeDurationDict() {
-        foreach (var stateDuration in stateDurationsList) {
-            stateDurations.Add(stateDuration.State, stateDuration.Duration);
-        }
     }
 
     private void OnEnable() {
@@ -79,7 +77,6 @@ public class TheRealDealer : MonoBehaviour, IHasEnemyStats, IBoss {
         health.DeathEventTrigger.AddListener(OnDefeated);
         HandCard.OnAnyCardUsed_Card += OnAnyCardUsed;
 
-        stateTimer = 0f;
         ChangeState(RealDealerState.StartingDialog);
 
         inSecondStage = debugStartSecondStage;
@@ -92,6 +89,8 @@ public class TheRealDealer : MonoBehaviour, IHasEnemyStats, IBoss {
         BecomeInvincible();
 
         spawnBlankMemoryCards.enabled = false;
+
+        defeated = false;
     }
 
     private void OnDisable() {
@@ -109,30 +108,9 @@ public class TheRealDealer : MonoBehaviour, IHasEnemyStats, IBoss {
             HandleDialog();
             return;
         }
-
-        stateTimer += Time.deltaTime;
-        if (stateTimer > stateDurations[currentState].Value) {
-
-            if (currentState == RealDealerState.BetweenStates) {
-                if (!debugState) {
-                    ChangeToRandomState(previousActionState);
-                }
-                else {
-                    ChangeState(stateToDebug);
-                }
-            }
-            else {
-                ChangeState(RealDealerState.BetweenStates);
-            }
-        }
     }
 
     private void ChangeToRandomState(RealDealerState stateToAvoid) {
-        RealDealerState[] actionStates = new RealDealerState[] {
-            RealDealerState.BoomerangSwords,
-            RealDealerState.Holograms,
-            RealDealerState.CardAttack
-        };
         RealDealerState[] availableStates = actionStates.Where(s => s != stateToAvoid).ToArray();
         ChangeState(availableStates.RandomItem());
     }
@@ -142,49 +120,42 @@ public class TheRealDealer : MonoBehaviour, IHasEnemyStats, IBoss {
         RealDealerState previousState = currentState;
         currentState = newState;
 
-        if (previousState != RealDealerState.BetweenStates) {
+        if (actionStates.Contains(previousState)) {
             previousActionState = previousState;
         }
 
-        stateTimer = 0;
-        if (stateDurations.ContainsKey(newState)) {
-            stateDurations[newState].Randomize();
-        }
-
         if (newState == RealDealerState.BetweenStates) {
+            if (!defeated) {
+                StartCoroutine(ActionStateAfterDelay());
+            }
         }
         else if (newState == RealDealerState.BoomerangSwords) {
-            spawnBoomerangsCor = StartCoroutine(BoomerangSwordsCor());
+            StartCoroutine(BoomerangSwordsCor());
         }
-        else if (newState == RealDealerState.Holograms) {
+        else if (newState == RealDealerState.Bouncers) {
+            StartCoroutine(BouncerCor());
         }
         else if (newState == RealDealerState.CardAttack) {
-        }
-
-        if (previousState == RealDealerState.BetweenStates) {
-        }
-        else if (previousState == RealDealerState.BoomerangSwords) {
-            StopCoroutine(spawnBoomerangsCor);
-
-            if (heatSeekSword != null && heatSeekSword.gameObject.activeSelf) {
-                heatSeekSword.gameObject.ReturnToPool();
-            }
-
-            foreach (MMAutoRotate swordCircle in swordCircles) {
-                if (swordCircle != null && swordCircle.gameObject.activeSelf) {
-                    swordCircle.gameObject.ReturnToPool();
-                }
-            }
-        }
-        else if (previousState == RealDealerState.Holograms) {
-        }
-        else if (previousState == RealDealerState.CardAttack) {
+            StartCoroutine(CardAttackCor());
         }
 
         OnChangeStateDialog();
     }
 
+    private IEnumerator ActionStateAfterDelay() {
+        yield return new WaitForSeconds(delayBetweenStates);
+
+        if (debugState) {
+            ChangeState(stateToDebug);
+        }
+        else {
+            ChangeToRandomState(previousActionState);
+        }
+    }
+
     private void OnDefeated() {
+        defeated = true;
+
         ChangeState(RealDealerState.BetweenStates);
         spawnBlankMemoryCards.enabled = true;
     }
@@ -275,7 +246,7 @@ public class TheRealDealer : MonoBehaviour, IHasEnemyStats, IBoss {
     #region Boomerang Swords
 
     [Header("Boomerang Swords")]
-    private Coroutine spawnBoomerangsCor;
+    [SerializeField] private RandomInt boomerangSwordRepetitions;
 
     [SerializeField] private DealerBoomerangSword boomerangSwordPrefab;
 
@@ -339,7 +310,8 @@ public class TheRealDealer : MonoBehaviour, IHasEnemyStats, IBoss {
             }
         }
 
-        while (true) {
+        boomerangSwordRepetitions.Randomize();
+        for (int i = 0; i < boomerangSwordRepetitions.Value; i++) {
             yield return new WaitForSeconds(boomerangShootCooldown);
 
             BoomerangCombination boomerangCombination = boomerangCombinations.RandomItem();
@@ -362,6 +334,144 @@ public class TheRealDealer : MonoBehaviour, IHasEnemyStats, IBoss {
                 );
             }
         }
+
+        if (heatSeekSword != null && heatSeekSword.gameObject.activeSelf) {
+            heatSeekSword.gameObject.ReturnToPool();
+        }
+
+        foreach (MMAutoRotate swordCircle in swordCircles) {
+            if (swordCircle != null && swordCircle.gameObject.activeSelf) {
+                swordCircle.gameObject.ReturnToPool();
+            }
+        }
+
+        ChangeState(RealDealerState.BetweenStates);
+    }
+
+    #endregion
+
+    #region Bouncers
+
+    [Header("Bouncer")]
+    [SerializeField] private Bouncer bouncerPrefab;
+
+    private IEnumerator BouncerCor() {
+        Bouncer bouncer = bouncerPrefab.Spawn(centerTransform.position + new Vector3(0f, 4f), Containers.Instance.Enemies);
+
+        yield return null;
+    }
+
+
+    #endregion
+
+    #region Card Attack
+
+    [Header("Card Attack")]
+    [SerializeField] private RandomInt cardAttackRepetitions;
+
+    [SerializeField] private CardRing cardRingPrefab;
+
+    [SerializeField] private RandomInt cardRingAmount;
+    [SerializeField] private float cardRingCooldown1;
+    [SerializeField] private float cardRingCooldown2;
+
+    [SerializeField] private float cardRingRadius;
+    [SerializeField] private int amountOfCardsInRing;
+    [SerializeField] private float cardRingSpeed;
+    [SerializeField] private float cardRingCircularSpeed;
+
+    [SerializeField] private StraightMovement cardPrefab;
+    [SerializeField] private RandomInt circleShootAmount;
+
+    [SerializeField] private int circleShootSpiralCount1;
+    [SerializeField] private int circleShootSpiralCount2;
+
+    [SerializeField] private float circleShootAngleBetweenCards;
+
+    [SerializeField] private float circleShootBetweenCardDelay1;
+    [SerializeField] private float circleShootBetweenCardDelay2;
+
+    [SerializeField] private float circleShootCardSpeed1;
+    [SerializeField] private float circleShootCardSpeed2;
+
+    [SerializeField] private float afterCircleShootDelay;
+
+    [SerializeField] private RandomInt circleShootChangeDirectionAmount;
+    private int spiralDirection;
+
+    private IEnumerator CardAttackCor() {
+
+        Vector2 roomCenter = FindObjectOfType<BossRoom>().GetBossSpawnPoint().position;
+        agent.SetDestination(roomCenter);
+
+        while (Vector2.Distance(roomCenter, transform.position) > 0.1f) {
+            yield return null;
+        }
+
+        cardAttackRepetitions.Randomize();
+        for (int repIndex = 0; repIndex < cardAttackRepetitions.Value; repIndex++) {
+            cardRingAmount.Randomize();
+            for (int i = 0; i < cardRingAmount.Value; i++) {
+                CardRing cardRing = cardRingPrefab.Spawn(centerTransform.position, Containers.Instance.Projectiles);
+                cardRing.Setup(
+                    cardRingRadius,
+                    amountOfCardsInRing,
+                    EnemyStats.Damage,
+                    cardRingSpeed,
+                    cardRingCircularSpeed
+                );
+
+                float cardRingCooldown = inSecondStage ? cardRingCooldown2 : cardRingCooldown1;
+                yield return new WaitForSeconds(cardRingCooldown);
+            }
+
+            circleShootAmount.Randomize();
+
+            Vector2 shootDirection = Vector2.up;
+
+            // only change direciton in second stage
+            circleShootChangeDirectionAmount.Randomize();
+            int cardsShotSinceDirectionChange = 0;
+            spiralDirection = 1;
+
+            for (int i = 0; i < circleShootAmount.Value; i++) {
+                int circleShootSpiralCount = inSecondStage ? circleShootSpiralCount2 : circleShootSpiralCount1;
+                for (int j = 0; j < circleShootSpiralCount; j++) {
+
+                    float angleBetweenSpirals = 360f / circleShootSpiralCount;
+                    float spiralAngle = angleBetweenSpirals * j;
+                    Vector2 spiralShootDirection = shootDirection.GetDirectionRotated(spiralAngle);
+
+                    float spawnDistance = 3f;
+                    Vector2 position = (Vector2)centerTransform.position + (spiralShootDirection * spawnDistance);
+                    StraightMovement card = cardPrefab.Spawn(position, Containers.Instance.Projectiles);
+
+                    float circleShootCardSpeed = inSecondStage ? circleShootCardSpeed2 : circleShootCardSpeed1;
+                    card.Setup(spiralShootDirection, circleShootCardSpeed);
+                    card.GetComponent<DamageOnContact>().Setup(EnemyStats.Damage, knockbackStrength: 1f);
+                }
+
+                shootDirection.RotateDirection(circleShootAngleBetweenCards * spiralDirection);
+
+                cardsShotSinceDirectionChange++;
+
+                if (inSecondStage) {
+                    if (cardsShotSinceDirectionChange >= circleShootChangeDirectionAmount.Value) {
+                        spiralDirection = -spiralDirection;
+
+                        circleShootChangeDirectionAmount.Randomize();
+                        cardsShotSinceDirectionChange = 0;
+                    }
+                }
+
+                float circleShootBetweenCardDelay = inSecondStage ? circleShootBetweenCardDelay2 : circleShootBetweenCardDelay1;
+                yield return new WaitForSeconds(circleShootBetweenCardDelay);
+            }
+
+            yield return new WaitForSeconds(afterCircleShootDelay);
+        }
+
+        ChangeState(RealDealerState.BetweenStates);
     }
 
     #endregion

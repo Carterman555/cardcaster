@@ -15138,34 +15138,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scriptableBoss: {fileID: 11400000, guid: 2a779c2056fd15244bbf3b7c32d399b9, type: 2}
-  stateDurationsList:
-  - State: 2
-    Duration:
-      MinValue: 2
-      MaxValue: 2
-  - State: 3
-    Duration:
-      MinValue: 20
-      MaxValue: 30
-  - State: 4
-    Duration:
-      MinValue: 10
-      MaxValue: 10
-  - State: 5
-    Duration:
-      MinValue: 10
-      MaxValue: 10
   anim: {fileID: 3887365593034165796}
   centerTransform: {fileID: 2512676828727106287}
+  delayBetweenStates: 2
   debugState: 1
-  stateToDebug: 3
-  debugStartSecondStage: 1
+  stateToDebug: 4
+  debugStartSecondStage: 0
   invincibilityEffect: {fileID: 5732803463431064132}
   invincibilityDuration: 8
   redMaterial: {fileID: 2100000, guid: 1ba86cbcf887f3a4684df6994dfaba5f, type: 2}
   visual: {fileID: 4802675512571427162}
   sparksFake: {fileID: 3035007274772066227}
   sparksReal: {fileID: 3956839116295093506}
+  boomerangSwordRepetitions:
+    MinValue: 8
+    MaxValue: 10
   boomerangSwordPrefab: {fileID: 7920138526492070498, guid: a16635de88f3faf4ebdb3597014fa9f8, type: 3}
   boomerangDelayBeforeShoot:
     MinValue: 2
@@ -15217,6 +15204,35 @@ MonoBehaviour:
   boomerangSpawnDistance: 5
   heatSeekSwordPrefab: {fileID: 286616078260134907, guid: 4b818b87bd71a284db4fe1ad6abebb90, type: 3}
   swordCirclePrefab: {fileID: 3387633144450276433, guid: b3ce3215cd862b149b67f0941ff68b1a, type: 3}
+  bouncerPrefab: {fileID: 4267853199603477608, guid: 6c893937f0e5af146b34ebcdff0b8bcc, type: 3}
+  cardAttackRepetitions:
+    MinValue: 3
+    MaxValue: 4
+  cardRingPrefab: {fileID: 7363170686616235769, guid: 32cd1d87417bcd042ba9eb55c5d58b6f, type: 3}
+  cardRingAmount:
+    MinValue: 2
+    MaxValue: 4
+  cardRingCooldown1: 3
+  cardRingCooldown2: 2
+  cardRingRadius: 3.5
+  amountOfCardsInRing: 10
+  cardRingSpeed: 12
+  cardRingCircularSpeed: 200
+  cardPrefab: {fileID: -1897301476388012080, guid: 5812694bf7d1a7644a5c346ff24b30ea, type: 3}
+  circleShootAmount:
+    MinValue: 100
+    MaxValue: 150
+  circleShootSpiralCount1: 2
+  circleShootSpiralCount2: 4
+  circleShootAngleBetweenCards: 10
+  circleShootBetweenCardDelay1: 0.05
+  circleShootBetweenCardDelay2: 0.1
+  circleShootCardSpeed1: 6
+  circleShootCardSpeed2: 8
+  afterCircleShootDelay: 6
+  circleShootChangeDirectionAmount:
+    MinValue: 20
+    MaxValue: 30
   nextDialogInput: {fileID: -110675408553890393, guid: 50afa068aa51bd149a1f3d07794c53d5, type: 3}
   startDialogs:
   - m_TableReference:
@@ -15479,6 +15495,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f009572b4d918346b24337ef83f88c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  UseRigidBody: 0
   Rotating: 1
   RotationSpace: 1
   UpdateMode: 0

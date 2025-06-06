@@ -10,6 +10,9 @@ public class CircleStraightShootBehavior : MonoBehaviour {
     [SerializeField] private bool alternateShootDirection;
     private bool thisShotIsAlternate;
 
+    [SerializeField] private bool hasShootPoint;
+    [SerializeField, ConditionalHide("hasShootPoint")] private Transform shootPoint;
+
     private IHasEnemyStats hasStats;
 
     private TimedActionBehavior timedActionBehavior;
@@ -65,9 +68,10 @@ public class CircleStraightShootBehavior : MonoBehaviour {
         for (int i = 0; i < projectileCount; i++) {
             Vector2 projectileDirection = angle.RotationToDirection();
 
-            Vector2 spawnPosition = (Vector2)transform.position + projectileDirection * distanceFromCenter;
-            StraightMovement projectile = projectilePrefab
-                .Spawn(spawnPosition, Containers.Instance.Projectiles);
+            Vector2 shootPos = hasShootPoint ? shootPoint.position : transform.position;
+            Vector2 spawnPosition = shootPos + projectileDirection * distanceFromCenter;
+
+            StraightMovement projectile = projectilePrefab.Spawn(spawnPosition, Containers.Instance.Projectiles);
             projectile.Setup(projectileDirection);
             projectile.GetComponent<DamageOnContact>().Setup(hasStats.EnemyStats.Damage, hasStats.EnemyStats.KnockbackStrength);
             projectile.transform.up = projectileDirection;

@@ -1,7 +1,10 @@
+using System;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
 public class Knockback : MonoBehaviour {
+
+    public event Action<Vector2> OnKnockbacked;
 
     private IHasPlayerStats hasPlayerStats;
     private IHasEnemyStats hasEnemyStats;
@@ -60,6 +63,8 @@ public class Knockback : MonoBehaviour {
         rb.velocity = knockbackForce * knockbackFactor * direction.normalized;
 
         applyingKnockback = true;
+
+        OnKnockbacked?.Invoke(direction.normalized);
     }
 
     public void FixedUpdate() {

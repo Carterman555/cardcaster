@@ -353,12 +353,43 @@ public class TheRealDealer : MonoBehaviour, IHasEnemyStats, IBoss {
     #region Bouncers
 
     [Header("Bouncer")]
+    [SerializeField] private float bouncerStateDuration;
+
     [SerializeField] private Bouncer bouncerPrefab;
+    [SerializeField] private int bouncerAmount1;
+    [SerializeField] private int bouncerAmount2;
+
+    [SerializeField] private Bouncer miniBouncerPrefab;
+    [SerializeField] private int miniBouncerAmount;
+
+    private List<Bouncer> bouncers;
 
     private IEnumerator BouncerCor() {
-        Bouncer bouncer = bouncerPrefab.Spawn(centerTransform.position + new Vector3(0f, 4f), Containers.Instance.Enemies);
 
-        yield return null;
+        bouncers = new();
+
+        int bouncerAmount = inSecondStage ? bouncerAmount2 : bouncerAmount1;
+        for (int i = 0; i < bouncerAmount; i++) {
+            Vector2 pos = new RoomPositionHelper().GetRandomRoomPos(wallAvoidDistance: 3f);
+            Bouncer bouncer = bouncerPrefab.Spawn(pos, Containers.Instance.Enemies);
+            bouncers.Add(bouncer);
+        }
+
+        if (inSecondStage) {
+            for (int i = 0; i < miniBouncerAmount; i++) {
+                Vector2 pos = new RoomPositionHelper().GetRandomRoomPos(wallAvoidDistance: 3f);
+                Bouncer miniBouncer = miniBouncerPrefab.Spawn(pos, Containers.Instance.Enemies);
+                bouncers.Add(miniBouncer);
+            }
+        }
+
+        yield return new WaitForSeconds(bouncerStateDuration);
+
+        foreach (var bouncer in bouncers) {
+            bouncer.GetComponent<EnemyHealth>().Die();
+        }
+
+        ChangeState(RealDealerState.BetweenStates);
     }
 
 

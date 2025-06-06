@@ -82,33 +82,50 @@ public class BounceMoveBehaviour : MonoBehaviour, IEffectable, IEnemyMovement {
         }
 
         if (bounceTrigger.HasContact()) {
-            Bounce(bounceTrigger.GetFirstContact());
+            Collider2D contactCollider = bounceTrigger.GetFirstContact().GetComponent<Collider2D>();
+            Vector2 direction = contactCollider.ClosestPoint(centerPoint.position) - (Vector2)centerPoint.position;
+            Bounce(direction);
         }
 
         rb.velocity = velocity;
     }
 
-    private void Bounce(GameObject collisionObject) {
+    public void Bounce(Vector2 direction) {
 
         // Calculate the reflection vector
-        Vector2 normal = collisionObject.GetComponent<Collider2D>().ClosestPoint(centerPoint.position) - (Vector2)centerPoint.position;
-        Vector2 reflectDir = Vector2.Reflect(velocity, normal.normalized); // Reflect based on current velocity
+        Vector2 reflectDir = Vector2.Reflect(velocity, direction.normalized); // Reflect based on current velocity
 
         // A safe guard because sometimes the bounce glitches and enemies bounce twice at the same time, causing the
         // enemy to bounce back into the wall.
-        bool verticalBounce = Mathf.Abs(normal.y) > Mathf.Abs(normal.x);
+        bool verticalBounce = Mathf.Abs(direction.y) > Mathf.Abs(direction.x);
         if (verticalBounce) {
-            bool bounceIntoWall = Mathf.Sign(normal.y) == Mathf.Sign(reflectDir.y);
+            bool bounceIntoWall = Mathf.Sign(direction.y) == Mathf.Sign(reflectDir.y);
             if (bounceIntoWall) {
                 return;
             }
         }
         else {
-            bool bounceIntoWall = Mathf.Sign(normal.x) == Mathf.Sign(reflectDir.x);
+            bool bounceIntoWall = Mathf.Sign(direction.x) == Mathf.Sign(reflectDir.x);
             if (bounceIntoWall) {
                 return;
             }
         }
+
+        // Set the new velocity
+        velocity = reflectDir.normalized * velocity.magnitude; // Preserve the speed
+
+        UpdateFacing(velocity);
+
+        if (hasBounceSFX) {
+            AudioManager.Instance.PlaySingleSound(bounceSFX);
+        }
+
+        OnBounce?.Invoke();
+    }
+
+    public void ForceBounce(Vector2 direction) {
+        // Calculate the reflection vector
+        Vector2 reflectDir = Vector2.Reflect(velocity, direction.normalized); // Reflect based on current velocity
 
         // Set the new velocity
         velocity = reflectDir.normalized * velocity.magnitude; // Preserve the speed

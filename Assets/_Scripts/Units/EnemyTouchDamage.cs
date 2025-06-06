@@ -27,11 +27,6 @@ public class EnemyTouchDamage : MonoBehaviour {
 
     private void Awake() {
         tracker = GetComponent<TriggerContactTracker>();
-
-        if (health) {
-            health = GetComponentInParent<EnemyHealth>();
-        }
-
         hasStats = GetComponentInParent<IHasEnemyStats>();
     }
 

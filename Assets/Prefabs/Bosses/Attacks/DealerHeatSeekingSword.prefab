@@ -9745,6 +9745,8 @@ GameObject:
   - component: {fileID: 5957979128717866282}
   - component: {fileID: 286616078260134907}
   - component: {fileID: 7009330930191197735}
+  - component: {fileID: 1586763624472038276}
+  - component: {fileID: -5766188573302864545}
   m_Layer: 0
   m_Name: DealerHeatSeekingSword
   m_TagString: Untagged
@@ -9810,6 +9812,47 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 0
+--- !u!114 &1586763624472038276
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5847655736798942823}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3610629d2e724a641bc99da430dbd815, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sfx:
+    Clips:
+    - {fileID: 8300000, guid: 79f46eb7cc1f25e40a4d7cedd6f32584, type: 3}
+    Volume: 0.3
+    PitchVariation: 0.1
+--- !u!114 &-5766188573302864545
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5847655736798942823}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d46bccce2cb965548835711d37c4778a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hasSfxOnEnable: 0
+  enableSfx:
+    Clips:
+    - {fileID: 8300000, guid: 111bfc10be879a347bd840e27c7b63ca, type: 3}
+    Volume: 1
+    PitchVariation: 0.2
+  hasSfxOnDisable: 1
+  disableSfx:
+    Clips:
+    - {fileID: 8300000, guid: 111bfc10be879a347bd840e27c7b63ca, type: 3}
+    Volume: 0.688
+    PitchVariation: 0.2
 --- !u!1 &6837668877902003022
 GameObject:
   m_ObjectHideFlags: 0
@@ -9961,6 +10004,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f009572b4d918346b24337ef83f88c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  UseRigidBody: 0
   Rotating: 1
   RotationSpace: 0
   UpdateMode: 0

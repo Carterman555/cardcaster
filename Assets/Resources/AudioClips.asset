@@ -80,7 +80,7 @@ MonoBehaviour:
     - {fileID: 8300000, guid: 59cedaab524a5a74886df7cf7918038b, type: 3}
     - {fileID: 8300000, guid: 10519916e4ce45046a1a5a6792d7dd7c, type: 3}
     - {fileID: 8300000, guid: 88d5d242a4f96324bae41f204ca38250, type: 3}
-    Volume: 0.231
+    Volume: 0.167
     PitchVariation: 0
   spawnEnemy:
     Clips:
@@ -127,6 +127,31 @@ MonoBehaviour:
     - {fileID: 8300000, guid: 13249c99cb198f94a8e4792a7fa4f6d6, type: 3}
     Volume: 0.05
     PitchVariation: 0.3
+  dealerSwordSpin:
+    Clips:
+    - {fileID: 8300000, guid: ffd775c1b92705c4ba8280e1f599ac6d, type: 3}
+    Volume: 0.3
+    PitchVariation: 0
+  laserShoot:
+    Clips:
+    - {fileID: 8300000, guid: a1284dc242b6e2149aa02da430b9c053, type: 3}
+    Volume: 0.3
+    PitchVariation: 0.3
+  spawningSmashers:
+    Clips:
+    - {fileID: 8300000, guid: 831f2381f0f00d447b4a0c2453ae470f, type: 3}
+    Volume: 0.56
+    PitchVariation: 0
+  spawnSword:
+    Clips:
+    - {fileID: 8300000, guid: d173fb69941936e439032cfab45d5e14, type: 3}
+    Volume: 0.168
+    PitchVariation: 0.2
+  spawningBouncers:
+    Clips:
+    - {fileID: 8300000, guid: c726b7797f7340e4aabe32a557ac5b33, type: 3}
+    Volume: 0.56
+    PitchVariation: 0
   drawCard:
     Clips:
     - {fileID: 8300000, guid: e9abfb5e1aad99a41b61898d1c0923d0, type: 3}

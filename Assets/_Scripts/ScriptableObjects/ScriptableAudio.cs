@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 [CreateAssetMenu(fileName = "AudioClips", menuName = "AudioClips")]
 public class ScriptableAudio : ScriptableObject {
@@ -35,6 +36,9 @@ public class ScriptableAudio : ScriptableObject {
     [SerializeField] private AudioClips basicEnemyShoot;
     public AudioClips BasicEnemyShoot => basicEnemyShoot;
 
+    [SerializeField] private AudioClips softEnemyShoot;
+    public AudioClips SoftEnemyShoot => softEnemyShoot;
+
     [SerializeField] private AudioClips spawnEnemy;
     public AudioClips SpawnEnemy => spawnEnemy;
 
@@ -63,6 +67,22 @@ public class ScriptableAudio : ScriptableObject {
 
     [SerializeField] private AudioClips thunderGolemArea;
     public AudioClips ThunderGolemArea => thunderGolemArea;
+
+    [Header("The Dealer")]
+    [SerializeField] private AudioClips dealerSwordSpin;
+    public AudioClips DealerSwordSpin => dealerSwordSpin;
+
+    [SerializeField] private AudioClips laserShoot;
+    public AudioClips LaserShoot => laserShoot;
+
+    [SerializeField] private AudioClips spawningSmashers;
+    public AudioClips SpawningSmashers => spawningSmashers;
+
+    [SerializeField] private AudioClips spawnSword;
+    public AudioClips SpawnSword => spawnSword;
+
+    [SerializeField] private AudioClips spawningBouncers;
+    public AudioClips SpawningBouncers => spawningBouncers;
 
     [Header("Cards")]
 
@@ -108,7 +128,6 @@ public class ScriptableAudio : ScriptableObject {
     public AudioClips GainChestCard => gainChestCard;
 
     [Header("UI")]
-
 
     [SerializeField] private AudioClips openPanel;
     public AudioClips OpenPanel => openPanel;

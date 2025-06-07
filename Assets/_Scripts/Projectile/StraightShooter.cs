@@ -31,6 +31,8 @@ public class StraightShooter : MonoBehaviour {
 
             projectile.GetComponent<DamageOnContact>().Setup(damage, knockbackStrength);
 
+            AudioManager.Instance.PlaySingleSound(AudioManager.Instance.AudioClips.BasicEnemyShoot);
+
             shootTimer = 0;
         }
     }

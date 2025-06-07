@@ -117,7 +117,7 @@ public class BounceMoveBehaviour : MonoBehaviour, IEffectable, IEnemyMovement {
         UpdateFacing(velocity);
 
         if (hasBounceSFX) {
-            AudioManager.Instance.PlaySingleSound(bounceSFX);
+            AudioManager.Instance.PlaySingleSound(bounceSFX, position: transform.position);
         }
 
         OnBounce?.Invoke();
@@ -133,7 +133,7 @@ public class BounceMoveBehaviour : MonoBehaviour, IEffectable, IEnemyMovement {
         UpdateFacing(velocity);
 
         if (hasBounceSFX) {
-            AudioManager.Instance.PlaySingleSound(bounceSFX);
+            AudioManager.Instance.PlaySingleSound(bounceSFX, position: transform.position);
         }
 
         OnBounce?.Invoke();

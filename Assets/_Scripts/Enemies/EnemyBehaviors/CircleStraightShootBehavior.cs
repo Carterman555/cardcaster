@@ -25,6 +25,9 @@ public class CircleStraightShootBehavior : MonoBehaviour {
     [SerializeField] private bool customSFX;
     [ConditionalHide("customSFX")][SerializeField] private AudioClips shootSFX;
 
+    [SerializeField] private bool hasStartAnimSfx;
+    [SerializeField, ConditionalHide("hasStartAnimSfx")] private AudioClips startAnimSfx;
+
     private void Awake() {
         hasStats = GetComponent<IHasEnemyStats>();
 
@@ -49,6 +52,10 @@ public class CircleStraightShootBehavior : MonoBehaviour {
     private void TriggerShootAnimation() {
         string attackTriggerString = specialAttack ? "specialAttack" : "attack";
         anim.SetTrigger(attackTriggerString);
+
+        if (hasStartAnimSfx) {
+            AudioManager.Instance.PlaySingleSound(startAnimSfx);
+        }
     }
 
     // played by animation

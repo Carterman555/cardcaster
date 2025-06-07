@@ -531,6 +531,8 @@ MonoBehaviour:
   playerSword: {fileID: 0}
   playerSwordVisual: {fileID: 0}
   dialogTypewriter: {fileID: 0}
+  cardsPanelFeedbacks: {fileID: 0}
+  mapPanelFeedbacks: {fileID: 0}
 --- !u!1 &1876309958802724637
 GameObject:
   m_ObjectHideFlags: 0
@@ -1715,6 +1717,7 @@ MonoBehaviour:
   sfxMixerGroup: {fileID: -3165942800488051908, guid: ef2408d8f75d35a4ea4318ca3057a79d, type: 2}
   uiMixerGroup: {fileID: -3783893103257190392, guid: ef2408d8f75d35a4ea4318ca3057a79d, type: 2}
   audioClips: {fileID: 11400000, guid: 58f10c23f7294374b8dd9330832e9cb6, type: 2}
+  maxDistance: 40
 --- !u!114 &3164699630191233039
 MonoBehaviour:
   m_ObjectHideFlags: 0

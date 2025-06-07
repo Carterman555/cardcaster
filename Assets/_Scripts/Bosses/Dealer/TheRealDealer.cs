@@ -287,6 +287,8 @@ public class TheRealDealer : MonoBehaviour, IHasEnemyStats, IBoss {
             heatSeekSwordDamage.enabled = true;
         });
 
+        AudioManager.Instance.PlaySound(AudioManager.Instance.AudioClips.SpawnSword);
+
         if (inSecondStage) {
             for (int i = 0; i < 2; i++) {
 
@@ -333,6 +335,8 @@ public class TheRealDealer : MonoBehaviour, IHasEnemyStats, IBoss {
                     boomerangAcceleration
                 );
             }
+
+            AudioManager.Instance.PlaySound(AudioManager.Instance.AudioClips.SpawnSword);
         }
 
         if (heatSeekSword != null && heatSeekSword.gameObject.activeSelf) {
@@ -382,6 +386,8 @@ public class TheRealDealer : MonoBehaviour, IHasEnemyStats, IBoss {
                 bouncers.Add(miniBouncer);
             }
         }
+
+        AudioManager.Instance.PlaySingleSound(AudioManager.Instance.AudioClips.SpawningBouncers);
 
         yield return new WaitForSeconds(bouncerStateDuration);
 
@@ -460,7 +466,7 @@ public class TheRealDealer : MonoBehaviour, IHasEnemyStats, IBoss {
 
             Vector2 shootDirection = Vector2.up;
 
-            // only change direciton in second stage
+            // only change direction in second stage
             circleShootChangeDirectionAmount.Randomize();
             int cardsShotSinceDirectionChange = 0;
             spiralDirection = 1;
@@ -494,6 +500,8 @@ public class TheRealDealer : MonoBehaviour, IHasEnemyStats, IBoss {
                         cardsShotSinceDirectionChange = 0;
                     }
                 }
+
+                AudioManager.Instance.PlaySound(AudioManager.Instance.AudioClips.BasicEnemyShoot);
 
                 float circleShootBetweenCardDelay = inSecondStage ? circleShootBetweenCardDelay2 : circleShootBetweenCardDelay1;
                 yield return new WaitForSeconds(circleShootBetweenCardDelay);

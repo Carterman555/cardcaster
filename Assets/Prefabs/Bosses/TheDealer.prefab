@@ -15024,8 +15024,8 @@ MonoBehaviour:
       MaxValue: 20
   anim: {fileID: 3887365593034165796}
   centerPoint: {fileID: 2512676828727106287}
-  debugState: 1
-  stateToDebug: 3
+  debugState: 0
+  stateToDebug: 5
   debugStartSecondStage: 0
   swordRotate: {fileID: 8468655487895110190}
   sword1Renderer: {fileID: 5832003789959896266}
@@ -15142,7 +15142,7 @@ MonoBehaviour:
   centerTransform: {fileID: 2512676828727106287}
   delayBetweenStates: 2
   debugState: 1
-  stateToDebug: 4
+  stateToDebug: 5
   debugStartSecondStage: 1
   invincibilityEffect: {fileID: 5732803463431064132}
   invincibilityDuration: 8

@@ -84,7 +84,6 @@ public class TheFakeDealer : MonoBehaviour, IHasEnemyStats, IBoss {
 
         inSecondStage = debugStartSecondStage;
 
-        StartCoroutine(FadeInRed());
         UpdateVisual();
 
         BossHealthUI.Instance.RemainAtSliver = true;
@@ -338,30 +337,8 @@ public class TheFakeDealer : MonoBehaviour, IHasEnemyStats, IBoss {
     #region Visual
 
     [Header("Visual")]
-    [SerializeField] private Material redMaterial;
-    [SerializeField] private SpriteRenderer visual;
-    private Material redMaterialInstance;
-
     [SerializeField] private ParticleSystem sparksFake;
     [SerializeField] private ParticleSystem sparksReal;
-
-    private IEnumerator FadeInRed() {
-
-        redMaterialInstance = new Material(redMaterial);
-        visual.material = redMaterialInstance;
-
-        float glow = 0f;
-
-        float finalGlow = 2f;
-        float glowFadeSpeed = 2f;
-
-        while (glow < finalGlow) {
-            redMaterialInstance.SetFloat("_ShineGlow", glow);
-            glow += glowFadeSpeed * Time.deltaTime;
-
-            yield return null;
-        }
-    }
 
     private void UpdateVisual() {
         sparksFake.gameObject.SetActive(true);

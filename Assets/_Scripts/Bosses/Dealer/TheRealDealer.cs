@@ -81,7 +81,6 @@ public class TheRealDealer : MonoBehaviour, IHasEnemyStats, IBoss {
 
         inSecondStage = debugStartSecondStage;
 
-        StartCoroutine(FadeInRed());
         UpdateVisual();
 
         anim.SetInteger("defeatedAmount", 3);
@@ -139,6 +138,41 @@ public class TheRealDealer : MonoBehaviour, IHasEnemyStats, IBoss {
             StartCoroutine(CardAttackCor());
         }
 
+        if (previousState == RealDealerState.BetweenStates) {
+
+        }
+        else if (previousState == RealDealerState.BoomerangSwords) {
+
+            float fadeDuration = 1f;
+
+            if (heatSeekSword != null && heatSeekSword.gameObject.activeSelf) {
+                SpriteRenderer heatSeekSwordRenderer = heatSeekSword.GetComponentInChildren<SpriteRenderer>();
+                heatSeekSwordRenderer.DOFade(0f, fadeDuration).OnComplete(() => {
+                    heatSeekSword.gameObject.ReturnToPool();
+                });
+            }
+
+            foreach (MMAutoRotate swordCircle in swordCircles) {
+                if (swordCircle != null && swordCircle.gameObject.activeSelf) {
+                    SpriteRenderer[] spriteRenderers = swordCircle.GetComponentsInChildren<SpriteRenderer>();
+                    foreach (SpriteRenderer spriteRenderer in spriteRenderers) {
+                        spriteRenderer.DOFade(0f, fadeDuration);
+                    }
+
+                    DOVirtual.DelayedCall(fadeDuration, () => {
+                        swordCircle.gameObject.ReturnToPool();
+                    });
+                }
+            }
+        }
+        else if (previousState == RealDealerState.Bouncers) {
+            foreach (var bouncer in bouncers) {
+                bouncer.GetComponent<EnemyHealth>().Die();
+            }
+        }
+        else if (previousState == RealDealerState.CardAttack) {
+        }
+
         OnChangeStateDialog();
     }
 
@@ -154,10 +188,30 @@ public class TheRealDealer : MonoBehaviour, IHasEnemyStats, IBoss {
     }
 
     private void OnDefeated() {
+        StopAllCoroutines();
+        StartCoroutine(OnDefeatedCor());
+    }
+    private IEnumerator OnDefeatedCor() {
         defeated = true;
 
         ChangeState(RealDealerState.BetweenStates);
-        spawnBlankMemoryCards.enabled = true;
+        spawnBlankMemoryCards.enabled = false;
+
+        yield return new WaitForSeconds(1f);
+
+        ChangeState(RealDealerState.DefeatedDialog);
+
+        sparksReal.Stop();
+        anim.SetTrigger("fadeOutRed");
+    }
+
+    // played by 'death' animation
+    public void Destroy() {
+
+        ParticleSystem spawnedDestroyParticles = destroyParticles.Spawn(destroyParticles.transform.position, Containers.Instance.Effects);
+        spawnedDestroyParticles.Play();
+
+        gameObject.ReturnToPool();
     }
 
     #region Invincibility
@@ -194,6 +248,11 @@ public class TheRealDealer : MonoBehaviour, IHasEnemyStats, IBoss {
     }
 
     private void HandleInvincibility() {
+
+        if (defeated) {
+            return;
+        }
+
         bool isInvincible = invincibility != null;
         if (!isInvincible) {
             invincibilityTimer += Time.deltaTime;
@@ -208,30 +267,10 @@ public class TheRealDealer : MonoBehaviour, IHasEnemyStats, IBoss {
     #region Visual
 
     [Header("Visual")]
-    [SerializeField] private Material redMaterial;
-    [SerializeField] private SpriteRenderer visual;
-    private Material redMaterialInstance;
-
     [SerializeField] private ParticleSystem sparksFake;
     [SerializeField] private ParticleSystem sparksReal;
 
-    private IEnumerator FadeInRed() {
-
-        redMaterialInstance = new Material(redMaterial);
-        visual.material = redMaterialInstance;
-
-        float glow = 0f;
-
-        float finalGlow = 2f;
-        float glowFadeSpeed = 2f;
-
-        while (glow < finalGlow) {
-            redMaterialInstance.SetFloat("_ShineGlow", glow);
-            glow += glowFadeSpeed * Time.deltaTime;
-
-            yield return null;
-        }
-    }
+    [SerializeField] private ParticleSystem destroyParticles;
 
     private void UpdateVisual() {
         sparksFake.gameObject.SetActive(false);
@@ -339,16 +378,6 @@ public class TheRealDealer : MonoBehaviour, IHasEnemyStats, IBoss {
             AudioManager.Instance.PlaySound(AudioManager.Instance.AudioClips.SpawnSword);
         }
 
-        if (heatSeekSword != null && heatSeekSword.gameObject.activeSelf) {
-            heatSeekSword.gameObject.ReturnToPool();
-        }
-
-        foreach (MMAutoRotate swordCircle in swordCircles) {
-            if (swordCircle != null && swordCircle.gameObject.activeSelf) {
-                swordCircle.gameObject.ReturnToPool();
-            }
-        }
-
         ChangeState(RealDealerState.BetweenStates);
     }
 
@@ -390,10 +419,6 @@ public class TheRealDealer : MonoBehaviour, IHasEnemyStats, IBoss {
         AudioManager.Instance.PlaySingleSound(AudioManager.Instance.AudioClips.SpawningBouncers);
 
         yield return new WaitForSeconds(bouncerStateDuration);
-
-        foreach (var bouncer in bouncers) {
-            bouncer.GetComponent<EnemyHealth>().Die();
-        }
 
         ChangeState(RealDealerState.BetweenStates);
     }
@@ -549,6 +574,7 @@ public class TheRealDealer : MonoBehaviour, IHasEnemyStats, IBoss {
             if (nextDialogInput.action.WasPerformedThisFrame()) {
                 DialogBox.Instance.Hide();
 
+                anim.SetTrigger("die");
             }
         }
         else {

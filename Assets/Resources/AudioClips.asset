@@ -82,6 +82,14 @@ MonoBehaviour:
     - {fileID: 8300000, guid: 88d5d242a4f96324bae41f204ca38250, type: 3}
     Volume: 0.167
     PitchVariation: 0
+  softEnemyShoot:
+    Clips:
+    - {fileID: 8300000, guid: 1c392d540fc5d924994810b617eef041, type: 3}
+    - {fileID: 8300000, guid: 59cedaab524a5a74886df7cf7918038b, type: 3}
+    - {fileID: 8300000, guid: 10519916e4ce45046a1a5a6792d7dd7c, type: 3}
+    - {fileID: 8300000, guid: 88d5d242a4f96324bae41f204ca38250, type: 3}
+    Volume: 0.1
+    PitchVariation: 0
   spawnEnemy:
     Clips:
     - {fileID: 8300000, guid: b56551c8b3ae66042a20290191db8ad8, type: 3}

@@ -41,6 +41,9 @@ public class Smasher : MonoBehaviour {
     [SerializeField] private SpriteRenderer pathBackground;
     [SerializeField] private SpriteRenderer pathArrows;
 
+    [Header("Audio")]
+    [SerializeField] private AudioClips smashSfx;
+
     private void Awake() {
         rb = GetComponent<Rigidbody2D>();
     }
@@ -208,6 +211,10 @@ public class Smasher : MonoBehaviour {
         // camera shake
         float cameraShakeMult = 0.01f;
         CameraShaker.Instance.ShakeCamera(speedBeforeCollision * effectsSize * cameraShakeMult);
+
+        float volumeMult = 0.01f;
+        smashSfx.Volume = speedBeforeCollision * effectsSize * volumeMult;
+        AudioManager.Instance.PlaySound(smashSfx);
     }
 
     private void SetupPath() {

@@ -212,6 +212,8 @@ public class TheFakeDealer : MonoBehaviour, IHasEnemyStats, IBoss {
     [SerializeField] private float acceleration;
     [SerializeField] private float swordSwingSpeed;
 
+    private GameObject spinSwordAudioSource;
+
     private void OnEnterSwingState() {
         swordRotate.gameObject.SetActive(true);
         swordRotate.enabled = false;
@@ -229,11 +231,22 @@ public class TheFakeDealer : MonoBehaviour, IHasEnemyStats, IBoss {
         agent.speed = swingMoveSpeed;
         agent.acceleration = acceleration;
         chasePlayerBehavior.enabled = true;
+
+        StartCoroutine(DelayedSpinSwordSFX());
+    }
+
+    private IEnumerator DelayedSpinSwordSFX() {
+        float delay = 1f;
+        yield return new WaitForSeconds(delay);
+
+        spinSwordAudioSource = AudioManager.Instance.PlaySound(AudioManager.Instance.AudioClips.DealerSwordSpin, loop: true);
     }
 
     private void OnExitSwingState() {
         swordRotate.gameObject.SetActive(false);
         chasePlayerBehavior.enabled = false;
+
+        spinSwordAudioSource.ReturnToPool();
     }
 
     #endregion
@@ -274,6 +287,8 @@ public class TheFakeDealer : MonoBehaviour, IHasEnemyStats, IBoss {
             }
             shootDirection.RotateDirection(laserRotateAngle);
 
+            AudioManager.Instance.PlaySingleSound(AudioManager.Instance.AudioClips.LaserShoot);
+
             yield return new WaitForSeconds(shootCooldown);
         }
     }
@@ -305,6 +320,8 @@ public class TheFakeDealer : MonoBehaviour, IHasEnemyStats, IBoss {
                 smashers.Add(smasher);
             }
         }
+
+        AudioManager.Instance.PlaySingleSound(AudioManager.Instance.AudioClips.SpawningSmashers);
     }
 
     private void RemoveSmashers() {

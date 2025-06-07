@@ -12,6 +12,9 @@ public class BounceOnContact : MonoBehaviour {
 
     [SerializeField] private bool useRaycast;
 
+    [SerializeField] private bool playBounceSfx;
+    [SerializeField, ConditionalHide("playBounceSfx")] private AudioClips bounceSfx;
+
     private void Awake() {
         rb = GetComponent<Rigidbody2D>();
         originalScale = transform.localScale;
@@ -77,5 +80,9 @@ public class BounceOnContact : MonoBehaviour {
         transform.up = reflectDir.normalized;
 
         bounces++;
+
+        if (playBounceSfx) {
+            AudioManager.Instance.PlaySingleSound(bounceSfx);
+        }
     }
 }

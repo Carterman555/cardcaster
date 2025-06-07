@@ -66,6 +66,8 @@ public class CardRing : MonoBehaviour {
             card.SetActive(true);
             cardParticlesPrefab.CreateColoredParticles(card.transform.position, cardParticlesColor);
 
+            AudioManager.Instance.PlaySound(AudioManager.Instance.AudioClips.SoftEnemyShoot);
+
             // wait until spawned card has moved the correct amount for even spacing
             float cardAngle = 0f;
             while (cardAngle < angleBetweenCards) {
@@ -88,5 +90,7 @@ public class CardRing : MonoBehaviour {
 
         Vector2 toPlayerDirection = (PlayerMovement.Instance.CenterPos - transform.position).normalized;
         rb.velocity = toPlayerDirection * speed;
+
+        AudioManager.Instance.PlaySound(AudioManager.Instance.AudioClips.BasicEnemyShoot);
     }
 }

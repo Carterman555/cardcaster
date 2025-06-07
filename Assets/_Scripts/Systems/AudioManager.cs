@@ -14,6 +14,9 @@ public class AudioManager : Singleton<AudioManager> {
     [SerializeField] private ScriptableAudio audioClips;
     public ScriptableAudio AudioClips => audioClips;
 
+    [Header("Positional Audio")]
+    [SerializeField] private float maxDistance = 20f;
+
     private List<AudioClipsTimer> audioClipsTimers = new();
 
     private void Update() {
@@ -31,7 +34,7 @@ public class AudioManager : Singleton<AudioManager> {
 
     
 
-    public GameObject PlaySound(AudioClips audioClips, bool uiSound = false, bool loop = false) {
+    public GameObject PlaySound(AudioClips audioClips, bool uiSound = false, bool loop = false, Vector2 position = default) {
 
         if (audioClips.Clips == null || audioClips.Clips.Count() == 0) {
             Debug.LogWarning("Tried playing sound with no audio clips");
@@ -42,24 +45,24 @@ public class AudioManager : Singleton<AudioManager> {
         AudioMixerGroup audioMixerGroup = uiSound ? uiMixerGroup : sfxMixerGroup;
         float pitch = 1f + UnityEngine.Random.Range(-audioClips.PitchVariation, audioClips.PitchVariation);
 
-        return PlaySound(audioClip, audioMixerGroup, audioClips.Volume, pitch, loop);
+        return PlaySound(audioClip, audioMixerGroup, audioClips.Volume, pitch, loop, position);
     }
 
     // when multiple of the same sound are played at the same time, ignore all but the first one
-    public GameObject PlaySingleSound(AudioClips audioClips, float ignoreTime = 0.1f, bool uiSound = false) {
+    public GameObject PlaySingleSound(AudioClips audioClips, float ignoreTime = 0.1f, bool uiSound = false, Vector2 position = default) {
 
         if (audioClipsTimers.Any(x => x.Clips == audioClips)) {
             return null;
         }
 
-        GameObject audioSourceGO = PlaySound(audioClips, uiSound);
+        GameObject audioSourceGO = PlaySound(audioClips, uiSound, position: position);
 
         audioClipsTimers.Add(new AudioClipsTimer(audioClips, ignoreTime));
 
         return audioSourceGO;
     }
 
-    public GameObject PlaySound(AudioClip audioClip, AudioMixerGroup audioMixerGroup, float vol, float pitch = 1f, bool loop = false) {
+    public GameObject PlaySound(AudioClip audioClip, AudioMixerGroup audioMixerGroup, float vol, float pitch = 1f, bool loop = false, Vector2 position = default) {
         GameObject audioSourceGO = audioSourcePrefab.Spawn(transform);
         AudioSource audioSource = audioSourceGO.GetComponent<AudioSource>();
 
@@ -68,6 +71,13 @@ public class AudioManager : Singleton<AudioManager> {
         audioSource.volume = vol;
         audioSource.pitch = pitch;
         audioSource.loop = loop;
+
+        bool positional = position != Vector2.zero;
+        if (positional) {
+            float distance = Vector2.Distance(position, PlayerMovement.Instance.CenterPos);
+            float distanceDampener = Mathf.InverseLerp(maxDistance, 0f, distance);
+            audioSource.volume = vol * distanceDampener;
+        }
 
         audioSource.Play();
 

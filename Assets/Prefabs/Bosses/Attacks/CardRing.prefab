@@ -299,6 +299,11 @@ MonoBehaviour:
   cardPrefab: {fileID: 6127090390498122929}
   cardParticlesPrefab: {fileID: 1709629989399924173, guid: 22a723bf7c529e44d9f1f2994fffe609, type: 3}
   cardParticlesColor: {r: 0.8117647, g: 0.34117648, b: 0.23137255, a: 1}
+  spinSfx:
+    Clips:
+    - {fileID: 8300000, guid: 79f46eb7cc1f25e40a4d7cedd6f32584, type: 3}
+    Volume: 1
+    PitchVariation: 0
 --- !u!1001 &7038096255885532531
 PrefabInstance:
   m_ObjectHideFlags: 0

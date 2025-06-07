@@ -4920,6 +4920,7 @@ GameObject:
   - component: {fileID: 3387633144450276433}
   - component: {fileID: 7207998119872442396}
   - component: {fileID: 3401848161275396688}
+  - component: {fileID: 7366312804845577286}
   m_Layer: 0
   m_Name: DealerBoomerangSword
   m_TagString: Untagged
@@ -5058,6 +5059,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   destroyParticles: {fileID: 394956954575684176}
+  swingSfx:
+    Clips:
+    - {fileID: 8300000, guid: 79f46eb7cc1f25e40a4d7cedd6f32584, type: 3}
+    Volume: 0.4
+    PitchVariation: 0.1
+  shootSfx:
+    Clips:
+    - {fileID: 8300000, guid: c0ca36b5f5811de4c8ce99efa5398cb4, type: 3}
+    Volume: 0.5
+    PitchVariation: 0.1
 --- !u!114 &8689674904854596759
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5082,6 +5093,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f009572b4d918346b24337ef83f88c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  UseRigidBody: 0
   Rotating: 1
   RotationSpace: 0
   UpdateMode: 0
@@ -5135,6 +5147,30 @@ MonoBehaviour:
   layerFilter:
     serializedVersion: 2
     m_Bits: 64
+--- !u!114 &7366312804845577286
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4009169038740787262}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d46bccce2cb965548835711d37c4778a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hasSfxOnEnable: 0
+  enableSfx:
+    Clips:
+    - {fileID: 8300000, guid: 111bfc10be879a347bd840e27c7b63ca, type: 3}
+    Volume: 1
+    PitchVariation: 0.2
+  hasSfxOnDisable: 1
+  disableSfx:
+    Clips:
+    - {fileID: 8300000, guid: 111bfc10be879a347bd840e27c7b63ca, type: 3}
+    Volume: 0.688
+    PitchVariation: 0.2
 --- !u!1 &6012718219198665539
 GameObject:
   m_ObjectHideFlags: 0

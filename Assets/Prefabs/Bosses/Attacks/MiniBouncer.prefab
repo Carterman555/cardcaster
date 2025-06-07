@@ -24801,6 +24801,7 @@ GameObject:
   - component: {fileID: 2022619891145478133}
   - component: {fileID: 4512766677007828117}
   - component: {fileID: 6423898013542357664}
+  - component: {fileID: 8536301602427461770}
   - component: {fileID: 694456373597032993}
   - component: {fileID: 4977574676843204741}
   m_Layer: 7
@@ -24942,11 +24943,12 @@ MonoBehaviour:
     Clips: []
     Volume: 0
     PitchVariation: 0
-  hasBounceSFX: 0
+  hasBounceSFX: 1
   bounceSFX:
-    Clips: []
-    Volume: 0
-    PitchVariation: 0
+    Clips:
+    - {fileID: 8300000, guid: 8158124bc0be889418c250d8b21e6cc9, type: 3}
+    Volume: 0.3
+    PitchVariation: 0.2
 --- !u!114 &4440192741175538108
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -25027,6 +25029,36 @@ MonoBehaviour:
     Clips: []
     Volume: 0
     PitchVariation: 0
+  hasStartAnimSfx: 0
+  startAnimSfx:
+    Clips: []
+    Volume: 0
+    PitchVariation: 0
+--- !u!114 &8536301602427461770
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4774769242830620074}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d46bccce2cb965548835711d37c4778a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  positional: 0
+  singleSound: 1
+  hasSfxOnEnable: 0
+  enableSfx:
+    Clips: []
+    Volume: 0
+    PitchVariation: 0
+  hasSfxOnDisable: 1
+  disableSfx:
+    Clips:
+    - {fileID: 8300000, guid: 46b39bea0ee780d4a94590e4f6c031ee, type: 3}
+    Volume: 0.5
+    PitchVariation: 0.1
 --- !u!95 &694456373597032993
 Animator:
   serializedVersion: 5

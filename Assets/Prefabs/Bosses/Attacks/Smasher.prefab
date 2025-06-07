@@ -15255,6 +15255,11 @@ MonoBehaviour:
   path: {fileID: 3307114027732884083}
   pathBackground: {fileID: 4042272273646148212}
   pathArrows: {fileID: 2338805688908114775}
+  smashSfx:
+    Clips:
+    - {fileID: 8300000, guid: 215766153b58abd4eb3dba69da4a6730, type: 3}
+    Volume: 0
+    PitchVariation: 0.2
 --- !u!1 &9077934529536435278
 GameObject:
   m_ObjectHideFlags: 0

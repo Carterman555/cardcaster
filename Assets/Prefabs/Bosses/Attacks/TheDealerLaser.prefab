@@ -234,6 +234,12 @@ MonoBehaviour:
     m_Bits: 1792
   maxBounces: 1
   useRaycast: 1
+  playBounceSfx: 1
+  bounceSfx:
+    Clips:
+    - {fileID: 8300000, guid: 9597ba6c8a731c7418a35babd19e37ef, type: 3}
+    Volume: 0.2
+    PitchVariation: 0.5
 --- !u!114 &-4502967035245290443
 MonoBehaviour:
   m_ObjectHideFlags: 0

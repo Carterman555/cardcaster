@@ -19,6 +19,10 @@ public class DealerBoomerangSword : MonoBehaviour {
 
     [SerializeField] private ParticleSystem destroyParticles;
 
+    [SerializeField] private AudioClips swingSfx;
+    [SerializeField] private AudioClips shootSfx;
+    private GameObject swingAudioSource;
+
     private void Awake() {
         boomerangMovement = GetComponent<BoomerangMovement>();
         autoRotate = GetComponent<MMAutoRotate>();
@@ -53,6 +57,8 @@ public class DealerBoomerangSword : MonoBehaviour {
             touchDamage.enabled = true;
         });
 
+        swingAudioSource = AudioManager.Instance.PlaySound(swingSfx, loop: true);
+
         StartCoroutine(DelayedShoot());
     }
 
@@ -64,6 +70,8 @@ public class DealerBoomerangSword : MonoBehaviour {
         boomerangMovement.enabled = true;
         Vector2 awayFromDealerDirection = (transform.position - dealerCenterTransform.position).normalized;
         boomerangMovement.Setup(dealerCenterTransform, awayFromDealerDirection, startingSpeed, acceleration);
+
+        AudioManager.Instance.PlaySound(shootSfx);
     }
 
     private void ReturnThis(BoomerangMovement movement) {
@@ -72,5 +80,7 @@ public class DealerBoomerangSword : MonoBehaviour {
 
         ParticleSystem newDestroyParticles = destroyParticles.Spawn(transform.position, transform.rotation, Containers.Instance.Effects);
         newDestroyParticles.Play();
+
+        swingAudioSource.ReturnToPool();
     }
 }

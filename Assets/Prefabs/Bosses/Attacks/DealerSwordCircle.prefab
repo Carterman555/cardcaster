@@ -10,6 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4980656019328969690}
   - component: {fileID: 3387633144450276433}
+  - component: {fileID: 3449732930378854169}
+  - component: {fileID: -4296015596127796915}
   m_Layer: 0
   m_Name: DealerSwordCircle
   m_TagString: Untagged
@@ -48,6 +50,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f009572b4d918346b24337ef83f88c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  UseRigidBody: 0
   Rotating: 1
   RotationSpace: 0
   UpdateMode: 0
@@ -67,6 +70,47 @@ MonoBehaviour:
   _worldRotationAxis: {x: 0, y: 0, z: 1}
   _snappedPosition: {x: 1.4, y: 2.37, z: 0}
   _radius: {x: 2.5430346, y: 4.304994, z: 0}
+--- !u!114 &3449732930378854169
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4009169038740787262}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3610629d2e724a641bc99da430dbd815, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sfx:
+    Clips:
+    - {fileID: 8300000, guid: 79f46eb7cc1f25e40a4d7cedd6f32584, type: 3}
+    Volume: 0.3
+    PitchVariation: 0.1
+--- !u!114 &-4296015596127796915
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4009169038740787262}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d46bccce2cb965548835711d37c4778a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hasSfxOnEnable: 0
+  enableSfx:
+    Clips:
+    - {fileID: 8300000, guid: 111bfc10be879a347bd840e27c7b63ca, type: 3}
+    Volume: 1
+    PitchVariation: 0.2
+  hasSfxOnDisable: 1
+  disableSfx:
+    Clips:
+    - {fileID: 8300000, guid: 111bfc10be879a347bd840e27c7b63ca, type: 3}
+    Volume: 0.688
+    PitchVariation: 0.2
 --- !u!1001 &854476705810429150
 PrefabInstance:
   m_ObjectHideFlags: 0

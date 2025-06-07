@@ -20172,7 +20172,7 @@ GameObject:
   - component: {fileID: 2500217419902474517}
   - component: {fileID: 8275291936594744913}
   m_Layer: 0
-  m_Name: DestroyParticles
+  m_Name: BouncerDestroyParticles
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

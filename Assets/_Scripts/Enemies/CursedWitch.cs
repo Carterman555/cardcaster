@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.AI;
 
 public class CursedWitch : Enemy {
 
@@ -34,7 +35,6 @@ public class CursedWitch : Enemy {
         base.Update();
 
         HandleMovement();
-
         HandleAction();
     }
 
@@ -46,9 +46,7 @@ public class CursedWitch : Enemy {
 
         if (closeToPlayer) {
             if (!fleeBehavior.enabled) {
-                if (DebugManager.Instance.WitchFlee) {
-                    fleeBehavior.enabled = true;
-                }
+                fleeBehavior.enabled = true;
             }
         }
         else if (!closeToPlayer) {

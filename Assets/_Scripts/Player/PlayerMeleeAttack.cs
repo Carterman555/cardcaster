@@ -95,21 +95,13 @@ public class PlayerMeleeAttack : StaticInstance<PlayerMeleeAttack>, ITargetAttac
             // deal damage
             Vector2 attackCenter = (Vector2)PlayerMovement.Instance.CenterPos + (GetAttackDirection() * GetAttackRadius());
 
-            if (DebugManager.Instance.DamageLogic) {
-                targetCols = DamageDealer.DealCircleDamage(GameLayers.PlayerTargetLayerMask, PlayerMovement.Instance.CenterPos, attackCenter, GetAttackRadius(), Stats.BasicAttackDamage, Stats.KnockbackStrength, canCrit: true);
-            }
-            else {
-                targetCols = Physics2D.OverlapCircleAll(attackCenter, GetAttackRadius(), GameLayers.PlayerTargetLayerMask);
-            }
-
+            targetCols = DamageDealer.DealCircleDamage(GameLayers.PlayerTargetLayerMask, PlayerMovement.Instance.CenterPos, attackCenter, GetAttackRadius(), Stats.BasicAttackDamage, Stats.KnockbackStrength, canCrit: true);
             slashPrefab.Spawn(PlayerMovement.Instance.CenterPos, GetAttackDirection().DirectionToRotation(), Containers.Instance.Effects);
         }
 
         AudioManager.Instance.PlaySound(AudioManager.Instance.AudioClips.Swing);
 
-        if (DebugManager.Instance.DamageFeedback) {
-            PlayAttackFeedbacks(targetCols);
-        }
+        PlayAttackFeedbacks(targetCols);
 
         // invoke events
         OnAttack?.Invoke();

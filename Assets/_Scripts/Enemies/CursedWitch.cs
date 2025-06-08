@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.AI;
 
 public class CursedWitch : Enemy {
 
@@ -34,7 +35,6 @@ public class CursedWitch : Enemy {
         base.Update();
 
         HandleMovement();
-
         HandleAction();
     }
 

@@ -60,7 +60,7 @@ Material:
     m_Ints: []
     m_Floats:
     - _HeadThickness: 0.01
-    - _Progress: 1.0020021
+    - _Progress: 1.0010091
     - _Segments: 5
     m_Colors:
     - _HeadColor: {r: 3.441591, g: 0, b: 0.07105541, a: 1}

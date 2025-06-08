@@ -77,6 +77,7 @@ public class TheFakeDealer : MonoBehaviour, IHasEnemyStats, IBoss {
             return;
         }
 
+        health.DamagedEventTrigger.AddListener(OnDamaged);
         health.DeathEventTrigger.AddListener(OnDefeated);
 
         stateTimer = 0f;
@@ -96,6 +97,7 @@ public class TheFakeDealer : MonoBehaviour, IHasEnemyStats, IBoss {
     }
 
     private void OnDisable() {
+        health.DamagedEventTrigger.RemoveListener(OnDamaged);
         health.DeathEventTrigger.RemoveListener(OnDefeated);
     }
 
@@ -175,6 +177,13 @@ public class TheFakeDealer : MonoBehaviour, IHasEnemyStats, IBoss {
         OnChangeStateDialog();
     }
 
+    private void OnDamaged() {
+        if (health.GetHealthProportion() < 0.5f) {
+            inSecondStage = true;
+            UpdateVisual();
+        }
+    }
+
     private void OnDefeated() {
         StartCoroutine(OnDefeatCor());
     }
@@ -203,9 +212,8 @@ public class TheFakeDealer : MonoBehaviour, IHasEnemyStats, IBoss {
     #region Swing
 
     [Header("Swing")]
-    [SerializeField] private MMAutoRotate swordRotate;
-    [SerializeField] private SpriteRenderer sword1Renderer;
-    [SerializeField] private SpriteRenderer sword2Renderer;
+    [SerializeField] private SwingingSword swingingSword;
+    private SwingingSword spawnedSwingingSword;
 
     [SerializeField] private float swingMoveSpeed;
     [SerializeField] private float acceleration;
@@ -214,35 +222,30 @@ public class TheFakeDealer : MonoBehaviour, IHasEnemyStats, IBoss {
     private GameObject spinSwordAudioSource;
 
     private void OnEnterSwingState() {
-        swordRotate.gameObject.SetActive(true);
-        swordRotate.enabled = false;
-        swordRotate.RotationSpeed = new(0f, 0f, swordSwingSpeed);
+        spawnedSwingingSword = swingingSword.Spawn(centerPoint.position, Containers.Instance.Projectiles);
+        spawnedSwingingSword.Setup(inSecondStage, swordSwingSpeed);
+        spawnedSwingingSword.gameObject.SetActive(true);
 
-        sword2Renderer.gameObject.SetActive(inSecondStage);
+        StartCoroutine(EnterSwingStateCor());
+    }
 
-        sword1Renderer.Fade(0f);
-        sword2Renderer.Fade(0f);
-        sword1Renderer.DOFade(1f, duration: 0.3f);
-        sword2Renderer.DOFade(1f, duration: 0.3f).OnComplete(() => {
-            swordRotate.enabled = true;
-        });
+    private IEnumerator EnterSwingStateCor() {
+
+        float fadeInSwordDelay = 1.5f;
+        yield return new WaitForSeconds(fadeInSwordDelay);
 
         agent.speed = swingMoveSpeed;
         agent.acceleration = acceleration;
         chasePlayerBehavior.enabled = true;
 
-        StartCoroutine(DelayedSpinSwordSFX());
-    }
-
-    private IEnumerator DelayedSpinSwordSFX() {
-        float delay = 1f;
-        yield return new WaitForSeconds(delay);
+        float sfxDelay = 1f;
+        yield return new WaitForSeconds(sfxDelay);
 
         spinSwordAudioSource = AudioManager.Instance.PlaySound(AudioManager.Instance.AudioClips.DealerSwordSpin, loop: true);
     }
 
     private void OnExitSwingState() {
-        swordRotate.gameObject.SetActive(false);
+        spawnedSwingingSword.FadeOut();
         chasePlayerBehavior.enabled = false;
 
         spinSwordAudioSource.ReturnToPool();
@@ -266,7 +269,7 @@ public class TheFakeDealer : MonoBehaviour, IHasEnemyStats, IBoss {
 
         Vector2 shootDirection = Vector2.up;
 
-        int numOfLasers = inSecondStage ? 4 : 2;
+        int numOfLasers = inSecondStage ? 3 : 2;
 
         yield return new WaitForSeconds(shootCooldown);
 

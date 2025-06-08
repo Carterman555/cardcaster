@@ -14,6 +14,8 @@ public class ConstructEffect : MonoBehaviour {
     private void OnEnable() {
         Constructing = true;
         progress = 0;
+
+        constructionMat.SetFloat("_Progress", 0);
     }
 
     private void Update() {

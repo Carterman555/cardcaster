@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.AI;
 
 [RequireComponent(typeof(Rigidbody2D))]
 public class Knockback : MonoBehaviour {
@@ -8,6 +9,7 @@ public class Knockback : MonoBehaviour {
     private Rigidbody2D rb;
         
     private bool applyingKnockback;
+    private bool disabledAgent;
 
     [SerializeField] private bool overrideKnockback;
     [ConditionalHide("overrideKnockback")][SerializeField] private float overrideKnockbackResistance;
@@ -55,7 +57,15 @@ public class Knockback : MonoBehaviour {
             return;
         }
 
-        float knockbackFactor = 12f;
+        if (TryGetComponent(out NavMeshAgent agent) && agent.enabled) {
+            agent.enabled = false;
+            disabledAgent = true;
+        }
+        else {
+            disabledAgent = false;
+        }
+
+        float knockbackFactor = 10f;
         float knockbackForce = strength / GetKnockbackResistance();
         rb.velocity = knockbackForce * knockbackFactor * direction.normalized;
 
@@ -70,6 +80,10 @@ public class Knockback : MonoBehaviour {
 
             if (rb.velocity == Vector2.zero) {
                 applyingKnockback = false;
+
+                if (disabledAgent && TryGetComponent(out NavMeshAgent agent)) {
+                    agent.enabled = true;
+                }
             }
         }
     }

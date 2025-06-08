@@ -285,6 +285,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: -2736141077457755013, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
+    - {fileID: 2289975973054056507, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 3807084815282453126, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
@@ -372,8 +373,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b13b1ed3bf9f5b4e8cb3fafca61cdf2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  searchDistance: 0
-  radius: 0
 --- !u!114 &6316511975612982345
 MonoBehaviour:
   m_ObjectHideFlags: 0

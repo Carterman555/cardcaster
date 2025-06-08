@@ -63,6 +63,7 @@ public class MusicManager : Singleton<MusicManager> {
         TransitionMusic(MusicType.Boss);
     }
 
+    // played by player death feedback
     public void TransitionToCasualMusic() {
         TransitionMusic(MusicType.Casual);
     }
@@ -100,6 +101,8 @@ public class MusicManager : Singleton<MusicManager> {
     }
 
     private void TransitionMusic(MusicType newMusicType) {
+
+        print("TransitionMusic: " + newMusicType.ToPrettyString());
 
         MusicType oldMusicType = activeMusicType;
         activeMusicType = newMusicType;

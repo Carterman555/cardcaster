@@ -15025,11 +15025,9 @@ MonoBehaviour:
   anim: {fileID: 3887365593034165796}
   centerPoint: {fileID: 2512676828727106287}
   debugState: 0
-  stateToDebug: 5
+  stateToDebug: 3
   debugStartSecondStage: 0
-  swordRotate: {fileID: 8468655487895110190}
-  sword1Renderer: {fileID: 5832003789959896266}
-  sword2Renderer: {fileID: 7368805656976827978}
+  swingingSword: {fileID: 77364338931355346}
   swingMoveSpeed: 2
   acceleration: 20
   swordSwingSpeed: 300
@@ -15373,7 +15371,8 @@ MonoBehaviour:
     MinValue: 1
     MaxValue: 1
   dropChancePerDmg: 0.03
-  yVariation: 2
+  yOffset: 1
+  yVariation: 1
   hasMax: 0
   maxDropAmount: 0
 --- !u!114 &7558040409948274480
@@ -15460,7 +15459,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1017530570721364676}
+  - component: {fileID: 77364338931355346}
   - component: {fileID: 8468655487895110190}
+  - component: {fileID: 2099541172943276019}
   m_Layer: 0
   m_Name: SwordRotate
   m_TagString: Untagged
@@ -15485,6 +15486,24 @@ Transform:
   - {fileID: 349477494687082183}
   m_Father: {fileID: 9001155239179587642}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &77364338931355346
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2922087842074600847}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1661e612ea00afa4d9737c556a2c564b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sword1Renderer: {fileID: 5832003789959896266}
+  sword1TouchDamage: {fileID: 1352469708794818341}
+  sword1Shooter: {fileID: 5905615862109406716}
+  sword2Renderer: {fileID: 7368805656976827978}
+  sword2TouchDamage: {fileID: 1442270483685331437}
+  sword2Shooter: {fileID: 7506017139775890789}
 --- !u!114 &8468655487895110190
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15499,7 +15518,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   UseRigidBody: 0
   Rotating: 1
-  RotationSpace: 1
+  RotationSpace: 0
   UpdateMode: 0
   RotationSpeed: {x: 0, y: 0, z: 0}
   Orbiting: 0
@@ -15517,6 +15536,54 @@ MonoBehaviour:
   _worldRotationAxis: {x: 0, y: 0, z: 0}
   _snappedPosition: {x: 0, y: 0, z: 0}
   _radius: {x: 0, y: 0, z: 0}
+--- !u!114 &2099541172943276019
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2922087842074600847}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd8ab284de1a65c49870e4b81e46134a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  FollowPosition: 1
+  FollowPositionX: 1
+  FollowPositionY: 1
+  FollowPositionZ: 0
+  PositionSpace: 0
+  FollowRotation: 0
+  FollowScale: 0
+  FollowScaleFactor: 1
+  Target: {fileID: 9001155239179587642}
+  Offset: {x: 0, y: 1, z: 0}
+  AddInitialDistanceXToXOffset: 0
+  AddInitialDistanceYToYOffset: 0
+  AddInitialDistanceZToZOffset: 0
+  InterpolatePosition: 1
+  FollowPositionMode: 1
+  FollowPositionSpeed: 10
+  PositionSpringDamping: 0.3
+  PositionSpringFrequency: 3
+  InterpolateRotation: 1
+  FollowRotationMode: 1
+  FollowRotationSpeed: 10
+  RotationSpringDamping: 0.3
+  RotationSpringFrequency: 3
+  InterpolateScale: 1
+  FollowScaleMode: 1
+  FollowScaleSpeed: 10
+  ScaleSpringDamping: 0.3
+  ScaleSpringFrequency: 3
+  UpdateMode: 0
+  DisableSelfOnSetActiveFalse: 0
+  UseMinimumDistanceBeforeFollow: 0
+  MinimumDistanceBeforeFollow: 1
+  UseMaximumDistance: 1
+  MaximumDistance: 1
+  AnchorToInitialPosition: 0
+  MaxDistanceToAnchor: 1
 --- !u!1 &3371309217502693872
 GameObject:
   m_ObjectHideFlags: 0

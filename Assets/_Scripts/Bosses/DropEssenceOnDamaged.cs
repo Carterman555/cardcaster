@@ -7,6 +7,7 @@ public class DropEssenceOnDamaged : MonoBehaviour {
     [SerializeField] private RandomInt dropAmount;
     [SerializeField][Range(0f, 1f)] private float dropChancePerDmg;
 
+    [SerializeField] private float yOffset = 0f;
     [SerializeField] private float yVariation = 1f;
 
     [SerializeField] private bool hasMax;
@@ -42,8 +43,8 @@ public class DropEssenceOnDamaged : MonoBehaviour {
             int amount = dropAmount.Randomize();
             for (int i = 0; i < amount; i++) {
 
-                float yOffset = Random.Range(-yVariation, yVariation);
-                Vector3 essencePos = transform.position + Vector3.up * yOffset;
+                float yVariationOffset = Random.Range(-yVariation, yVariation);
+                Vector3 essencePos = transform.position + Vector3.up * (yVariationOffset + yOffset);
                 essencePrefab.Spawn(essencePos, Containers.Instance.Drops);
 
                 dropCount++;

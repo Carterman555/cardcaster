@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class FacePlayerBehavior : MonoBehaviour {
 
-    public static event Action<bool> OnChangedFacing;
+    public event Action<bool> OnChangedFacing;
 
     private bool facingRight;
 

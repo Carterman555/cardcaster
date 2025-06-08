@@ -74,6 +74,7 @@ public class TheRealDealer : MonoBehaviour, IHasEnemyStats, IBoss {
             return;
         }
 
+        health.DamagedEventTrigger.AddListener(OnDamaged);
         health.DeathEventTrigger.AddListener(OnDefeated);
         HandCard.OnAnyCardUsed_Card += OnAnyCardUsed;
 
@@ -93,6 +94,7 @@ public class TheRealDealer : MonoBehaviour, IHasEnemyStats, IBoss {
     }
 
     private void OnDisable() {
+        health.DamagedEventTrigger.RemoveListener(OnDamaged);
         health.DeathEventTrigger.RemoveListener(OnDefeated);
         HandCard.OnAnyCardUsed_Card += OnAnyCardUsed;
     }
@@ -184,6 +186,13 @@ public class TheRealDealer : MonoBehaviour, IHasEnemyStats, IBoss {
         }
         else {
             ChangeToRandomState(previousActionState);
+        }
+    }
+
+    private void OnDamaged() {
+        if (health.GetHealthProportion() < 0.5f) {
+            inSecondStage = true;
+            UpdateVisual();
         }
     }
 

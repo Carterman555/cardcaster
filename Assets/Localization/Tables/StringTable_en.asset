@@ -861,6 +861,14 @@ MonoBehaviour:
     m_Localized: Open Palms
     m_Metadata:
       m_Items: []
+  - m_Id: 26520240975147008
+    m_Localized: Imaginary Twin
+    m_Metadata:
+      m_Items: []
+  - m_Id: 26520311867273216
+    m_Localized: Duplicate a random card in your hand.
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds:

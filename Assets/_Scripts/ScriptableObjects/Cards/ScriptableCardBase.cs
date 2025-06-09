@@ -108,6 +108,7 @@ public enum CardType {
     BlankMemoryCard8,
     BlankMemoryCard9,
     BlankMemoryCard10,
+    ImaginaryTwin,
 }
 
 // what to do when play again while already playing

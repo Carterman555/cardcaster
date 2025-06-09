@@ -41,11 +41,21 @@ public class ResourceSystem : Singleton<ResourceSystem> {
         List<CardType> defaultUnlockedCards = AllCards.Where(c => c.StartUnlocked).Select(c => c.CardType).ToList();
         UnlockedCards = ES3.Load("UnlockedCardTypes", defaultUnlockedCards, ES3EncryptionMigration.GetES3Settings());
 
+        // make sure has all default cards in case they were added after player played game
         foreach (CardType defaultUnlockCard in defaultUnlockedCards) {
             if (!UnlockedCards.Contains(defaultUnlockCard)) {
                 UnlockedCards.Add(defaultUnlockCard);
             }
         }
+
+        // make sure player's in demo that unlocked open palms don't have open palms unlocked
+        bool defeatedDealer = ES3.Load("DealerDefeatedAmount", 0, ES3EncryptionMigration.GetES3Settings()) > 0;
+        if (!defeatedDealer && UnlockedCards.Contains(CardType.OpenPalms)) {
+            UnlockedCards.Remove(CardType.OpenPalms);
+        }
+
+        // save adjustments
+        ES3.Save("UnlockedCardTypes", UnlockedCards, ES3EncryptionMigration.GetES3Settings());
     }
 
     public ScriptableLevelLayout GetRandomLayout() => LevelLayouts.RandomItem();

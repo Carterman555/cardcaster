@@ -77,6 +77,7 @@ public class TheRealDealer : MonoBehaviour, IHasEnemyStats, IBoss {
         health.DamagedEventTrigger.AddListener(OnDamaged);
         health.DeathEventTrigger.AddListener(OnDefeated);
         HandCard.OnAnyCardUsed_Card += OnAnyCardUsed;
+        BlankMemoryCardDrop.OnPickup += RemoveInvincibility;
 
         ChangeState(RealDealerState.StartingDialog);
 
@@ -91,12 +92,18 @@ public class TheRealDealer : MonoBehaviour, IHasEnemyStats, IBoss {
         spawnBlankMemoryCards.enabled = false;
 
         defeated = false;
+
+        // override the max health set by enemy health because it only takes the fake dealer's max health
+        DOVirtual.DelayedCall(Time.deltaTime, () => {
+            health.SetMaxHealth(EnemyStats.MaxHealth);
+        });
     }
 
     private void OnDisable() {
         health.DamagedEventTrigger.RemoveListener(OnDamaged);
         health.DeathEventTrigger.RemoveListener(OnDefeated);
-        HandCard.OnAnyCardUsed_Card += OnAnyCardUsed;
+        HandCard.OnAnyCardUsed_Card -= OnAnyCardUsed;
+        BlankMemoryCardDrop.OnPickup -= RemoveInvincibility;
     }
 
     private void Update() {
@@ -111,8 +118,8 @@ public class TheRealDealer : MonoBehaviour, IHasEnemyStats, IBoss {
         }
     }
 
-    private void ChangeToRandomState(RealDealerState stateToAvoid) {
-        RealDealerState[] availableStates = actionStates.Where(s => s != stateToAvoid).ToArray();
+    private void ChangeToNewActionState() {
+        RealDealerState[] availableStates = actionStates.Where(s => s != previousActionState).ToArray();
         ChangeState(availableStates.RandomItem());
     }
 
@@ -185,12 +192,12 @@ public class TheRealDealer : MonoBehaviour, IHasEnemyStats, IBoss {
             ChangeState(stateToDebug);
         }
         else {
-            ChangeToRandomState(previousActionState);
+            ChangeToNewActionState();
         }
     }
 
     private void OnDamaged() {
-        if (health.GetHealthProportion() < 0.5f) {
+        if (health.HealthProportion < 0.5f) {
             inSecondStage = true;
             UpdateVisual();
         }
@@ -219,6 +226,8 @@ public class TheRealDealer : MonoBehaviour, IHasEnemyStats, IBoss {
 
         ParticleSystem spawnedDestroyParticles = destroyParticles.Spawn(destroyParticles.transform.position, Containers.Instance.Effects);
         spawnedDestroyParticles.Play();
+
+        AudioManager.Instance.PlaySound(AudioManager.Instance.AudioClips.DealerDeath);
 
         gameObject.ReturnToPool();
     }
@@ -494,6 +503,13 @@ public class TheRealDealer : MonoBehaviour, IHasEnemyStats, IBoss {
 
                 float cardRingCooldown = inSecondStage ? cardRingCooldown2 : cardRingCooldown1;
                 yield return new WaitForSeconds(cardRingCooldown);
+
+                // 50% chance of long wait between card rings
+                bool lastRing = i == cardRingAmount.Value - 1;
+                if (!lastRing && UnityEngine.Random.value > 0.5f) {
+                    float longDelay = 3.5f;
+                    yield return new WaitForSeconds(longDelay);
+                }
             }
 
             circleShootAmount.Randomize();

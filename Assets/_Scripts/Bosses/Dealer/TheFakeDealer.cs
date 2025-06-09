@@ -99,6 +99,10 @@ public class TheFakeDealer : MonoBehaviour, IHasEnemyStats, IBoss {
     private void OnDisable() {
         health.DamagedEventTrigger.RemoveListener(OnDamaged);
         health.DeathEventTrigger.RemoveListener(OnDefeated);
+
+        if (spinSwordAudioSource != null && !spinSwordAudioSource.IsReturned()) {
+            spinSwordAudioSource.ReturnToPool();
+        }
     }
 
     private void Update() {
@@ -178,7 +182,7 @@ public class TheFakeDealer : MonoBehaviour, IHasEnemyStats, IBoss {
     }
 
     private void OnDamaged() {
-        if (health.GetHealthProportion() < 0.5f) {
+        if (health.HealthProportion < 0.5f) {
             inSecondStage = true;
             UpdateVisual();
         }
@@ -276,7 +280,7 @@ public class TheFakeDealer : MonoBehaviour, IHasEnemyStats, IBoss {
         while (currentState == FakeDealerState.Lasers) {
             for (int i = 0; i < numOfLasers; i++) {
                 float rotation = 360f / numOfLasers;
-                Vector2 thisLaserDirection = shootDirection.RotateDirection(i * rotation).normalized;
+                Vector2 thisLaserDirection = shootDirection.GetDirectionRotated(i * rotation).normalized;
 
                 float distance = 1f;
                 Vector2 shootPos = (Vector2)centerPoint.position + (thisLaserDirection * distance);

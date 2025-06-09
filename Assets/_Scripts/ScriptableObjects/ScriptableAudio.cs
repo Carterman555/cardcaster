@@ -84,6 +84,9 @@ public class ScriptableAudio : ScriptableObject {
     [SerializeField] private AudioClips spawningBouncers;
     public AudioClips SpawningBouncers => spawningBouncers;
 
+    [SerializeField] private AudioClips dealerDeath;
+    public AudioClips DealerDeath => dealerDeath;
+
     [Header("Cards")]
 
     [SerializeField] private AudioClips drawCard;
@@ -151,6 +154,9 @@ public class ScriptableAudio : ScriptableObject {
 
     [SerializeField] private AudioClips damaged;
     public AudioClips Damaged => damaged;
+
+    [SerializeField] private AudioClips invincibleDamaged;
+    public AudioClips InvincibleDamaged => invincibleDamaged;
 
     [SerializeField] private AudioClips teleport;
     public AudioClips Teleport => teleport;

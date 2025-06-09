@@ -31,7 +31,7 @@ public class CardImage : MonoBehaviour {
 
         this.card = card;
 
-        if (card is ScriptableAbilityCardBase) {
+        if (card is ScriptableAbilityCardBase || card is ScriptableBlankMemoryCard) {
             upgradeSlots.gameObject.SetActive(false);
 
             cardTypeImage.color = abilityTypeColor;

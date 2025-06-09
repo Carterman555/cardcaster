@@ -17,17 +17,9 @@ public class EnemyHealth : MonoBehaviour, IDamagable {
     [SerializeField] private bool playSfxOnDeath;
     [SerializeField, ConditionalHide("playSfxOnDeath")] AudioClips deathSfx;
 
-    private float maxHealth;
-    private float health;
-    public float CurrentHealth {
-        get {
-            return health;
-        }
-        set {
-            health = value;
-            OnHealthChanged_HealthProportion?.Invoke(GetHealthProportion());
-        }
-    }
+    public float MaxHealth { get; private set; }
+    public float Health { get; private set; }
+    public float HealthProportion => Health / MaxHealth;
 
     public bool Dead { get; private set; }
 
@@ -39,46 +31,49 @@ public class EnemyHealth : MonoBehaviour, IDamagable {
         return TryGetComponent(out Invincibility invincibility);
     }
 
-    public float GetHealthProportion() {
-        return health / maxHealth;
-    }
-
-    private void Awake() {
-        EnemyStats stats = GetComponent<IHasEnemyStats>().EnemyStats;
-
-        maxHealth = stats.MaxHealth;
-        if (increaseHealthPerLevel) {
-            float proportionIncrease = perLevelProportionToIncrease * (GameSceneManager.Instance.Level - 1);
-            maxHealth = stats.MaxHealth + (stats.MaxHealth * proportionIncrease);
-        }
-
-        health = maxHealth;
-    }
-
     private void OnEnable() {
         Dead = false;
-        health = maxHealth;
 
-        OnHealthChanged_HealthProportion?.Invoke(health / maxHealth);
+        EnemyStats stats;
+        if (TryGetComponent(out IHasEnemyStats hasEnemyStats)) {
+            stats = hasEnemyStats.EnemyStats;
+        }
+        else {
+            Debug.LogError("Enemy health does not have IHasEnemyStats behavior!");
+            return;
+        }
+
+        MaxHealth = stats.MaxHealth;
+        if (increaseHealthPerLevel) {
+            float proportionIncrease = perLevelProportionToIncrease * (GameSceneManager.Instance.Level - 1);
+            MaxHealth += stats.MaxHealth * proportionIncrease;
+        }
+
+        SetHealth(MaxHealth);
     }
 
     public void Damage(float damage, bool shared = false, bool crit = false) {
 
-        if (Dead || IsInvincible()) {
+        if (Dead) {
             return;
         }
 
-        health -= damage;
+        if (IsInvincible()) {
+            AudioManager.Instance.PlaySingleSound(AudioManager.Instance.AudioClips.InvincibleDamaged);
+            return;
+        }
+
+        Health -= damage;
 
         AudioManager.Instance.PlaySingleSound(AudioManager.Instance.AudioClips.Damaged);
 
-        OnHealthChanged_HealthProportion?.Invoke(health/maxHealth);
+        OnHealthChanged_HealthProportion?.Invoke(HealthProportion);
         DamagedEventTrigger?.Invoke();
 
         OnDamaged?.Invoke();
         OnDamagedDetailed?.Invoke(damage, shared, crit);
 
-        if (health <= 0) {
+        if (Health <= 0) {
             Die();
         }
     }
@@ -115,8 +110,21 @@ public class EnemyHealth : MonoBehaviour, IDamagable {
             return;
         }
 
-        health = Mathf.MoveTowards(health, maxHealth, amount);
+        SetHealth(Mathf.MoveTowards(Health, MaxHealth, amount));
+    }
 
-        OnHealthChanged_HealthProportion?.Invoke(health / maxHealth);
+    public void SetMaxHealth(float value) {
+        MaxHealth = value;
+
+        if (Health > MaxHealth) {
+            Health = MaxHealth;
+        }
+
+        OnHealthChanged_HealthProportion?.Invoke(HealthProportion);
+    }
+
+    public void SetHealth(float value) {
+        Health = value;
+        OnHealthChanged_HealthProportion?.Invoke(HealthProportion);
     }
 }

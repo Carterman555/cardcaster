@@ -234,6 +234,7 @@ GameObject:
   - component: {fileID: 499017549490845143}
   - component: {fileID: 4549329417953167665}
   - component: {fileID: 7363170686616235769}
+  - component: {fileID: 258929855545866270}
   m_Layer: 0
   m_Name: CardRing
   m_TagString: Untagged
@@ -299,11 +300,19 @@ MonoBehaviour:
   cardPrefab: {fileID: 6127090390498122929}
   cardParticlesPrefab: {fileID: 1709629989399924173, guid: 22a723bf7c529e44d9f1f2994fffe609, type: 3}
   cardParticlesColor: {r: 0.8117647, g: 0.34117648, b: 0.23137255, a: 1}
-  spinSfx:
-    Clips:
-    - {fileID: 8300000, guid: 79f46eb7cc1f25e40a4d7cedd6f32584, type: 3}
-    Volume: 1
-    PitchVariation: 0
+--- !u!114 &258929855545866270
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3539037110066300809}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a17b283897b539488ccbbe879990d69, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  delay: 5
 --- !u!1001 &7038096255885532531
 PrefabInstance:
   m_ObjectHideFlags: 0

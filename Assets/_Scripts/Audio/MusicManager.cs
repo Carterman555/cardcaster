@@ -102,8 +102,6 @@ public class MusicManager : Singleton<MusicManager> {
 
     private void TransitionMusic(MusicType newMusicType) {
 
-        print("TransitionMusic: " + newMusicType.ToPrettyString());
-
         MusicType oldMusicType = activeMusicType;
         activeMusicType = newMusicType;
 

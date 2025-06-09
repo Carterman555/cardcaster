@@ -39,8 +39,8 @@ public class Chest : MonoBehaviour {
     private void SetupRemainingCardsList() {
 
         remainingPossibleCards = ResourceSystem.Instance.GetUnlockedCards();
-        if (!RewardSpawner.CanGainWisdomCard() && remainingPossibleCards.Contains(CardType.WisdomsHold)) {
-            remainingPossibleCards.Remove(CardType.WisdomsHold);
+        if (!RewardSpawner.CanGainOpenPalmsCard() && remainingPossibleCards.Contains(CardType.OpenPalms)) {
+            remainingPossibleCards.Remove(CardType.OpenPalms);
         }
 
         // Check if we have enough cards to choose from

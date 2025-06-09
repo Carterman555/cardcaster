@@ -154,7 +154,7 @@ MonoBehaviour:
   hasHealth: 0
   health: {fileID: 0}
   overrideDamage: 1
-  damage: 2
+  damage: 1
   overrideKnockback: 1
   knockbackStrength: 1
 --- !u!114 &3868530608142784572

@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9f15fe25b6d309345ae88f1b7f89bc2f, type: 3}
-  m_Name: WisdomsHoldCard
+  m_Name: OpenPalmsCard
   m_EditorClassIdentifier: 
   cardType: 32
   locName:
     m_TableReference:
       m_TableCollectionName: GUID:e2b89126a54df984f885da2bac4cb92f
     m_TableEntryReference:
-      m_KeyId: 731469909069824
+      m_KeyId: 26508134007599104
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
@@ -42,9 +42,8 @@ MonoBehaviour:
     m_LocalVariables: []
   sprite: {fileID: -65377647, guid: d638d131cac6f4d45aeb96fc55848241, type: 3}
   cost: 6
-  rarity: 4
+  rarity: 3
   stackType: 0
-  inDemo: 1
   startUnlocked: 1
   unlockLevel: 1
   memoryCard: 0

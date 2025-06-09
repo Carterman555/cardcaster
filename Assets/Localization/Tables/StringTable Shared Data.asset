@@ -831,6 +831,14 @@ MonoBehaviour:
     m_Key: openPalmsName
     m_Metadata:
       m_Items: []
+  - m_Id: 26520240975147008
+    m_Key: imaginaryTwinName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 26520311867273216
+    m_Key: imaginaryTwinDescription
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

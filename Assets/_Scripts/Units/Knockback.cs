@@ -1,18 +1,17 @@
-using System;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Localization.SmartFormat.Utilities;
 
-[RequireComponent(typeof(Rigidbody2D))]
 public class Knockback : MonoBehaviour {
-
-    public event Action<Vector2> OnKnockbacked;
 
     private IHasPlayerStats hasPlayerStats;
     private IHasEnemyStats hasEnemyStats;
+
+    // requires either
     private Rigidbody2D rb;
-        
-    private bool applyingKnockback;
-    private bool disabledAgent;
+    private NavMeshAgent agent;
+
+    private Vector2 knockbackVelocity;
 
     [SerializeField] private bool overrideKnockback;
     [ConditionalHide("overrideKnockback")][SerializeField] private float overrideKnockbackResistance;
@@ -36,13 +35,15 @@ public class Knockback : MonoBehaviour {
     }
 
     public bool IsApplyingKnockback() {
-        return applyingKnockback;
+        return knockbackVelocity.magnitude > 0f;
     }
 
     private void Awake() {
         hasPlayerStats = GetComponent<IHasPlayerStats>();
         hasEnemyStats = GetComponent<IHasEnemyStats>();
+
         rb = GetComponent<Rigidbody2D>();
+        agent = GetComponent<NavMeshAgent>();
     }
 
     public void ApplyKnockback(Vector2 direction, float strength) {
@@ -60,35 +61,38 @@ public class Knockback : MonoBehaviour {
             return;
         }
 
-        if (TryGetComponent(out NavMeshAgent agent) && agent.enabled) {
-            agent.enabled = false;
-            disabledAgent = true;
-        }
-        else {
-            disabledAgent = false;
-        }
 
         float knockbackFactor = 10f;
         float knockbackForce = strength / GetKnockbackResistance();
-        rb.velocity = knockbackForce * knockbackFactor * direction.normalized;
+        knockbackVelocity = knockbackForce * knockbackFactor * direction.normalized;
 
-        applyingKnockback = true;
-
-        OnKnockbacked?.Invoke(direction.normalized);
+        if (agent != null) {
+            agent.velocity = knockbackVelocity;
+        }
+        else if (rb != null) {
+            rb.velocity = knockbackVelocity;
+        }
+        else {
+            Debug.LogError($"Trying to apply knockback to {name}, but doesn't have agent or rb!");
+            return;
+        }
     }
 
     public void FixedUpdate() {
-        if (applyingKnockback) {
+        if (IsApplyingKnockback()) {
 
             float knockbackDeacceleration = 100f;
-            rb.velocity = Vector2.MoveTowards(rb.velocity, Vector2.zero, knockbackDeacceleration * Time.fixedDeltaTime);
 
-            if (rb.velocity == Vector2.zero) {
-                applyingKnockback = false;
-
-                if (disabledAgent && TryGetComponent(out NavMeshAgent agent)) {
-                    agent.enabled = true;
-                }
+            knockbackVelocity = Vector2.MoveTowards(knockbackVelocity, Vector2.zero, knockbackDeacceleration * Time.fixedDeltaTime);
+            if (agent != null) {
+                agent.velocity = knockbackVelocity;
+            }
+            else if (rb != null) {
+                rb.velocity = knockbackVelocity;
+            }
+            else {
+                Debug.LogError($"Trying to apply knockback to {name}, but doesn't have agent or rb!");
+                return;
             }
         }
     }

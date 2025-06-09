@@ -1,8 +1,11 @@
+using System;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Localization.SmartFormat.Utilities;
 
 public class Knockback : MonoBehaviour {
+
+    public event Action<Vector2> OnKnockbacked;
 
     private IHasPlayerStats hasPlayerStats;
     private IHasEnemyStats hasEnemyStats;
@@ -76,6 +79,8 @@ public class Knockback : MonoBehaviour {
             Debug.LogError($"Trying to apply knockback to {name}, but doesn't have agent or rb!");
             return;
         }
+
+        OnKnockbacked?.Invoke(direction.normalized);
     }
 
     public void FixedUpdate() {

@@ -160,6 +160,11 @@ MonoBehaviour:
     - {fileID: 8300000, guid: c726b7797f7340e4aabe32a557ac5b33, type: 3}
     Volume: 0.56
     PitchVariation: 0
+  dealerDeath:
+    Clips:
+    - {fileID: 8300000, guid: 2ad2c874358a5e346a82296963c52fba, type: 3}
+    Volume: 1
+    PitchVariation: 0
   drawCard:
     Clips:
     - {fileID: 8300000, guid: e9abfb5e1aad99a41b61898d1c0923d0, type: 3}
@@ -262,6 +267,11 @@ MonoBehaviour:
     - {fileID: 8300000, guid: ef467b4e05b04fe4fbeb0aa3e66e5af2, type: 3}
     Volume: 0.399
     PitchVariation: 0
+  invincibleDamaged:
+    Clips:
+    - {fileID: 8300000, guid: ca8c98b4a939d00478347a822988be1e, type: 3}
+    Volume: 1
+    PitchVariation: 0.1
   teleport:
     Clips:
     - {fileID: 8300000, guid: e801e16dc5def064ca8d6a0694e4d576, type: 3}

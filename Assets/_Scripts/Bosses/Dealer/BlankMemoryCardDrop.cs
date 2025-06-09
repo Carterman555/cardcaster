@@ -1,9 +1,12 @@
 using DG.Tweening;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class BlankMemoryCardDrop : MonoBehaviour {
+
+    public static event Action OnPickup;
 
     private ScriptableCardBase scriptableCard;
 
@@ -58,6 +61,8 @@ public class BlankMemoryCardDrop : MonoBehaviour {
 
             transform.DOKill();
             gameObject.ReturnToPool();
+
+            OnPickup?.Invoke();
         });
     }
 }

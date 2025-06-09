@@ -857,6 +857,10 @@ MonoBehaviour:
     m_Localized: First card tournament win, celebrated in solitude
     m_Metadata:
       m_Items: []
+  - m_Id: 26508134007599104
+    m_Localized: Open Palms
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds:

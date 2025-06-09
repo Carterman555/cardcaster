@@ -13,14 +13,14 @@ public class RewardSpawner : MonoBehaviour {
     [SerializeField] private Chest chestPrefab;
     [SerializeField] private Campfire campfirePrefab;
 
-    private static bool usedWisdomsHoldCard;
+    private static bool usedOpenPalmsCard;
 
     private void OnEnable() {
         CheckEnemiesCleared.OnEnemiesCleared += TrySpawnReward;
         BossManager.OnBossKilled_Boss += OnBossKilled;
 
         HandCard.OnAnyCardUsed_Card += OnUseCard;
-        GameSceneManager.OnStartGameLoadingCompleted += ResetUsedWisdomCard;
+        GameSceneManager.OnStartGameLoadingCompleted += ResetUsedOpenPalmsCard;
 
         chestChance = startingChestChance;
     }
@@ -30,7 +30,7 @@ public class RewardSpawner : MonoBehaviour {
         BossManager.OnBossKilled_Boss -= OnBossKilled;
 
         HandCard.OnAnyCardUsed_Card -= OnUseCard;
-        GameSceneManager.OnStartGameLoadingCompleted -= ResetUsedWisdomCard;
+        GameSceneManager.OnStartGameLoadingCompleted -= ResetUsedOpenPalmsCard;
     }
 
     private void TrySpawnReward() {
@@ -114,8 +114,8 @@ public class RewardSpawner : MonoBehaviour {
             }
         }
 
-        if (!CanGainWisdomCard() && possibleCardsToSpawn.Contains(CardType.WisdomsHold)) {
-            possibleCardsToSpawn.Remove(CardType.WisdomsHold);
+        if (!CanGainOpenPalmsCard() && possibleCardsToSpawn.Contains(CardType.OpenPalms)) {
+            possibleCardsToSpawn.Remove(CardType.OpenPalms);
         }
 
         CardType choosenCardType = ResourceSystem.Instance.GetRandomCardWeighted(possibleCardsToSpawn);
@@ -132,17 +132,17 @@ public class RewardSpawner : MonoBehaviour {
     }
 
     private void OnUseCard(ScriptableCardBase card) {
-        if (card is ScriptableWisdomsHoldCard) {
-            usedWisdomsHoldCard = true;
+        if (card is ScriptableOpenPalmsCard) {
+            usedOpenPalmsCard = true;
         }
     }
 
-    private void ResetUsedWisdomCard() {
-        usedWisdomsHoldCard = false;
+    private void ResetUsedOpenPalmsCard() {
+        usedOpenPalmsCard = false;
     }
 
-    public static bool CanGainWisdomCard() {
-        bool hasWisdomCard = DeckManager.Instance.GetAllCards().Any(c => c is ScriptableWisdomsHoldCard);
-        return !usedWisdomsHoldCard && !hasWisdomCard;
+    public static bool CanGainOpenPalmsCard() {
+        bool hasOpenPalmsCard = DeckManager.Instance.GetAllCards().Any(c => c is ScriptableOpenPalmsCard);
+        return !usedOpenPalmsCard && !hasOpenPalmsCard;
     }
 }

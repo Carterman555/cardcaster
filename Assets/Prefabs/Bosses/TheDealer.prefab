@@ -15025,7 +15025,7 @@ MonoBehaviour:
   anim: {fileID: 3887365593034165796}
   centerPoint: {fileID: 2512676828727106287}
   debugState: 0
-  stateToDebug: 3
+  stateToDebug: 4
   debugStartSecondStage: 0
   swingingSword: {fileID: 77364338931355346}
   swingMoveSpeed: 2
@@ -15137,22 +15137,22 @@ MonoBehaviour:
   anim: {fileID: 3887365593034165796}
   centerTransform: {fileID: 2512676828727106287}
   delayBetweenStates: 2
-  debugState: 1
+  debugState: 0
   stateToDebug: 4
-  debugStartSecondStage: 1
+  debugStartSecondStage: 0
   invincibilityEffect: {fileID: 5732803463431064132}
   invincibilityDuration: 8
   sparksFake: {fileID: 3035007274772066227}
   sparksReal: {fileID: 3956839116295093506}
   destroyParticles: {fileID: 4918046965471475160}
   boomerangSwordRepetitions:
-    MinValue: 8
-    MaxValue: 10
+    MinValue: 5
+    MaxValue: 7
   boomerangSwordPrefab: {fileID: 7920138526492070498, guid: a16635de88f3faf4ebdb3597014fa9f8, type: 3}
   boomerangDelayBeforeShoot:
     MinValue: 2
     MaxValue: 3
-  boomerangShootCooldown: 3
+  boomerangShootCooldown: 6
   boomerangStartingSpeed: 30
   boomerangAcceleration: 40
   boomerangCombinations:
@@ -15225,9 +15225,9 @@ MonoBehaviour:
   circleShootSpiralCount1: 2
   circleShootSpiralCount2: 4
   circleShootAngleBetweenCards: 10
-  circleShootBetweenCardDelay1: 0.05
+  circleShootBetweenCardDelay1: 0.075
   circleShootBetweenCardDelay2: 0.1
-  circleShootCardSpeed1: 6
+  circleShootCardSpeed1: 4.5
   circleShootCardSpeed2: 8
   afterCircleShootDelay: 6
   circleShootChangeDirectionAmount:
@@ -15295,7 +15295,7 @@ MonoBehaviour:
   spawnCooldown:
     MinValue: 10
     MaxValue: 15
-  amountToSpawn: 10
+  amountToSpawn: 20
 --- !u!114 &7842081825320602579
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15323,6 +15323,8 @@ MonoBehaviour:
     PitchVariation: 0
   increaseHealthPerLevel: 0
   perLevelProportionToIncrease: 0
+  serializeHasStats: 0
+  hasStatsBehavior: {fileID: 0}
 --- !u!114 &3351410608047035514
 MonoBehaviour:
   m_ObjectHideFlags: 0

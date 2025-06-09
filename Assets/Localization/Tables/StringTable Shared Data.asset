@@ -216,7 +216,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 728378430197760
-    m_Key: wisdomsHoldDescription
+    m_Key: openPalmsDescription
     m_Metadata:
       m_Items: []
   - m_Id: 730240323686400
@@ -825,6 +825,10 @@ MonoBehaviour:
       m_Items: []
   - m_Id: 24312530883997696
     m_Key: memoryDescription10
+    m_Metadata:
+      m_Items: []
+  - m_Id: 26508134007599104
+    m_Key: openPalmsName
     m_Metadata:
       m_Items: []
   m_Metadata:

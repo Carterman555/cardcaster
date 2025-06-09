@@ -50,6 +50,8 @@ public class DeckOfDoom : MonoBehaviour, IHasEnemyStats, IBoss {
 
     private void OnDisable() {
         health.DeathEventTrigger.RemoveListener(OnDefeated);
+
+        spinAudioSource.Stop();
     }
 
     private void OnDefeated() {

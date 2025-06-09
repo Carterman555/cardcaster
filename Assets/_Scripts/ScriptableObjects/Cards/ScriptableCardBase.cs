@@ -96,8 +96,8 @@ public enum CardType {
     LongDash,
     EssenceReserve,
     EssenceHarvest,
-    WisdomsHold,
 
+    OpenPalms,
     BlankMemoryCard1,
     BlankMemoryCard2,
     BlankMemoryCard3,

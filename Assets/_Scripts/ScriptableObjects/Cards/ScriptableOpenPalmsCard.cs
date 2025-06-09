@@ -1,7 +1,7 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "WisdomsHoldCard", menuName = "Cards/Wisdom's Hold Card")]
-public class ScriptableWisdomsHoldCard : ScriptablePersistentCard {
+[CreateAssetMenu(fileName = "OpenPalmsCard", menuName = "Cards/Open Palms Card")]
+public class ScriptableOpenPalmsCard : ScriptablePersistentCard {
 
     protected override void Play(Vector2 position) {
         base.Play(position);

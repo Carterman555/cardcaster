@@ -44,7 +44,6 @@ MonoBehaviour:
   cost: 4
   rarity: 3
   stackType: 0
-  inDemo: 1
   startUnlocked: 1
   unlockLevel: 1
   memoryCard: 0
@@ -52,7 +51,7 @@ MonoBehaviour:
   statModifiersPerLevel:
   - PlayerStatType: 12
     ModifyType: 0
-    Value: 0.25
+    Value: 0.15
   references:
     version: 2
     RefIds: []

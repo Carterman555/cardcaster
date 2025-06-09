@@ -11,8 +11,6 @@ public class ElectricMinion : Enemy {
     private ChargeBehavior chargeBehavior;
     private FacePlayerBehavior facePlayerBehavior;
 
-    private Rigidbody2D rb;
-
     protected override void Awake() {
         base.Awake();
 
@@ -32,8 +30,6 @@ public class ElectricMinion : Enemy {
 
         facePlayerBehavior = GetComponent<FacePlayerBehavior>();
         facePlayerBehavior.enabled = false;
-
-        rb = GetComponent<Rigidbody2D>();
     }
 
     protected override void OnEnable() {
@@ -50,7 +46,7 @@ public class ElectricMinion : Enemy {
 
     private void OnDamaged() {
         if (chargeBehavior.enabled) {
-            rb.velocity = Vector2.zero;
+            agent.velocity = Vector2.zero;
         }
     }
 

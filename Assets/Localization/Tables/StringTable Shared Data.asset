@@ -839,6 +839,14 @@ MonoBehaviour:
     m_Key: imaginaryTwinDescription
     m_Metadata:
       m_Items: []
+  - m_Id: 26824845361573888
+    m_Key: flyingSuitName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 26825008398364672
+    m_Key: flyingSuitDescription
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

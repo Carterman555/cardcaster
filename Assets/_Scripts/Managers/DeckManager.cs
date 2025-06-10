@@ -224,6 +224,7 @@ public class DeckManager : Singleton<DeckManager> {
     }
 
     public void TrashCard(CardLocation cardLocation, int cardIndex, bool usingCard) {
+
         if (cardLocation == CardLocation.Deck) {
             cardsInDeck[cardIndex].OnRemoved();
             cardsInDeck.RemoveAt(cardIndex);

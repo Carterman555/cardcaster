@@ -59,6 +59,7 @@ MonoBehaviour:
   <IsPositional>k__BackingField: 0
   <IsModifiable>k__BackingField: 0
   incompatibleAbilities: 
+  visualHandCardPrefab: {fileID: 7428607329445658342, guid: df34cc5545db5db4f8bbc0d2485f23b9, type: 3}
   references:
     version: 2
     RefIds: []

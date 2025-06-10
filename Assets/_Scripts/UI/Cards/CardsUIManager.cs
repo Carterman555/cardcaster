@@ -165,4 +165,23 @@ public class CardsUIManager : StaticInstance<CardsUIManager> {
             handCards[cardButtonIndex].SetCardPosition(pos);
         }
     }
+
+    public bool TryGetHandCard(ScriptableCardBase card, out HandCard handCard) {
+
+        int matchingCardCount = handCards.Count(c => c.GetCard() == card);
+
+        if (matchingCardCount == 0) {
+            handCard = null;
+            return false;
+        }
+
+        if (matchingCardCount > 1) {
+            Debug.LogError("Trying to get hand card, but multiple hand cards with same scriptable card instance!");
+            handCard = null;
+            return false;
+        }
+
+        handCard = handCards.First(c => c.GetCard() == card);
+        return true;
+    }
 }

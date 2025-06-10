@@ -12,20 +12,20 @@ public abstract class ScriptableCardBase : ScriptableObject, ICollectable {
     public CardType CardType => cardType;
 
     [SerializeField] private LocalizedString locName;
-    public LocalizedString Name => locName;
+    public string Name => locName.GetLocalizedString();
 
     [FormerlySerializedAs("category")]
     [SerializeField] private LocalizedString locCategory;
-    public LocalizedString LocCategory => locCategory;
+    public string LocCategory => locCategory.GetLocalizedString();
 
-    [SerializeField] private LocalizedString description;
-    public LocalizedString Description => description;
+    [SerializeField] protected LocalizedString description;
+    public virtual string Description => description.GetLocalizedString();
 
     [SerializeField] private Sprite sprite;
     public Sprite Sprite => sprite;
 
     [SerializeField] private int cost;
-    public int Cost => cost;
+    public int Cost { get; set; }
 
     [SerializeField] private Rarity rarity;
     public Rarity Rarity => rarity;
@@ -44,6 +44,7 @@ public abstract class ScriptableCardBase : ScriptableObject, ICollectable {
     public bool MemoryCard => memoryCard;
 
     public virtual void OnInstanceCreated() {
+        Cost = cost;
     }
 
     public virtual void OnRemoved() {
@@ -109,6 +110,7 @@ public enum CardType {
     BlankMemoryCard9,
     BlankMemoryCard10,
     ImaginaryTwin,
+    FlyingSuit,
 }
 
 // what to do when play again while already playing

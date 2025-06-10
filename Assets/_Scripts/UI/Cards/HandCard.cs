@@ -207,34 +207,41 @@ public class HandCard : MonoBehaviour {
         bool trashingCard = false;
 
         if (card is ScriptablePersistentCard persistentCard) {
-            if (persistentCard.CurrentLevel == persistentCard.MaxLevel) {
-                maxPersistentCardPlayer.PlayFeedbacks();
-                trashingCard = true; // trashes the card in OnUsedCard
-            }
-            else {
-                usePersistentCardPlayer.PlayFeedbacks();
+
+            switch (persistentCard.UpgradeType) {
+                case PersistentUpgradeType.NormalUpgrade:
+                    usePersistentCardPlayer.PlayFeedbacks();
+                    break;
+                case PersistentUpgradeType.Dissolve:
+                    maxPersistentCardPlayer.PlayFeedbacks();
+                    trashingCard = true;
+                    break;
+                case PersistentUpgradeType.BecomingMaxed:
+                    usePersistentCardPlayer.PlayFeedbacks();
+                    break;
+                case PersistentUpgradeType.AlreadyMaxed:
+                    useCardPlayer.PlayFeedbacks();
+                    break;
             }
         }
         else {
             useCardPlayer.PlayFeedbacks();
         }
 
-        if (!trashingCard) {
-            if (card is ScriptableModifierCardBase modifierCard) {
+        if (card is ScriptableModifierCardBase modifierCard) {
 
-                DeckManager.Instance.StackHandCard(cardIndex);
+            DeckManager.Instance.StackHandCard(cardIndex);
 
-                if (modifierCard.StackType == StackType.Stackable || !modifierAlreadyActive) {
-                    ModifierImage modifierImage = modifierImagePrefab.Spawn(transform.position, Containers.Instance.HUD);
-                    modifierImage.Setup(modifierCard);
-                }
-            }
-            else {
-                DeckManager.Instance.DiscardHandCard(cardIndex);
+            if (modifierCard.StackType == StackType.Stackable || !modifierAlreadyActive) {
+                ModifierImage modifierImage = modifierImagePrefab.Spawn(transform.position, Containers.Instance.HUD);
+                modifierImage.Setup(modifierCard);
             }
         }
+        else if (!trashingCard) {
+            DeckManager.Instance.DiscardHandCard(cardIndex);
+        }
 
-        AudioManager.Instance.PlaySound(AudioManager.Instance.AudioClips.PlayCard, uiSound: false);
+        AudioManager.Instance.PlaySound(AudioManager.Instance.AudioClips.PlayCard);
     }
 
     private void OnUsedCard() {
@@ -249,8 +256,8 @@ public class HandCard : MonoBehaviour {
 
         ScriptableCardBase usedCard = card;
 
-        bool maxedOutPersistent = card is ScriptablePersistentCard persistentCard && persistentCard.CurrentLevel == persistentCard.MaxLevel;
-        if (maxedOutPersistent) {
+        bool dissolvingPersistent = card is ScriptablePersistentCard persistentCard && persistentCard.UpgradeType == PersistentUpgradeType.Dissolve;
+        if (dissolvingPersistent) {
             DeckManager.Instance.TrashCard(CardLocation.Hand, cardIndex, usingCard: true);
         }
 
@@ -316,7 +323,7 @@ public class HandCard : MonoBehaviour {
 
     #region Handle Cancelling
 
-    
+
 
     public void CancelCard() {
 

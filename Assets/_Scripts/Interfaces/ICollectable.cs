@@ -3,8 +3,8 @@ using UnityEngine.Localization;
 
 public interface ICollectable {
 
-    public LocalizedString Name { get; }
-    public LocalizedString Description { get; }
+    public string Name { get; }
+    public string Description { get; }
     public Rarity Rarity { get; }
 
     public int Cost { get; }

@@ -869,10 +869,20 @@ MonoBehaviour:
     m_Localized: Duplicate a random card in your hand.
     m_Metadata:
       m_Items: []
+  - m_Id: 26824845361573888
+    m_Localized: Flying Suit
+    m_Metadata:
+      m_Items: []
+  - m_Id: 26825008398364672
+    m_Localized: While in hand, {ShootPercentChance}% chance to shoot card a card
+      on attack
+    m_Metadata:
+      m_Items:
+      - rid: 2333493122674720776
   references:
     version: 2
     RefIds:
     - rid: 2333493122674720776
       type: {class: SmartFormatTag, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
       data:
-        m_Entries: 0010982a05a402000010581383b302000010d8ff27df03000010585e7adf030000105863eb140400
+        m_Entries: 0010982a05a402000010581383b302000010d8ff27df03000010585e7adf030000105863eb1404000070aef8334d5f00

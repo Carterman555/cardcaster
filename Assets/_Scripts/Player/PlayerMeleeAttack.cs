@@ -8,6 +8,7 @@ using UnityEngine.Rendering;
 public class PlayerMeleeAttack : StaticInstance<PlayerMeleeAttack>, ITargetAttacker {
 
     public event Action OnAttack;
+    public event Action OnBasicAttack;
     public event Action<GameObject> OnDamage_Target;
 
     [SerializeField] private InputActionReference attackInput;
@@ -105,6 +106,7 @@ public class PlayerMeleeAttack : StaticInstance<PlayerMeleeAttack>, ITargetAttac
 
         // invoke events
         OnAttack?.Invoke();
+        OnBasicAttack?.Invoke();
 
         // turn the targetCol array into health array
         EnemyHealth[] targetHealths = targetCols

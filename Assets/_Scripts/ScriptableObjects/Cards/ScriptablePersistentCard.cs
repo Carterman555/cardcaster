@@ -10,8 +10,13 @@ public class ScriptablePersistentCard : ScriptableCardBase {
     public int MaxLevel => maxLevel;
     public int CurrentLevel { get; private set; }
 
+    [SerializeField] private bool dissolveWhenMaxed = true;
+    public bool DissolveWhenMaxed => dissolveWhenMaxed;
+
     [SerializeField] private int maxLevel;
     [SerializeField] private PlayerStatModifier[] statModifiersPerLevel;
+
+    public PersistentUpgradeType UpgradeType { get; private set; }
 
     public override void TryPlay(Vector2 position) {
         base.TryPlay(position);
@@ -19,20 +24,59 @@ public class ScriptablePersistentCard : ScriptableCardBase {
     }
 
     // upgrade card
+
+    /// <summary>
+    /// only add stat modifier if not max level
+    /// if upgraded to max level and dissolveWhenMaxed, then play MaxPersisent sfx
+    /// if 
+    /// </summary>
     protected override void Play(Vector2 position) {
         base.Play(position);
-        if (CurrentLevel < maxLevel) {
-            StatsManager.AddPlayerStatModifiers(statModifiersPerLevel);
+
+        if (CurrentLevel == maxLevel) {
+            UpgradeType = PersistentUpgradeType.AlreadyMaxed;
+        }
+        else if (CurrentLevel + 1 == maxLevel) {
+            if (DissolveWhenMaxed) {
+                UpgradeType = PersistentUpgradeType.Dissolve;
+            }
+            else {
+                UpgradeType = PersistentUpgradeType.BecomingMaxed;
+            }
+        }
+        else {
+            UpgradeType = PersistentUpgradeType.NormalUpgrade;
+        }
+
+
+        if (UpgradeType != PersistentUpgradeType.AlreadyMaxed) {
             CurrentLevel++;
-
-            if (CurrentLevel < maxLevel) {
-                AudioManager.Instance.PlaySound(AudioManager.Instance.AudioClips.UpgradePersisent);
-            }
-            else if (CurrentLevel == maxLevel) {
-                AudioManager.Instance.PlaySound(AudioManager.Instance.AudioClips.MaxPersisent);
-            }
-
+            StatsManager.AddPlayerStatModifiers(statModifiersPerLevel);
             OnLevelUp?.Invoke(CurrentLevel);
+        }
+
+        switch (UpgradeType) {
+            case PersistentUpgradeType.NormalUpgrade:
+                AudioManager.Instance.PlaySound(AudioManager.Instance.AudioClips.UpgradePersisent);
+                break;
+            case PersistentUpgradeType.Dissolve:
+                AudioManager.Instance.PlaySound(AudioManager.Instance.AudioClips.MaxPersisent);
+                break;
+            case PersistentUpgradeType.BecomingMaxed:
+                if (DissolveWhenMaxed) {
+                    Debug.LogError("Should not already be maxed because should dissolve!");
+                    return;
+                }
+
+                AudioManager.Instance.PlaySound(AudioManager.Instance.AudioClips.UpgradePersisent);
+                Cost = 0;
+                break;
+            case PersistentUpgradeType.AlreadyMaxed:
+                if (DissolveWhenMaxed) {
+                    Debug.LogError("Should not already be maxed because should have dissolved!");
+                    return;
+                }
+                break;
         }
     }
 
@@ -52,3 +96,5 @@ public class ScriptablePersistentCard : ScriptableCardBase {
         OnLevelUp = null;
     }
 }
+
+public enum PersistentUpgradeType { NormalUpgrade, Dissolve, BecomingMaxed, AlreadyMaxed }

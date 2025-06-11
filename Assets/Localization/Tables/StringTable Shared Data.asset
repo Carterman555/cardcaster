@@ -751,6 +751,86 @@ MonoBehaviour:
     m_Key: autoAttack
     m_Metadata:
       m_Items: []
+  - m_Id: 24311338451759104
+    m_Key: memoryDescription2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 24311558740799488
+    m_Key: memoryDescription3
+    m_Metadata:
+      m_Items: []
+  - m_Id: 24311777410838528
+    m_Key: memoryDescription4
+    m_Metadata:
+      m_Items: []
+  - m_Id: 24311860952985600
+    m_Key: memoryDescription5
+    m_Metadata:
+      m_Items: []
+  - m_Id: 24312162410196992
+    m_Key: memoryDescription6
+    m_Metadata:
+      m_Items: []
+  - m_Id: 24312268337344512
+    m_Key: memoryDescription7
+    m_Metadata:
+      m_Items: []
+  - m_Id: 24312354156998656
+    m_Key: memoryDescription8
+    m_Metadata:
+      m_Items: []
+  - m_Id: 24312472625115136
+    m_Key: memoryDescription9
+    m_Metadata:
+      m_Items: []
+  - m_Id: 24312530883997696
+    m_Key: memoryDescription10
+    m_Metadata:
+      m_Items: []
+  - m_Id: 26508134007599104
+    m_Key: openPalmsName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 26520240975147008
+    m_Key: imaginaryTwinName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 26520311867273216
+    m_Key: imaginaryTwinDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 26824845361573888
+    m_Key: flyingSuitName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 26825008398364672
+    m_Key: flyingSuitDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 27179072771067904
+    m_Key: flyingSuitUnlockText
+    m_Metadata:
+      m_Items: []
+  - m_Id: 27179286831566848
+    m_Key: imaginaryTwinUnlockText
+    m_Metadata:
+      m_Items: []
+  - m_Id: 27179547096518656
+    m_Key: openPalmsUnlockText
+    m_Metadata:
+      m_Items: []
+  - m_Id: 27209274515525632
+    m_Key: incompatible
+    m_Metadata:
+      m_Items: []
+  - m_Id: 27211583152721920
+    m_Key: wontApply
+    m_Metadata:
+      m_Items: []
+  - m_Id: 27211722953068544
+    m_Key: alreadyActive
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

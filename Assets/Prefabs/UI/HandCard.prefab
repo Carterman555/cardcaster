@@ -3018,6 +3018,8 @@ GameObject:
   - component: {fileID: 2666187843048805618}
   - component: {fileID: 8109067440184369694}
   - component: {fileID: 2547107600795234371}
+  - component: {fileID: 2319915521298706887}
+  - component: {fileID: 6524432876826423390}
   m_Layer: 5
   m_Name: IncompatibleText
   m_TagString: Untagged
@@ -3141,6 +3143,51 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &2319915521298706887
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4407499237906975683}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56eb0353ae6e5124bb35b17aff880f16, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_StringReference:
+    m_TableReference:
+      m_TableCollectionName: GUID:e2b89126a54df984f885da2bac4cb92f
+    m_TableEntryReference:
+      m_KeyId: 27209274515525632
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  m_FormatArguments: []
+  m_UpdateString:
+    m_PersistentCalls:
+      m_Calls: []
+  references:
+    version: 2
+    RefIds: []
+--- !u!114 &6524432876826423390
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4407499237906975683}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad83300d5dc94c24381330bca161b16a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  overrideEnglishFontSize: 0
+  englishFontSizeOverride: 0
+  roundToNearest11: 1
+  forceRoundUp: 0
+  disableAutoResize: 1
 --- !u!1 &4966880349277938481
 GameObject:
   m_ObjectHideFlags: 0
@@ -4026,6 +4073,7 @@ GameObject:
   - component: {fileID: 5823722124490398277}
   - component: {fileID: 8757058347282662023}
   - component: {fileID: 4834253411405777544}
+  - component: {fileID: 6221425172832767096}
   m_Layer: 5
   m_Name: HotkeyText
   m_TagString: Untagged
@@ -4149,6 +4197,23 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &6221425172832767096
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5210851642562501897}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad83300d5dc94c24381330bca161b16a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  overrideEnglishFontSize: 0
+  englishFontSizeOverride: 0
+  roundToNearest11: 1
+  forceRoundUp: 0
+  disableAutoResize: 1
 --- !u!1 &5664817648692576181
 GameObject:
   m_ObjectHideFlags: 0
@@ -4306,7 +4371,28 @@ MonoBehaviour:
   cardImage: {fileID: 8781295295215984585}
   modifierImagePrefab: {fileID: -2071319084836149, guid: c6d28b118b972a744a66d705262b19cd, type: 3}
   hotkeyText: {fileID: 4834253411405777544}
+  wontApplyLocStr:
+    m_TableReference:
+      m_TableCollectionName: GUID:e2b89126a54df984f885da2bac4cb92f
+    m_TableEntryReference:
+      m_KeyId: 27211583152721920
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  alreadyActiveLocStr:
+    m_TableReference:
+      m_TableCollectionName: GUID:e2b89126a54df984f885da2bac4cb92f
+    m_TableEntryReference:
+      m_KeyId: 27211722953068544
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
   incompatitableText: {fileID: 2547107600795234371}
+  references:
+    version: 2
+    RefIds: []
 --- !u!114 &1003905658556653661
 MonoBehaviour:
   m_ObjectHideFlags: 0

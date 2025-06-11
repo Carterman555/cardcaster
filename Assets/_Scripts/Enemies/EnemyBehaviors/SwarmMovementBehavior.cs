@@ -38,7 +38,7 @@ public class SwarmMovementBehavior : MonoBehaviour, IEffectable, IEnemyMovement 
         agent.updateUpAxis = false;
 
         hasStats = GetComponent<IHasEnemyStats>();
-        agent.speed = hasStats.EnemyStats.MoveSpeed;
+        agent.speed = hasStats.GetEnemyStats().MoveSpeed;
 
         knockback = GetComponent<Knockback>();
     }

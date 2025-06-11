@@ -49,10 +49,10 @@ public class CircleMoveBehavior : MonoBehaviour, IChangesFacing, IEnemyMovement 
             return;
         }
 
-        agent.speed = hasStats.EnemyStats.MoveSpeed;
+        agent.speed = hasStats.GetEnemyStats().MoveSpeed;
 
         float mult = 1 / moveRadius;
-        angle += hasStats.EnemyStats.MoveSpeed * mult * Time.deltaTime; // Increment angle based on speed
+        angle += hasStats.GetEnemyStats().MoveSpeed * mult * Time.deltaTime; // Increment angle based on speed
         float x = center.x + moveRadius * Mathf.Cos(angle);
         float y = center.y + moveRadius * Mathf.Sin(angle);
         Vector3 nextPosition = new Vector3(x, y);

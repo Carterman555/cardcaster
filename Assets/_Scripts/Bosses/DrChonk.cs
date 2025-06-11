@@ -8,7 +8,9 @@ using UnityEngine;
 public class DrChonk : MonoBehaviour, IHasEnemyStats, IBoss {
 
     [SerializeField] private ScriptableBoss scriptableBoss;
-    public EnemyStats EnemyStats => scriptableBoss.Stats;
+    public EnemyStats GetEnemyStats() {
+        return StatsManager.GetScaledEnemyStats(scriptableBoss.Stats);
+    }
 
     private DrChonkState currentState;
     private DrChonkState previousActionState;

@@ -14,7 +14,9 @@ public class Enemy : MonoBehaviour, IHasEnemyStats, IEffectable {
     public bool FromSpawnBehavior { get; private set; }
     
     [SerializeField] protected ScriptableEnemy scriptableEnemy;
-    public EnemyStats EnemyStats => scriptableEnemy.Stats;
+    public EnemyStats GetEnemyStats() {
+        return StatsManager.GetScaledEnemyStats(scriptableEnemy.Stats);
+    }
 
     [SerializeField] private TriggerEventInvoker playerTracker;
     protected bool playerWithinRange;
@@ -28,7 +30,7 @@ public class Enemy : MonoBehaviour, IHasEnemyStats, IEffectable {
         playerTracker.OnTriggerEnter_Col += OnPlayerEnteredRange;
         playerTracker.OnTriggerExit_Col += OnPlayerExitedRange;
 
-        playerTracker.GetComponent<CircleCollider2D>().radius = EnemyStats.AttackRange;
+        playerTracker.GetComponent<CircleCollider2D>().radius = GetEnemyStats().AttackRange;
         OnAnySpawn?.Invoke(this);
 
         SetFromSpawnBehavior(false);

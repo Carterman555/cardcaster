@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using UnityEngine.Localization;
+using UnityEngine.Localization.Components;
 using UnityEngine.Serialization;
 
 public abstract class ScriptableCardBase : ScriptableObject, ICollectable {
@@ -37,11 +38,17 @@ public abstract class ScriptableCardBase : ScriptableObject, ICollectable {
     [SerializeField] private bool startUnlocked;
     public bool StartUnlocked => startUnlocked;
 
-    [ConditionalHideReversed("startUnlocked")] [SerializeField] private int unlockLevel = 1;
+    [SerializeField, ConditionalHideReversed("startUnlocked")] private int unlockLevel = 1;
     public int UnlockLevel => unlockLevel;
 
     [SerializeField] private bool memoryCard;
     public bool MemoryCard => memoryCard;
+
+    [SerializeField] private bool hasUnlockText;
+    public bool HasUnlockText => hasUnlockText;
+
+    [SerializeField, ConditionalHide("hasUnlockText")] private LocalizedString unlockText;
+    public string UnlockText => unlockText.GetLocalizedString();
 
     public virtual void OnInstanceCreated() {
         Cost = cost;

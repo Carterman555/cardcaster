@@ -17,4 +17,5 @@ public struct EnemyAmount {
 [Serializable]
 public struct EnemyWave {
     public EnemyAmount[] EnemyAmounts;
+    public EnemyAmount[] AdvancedEnemyAmounts;
 }

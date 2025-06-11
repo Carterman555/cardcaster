@@ -62,7 +62,7 @@ public class BounceMoveBehaviour : MonoBehaviour, IEffectable, IEnemyMovement {
     }
 
     private void RandomizeDirection() {
-        velocity = Vector2.up * hasStats.EnemyStats.MoveSpeed;
+        velocity = Vector2.up * hasStats.GetEnemyStats().MoveSpeed;
 
         float randomDegrees = UnityEngine.Random.Range(0f, 360f);
         velocity.RotateDirection(randomDegrees);
@@ -71,7 +71,7 @@ public class BounceMoveBehaviour : MonoBehaviour, IEffectable, IEnemyMovement {
     }
 
     public void SetDirection(Vector2 direction) {
-        velocity = direction * hasStats.EnemyStats.MoveSpeed;
+        velocity = direction * hasStats.GetEnemyStats().MoveSpeed;
         UpdateFacing(velocity);
     }
 

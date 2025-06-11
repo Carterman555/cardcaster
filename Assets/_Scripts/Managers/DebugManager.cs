@@ -133,4 +133,15 @@ public class DebugManager : StaticInstance<DebugManager> {
     private void ApplyPlayerStatModifiers() {
         StatsManager.AddPlayerStatModifiers(startingPlayerStatModifiers);
     }
+
+    [Command, ContextMenu("PrintUnlockedCards")]
+    private void PrintUnlockedCards() {
+        ResourceSystem.Instance.UnlockedCards.Print();
+    }
+
+    [Command, ContextMenu("RemoveUnlockCard")]
+    private void RemoveUnlockCard(CardType cardType) {
+        ResourceSystem.Instance.UnlockedCards.Remove(cardType);
+        ES3.Save("UnlockedCardTypes", ResourceSystem.Instance.UnlockedCards, ES3EncryptionMigration.GetES3Settings());
+    }
 }

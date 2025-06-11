@@ -22,7 +22,7 @@ public class SwordSlashBehavior : MonoBehaviour, IAttacker {
 
     private void Update() {
         attackTimer += Time.deltaTime;
-        if (attackTimer > hasStats.EnemyStats.AttackCooldown) {
+        if (attackTimer > hasStats.GetEnemyStats().AttackCooldown) {
             attackTimer = 0;
             Slash();
         }
@@ -34,7 +34,7 @@ public class SwordSlashBehavior : MonoBehaviour, IAttacker {
         // deal damage
         Vector2 toPlayer = PlayerMovement.Instance.CenterPos - transform.position;
         Vector2 attackCenter = (Vector2)transform.position + (toPlayer.normalized * slashSize);
-        DamageDealer.DealCircleDamage(GameLayers.PlayerLayerMask, transform.position, attackCenter, slashSize, hasStats.EnemyStats.Damage, hasStats.EnemyStats.KnockbackStrength);
+        DamageDealer.DealCircleDamage(GameLayers.PlayerLayerMask, transform.position, attackCenter, slashSize, hasStats.GetEnemyStats().Damage, hasStats.GetEnemyStats().KnockbackStrength);
 
         OnAttack?.Invoke();
     }

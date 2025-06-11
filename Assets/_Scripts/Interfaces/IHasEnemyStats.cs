@@ -3,5 +3,5 @@ public interface IHasPlayerStats {
 }
 
 public interface IHasEnemyStats {
-    public EnemyStats EnemyStats { get; }
+    EnemyStats GetEnemyStats();
 }

@@ -19,8 +19,8 @@ public class DoomCharger : Enemy {
         ExplosionTarget playerExplosionTarget = new() {
             LayerMask = GameLayers.PlayerLayerMask,
             ExplosionRadius = 3f,
-            Damage = EnemyStats.Damage,
-            KnockbackStrength = EnemyStats.KnockbackStrength
+            Damage = GetEnemyStats().Damage,
+            KnockbackStrength = GetEnemyStats().KnockbackStrength
         };
 
         explodeBehavior.AddedExplosionTargets.Add(playerExplosionTarget);

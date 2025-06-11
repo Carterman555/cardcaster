@@ -15,7 +15,7 @@ public class CircleSlashBehavior : MonoBehaviour {
         hasStats = GetComponent<IHasEnemyStats>();
 
         timedActionBehavior = new TimedActionBehavior(
-            hasStats.EnemyStats.AttackCooldown,
+            hasStats.GetEnemyStats().AttackCooldown,
             () => TriggerAttackAnimation()
         );
     }
@@ -42,9 +42,9 @@ public class CircleSlashBehavior : MonoBehaviour {
             GameLayers.PlayerLayerMask,
             centerPoint.position,
             centerPoint.position,
-            hasStats.EnemyStats.AttackRange,
-            hasStats.EnemyStats.Damage,
-            hasStats.EnemyStats.KnockbackStrength
+            hasStats.GetEnemyStats().AttackRange,
+            hasStats.GetEnemyStats().Damage,
+            hasStats.GetEnemyStats().KnockbackStrength
         );
 
         AudioManager.Instance.PlaySound(AudioManager.Instance.AudioClips.Swing);

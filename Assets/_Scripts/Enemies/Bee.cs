@@ -382,7 +382,7 @@ public class Bee : Enemy {
     public void ShootProjectile() {
         StraightMovement newProjectile = stingerPrefab.Spawn(shootPoint.position, Containers.Instance.Projectiles);
         newProjectile.Setup(shootDirection.normalized);
-        newProjectile.GetComponent<DamageOnContact>().Setup(EnemyStats.Damage, EnemyStats.KnockbackStrength);
+        newProjectile.GetComponent<DamageOnContact>().Setup(GetEnemyStats().Damage, GetEnemyStats().KnockbackStrength);
 
         AudioManager.Instance.PlaySound(AudioManager.Instance.AudioClips.BasicEnemyShoot);
 

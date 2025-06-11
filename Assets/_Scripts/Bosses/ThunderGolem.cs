@@ -8,7 +8,9 @@ using UnityEngine;
 public class ThunderGolem : MonoBehaviour, IHasEnemyStats, IBoss {
 
     [SerializeField] private ScriptableBoss scriptableBoss;
-    public EnemyStats EnemyStats => scriptableBoss.Stats;
+    public EnemyStats GetEnemyStats() {
+        return StatsManager.GetScaledEnemyStats(scriptableBoss.Stats);
+    }
 
     private GolemState currentState;
     private GolemState previousActionState;
@@ -181,7 +183,7 @@ public class ThunderGolem : MonoBehaviour, IHasEnemyStats, IBoss {
             StraightMovement projectile = electricProjectilePrefab.Spawn(position, Containers.Instance.Projectiles);
 
             projectile.Setup(randomDirection, projectileSpeed.Randomize());
-            projectile.GetComponent<DamageOnContact>().Setup(EnemyStats.Damage, EnemyStats.KnockbackStrength);
+            projectile.GetComponent<DamageOnContact>().Setup(GetEnemyStats().Damage, GetEnemyStats().KnockbackStrength);
         }
 
         CameraShaker.Instance.ShakeCamera(2f);
@@ -217,13 +219,13 @@ public class ThunderGolem : MonoBehaviour, IHasEnemyStats, IBoss {
 
             float glowDuration = 0f;
 
-            if (glowDuration > EnemyStats.AttackCooldown) {
+            if (glowDuration > GetEnemyStats().AttackCooldown) {
                 Debug.LogWarning("glowDuration should not be greater than GetStats().AttackCooldown!");
-                glowDuration = EnemyStats.AttackCooldown;
+                glowDuration = GetEnemyStats().AttackCooldown;
             }
 
             // minus glowDuration so glowing effect doesn't add to shoot cooldown
-            yield return new WaitForSeconds(EnemyStats.AttackCooldown - glowDuration);
+            yield return new WaitForSeconds(GetEnemyStats().AttackCooldown - glowDuration);
 
             shootBehavior.ShootProjectile();
         }

@@ -73,7 +73,6 @@ public class ResourceSystem : Singleton<ResourceSystem> {
     public List<CardType> GetUnlockedCardsUpToLevel(int level) => GetAllCardsUpToLevel(level).Where(c => UnlockedCards.Contains(c)).ToList();
 
     public ScriptableCardBase GetCardInstance(CardType cardType) => CloneCard(AllCards.FirstOrDefault(c => c.CardType == cardType));
-    public ScriptableCardBase GetCardInstance(string cardName) => CloneCard(AllCards.FirstOrDefault(c => c.name == cardName));
 
     public CardType GetRandomCardWeighted(List<CardType> cardsToChooseFrom) {
 

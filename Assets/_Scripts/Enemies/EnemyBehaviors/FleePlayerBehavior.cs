@@ -27,7 +27,7 @@ public class FleePlayerBehavior : MonoBehaviour, IEffectable, IEnemyMovement {
         }
 
         agent.isStopped = false;
-        agent.speed = hasStats.EnemyStats.MoveSpeed;
+        agent.speed = hasStats.GetEnemyStats().MoveSpeed;
 
         if (movingToTargetPos) {
             float distanceToTargetThreshold = 1f;

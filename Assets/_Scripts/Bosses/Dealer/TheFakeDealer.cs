@@ -30,7 +30,9 @@ public class FakeDealerDurationPair {
 public class TheFakeDealer : MonoBehaviour, IHasEnemyStats, IBoss {
 
     [SerializeField] private ScriptableBoss scriptableBoss;
-    public EnemyStats EnemyStats => scriptableBoss.Stats;
+    public EnemyStats GetEnemyStats() {
+        return StatsManager.GetScaledEnemyStats(scriptableBoss.Stats);
+    }
 
     private FakeDealerState currentState;
     private FakeDealerState previousActionState;
@@ -196,13 +198,6 @@ public class TheFakeDealer : MonoBehaviour, IHasEnemyStats, IBoss {
         defeatedAmount++;
         ES3.Save("DealerDefeatedAmount", defeatedAmount, ES3EncryptionMigration.GetES3Settings());
 
-        Transform projectileContainer = Containers.Instance.Projectiles;
-        foreach (Transform projectile in projectileContainer) {
-            if (projectile.gameObject.activeSelf) {
-                projectile.gameObject.ReturnToPool();
-            }
-        }
-
         // repeatedly set to between states so doesn't switch to action state
         int showFleeDialogDelay = 2;
         for (int i = 0; i < showFleeDialogDelay; i++) {
@@ -252,7 +247,9 @@ public class TheFakeDealer : MonoBehaviour, IHasEnemyStats, IBoss {
         spawnedSwingingSword.FadeOut();
         chasePlayerBehavior.enabled = false;
 
-        spinSwordAudioSource.ReturnToPool();
+        if (spinSwordAudioSource != null) {
+            spinSwordAudioSource.ReturnToPool();
+        }
     }
 
     #endregion
@@ -415,26 +412,6 @@ public class TheFakeDealer : MonoBehaviour, IHasEnemyStats, IBoss {
         fleeParticlesInstance.gameObject.SetActive(true);
 
         gameObject.ReturnToPool();
-
-        CardDrop memoryCard = cardDropPrefab.Spawn(transform.position, Containers.Instance.Drops);
-
-        // at this point defeatedAmount already been incremented from this defeat
-        CardType cardType = CardType.BlankMemoryCard1;
-        switch (defeatedAmount) {
-            case 1:
-                cardType = CardType.BlankMemoryCard1;
-                break;
-            case 2:
-                cardType = CardType.BlankMemoryCard1;
-                break;
-            case 3:
-                cardType = CardType.BlankMemoryCard1;
-                break;
-            default:
-                break;
-        }
-
-        memoryCard.SetCard(ResourceSystem.Instance.GetCardInstance(cardType));
     }
 
     [ContextMenu("ResetDefeatedAmount")]

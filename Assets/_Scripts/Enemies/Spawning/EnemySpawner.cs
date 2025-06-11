@@ -50,11 +50,23 @@ public class EnemySpawner : StaticInstance<EnemySpawner> {
             return;
         }
 
+        int envLevel = GameSceneManager.Instance.GetEnvironmentLevel();
+
         EnemyWave currentWave = currentEnemyComposition.EnemyWaves[currentWaveIndex];
 
-        foreach (EnemyAmount enemyAmount in currentWave.EnemyAmounts) {
-            enemyAmount.Amount.Randomize();
-            for (int i = 0; i < enemyAmount.Amount.Value; i++) {
+        EnemyAmount[] enemyAmounts = currentWave.EnemyAmounts;
+        if (envLevel > 1) {
+            enemyAmounts = currentWave.EnemyAmounts.Concat(currentWave.AdvancedEnemyAmounts).ToArray();
+        }
+
+        foreach (EnemyAmount enemyAmount in enemyAmounts) {
+
+            float amount = enemyAmount.Amount.Randomize();
+            float amountProportionIncrease = GameConstants.EnemyAmountScalePerEnvLevel * (envLevel - 1);
+            amount *= 1 + amountProportionIncrease;
+            amount = Mathf.Round(amount);
+
+            for (int i = 0; i < amount; i++) {
                 bool firstWave = currentWaveIndex == 0;
                 SpawnEnemy(enemyAmount.ScriptableEnemy.Prefab, createSpawnEffect: !firstWave);
             }

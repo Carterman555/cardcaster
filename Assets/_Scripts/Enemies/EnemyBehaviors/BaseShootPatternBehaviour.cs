@@ -12,7 +12,7 @@ public abstract class BaseShootPatternBehaviour : MonoBehaviour, IAttacker {
     [SerializeField] private bool overrideDamage;
     [ConditionalHide("overrideDamage")][SerializeField] private float damage;
 
-    protected float Damage => overrideDamage ? damage : hasStats.EnemyStats.Damage;
+    protected float Damage => overrideDamage ? damage : hasStats.GetEnemyStats().Damage;
 
     [Header("SFX")]
     [SerializeField] private bool customSFX;

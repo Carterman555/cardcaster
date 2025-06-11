@@ -357,8 +357,8 @@ public class DeckManager : Singleton<DeckManager> {
     }
 
     [Command]
-    private void GainCard(string cardName) {
-        ScriptableCardBase card = ResourceSystem.Instance.GetCardInstance(cardName);
+    private void GainCard(CardType cardType) {
+        ScriptableCardBase card = ResourceSystem.Instance.GetCardInstance(cardType);
 
         if (card == null) {
             Debug.LogWarning("Card Not Found!");

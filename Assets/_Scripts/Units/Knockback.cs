@@ -28,7 +28,7 @@ public class Knockback : MonoBehaviour {
                 return hasPlayerStats.PlayerStats.KnockbackResistance;
             }
             else if (hasEnemyStats != null) {
-                return hasEnemyStats.EnemyStats.KnockbackResistance;
+                return hasEnemyStats.GetEnemyStats().KnockbackResistance;
             }
             else {
                 Debug.LogError("Object with Knockback does not override or have stats component!");

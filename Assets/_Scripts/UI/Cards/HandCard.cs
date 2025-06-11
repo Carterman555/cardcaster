@@ -5,6 +5,7 @@ using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Localization;
 using UnityEngine.SceneManagement;
 
 public class HandCard : MonoBehaviour {
@@ -230,7 +231,13 @@ public class HandCard : MonoBehaviour {
 
         if (card is ScriptableModifierCardBase modifierCard) {
 
-            DeckManager.Instance.StackHandCard(cardIndex);
+            bool wontApply = modifierCard.StackType == StackType.NotStackable && modifierAlreadyActive;
+            if (wontApply) {
+                DeckManager.Instance.DiscardHandCard(cardIndex);
+            }
+            else {
+                DeckManager.Instance.StackHandCard(cardIndex);
+            }
 
             if (modifierCard.StackType == StackType.Stackable || !modifierAlreadyActive) {
                 ModifierImage modifierImage = modifierImagePrefab.Spawn(transform.position, Containers.Instance.HUD);
@@ -276,6 +283,9 @@ public class HandCard : MonoBehaviour {
 
     [SerializeField] private TextMeshProUGUI hotkeyText;
 
+    [SerializeField] private LocalizedString wontApplyLocStr;
+    [SerializeField] private LocalizedString alreadyActiveLocStr;
+
     public void SetCard(ScriptableCardBase card) {
         this.card = card;
         cardImage.Setup(card);
@@ -294,7 +304,10 @@ public class HandCard : MonoBehaviour {
 
         if (card is ScriptableModifierCardBase modifierCard) {
             if (modifierCard.StackType == StackType.NotStackable && AbilityManager.Instance.IsModifierActive(modifierCard)) {
-                hotkeyText.text = "<color=\"red\">Won't Apply!\r\n<size=20>Modifier Already Active</size>";
+                string wontApplyStr = wontApplyLocStr.GetLocalizedString();
+                string alreadyActiveStr = alreadyActiveLocStr.GetLocalizedString();
+
+                hotkeyText.text = $"<color=\"red\">{wontApplyStr}\r\n<size=20>{alreadyActiveStr}</size>";
             }
         }
     }

@@ -859,6 +859,18 @@ MonoBehaviour:
     m_Key: openPalmsUnlockText
     m_Metadata:
       m_Items: []
+  - m_Id: 27209274515525632
+    m_Key: incompatible
+    m_Metadata:
+      m_Items: []
+  - m_Id: 27211583152721920
+    m_Key: wontApply
+    m_Metadata:
+      m_Items: []
+  - m_Id: 27211722953068544
+    m_Key: alreadyActive
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

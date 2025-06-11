@@ -50,7 +50,7 @@ MonoBehaviour:
   memoryCard: 0
   abilityAttributes: 29
   baseStats:
-    BaseDamage: 6
+    BaseDamage: 4
     KnockbackStrength: 0.25
     AreaSize: 0
     Duration: 5

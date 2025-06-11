@@ -781,6 +781,90 @@ MonoBehaviour:
     m_Localized: Auto Attack
     m_Metadata:
       m_Items: []
+  - m_Id: 24311338451759104
+    m_Localized: Father's seat remains vacant at the dinner table again tonight
+    m_Metadata:
+      m_Items: []
+  - m_Id: 24311558740799488
+    m_Localized: Half-burned parchment with words "disappointment" still visible
+    m_Metadata:
+      m_Items: []
+  - m_Id: 24311777410838528
+    m_Localized: Small hands casting card shapes on the wall by candlelight
+    m_Metadata:
+      m_Items: []
+  - m_Id: 24311860952985600
+    m_Localized: A perfect trick performed to an audience of none
+    m_Metadata:
+      m_Items: []
+  - m_Id: 24312162410196992
+    m_Localized: Breakfast grows cold as footsteps pass by the door
+    m_Metadata:
+      m_Items: []
+  - m_Id: 24312268337344512
+    m_Localized: Other children's laughter drifts from the village square
+    m_Metadata:
+      m_Items: []
+  - m_Id: 24312354156998656
+    m_Localized: A lucky charm that never brought any luck at all
+    m_Metadata:
+      m_Items: []
+  - m_Id: 24312472625115136
+    m_Localized: Reflection shows a child practicing confident smiles
+    m_Metadata:
+      m_Items: []
+  - m_Id: 24312530883997696
+    m_Localized: First card tournament win, celebrated in solitude
+    m_Metadata:
+      m_Items: []
+  - m_Id: 26508134007599104
+    m_Localized: Open Palms
+    m_Metadata:
+      m_Items: []
+  - m_Id: 26520240975147008
+    m_Localized: Imaginary Twin
+    m_Metadata:
+      m_Items: []
+  - m_Id: 26520311867273216
+    m_Localized: Duplicate a random card in your hand.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 26824845361573888
+    m_Localized: Flying Suit
+    m_Metadata:
+      m_Items: []
+  - m_Id: 26825008398364672
+    m_Localized: While in hand, {ShootPercentChance}% chance to shoot card a card
+      on attack
+    m_Metadata:
+      m_Items:
+      - rid: 2333493122674720776
+  - m_Id: 27179072771067904
+    m_Localized: They laughed when I practiced throwing cards at targets. Stopped
+      laughing when I could cut paper.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 27179286831566848
+    m_Localized: I invented someone just like me. This one listened.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 27179547096518656
+    m_Localized: Dad said my hands were too small for real magic. I practiced stretching
+      them every night.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 27209274515525632
+    m_Localized: Incompatible
+    m_Metadata:
+      m_Items: []
+  - m_Id: 27211583152721920
+    m_Localized: Won't Apply!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 27211722953068544
+    m_Localized: Modifier Already Active.
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds:

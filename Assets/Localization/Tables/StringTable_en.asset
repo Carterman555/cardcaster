@@ -893,6 +893,18 @@ MonoBehaviour:
       them every night.
     m_Metadata:
       m_Items: []
+  - m_Id: 27209274515525632
+    m_Localized: Incompatible
+    m_Metadata:
+      m_Items: []
+  - m_Id: 27211583152721920
+    m_Localized: Won't Apply!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 27211722953068544
+    m_Localized: Modifier Already Active.
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds:

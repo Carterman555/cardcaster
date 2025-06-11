@@ -24,7 +24,7 @@ public class ShootTargetProjectileBehavior : MonoBehaviour {
         hasStats = GetComponent<IHasEnemyStats>();
 
         timedActionBehavior = new TimedActionBehavior(
-            hasStats.            EnemyStats.AttackCooldown,
+            hasStats.GetEnemyStats().AttackCooldown,
             () => TriggerShootAnimation()
         );
     }
@@ -54,7 +54,7 @@ public class ShootTargetProjectileBehavior : MonoBehaviour {
         GameObject newProjectileObject = projectilePrefab.Spawn(shootPoint.position, Containers.Instance.Enemies);
         ITargetProjectileMovement newProjectile = newProjectileObject.GetComponent<ITargetProjectileMovement>();
         newProjectile.Setup(PlayerMovement.Instance.transform);
-        newProjectileObject.GetComponent<DamageOnContact>().Setup(hasStats.EnemyStats.Damage, hasStats.EnemyStats.KnockbackStrength);
+        newProjectileObject.GetComponent<DamageOnContact>().Setup(hasStats.GetEnemyStats().Damage, hasStats.GetEnemyStats().KnockbackStrength);
 
         if (customSFX) {
             AudioManager.Instance.PlaySound(shootSFX);

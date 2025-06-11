@@ -31,7 +31,9 @@ public class TheRealDealer : MonoBehaviour, IHasEnemyStats, IBoss {
 
 
     [SerializeField] private ScriptableBoss scriptableBoss;
-    public EnemyStats EnemyStats => scriptableBoss.Stats;
+    public EnemyStats GetEnemyStats() {
+        return StatsManager.GetScaledEnemyStats(scriptableBoss.Stats);
+    }
 
     private RealDealerState currentState;
     private RealDealerState previousActionState;
@@ -95,7 +97,7 @@ public class TheRealDealer : MonoBehaviour, IHasEnemyStats, IBoss {
 
         // override the max health set by enemy health because it only takes the fake dealer's max health
         DOVirtual.DelayedCall(Time.deltaTime, () => {
-            health.SetMaxHealth(EnemyStats.MaxHealth);
+            health.SetMaxHealth(GetEnemyStats().MaxHealth);
         });
     }
 
@@ -496,7 +498,7 @@ public class TheRealDealer : MonoBehaviour, IHasEnemyStats, IBoss {
                 cardRing.Setup(
                     cardRingRadius,
                     amountOfCardsInRing,
-                    EnemyStats.Damage,
+                    GetEnemyStats().Damage,
                     cardRingSpeed,
                     cardRingCircularSpeed
                 );
@@ -535,7 +537,7 @@ public class TheRealDealer : MonoBehaviour, IHasEnemyStats, IBoss {
 
                     float circleShootCardSpeed = inSecondStage ? circleShootCardSpeed2 : circleShootCardSpeed1;
                     card.Setup(spiralShootDirection, circleShootCardSpeed);
-                    card.GetComponent<DamageOnContact>().Setup(EnemyStats.Damage, knockbackStrength: 1f);
+                    card.GetComponent<DamageOnContact>().Setup(GetEnemyStats().Damage, knockbackStrength: 1f);
                 }
 
                 shootDirection.RotateDirection(circleShootAngleBetweenCards * spiralDirection);

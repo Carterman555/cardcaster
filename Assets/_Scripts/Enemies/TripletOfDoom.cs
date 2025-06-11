@@ -81,7 +81,7 @@ public class TripletOfDoom : Enemy {
     private void HandleAttack() {
 
         shootTimer += Time.deltaTime;
-        if (shootTimer > EnemyStats.AttackCooldown) {
+        if (shootTimer > GetEnemyStats().AttackCooldown) {
             shootTimer = 0;
 
             anim.SetTrigger("attack");
@@ -98,8 +98,8 @@ public class TripletOfDoom : Enemy {
         ExplosionTarget playerExplosionTarget = new() {
             LayerMask = GameLayers.PlayerLayerMask,
             ExplosionRadius = 3f,
-            Damage = EnemyStats.Damage,
-            KnockbackStrength = EnemyStats.KnockbackStrength
+            Damage = GetEnemyStats().Damage,
+            KnockbackStrength = GetEnemyStats().KnockbackStrength
         };
 
         ExplodeBehavior[] explodeBehaviors = projectile.GetComponentsInChildren<ExplodeBehavior>();

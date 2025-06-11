@@ -30,7 +30,7 @@ public class ChasePlayerBehavior : MonoBehaviour, IEffectable, IEnemyMovement {
         agent.SetDestination(PlayerMovement.Instance.CenterPos);
 
         if (!useExternalSpeedOverride) {
-            agent.speed = hasStats.EnemyStats.MoveSpeed;
+            agent.speed = hasStats.GetEnemyStats().MoveSpeed;
         }
     }
 

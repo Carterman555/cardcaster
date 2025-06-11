@@ -20,10 +20,6 @@ public class GameSceneManager : Singleton<GameSceneManager> {
     public EnvironmentType CurrentEnvironment { get; private set; }
     public int Level { get; private set; }
 
-    private const int LEVELS_PER_ENVIRONMENT = 1;
-
-    private const int MAX_LEVEL = 3;
-
     [SerializeField] private int debugStartingLevel = 1;
 
     private MMF_Player sceneLoadPlayer;
@@ -81,10 +77,6 @@ public class GameSceneManager : Singleton<GameSceneManager> {
 
         Level++;
 
-        if (Level > MAX_LEVEL) {
-            StartGame();
-        }
-
         UpdateEnvironmentType();
         LoadGameScene();
     }
@@ -113,9 +105,9 @@ public class GameSceneManager : Singleton<GameSceneManager> {
     }
 
     private void UpdateEnvironmentType() {
-
         // with levelsPerEnvironment = 2 then level 1 and 2 become 0 (stone), 3 and 4 become 1 (smooth stone), and 5 and 6 become 2 (blue stone)
-        int environmentNum = Mathf.CeilToInt(((float)Level / LEVELS_PER_ENVIRONMENT) - 1);
+        int uniqueEnvironments = Enum.GetValues(typeof(EnvironmentType)).Length;
+        int environmentNum = (Level - 1) % uniqueEnvironments;
         CurrentEnvironment = (EnvironmentType)environmentNum;
     }
 
@@ -138,9 +130,19 @@ public class GameSceneManager : Singleton<GameSceneManager> {
         }
     }
 
-    // the level in the environment
-    public int GetSubLevel() {
-        int subLevel = ((Level - 1) % LEVELS_PER_ENVIRONMENT) + 1;
-        return subLevel;
+    public int GetEnvironmentLevel() {
+        float uniqueEnvironments = Enum.GetValues(typeof(EnvironmentType)).Length;
+        return Mathf.CeilToInt(Level / uniqueEnvironments);
+    }
+
+
+    [Command]
+    private void SkipLevels(int amount) {
+        OnLevelComplete?.Invoke(Level);
+
+        Level += amount;
+
+        UpdateEnvironmentType();
+        LoadGameScene();
     }
 }

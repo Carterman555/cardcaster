@@ -88,9 +88,7 @@ public class RewardSpawner : MonoBehaviour {
     [SerializeField] private CardDrop cardDropPrefab;
 
     private void OnBossKilled(GameObject boss) {
-        if (!boss.TryGetComponent(out TheFakeDealer theFakeDealer)) {
-            SpawnBossReward();
-        }
+        SpawnBossReward();
     }
 
     [Command]

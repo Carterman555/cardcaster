@@ -6,7 +6,9 @@ using UnityEngine;
 public class Bouncer : MonoBehaviour, IHasEnemyStats {
 
     [SerializeField] private EnemyStats enemyStats;
-    public EnemyStats EnemyStats => enemyStats;
+    public EnemyStats GetEnemyStats() {
+        return enemyStats;
+    }
 
     private BounceMoveBehaviour bounceMovement;
     private Knockback knockback;

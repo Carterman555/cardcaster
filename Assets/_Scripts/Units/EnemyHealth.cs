@@ -23,10 +23,6 @@ public class EnemyHealth : MonoBehaviour, IDamagable {
 
     public bool Dead { get; private set; }
 
-    [SerializeField] private bool increaseHealthPerLevel;
-    [ConditionalHide("increaseHealthPerLevel")]
-    [SerializeField] private float perLevelProportionToIncrease;
-
     public bool IsInvincible() {
         return TryGetComponent(out Invincibility invincibility);
     }
@@ -34,22 +30,13 @@ public class EnemyHealth : MonoBehaviour, IDamagable {
     private void OnEnable() {
         Dead = false;
 
-        EnemyStats stats;
         if (TryGetComponent(out IHasEnemyStats hasEnemyStats)) {
-            stats = hasEnemyStats.EnemyStats;
+            MaxHealth = hasEnemyStats.GetEnemyStats().MaxHealth;
+            SetHealth(MaxHealth);
         }
         else {
             Debug.LogError("Enemy health does not have IHasEnemyStats behavior!");
-            return;
         }
-
-        MaxHealth = stats.MaxHealth;
-        if (increaseHealthPerLevel) {
-            float proportionIncrease = perLevelProportionToIncrease * (GameSceneManager.Instance.Level - 1);
-            MaxHealth += stats.MaxHealth * proportionIncrease;
-        }
-
-        SetHealth(MaxHealth);
     }
 
     public void Damage(float damage, bool shared = false, bool crit = false) {

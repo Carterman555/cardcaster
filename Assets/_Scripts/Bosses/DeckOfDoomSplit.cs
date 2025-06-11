@@ -3,7 +3,9 @@ using UnityEngine;
 public class DeckOfDoomSplit : MonoBehaviour, IHasEnemyStats {
 
     [SerializeField] private ScriptableBoss scriptableBoss;
-    public EnemyStats EnemyStats => scriptableBoss.Stats;
+    public EnemyStats GetEnemyStats() {
+        return scriptableBoss.Stats;
+    }
 
     [SerializeField] private Animator anim;
 

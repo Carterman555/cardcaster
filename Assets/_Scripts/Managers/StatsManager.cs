@@ -183,6 +183,18 @@ public class StatsManager : MonoBehaviour {
         }
     }
 
+    public static EnemyStats GetScaledEnemyStats(EnemyStats baseStats) {
+        EnemyStats scaledStats = baseStats;
+
+        float healthProportionIncrease = GameConstants.EnemyHpScalePerEnvLevel * (GameSceneManager.Instance.GetEnvironmentLevel() - 1);
+        scaledStats.MaxHealth *= 1 + healthProportionIncrease;
+
+        float dmgProportionIncrease = GameConstants.EnemyDmgScalePerEnvLevel * (GameSceneManager.Instance.GetEnvironmentLevel() - 1);
+        scaledStats.Damage *= 1 + dmgProportionIncrease;
+
+        return scaledStats;
+    }
+
     // debugging
     [ContextMenu("Print Stats")]
     public void PrintStats() {

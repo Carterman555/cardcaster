@@ -1,4 +1,6 @@
+using TMPro;
 using UnityEngine;
+using UnityEngine.Localization.Components;
 
 public class NewCardUnlockedPanel : MonoBehaviour, IInitializable {
 
@@ -18,8 +20,22 @@ public class NewCardUnlockedPanel : MonoBehaviour, IInitializable {
     #endregion
 
     [SerializeField] private CardImage cardImage;
+    [SerializeField] private TextMeshProUGUI explanationText;
 
     public void Setup(ScriptableCardBase card) {
         cardImage.Setup(card);
+
+        if (card.HasUnlockText) {
+            explanationText.text = card.UnlockText;
+        }
+        else {
+            // reset to original text
+            explanationText.GetComponent<LocalizeStringEvent>().RefreshString();
+        }
+    }
+
+    [ContextMenu("Refresh")]
+    private void RefreshString() {
+        explanationText.GetComponent<LocalizeStringEvent>().RefreshString();
     }
 }

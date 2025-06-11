@@ -44,7 +44,7 @@ public class ChargeBehavior : MonoBehaviour {
         if (CurrentState == ChargeState.OnCooldown) {
             chargeTimer += Time.deltaTime;
 
-            if (chargeTimer > hasEnemyStats.EnemyStats.AttackCooldown) {
+            if (chargeTimer > hasEnemyStats.GetEnemyStats().AttackCooldown) {
                 chargeTimer = 0;
                 CurrentState = ChargeState.ChargingUp;
 

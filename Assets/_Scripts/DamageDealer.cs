@@ -32,11 +32,16 @@ public class DamageDealer {
         return cols;
     }
 
-    public static Collider2D[] DealCapsuleDamage(LayerMask targetLayerMask, Vector2 attackerPos, Vector2 attackCenter, Vector2 size, float angle, float damage, float knockbackStrength, bool canCrit = false) {
+    public static Collider2D[] DealCapsuleDamage(LayerMask targetLayerMask, Vector2 attackerPos, Vector2 attackCenter, Vector2 size, float angle, float damage, float knockbackStrength, bool canCrit = false, bool visualize = false) {
         Collider2D[] cols = Physics2D.OverlapCapsuleAll(attackCenter, size, CapsuleDirection2D.Horizontal, angle, targetLayerMask);
         foreach (Collider2D col in cols) {
             TryDealDamage(col.gameObject, attackerPos, damage, knockbackStrength, canCrit);
         }
+
+        if (visualize) {
+            ShapeVisualizer.DrawCapsule(attackCenter, size, CapsuleDirection2D.Horizontal, angle, duration: 0.5f);
+        }
+
         return cols;
     }
 }

@@ -5,14 +5,14 @@ public class FacePlayerBehavior : MonoBehaviour {
 
     public event Action<bool> OnChangedFacing;
 
-    private bool facingRight;
+    public bool FacingRight { get; private set; }
 
     private void OnEnable() {
 
         // face right
         transform.rotation = Quaternion.Euler(new Vector3(transform.rotation.eulerAngles.x, 0f, transform.rotation.eulerAngles.z));
-        facingRight = true;
-        OnChangedFacing?.Invoke(facingRight);
+        FacingRight = true;
+        OnChangedFacing?.Invoke(FacingRight);
     }
 
     private void Update() {
@@ -24,20 +24,20 @@ public class FacePlayerBehavior : MonoBehaviour {
 
         bool playerToRight = playerXPos > transform.position.x;
 
-        if (!facingRight && playerToRight) {
+        if (!FacingRight && playerToRight) {
             transform.rotation = Quaternion.Euler(new Vector3(transform.rotation.eulerAngles.x, 0f, transform.rotation.eulerAngles.z));
-            facingRight = true;
-            OnChangedFacing?.Invoke(facingRight);
+            FacingRight = true;
+            OnChangedFacing?.Invoke(FacingRight);
         }
-        else if (facingRight && !playerToRight) {
+        else if (FacingRight && !playerToRight) {
             transform.rotation = Quaternion.Euler(new Vector3(transform.rotation.eulerAngles.x, 180f, transform.rotation.eulerAngles.z));
-            facingRight = false;
-            OnChangedFacing?.Invoke(facingRight);
+            FacingRight = false;
+            OnChangedFacing?.Invoke(FacingRight);
         }
     }
 
     // set facingRight to opposite of what is should to make sure FaceTowardsPosition updates the facing direction
     public void UpdateFacing(float xPos) {
-        facingRight = xPos < transform.position.x;
+        FacingRight = xPos < transform.position.x;
     }
 }

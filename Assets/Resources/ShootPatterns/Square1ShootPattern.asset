@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b9fdb59e22372e14e9d80d4d34e35d1b, type: 3}
+  m_Name: Square1ShootPattern
+  m_EditorClassIdentifier: 
+  positions:
+  - {x: 2.828427, y: 0}
+  - {x: 2.1213202, y: 0.70710677}
+  - {x: 1.4142134, y: 1.4142135}
+  - {x: 0.70710665, y: 2.1213202}
+  - {x: -0.00000012363448, y: 2.828427}
+  - {x: -0.7071069, y: 2.1213202}
+  - {x: -1.4142137, y: 1.4142134}
+  - {x: -2.1213202, y: 0.7071066}
+  - {x: -2.828427, y: -0.00000024726896}
+  - {x: -2.1213202, y: -0.70710695}
+  - {x: -1.4142135, y: -1.4142137}
+  - {x: -0.70710677, y: -2.1213205}
+  - {x: 0.000000033728654, y: -2.828427}
+  - {x: 0.70710677, y: -2.1213202}
+  - {x: 1.4142135, y: -1.4142135}
+  - {x: 2.1213202, y: -0.70710677}
+  useGenerator: 0
+  shapeType: 1
+  circleAmount: 12
+  circleRadius: 4
+  polygonSides: 4
+  polygonSideLength: 4
+  pointsPerSide: 4
+  polygonAngle: 0

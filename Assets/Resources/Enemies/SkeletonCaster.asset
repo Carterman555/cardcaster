@@ -10,17 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: df8d0c02ff44cd34db700f8d5c89336d, type: 3}
-  m_Name: Wraith
+  m_Name: SkeletonCaster
   m_EditorClassIdentifier: 
   <Name>k__BackingField: Wraith
   <Description>k__BackingField: description
-  <Prefab>k__BackingField: {fileID: 7864671735697055169, guid: ffbc1c6b2ebfdf247ae212b3b80b945c, type: 3}
+  <Prefab>k__BackingField: {fileID: 1537142945661459466, guid: bb66ba619d3a15348ae5a7641bbdcacf, type: 3}
   <Stats>k__BackingField:
     MaxHealth: 20
     KnockbackResistance: 1
     MoveSpeed: 3
     Damage: 4
-    AttackSpeed: 1
+    AttackSpeed: 0.3
     KnockbackStrength: 1
     AttackRange: 7
   <Difficulty>k__BackingField: 2

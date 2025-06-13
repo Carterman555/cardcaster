@@ -213,48 +213,54 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animationEvents:
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 8987095808021778562}
-        m_TargetAssemblyTypeName: StraightShootBehavior, Assembly-CSharp
-        m_MethodName: ShootProjectile
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1383755626373208146}
-        m_TargetAssemblyTypeName: DrChonk, Assembly-CSharp
-        m_MethodName: CreateShockwaves
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: -1558523491058040561}
-        m_TargetAssemblyTypeName: EnemyHealth, Assembly-CSharp
-        m_MethodName: ReturnToPool
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+  - Key: die
+    Event:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 4111830215114382718}
+          m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_MethodName: SetActive
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - Key: shoot
+    Event:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 8987095808021778562}
+          m_TargetAssemblyTypeName: StraightShootBehavior, Assembly-CSharp
+          m_MethodName: ShootProjectile
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - Key: smash
+    Event:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1383755626373208146}
+          m_TargetAssemblyTypeName: DrChonk, Assembly-CSharp
+          m_MethodName: CreateShockwaves
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &4111830215114382718
 GameObject:
   m_ObjectHideFlags: 0
@@ -454,8 +460,6 @@ MonoBehaviour:
     - {fileID: 8300000, guid: 7c8bf7080edd0be45bc2ede86f2e3176, type: 3}
     Volume: 0.25
     PitchVariation: 0
-  increaseHealthPerLevel: 0
-  perLevelProportionToIncrease: 0
 --- !u!114 &512004819037131981
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -564,6 +568,7 @@ MonoBehaviour:
     MinValue: 1
     MaxValue: 1
   dropChancePerDmg: 0.03
+  yOffset: 0
   yVariation: 2
   hasMax: 1
   maxDropAmount: 15

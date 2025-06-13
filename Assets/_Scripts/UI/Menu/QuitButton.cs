@@ -4,21 +4,12 @@ using UnityEngine.UI;
 
 public class QuitButton : GameButton {
 
-    [SerializeField] private CanvasGroup canvasGroupToDisable;
-    [SerializeField] private WarningPopup warningPopup;
-
-    [SerializeField] private LocalizedString locWarning;
-
     protected override void OnClick() {
         base.OnClick();
-
-        warningPopup.Setup(locWarning, canvasGroupToDisable, GetComponent<Button>());
-        warningPopup.OnAccepted += Quit;
+        Quit();
     }
 
     private void Quit() {
-        warningPopup.OnAccepted -= Quit;
-
 #if UNITY_EDITOR
         // Stop play mode in the editor
         UnityEditor.EditorApplication.isPlaying = false;

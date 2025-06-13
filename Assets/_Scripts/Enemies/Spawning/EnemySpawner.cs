@@ -15,7 +15,19 @@ public class EnemySpawner : StaticInstance<EnemySpawner> {
         }
 
         int totalWaves = currentEnemyComposition.EnemyWaves.Count();
-        return currentWaveIndex >= totalWaves;
+        bool spawnedAllWaves = currentWaveIndex >= totalWaves;
+        if (spawnedAllWaves) {
+            return true;
+        }
+
+        int envLevel = GameSceneManager.Instance.GetEnvironmentLevel();
+        bool onFirstEnvLevels = envLevel == 1;
+        bool spawnedAllBasicWaves = currentEnemyComposition.EnemyWaves[currentWaveIndex].EnemyAmounts.Length == 0;
+        if (onFirstEnvLevels && spawnedAllBasicWaves) {
+            return true;
+        }
+
+        return false;
     }
 
     private void OnEnable() {

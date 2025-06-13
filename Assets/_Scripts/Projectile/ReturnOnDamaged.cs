@@ -8,6 +8,9 @@ public class ReturnOnDamaged : MonoBehaviour, IDamagable {
 
     public bool Dead { get; private set; }
 
+    [SerializeField] private bool hasSfx;
+    [SerializeField, ConditionalHide("hasSfx")] private AudioClips sfx;
+
     private void OnEnable() {
         Dead = false;
     }
@@ -16,6 +19,10 @@ public class ReturnOnDamaged : MonoBehaviour, IDamagable {
         Dead = true;
 
         gameObject.ReturnToPool();
+
+        if (hasSfx) {
+            AudioManager.Instance.PlaySingleSound(sfx);
+        }
 
         OnDamaged?.Invoke();
         OnDamagedDetailed?.Invoke(damage, shared, crit);

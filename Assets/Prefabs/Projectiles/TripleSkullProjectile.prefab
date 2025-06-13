@@ -288,10 +288,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2793779987776386211}
     m_Modifications:
-    - target: {fileID: 3155021660793430463, guid: ca2977a9bdb9e80478f6883952271c51, type: 3}
-      propertyPath: m_SortingLayer
-      value: 5
-      objectReference: {fileID: 0}
     - target: {fileID: 6060628098716869153, guid: ca2977a9bdb9e80478f6883952271c51, type: 3}
       propertyPath: m_Name
       value: ExplodingSkull
@@ -335,22 +331,6 @@ PrefabInstance:
     - target: {fileID: 6114213434020608666, guid: ca2977a9bdb9e80478f6883952271c51, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8917224424268985779, guid: ca2977a9bdb9e80478f6883952271c51, type: 3}
-      propertyPath: _radius.x
-      value: 0.7
-      objectReference: {fileID: 0}
-    - target: {fileID: 8917224424268985779, guid: ca2977a9bdb9e80478f6883952271c51, type: 3}
-      propertyPath: _radius.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8917224424268985779, guid: ca2977a9bdb9e80478f6883952271c51, type: 3}
-      propertyPath: _snappedPosition.x
-      value: 6.58
-      objectReference: {fileID: 0}
-    - target: {fileID: 8917224424268985779, guid: ca2977a9bdb9e80478f6883952271c51, type: 3}
-      propertyPath: _snappedPosition.y
-      value: -0.63
       objectReference: {fileID: 0}
     - target: {fileID: 8917224424268985779, guid: ca2977a9bdb9e80478f6883952271c51, type: 3}
       propertyPath: OrbitCenterTransform

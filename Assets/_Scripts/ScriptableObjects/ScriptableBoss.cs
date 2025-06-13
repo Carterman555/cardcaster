@@ -10,5 +10,5 @@ public class ScriptableBoss : ScriptableObject {
 
     [field: SerializeField] public EnemyStats Stats { get; private set; }
 
-    [field: SerializeField] public int[] PossibleLevels { get; private set; }
+    [field: SerializeField] public EnvironmentType EnvironmentType { get; private set; }
 }

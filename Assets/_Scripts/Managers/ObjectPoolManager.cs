@@ -184,6 +184,11 @@ public static class ObjectPoolManager {
     }
 
     public static bool InPool(this GameObject objectToCheck) {
+
+        if (objectToCheck.name.Length < 8) {
+            return false;
+        }
+
         string goName = objectToCheck.name[..^7];
         PooledObjectInfo pool = ObjectPoolList.Find(p => p.LookupString == goName);
         return pool != null;

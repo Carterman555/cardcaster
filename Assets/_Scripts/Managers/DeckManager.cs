@@ -211,16 +211,6 @@ public class DeckManager : Singleton<DeckManager> {
             cardsInHand[GetHandSize()] = card;
             OnGainCardToHand?.Invoke();
         }
-
-        // if gains a locked card, unlock it
-        bool cardLocked = !ResourceSystem.Instance.GetUnlockedCards().Any(c => c == card.CardType);
-        if (cardLocked && !GameSceneManager.Instance.InTutorial) {
-            ResourceSystem.Instance.UnlockCard(card.CardType);
-            FeedbackPlayerOld.Play("NewCardUnlocked");
-            NewCardUnlockedPanel.Instance.Setup(card);
-
-            AudioManager.Instance.PlaySound(AudioManager.Instance.AudioClips.UnlockCard);
-        }
     }
 
     public void TrashCard(CardLocation cardLocation, int cardIndex, bool usingCard) {

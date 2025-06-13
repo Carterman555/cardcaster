@@ -12,7 +12,7 @@ public class ShopCardSpawn : MonoBehaviour {
     private void SpawnCard() {
         ShopCard shopItem = shopItemPrefab.Spawn(transform.position, transform);
 
-        List<CardType> possibleCards = ResourceSystem.Instance.GetUnlockedCards();
+        List<CardType> possibleCards = ResourceSystem.Instance.GetUnlockedRewardCards();
         if (!RewardSpawner.CanGainOpenPalmsCard() && possibleCards.Contains(CardType.OpenPalms)) {
             possibleCards.Remove(CardType.OpenPalms);
         }

@@ -202,6 +202,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f009572b4d918346b24337ef83f88c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  UseRigidBody: 0
   Rotating: 0
   RotationSpace: 1
   UpdateMode: 0
@@ -219,8 +220,8 @@ MonoBehaviour:
   OrbitLineColor: {r: 225, g: 225, b: 225, a: 0.1}
   _orbitCenter: {x: 5.88, y: -0.63, z: 0}
   _worldRotationAxis: {x: 0, y: 0, z: 1}
-  _snappedPosition: {x: 5.11, y: -0.95, z: 0}
-  _radius: {x: -0.92343134, y: -0.38376367, z: 0}
+  _snappedPosition: {x: 6.58, y: -0.63, z: 0}
+  _radius: {x: 0.7, y: 0, z: 0}
 --- !u!114 &5282242605096319790
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -233,6 +234,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c90e38ee87878a448b05b9322c1ce06, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hasSfx: 1
+  sfx:
+    Clips:
+    - {fileID: 8300000, guid: 42c9c7bd9c94ca043bb95beccb1324ec, type: 3}
+    Volume: 0.5
+    PitchVariation: 0.05
 --- !u!114 &2090604562439263077
 MonoBehaviour:
   m_ObjectHideFlags: 0

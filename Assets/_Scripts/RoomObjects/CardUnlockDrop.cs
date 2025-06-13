@@ -2,13 +2,13 @@ using DG.Tweening;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class CardDrop : MonoBehaviour {
+public class CardUnlockDrop : MonoBehaviour {
     protected ScriptableCardBase scriptableCard;
 
     private SpriteRenderer spriteRenderer;
     protected Interactable interactable;
-    protected SuckMovement suckMovement;
 
+    [SerializeField] private float fade = 0.7f;
     [SerializeField] private ChangeColorFromRarity changeShineColor;
     [SerializeField] private Transform shine;
 
@@ -18,7 +18,6 @@ public class CardDrop : MonoBehaviour {
     private void Awake() {
         spriteRenderer = GetComponent<SpriteRenderer>();
         interactable = GetComponent<Interactable>();
-        suckMovement = GetComponent<SuckMovement>();
 
         if (debugCard) {
             SetCard(ResourceSystem.Instance.GetCardInstance(defaultCard));
@@ -49,12 +48,8 @@ public class CardDrop : MonoBehaviour {
         shine.DOScale(1f, duration: 1.5f);
 
         spriteRenderer.Fade(0f);
-        spriteRenderer.DOFade(1f, duration: 1.5f).OnComplete(() => {
-
-            // because the chestcard already sets the interactable enabled to true
-            if (this is not ChestCard) {
-                interactable.enabled = true;
-            }
+        spriteRenderer.DOFade(fade, duration: 1.5f).OnComplete(() => {
+            interactable.enabled = true;
         });
 
         changeShineColor.SetColor(scriptableCard.Rarity);
@@ -71,27 +66,15 @@ public class CardDrop : MonoBehaviour {
     }
 
     protected virtual void OnInteract() {
-        GoToPlayer();
-    }
-
-    public void GoToPlayer() {
-
         interactable.enabled = false;
 
-        //... so it doesn't disappear when the chest does
-        transform.SetParent(Containers.Instance.Drops);
-
-        suckMovement.enabled = true;
-        suckMovement.Setup(PlayerMovement.Instance.CenterTransform);
-
-        suckMovement.OnReachTarget += ShrinkAndGainCard;
-    }
-
-    public void ShrinkAndGainCard() {
-        suckMovement.OnReachTarget -= ShrinkAndGainCard;
-
         transform.DOScale(Vector2.zero, duration: 0.2f).SetEase(Ease.InSine).OnComplete(() => {
-            DeckManager.Instance.GainCard(scriptableCard);
+
+            ResourceSystem.Instance.UnlockCard(scriptableCard.CardType);
+            FeedbackPlayerOld.Play("NewCardUnlocked");
+            NewCardUnlockedPanel.Instance.Setup(scriptableCard);
+
+            AudioManager.Instance.PlaySound(AudioManager.Instance.AudioClips.UnlockCard);
 
             transform.DOKill();
             gameObject.ReturnToPool();

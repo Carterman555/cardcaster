@@ -63,8 +63,7 @@ public class BossManager : StaticInstance<BossManager> {
     }
 
     private ScriptableBoss SpawnBoss(Vector2 spawnPoint) {
-        int currentLevel = GameSceneManager.Instance.Level;
-        List<ScriptableBoss> possibleBosses = ResourceSystem.Instance.GetBosses(currentLevel);
+        List<ScriptableBoss> possibleBosses = ResourceSystem.Instance.GetBosses(GameSceneManager.Instance.CurrentEnvironment);
         ScriptableBoss chosenBoss = possibleBosses.RandomItem();
 
         if (!FightingDealer) {

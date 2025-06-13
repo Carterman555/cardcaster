@@ -105,7 +105,7 @@ SpriteRenderer:
   m_SortingLayerID: -210121459
   m_SortingLayer: 4
   m_SortingOrder: 0
-  m_Sprite: {fileID: 3421988639776014576, guid: 955556309f46a954c8012d24d777fa28, type: 3}
+  m_Sprite: {fileID: 7943035116513954507, guid: 8f4366fba915651408189838e7a2b5de, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -126,7 +126,7 @@ Animator:
   m_GameObject: {fileID: 2356635947462685450}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 3ca25bbf67b5a8a4baad84f39af8c96b, type: 2}
+  m_Controller: {fileID: 22100000, guid: 5a3bc3ad107915d4eaf1ec6be8e76daf, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -152,7 +152,7 @@ GameObject:
   - component: {fileID: 7542433000797141514}
   - component: {fileID: 3916621282817921030}
   m_Layer: 0
-  m_Name: Chest
+  m_Name: PersistentChest
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -232,8 +232,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c6b19f2a297c734f93fd001011d852b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  healProbability: 0.5
-  persistent: 0
+  healProbability: 0
+  persistent: 1
   chestItemContainer: {fileID: 4745401347879017545}
   chestCardPrefab: {fileID: 508550145687220642, guid: c50f166591c4ff74a99a976c4b3d1b7a, type: 3}
   chestHealPrefab: {fileID: 7563766614002793911, guid: cd8f9b46b895baa4ab25008282d235e9, type: 3}
@@ -293,5 +293,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db31cb68110f1814dbb19a9c4619ef7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mapIconSprite: {fileID: 3421988639776014576, guid: 955556309f46a954c8012d24d777fa28, type: 3}
+  mapIconSprite: {fileID: 7943035116513954507, guid: 8f4366fba915651408189838e7a2b5de, type: 3}
   mapIconSize: {x: 30, y: 30}

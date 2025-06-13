@@ -13,34 +13,25 @@ public class DarkPhantom : Enemy {
     [SerializeField] private RandomFloat nearPlayerTeleportTime;
     private float nearPlayerTeleportTimer;
 
-    [Header("Fade")]
-    [SerializeField] private SpriteRenderer visual;
-    private float originalFade;
-
     protected override void Awake() {
         base.Awake();
 
         moveBehavior = GetComponent<ChasePlayerBehavior>();
         shootBehavior = GetComponent<StraightShootBehavior>();
         teleportBehavior = GetComponent<RandomTeleportBehavior>();
-
-        originalFade = visual.color.a;
     }
 
     protected override void OnEnable() {
         base.OnEnable();
+        shootBehavior.OnShootAnim += StopMoving;
 
         moveBehavior.enabled = true;
-        visual.Fade(originalFade);
-
+        
         nearPlayerTeleportTime.Randomize();
-
-        shootBehavior.OnShootAnim += StopMoving;
     }
 
     protected override void OnDisable() {
         base.OnDisable();
-
         shootBehavior.OnShootAnim -= StopMoving;
     }
 
@@ -57,24 +48,12 @@ public class DarkPhantom : Enemy {
                 nearPlayerTeleportTimer = 0;
                 nearPlayerTeleportTime.Randomize();
 
-                Teleport();
+                teleportBehavior.VisualTeleport(PlayerMovement.Instance.CenterPos, teleportDistanceFromPlayer);
             }
         }
         else {
             nearPlayerTeleportTimer = 0;
         }
-    }
-
-    private void Teleport() {
-
-        AudioManager.Instance.PlaySound(AudioManager.Instance.AudioClips.Teleport);
-
-        float duration = 0.3f;
-        visual.DOFade(0, duration).SetEase(Ease.InSine).OnComplete(() => {
-            teleportBehavior.Teleport(PlayerMovement.Instance.CenterPos, teleportDistanceFromPlayer);
-
-            visual.DOFade(originalFade, duration).SetEase(Ease.InSine);
-        });
     }
 
     // stop moving when shooting

@@ -10,14 +10,20 @@ public class StraightMovement : MonoBehaviour {
         rb = GetComponent<Rigidbody2D>();
     }
 
-    public void Setup(Vector2 direction) {
-        transform.up = direction.normalized;
+    public void Setup(Vector2 direction, bool updateUpDirection = true) {
         rb.velocity = direction.normalized * moveSpeed;
+
+        if (updateUpDirection) {
+            transform.up = direction.normalized;
+        }
     }
 
-    public void Setup(Vector2 direction, float moveSpeed) {
-        transform.up = direction.normalized;
+    public void Setup(Vector2 direction, float moveSpeed, bool updateUpDirection = true) {
         this.moveSpeed = moveSpeed;
         rb.velocity = direction.normalized * moveSpeed;
+
+        if (updateUpDirection) {
+            transform.up = direction.normalized;
+        }
     }
 }

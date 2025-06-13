@@ -20,6 +20,7 @@ public class Enemy : MonoBehaviour, IHasEnemyStats, IEffectable {
 
     [SerializeField] private TriggerEventInvoker playerTracker;
     protected bool playerWithinRange;
+    protected bool PlayerInvincible => PlayerMovement.Instance.gameObject.layer == GameLayers.InvinciblePlayerLayer;
 
     protected virtual void Awake() {
         health = GetComponent<EnemyHealth>();

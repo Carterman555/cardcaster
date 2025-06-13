@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b9fdb59e22372e14e9d80d4d34e35d1b, type: 3}
+  m_Name: Triangle1ShootPattern
+  m_EditorClassIdentifier: 
+  positions:
+  - {x: -2.309401, y: -0.00000020189425}
+  - {x: -1.4433757, y: -0.5000002}
+  - {x: -0.5773504, y: -1.0000001}
+  - {x: 0.28867495, y: -1.5}
+  - {x: 1.1547003, y: -2}
+  - {x: 1.1547, y: -0.9999999}
+  - {x: 1.1546999, y: 0.00000023841858}
+  - {x: 1.1546998, y: 1.0000004}
+  - {x: 1.1546996, y: 2.0000005}
+  - {x: 0.2886744, y: 1.5000004}
+  - {x: -0.57735074, y: 1.0000001}
+  - {x: -1.4433758, y: 0.49999997}
+  useGenerator: 0
+  shapeType: 1
+  circleAmount: 12
+  circleRadius: 4
+  polygonSides: 3
+  polygonSideLength: 4
+  pointsPerSide: 4
+  polygonAngle: 180

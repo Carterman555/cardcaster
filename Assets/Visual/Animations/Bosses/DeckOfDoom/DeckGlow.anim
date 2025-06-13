@@ -210,7 +210,7 @@ AnimationClip:
   m_Events:
   - time: 2
     functionName: InvokeEvent
-    data: 
+    data: die
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0

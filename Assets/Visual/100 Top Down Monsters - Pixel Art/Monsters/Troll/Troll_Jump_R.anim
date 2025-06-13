@@ -99,7 +99,7 @@ AnimationClip:
   m_Events:
   - time: 0.6666667
     functionName: InvokeEvent
-    data: 
+    data: smash
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 1

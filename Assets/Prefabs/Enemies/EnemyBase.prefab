@@ -178,8 +178,6 @@ MonoBehaviour:
     Clips: []
     Volume: 0
     PitchVariation: 0
-  increaseHealthPerLevel: 1
-  healthIncreasePerEnvLevel: 0.25
 --- !u!114 &5577381940195422070
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -443,7 +441,7 @@ CircleCollider2D:
     m_Bits: 4294967295
   m_ContactCaptureLayers:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 16448
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295

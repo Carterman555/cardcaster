@@ -58,7 +58,8 @@ public class PlayerFadeManager : StaticInstance<PlayerFadeManager> {
         }
     }
 
-    private void InvokeTeleportFadeEvent() {
+    // played by animation
+    public void InvokeTeleportFadeEvent() {
         OnTeleportFadedOut?.Invoke();
     }
 }

@@ -87,7 +87,7 @@ AnimationClip:
   m_Events:
   - time: 0.33333334
     functionName: InvokeEvent
-    data: 
+    data: shoot
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0

@@ -30,6 +30,11 @@ MonoBehaviour:
       Amount:
         MinValue: 2
         MaxValue: 3
+    AdvancedEnemyAmounts:
+    - ScriptableEnemy: {fileID: 11400000, guid: f8fa5b4559a2f8b40b242f6425ecf6fb, type: 2}
+      Amount:
+        MinValue: 1
+        MaxValue: 1
   - EnemyAmounts:
     - ScriptableEnemy: {fileID: 11400000, guid: 130afc106dca5024e9ef1e18926c8af8, type: 2}
       Amount:
@@ -42,4 +47,15 @@ MonoBehaviour:
     - ScriptableEnemy: {fileID: 11400000, guid: 6b680bacaebf2f64ba05c344e09f1569, type: 2}
       Amount:
         MinValue: 1
+        MaxValue: 2
+    AdvancedEnemyAmounts: []
+  - EnemyAmounts: []
+    AdvancedEnemyAmounts:
+    - ScriptableEnemy: {fileID: 11400000, guid: f8fa5b4559a2f8b40b242f6425ecf6fb, type: 2}
+      Amount:
+        MinValue: 2
+        MaxValue: 2
+    - ScriptableEnemy: {fileID: 11400000, guid: 3aa3fe4e807e20c4585a2a894113a7c5, type: 2}
+      Amount:
+        MinValue: 2
         MaxValue: 2

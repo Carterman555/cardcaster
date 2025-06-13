@@ -26,3 +26,14 @@ MonoBehaviour:
       Amount:
         MinValue: 2
         MaxValue: 2
+    AdvancedEnemyAmounts: []
+  - EnemyAmounts: []
+    AdvancedEnemyAmounts:
+    - ScriptableEnemy: {fileID: 11400000, guid: dc572cd810c73ee46a475600c4c8a177, type: 2}
+      Amount:
+        MinValue: 2
+        MaxValue: 2
+    - ScriptableEnemy: {fileID: 11400000, guid: abca1f878073ca54f9e2e60c297ac778, type: 2}
+      Amount:
+        MinValue: 4
+        MaxValue: 5

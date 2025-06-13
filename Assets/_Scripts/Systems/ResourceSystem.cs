@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using static Cinemachine.DocumentationSortingAttribute;
 
 /// <summary>
 /// One repository for all scriptable objects. Create your query methods here to keep your business logic clean.
@@ -61,16 +62,38 @@ public class ResourceSystem : Singleton<ResourceSystem> {
     public ScriptableLevelLayout GetRandomLayout() => LevelLayouts.RandomItem();
     public ScriptableRoom[] GetRooms(RoomType roomType) => Rooms[roomType];
     public List<ScriptableEnemy> GetAllEnemies() => Enemies;
-    public List<ScriptableBoss> GetBosses(int level) => Bosses.Where(b => b.PossibleLevels.Contains(level)).ToList();
+    public List<ScriptableBoss> GetBosses(EnvironmentType environment) => Bosses.Where(b => b.EnvironmentType == environment).ToList();
 
     public List<CardType> GetAllCards() => AllCards.Select(c => c.CardType).ToList();
-    public List<CardType> GetAllCardsWithLevel(int level) => AllCards.Where(c => c.UnlockLevel == level).Select(c => c.CardType).ToList();
+    public List<CardType> GetAllCardsWithEnvironment(EnvironmentType environment) => AllCards.Where(c => c.UnlockEnvironment == environment).Select(c => c.CardType).ToList();
 
-    public List<CardType> GetAllCardsUpToLevel(int level) => AllCards.Where(c => c.UnlockLevel <= level).Select(c => c.CardType).ToList();
+    public List<CardType> GetRewardCards() {
+        ScriptableCardBase[] scriptableRewardCards = AllCards.Where(c => c is not ScriptableBlankMemoryCard).ToArray();
+        List<CardType> rewardCardTypes = scriptableRewardCards.Select(c => c.CardType).ToList();
+        return rewardCardTypes;
+    }
+    public List<CardType> GetUnlockedRewardCards() {
+        List<CardType> rewardCards = GetRewardCards();
+        List<CardType> unlockedRewardCards = rewardCards.Where(c => UnlockedCards.Contains(c)).ToList();
+        return unlockedRewardCards;
+    }
+    public List<CardType> GetUnlockedRewardCards(EnvironmentType environment) {
+        List<CardType> cardsWithEnv = GetAllCardsWithEnvironment(environment);
+        List<CardType> unlockedRewardCardsWithLEnv = GetUnlockedRewardCards().Where(c => cardsWithEnv.Contains(c)).ToList();
+        return unlockedRewardCardsWithLEnv;
+    }
+    public List<CardType> GetLockedRewardCards() {
+        List<CardType> rewardCards = GetRewardCards();
+        List<CardType> lockedRewardCards = rewardCards.Where(c => !UnlockedCards.Contains(c)).ToList();
+        return lockedRewardCards;
+    }
+    public List<CardType> GetLockedRewardCards(EnvironmentType environment) {
+        List<CardType> cardsWithEnv = GetAllCardsWithEnvironment(environment);
+        List<CardType> lockedRewardCardsWithEnv = GetLockedRewardCards().Where(c => cardsWithEnv.Contains(c)).ToList();
+        return lockedRewardCardsWithEnv;
+    }
 
-    public List<CardType> GetUnlockedCards() => GetAllCards().Where(c => UnlockedCards.Contains(c)).ToList();
-    public List<CardType> GetUnlockedCardsWithLevel(int level) => GetAllCardsWithLevel(level).Where(c => UnlockedCards.Contains(c)).ToList();
-    public List<CardType> GetUnlockedCardsUpToLevel(int level) => GetAllCardsUpToLevel(level).Where(c => UnlockedCards.Contains(c)).ToList();
+    public List<CardType> GetPersistentCards() => AllCards.Where(c => c is ScriptablePersistentCard).Select(c => c.CardType).ToList();
 
     public ScriptableCardBase GetCardInstance(CardType cardType) => CloneCard(AllCards.FirstOrDefault(c => c.CardType == cardType));
 

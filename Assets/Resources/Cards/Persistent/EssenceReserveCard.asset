@@ -44,10 +44,20 @@ MonoBehaviour:
   cost: 5
   rarity: 2
   stackType: 0
-  inDemo: 1
   startUnlocked: 0
-  unlockLevel: 2
+  unlockEnvironment: 1
   memoryCard: 0
+  hasUnlockText: 0
+  unlockText:
+    m_TableReference:
+      m_TableCollectionName: 
+    m_TableEntryReference:
+      m_KeyId: 0
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  dissolveWhenMaxed: 1
   maxLevel: 3
   statModifiersPerLevel:
   - PlayerStatType: 14

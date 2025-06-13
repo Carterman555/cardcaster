@@ -3,8 +3,6 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class CardDrop : MonoBehaviour {
-    [SerializeField] private InputActionReference selectAction;
-
     protected ScriptableCardBase scriptableCard;
 
     private SpriteRenderer spriteRenderer;

@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class RewardSpawner : MonoBehaviour {
 
@@ -11,6 +12,7 @@ public class RewardSpawner : MonoBehaviour {
     private float chestChance;
 
     [SerializeField] private Chest chestPrefab;
+    [SerializeField] private Chest persistentChestPrefab;
     [SerializeField] private Campfire campfirePrefab;
 
     private static bool usedOpenPalmsCard;
@@ -34,7 +36,8 @@ public class RewardSpawner : MonoBehaviour {
     }
 
     private void TrySpawnReward() {
-        if (Random.value < rewardOnClearChance) {
+        bool inBossRoom = Room.GetCurrentRoom().TryGetComponent(out BossRoom bossRoom);
+        if (!inBossRoom && Random.value < rewardOnClearChance) {
             SpawnReward();
         }
     }
@@ -42,92 +45,82 @@ public class RewardSpawner : MonoBehaviour {
     [Command]
     private void SpawnReward() {
 
-        float avoidPlayerRadius = 2f;
-        float obstacleAvoidanceRadius = 3.5f;
-        Vector2 position = new RoomPositionHelper().GetRandomRoomPos(PlayerMovement.Instance.CenterPos, avoidPlayerRadius, obstacleAvoidanceRadius);
-
         float balanceIncrement = 0.1f;
 
         if (Random.value < chestChance) {
-            // Instantiate the chest instead of using the spawning pool because the item that gets chosen gets unparented. And it's easiest to
-            // just reset the chest by instantiating and destroying
-            Chest chest = Instantiate(chestPrefab, position, Quaternion.identity, Containers.Instance.Drops);
-            chest.GetComponent<CreateMapIcon>().ShowMapIcon();
-
+            SpawnChest();
             chestChance -= balanceIncrement;
         }
         else {
-            // spawn campfire
-            Campfire campfire = campfirePrefab.Spawn(position, Containers.Instance.Drops);
-            campfire.GetComponent<CreateMapIcon>().ShowMapIcon();
-
+            SpawnCampfire();
             chestChance += balanceIncrement;
         }
     }
 
     [Command]
-    private void SpawnChestDebug() {
+    private void SpawnChest() {
         float avoidPlayerRadius = 2f;
         float obstacleAvoidanceRadius = 3.5f;
         Vector2 position = new RoomPositionHelper().GetRandomRoomPos(PlayerMovement.Instance.CenterPos, avoidPlayerRadius, obstacleAvoidanceRadius);
+
+        // Instantiate the chest instead of using the spawning pool because the item that gets chosen gets unparented. And it's easiest to
+        // just reset the chest by instantiating and destroying
         Chest chest = Instantiate(chestPrefab, position, Quaternion.identity, Containers.Instance.Drops);
         chest.GetComponent<CreateMapIcon>().ShowMapIcon();
     }
 
     [Command]
-    private void SpawnCampfireDebug() {
+    private void SpawnCampfire() {
         float avoidPlayerRadius = 2f;
         float obstacleAvoidanceRadius = 3.5f;
         Vector2 position = new RoomPositionHelper().GetRandomRoomPos(PlayerMovement.Instance.CenterPos, avoidPlayerRadius, obstacleAvoidanceRadius);
-        Campfire campfire = Instantiate(campfirePrefab, position, Quaternion.identity, Containers.Instance.Drops);
+        Campfire campfire = campfirePrefab.Spawn(position, Containers.Instance.Drops);
         campfire.GetComponent<CreateMapIcon>().ShowMapIcon();
     }
 
     [Header("Boss Loot")]
-    [SerializeField] private bool bossUnlocksCardIfPossible = true;
-    [SerializeField] private CardDrop cardDropPrefab;
+    [SerializeField] private CardUnlockDrop cardUnlockDropPrefab;
+    [SerializeField] private Vector2 persistentChestOffset;
 
     private void OnBossKilled(GameObject boss) {
-        SpawnBossReward();
+        StartCoroutine(BossKilledCor());
     }
 
-    [Command]
-    private void SpawnBossReward() {
-        bool inBossRoom = Room.GetCurrentRoom().TryGetComponent(out BossRoom bossRoom);
-        if (!inBossRoom) {
-            Debug.LogError("Tried spawning boss reward while not in boss room!");
-            return;
-        }
-
-        int currentLevel = GameSceneManager.Instance.Level;
-        List<CardType> possibleCardsToSpawn = ResourceSystem.Instance.GetUnlockedCards();
-
-        if (bossUnlocksCardIfPossible) {
-            List<CardType> unlockedCards = ResourceSystem.Instance.GetUnlockedCardsWithLevel(currentLevel);
-            List<CardType> allCardsAtLevel = ResourceSystem.Instance.GetAllCardsWithLevel(currentLevel);
-            bool unlockedAllCardsAtLevel = allCardsAtLevel.Count == unlockedCards.Count;
-
-            if (!unlockedAllCardsAtLevel) {
-                possibleCardsToSpawn = allCardsAtLevel.Where(c => !unlockedCards.Contains(c)).ToList();
-            }
-        }
-
-        if (!CanGainOpenPalmsCard() && possibleCardsToSpawn.Contains(CardType.OpenPalms)) {
-            possibleCardsToSpawn.Remove(CardType.OpenPalms);
-        }
-
-        CardType choosenCardType = ResourceSystem.Instance.GetRandomCardWeighted(possibleCardsToSpawn);
-        StartCoroutine(SpawnBossCardCor(bossRoom.GetBossSpawnPoint().position, ResourceSystem.Instance.GetCardInstance(choosenCardType)));
-    }
-
-    private IEnumerator SpawnBossCardCor(Vector2 position, ScriptableCardBase scriptableCard) {
+    private IEnumerator BossKilledCor() {
 
         float spawnBossLootDelay = 1.5f;
         yield return new WaitForSeconds(spawnBossLootDelay);
 
-        CardDrop newCardDrop = cardDropPrefab.Spawn(position, Containers.Instance.Drops);
-        newCardDrop.SetCard(scriptableCard);
+        bool inBossRoom = Room.GetCurrentRoom().TryGetComponent(out BossRoom bossRoom);
+        if (!inBossRoom) {
+            Debug.LogError("Tried spawning boss reward while not in boss room!");
+            yield break;
+        }
+
+        SpawnCardUnlockDrop(bossRoom.GetBossSpawnPoint().position);
+
+        Vector2 chestPos = (Vector2)bossRoom.GetBossSpawnPoint().position + persistentChestOffset;
+        Chest chest = Instantiate(persistentChestPrefab, chestPos, Quaternion.identity, Containers.Instance.Drops);
+        chest.GetComponent<CreateMapIcon>().ShowMapIcon();
     }
+
+    [Command]
+    private void SpawnCardUnlockDrop(Vector2 position) {
+        EnvironmentType currentEnvironment = GameSceneManager.Instance.CurrentEnvironment;
+        List<CardType> possibleCardsToSpawn = ResourceSystem.Instance.GetLockedRewardCards(currentEnvironment);
+
+        bool unlockedAllCardsAtLevel = possibleCardsToSpawn.Count == 0;
+        if (unlockedAllCardsAtLevel) {
+            print("unlockedAllCardsAtLevel");
+            return;
+        }
+
+        CardType choosenCardType = ResourceSystem.Instance.GetRandomCardWeighted(possibleCardsToSpawn);
+        CardUnlockDrop newCardUnlock = cardUnlockDropPrefab.Spawn(position, Containers.Instance.Drops);
+        newCardUnlock.SetCard(ResourceSystem.Instance.GetCardInstance(choosenCardType));
+    }
+
+    
 
     private void OnUseCard(ScriptableCardBase card) {
         if (card is ScriptableOpenPalmsCard) {

@@ -45,7 +45,7 @@ MonoBehaviour:
   rarity: 3
   stackType: 0
   startUnlocked: 0
-  unlockLevel: 3
+  unlockEnvironment: 2
   memoryCard: 1
   hasUnlockText: 1
   unlockText:

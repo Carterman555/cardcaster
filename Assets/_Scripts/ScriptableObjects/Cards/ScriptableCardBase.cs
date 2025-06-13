@@ -38,8 +38,8 @@ public abstract class ScriptableCardBase : ScriptableObject, ICollectable {
     [SerializeField] private bool startUnlocked;
     public bool StartUnlocked => startUnlocked;
 
-    [SerializeField, ConditionalHideReversed("startUnlocked")] private int unlockLevel = 1;
-    public int UnlockLevel => unlockLevel;
+    [SerializeField, ConditionalHideReversed("startUnlocked")] private EnvironmentType unlockEnvironment;
+    public EnvironmentType UnlockEnvironment => unlockEnvironment;
 
     [SerializeField] private bool memoryCard;
     public bool MemoryCard => memoryCard;

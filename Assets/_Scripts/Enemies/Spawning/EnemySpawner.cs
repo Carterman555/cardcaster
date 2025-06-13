@@ -67,7 +67,7 @@ public class EnemySpawner : StaticInstance<EnemySpawner> {
         EnemyWave currentWave = currentEnemyComposition.EnemyWaves[currentWaveIndex];
 
         EnemyAmount[] enemyAmounts = currentWave.EnemyAmounts;
-        if (envLevel > 1) {
+        if (envLevel > 1 && currentWave.AdvancedEnemyAmounts != null) {
             enemyAmounts = currentWave.EnemyAmounts.Concat(currentWave.AdvancedEnemyAmounts).ToArray();
         }
 

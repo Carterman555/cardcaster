@@ -2,10 +2,12 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Collections;
+using System.Linq;
 
 public class Chest : MonoBehaviour {
 
     [SerializeField][Range(0f, 1f)] private float healProbability;
+    [SerializeField] private bool persistent;
 
     [SerializeField] private Transform chestItemContainer;
     [SerializeField] private ChestCard chestCardPrefab;
@@ -38,7 +40,16 @@ public class Chest : MonoBehaviour {
 
     private void SetupRemainingCardsList() {
 
-        remainingPossibleCards = ResourceSystem.Instance.GetUnlockedCards();
+        List<CardType> unlockedRewardCards = ResourceSystem.Instance.GetUnlockedRewardCards();
+        List<CardType> persistentCards = ResourceSystem.Instance.GetPersistentCards();
+
+        if (persistent) {
+            remainingPossibleCards = unlockedRewardCards.Where(c => persistentCards.Contains(c)).ToList();
+        }
+        else {
+            remainingPossibleCards = unlockedRewardCards.Where(c => !persistentCards.Contains(c)).ToList();
+        }
+
         if (!RewardSpawner.CanGainOpenPalmsCard() && remainingPossibleCards.Contains(CardType.OpenPalms)) {
             remainingPossibleCards.Remove(CardType.OpenPalms);
         }

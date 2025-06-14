@@ -443,7 +443,7 @@ CircleCollider2D:
     m_Bits: 4294967295
   m_ContactCaptureLayers:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 16448
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295

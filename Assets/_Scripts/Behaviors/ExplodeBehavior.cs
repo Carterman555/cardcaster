@@ -23,23 +23,21 @@ public class ExplodeBehavior : MonoBehaviour, ITargetAttacker {
     [SerializeField] private ParticleSystem explosionParticlesPrefab;
     [SerializeField] private bool shakeCamera = true;
 
-    public void Explode() {
+    public void Explode(GameObject immuneObject = null) {
 
         List<ExplosionTarget> allExplosionTargets = serializedExplosionTargets;
         allExplosionTargets.AddRange(AddedExplosionTargets);
 
         foreach (ExplosionTarget target in allExplosionTargets) {
 
-            Collider2D[] damagedColliders = DamageDealer.DealCircleDamage(
-                target.LayerMask,
-                transform.position,
-                transform.position,
-                target.ExplosionRadius,
-                target.Damage,
-                target.KnockbackStrength
-            );
+            Collider2D[] cols = Physics2D.OverlapCircleAll(transform.position, target.ExplosionRadius, target.LayerMask);
+            foreach (Collider2D col in cols) {
 
-            foreach (Collider2D col in damagedColliders) {
+                if (col.gameObject == immuneObject) {
+                    continue;
+                }
+
+                DamageDealer.TryDealDamage(col.gameObject, transform.position, target.Damage, target.KnockbackStrength);
                 OnDamage_Target?.Invoke(col.gameObject);
             }
         }

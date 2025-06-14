@@ -147,7 +147,7 @@ CircleCollider2D:
     m_Bits: 4294967295
   m_ContactCaptureLayers:
     serializedVersion: 2
-    m_Bits: 1472
+    m_Bits: 4032
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
@@ -169,6 +169,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bee4e726dcc7566438c789f058b8ed78, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 1984
 --- !u!114 &4686607795860730815
 MonoBehaviour:
   m_ObjectHideFlags: 0

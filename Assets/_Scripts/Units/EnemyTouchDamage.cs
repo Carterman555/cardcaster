@@ -94,7 +94,13 @@ public class EnemyTouchDamage : MonoBehaviour {
                 }
             }
 
-            float dmg = overrideDamage ? damage : hasStats.GetEnemyStats().Damage;
+            float dmg;
+            if (overrideDamage) {
+                dmg = damage + (GameConstants.EnemyDmgScalePerEnvLevel * GameSceneManager.Instance.GetEnvironmentLevel());
+            }
+            else {
+                dmg = hasStats.GetEnemyStats().Damage;
+            }
             float knockback = overrideKnockback ? knockbackStrength : hasStats.GetEnemyStats().KnockbackStrength;
 
             DamageDealer.TryDealDamage(target, transform.position, dmg, knockback);

@@ -7,6 +7,8 @@ public class ExplodeOnContact : MonoBehaviour {
 
     public GameObject ExcludedObject { get; set; }
 
+    [SerializeField] private LayerMask layerMask;
+
     private void Awake() {
         explodeBehavior = GetComponent<ExplodeBehavior>();
     }
@@ -17,7 +19,9 @@ public class ExplodeOnContact : MonoBehaviour {
             return;
         }
 
-        explodeBehavior.Explode();
-        gameObject.ReturnToPool();
+        if (layerMask.ContainsLayer(collision.gameObject.layer)) {
+            explodeBehavior.Explode(ExcludedObject);
+            gameObject.ReturnToPool();
+        }
     }
 }

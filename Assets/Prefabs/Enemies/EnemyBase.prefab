@@ -380,7 +380,7 @@ MonoBehaviour:
   hasHealth: 1
   health: {fileID: 5414848298468351723}
   overrideDamage: 1
-  damage: 0.5
+  damage: 1
   overrideKnockback: 1
   knockbackStrength: 1
 --- !u!1 &4973828884281687063

@@ -15137,7 +15137,7 @@ MonoBehaviour:
   anim: {fileID: 3887365593034165796}
   centerTransform: {fileID: 2512676828727106287}
   delayBetweenStates: 2
-  debugState: 0
+  debugState: 1
   stateToDebug: 4
   debugStartSecondStage: 0
   invincibilityEffect: {fileID: 5732803463431064132}

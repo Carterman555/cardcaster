@@ -45,13 +45,24 @@ MonoBehaviour:
   rarity: 3
   stackType: 0
   startUnlocked: 1
-  unlockLevel: 1
+  unlockEnvironment: 0
   memoryCard: 0
+  hasUnlockText: 0
+  unlockText:
+    m_TableReference:
+      m_TableCollectionName: 
+    m_TableEntryReference:
+      m_KeyId: 0
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  dissolveWhenMaxed: 1
   maxLevel: 4
   statModifiersPerLevel:
   - PlayerStatType: 12
     ModifyType: 0
-    Value: 0.15
+    Value: 0.1
   references:
     version: 2
     RefIds: []

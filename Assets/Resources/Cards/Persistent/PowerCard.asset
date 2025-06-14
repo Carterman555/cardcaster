@@ -58,11 +58,11 @@ MonoBehaviour:
     m_WaitForCompletion: 0
     m_LocalVariables: []
   dissolveWhenMaxed: 1
-  maxLevel: 3
+  maxLevel: 4
   statModifiersPerLevel:
   - PlayerStatType: 13
     ModifyType: 0
-    Value: 0.1
+    Value: 0.05
   references:
     version: 2
     RefIds: []

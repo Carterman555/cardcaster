@@ -294,4 +294,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mapIconSprite: {fileID: 3421988639776014576, guid: 955556309f46a954c8012d24d777fa28, type: 3}
-  mapIconSize: {x: 30, y: 30}
+  mapIconSize: {x: 39, y: 27}

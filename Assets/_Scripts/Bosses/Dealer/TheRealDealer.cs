@@ -55,6 +55,7 @@ public class TheRealDealer : MonoBehaviour, IHasEnemyStats, IBoss {
 
     [SerializeField] private float delayBetweenStates;
 
+    private bool ghost;
     private bool defeated;
 
     [Header("Debug")]
@@ -75,19 +76,39 @@ public class TheRealDealer : MonoBehaviour, IHasEnemyStats, IBoss {
             enabled = false;
             return;
         }
+        else if (defeatedAmount == 3) {
+            ghost = false;
+        }
+        else {
+            ghost = true;
+        }
 
         health.DamagedEventTrigger.AddListener(OnDamaged);
         health.DeathEventTrigger.AddListener(OnDefeated);
         HandCard.OnAnyCardUsed_Card += OnAnyCardUsed;
         BlankMemoryCardDrop.OnPickup += RemoveInvincibility;
 
-        ChangeState(RealDealerState.StartingDialog);
+        // skip starting dialog if ghost
+        if (ghost) {
+
+            // delay to wait for enterBossRoomPlayer to start in BossManager > StartBossFight
+            DOVirtual.DelayedCall(Time.deltaTime, () => {
+                BossManager.Instance.ResumeEnterBossPlayer();
+            });
+
+            float delayToStart = 2f;
+            DOVirtual.DelayedCall(delayToStart, () => {
+                ChangeState(RealDealerState.BetweenStates);
+                spawnBlankMemoryCards.enabled = true;
+            });
+        }
+        else {
+            ChangeState(RealDealerState.StartingDialog);
+        }
 
         inSecondStage = debugStartSecondStage;
 
         UpdateVisual();
-
-        anim.SetInteger("defeatedAmount", 3);
 
         BecomeInvincible();
 
@@ -212,24 +233,34 @@ public class TheRealDealer : MonoBehaviour, IHasEnemyStats, IBoss {
     private IEnumerator OnDefeatedCor() {
         defeated = true;
 
+        int defeatedAmount = ES3.Load("DealerDefeatedAmount", 0, ES3EncryptionMigration.GetES3Settings()) + 1;
+        ES3.Save("DealerDefeatedAmount", defeatedAmount, ES3EncryptionMigration.GetES3Settings());
+
         ChangeState(RealDealerState.BetweenStates);
         spawnBlankMemoryCards.enabled = false;
 
         yield return new WaitForSeconds(1f);
 
-        ChangeState(RealDealerState.DefeatedDialog);
-
         sparksReal.Stop();
         anim.SetTrigger("fadeOutRed");
+
+        if (ghost) {
+            anim.SetTrigger("die");
+        }
+        else {
+            ChangeState(RealDealerState.DefeatedDialog);
+        }
     }
 
     // played by 'death' animation
     public void Destroy() {
 
-        ParticleSystem spawnedDestroyParticles = destroyParticles.Spawn(destroyParticles.transform.position, Containers.Instance.Effects);
-        spawnedDestroyParticles.Play();
+        if (!ghost) {
+            ParticleSystem spawnedDestroyParticles = destroyParticles.Spawn(destroyParticles.transform.position, Containers.Instance.Effects);
+            spawnedDestroyParticles.Play();
 
-        AudioManager.Instance.PlaySound(AudioManager.Instance.AudioClips.DealerDeath);
+            AudioManager.Instance.PlaySound(AudioManager.Instance.AudioClips.DealerDeath);
+        }
 
         gameObject.ReturnToPool();
     }
@@ -293,6 +324,8 @@ public class TheRealDealer : MonoBehaviour, IHasEnemyStats, IBoss {
     [SerializeField] private ParticleSystem destroyParticles;
 
     private void UpdateVisual() {
+        anim.SetBool("ghost", ghost);
+
         sparksFake.gameObject.SetActive(false);
         sparksReal.gameObject.SetActive(true);
 

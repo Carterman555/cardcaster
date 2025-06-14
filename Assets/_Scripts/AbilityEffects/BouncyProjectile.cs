@@ -32,9 +32,8 @@ public class BouncyProjectile : MonoBehaviour {
             return;
         }
 
-        // disable the bounce
         if (returnOnContact != null) {
-            returnOnContact.enabled = false;
+            returnOnContact.enabled = true;
         }
         Destroy(bounceOnContact);
     }

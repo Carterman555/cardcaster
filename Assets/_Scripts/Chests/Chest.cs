@@ -96,13 +96,13 @@ public class Chest : MonoBehaviour {
             bool isHeal = hasHeal && healIndex == itemIndex;
             if (isHeal) {
                 ChestHeal chestHeal = chestHealPrefab.Spawn(transform.position, chestItemContainer);
-                chestHeal.Setup(this, GetItemPosition(itemIndex));
+                chestHeal.Setup(this, GetDropPosition(itemIndex));
 
                 ChestItems.Add(chestHeal);
             }
             else {
                 ChestCard chestCard = chestCardPrefab.Spawn(transform.position, chestItemContainer);
-                chestCard.Setup(this, GetItemPosition(itemIndex));
+                chestCard.Setup(this, GetDropPosition(itemIndex));
 
                 CardType chosenCardType = ResourceSystem.Instance.GetRandomCardWeighted(remainingPossibleCards);
                 remainingPossibleCards.Remove(chosenCardType); // so won't choose two of the same card
@@ -113,7 +113,7 @@ public class Chest : MonoBehaviour {
         }
     }
 
-    private Vector2 GetItemPosition(int itemIndex) {
+    private Vector2 GetDropPosition(int itemIndex) {
         if (itemIndex == 0) return new Vector2(-1f, 2.6f);
         if (itemIndex == 1) return new Vector2(0f, 3f);
         if (itemIndex == 2) return new Vector2(1f, 2.6f);
@@ -122,7 +122,7 @@ public class Chest : MonoBehaviour {
             return Vector2.zero;
         }
     }
-    
+
     public IEnumerator OnSelectCollectable() {
 
         GetComponent<CreateMapIcon>().HideMapIcon();
@@ -135,3 +135,5 @@ public class Chest : MonoBehaviour {
         transform.ShrinkThenDestroy();
     }
 }
+
+

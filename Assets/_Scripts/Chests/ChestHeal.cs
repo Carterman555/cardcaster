@@ -60,7 +60,7 @@ public class ChestHeal : MonoBehaviour, IChestItem {
             }
         }
 
-        AudioManager.Instance.PlaySound(AudioManager.Instance.AudioClips.GainChestCard);
+        AudioManager.Instance.PlaySound(AudioManager.Instance.AudioClips.GainItem);
     }
 
     public void GoToPlayer() {

@@ -230,6 +230,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 226976224992304211, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
       insertIndex: -1
       addedObject: {fileID: 425120343707868779}
+    - targetCorrespondingSourceObject: {fileID: 226976224992304211, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7357733833458310641}
   m_SourcePrefab: {fileID: 100100000, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
 --- !u!1 &8294837421443421423 stripped
 GameObject:
@@ -252,9 +255,14 @@ MonoBehaviour:
   playerTracker: {fileID: 8469260667080230261}
   anim: {fileID: 8693357842044784570}
   fleeDelay:
-    MinValue: 5
-    MaxValue: 6
-  statsDropPrefab: {fileID: 1061520781153137347, guid: 0b1c7ceb1b42d964894840d8f4de771e, type: 3}
+    MinValue: 7
+    MaxValue: 12
+  statsBallPrefab: {fileID: 1061520781153137347, guid: 0b1c7ceb1b42d964894840d8f4de771e, type: 3}
+  quietTeleportSfx:
+    Clips:
+    - {fileID: 8300000, guid: e801e16dc5def064ca8d6a0694e4d576, type: 3}
+    Volume: 0.264
+    PitchVariation: 0.1
 --- !u!114 &3488633282758226921
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -287,6 +295,28 @@ MonoBehaviour:
   maxDestinationDistance: 3
   setAgentDestination: 1
   showGizmosLine: 0
+--- !u!114 &7357733833458310641
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8294837421443421423}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2a1fc403f7bcb24e9580d9e05ee5e89, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  walkClips:
+    Clips:
+    - {fileID: 8300000, guid: 071634912a7ee3c43b3d7e8245c56120, type: 3}
+    - {fileID: 8300000, guid: 8e98f4acedf9c724c9ec75f23b1c17e6, type: 3}
+    - {fileID: 8300000, guid: f1d55c194a7d4f14083d3937bbe8b265, type: 3}
+    - {fileID: 8300000, guid: a195f4e5ec79cbb4fb6a475f8946adda, type: 3}
+    - {fileID: 8300000, guid: 89a813f46b4a1624c8f76953ed19eb64, type: 3}
+    Volume: 0.025
+    PitchVariation: 0.1
+  stepCooldown: 0.3
 --- !u!114 &8469260667080230261 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 410835505700261321, guid: d26e40392c042dc4d8c237ede2183746, type: 3}

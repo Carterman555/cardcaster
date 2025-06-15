@@ -137,7 +137,7 @@ public class TradeUIManager : StaticInstance<TradeUIManager>, IInitializable {
 
     private Tween SwapIcons() {
 
-        AudioManager.Instance.PlaySound(AudioManager.Instance.AudioClips.GainChestCard);
+        AudioManager.Instance.PlaySound(AudioManager.Instance.AudioClips.GainItem);
 
         float swapDuration = 0.5f;
         currentCardIcon.transform.DOLocalMove(newCardLocalPosition, swapDuration).SetUpdate(true);

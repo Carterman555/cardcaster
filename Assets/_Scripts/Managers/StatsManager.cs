@@ -123,7 +123,7 @@ public class StatsManager : MonoBehaviour {
             case PlayerStatType.MoveSpeed:
                 ApplyModification(ref playerStats.MoveSpeed, modifyType, value);
                 break;
-            case PlayerStatType.Damage:
+            case PlayerStatType.BasicAttackDamage:
                 ApplyModification(ref playerStats.BaseBasicAttackDamage, modifyType, value);
                 break;
             case PlayerStatType.AttackSpeed:

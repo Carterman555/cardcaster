@@ -28,7 +28,7 @@ public class ChestCard : CardDrop, IChestItem {
             }
         }
 
-        AudioManager.Instance.PlaySound(AudioManager.Instance.AudioClips.GainChestCard);
+        AudioManager.Instance.PlaySound(AudioManager.Instance.AudioClips.GainItem);
     }
 
     public void ReturnToChest(float duration) {

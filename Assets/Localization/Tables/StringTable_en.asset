@@ -905,6 +905,30 @@ MonoBehaviour:
     m_Localized: Modifier Already Active.
     m_Metadata:
       m_Items: []
+  - m_Id: 28710705914437632
+    m_Localized: Vitality Ward
+    m_Metadata:
+      m_Items: []
+  - m_Id: 28710958008885248
+    m_Localized: Whirlwind Stance
+    m_Metadata:
+      m_Items: []
+  - m_Id: 28715384702492672
+    m_Localized: Keen Eye
+    m_Metadata:
+      m_Items: []
+  - m_Id: 28715450146217984
+    m_Localized: Thunderous Impact
+    m_Metadata:
+      m_Items: []
+  - m_Id: 28715782976823296
+    m_Localized: Fleet Foot
+    m_Metadata:
+      m_Items: []
+  - m_Id: 28715951000641536
+    m_Localized: Berserker's Might
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds:

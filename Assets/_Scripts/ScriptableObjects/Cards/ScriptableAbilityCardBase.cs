@@ -216,7 +216,7 @@ public abstract class ScriptableAbilityCardBase : ScriptableCardBase {
             if (modifiesSword) {
                 PlayerStatModifier damageModifier = new() {
                     Value = modifier.StatsModifier.Damage.PercentToMult(),
-                    PlayerStatType = PlayerStatType.Damage,
+                    PlayerStatType = PlayerStatType.BasicAttackDamage,
                     ModifyType = ModifyType.Multiplicative
                 };
                 PlayerStatModifier dashDamageModifier = new() {

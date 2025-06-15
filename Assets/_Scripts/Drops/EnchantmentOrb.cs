@@ -3,23 +3,36 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class StatsBall : MonoBehaviour {
+public class EnchantmentOrb : MonoBehaviour {
 
     [SerializeField] private float destinationObstacleDistance;
 
     private SpriteRenderer spriteRenderer;
 
+    [SerializeField] private EnchantmentDrop enchantmentDropPrefab;
+
+    private float originalFade;
+
+    [SerializeField] private AudioClips enchantmentSpawnSfx;
+
     private void Awake() {
         spriteRenderer = GetComponent<SpriteRenderer>();
+        originalFade = spriteRenderer.color.a;
     }
 
     private void OnEnable() {
         spriteRenderer.Fade(0f);
-        spriteRenderer.DOFade(1f, duration: 1f);
+        spriteRenderer.DOFade(originalFade, duration: 1f);
 
         Vector2 destination = FindDestination();
         transform.DOMove(destination, duration: 1f).OnComplete(() => {
-            
+            SpawnEnchantmentDrops();
+
+            AudioManager.Instance.PlaySound(enchantmentSpawnSfx);
+
+            spriteRenderer.DOFade(0f, duration: 0.2f).OnComplete(() => {
+                gameObject.ReturnToPool();
+            });
         });
     }
 
@@ -69,5 +82,34 @@ public class StatsBall : MonoBehaviour {
     private bool IsValidPos(Vector2 pos) {
         Collider2D col = Physics2D.OverlapCircle(pos, destinationObstacleDistance, GameLayers.ObstacleLayerMask);
         return col == null;
+    }
+
+    private void SpawnEnchantmentDrops() {
+
+        EnchantmentDrop[] enchantmentDrops = new EnchantmentDrop[3];
+
+        for (int i = 0; i < 3; i++) {
+            EnchantmentDrop enchantmentDrop = enchantmentDropPrefab.Spawn(transform.position, Containers.Instance.Drops);
+
+            ScriptableEnchantment enchantment = ResourceSystem.Instance.Enchantments.RandomItem();
+            Vector2 pos = (Vector2)transform.position + GetDropPosition(i);
+            enchantmentDrop.Setup(enchantment, pos);
+
+            enchantmentDrops[i] = enchantmentDrop;
+        }
+
+        foreach (EnchantmentDrop enchantmentDrop in enchantmentDrops) {
+            enchantmentDrop.EnchantmentDropsInGroup = enchantmentDrops;
+        }
+    }
+
+    private Vector2 GetDropPosition(int itemIndex) {
+        if (itemIndex == 0) return new Vector2(-1f, -0.2f);
+        if (itemIndex == 1) return new Vector2(0f, 0.2f);
+        if (itemIndex == 2) return new Vector2(1f, -0.2f);
+        else {
+            Debug.LogError("itemIndex position not set: " + itemIndex);
+            return Vector2.zero;
+        }
     }
 }

@@ -10,7 +10,9 @@ public class ShinyGoblin : Enemy {
 
     private WanderMovementBehavior wanderMovement;
 
-    [SerializeField] private StatsBall statsBallPrefab;
+    [SerializeField] private EnchantmentOrb enchantmentOrbPrefab;
+
+    [SerializeField] private AudioClips quietTeleportSfx;
 
     protected override void Awake() {
         base.Awake();
@@ -21,7 +23,7 @@ public class ShinyGoblin : Enemy {
     protected override void OnEnable() {
         base.OnEnable();
 
-        health.DeathEventTrigger.AddListener(SpawnStatBoosts);
+        health.DeathEventTrigger.AddListener(SpawnEnchantmentOrb);
 
         fleeTimer = 0;
         fleeDelay.Randomize();
@@ -29,7 +31,7 @@ public class ShinyGoblin : Enemy {
 
     protected override void OnDisable() {
         base.OnDisable();
-        health.DeathEventTrigger.RemoveListener(SpawnStatBoosts);
+        health.DeathEventTrigger.RemoveListener(SpawnEnchantmentOrb);
     }
 
     protected override void Update() {
@@ -42,11 +44,29 @@ public class ShinyGoblin : Enemy {
             wanderMovement.enabled = false;
 
             anim.SetTrigger("flee");
+
+            StartCoroutine(FleeSfxCor());
         }
     }
 
-    private void SpawnStatBoosts() {
-        statsBallPrefab.Spawn(transform.position, Containers.Instance.Drops);
+    private void SpawnEnchantmentOrb() {
+        enchantmentOrbPrefab.Spawn(transform.position, Containers.Instance.Drops);
+    }
+
+    private IEnumerator FleeSfxCor() {
+
+        yield return new WaitForSeconds(0.5f);
+
+        AudioManager.Instance.PlaySound(quietTeleportSfx);
+        yield return new WaitForSeconds(0.66f);
+
+        AudioManager.Instance.PlaySound(quietTeleportSfx);
+        yield return new WaitForSeconds(0.66f);
+
+        AudioManager.Instance.PlaySound(quietTeleportSfx);
+        yield return new WaitForSeconds(0.66f);
+
+        AudioManager.Instance.PlaySound(AudioManager.Instance.AudioClips.Teleport);
     }
 
     // played by flee anim

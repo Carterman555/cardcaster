@@ -17,6 +17,7 @@ public class ResourceSystem : Singleton<ResourceSystem> {
     public List<ScriptableBoss> Bosses { get; private set; }
     public List<ScriptableCardBase> AllCards { get; private set; }
     public List<CardType> UnlockedCards { get; private set; }
+    public List<ScriptableEnchantment> Enchantments { get; private set; }
 
     protected override void Awake() {
         base.Awake();
@@ -35,6 +36,8 @@ public class ResourceSystem : Singleton<ResourceSystem> {
         AllCards = Resources.LoadAll<ScriptableCardBase>("Cards").ToList();
 
         UpdateUnlockedCards();
+
+        Enchantments = Resources.LoadAll<ScriptableEnchantment>("StatModifiers").ToList();
     }
 
     public void UpdateUnlockedCards() {
@@ -63,6 +66,8 @@ public class ResourceSystem : Singleton<ResourceSystem> {
     public ScriptableRoom[] GetRooms(RoomType roomType) => Rooms[roomType];
     public List<ScriptableEnemy> GetAllEnemies() => Enemies;
     public List<ScriptableBoss> GetBosses(EnvironmentType environment) => Bosses.Where(b => b.EnvironmentType == environment).ToList();
+
+    #region Cards
 
     public List<CardType> GetAllCards() => AllCards.Select(c => c.CardType).ToList();
     public List<CardType> GetAllCardsWithEnvironment(EnvironmentType environment) => AllCards.Where(c => c.UnlockEnvironment == environment).Select(c => c.CardType).ToList();
@@ -167,6 +172,8 @@ public class ResourceSystem : Singleton<ResourceSystem> {
 
         UnlockedCards.Add(cardToUnlock);
     }
+
+    #endregion
 
     protected override void OnApplicationQuit() {
         base.OnApplicationQuit();

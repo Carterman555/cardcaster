@@ -127,8 +127,9 @@ public class ScriptableAudio : ScriptableObject {
     [SerializeField] private AudioClips openChest;
     public AudioClips OpenChest => openChest;
 
-    [SerializeField] private AudioClips gainChestCard;
-    public AudioClips GainChestCard => gainChestCard;
+    [FormerlySerializedAs("gainChestCard")]
+    [SerializeField] private AudioClips gainItem;
+    public AudioClips GainItem => gainItem;
 
     [Header("UI")]
 

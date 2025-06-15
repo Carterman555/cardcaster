@@ -52,7 +52,7 @@ public enum PlayerStatType {
 
     MoveSpeed,
 
-    Damage,
+    BasicAttackDamage,
     AttackSpeed,
     KnockbackStrength,
 

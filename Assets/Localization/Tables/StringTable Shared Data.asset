@@ -871,6 +871,30 @@ MonoBehaviour:
     m_Key: alreadyActive
     m_Metadata:
       m_Items: []
+  - m_Id: 28710705914437632
+    m_Key: vitalityWard
+    m_Metadata:
+      m_Items: []
+  - m_Id: 28710958008885248
+    m_Key: whirlwindStance
+    m_Metadata:
+      m_Items: []
+  - m_Id: 28715384702492672
+    m_Key: keenEye
+    m_Metadata:
+      m_Items: []
+  - m_Id: 28715450146217984
+    m_Key: thunderousImpact
+    m_Metadata:
+      m_Items: []
+  - m_Id: 28715782976823296
+    m_Key: fleetFoot
+    m_Metadata:
+      m_Items: []
+  - m_Id: 28715951000641536
+    m_Key: berserkersMight
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

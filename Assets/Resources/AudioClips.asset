@@ -224,11 +224,11 @@ MonoBehaviour:
     - {fileID: 8300000, guid: aa24bd8556aa091409e3fd563573d67a, type: 3}
     Volume: 1
     PitchVariation: 0
-  gainChestCard:
+  gainItem:
     Clips:
     - {fileID: 8300000, guid: f3f70106499a4294cb6baface6151c67, type: 3}
-    Volume: 1
-    PitchVariation: 0
+    Volume: 0.375
+    PitchVariation: 0.1
   openPanel:
     Clips:
     - {fileID: 8300000, guid: b85ddf9d5f6edcf4894f2aff08f3a4cf, type: 3}

@@ -50,7 +50,7 @@ public class Chest : MonoBehaviour {
             remainingPossibleCards = unlockedRewardCards.Where(c => !persistentCards.Contains(c)).ToList();
         }
 
-        if (!RewardSpawner.CanGainOpenPalmsCard() && remainingPossibleCards.Contains(CardType.OpenPalms)) {
+        if (StatsManager.PlayerStats.HandSize >= DeckManager.MaxHandSize) {
             remainingPossibleCards.Remove(CardType.OpenPalms);
         }
 

@@ -9,9 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b9acb33d429bd4148aaae97703a1e117, type: 3}
+  m_Script: {fileID: 11500000, guid: 28b21ad19425157498e60d98d337a59d, type: 3}
   m_Name: EssenceWell
   m_EditorClassIdentifier: 
+  enchantmentType: 1
   enchantmentName:
     m_TableReference:
       m_TableCollectionName: GUID:e2b89126a54df984f885da2bac4cb92f

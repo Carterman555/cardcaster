@@ -15,7 +15,7 @@ public class EnchantmentDrop : MonoBehaviour {
     private ScriptableEnchantment enchantment;
 
     [SerializeField] private bool useDebugEnchantment;
-    [ConditionalHide("debugStat")][SerializeField] private ScriptableEnchantment enchantmentToDebug;
+    [ConditionalHide("useDebugEnchantment")][SerializeField] private ScriptableEnchantment enchantmentToDebug;
 
     public EnchantmentDrop[] EnchantmentDropsInGroup { get; set; } = new EnchantmentDrop[0];
 
@@ -93,6 +93,7 @@ public class EnchantmentDrop : MonoBehaviour {
 
         transform.DOScale(Vector2.zero, duration: 0.2f).SetEase(Ease.InSine).OnComplete(() => {
             StatsManager.AddPlayerStatModifiers(enchantment.StatModifiers);
+            enchantment.OnGain();
 
             transform.DOKill();
             gameObject.ReturnToPool();

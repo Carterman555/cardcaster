@@ -64,7 +64,7 @@ public class Interactable : MonoBehaviour {
         spriteRenderer.material = originalMaterial;
 
         // shrink text
-        bool interactableTextActive = interactableText != null && interactableText.enabled == true;
+        bool interactableTextActive = interactableText != null && interactableText.enabled == true && interactableText.transform != null;
         if (interactableTextActive) {
             interactableText.transform.DOKill();
             interactableText.transform.ShrinkThenDestroy();

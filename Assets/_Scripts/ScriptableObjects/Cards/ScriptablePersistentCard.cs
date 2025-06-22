@@ -16,6 +16,22 @@ public class ScriptablePersistentCard : ScriptableCardBase {
     [SerializeField] private int maxLevel;
     [SerializeField] private PlayerStatModifier[] statModifiersPerLevel;
 
+    public override string Description {
+        get {
+            string statsStr = "";
+            foreach (PlayerStatModifier modifier in statModifiersPerLevel) {
+                statsStr += StatsFormatter.Instance.GetStatModifierStr(modifier) + "\n";
+
+                float currentValue = CurrentLevel * modifier.Value;
+                float maxValue = maxLevel * modifier.Value;
+                statsStr += $"({currentValue}/{maxValue})\n";
+            }
+
+
+            return statsStr;
+        }
+    }
+
     public PersistentUpgradeType UpgradeType { get; private set; }
 
     public override void TryPlay(Vector2 position) {

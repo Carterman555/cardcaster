@@ -70,18 +70,18 @@ MonoBehaviour:
   <IsModifiable>k__BackingField: 1
   incompatibleAbilities: 
   statModifiers:
-  - PlayerStatType: 1
-    ModifyType: 0
-    Value: 1
-  - PlayerStatType: 2
-    ModifyType: 1
-    Value: 0.2
-  - PlayerStatType: 5
-    ModifyType: 0
-    Value: 1
   - PlayerStatType: 6
     ModifyType: 0
     Value: 1.5
+  - PlayerStatType: 5
+    ModifyType: 0
+    Value: 10
+  - PlayerStatType: 1
+    ModifyType: 0
+    Value: 10
+  - PlayerStatType: 2
+    ModifyType: 1
+    Value: 0.2
   bigSwordSprite: {fileID: 21300000, guid: b2149264fa5b3c34aa0bd7ace452b311, type: 3}
   normalSwordSprite: {fileID: -7548330956807559887, guid: 5c535993996dd1841aaedb9eb6cd812f, type: 3}
   references:

@@ -73,7 +73,8 @@ public class CardImage : MonoBehaviour {
         LocalizationSettings.SelectedLocaleChanged -= UpdateTexts;
     }
 
-    private void UpdateTexts(Locale locale) {
+    // also played by persistent upgrade feedbacks to update stat modifier values on upgrade
+    public void UpdateTexts(Locale locale) {
         if (card == null) {
             return;
         }

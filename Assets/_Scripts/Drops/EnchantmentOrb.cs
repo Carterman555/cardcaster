@@ -1,6 +1,7 @@
 using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class EnchantmentOrb : MonoBehaviour {
@@ -88,10 +89,19 @@ public class EnchantmentOrb : MonoBehaviour {
 
         EnchantmentDrop[] enchantmentDrops = new EnchantmentDrop[3];
 
+        List<ScriptableEnchantment> possibleEnchantments = ResourceSystem.Instance.Enchantments;
+
+        if (StatsManager.PlayerStats.HandSize >= DeckManager.MaxHandSize) {
+            ScriptableEnchantment sagesWisdom = possibleEnchantments.FirstOrDefault(e => e.EnchantmentType == EnchantmentType.SagesWisdom);
+            possibleEnchantments.Remove(sagesWisdom);
+        }
+
         for (int i = 0; i < 3; i++) {
             EnchantmentDrop enchantmentDrop = enchantmentDropPrefab.Spawn(transform.position, Containers.Instance.Drops);
 
             ScriptableEnchantment enchantment = ResourceSystem.Instance.Enchantments.RandomItem();
+            possibleEnchantments.Remove(enchantment);
+
             Vector2 pos = (Vector2)transform.position + GetDropPosition(i);
             enchantmentDrop.Setup(enchantment, pos);
 

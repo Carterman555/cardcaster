@@ -120,7 +120,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 727056800813056
-    m_Localized: Gain a giant sword, but decrease speed
+    m_Localized: Gain a giant sword
     m_Metadata:
       m_Items: []
   - m_Id: 727128192061440
@@ -128,7 +128,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 727160790192128
-    m_Localized: Deal double damage when below 25% health for 10 seconds
+    m_Localized: When below 25% health for 10 seconds
     m_Metadata:
       m_Items: []
   - m_Id: 727187205918720
@@ -172,11 +172,14 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 727929190879232
-    m_Localized: Increase the damage of next ability
+    m_Localized: Increase the damage of next ability by 25%
     m_Metadata:
       m_Items: []
   - m_Id: 727951315832832
-    m_Localized: Increase the damage, but decrease the duration of your next ability
+    m_Localized: 'Increase the damage of your next ability by 25%, but reduce its
+      duration by 25%.
+
+'
     m_Metadata:
       m_Items: []
   - m_Id: 727963529646080
@@ -188,7 +191,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 727989546913792
-    m_Localized: Increase the duration of next ability
+    m_Localized: Increase the duration of next ability by 25%
     m_Metadata:
       m_Items: []
   - m_Id: 728055108079616

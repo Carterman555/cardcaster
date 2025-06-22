@@ -1,4 +1,5 @@
 using QFSW.QC;
+using System;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -102,6 +103,8 @@ public class DebugManager : StaticInstance<DebugManager> {
 
     [SerializeField] private List<CardType> startingCards;
 
+    [SerializeField] private bool giveOneOfEachCard;
+
     private void GiveStartingCards() {
         if (startingCards.Count > 0) {
 
@@ -109,6 +112,13 @@ public class DebugManager : StaticInstance<DebugManager> {
             DeckManager.Instance.ClearDeckAndEssence();
 
             foreach (CardType cardType in startingCards) {
+                ScriptableCardBase card = ResourceSystem.Instance.GetCardInstance(cardType);
+                DeckManager.Instance.GainCard(card);
+            }
+        }
+
+        if (giveOneOfEachCard) {
+            foreach (CardType cardType in Enum.GetValues(typeof(CardType))) {
                 ScriptableCardBase card = ResourceSystem.Instance.GetCardInstance(cardType);
                 DeckManager.Instance.GainCard(card);
             }

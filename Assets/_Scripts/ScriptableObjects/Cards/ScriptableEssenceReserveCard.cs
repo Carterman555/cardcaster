@@ -7,10 +7,5 @@ public class ScriptableEssenceReserveCard : ScriptablePersistentCard {
         base.Play(position);
         DeckManager.Instance.UpdateMaxEssence();
     }
-
-    public override void OnRemoved() {
-        base.OnRemoved();
-        DeckManager.Instance.UpdateMaxEssence();
-    }
 }
 

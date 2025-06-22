@@ -15,24 +15,16 @@ public class RewardSpawner : MonoBehaviour {
     [SerializeField] private Chest persistentChestPrefab;
     [SerializeField] private Campfire campfirePrefab;
 
-    private static bool usedOpenPalmsCard;
-
     private void OnEnable() {
         CheckEnemiesCleared.OnEnemiesCleared += TrySpawnReward;
         BossManager.OnBossKilled_Boss += OnBossKilled;
-
-        HandCard.OnAnyCardUsed_Card += OnUseCard;
-        GameSceneManager.OnStartGameLoadingCompleted += ResetUsedOpenPalmsCard;
-
+        
         chestChance = startingChestChance;
     }
 
     private void OnDisable() {
         CheckEnemiesCleared.OnEnemiesCleared -= TrySpawnReward;
         BossManager.OnBossKilled_Boss -= OnBossKilled;
-
-        HandCard.OnAnyCardUsed_Card -= OnUseCard;
-        GameSceneManager.OnStartGameLoadingCompleted -= ResetUsedOpenPalmsCard;
     }
 
     private void TrySpawnReward() {
@@ -118,22 +110,5 @@ public class RewardSpawner : MonoBehaviour {
         CardType choosenCardType = ResourceSystem.Instance.GetRandomCardWeighted(possibleCardsToSpawn);
         CardUnlockDrop newCardUnlock = cardUnlockDropPrefab.Spawn(position, Containers.Instance.Drops);
         newCardUnlock.SetCard(ResourceSystem.Instance.GetCardInstance(choosenCardType));
-    }
-
-    
-
-    private void OnUseCard(ScriptableCardBase card) {
-        if (card is ScriptableOpenPalmsCard) {
-            usedOpenPalmsCard = true;
-        }
-    }
-
-    private void ResetUsedOpenPalmsCard() {
-        usedOpenPalmsCard = false;
-    }
-
-    public static bool CanGainOpenPalmsCard() {
-        bool hasOpenPalmsCard = DeckManager.Instance.GetAllCards().Any(c => c is ScriptableOpenPalmsCard);
-        return !usedOpenPalmsCard && !hasOpenPalmsCard;
     }
 }

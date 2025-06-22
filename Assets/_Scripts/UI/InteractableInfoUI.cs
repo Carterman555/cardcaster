@@ -135,10 +135,7 @@ public class InteractableInfoUI : MonoBehaviour, IInitializable {
                 enchantmentDescription.text = enchantmentShowing.Name;
             }
             else {
-                enchantmentDescription.text = "";
-                foreach (PlayerStatModifier statModifier in enchantmentShowing.StatModifiers) {
-                    enchantmentDescription.text += StatsFormatter.Instance.GetStatModifierStr(statModifier) + "\n";
-                }
+                enchantmentDescription.text = StatsFormatter.Instance.GetStatModifiersStr(enchantmentShowing.StatModifiers);
             }
         }
     }

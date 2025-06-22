@@ -65,6 +65,11 @@ public class DeckManager : Singleton<DeckManager> {
 
     public void UpdateHandSize() {
 
+        if (StatsManager.PlayerStats.HandSize > MaxHandSize) {
+            Debug.LogError("Hand size is greater than max hand size! This shouldn't happen!");
+            return;
+        }
+        
         if (cardsInHand.Length == StatsManager.PlayerStats.HandSize) {
             return;
         }

@@ -5,6 +5,8 @@ public class ScriptableDyingRageCard : ScriptableAbilityCardBase {
 
     [SerializeField] private PlayerStatModifier[] statModifiers;
 
+    public override string Description => StatsFormatter.Instance.GetStatModifiersStr(statModifiers) + "\n" + base.Description;
+
     private bool applyingDamageModifier;
 
     private PlayerHealth playerHealth;

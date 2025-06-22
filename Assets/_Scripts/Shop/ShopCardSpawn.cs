@@ -13,7 +13,7 @@ public class ShopCardSpawn : MonoBehaviour {
         ShopCard shopItem = shopItemPrefab.Spawn(transform.position, transform);
 
         List<CardType> possibleCards = ResourceSystem.Instance.GetUnlockedRewardCards();
-        if (!RewardSpawner.CanGainOpenPalmsCard() && possibleCards.Contains(CardType.OpenPalms)) {
+        if (StatsManager.PlayerStats.HandSize >= DeckManager.MaxHandSize) {
             possibleCards.Remove(CardType.OpenPalms);
         }
 

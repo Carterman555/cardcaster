@@ -13,13 +13,16 @@ public class LocalizeFont : MonoBehaviour {
     private float chineseFontSizeMult = 1.5f;
 
     [SerializeField] private bool overrideEnglishFontSize;
-    [ConditionalHide("overrideEnglishFontSize")]
-    [SerializeField] private float englishFontSizeOverride;
+    [SerializeField, ConditionalHide("overrideEnglishFontSize")] private float englishFontSizeOverride;
 
     // do these if in chinese
     [SerializeField] private bool roundToNearest11 = true;
     [SerializeField] private bool forceRoundUp = false;
     [SerializeField] private bool disableAutoResize = true;
+
+    [SerializeField] private bool differentChineseLineSpacing;
+    [SerializeField, ConditionalHide("differentChineseLineSpacing")] private float chineseLineSpacing;
+    private float defaultLineSpacing;
 
     private void Awake() {
         text = GetComponent<TMP_Text>();
@@ -30,6 +33,8 @@ public class LocalizeFont : MonoBehaviour {
         }
 
         autoResizeInEnglish = text.enableAutoSizing;
+
+        defaultLineSpacing = text.lineSpacing;
     }
 
     private void OnEnable() {
@@ -49,6 +54,7 @@ public class LocalizeFont : MonoBehaviour {
 
             text.fontSize = englishFontSize;
             text.enableAutoSizing = autoResizeInEnglish;
+            text.lineSpacing = defaultLineSpacing;
         }
         else if (locale.Identifier == "zh-Hans") {
             TMP_FontAsset chineseFont = Resources.Load<TMP_FontAsset>("Fonts/LanaPixel SDF");
@@ -71,6 +77,7 @@ public class LocalizeFont : MonoBehaviour {
             }
 
             text.fontSize = fontSize;
+            text.lineSpacing = differentChineseLineSpacing ? chineseLineSpacing : defaultLineSpacing;
         }
     }
 }

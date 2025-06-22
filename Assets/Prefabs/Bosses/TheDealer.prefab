@@ -45291,7 +45291,7 @@ MonoBehaviour:
   overrideDamage: 1
   damage: 2
   overrideKnockback: 1
-  knockbackStrength: 1
+  knockbackStrength: 10
 --- !u!114 &5905615862109406716
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -55449,7 +55449,7 @@ MonoBehaviour:
   overrideDamage: 1
   damage: 2
   overrideKnockback: 1
-  knockbackStrength: 1
+  knockbackStrength: 10
 --- !u!114 &7506017139775890789
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -43,10 +43,10 @@ public class EnchantmentDrop : MonoBehaviour {
 
     private void SetShowInfo(bool show) {
         if (show) {
-            //ChestItemInfoUI.Instance.SetEnchantmentInfo(enchantment);
+            InteractableInfoUI.Instance.SetEnchantmentInfo(enchantment);
         }
         else {
-            ChestItemInfoUI.Instance.RemoveInfo();
+            InteractableInfoUI.Instance.RemoveInfo();
         }
     }
 

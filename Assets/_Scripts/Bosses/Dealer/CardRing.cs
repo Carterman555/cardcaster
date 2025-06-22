@@ -49,7 +49,7 @@ public class CardRing : MonoBehaviour {
             cardDirection.RotateDirection(angleBetweenCards);
 
             DamageOnContact card = cardPrefab.Spawn(pos, transform);
-            card.Setup(damage, knockbackStrength: 1f);
+            card.Setup(damage, knockbackStrength: 10f);
 
             card.gameObject.SetActive(false);
             card.GetComponent<Collider2D>().enabled = false;

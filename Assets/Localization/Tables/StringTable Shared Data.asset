@@ -895,6 +895,94 @@ MonoBehaviour:
     m_Key: berserkersMight
     m_Metadata:
       m_Items: []
+  - m_Id: 31157148453429248
+    m_Key: sagesWisdom
+    m_Metadata:
+      m_Items: []
+  - m_Id: 31158052296581120
+    m_Key: spellBolt
+    m_Metadata:
+      m_Items: []
+  - m_Id: 31158418471903232
+    m_Key: essenceWell
+    m_Metadata:
+      m_Items: []
+  - m_Id: 31158576999817216
+    m_Key: swiftRecovery
+    m_Metadata:
+      m_Items: []
+  - m_Id: 31158929073889280
+    m_Key: glassCannon
+    m_Metadata:
+      m_Items: []
+  - m_Id: 31159517694124032
+    m_Key: lethalPrecision
+    m_Metadata:
+      m_Items: []
+  - m_Id: 31197543468097536
+    m_Key: maxHealth
+    m_Metadata:
+      m_Items: []
+  - m_Id: 31197673659293696
+    m_Key: knockbackResistance
+    m_Metadata:
+      m_Items: []
+  - m_Id: 31197754022158336
+    m_Key: moveSpeed
+    m_Metadata:
+      m_Items: []
+  - m_Id: 31197807793135616
+    m_Key: basicAttackDamage
+    m_Metadata:
+      m_Items: []
+  - m_Id: 31197876713938944
+    m_Key: attackSpeed
+    m_Metadata:
+      m_Items: []
+  - m_Id: 31197935295782912
+    m_Key: knockback
+    m_Metadata:
+      m_Items: []
+  - m_Id: 31197987418398720
+    m_Key: swordSize
+    m_Metadata:
+      m_Items: []
+  - m_Id: 31198063742148608
+    m_Key: dashDistance
+    m_Metadata:
+      m_Items: []
+  - m_Id: 31198117144027136
+    m_Key: dashAttackDamage
+    m_Metadata:
+      m_Items: []
+  - m_Id: 31198187524448256
+    m_Key: dashRechargeSpeed
+    m_Metadata:
+      m_Items: []
+  - m_Id: 31198241584832512
+    m_Key: critChance
+    m_Metadata:
+      m_Items: []
+  - m_Id: 31198293472567296
+    m_Key: critDamage
+    m_Metadata:
+      m_Items: []
+  - m_Id: 31198530064867328
+    m_Key: projectileDamage
+    m_Metadata:
+      m_Items: []
+  - m_Id: 31198570120470528
+    m_Key: damage
+    m_Metadata:
+      m_Items: []
+  - m_Id: 31198622310195200
+    m_Key: maxEssence
+    m_Metadata:
+      m_Items: []
+  - m_Id: 31198684654329856
+    m_Key: handSize
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

@@ -570,7 +570,7 @@ public class TheRealDealer : MonoBehaviour, IHasEnemyStats, IBoss {
 
                     float circleShootCardSpeed = inSecondStage ? circleShootCardSpeed2 : circleShootCardSpeed1;
                     card.Setup(spiralShootDirection, circleShootCardSpeed);
-                    card.GetComponent<DamageOnContact>().Setup(GetEnemyStats().Damage, knockbackStrength: 1f);
+                    card.GetComponent<DamageOnContact>().Setup(GetEnemyStats().Damage, knockbackStrength: 10f);
                 }
 
                 shootDirection.RotateDirection(circleShootAngleBetweenCards * spiralDirection);

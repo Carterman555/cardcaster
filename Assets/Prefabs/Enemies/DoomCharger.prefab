@@ -253,7 +253,7 @@ MonoBehaviour:
       m_Bits: 35968
     ExplosionRadius: 3
     Damage: 10
-    KnockbackStrength: 1
+    KnockbackStrength: 10
   explosionParticlesPrefab: {fileID: 6065135645941821456, guid: 5f3b7b52a057dae4a8769678b76618b4, type: 3}
   shakeCamera: 1
 --- !u!95 &7812749826847277617 stripped

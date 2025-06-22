@@ -17,11 +17,11 @@ MonoBehaviour:
   <Prefab>k__BackingField: {fileID: 5030425453614946796, guid: bb3b0da5fb71e8249a8f9ef541875d0f, type: 3}
   <Stats>k__BackingField:
     MaxHealth: 15
-    KnockbackResistance: 1
+    KnockbackResistance: 10
     MoveSpeed: 2
     Damage: 3
     AttackSpeed: 0.3
-    KnockbackStrength: 1
+    KnockbackStrength: 10
     AttackRange: 1
   <Difficulty>k__BackingField: 3
   <Tags>k__BackingField: 0

@@ -67,7 +67,7 @@ public class CardSurge : MonoBehaviour {
         Vector2 direction = transform.eulerAngles.z.RotationToDirection();
         cardProjectile.Setup(direction);
 
-        cardProjectile.GetComponent<DamageOnContact>().Setup(damage, knockbackStrength: 1f);
+        cardProjectile.GetComponent<DamageOnContact>().Setup(damage, knockbackStrength: 10f);
 
         AudioManager.Instance.PlaySound(AudioManager.Instance.AudioClips.DeckOfDoomSurge);
     }

@@ -44,14 +44,23 @@ MonoBehaviour:
   cost: 2
   rarity: 1
   stackType: 2
-  inDemo: 1
   startUnlocked: 1
-  unlockLevel: 1
+  unlockEnvironment: 0
   memoryCard: 0
+  hasUnlockText: 0
+  unlockText:
+    m_TableReference:
+      m_TableCollectionName: 
+    m_TableEntryReference:
+      m_KeyId: 0
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
   abilityAttributes: 3
   baseStats:
     BaseDamage: 1.5
-    KnockbackStrength: 1
+    KnockbackStrength: 10
     AreaSize: 1.5
     Duration: 0
     ProjectileSpeed: 0

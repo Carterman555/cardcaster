@@ -929,6 +929,94 @@ MonoBehaviour:
     m_Localized: Berserker's Might
     m_Metadata:
       m_Items: []
+  - m_Id: 31157148453429248
+    m_Localized: Sage's Wisdom
+    m_Metadata:
+      m_Items: []
+  - m_Id: 31158052296581120
+    m_Localized: Spell Bolt
+    m_Metadata:
+      m_Items: []
+  - m_Id: 31158418471903232
+    m_Localized: Essence Well
+    m_Metadata:
+      m_Items: []
+  - m_Id: 31158576999817216
+    m_Localized: Swift Recovery
+    m_Metadata:
+      m_Items: []
+  - m_Id: 31158929073889280
+    m_Localized: Glass Cannon
+    m_Metadata:
+      m_Items: []
+  - m_Id: 31159517694124032
+    m_Localized: Lethal Precision
+    m_Metadata:
+      m_Items: []
+  - m_Id: 31197543468097536
+    m_Localized: Max Health
+    m_Metadata:
+      m_Items: []
+  - m_Id: 31197673659293696
+    m_Localized: Knockback Resistance
+    m_Metadata:
+      m_Items: []
+  - m_Id: 31197754022158336
+    m_Localized: Move Speed
+    m_Metadata:
+      m_Items: []
+  - m_Id: 31197807793135616
+    m_Localized: Basic Attack Damage
+    m_Metadata:
+      m_Items: []
+  - m_Id: 31197876713938944
+    m_Localized: Attack Speed
+    m_Metadata:
+      m_Items: []
+  - m_Id: 31197935295782912
+    m_Localized: Knockback
+    m_Metadata:
+      m_Items: []
+  - m_Id: 31197987418398720
+    m_Localized: Sword Size
+    m_Metadata:
+      m_Items: []
+  - m_Id: 31198063742148608
+    m_Localized: Dash Distance
+    m_Metadata:
+      m_Items: []
+  - m_Id: 31198117144027136
+    m_Localized: Dash Attack Damage
+    m_Metadata:
+      m_Items: []
+  - m_Id: 31198187524448256
+    m_Localized: Dash Recharge Speed
+    m_Metadata:
+      m_Items: []
+  - m_Id: 31198241584832512
+    m_Localized: Crit Chance
+    m_Metadata:
+      m_Items: []
+  - m_Id: 31198293472567296
+    m_Localized: Crit Damage
+    m_Metadata:
+      m_Items: []
+  - m_Id: 31198530064867328
+    m_Localized: Projectile Damage
+    m_Metadata:
+      m_Items: []
+  - m_Id: 31198570120470528
+    m_Localized: Damage
+    m_Metadata:
+      m_Items: []
+  - m_Id: 31198622310195200
+    m_Localized: Max Essence
+    m_Metadata:
+      m_Items: []
+  - m_Id: 31198684654329856
+    m_Localized: Hand Size
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds:

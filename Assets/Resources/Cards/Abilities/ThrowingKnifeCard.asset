@@ -44,18 +44,28 @@ MonoBehaviour:
   cost: 2
   rarity: 0
   stackType: 0
-  inDemo: 1
   startUnlocked: 1
-  unlockLevel: 1
+  unlockEnvironment: 0
   memoryCard: 0
+  hasUnlockText: 0
+  unlockText:
+    m_TableReference:
+      m_TableCollectionName: 
+    m_TableEntryReference:
+      m_KeyId: 0
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
   abilityAttributes: 9
   baseStats:
     BaseDamage: 15
-    KnockbackStrength: 1
+    KnockbackStrength: 10
     AreaSize: 0
     Duration: 0
     ProjectileSpeed: 15
     Cooldown: 0
+  modifiesSword: 0
   <IsPositional>k__BackingField: 1
   <IsModifiable>k__BackingField: 1
   incompatibleAbilities: 

@@ -114,9 +114,9 @@ public class Chest : MonoBehaviour {
     }
 
     private Vector2 GetDropPosition(int itemIndex) {
-        if (itemIndex == 0) return new Vector2(-1f, 2.6f);
-        if (itemIndex == 1) return new Vector2(0f, 3f);
-        if (itemIndex == 2) return new Vector2(1f, 2.6f);
+        if (itemIndex == 0) return new Vector2(-1.3f, 2.6f);
+        if (itemIndex == 1) return new Vector2(0f, 3.2f);
+        if (itemIndex == 2) return new Vector2(1.3f, 2.6f);
         else {
             Debug.LogError("itemIndex position not set: " + itemIndex);
             return Vector2.zero;

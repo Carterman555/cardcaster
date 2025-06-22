@@ -60,7 +60,7 @@ MonoBehaviour:
   abilityAttributes: 29
   baseStats:
     BaseDamage: 4
-    KnockbackStrength: 0.25
+    KnockbackStrength: 2.5
     AreaSize: 0
     Duration: 5
     ProjectileSpeed: 16

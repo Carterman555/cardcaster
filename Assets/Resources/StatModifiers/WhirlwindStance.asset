@@ -31,14 +31,14 @@ MonoBehaviour:
     m_FallbackState: 0
     m_WaitForCompletion: 0
     m_LocalVariables: []
-  sprite: {fileID: -224110089, guid: d638d131cac6f4d45aeb96fc55848241, type: 3}
+  sprite: {fileID: 2020213601, guid: 2bc2e4e7d232c714a93ce412a6d4fe79, type: 3}
   statModifiers:
   - PlayerStatType: 4
     ModifyType: 0
     Value: 0.2
   - PlayerStatType: 5
     ModifyType: 0
-    Value: -0.3
+    Value: -3
   references:
     version: 2
     RefIds: []

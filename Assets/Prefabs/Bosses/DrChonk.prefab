@@ -413,7 +413,7 @@ MonoBehaviour:
   shockwaveProjectile: {fileID: 6752470997021300203, guid: de6c0edba30d8c945827ab5abc14cb8f, type: 3}
   projectileCount: 6
   shockwaveDamage: 2
-  shockwaveKnockbackStrength: 1
+  shockwaveKnockbackStrength: 10
   slowSmashAmount:
     MinValue: 3
     MaxValue: 4

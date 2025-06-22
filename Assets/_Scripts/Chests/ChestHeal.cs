@@ -41,10 +41,10 @@ public class ChestHeal : MonoBehaviour, IChestItem {
 
     private void SetShowHealInfo(bool show) {
         if (show) {
-            ChestItemInfoUI.Instance.SetHealInfo();
+            InteractableInfoUI.Instance.SetHealInfo();
         }
         else {
-            ChestItemInfoUI.Instance.RemoveInfo();
+            InteractableInfoUI.Instance.RemoveInfo();
         }
     }
 

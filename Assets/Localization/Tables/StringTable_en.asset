@@ -742,12 +742,12 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 21731451807363072
-    m_Localized: Good. You can also click the minimap in the top right corner to
-      open up the map.
+    m_Localized: You can also click the minimap in the top right corner to open up
+      the map.
     m_Metadata:
       m_Items: []
   - m_Id: 21732063152336896
-    m_Localized: Good. You can also press {ACTION} to open up the map.
+    m_Localized: You can also press {ACTION} to open up the map.
     m_Metadata:
       m_Items: []
   - m_Id: 21732462424911872
@@ -1018,6 +1018,19 @@ MonoBehaviour:
       m_Items: []
   - m_Id: 31198684654329856
     m_Localized: Hand Size
+    m_Metadata:
+      m_Items: []
+  - m_Id: 31564925160120320
+    m_Localized: Good. You can also click the enchantment icon above the deck to
+      see your enchantments and stats.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 31565223467409408
+    m_Localized: Good. You can also click {ACTION} to see your enchantments and stats.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 31578169266397184
+    m_Localized: Enchantments
     m_Metadata:
       m_Items: []
   references:

@@ -559,7 +559,7 @@ TextureImporter:
         width: 18
         height: 18
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -567,6 +567,48 @@ TextureImporter:
       bones: []
       spriteID: 5b30794ebcc43534f9d960bb5894b2af
       internalID: 913721548
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: enchanment-icon1
+      rect:
+        serializedVersion: 2
+        x: 126
+        y: 476
+        width: 18
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f3fb3c08a3b61764bbd173f155986a69
+      internalID: 1210800163
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: enchanment-icon2
+      rect:
+        serializedVersion: 2
+        x: 144
+        y: 476
+        width: 18
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 849e57a486be78b4b9267548c9a007da
+      internalID: 1025452419
       vertices: []
       indices: 
       edges: []
@@ -596,6 +638,8 @@ TextureImporter:
       close-ui: -1183330171
       collapse-arrow: -1476148090
       deck: 833914736
+      enchanment-icon1: 1210800163
+      enchanment-icon2: 1025452419
       magic-projectile1: 2020966142
       magic-projectile2: -1630129890
       magic-projectile3: -1045381893

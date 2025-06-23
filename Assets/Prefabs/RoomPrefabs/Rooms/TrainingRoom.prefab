@@ -374,6 +374,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f009572b4d918346b24337ef83f88c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  UseRigidBody: 0
   Rotating: 1
   RotationSpace: 1
   UpdateMode: 0
@@ -12959,6 +12960,24 @@ MonoBehaviour:
     m_FallbackState: 0
     m_WaitForCompletion: 0
     m_LocalVariables: []
+  openEnchantmentsKeyboardLocString:
+    m_TableReference:
+      m_TableCollectionName: GUID:e2b89126a54df984f885da2bac4cb92f
+    m_TableEntryReference:
+      m_KeyId: 31564925160120320
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  openEnchantmentsControllerLocString:
+    m_TableReference:
+      m_TableCollectionName: GUID:e2b89126a54df984f885da2bac4cb92f
+    m_TableEntryReference:
+      m_KeyId: 31565223467409408
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
   openMapKeyboardLocString:
     m_TableReference:
       m_TableCollectionName: GUID:e2b89126a54df984f885da2bac4cb92f
@@ -13015,6 +13034,7 @@ MonoBehaviour:
   - {fileID: 3844780734154532936}
   - {fileID: 6746088723039031712}
   openCardsInput: {fileID: 5554860697868460990, guid: 50afa068aa51bd149a1f3d07794c53d5, type: 3}
+  openEnchantmentsInput: {fileID: 4976519330640865438, guid: 50afa068aa51bd149a1f3d07794c53d5, type: 3}
   openMapInput: {fileID: -1888232381002340338, guid: 50afa068aa51bd149a1f3d07794c53d5, type: 3}
   hole: {fileID: 6008340549961921154}
   createHoleParticles: {fileID: 4743211744468039618}

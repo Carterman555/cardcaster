@@ -31,10 +31,7 @@ public class InteractableInfoUI : MonoBehaviour, IInitializable {
     [SerializeField] private LocalizedString healLocString;
 
     [Header("Enchantment")]
-    [SerializeField] private GameObject enchantmentInfo;
-    [SerializeField] private Image enchantmentImage;
-    [SerializeField] private TextMeshProUGUI enchantmentName;
-    [SerializeField] private TextMeshProUGUI enchantmentDescription;
+    [SerializeField] private EnchantmentInfo enchantmentInfo;
 
     private ScriptableCardBase cardToShow;
     private ScriptableCardBase cardShowing;
@@ -112,31 +109,23 @@ public class InteractableInfoUI : MonoBehaviour, IInitializable {
         if (cardShowing != null) {
             cardImage.gameObject.SetActive(true);
             heal.SetActive(false);
-            enchantmentInfo.SetActive(false);
+            enchantmentInfo.gameObject.SetActive(false);
 
             cardImage.Setup(cardToShow);
         }
         else if (showingHeal) {
             cardImage.gameObject.SetActive(false);
             heal.SetActive(true);
-            enchantmentInfo.SetActive(false);
+            enchantmentInfo.gameObject.SetActive(false);
 
             healText.text = $"{healLocString.GetLocalizedString()} {ChestHeal.HealAmount}";
         }
         else if (enchantmentShowing != null) {
             cardImage.gameObject.SetActive(false);
             heal.SetActive(false);
-            enchantmentInfo.SetActive(true);
+            enchantmentInfo.gameObject.SetActive(true);
 
-            enchantmentImage.sprite = enchantmentShowing.Sprite;
-            enchantmentName.text = enchantmentShowing.Name;
-
-            if (enchantmentShowing.HasDescription) {
-                enchantmentDescription.text = enchantmentShowing.Name;
-            }
-            else {
-                enchantmentDescription.text = StatsFormatter.Instance.GetStatModifiersStr(enchantmentShowing.StatModifiers);
-            }
+            enchantmentInfo.Setup(enchantmentShowing.EnchantmentType);
         }
     }
 

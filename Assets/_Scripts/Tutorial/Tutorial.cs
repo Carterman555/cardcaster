@@ -1,3 +1,4 @@
+using MoreMountains.Feedbacks;
 using System;
 using System.Collections;
 using System.Linq;
@@ -40,6 +41,8 @@ public class Tutorial : MonoBehaviour {
     [SerializeField] private LocalizedString essenceLocString;
     [SerializeField] private LocalizedString openCardsKeyboardLocString;
     [SerializeField] private LocalizedString openCardsControllerLocString;
+    [SerializeField] private LocalizedString openEnchantmentsKeyboardLocString;
+    [SerializeField] private LocalizedString openEnchantmentsControllerLocString;
     [SerializeField] private LocalizedString openMapKeyboardLocString;
     [SerializeField] private LocalizedString openMapControllerLocString;
     [SerializeField] private LocalizedString mapTeleportLocString;
@@ -72,6 +75,9 @@ public class Tutorial : MonoBehaviour {
 
     [Header("Open Cards Step")]
     [SerializeField] private InputActionReference openCardsInput;
+
+    [Header("Open Enchantments Step")]
+    [SerializeField] private InputActionReference openEnchantmentsInput;
 
     [Header("Open Map Step")]
     [SerializeField] private InputActionReference openMapInput;
@@ -149,8 +155,9 @@ public class Tutorial : MonoBehaviour {
             new GiveModifyCardStep(modifierCard, abilityCard),
             new CombatModifyCardStep(practiceEnemy, modifyEnemySpawnPoints),
             new PickupEssenceStep(essencePrefab, essenceSpawnPoints, essenceLocString),
-            new OpenCardsStep(openCardsKeyboardLocString, openCardsControllerLocString, openCardsInput),
-            new OpenMapStep(openMapKeyboardLocString, openMapControllerLocString, openMapInput),
+            new OpenPanelStep(openCardsKeyboardLocString, openCardsControllerLocString, openCardsInput, ReferenceSystem.Instance.CardsPanelFeedbacks),
+            new OpenPanelStep(openEnchantmentsKeyboardLocString, openEnchantmentsControllerLocString, openEnchantmentsInput, ReferenceSystem.Instance.EnchantmentsPanelFeedbacks),
+            new OpenPanelStep(openMapKeyboardLocString, openMapControllerLocString, openMapInput, ReferenceSystem.Instance.MapPanelFeedbacks),
             new DialogStep(nextStepInput, mapTeleportLocString),
             new HoleStep(hole, createHoleParticles, holeLocString)
         };
@@ -530,17 +537,19 @@ public class PickupEssenceStep : BaseTutorialStep {
     }
 }
 
-public class OpenCardsStep : BaseTutorialStep {
+public class OpenPanelStep : BaseTutorialStep {
 
     private LocalizedString keyboardDialog;
     private LocalizedString controllerDialog;
 
     private InputActionReference openCardsAction;
+    private MMF_Player toggleFeedbacks;
 
-    public OpenCardsStep(LocalizedString keyboardDialog, LocalizedString controllerDialog, InputActionReference openCardsAction) {
+    public OpenPanelStep(LocalizedString keyboardDialog, LocalizedString controllerDialog, InputActionReference toggleAction, MMF_Player toggleFeedbacks) {
         this.keyboardDialog = keyboardDialog;
         this.controllerDialog = controllerDialog;
-        this.openCardsAction = openCardsAction;
+        this.openCardsAction = toggleAction;
+        this.toggleFeedbacks = toggleFeedbacks;
     }
 
     public override void OnEnterStep() {
@@ -560,51 +569,11 @@ public class OpenCardsStep : BaseTutorialStep {
 
         DialogBox.Instance.ShowText(locDialog, showNextDialogText: false, dialogAction: openCardsAction);
 
-        ReferenceSystem.Instance.CardsPanelFeedbacks.Events.OnPlay.AddListener(CompleteStep);
+        toggleFeedbacks.Events.OnPlay.AddListener(CompleteStep);
     }
 
     protected override void CompleteStep() {
-        ReferenceSystem.Instance.CardsPanelFeedbacks.Events.OnPlay.RemoveListener(CompleteStep);
-
-        base.CompleteStep();
-    }
-}
-
-public class OpenMapStep : BaseTutorialStep {
-
-    private LocalizedString keyboardDialog;
-    private LocalizedString controllerDialog;
-
-    private InputActionReference openMapAction;
-
-    public OpenMapStep(LocalizedString keyboardDialog, LocalizedString controllerDialog, InputActionReference openMapAction) {
-        this.keyboardDialog = keyboardDialog;
-        this.controllerDialog = controllerDialog;
-        this.openMapAction = openMapAction;
-    }
-
-    public override void OnEnterStep() {
-        base.OnEnterStep();
-
-        LocalizedString locDialog;
-        if (InputManager.Instance.GetControlScheme() == ControlSchemeType.Keyboard) {
-            locDialog = keyboardDialog;
-        }
-        else if (InputManager.Instance.GetControlScheme() == ControlSchemeType.Controller) {
-            locDialog = controllerDialog;
-        }
-        else {
-            Debug.LogError("No matching control scheme type!");
-            return;
-        }
-
-        DialogBox.Instance.ShowText(locDialog, showNextDialogText: false, dialogAction: openMapAction);
-
-        ReferenceSystem.Instance.MapPanelFeedbacks.Events.OnPlay.AddListener(CompleteStep);
-    }
-
-    protected override void CompleteStep() {
-        ReferenceSystem.Instance.MapPanelFeedbacks.Events.OnPlay.RemoveListener(CompleteStep);
+        toggleFeedbacks.Events.OnPlay.RemoveListener(CompleteStep);
 
         base.CompleteStep();
     }

@@ -175,6 +175,8 @@ public class ResourceSystem : Singleton<ResourceSystem> {
 
     #endregion
 
+    public ScriptableEnchantment GetEnchantment(EnchantmentType enchantmentType) => Enchantments.FirstOrDefault(e => e.EnchantmentType == enchantmentType);
+
     protected override void OnApplicationQuit() {
         base.OnApplicationQuit();
 

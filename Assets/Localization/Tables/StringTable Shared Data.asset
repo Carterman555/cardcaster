@@ -983,6 +983,18 @@ MonoBehaviour:
     m_Key: handSize
     m_Metadata:
       m_Items: []
+  - m_Id: 31564925160120320
+    m_Key: openEnchantmentsKeyboardInstructions
+    m_Metadata:
+      m_Items: []
+  - m_Id: 31565223467409408
+    m_Key: openEnchantmentsControllerInstructions
+    m_Metadata:
+      m_Items: []
+  - m_Id: 31578169266397184
+    m_Key: enchantments
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

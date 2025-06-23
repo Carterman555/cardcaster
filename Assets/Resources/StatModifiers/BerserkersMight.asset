@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9acb33d429bd4148aaae97703a1e117, type: 3}
   m_Name: BerserkersMight
   m_EditorClassIdentifier: 
+  enchantmentType: 0
   enchantmentName:
     m_TableReference:
       m_TableCollectionName: GUID:e2b89126a54df984f885da2bac4cb92f
@@ -41,7 +42,7 @@ MonoBehaviour:
     Value: 1
   - PlayerStatType: 4
     ModifyType: 0
-    Value: -0.3
+    Value: -0.2
   references:
     version: 2
     RefIds: []

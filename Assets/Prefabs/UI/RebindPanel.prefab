@@ -193,6 +193,8 @@ MonoBehaviour:
   roundToNearest11: 1
   forceRoundUp: 0
   disableAutoResize: 1
+  differentChineseLineSpacing: 0
+  chineseLineSpacing: 0
 --- !u!1 &814799848800266430
 GameObject:
   m_ObjectHideFlags: 0
@@ -386,6 +388,8 @@ MonoBehaviour:
   roundToNearest11: 1
   forceRoundUp: 0
   disableAutoResize: 1
+  differentChineseLineSpacing: 0
+  chineseLineSpacing: 0
 --- !u!1 &1174996251196168148
 GameObject:
   m_ObjectHideFlags: 0
@@ -431,7 +435,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -1011}
+  m_AnchoredPosition: {x: 0, y: -1270.66}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &4855715480294953238
@@ -550,7 +554,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: -208.13}
+  m_AnchoredPosition: {x: 0, y: -238}
   m_SizeDelta: {x: 800, y: 100}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!222 &4370759576478548544
@@ -754,7 +758,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: -386.7992}
+  m_AnchoredPosition: {x: 0, y: -416.66907}
   m_SizeDelta: {x: 800, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1617652404535209830
@@ -1164,6 +1168,8 @@ MonoBehaviour:
   roundToNearest11: 1
   forceRoundUp: 0
   disableAutoResize: 1
+  differentChineseLineSpacing: 0
+  chineseLineSpacing: 0
 --- !u!1 &4253815752219884492
 GameObject:
   m_ObjectHideFlags: 0
@@ -1357,6 +1363,8 @@ MonoBehaviour:
   roundToNearest11: 1
   forceRoundUp: 0
   disableAutoResize: 1
+  differentChineseLineSpacing: 0
+  chineseLineSpacing: 0
 --- !u!1 &5103352940857708159
 GameObject:
   m_ObjectHideFlags: 0
@@ -1701,6 +1709,8 @@ MonoBehaviour:
   roundToNearest11: 1
   forceRoundUp: 0
   disableAutoResize: 1
+  differentChineseLineSpacing: 0
+  chineseLineSpacing: 0
 --- !u!1 &7035578586450186488
 GameObject:
   m_ObjectHideFlags: 0
@@ -1901,6 +1911,8 @@ MonoBehaviour:
   roundToNearest11: 1
   forceRoundUp: 0
   disableAutoResize: 1
+  differentChineseLineSpacing: 0
+  chineseLineSpacing: 0
 --- !u!1001 &1026273819765293456
 PrefabInstance:
   m_ObjectHideFlags: 0

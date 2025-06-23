@@ -869,6 +869,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "ToggleEnchantmentsPanel",
+                    "type": "Button",
+                    "id": "19b7d908-8b30-481b-9e6b-70fb476f819f",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -913,6 +922,28 @@
                     "processors": "",
                     "groups": "Controller",
                     "action": "ToggleCardPanel",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "bf8d62f9-2270-46a7-b086-92e63def29a7",
+                    "path": "<Keyboard>/f",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard",
+                    "action": "ToggleEnchantmentsPanel",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "703e6d27-ef47-4645-9a17-b0db5c586017",
+                    "path": "<Gamepad>/rightShoulder",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Controller",
+                    "action": "ToggleEnchantmentsPanel",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

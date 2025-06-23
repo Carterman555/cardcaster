@@ -21,6 +21,9 @@ public class ReferenceSystem : StaticInstance<ReferenceSystem> {
     [SerializeField] private MMF_Player cardsPanelFeedbacks;
     public MMF_Player CardsPanelFeedbacks => cardsPanelFeedbacks;
 
+    [SerializeField] private MMF_Player enchantmentsPanelFeedbacks;
+    public MMF_Player EnchantmentsPanelFeedbacks => enchantmentsPanelFeedbacks;
+
     [SerializeField] private MMF_Player mapPanelFeedbacks;
     public MMF_Player MapPanelFeedbacks => mapPanelFeedbacks;
 }

@@ -51,14 +51,16 @@ public class DamageOnContact : MonoBehaviour, ITargetAttacker {
 
         if (targetLayer.ContainsLayer(collision.gameObject.layer)) {
 
-            bool dealtDamage = DamageDealer.TryDealDamage(
+            bool dealtDamageNow = DamageDealer.TryDealDamage(
                 collision.gameObject,
                 transform.position,
                 damage,
                 knockbackStrength,
                 canCrit);
 
-            if (dealtDamage) {
+            if (dealtDamageNow) {
+                dealtDamage = true;
+
                 TargetTimePair targetTimePair = new() {
                     Target = collision.transform,
                     Time = Time.time
@@ -67,8 +69,6 @@ public class DamageOnContact : MonoBehaviour, ITargetAttacker {
 
                 OnDamage_Target?.Invoke(collision.gameObject);
             }
-
-            this.dealtDamage = true;
 
             OnAttack?.Invoke();
         }

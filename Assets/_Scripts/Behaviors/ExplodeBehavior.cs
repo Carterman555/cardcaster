@@ -25,7 +25,7 @@ public class ExplodeBehavior : MonoBehaviour, ITargetAttacker {
 
     public void Explode() {
 
-        List<ExplosionTarget> allExplosionTargets = serializedExplosionTargets;
+        List<ExplosionTarget> allExplosionTargets = new(serializedExplosionTargets);
         allExplosionTargets.AddRange(AddedExplosionTargets);
 
         foreach (ExplosionTarget target in allExplosionTargets) {

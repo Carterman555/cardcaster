@@ -99,7 +99,7 @@ public class ScriptableLaunchCard : ScriptableAbilityCardBase {
         // make deal damage
         damageDealer.SetDamageMult(Stats.Damage);
         damageDealer.GetComponent<CircleCollider2D>().radius = Stats.AreaSize;
-        
+
         // make it stop when hit wall
         obstacleTrigger = obstacleTriggerPrefab.Spawn(playerCenterPos, playerTransform);
         obstacleTrigger.GetComponent<CircleCollider2D>().radius = Stats.AreaSize * checkFactor;
@@ -174,7 +174,7 @@ public class ScriptableLaunchCard : ScriptableAbilityCardBase {
             effectModifierObjects.Add(effectLogicObject);
 
             if (modifierCard.EffectModifier.HasVisual) {
-                GameObject effectVisualObject = modifierCard.EffectModifier.EffectVisualPrefab.Spawn(damageDealer.transform);
+                GameObject effectVisualObject = modifierCard.EffectModifier.EffectVisualPrefab.Spawn(PlayerMovement.Instance.transform);
                 effectModifierObjects.Add(effectVisualObject);
             }
         }

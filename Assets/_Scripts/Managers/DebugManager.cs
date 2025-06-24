@@ -36,6 +36,10 @@ public class DebugManager : StaticInstance<DebugManager> {
         if (printMouseOver) {
             PrintMouseOver();
         }
+
+        if (testKnockback) {
+            HandleKnockbackTesting();
+        }
     }
 
     [SerializeField] private bool noEnemies;
@@ -153,5 +157,42 @@ public class DebugManager : StaticInstance<DebugManager> {
     private void RemoveUnlockCard(CardType cardType) {
         ResourceSystem.Instance.UnlockedCards.Remove(cardType);
         ES3.Save("UnlockedCardTypes", ResourceSystem.Instance.UnlockedCards, ES3EncryptionMigration.GetES3Settings());
+    }
+
+    [SerializeField] private bool testKnockback;
+
+    private void HandleKnockbackTesting() {
+        if (Input.GetKeyDown(KeyCode.Equals)) { // '+' key (usually shift + '=')
+            ModifyKnockback(1f);
+        }
+        else if (Input.GetKeyDown(KeyCode.Minus)) {
+            ModifyKnockback(-1f);
+        }
+    }
+
+    private void ModifyKnockback(float delta) {
+        PlayerStatModifier playerStatModifier = new() {
+            PlayerStatType = PlayerStatType.KnockbackStrength,
+            ModifyType = ModifyType.Additive,
+            Value = delta
+        };
+
+        StatsManager.AddPlayerStatModifier(playerStatModifier);
+        print($"Current Knockback: {StatsManager.PlayerStats.KnockbackStrength}");
+    }
+
+    [SerializeField] private GameObject debugCircle;
+
+    [Command]
+    public void SpawnObjectsInView() {
+        for (int i = 0; i < 100; i++) {
+            Vector2 pos = new RoomPositionHelper()
+                    .SetAvoidArea(center: PlayerMovement.Instance.CenterPos, radius: 2f)
+                    .SetObstacleAvoidance(1f)
+                    .SetWallAvoidance(1f)
+                    .SetEntranceAvoidance(3f)
+                    .GetRandomPositionInCollider(inCameraView: true);
+            debugCircle.Spawn(pos);
+        }
     }
 }

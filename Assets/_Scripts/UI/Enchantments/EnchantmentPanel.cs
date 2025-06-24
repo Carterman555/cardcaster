@@ -18,12 +18,11 @@ public class EnchantmentPanel : MonoBehaviour, IInitializable {
     [SerializeField] private Transform enchantmentImageContainer;
     [SerializeField] private EnchantmentImage enchantmentImagePrefab;
 
-    public Dictionary<EnchantmentType, int> Enchantments { get; private set; } = new();
     private List<EnchantmentImage> enchantmentImages;
 
     private void OnEnable() {
         enchantmentImages = new();
-        foreach (var enchantmentAmount in Enchantments) {
+        foreach (var enchantmentAmount in StatsManager.Enchantments) {
             EnchantmentImage enchantmentImage = enchantmentImagePrefab.Spawn(enchantmentImageContainer);
             enchantmentImage.Setup(enchantmentAmount.Key, enchantmentAmount.Value);
             enchantmentImages.Add(enchantmentImage);
@@ -35,15 +34,6 @@ public class EnchantmentPanel : MonoBehaviour, IInitializable {
             enchantmentImage.gameObject.ReturnToPool();
         }
         enchantmentImages.Clear();
-    }
-
-    public void AddEnchantment(EnchantmentType enchantmentType) {
-        if (Enchantments.ContainsKey(enchantmentType)) {
-            Enchantments[enchantmentType]++;
-        }
-        else {
-            Enchantments.Add(enchantmentType, 1);
-        }
     }
 
     [Header("Enchantment Info")]

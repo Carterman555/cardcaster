@@ -37,7 +37,7 @@ public class ResourceSystem : Singleton<ResourceSystem> {
 
         UpdateUnlockedCards();
 
-        Enchantments = Resources.LoadAll<ScriptableEnchantment>("StatModifiers").ToList();
+        Enchantments = Resources.LoadAll<ScriptableEnchantment>("Enchantments").ToList();
     }
 
     public void UpdateUnlockedCards() {

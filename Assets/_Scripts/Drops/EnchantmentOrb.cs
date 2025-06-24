@@ -25,6 +25,14 @@ public class EnchantmentOrb : MonoBehaviour {
         spriteRenderer.Fade(0f);
         spriteRenderer.DOFade(originalFade, duration: 1f);
 
+        StartCoroutine(MoveToValidPos());
+    }
+
+    private IEnumerator MoveToValidPos() {
+
+        //... wait for pos to get set when orb spawns
+        yield return null;
+
         Vector2 destination = FindDestination();
         transform.DOMove(destination, duration: 1f).OnComplete(() => {
             SpawnEnchantmentDrops();
@@ -89,7 +97,7 @@ public class EnchantmentOrb : MonoBehaviour {
 
         EnchantmentDrop[] enchantmentDrops = new EnchantmentDrop[3];
 
-        List<ScriptableEnchantment> possibleEnchantments = ResourceSystem.Instance.Enchantments;
+        List<ScriptableEnchantment> possibleEnchantments = new(ResourceSystem.Instance.Enchantments);
 
         if (StatsManager.PlayerStats.HandSize >= DeckManager.MaxHandSize) {
             ScriptableEnchantment sagesWisdom = possibleEnchantments.FirstOrDefault(e => e.EnchantmentType == EnchantmentType.SagesWisdom);
@@ -99,11 +107,16 @@ public class EnchantmentOrb : MonoBehaviour {
         for (int i = 0; i < 3; i++) {
             EnchantmentDrop enchantmentDrop = enchantmentDropPrefab.Spawn(transform.position, Containers.Instance.Drops);
 
-            ScriptableEnchantment enchantment = ResourceSystem.Instance.Enchantments.RandomItem();
+            ScriptableEnchantment enchantment = possibleEnchantments.RandomItem();
             possibleEnchantments.Remove(enchantment);
 
             Vector2 pos = (Vector2)transform.position + GetDropPosition(i);
             enchantmentDrop.Setup(enchantment, pos);
+
+            // the center drop creates a map icon
+            if (i == 1) {
+                enchantmentDrop.GetComponent<CreateMapIcon>().ShowMapIcon();
+            }
 
             enchantmentDrops[i] = enchantmentDrop;
         }

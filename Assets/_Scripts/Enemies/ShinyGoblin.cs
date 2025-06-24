@@ -27,6 +27,8 @@ public class ShinyGoblin : Enemy {
 
         fleeTimer = 0;
         fleeDelay.Randomize();
+
+        wanderMovement.enabled = true;
     }
 
     protected override void OnDisable() {

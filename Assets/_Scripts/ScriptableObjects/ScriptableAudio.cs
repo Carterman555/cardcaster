@@ -31,6 +31,9 @@ public class ScriptableAudio : ScriptableObject {
     [SerializeField] private AudioClips spinningFury;
     public AudioClips SpinningFury => spinningFury;
 
+    [SerializeField] private AudioClips launchImpact;
+    public AudioClips LaunchImpact => launchImpact;
+
     [Header("Enemies")]
 
     [SerializeField] private AudioClips basicEnemyShoot;
@@ -41,6 +44,9 @@ public class ScriptableAudio : ScriptableObject {
 
     [SerializeField] private AudioClips spawnEnemy;
     public AudioClips SpawnEnemy => spawnEnemy;
+
+    [SerializeField] private AudioClips spawnShinyGoblin;
+    public AudioClips SpawnShinyGoblin => spawnShinyGoblin;
 
     [SerializeField] private AudioClips merge;
     public AudioClips Merge => merge;

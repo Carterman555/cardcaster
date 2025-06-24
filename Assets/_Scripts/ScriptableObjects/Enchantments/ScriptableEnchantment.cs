@@ -25,7 +25,7 @@ public class ScriptableEnchantment : ScriptableObject {
     public PlayerStatModifier[] StatModifiers => statModifiers;
 
     public virtual void OnGain() {
-        EnchantmentPanel.Instance.AddEnchantment(EnchantmentType);
+        StatsManager.AddEnchantment(EnchantmentType);
     }
 }
 

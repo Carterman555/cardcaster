@@ -220,4 +220,19 @@ public class StatsManager : MonoBehaviour {
                   $"MaxEssence: {playerStats.MaxEssence}\n" +
                   $"HandSize: {playerStats.HandSize}");
     }
+
+    #region Enchantments
+
+    public static Dictionary<EnchantmentType, int> Enchantments { get; private set; } = new();
+
+    public static void AddEnchantment(EnchantmentType enchantmentType) {
+        if (Enchantments.ContainsKey(enchantmentType)) {
+            Enchantments[enchantmentType]++;
+        }
+        else {
+            Enchantments.Add(enchantmentType, 1);
+        }
+    }
+
+    #endregion
 }

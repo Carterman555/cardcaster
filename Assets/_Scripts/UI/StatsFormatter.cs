@@ -35,6 +35,7 @@ public class StatsFormatter : StaticInstance<StatsFormatter> {
         };
     }
 
+    // example "Hand Size: 3"
     public string GetStatStr(PlayerStatType playerStatType, float value) {
         StatFormatType statFormatType = statFormatTypes[playerStatType];
 
@@ -52,23 +53,43 @@ public class StatsFormatter : StaticInstance<StatsFormatter> {
         }
     }
 
+    // example "+1 Hand Size"
     public string GetStatModifierStr(PlayerStatModifier statModifier) {
-
         string modifierStr = "";
         if (statModifier.ModifyType == ModifyType.Additive) {
+            StatFormatType statFormatType = statFormatTypes[statModifier.PlayerStatType];
+
             if (statModifier.Value >= 0) {
-                modifierStr += $"<color=green>+{statModifier.Value.ToString()}</color>";
+                if (statFormatType == StatFormatType.Normal) {
+                    modifierStr = $"<color=green>+{statModifier.Value}</color>";
+                }
+                else if (statFormatType == StatFormatType.Percent) {
+                    modifierStr = $"<color=green>+{statModifier.Value * 100}%</color>";
+                }
+                else {
+                    Debug.LogError($"GetStatModifierStr cannot handle stat format type {statFormatType}!");
+                    return string.Empty;
+                }
             }
             else if (statModifier.Value < 0) {
-                modifierStr += $"<color=red>{statModifier.Value.ToString()}</color>";
+                if (statFormatType == StatFormatType.Normal) {
+                    modifierStr = $"<color=red>{statModifier.Value}</color>";
+                }
+                else if (statFormatType == StatFormatType.Percent) {
+                    modifierStr = $"<color=red>{statModifier.Value * 100}%</color>";
+                }
+                else {
+                    Debug.LogError($"GetStatModifierStr cannot handle stat format type {statFormatType}!");
+                    return string.Empty;
+                }
             }
         }
         else if (statModifier.ModifyType == ModifyType.Multiplicative) {
             if (statModifier.Value >= 1) {
-                modifierStr += $"<color=green>*{statModifier.Value.ToString()}</color>";
+                modifierStr = $"<color=green>*{statModifier.Value.ToString()}</color>";
             }
             else if (statModifier.Value < 1) {
-                modifierStr += $"<color=red>*{statModifier.Value.ToString()}</color>";
+                modifierStr = $"<color=red>*{statModifier.Value.ToString()}</color>";
             }
         }
         else {
@@ -96,6 +117,22 @@ public class StatsFormatter : StaticInstance<StatsFormatter> {
             }
         }
         return str;
+    }
+
+    public string GetCustomStatValueStr(PlayerStatType playerStatType, float value) {
+
+        StatFormatType statFormatType = statFormatTypes[playerStatType];
+
+        if (statFormatType == StatFormatType.Normal) {
+            return value.ToString();
+        }
+        else if (statFormatType == StatFormatType.Percent) {
+            return $"{value * 100}%";
+        }
+        else {
+            Debug.LogError($"GetCustomStatValueStr cannot handle statFormatType {statFormatType}!");
+            return "";
+        }
     }
 
     private float RoundToTenth(float value) {

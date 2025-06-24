@@ -89,7 +89,7 @@ public class EnemySpawner : StaticInstance<EnemySpawner> {
 
     [SerializeField] private SpawnEffect spawnEffectPrefab;
 
-    private void SpawnEnemy(Enemy enemyPrefab, bool createSpawnEffect = true) {
+    public void SpawnEnemy(Enemy enemyPrefab, bool createSpawnEffect = true) {
         Vector2 position = new RoomPositionHelper().GetRandomRoomPos(PlayerMovement.Instance.CenterPos,
             avoidRadius: 2f,
             entranceAvoidDistance: 3f);

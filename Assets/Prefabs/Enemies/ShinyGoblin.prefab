@@ -257,7 +257,7 @@ MonoBehaviour:
   fleeDelay:
     MinValue: 7
     MaxValue: 12
-  statsBallPrefab: {fileID: 1061520781153137347, guid: 0b1c7ceb1b42d964894840d8f4de771e, type: 3}
+  enchantmentOrbPrefab: {fileID: 1061520781153137347, guid: 0b1c7ceb1b42d964894840d8f4de771e, type: 3}
   quietTeleportSfx:
     Clips:
     - {fileID: 8300000, guid: e801e16dc5def064ca8d6a0694e4d576, type: 3}

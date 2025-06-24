@@ -7,6 +7,7 @@ using UnityEngine.UIElements;
 
 public class RewardSpawner : MonoBehaviour {
 
+    [Header("Chests and Campfires")]
     [SerializeField][Range(0f, 1f)] private float rewardOnClearChance;
     [SerializeField][Range(0f, 1f)] private float startingChestChance;
     private float chestChance;
@@ -15,21 +16,63 @@ public class RewardSpawner : MonoBehaviour {
     [SerializeField] private Chest persistentChestPrefab;
     [SerializeField] private Campfire campfirePrefab;
 
+    [Header("Shiny Goblins")]
+    [SerializeField, Range(0f, 1f)] private float startingShinyGoblinChance;
+    private float shinyGoblinChance;
+
+    [SerializeField] private Enemy shinyGoblinPrefab;
+
     private void OnEnable() {
+        Room.OnAnyRoomEnter_Room += TrySpawnShinyGoblin;
         CheckEnemiesCleared.OnEnemiesCleared += TrySpawnReward;
         BossManager.OnBossKilled_Boss += OnBossKilled;
         
         chestChance = startingChestChance;
+        shinyGoblinChance = startingShinyGoblinChance;
     }
 
     private void OnDisable() {
+        Room.OnAnyRoomEnter_Room -= TrySpawnShinyGoblin;
         CheckEnemiesCleared.OnEnemiesCleared -= TrySpawnReward;
         BossManager.OnBossKilled_Boss -= OnBossKilled;
     }
 
+    private void TrySpawnShinyGoblin(Room room) {
+
+        if (room.IsRoomCleared) {
+            return;
+        }
+
+        RoomType[] validRoomTypes = new RoomType[] {
+            RoomType.Normal,
+            RoomType.Hub
+        };
+
+        if (validRoomTypes.Contains(room.ScriptableRoom.RoomType)) {
+
+            float balanceIncrement = 0.5f;
+            if (shinyGoblinChance > Random.value) {
+
+                Vector2 pos = new RoomPositionHelper()
+                    .SetAvoidArea(center: PlayerMovement.Instance.CenterPos, radius: 2f)
+                    .SetObstacleAvoidance(1f)
+                    .SetWallAvoidance(1f)
+                    .SetEntranceAvoidance(3f)
+                    .GetRandomPositionInCollider(inCameraView: true);
+
+                EnemySpawner.Instance.SpawnEnemy(shinyGoblinPrefab, pos, createSpawnEffect: false);
+                AudioManager.Instance.PlaySound(AudioManager.Instance.AudioClips.SpawnShinyGoblin);
+                shinyGoblinChance -= balanceIncrement;
+            }
+            else {
+                shinyGoblinChance += balanceIncrement;
+            }
+        }
+    }
+
     private void TrySpawnReward() {
         bool inBossRoom = Room.GetCurrentRoom().TryGetComponent(out BossRoom bossRoom);
-        if (!inBossRoom && Random.value < rewardOnClearChance) {
+        if (!inBossRoom && rewardOnClearChance > Random.value) {
             SpawnReward();
         }
     }

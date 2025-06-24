@@ -24,8 +24,7 @@ public class ExplodeBehavior : MonoBehaviour, ITargetAttacker {
     [SerializeField] private bool shakeCamera = true;
 
     public void Explode(GameObject immuneObject = null) {
-
-        List<ExplosionTarget> allExplosionTargets = serializedExplosionTargets;
+        List<ExplosionTarget> allExplosionTargets = new(serializedExplosionTargets);
         allExplosionTargets.AddRange(AddedExplosionTargets);
 
         foreach (ExplosionTarget target in allExplosionTargets) {
@@ -38,6 +37,7 @@ public class ExplodeBehavior : MonoBehaviour, ITargetAttacker {
                 }
 
                 DamageDealer.TryDealDamage(col.gameObject, transform.position, target.Damage, target.KnockbackStrength);
+
                 OnDamage_Target?.Invoke(col.gameObject);
             }
         }

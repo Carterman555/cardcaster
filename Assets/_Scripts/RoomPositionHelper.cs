@@ -57,12 +57,16 @@ public class RoomPositionHelper {
         return this;
     }
 
-    public Vector2 GetRandomPositionInCollider() {
+    public Vector2 GetRandomPositionInCollider(bool inCameraView = false) {
 
         int breakoutCounter = 0;
 
         PolygonCollider2D col = Room.GetCurrentRoom().GetComponent<PolygonCollider2D>();
         Bounds bounds = col.bounds;
+        if (inCameraView) {
+            bounds = GetIntersectionBounds(bounds, GetCameraBounds());
+        }
+
         Vector2 randomPoint;
 
         do {
@@ -140,6 +144,46 @@ public class RoomPositionHelper {
 
     private bool IsNearWall(Vector2 point, float wallAvoidanceRadius = 1f) {
         return Physics2D.OverlapCircle(point, wallAvoidanceRadius, GameLayers.WallLayerMask);
+    }
+
+    #endregion
+
+
+    #region Within Camera View
+
+    private Bounds GetCameraBounds() {
+        Camera cam = Camera.main;
+        float height = cam.orthographicSize * 2f;
+        float width = height * cam.aspect;
+
+        Vector3 center = cam.transform.position;
+        return new Bounds(center, new Vector3(width, height, 0));
+    }
+
+    private Bounds GetIntersectionBounds(Bounds bounds1, Bounds bounds2) {
+        // Calculate intersection min and max points
+        Vector3 minPoint = new Vector3(
+            Mathf.Max(bounds1.min.x, bounds2.min.x),
+            Mathf.Max(bounds1.min.y, bounds2.min.y),
+            0
+        );
+
+        Vector3 maxPoint = new Vector3(
+            Mathf.Min(bounds1.max.x, bounds2.max.x),
+            Mathf.Min(bounds1.max.y, bounds2.max.y),
+            0
+        );
+
+        // If no intersection, return empty bounds
+        if (minPoint.x >= maxPoint.x || minPoint.y >= maxPoint.y) {
+            return new Bounds(Vector3.zero, Vector3.zero);
+        }
+
+        // Create bounds from intersection
+        Vector3 center = (minPoint + maxPoint) * 0.5f;
+        Vector3 size = maxPoint - minPoint;
+
+        return new Bounds(center, size);
     }
 
     #endregion

@@ -22,8 +22,8 @@ public class ScriptablePersistentCard : ScriptableCardBase {
             foreach (PlayerStatModifier modifier in statModifiersPerLevel) {
                 statsStr += StatsFormatter.Instance.GetStatModifierStr(modifier) + "\n";
 
-                float currentValue = CurrentLevel * modifier.Value;
-                float maxValue = maxLevel * modifier.Value;
+                string currentValue = StatsFormatter.Instance.GetCustomStatValueStr(modifier.PlayerStatType, CurrentLevel * modifier.Value);
+                string maxValue = StatsFormatter.Instance.GetCustomStatValueStr(modifier.PlayerStatType, maxLevel * modifier.Value);
                 statsStr += $"({currentValue}/{maxValue})\n";
             }
 

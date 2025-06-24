@@ -25,6 +25,10 @@ public class EnchantmentInfo : MonoBehaviour {
     public void Setup(EnchantmentType enchantmentType) {
 
         scriptableEnchantment = ResourceSystem.Instance.GetEnchantment(enchantmentType);
+        if (scriptableEnchantment == null) {
+            Debug.LogError($"Cannot find scriptable enchantment {enchantmentType}!");
+            return;
+        }
 
         enchantmentImage.sprite = scriptableEnchantment.Sprite;
         UpdateText(null);

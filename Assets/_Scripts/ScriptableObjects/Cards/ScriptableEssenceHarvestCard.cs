@@ -6,6 +6,8 @@ public class ScriptableEssenceHarvestCard : ScriptablePersistentCard {
     public static float TotalDropMult;
     [SerializeField] private float dropMultPerLevel;
 
+    public override string Description => description.GetLocalizedString();
+
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
     public static void Init() {
         TotalDropMult = 1;

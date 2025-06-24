@@ -17,7 +17,7 @@ public class AnimationMethodInvoker : MonoBehaviour {
         AnimationEvent animationEvent = animationEvents.FirstOrDefault(e => e.Key == key);
 
         if (animationEvent.Event == null) {
-            Debug.LogWarning($"Animation event does not have event! {key} on {transform.parent.name} visual!");
+            //Debug.LogWarning($"Animation event does not have event! {key} on {transform.parent.name} visual!");
         }
 
         animationEvent.Event?.Invoke();

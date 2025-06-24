@@ -74,6 +74,11 @@ MonoBehaviour:
     - {fileID: 8300000, guid: 79f46eb7cc1f25e40a4d7cedd6f32584, type: 3}
     Volume: 1
     PitchVariation: 0
+  launchImpact:
+    Clips:
+    - {fileID: 8300000, guid: f7191a25075c965409ca0488e6f31cf9, type: 3}
+    Volume: 0.793
+    PitchVariation: 0.05
   basicEnemyShoot:
     Clips:
     - {fileID: 8300000, guid: 1c392d540fc5d924994810b617eef041, type: 3}
@@ -95,6 +100,11 @@ MonoBehaviour:
     - {fileID: 8300000, guid: b56551c8b3ae66042a20290191db8ad8, type: 3}
     Volume: 1
     PitchVariation: 0
+  spawnShinyGoblin:
+    Clips:
+    - {fileID: 8300000, guid: f461ea9e5064260499c88ca398763640, type: 3}
+    Volume: 1
+    PitchVariation: 0.1
   merge:
     Clips:
     - {fileID: 8300000, guid: 5e4e91980cfc9b44ba9536ec9d6c2282, type: 3}

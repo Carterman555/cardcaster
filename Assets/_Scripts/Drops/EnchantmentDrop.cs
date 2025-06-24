@@ -57,6 +57,8 @@ public class EnchantmentDrop : MonoBehaviour {
 
         interactable.enabled = false;
 
+        transform.localScale = Vector3.one;
+
         shine.localScale = Vector3.zero;
         shine.DOScale(1f, duration: 1.5f);
 

@@ -17,7 +17,6 @@ public class ModifierImage : MonoBehaviour {
         AbilityManager.OnApplyModifiers += Dissolve;
 
         HandCard.OnAnyStartPlaying_Card += CheckToShowX;
-        HandCard.OnAnyCardUsed_Card += OnCardUsed;
         HandCard.OnAnyCancel_Card += TryShowModifierImage;
     }
 
@@ -25,7 +24,6 @@ public class ModifierImage : MonoBehaviour {
         AbilityManager.OnApplyModifiers -= Dissolve;
 
         HandCard.OnAnyStartPlaying_Card -= CheckToShowX;
-        HandCard.OnAnyCardUsed_Card -= OnCardUsed;
         HandCard.OnAnyCancel_Card -= TryShowModifierImage;
     }
 
@@ -84,7 +82,7 @@ public class ModifierImage : MonoBehaviour {
     // if an ability card that is not compatible with the modifier this image is showing, show a red x
     private void CheckToShowX(ScriptableCardBase card) {
         if (card is ScriptableAbilityCardBase ability) {
-            if (!ability.IsCompatibleWithModifier(modifier)) {
+            if (ability.IsModifiable && !ability.IsCompatibleWithModifier(modifier)) {
 
                 // switch to red x
                 float scaleDuration = 0.15f;
@@ -97,19 +95,9 @@ public class ModifierImage : MonoBehaviour {
         }
     }
 
-    // switch this image back to modifier image if a nonmodifiable ability card is used because the card doesn't use
-    // the modifier, but is still shows a red x when trying to play
-    private void OnCardUsed(ScriptableCardBase card) {
-        if (card is ScriptableAbilityCardBase ability) {
-            if (!ability.IsModifiable) {
-                SwitchToModifierImage();
-            }
-        }
-    }
-
     private void TryShowModifierImage(ScriptableCardBase card) {
         if (card is ScriptableAbilityCardBase ability) {
-            if (!ability.IsCompatibleWithModifier(modifier)) {
+            if (ability.IsModifiable && !ability.IsCompatibleWithModifier(modifier)) {
                 SwitchToModifierImage();
             }
         }

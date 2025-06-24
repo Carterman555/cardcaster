@@ -19,6 +19,10 @@ public class ParticleShapeMatcher : MonoBehaviour {
     void OnEnable() {
 
         SpriteRenderer biggestRenderer = transform.parent.GetBiggestRenderer();
+        if (biggestRenderer == null) {
+            Debug.LogError($"Failed to find biggest renderer for {name} (parent: {transform.parent.name})!");
+            return;
+        }
 
         for (int i = 0; i < particles.Length; i++) {
 

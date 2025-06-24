@@ -33,14 +33,14 @@ public class PlayerHealth : MonoBehaviour, IDamagable {
 
 
     private void OnEnable() {
-        StatsManager.OnStatsChanged += TryIncreaseHealth;
+        StatsManager.OnStatsChanged += UpdateHealthOnMaxHealthChange;
         GameSceneManager.OnStartGameLoadingCompleted += OnStartGame;
 
         lastMaxHealth = StatsManager.PlayerStats.MaxHealth;
     }
 
     private void OnDisable() {
-        StatsManager.OnStatsChanged -= TryIncreaseHealth;
+        StatsManager.OnStatsChanged -= UpdateHealthOnMaxHealthChange;
         GameSceneManager.OnStartGameLoadingCompleted -= OnStartGame;
     }
 
@@ -50,6 +50,7 @@ public class PlayerHealth : MonoBehaviour, IDamagable {
         Dead = false;
     }
 
+    [Command]
     public void Damage(float damage, bool shared = false, bool crit = false) {
 
         if (Dead || IsInvincible()) {
@@ -106,11 +107,11 @@ public class PlayerHealth : MonoBehaviour, IDamagable {
     }
 
 
-    private void TryIncreaseHealth(PlayerStatType type) {
+    private void UpdateHealthOnMaxHealthChange(PlayerStatType type) {
         if (type == PlayerStatType.MaxHealth) {
-            float changeInMaxHealth = StatsManager.PlayerStats.MaxHealth - lastMaxHealth;
-            CurrentHealth = Mathf.MoveTowards(CurrentHealth, StatsManager.PlayerStats.MaxHealth, changeInMaxHealth);
-
+            // keep the same health proportion
+            float previousHealthProportion = CurrentHealth / lastMaxHealth;
+            CurrentHealth = StatsManager.PlayerStats.MaxHealth * previousHealthProportion;
             lastMaxHealth = StatsManager.PlayerStats.MaxHealth;
         }
     }

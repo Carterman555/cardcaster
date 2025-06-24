@@ -139,7 +139,8 @@ public class SwarmMovementBehavior : MonoBehaviour, IEffectable, IEnemyMovement 
     public void SetDestination(Vector2 destination) {
 
         if (!agent.enabled) {
-            Debug.LogError($"{gameObject.GetInstanceID()}: Trying to set destination of agent which is disabled.");
+            Debug.LogError($"{gameObject.GetInstanceID()}: Trying to set destination of agent which is disabled.\n" +
+                $"Gameobject active: {gameObject.activeSelf}");
             return;
         }
 

@@ -164,6 +164,7 @@ public class ScriptableLaunchCard : ScriptableAbilityCardBase {
 
         launchEffects.gameObject.ReturnToPool();
 
+        AudioManager.Instance.PlaySound(AudioManager.Instance.AudioClips.LaunchImpact);
         CameraShaker.Instance.ShakeCamera(0.4f);
     }
 
@@ -174,7 +175,7 @@ public class ScriptableLaunchCard : ScriptableAbilityCardBase {
             effectModifierObjects.Add(effectLogicObject);
 
             if (modifierCard.EffectModifier.HasVisual) {
-                GameObject effectVisualObject = modifierCard.EffectModifier.EffectVisualPrefab.Spawn(damageDealer.transform);
+                GameObject effectVisualObject = modifierCard.EffectModifier.EffectVisualPrefab.Spawn(PlayerMovement.Instance.transform);
                 effectModifierObjects.Add(effectVisualObject);
             }
         }

@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: -6350004146062785763}
   - component: {fileID: 8459016073658773641}
   - component: {fileID: 323497660027698996}
+  - component: {fileID: 2501730861496128783}
   m_Layer: 0
   m_Name: EnchantmentDrop
   m_TagString: Untagged
@@ -175,8 +176,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shine: {fileID: 1081373220716756652}
-  debugStat: 0
-  statToDebug: {fileID: 0}
+  useDebugEnchantment: 1
+  enchantmentToDebug: {fileID: 11400000, guid: 2c206dd9639d4b040b07c5e4d72a963c, type: 2}
 --- !u!114 &8459016073658773641
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -221,6 +222,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxSpeed: 20
   acceleration: 20
+--- !u!114 &2501730861496128783
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5707968830506700901}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db31cb68110f1814dbb19a9c4619ef7c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mapIconSprite: {fileID: 1025452419, guid: bde6d022855f93745baad1d32c2ac2bc, type: 3}
+  mapIconSize: {x: 30, y: 30}
 --- !u!1001 &4103257182070444481
 PrefabInstance:
   m_ObjectHideFlags: 0

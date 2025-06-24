@@ -53,7 +53,7 @@ public class DoomCharger : Enemy {
 
         yield return new WaitForSeconds(explosionDelay);
 
-        explodeBehavior.Explode();
+        explodeBehavior.Explode(gameObject);
         gameObject.ReturnToPool();
 
         exploding = false;

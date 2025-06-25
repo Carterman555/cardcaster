@@ -1,7 +1,5 @@
 using DG.Tweening;
-using MoreMountains.Tools;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class CardRing : MonoBehaviour {

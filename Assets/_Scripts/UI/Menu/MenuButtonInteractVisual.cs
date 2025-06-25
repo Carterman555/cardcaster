@@ -3,32 +3,36 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class MenuButtonInteractVisual : GameButton, IPointerEnterHandler, IPointerExitHandler, ISelectHandler, IDeselectHandler {
+public class MenuButtonInteractVisual : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, ISelectHandler, IDeselectHandler {
 
     [SerializeField] private Transform interactVisual;
-
     [SerializeField] private TextMeshProUGUI text;
-
-    protected override void OnEnable() {
-        base.OnEnable();
-    }
+    [SerializeField] private bool underlineOnHover = true;
 
     public void OnPointerEnter(PointerEventData eventData) {
-        ShowUnderline();
+        if (underlineOnHover) {
+            ShowUnderline();
+        }
     }
     public void OnPointerExit(PointerEventData eventData) {
-        HideUnderline();
+        if (underlineOnHover) {
+            HideUnderline();
+        }
     }
 
     public void OnSelect(BaseEventData eventData) {
-        ShowUnderline();
+        if (underlineOnHover) {
+            ShowUnderline();
+        }
     }
 
     public void OnDeselect(BaseEventData eventData) {
-        HideUnderline();
+        if (underlineOnHover) {
+            HideUnderline();
+        }
     }
 
-    private void ShowUnderline() {
+    public void ShowUnderline() {
         TMP_TextInfo textInfo = text.textInfo;
 
         // Force an update to ensure text metrics are current
@@ -47,7 +51,7 @@ public class MenuButtonInteractVisual : GameButton, IPointerEnterHandler, IPoint
         }
     }
 
-    private void HideUnderline() {
+    public void HideUnderline() {
         interactVisual.DOScaleX(0, duration: 0.1f).SetUpdate(true).SetEase(Ease.OutFlash);
     }
 }

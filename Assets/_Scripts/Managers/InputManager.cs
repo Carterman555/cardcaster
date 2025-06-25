@@ -14,19 +14,19 @@ public class InputManager : Singleton<InputManager> {
 
     private void OnEnable() {
         ActionMapUpdaterPanel.OnAnyActiveChanged += UpdateActionMap;
-        SceneManager.sceneLoaded += UpdateGlobalActionMap;
+        SceneManager.sceneLoaded += UpdateSceneActionMap;
 
         playerInput.controlsChangedEvent.AddListener(InvokeControlSchemeChangedEvent);
 
         playerInput.deviceLostEvent.AddListener(TryPauseGame);
         playerInput.deviceRegainedEvent.AddListener(TryUnpauseGame);
 
-        UpdateGlobalActionMap(SceneManager.GetActiveScene(), LoadSceneMode.Single);
+        UpdateSceneActionMap(SceneManager.GetActiveScene(), LoadSceneMode.Single);
     }
 
     private void OnDisable() {
         ActionMapUpdaterPanel.OnAnyActiveChanged -= UpdateActionMap;
-        SceneManager.sceneLoaded -= UpdateGlobalActionMap;
+        SceneManager.sceneLoaded -= UpdateSceneActionMap;
 
         playerInput.controlsChangedEvent.RemoveListener(InvokeControlSchemeChangedEvent);
 
@@ -52,6 +52,10 @@ public class InputManager : Singleton<InputManager> {
     private ControlSchemeType currentControlScheme;
 
     public ControlSchemeType GetControlScheme() {
+
+        if (!playerInput.enabled) {
+            return currentControlScheme;
+        }
 
         switch (playerInput.currentControlScheme) {
             case "Keyboard":
@@ -109,12 +113,20 @@ public class InputManager : Singleton<InputManager> {
     }
 
     // I want the toggle map action (and maybe other actions) to be active whether UI is active or not, but not when in menu scene
-    private void UpdateGlobalActionMap(Scene scene, LoadSceneMode loadSceneMode) {
+    private void UpdateSceneActionMap(Scene scene, LoadSceneMode loadSceneMode) {
         if (scene.name == "Game") {
             playerInput.actions.FindActionMap("GameGlobal").Enable();
+
+            playerInput.actions.FindActionMap("Gameplay").Enable();
+            playerInput.actions.FindActionMap("UI").Disable();
+            OnActionMapChanged?.Invoke("Gameplay");
         }
         else if (scene.name == "Menu") {
             playerInput.actions.FindActionMap("GameGlobal").Disable();
+
+            playerInput.actions.FindActionMap("UI").Enable();
+            playerInput.actions.FindActionMap("Gameplay").Disable();
+            OnActionMapChanged?.Invoke("UI");
         }
     }
 

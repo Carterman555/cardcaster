@@ -1,7 +1,3 @@
-using UnityEngine;
-using UnityEngine.Localization;
-using UnityEngine.UI;
-
 public class QuitButton : GameButton {
 
     protected override void OnClick() {

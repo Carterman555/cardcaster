@@ -1,6 +1,5 @@
 using DG.Tweening;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class CardUnlockDrop : MonoBehaviour {
     protected ScriptableCardBase scriptableCard;

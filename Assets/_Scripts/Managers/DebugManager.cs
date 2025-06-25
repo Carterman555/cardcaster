@@ -30,6 +30,7 @@ public class DebugManager : StaticInstance<DebugManager> {
     private void OnStartGame() {
         GiveStartingCards();
         ApplyPlayerStatModifiers();
+        ApplyStartingEnchantments();
     }
 
     private void Update() {
@@ -129,6 +130,20 @@ public class DebugManager : StaticInstance<DebugManager> {
         }
     }
 
+    [SerializeField] private PlayerStatModifier[] startingPlayerStatModifiers;
+
+    private void ApplyPlayerStatModifiers() {
+        StatsManager.AddPlayerStatModifiers(startingPlayerStatModifiers);
+    }
+
+    [SerializeField] private EnchantmentType[] startingEnchantments;
+
+    private void ApplyStartingEnchantments() {
+        foreach (EnchantmentType enchantmentType in startingEnchantments) {
+            StatsManager.AddEnchantment(enchantmentType);
+        }
+    }
+
 
     [SerializeField] private bool spawnAtBossRoom;
 
@@ -142,11 +157,6 @@ public class DebugManager : StaticInstance<DebugManager> {
         PlayerMovement.Instance.transform.position = bossRoom.GetBossSpawnPoint().position + offset;
     }
 
-    [SerializeField] private PlayerStatModifier[] startingPlayerStatModifiers;
-
-    private void ApplyPlayerStatModifiers() {
-        StatsManager.AddPlayerStatModifiers(startingPlayerStatModifiers);
-    }
 
     [Command, ContextMenu("PrintUnlockedCards")]
     private void PrintUnlockedCards() {
@@ -181,18 +191,10 @@ public class DebugManager : StaticInstance<DebugManager> {
         print($"Current Knockback: {StatsManager.PlayerStats.KnockbackStrength}");
     }
 
-    [SerializeField] private GameObject debugCircle;
+    [SerializeField] private EnchantmentOrb enchantmentOrbPrefab;
 
     [Command]
-    public void SpawnObjectsInView() {
-        for (int i = 0; i < 100; i++) {
-            Vector2 pos = new RoomPositionHelper()
-                    .SetAvoidArea(center: PlayerMovement.Instance.CenterPos, radius: 2f)
-                    .SetObstacleAvoidance(1f)
-                    .SetWallAvoidance(1f)
-                    .SetEntranceAvoidance(3f)
-                    .GetRandomPositionInCollider(inCameraView: true);
-            debugCircle.Spawn(pos);
-        }
+    public void SpawnOrb(Vector2 pos) {
+        enchantmentOrbPrefab.Spawn(pos, Containers.Instance.Drops);
     }
 }

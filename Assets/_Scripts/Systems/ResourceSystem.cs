@@ -1,9 +1,7 @@
 using QFSW.QC;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using static Cinemachine.DocumentationSortingAttribute;
 
 /// <summary>
 /// One repository for all scriptable objects. Create your query methods here to keep your business logic clean.
@@ -100,6 +98,7 @@ public class ResourceSystem : Singleton<ResourceSystem> {
 
     public List<CardType> GetPersistentCards() => AllCards.Where(c => c is ScriptablePersistentCard).Select(c => c.CardType).ToList();
 
+    public ScriptableCardBase GetCard(CardType cardType) => AllCards.FirstOrDefault(c => c.CardType == cardType);
     public ScriptableCardBase GetCardInstance(CardType cardType) => CloneCard(AllCards.FirstOrDefault(c => c.CardType == cardType));
 
     public CardType GetRandomCardWeighted(List<CardType> cardsToChooseFrom) {

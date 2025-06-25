@@ -29,6 +29,7 @@ public class StatsManager : MonoBehaviour {
 
     public static void ClearStats() {
         statModifiers = new();
+        Enchantments = new();
         UpdatePlayerStats();
     }
 

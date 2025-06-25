@@ -1,7 +1,6 @@
 using System;
 using UnityEngine;
 using UnityEngine.Localization;
-using UnityEngine.Localization.Components;
 using UnityEngine.Serialization;
 
 public abstract class ScriptableCardBase : ScriptableObject, ICollectable {

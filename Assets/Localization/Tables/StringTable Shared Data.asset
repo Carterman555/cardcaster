@@ -995,6 +995,14 @@ MonoBehaviour:
     m_Key: enchantments
     m_Metadata:
       m_Items: []
+  - m_Id: 32247883672051712
+    m_Key: compendium
+    m_Metadata:
+      m_Items: []
+  - m_Id: 32304057859694592
+    m_Key: locked
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

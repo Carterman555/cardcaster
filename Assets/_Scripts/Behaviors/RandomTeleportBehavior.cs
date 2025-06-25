@@ -1,7 +1,4 @@
-using UnityEditor.Tilemaps;
 using UnityEngine;
-using UnityEngine.AI;
-using static UnityEditor.PlayerSettings;
 
 public class RandomTeleportBehavior : MonoBehaviour {
 

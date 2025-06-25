@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
-using UnityEngine.Localization.SmartFormat.Utilities;
 
 public class Knockback : MonoBehaviour {
 

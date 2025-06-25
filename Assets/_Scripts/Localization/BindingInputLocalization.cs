@@ -1,8 +1,6 @@
 using UnityEngine;
 using UnityEngine.Localization.Settings;
 using TMPro;
-using UnityEngine.Localization;
-using UnityEngine.Localization.Tables;
 
 public class BindingInputLocalization : MonoBehaviour {
 

@@ -89,8 +89,13 @@ public class EnchantmentOrb : MonoBehaviour {
     }
 
     private bool IsValidPos(Vector2 pos) {
-        Collider2D col = Physics2D.OverlapCircle(pos, destinationObstacleDistance, GameLayers.ObstacleLayerMask);
-        return col == null;
+        Collider2D obstacleCol = Physics2D.OverlapCircle(pos, destinationObstacleDistance, GameLayers.ObstacleLayerMask);
+        bool nearObstacle = obstacleCol != null;
+
+        PolygonCollider2D currentRoomCollider = Room.GetCurrentRoom().GetComponent<PolygonCollider2D>();
+        bool inRoom = currentRoomCollider.OverlapPoint(pos);
+
+        return !nearObstacle && inRoom;
     }
 
     private void SpawnEnchantmentDrops() {

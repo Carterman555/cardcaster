@@ -197,9 +197,9 @@ MonoBehaviour:
   smallElectricExplosionPrefab: {fileID: 961277298218184562, guid: 4bc275630dd18ea48935f2f4242140cd, type: 3}
   electricAreaPrefab: {fileID: 576738693164738369, guid: 0871d0fef1a4d5b4abcbfe895440a33b, type: 3}
   areaSpawnCooldown:
-    MinValue: 0.5
-    MaxValue: 0.75
-  spawnOnPlayerProbability: 0.3
+    MinValue: 0.75
+    MaxValue: 1
+  spawnOnPlayerProbability: 0.2
 --- !u!114 &7842081825320602579
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -14,9 +14,6 @@ public class DamageOnContact : MonoBehaviour, ITargetAttacker {
     private float knockbackStrength;
     private bool canCrit;
 
-    [SerializeField] private bool piercing;
-    private bool dealtDamage;
-
     private struct TargetTimePair {
         public Transform Target;
         public float Time;
@@ -29,8 +26,6 @@ public class DamageOnContact : MonoBehaviour, ITargetAttacker {
         this.knockbackStrength = knockbackStrength;
         this.canCrit = canCrit;
 
-        dealtDamage = false;
-
         recentTargets = new();
     }
 
@@ -40,27 +35,21 @@ public class DamageOnContact : MonoBehaviour, ITargetAttacker {
             return;
         }
 
-        if (!piercing && dealtDamage) {
-            return;
-        }
-
         bool recentlyDamagedTarget = recentTargets.Any(p => p.Target == collision.transform);
-        if (piercing && recentlyDamagedTarget) {
+        if (recentlyDamagedTarget) {
             return;
         }
 
         if (targetLayer.ContainsLayer(collision.gameObject.layer)) {
 
-            bool dealtDamageNow = DamageDealer.TryDealDamage(
+            bool dealtDamage = DamageDealer.TryDealDamage(
                 collision.gameObject,
                 transform.position,
                 damage,
                 knockbackStrength,
                 canCrit);
 
-            if (dealtDamageNow) {
-                dealtDamage = true;
-
+            if (dealtDamage) {
                 TargetTimePair targetTimePair = new() {
                     Target = collision.transform,
                     Time = Time.time

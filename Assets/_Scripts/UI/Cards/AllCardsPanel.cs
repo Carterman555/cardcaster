@@ -74,7 +74,6 @@ public class AllCardsPanel : StaticInstance<AllCardsPanel> {
 
         foreach (PanelCardButton panelCardButton in PanelCardButtons) {
             panelCardButton.GetComponent<Button>().interactable = true;
-            print($"{panelCardButton.GetInstanceID()}: Enable button");
         }
 
         if (InputManager.Instance.GetControlScheme() == ControlSchemeType.Controller) {

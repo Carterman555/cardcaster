@@ -53,13 +53,7 @@ public class Interactable : MonoBehaviour {
             return;
         }
 
-        try {
-            InteractManager.Instance.TryRemoveWithinRange(this);
-        }
-        catch (Exception e) {
-            Debug.Log(name);
-            Debug.LogException(e);
-        }
+        InteractManager.Instance.TryRemoveWithinRange(this);
 
         spriteRenderer.material = originalMaterial;
 

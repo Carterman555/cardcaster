@@ -19,7 +19,7 @@ public static class Helpers {
     }
 
     public static void ReturnChildrenToPool(this Transform t) {
-        foreach (Transform child in t) child.gameObject.ReturnToPool();
+        foreach (Transform child in t) child.gameObject.TryReturnToPool();
     }
 
     public static void SetActiveChildren(this Transform t, bool active) {

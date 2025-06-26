@@ -2,6 +2,7 @@ using MoreMountains.Feedbacks;
 using QFSW.QC;
 using System;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 
 public class GameSceneManager : Singleton<GameSceneManager> {

@@ -21,15 +21,18 @@ public class TrashCardManager : StaticInstance<TrashCardManager> {
 
         PanelCardButton.OnClicked_PanelCard += OnCardClicked;
         SelectButton.OnSelect_PanelCard += TrashCard;
+        InputManager.OnControlSchemeChanged += TrySelectButton;
 
         //... can select cards if trashing card
-        AllCardsPanel.Instance.TrySetupControllerCardSelection();
+        StartCoroutine(AllCardsPanel.Instance.MakeCardSelectable());
     }
+
     public void Deactivate() {
         active = false;
 
         PanelCardButton.OnClicked_PanelCard -= OnCardClicked;
         SelectButton.OnSelect_PanelCard -= TrashCard;
+        InputManager.OnControlSchemeChanged -= TrySelectButton;
 
         panelCardToTrash = null;
 
@@ -68,5 +71,11 @@ public class TrashCardManager : StaticInstance<TrashCardManager> {
         AudioManager.Instance.PlaySound(AudioManager.Instance.AudioClips.BurnCard);
 
         OnTrashCard?.Invoke();
+    }
+
+    private void TrySelectButton() {
+        if (InputManager.Instance.GetControlScheme() == ControlSchemeType.Controller) {
+            StartCoroutine(AllCardsPanel.Instance.MakeCardSelectable());
+        }
     }
 }

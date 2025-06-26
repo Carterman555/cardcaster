@@ -147,7 +147,6 @@ GameObject:
   - component: {fileID: 3368730305340895128}
   - component: {fileID: 6286843647056412317}
   - component: {fileID: 5563109380228325429}
-  - component: {fileID: 8518993243303184126}
   m_Layer: 5
   m_Name: EnchantmentImage
   m_TagString: Untagged
@@ -173,7 +172,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: 112.5, y: 112.5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6050499476151719603
 CanvasRenderer:
@@ -203,7 +202,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 1176490648, guid: 2bc2e4e7d232c714a93ce412a6d4fe79, type: 3}
+  m_Sprite: {fileID: -1857729352, guid: 2bc2e4e7d232c714a93ce412a6d4fe79, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -276,15 +275,3 @@ MonoBehaviour:
   m_Interactable: 1
   m_TargetGraphic: {fileID: 3368730305340895128}
   amountText: {fileID: 8743208041920259653}
---- !u!114 &8518993243303184126
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7648138486132478451}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ea945a272cf944a4984864b889882a54, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

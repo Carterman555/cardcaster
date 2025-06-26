@@ -5,10 +5,9 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class PanelCardButton : GameButton, ISelectHandler {
+public class PanelCardButton : GameButton {
 
     public static event Action<PanelCardButton> OnClicked_PanelCard;
-    public static event Action<PanelCardButton> OnSelected_PanelCard;
 
     [SerializeField] private CardImage cardImage;
 
@@ -23,14 +22,10 @@ public class PanelCardButton : GameButton, ISelectHandler {
 
         cardImage.Setup(card);
 
+        GetComponent<Button>().interactable = false;
+        cardImage.GetComponent<CanvasGroup>().alpha = 1f;
+
         SetupTrashing();
-    }
-
-    protected override void OnEnable() {
-        base.OnEnable();
-
-        // the button can be set to not interactable by shopUIManager so make sure it's reset here
-        GetComponent<Button>().interactable = true;
     }
 
     protected override void OnClick() {
@@ -89,9 +84,5 @@ public class PanelCardButton : GameButton, ISelectHandler {
 
     public int GetCardIndex() {
         return cardIndex;
-    }
-
-    public void OnSelect(BaseEventData eventData) {
-        OnSelected_PanelCard?.Invoke(this);
     }
 }

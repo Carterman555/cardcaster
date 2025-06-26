@@ -145,7 +145,6 @@ public class RewardSpawner : MonoBehaviour {
 
         bool unlockedAllCardsAtLevel = possibleCardsToSpawn.Count == 0;
         if (unlockedAllCardsAtLevel) {
-            print("unlockedAllCardsAtLevel");
             return;
         }
 

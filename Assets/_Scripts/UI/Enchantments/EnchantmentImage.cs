@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class EnchantmentImage : Selectable {
 
     [SerializeField] private TextMeshProUGUI amountText;
+    [SerializeField] private Image amountBackground;
 
     private EnchantmentType enchantmentType;
 
@@ -18,9 +19,11 @@ public class EnchantmentImage : Selectable {
 
         if (amount == 1) {
             amountText.text = "";
+            amountBackground.enabled = false;
         }
         else {
             amountText.text = amount.ToString();
+            amountBackground.enabled = true;
         }
     }
 

@@ -50,7 +50,7 @@ public class TradeUIManager : StaticInstance<TradeUIManager>, IInitializable {
 
         newCardIcon.sprite = newCard.Sprite;
 
-        AllCardsPanel.Instance.StartCoroutine(AllCardsPanel.Instance.MakeCardSelectable(newCard.Rarity));
+        GameSceneManager.Instance.StartCoroutine(AllCardsPanel.Instance.MakeCardSelectable(newCard.Rarity));
     }
 
     public void Deactivate() {
@@ -71,7 +71,7 @@ public class TradeUIManager : StaticInstance<TradeUIManager>, IInitializable {
 
     private void TrySelectButton() {
         if (InputManager.Instance.GetControlScheme() == ControlSchemeType.Controller) {
-            AllCardsPanel.Instance.StartCoroutine(AllCardsPanel.Instance.MakeCardSelectable(newCard.Rarity));
+            GameSceneManager.Instance.StartCoroutine(AllCardsPanel.Instance.MakeCardSelectable(newCard.Rarity));
         }
     }
 

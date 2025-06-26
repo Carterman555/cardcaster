@@ -185,6 +185,7 @@ public class HandCard : MonoBehaviour {
     }
 
     // played by mmf_player
+    // bad code I know
     public void TryPlayCard(Vector2 playPosition) {
 
         if (GameStateManager.Instance.CurrentState != GameState.Game) {
@@ -216,6 +217,11 @@ public class HandCard : MonoBehaviour {
                 case PersistentUpgradeType.Dissolve:
                     maxPersistentCardPlayer.PlayFeedbacks();
                     trashingCard = true;
+
+                    //... apply cost only here because cost is applied when in DiscardHandCard and StackHandCard which don't get
+                    //... played when trashing card
+                    DeckManager.Instance.ChangeEssenceAmount(-card.Cost);
+
                     break;
                 case PersistentUpgradeType.BecomingMaxed:
                     usePersistentCardPlayer.PlayFeedbacks();

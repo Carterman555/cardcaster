@@ -28,6 +28,9 @@ public class DebugManager : StaticInstance<DebugManager> {
     }
 
     private void OnStartGame() {
+
+        print("DealerDefeatedAmount: " + ES3.Load("DealerDefeatedAmount", ES3EncryptionMigration.GetES3Settings()));
+
         GiveStartingCards();
         ApplyPlayerStatModifiers();
         ApplyStartingEnchantments();

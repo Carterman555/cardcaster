@@ -36,7 +36,7 @@ MonoBehaviour:
   statModifiers:
   - PlayerStatType: 0
     ModifyType: 0
-    Value: 3
+    Value: 5
   references:
     version: 2
     RefIds: []

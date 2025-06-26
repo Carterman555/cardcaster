@@ -55,13 +55,13 @@ public class EnchantmentOrb : MonoBehaviour {
         int maxIterations = 500;
         int iterationCounter = 0;
 
-        float searchDistanceIncrement = 0.5f;
-        float maxSearchDistance = 5f;
-        float currentSearchDistance = 0.5f;
+        float searchDistanceIncrement = 1f;
+        float maxSearchDistance = 15f;
+        float currentSearchDistance = 1f;
 
         while (currentSearchDistance <= maxSearchDistance) {
 
-            float searchAngleIncrement = 20f;
+            float searchAngleIncrement = 22.5f;
             float currentSearchAngle = 0f;
             while (currentSearchAngle <= 360) {
 

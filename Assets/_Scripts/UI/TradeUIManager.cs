@@ -41,6 +41,7 @@ public class TradeUIManager : StaticInstance<TradeUIManager>, IInitializable {
 
         PanelCardButton.OnClicked_PanelCard += OnCardClicked;
         SelectButton.OnSelect_PanelCard += ShowTradeUI;
+        InputManager.OnControlSchemeChanged += TrySelectButton;
 
         tradeButton.onClick.AddListener(OnTradeButtonClicked);
 
@@ -49,10 +50,7 @@ public class TradeUIManager : StaticInstance<TradeUIManager>, IInitializable {
 
         newCardIcon.sprite = newCard.Sprite;
 
-        DisableLesserRarities(newCard.Rarity);
-
-        //... can select cards if trading card
-        AllCardsPanel.Instance.TrySetupControllerCardSelection();
+        AllCardsPanel.Instance.StartCoroutine(AllCardsPanel.Instance.MakeCardSelectable(newCard.Rarity));
     }
 
     public void Deactivate() {
@@ -60,6 +58,7 @@ public class TradeUIManager : StaticInstance<TradeUIManager>, IInitializable {
 
         PanelCardButton.OnClicked_PanelCard -= OnCardClicked;
         SelectButton.OnSelect_PanelCard -= ShowTradeUI;
+        InputManager.OnControlSchemeChanged -= TrySelectButton;
 
         tradeButton.onClick.RemoveListener(OnTradeButtonClicked);
 
@@ -68,6 +67,12 @@ public class TradeUIManager : StaticInstance<TradeUIManager>, IInitializable {
 
     public bool IsActive() {
         return active;
+    }
+
+    private void TrySelectButton() {
+        if (InputManager.Instance.GetControlScheme() == ControlSchemeType.Controller) {
+            AllCardsPanel.Instance.StartCoroutine(AllCardsPanel.Instance.MakeCardSelectable(newCard.Rarity));
+        }
     }
 
     private void OnCardClicked(PanelCardButton panelCard) {
@@ -102,18 +107,6 @@ public class TradeUIManager : StaticInstance<TradeUIManager>, IInitializable {
         newCardIcon.transform.localPosition = newCardLocalPosition;
 
         currentCardIcon.sprite = currentCard.Sprite;
-    }
-
-    // only cards that are of equal rarity or rarer can be traded
-    private void DisableLesserRarities(Rarity newCardRarity) {
-        PanelCardButton[] allPanelCards = FindObjectsOfType<PanelCardButton>();
-        foreach (PanelCardButton panelCard in allPanelCards) {
-
-            // if panel card is more common than item trying to trade
-            if (panelCard.GetCard().Rarity < newCardRarity) {
-                panelCard.GetComponent<Button>().interactable = false;
-            }
-        }
     }
 
     #endregion

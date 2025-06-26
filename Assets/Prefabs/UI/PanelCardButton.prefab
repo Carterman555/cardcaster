@@ -523,7 +523,6 @@ GameObject:
   - component: {fileID: 6887981501281096572}
   - component: {fileID: 1701849057383564943}
   - component: {fileID: 3891952056240966491}
-  - component: {fileID: 5112079381022614294}
   m_Layer: 0
   m_Name: PanelCardButton
   m_TagString: Untagged
@@ -590,9 +589,9 @@ MonoBehaviour:
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
-    m_HighlightedSprite: {fileID: 0}
-    m_PressedSprite: {fileID: 0}
-    m_SelectedSprite: {fileID: 0}
+    m_HighlightedSprite: {fileID: 5324263924718413467, guid: 59975ce93a119e945a78bb5f5587ae1d, type: 3}
+    m_PressedSprite: {fileID: 5324263924718413467, guid: 59975ce93a119e945a78bb5f5587ae1d, type: 3}
+    m_SelectedSprite: {fileID: 5324263924718413467, guid: 59975ce93a119e945a78bb5f5587ae1d, type: 3}
     m_DisabledSprite: {fileID: 0}
   m_AnimationTriggers:
     m_NormalTrigger: Normal
@@ -621,20 +620,6 @@ MonoBehaviour:
   burnCardFeedbacks: {fileID: 5776973834136763048}
   burnMaterial: {fileID: 2100000, guid: 64ae8b1defa858a4699c41d8b5f5ab42, type: 2}
   fadeSpeed: 0.75
---- !u!114 &5112079381022614294
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7920905463347926927}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 85504510bcd33bb419e8ccf03be9f99f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cardImageCanvasGroup: {fileID: 4145996984449685802}
-  deactiveFade: 0.6
 --- !u!1 &8331706358656244421
 GameObject:
   m_ObjectHideFlags: 0
@@ -1017,11 +1002,6 @@ MonoBehaviour:
 --- !u!224 &3780896353300824725 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 2327524110248359228, guid: 41fd9c5da03600041b2e95f3db6b7df0, type: 3}
-  m_PrefabInstance: {fileID: 1456201906573703081}
-  m_PrefabAsset: {fileID: 0}
---- !u!225 &4145996984449685802 stripped
-CanvasGroup:
-  m_CorrespondingSourceObject: {fileID: 3295787896524811907, guid: 41fd9c5da03600041b2e95f3db6b7df0, type: 3}
   m_PrefabInstance: {fileID: 1456201906573703081}
   m_PrefabAsset: {fileID: 0}
 --- !u!114 &4297925833990152969 stripped

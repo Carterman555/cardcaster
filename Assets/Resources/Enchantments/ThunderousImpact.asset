@@ -32,7 +32,7 @@ MonoBehaviour:
     m_FallbackState: 0
     m_WaitForCompletion: 0
     m_LocalVariables: []
-  sprite: {fileID: -1048627860, guid: 2bc2e4e7d232c714a93ce412a6d4fe79, type: 3}
+  sprite: {fileID: 1850844854, guid: 2bc2e4e7d232c714a93ce412a6d4fe79, type: 3}
   statModifiers:
   - PlayerStatType: 5
     ModifyType: 0

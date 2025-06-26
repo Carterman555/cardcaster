@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System.Linq;
+using System.Collections;
 
 public class AllCardsPanel : StaticInstance<AllCardsPanel> {
 
@@ -15,10 +16,6 @@ public class AllCardsPanel : StaticInstance<AllCardsPanel> {
 
     private void OnEnable() {
         UpdateCards();
-
-        if (toSetupControllerInput) {
-            TrySetupControllerCardSelection();
-        }
     }
 
     // deactivate on the managers related to the AllCardsPanel that are possibly active. one is sometimes activated
@@ -27,11 +24,11 @@ public class AllCardsPanel : StaticInstance<AllCardsPanel> {
     private void OnDisable() {
         TrashCardManager.Instance.Deactivate();
         TradeUIManager.Instance.Deactivate();
-
-        toSetupControllerInput = false;
     }
 
     private void UpdateCards() {
+        PanelCardButtons.Clear();
+
         SetCardsInContainer(deckCardsContainer, DeckManager.Instance.GetCardsInDeck(), CardLocation.Deck);
         SetCardsInContainer(discardCardsContainer, DeckManager.Instance.GetCardsInDiscard(), CardLocation.Discard);
         SetCardsInContainer(handCardsContainer, DeckManager.Instance.GetCardsInHand().ToList(), CardLocation.Hand);
@@ -39,8 +36,6 @@ public class AllCardsPanel : StaticInstance<AllCardsPanel> {
 
     private void SetCardsInContainer(Transform container, List<ScriptableCardBase> cards, CardLocation cardLocation) {
         container.ReturnChildrenToPool();
-
-        PanelCardButtons.Clear();
 
         for (int cardIndex = 0; cardIndex < cards.Count; cardIndex++) {
             ScriptableCardBase card = cards[cardIndex];
@@ -60,28 +55,68 @@ public class AllCardsPanel : StaticInstance<AllCardsPanel> {
 
     #region Controller Input
 
-    private bool toSetupControllerInput;
+    // played by trash and trade manager, so can select cards when they are active
+    public IEnumerator MakeCardSelectable() {
 
-    // played by outside script and in setup, so can be play after or before the cards are setup and it'll still work
-    public void TrySetupControllerCardSelection() {
+        int framesToWait = 60;
+        int frameCounter = 0;
 
-        // only setup card if using controller
-        if (InputManager.Instance.GetControlScheme() != ControlSchemeType.Controller) {
-            return;
+        // wait until panel cards are spawned
+        while (PanelCardButtons.Count == 0) {
+            yield return null;
+
+            frameCounter++;
+            if (frameCounter > framesToWait) {
+                Debug.LogWarning("Tried to make cards selectable, but cards didn't get spawned in time!");
+                yield break;
+            }
         }
 
-        if (PanelCardButtons.Count > 0) {
-            SetupControllerCardSelection();
+        foreach (PanelCardButton panelCardButton in PanelCardButtons) {
+            panelCardButton.GetComponent<Button>().interactable = true;
+            print($"{panelCardButton.GetInstanceID()}: Enable button");
         }
-        else {
-            toSetupControllerInput = true;
+
+        if (InputManager.Instance.GetControlScheme() == ControlSchemeType.Controller) {
+            PanelCardButtons[0].GetComponent<Button>().Select();
         }
     }
 
-    private void SetupControllerCardSelection() {
+    public IEnumerator MakeCardSelectable(Rarity minRarity) {
 
-        //... select the first card
-        PanelCardButtons[0].GetComponent<Button>().Select();
+        int framesToWait = 60;
+        int frameCounter = 0;
+
+        // wait until panel cards are spawned
+        while (PanelCardButtons.Count == 0) {
+            yield return null;
+
+            frameCounter++;
+            if (frameCounter > framesToWait) {
+                Debug.LogWarning("Tried to make cards selectable, but cards didn't get spawned in time!");
+                yield break;
+            }
+        }
+
+        bool triedSelectCard = false;
+
+        foreach (PanelCardButton panelCardButton in PanelCardButtons) {
+            if (panelCardButton.GetCard().Rarity >= minRarity) {
+                panelCardButton.GetComponent<Button>().interactable = true;
+
+                // if using controller, select the first interable card
+                if (!triedSelectCard) {
+                    if (InputManager.Instance.GetControlScheme() == ControlSchemeType.Controller) {
+                        panelCardButton.GetComponent<Button>().Select();
+                    }
+                    triedSelectCard = true;
+                }
+            }
+            else {
+                // fade out if can't trade card
+                panelCardButton.GetComponentInChildren<CanvasGroup>().alpha = 0.65f;
+            }
+        }
     }
 
     #endregion

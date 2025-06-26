@@ -18,7 +18,6 @@ public class EnchantmentPanel : MonoBehaviour {
             enchantmentImages.Add(enchantmentImage);
         }
 
-
         if (InputManager.Instance.GetControlScheme() == ControlSchemeType.Controller) {
             if (enchantmentImages.Count > 0) {
                 //... wait to give EnchantmentImageManager time to initialize and 

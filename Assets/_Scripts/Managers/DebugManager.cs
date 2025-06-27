@@ -29,7 +29,7 @@ public class DebugManager : StaticInstance<DebugManager> {
 
     private void OnStartGame() {
 
-        print("DealerDefeatedAmount: " + ES3.Load("DealerDefeatedAmount", ES3EncryptionMigration.GetES3Settings()));
+        //print("DealerDefeatedAmount: " + ES3.Load("DealerDefeatedAmount", ES3EncryptionMigration.GetES3Settings()));
 
         GiveStartingCards();
         ApplyPlayerStatModifiers();
@@ -143,7 +143,7 @@ public class DebugManager : StaticInstance<DebugManager> {
 
     private void ApplyStartingEnchantments() {
         foreach (EnchantmentType enchantmentType in startingEnchantments) {
-            StatsManager.AddEnchantment(enchantmentType);
+            StatsManager.AddEnchantment(ResourceSystem.Instance.GetEnchantment(enchantmentType));
         }
     }
 

@@ -91,8 +91,7 @@ public class EnchantmentDrop : MonoBehaviour {
         suckMovement.OnReachTarget -= ShrinkAndApplyModifier;
 
         transform.DOScale(Vector2.zero, duration: 0.2f).SetEase(Ease.InSine).OnComplete(() => {
-            StatsManager.AddPlayerStatModifiers(enchantment.StatModifiers);
-            enchantment.OnGain();
+            StatsManager.AddEnchantment(enchantment);
 
             transform.DOKill();
             gameObject.ReturnToPool();

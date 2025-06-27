@@ -38,12 +38,12 @@ public class BounceOnContact : MonoBehaviour {
         RaycastHit2D hit = Physics2D.Raycast(transform.position, rb.velocity.normalized, checkDistance, BounceLayerMask);
         if (hit) {
             bool bouncesLeft = bounces < maxBounces;
-            if (!bouncesLeft) {
-                gameObject.ReturnToPool();
-                return;
+            if (bouncesLeft) {
+                Bounce(hit.collider);
             }
-
-            Bounce(hit.collider);
+            else {
+                gameObject.TryReturnToPool();
+            }
         }
     }
 
@@ -59,12 +59,12 @@ public class BounceOnContact : MonoBehaviour {
 
         if (BounceLayerMask.ContainsLayer(collision.gameObject.layer)) {
             bool bouncesLeft = bounces < maxBounces;
-            if (!bouncesLeft) {
-                gameObject.ReturnToPool();
-                return;
+            if (bouncesLeft) {
+                Bounce(collision);
             }
-
-            Bounce(collision);
+            else {
+                gameObject.TryReturnToPool();
+            }
         }
     }
 

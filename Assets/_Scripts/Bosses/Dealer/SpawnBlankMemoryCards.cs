@@ -25,4 +25,8 @@ public class SpawnBlankMemoryCards : MonoBehaviour {
             blankMemoryCardPrefab.Spawn(cardPosition, Containers.Instance.Drops);
         }
     }
+
+    private void OnDisable() {
+        StopAllCoroutines();
+    }
 }

@@ -19,8 +19,8 @@ public class EssenceUIManager : StaticInstance<EssenceUIManager> {
             }
         }
 
-        UpdateEssenceSprites(DeckManager.Instance.Essence);
         UpdateEssenceMaxAmount(StatsManager.PlayerStats.MaxEssence);
+        UpdateEssenceSprites(DeckManager.Instance.Essence);
     }
     private void OnDisable() {
         DeckManager.OnEssenceChanged_Amount -= UpdateEssenceSprites;

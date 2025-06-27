@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System;
 using System.Collections;
 using UnityEngine;
@@ -34,6 +35,8 @@ public class PlayerMovement : StaticInstance<PlayerMovement>, IChangesFacing, IH
 
     private void OnDisable() {
         rb.velocity = Vector2.zero;
+
+        transform.DOKill();
     }
 
     private void OnDestroy() {

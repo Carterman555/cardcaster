@@ -12,6 +12,8 @@ public class PatternShootBehavior : MonoBehaviour {
     [SerializeField] private StraightMovement projectilePrefab;
     [SerializeField] private ScriptableShootPattern[] shootPatterns;
 
+    [SerializeField] private float projectileSpeed = 8f;
+
     [SerializeField] private bool hasSfx;
     [SerializeField, ConditionalHide("hasSfx")] private AudioClips shootSfx;
 
@@ -49,7 +51,7 @@ public class PatternShootBehavior : MonoBehaviour {
 
             projectile.transform.up = toPlayerDirection;
             projectile.GetComponent<Rigidbody2D>().DOMove(targetSpreadPosition, spreadDuration).SetEase(Ease.Linear).OnComplete(() => {
-                projectile.Setup(toPlayerDirection);
+                projectile.Setup(toPlayerDirection, projectileSpeed);
             });
 
             EnemyStats stats = hasStats.GetEnemyStats();

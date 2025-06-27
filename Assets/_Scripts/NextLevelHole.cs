@@ -1,5 +1,6 @@
 using DG.Tweening;
 using System;
+using System.Collections;
 using UnityEngine;
 
 public class NextLevelHole : MonoBehaviour {
@@ -19,11 +20,11 @@ public class NextLevelHole : MonoBehaviour {
 
     private void OnTriggerEnter2D(Collider2D collision) {
         if (collision.TryGetComponent(out HoleTrigger holeTrigger) && !fallTriggered) {
-            MakePlayerFall();
+            StartCoroutine(MakePlayerFall());
         }
     }
 
-    private void MakePlayerFall() {
+    private IEnumerator MakePlayerFall() {
 
         fallTriggered = true;
 
@@ -37,6 +38,9 @@ public class NextLevelHole : MonoBehaviour {
         float fallDistance = 3.5f;
         float fallYPos = PlayerMovement.Instance.CenterPos.y - fallDistance;
         PlayerMovement.Instance.transform.DOMoveY(fallYPos, duration: 0.5f).SetEase(Ease.InSine);
+
+        float nextSceneDelay = 0.3f;
+        yield return new WaitForSeconds(nextSceneDelay);
 
         OnFallInHole?.Invoke();
 

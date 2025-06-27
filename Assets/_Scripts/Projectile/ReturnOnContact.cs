@@ -22,11 +22,11 @@ public class ReturnOnContact : MonoBehaviour {
     private void OnTriggerEnter2D(Collider2D collision) {
         if (layerMask.ContainsLayer(collision.gameObject.layer) && enabled && !returned) {
             if (!returnOther) {
-                gameObject.ReturnToPool();
+                gameObject.TryReturnToPool();
                 returned = true;
             }
             else {
-                returnTarget.ReturnToPool();
+                returnTarget.TryReturnToPool();
             }
 
             if (playSfx) {

@@ -134,10 +134,10 @@ public static class ObjectPoolManager {
 
                 if (objectToReturn.activeSelf) {
                     objectToReturn.SetActive(false);
-                    Debug.LogWarning($"Trying to return {objectToReturn.name} which was already returned! (Was active so set Inactive)");
+                    Debug.LogWarning($"Trying to return {objectToReturn.name} ({objectToReturn.GetInstanceID()}) which was already returned! (Was active so set Inactive)");
                 }
                 else {
-                    Debug.LogWarning($"Trying to return {objectToReturn.name} which was already returned!");
+                    Debug.LogWarning($"Trying to return {objectToReturn.name} ({objectToReturn.GetInstanceID()}) which was already returned!");
                 }
 
                 return;
@@ -145,7 +145,7 @@ public static class ObjectPoolManager {
 
             // debug
             if (goName == nameToDebug) {
-                Debug.Log($"returned {nameToDebug}");
+                Debug.Log($"Returned {nameToDebug} ({objectToReturn.GetInstanceID()})");
             }
 
             pool.InactiveObjects.Add(objectToReturn);

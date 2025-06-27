@@ -151,9 +151,21 @@ public class InputManager : Singleton<InputManager> {
 
         if (GetControlScheme() == ControlSchemeType.Keyboard) {
 
+            string currentControlScheme;
+            
+            if (playerInput.currentControlScheme != null) {
+                currentControlScheme = playerInput.currentControlScheme;
+            }
+
+            // because if using quantum console, playerInput is disabled, so currentControlScheme will be null,
+            // so can assume using keyboard.
+            else {
+                currentControlScheme = "Keyboard";
+            }
+
             //... get the binding of the active control scheme
             var binding = action.bindings
-                .FirstOrDefault(b => b.groups.Contains(playerInput.currentControlScheme));
+                    .FirstOrDefault(b => b.groups.Contains(currentControlScheme));
 
             if (shortDisplayName) {
                 displayString = binding.ToDisplayString();

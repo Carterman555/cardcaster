@@ -226,13 +226,18 @@ public class StatsManager : MonoBehaviour {
 
     public static Dictionary<EnchantmentType, int> Enchantments { get; private set; } = new();
 
-    public static void AddEnchantment(EnchantmentType enchantmentType) {
-        if (Enchantments.ContainsKey(enchantmentType)) {
-            Enchantments[enchantmentType]++;
+    public static void AddEnchantment(ScriptableEnchantment enchantment) {
+
+        AddPlayerStatModifiers(enchantment.StatModifiers);
+
+        if (Enchantments.ContainsKey(enchantment.EnchantmentType)) {
+            Enchantments[enchantment.EnchantmentType]++;
         }
         else {
-            Enchantments.Add(enchantmentType, 1);
+            Enchantments.Add(enchantment.EnchantmentType, 1);
         }
+
+        enchantment.OnGain();
     }
 
     #endregion

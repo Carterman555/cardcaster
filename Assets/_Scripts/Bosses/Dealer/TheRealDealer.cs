@@ -27,7 +27,6 @@ public class RealDealerDurationPair {
 
 public class TheRealDealer : MonoBehaviour, IHasEnemyStats, IBoss {
 
-
     [SerializeField] private ScriptableBoss scriptableBoss;
     public EnemyStats GetEnemyStats() {
         return StatsManager.GetScaledEnemyStats(scriptableBoss.Stats);
@@ -261,6 +260,43 @@ public class TheRealDealer : MonoBehaviour, IHasEnemyStats, IBoss {
         }
 
         gameObject.ReturnToPool();
+
+        TrashBlankMemoryCards();
+    }
+
+    private void TrashBlankMemoryCards() {
+        var blankMemoryCardsInDeck = DeckManager.Instance.GetCardsInDeck()
+            .Where(card => card is ScriptableBlankMemoryCard)
+            .ToList();
+
+        foreach (var card in blankMemoryCardsInDeck) {
+            int index = DeckManager.Instance.GetCardsInDeck().IndexOf(card);
+            if (index >= 0) {
+                DeckManager.Instance.TrashCard(CardLocation.Deck, index, usingCard: false);
+            }
+        }
+
+        var blankMemoryCardsInDiscard = DeckManager.Instance.GetCardsInDiscard()
+            .Where(card => card is ScriptableBlankMemoryCard)
+            .ToList();
+
+        foreach (var card in blankMemoryCardsInDiscard) {
+            int index = DeckManager.Instance.GetCardsInDiscard().IndexOf(card);
+            if (index >= 0) {
+                DeckManager.Instance.TrashCard(CardLocation.Discard, index, usingCard: false);
+            }
+        }
+
+        var blankMemoryCardsInHand = DeckManager.Instance.GetCardsInHand()
+            .Where(card => card is ScriptableBlankMemoryCard)
+            .ToList();
+
+        foreach (var card in blankMemoryCardsInHand) {
+            int index = Array.FindIndex(DeckManager.Instance.GetCardsInHand(), c => c == card);
+            if (index >= 0) {
+                DeckManager.Instance.TrashCard(CardLocation.Hand, index, usingCard: false);
+            }
+        }
     }
 
     #region Invincibility

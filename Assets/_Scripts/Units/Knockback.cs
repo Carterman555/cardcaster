@@ -22,8 +22,6 @@ public class Knockback : MonoBehaviour {
 
     private bool applyingKnockback;
 
-    private Vector2 startKnockbackPos;
-
     private float GetKnockbackResistance() {
         if (overrideKnockback) {
             return overrideKnockbackResistance;
@@ -82,8 +80,6 @@ public class Knockback : MonoBehaviour {
         startKnockbackVelocity = knockbackVelocity;
 
         SetVelocity(knockbackVelocity);
-
-        startKnockbackPos = transform.position;
 
         OnKnockbacked?.Invoke(direction.normalized);
 

@@ -2,10 +2,6 @@ using UnityEngine;
 
 public class CursedWitch : Enemy {
 
-    [Header("Movement")]
-    [SerializeField] private float moveFromPlayerRange = 3f;
-    private FleePlayerBehavior fleeBehavior;
-
     [Header("Attacks")]
     [SerializeField] private RandomFloat betweenActionDuration;
     private float betweenActionTimer;
@@ -17,7 +13,6 @@ public class CursedWitch : Enemy {
     protected override void Awake() {
         base.Awake();
 
-        fleeBehavior = GetComponent<FleePlayerBehavior>();
         shootProjectileBehavior = GetComponent<ShootTargetProjectileBehavior>();
         spawnEnemyBehavior = GetComponent<SpawnEnemyBehavior>();
     }
@@ -33,26 +28,7 @@ public class CursedWitch : Enemy {
     protected override void Update() {
         base.Update();
 
-        HandleMovement();
         HandleAction();
-    }
-
-    private void HandleMovement() {
-
-        float distanceFromPlayer = Vector2.Distance(PlayerMovement.Instance.CenterPos, transform.position);
-
-        bool closeToPlayer = distanceFromPlayer < moveFromPlayerRange;
-
-        if (closeToPlayer) {
-            if (!fleeBehavior.enabled) {
-                fleeBehavior.enabled = true;
-            }
-        }
-        else if (!closeToPlayer) {
-            if (fleeBehavior.enabled) {
-                fleeBehavior.enabled = false;
-            }
-        }
     }
 
     private bool PerformingAction => shootProjectileBehavior.enabled || spawnEnemyBehavior.enabled;

@@ -303,6 +303,10 @@ PrefabInstance:
       propertyPath: deathParticlesColor.r
       value: 0.48046458
       objectReference: {fileID: 0}
+    - target: {fileID: 5577381940195422070, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
+      propertyPath: overrideKnockback
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7684566445724823258, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
       propertyPath: m_Size.x
       value: 0.5286387
@@ -364,9 +368,6 @@ PrefabInstance:
       addedObject: {fileID: 5984122794016962824}
     - targetCorrespondingSourceObject: {fileID: 226976224992304211, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 4253102065046302224}
-    - targetCorrespondingSourceObject: {fileID: 226976224992304211, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
-      insertIndex: -1
       addedObject: {fileID: 6316511975612982345}
     - targetCorrespondingSourceObject: {fileID: 226976224992304211, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
       insertIndex: -1
@@ -423,18 +424,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 58a0f8acedfc12f43978117cc983373e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &4253102065046302224
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7481704768261658980}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3b13b1ed3bf9f5b4e8cb3fafca61cdf2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &6316511975612982345

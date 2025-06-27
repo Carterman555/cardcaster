@@ -1,3 +1,5 @@
+using UnityEngine;
+
 public class QuitButton : GameButton {
 
     protected override void OnClick() {
@@ -6,6 +8,9 @@ public class QuitButton : GameButton {
     }
 
     private void Quit() {
+
+        Application.Quit();
+
 #if UNITY_EDITOR
         // Stop play mode in the editor
         UnityEditor.EditorApplication.isPlaying = false;

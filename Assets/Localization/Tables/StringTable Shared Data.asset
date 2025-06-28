@@ -972,7 +972,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 31198570120470528
-    m_Key: damage
+    m_Key: allDamage
     m_Metadata:
       m_Items: []
   - m_Id: 31198622310195200

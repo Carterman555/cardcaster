@@ -39,6 +39,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 174481253933899696, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
+      propertyPath: m_BodyType
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 226976224992304211, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
       propertyPath: m_Name
       value: CursedWitch
@@ -354,6 +358,7 @@ PrefabInstance:
     m_RemovedComponents:
     - {fileID: -2736141077457755013, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
     - {fileID: 2289975973054056507, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
+    - {fileID: 5243637420451758526, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 3807084815282453126, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
@@ -361,7 +366,7 @@ PrefabInstance:
       addedObject: {fileID: 4789020986000077722}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 226976224992304211, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
-      insertIndex: 4
+      insertIndex: 3
       addedObject: {fileID: 3370988504613916164}
     - targetCorrespondingSourceObject: {fileID: 226976224992304211, guid: d26e40392c042dc4d8c237ede2183746, type: 3}
       insertIndex: -1
@@ -409,7 +414,6 @@ MonoBehaviour:
   scriptableEnemy: {fileID: 11400000, guid: 130afc106dca5024e9ef1e18926c8af8, type: 2}
   playerTracker: {fileID: 7008075748960684286}
   anim: {fileID: 7812749826847277617}
-  moveFromPlayerRange: 3
   betweenActionDuration:
     MinValue: 3
     MaxValue: 5

@@ -67,8 +67,6 @@ public class ChargeBehavior : MonoBehaviour {
     private void FixedUpdate() {
         if (CurrentState == ChargeState.Launching) {
             rb.velocity = Vector2.MoveTowards(rb.velocity, Vector2.zero, Time.fixedDeltaTime * deceleration);
-
-            
         }
     }
 

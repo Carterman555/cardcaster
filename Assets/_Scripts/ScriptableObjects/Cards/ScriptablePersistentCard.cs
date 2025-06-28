@@ -27,7 +27,6 @@ public class ScriptablePersistentCard : ScriptableCardBase {
                 statsStr += $"({currentValue}/{maxValue})\n";
             }
 
-
             return statsStr;
         }
     }

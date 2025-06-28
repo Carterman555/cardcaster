@@ -23,6 +23,9 @@ public abstract class ScriptableAbilityCardBase : ScriptableCardBase {
     [SerializeField] private CardType[] incompatibleAbilities;
     public CardType[] IncompatibleAbilities => incompatibleAbilities;
 
+    [SerializeField] private bool trashAfterUse;
+    public bool TrashAfterUse => trashAfterUse;
+
     public static event Action<Transform> OnStartPositioning;
     public static event Action<Transform> OnStopPositioning;
     private Coroutine positioningCardCoroutine;

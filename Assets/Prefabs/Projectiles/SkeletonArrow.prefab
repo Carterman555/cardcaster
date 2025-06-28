@@ -145,7 +145,7 @@ Rigidbody2D:
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
@@ -212,7 +212,6 @@ MonoBehaviour:
   targetLayer:
     serializedVersion: 2
     m_Bits: 64
-  piercing: 0
 --- !u!114 &8369485514390924925
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -228,6 +227,13 @@ MonoBehaviour:
   layerMask:
     serializedVersion: 2
     m_Bits: 1856
+  returnOther: 0
+  returnTarget: {fileID: 0}
+  playSfx: 0
+  returnSfx:
+    Clips: []
+    Volume: 0
+    PitchVariation: 0
 --- !u!114 &-1240938790410115030
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -249,3 +255,5 @@ MonoBehaviour:
   hasDestroyParticles: 1
   destroyParticles: {fileID: 1709629989399924173, guid: 22a723bf7c529e44d9f1f2994fffe609, type: 3}
   destroyParticlesColor: {r: 0.8117647, g: 0.34117648, b: 0.23137255, a: 1}
+  hasParticlePoint: 0
+  particlePoint: {fileID: 0}

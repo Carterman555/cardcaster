@@ -869,7 +869,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 26520311867273216
-    m_Localized: Duplicate a random card in your hand.
+    m_Localized: Duplicate a random card in your hand (one use)
     m_Metadata:
       m_Items: []
   - m_Id: 26824845361573888
@@ -1009,7 +1009,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 31198570120470528
-    m_Localized: Damage
+    m_Localized: All Damage
     m_Metadata:
       m_Items: []
   - m_Id: 31198622310195200

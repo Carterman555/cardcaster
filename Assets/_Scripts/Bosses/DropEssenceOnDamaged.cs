@@ -14,12 +14,12 @@ public class DropEssenceOnDamaged : MonoBehaviour {
     [ConditionalHide("hasMax")][SerializeField] private float maxDropAmount;
     private float dropCount;
 
-    private EnemyHealth health;
+    private IDamagable damagable;
 
     private void Awake() {
-        health = GetComponent<EnemyHealth>();
+        damagable = GetComponent<IDamagable>();
 
-        health.OnDamagedDetailed += TryDropEssence;
+        damagable.OnDamagedDetailed += TryDropEssence;
     }
 
     private void OnEnable() {
@@ -27,7 +27,7 @@ public class DropEssenceOnDamaged : MonoBehaviour {
     }
 
     private void OnDestroy() {
-        health.OnDamagedDetailed -= TryDropEssence;
+        damagable.OnDamagedDetailed -= TryDropEssence;
     }
 
     private void TryDropEssence(float damage, bool shared, bool crit) {

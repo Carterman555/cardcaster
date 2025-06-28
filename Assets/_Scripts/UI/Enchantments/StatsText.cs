@@ -41,7 +41,7 @@ public class StatsText : MonoBehaviour {
             $"{StatsFormatter.Instance.GetStatStr(PlayerStatType.CritChance, playerStats.CritChance)}\n" +
             $"{StatsFormatter.Instance.GetStatStr(PlayerStatType.CritDamageMult, playerStats.CritDamageMult)}\n\n" +
 
-            $"{StatsFormatter.Instance.GetStatStr(PlayerStatType.ProjectileDamageMult, playerStats.ProjectileDamageMult)}\n" +
+            $"{StatsFormatter.Instance.GetStatStr(PlayerStatType.ProjectileDamageMult, playerStats.BaseProjectileDamageMult)}\n" +
             $"{StatsFormatter.Instance.GetStatStr(PlayerStatType.AllDamageMult, playerStats.AllDamageMult)}\n\n" +
 
             $"{StatsFormatter.Instance.GetStatStr(PlayerStatType.MaxEssence, playerStats.MaxEssence)}\n" +

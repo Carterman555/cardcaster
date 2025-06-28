@@ -502,6 +502,14 @@ PrefabInstance:
       propertyPath: m_RenderAlignment
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7483229339863150375, guid: f71bb7117d361a94a8d52fefbca0b7e0, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 6c5df251c9f5e7046b4545bb2be623c9, type: 2}
+    - target: {fileID: 7483229339863150375, guid: f71bb7117d361a94a8d52fefbca0b7e0, type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: 323cc9c71d47ec541a6ac9022dc5e8f9, type: 2}
     - target: {fileID: 9077563857992332726, guid: f71bb7117d361a94a8d52fefbca0b7e0, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

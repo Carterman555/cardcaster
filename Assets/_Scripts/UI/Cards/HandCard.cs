@@ -32,6 +32,7 @@ public class HandCard : MonoBehaviour {
     [SerializeField] private MMF_Player useCardPlayer;
     [SerializeField] private MMF_Player usePersistentCardPlayer;
     [SerializeField] private MMF_Player maxPersistentCardPlayer;
+    [SerializeField] private MMF_Player fadeOutPlayer;
     [SerializeField] private MMRotationShaker cantPlayShaker;
 
     [Header("Input Actions")]
@@ -217,11 +218,6 @@ public class HandCard : MonoBehaviour {
                 case PersistentUpgradeType.Dissolve:
                     maxPersistentCardPlayer.PlayFeedbacks();
                     trashingCard = true;
-
-                    //... apply cost only here because cost is applied when in DiscardHandCard and StackHandCard which don't get
-                    //... played when trashing card
-                    DeckManager.Instance.ChangeEssenceAmount(-card.Cost);
-
                     break;
                 case PersistentUpgradeType.BecomingMaxed:
                     usePersistentCardPlayer.PlayFeedbacks();
@@ -230,6 +226,10 @@ public class HandCard : MonoBehaviour {
                     useCardPlayer.PlayFeedbacks();
                     break;
             }
+        }
+        else if (card is ScriptableAbilityCardBase abilityCard && abilityCard.TrashAfterUse) {
+            trashingCard = true;
+            fadeOutPlayer.PlayFeedbacks();
         }
         else {
             useCardPlayer.PlayFeedbacks();
@@ -254,6 +254,12 @@ public class HandCard : MonoBehaviour {
             DeckManager.Instance.DiscardHandCard(cardIndex);
         }
 
+        if (trashingCard) {
+            //... apply cost only here because cost is applied when in DiscardHandCard and StackHandCard which don't get
+            //... played when trashing card
+            DeckManager.Instance.ChangeEssenceAmount(-card.Cost);
+        }
+
         AudioManager.Instance.PlaySound(AudioManager.Instance.AudioClips.PlayCard);
     }
 
@@ -270,7 +276,9 @@ public class HandCard : MonoBehaviour {
         ScriptableCardBase usedCard = card;
 
         bool dissolvingPersistent = card is ScriptablePersistentCard persistentCard && persistentCard.UpgradeType == PersistentUpgradeType.Dissolve;
-        if (dissolvingPersistent) {
+        bool usingOneUseAbility = card is ScriptableAbilityCardBase abilityCard && abilityCard.TrashAfterUse;
+
+        if (dissolvingPersistent || usingOneUseAbility) {
             DeckManager.Instance.TrashCard(CardLocation.Hand, cardIndex, usingCard: true);
         }
 

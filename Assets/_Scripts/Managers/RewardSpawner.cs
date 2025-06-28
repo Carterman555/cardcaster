@@ -61,10 +61,11 @@ public class RewardSpawner : MonoBehaviour {
 
                 EnemySpawner.Instance.SpawnEnemy(shinyGoblinPrefab, pos, createSpawnEffect: false);
                 AudioManager.Instance.PlaySound(AudioManager.Instance.AudioClips.SpawnShinyGoblin);
-                shinyGoblinChance -= balanceIncrement;
+
+                shinyGoblinChance -= balanceIncrement * (1 - startingShinyGoblinChance);
             }
             else {
-                shinyGoblinChance += balanceIncrement;
+                shinyGoblinChance += balanceIncrement * startingShinyGoblinChance;
             }
         }
     }
@@ -79,15 +80,15 @@ public class RewardSpawner : MonoBehaviour {
     [Command]
     private void SpawnReward() {
 
-        float balanceIncrement = 0.1f;
+        float balanceIncrement = 0.05f;
 
         if (Random.value < chestChance) {
             SpawnChest();
-            chestChance -= balanceIncrement;
+            chestChance -= balanceIncrement * (1 - startingChestChance);
         }
         else {
             SpawnCampfire();
-            chestChance += balanceIncrement;
+            chestChance += balanceIncrement * startingChestChance;
         }
     }
 

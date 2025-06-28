@@ -22,6 +22,6 @@ MonoBehaviour:
     Damage: 4
     AttackSpeed: 1
     KnockbackStrength: 10
-    AttackRange: 7
+    AttackRange: 0.1
   <Difficulty>k__BackingField: 2
   <Tags>k__BackingField: 1

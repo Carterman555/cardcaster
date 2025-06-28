@@ -12,7 +12,8 @@ public class ScriptableImaginaryTwinCard : ScriptableAbilityCardBase {
         ScriptableCardBase[] cardsInHand = DeckManager.Instance.GetCardsInHand().Where(c => c != this).ToArray();
 
         ScriptableCardBase randomCard = cardsInHand.RandomItem();
-        DeckManager.Instance.GainCard(randomCard);
+        ScriptableCardBase cardDuplicate = ResourceSystem.Instance.GetCardInstance(randomCard.CardType);
+        DeckManager.Instance.GainCard(cardDuplicate);
 
         if (CardsUIManager.Instance.TryGetHandCard(randomCard, out HandCard randomHandCard)) {
             VisualHandCard visualHandCard = visualHandCardPrefab.Spawn(CardsUIManager.Instance.transform);

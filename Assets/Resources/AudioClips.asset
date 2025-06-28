@@ -207,7 +207,7 @@ MonoBehaviour:
     PitchVariation: 0.1
   maxPersisent:
     Clips:
-    - {fileID: 8300000, guid: 559a1d7bd2f5f1f4295bc12280e75be2, type: 3}
+    - {fileID: 8300000, guid: f053ed6f43ea39e478abecdcb42b41ee, type: 3}
     Volume: 1
     PitchVariation: 0.1
   openDoor:

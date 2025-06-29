@@ -1,5 +1,6 @@
 using Cinemachine;
 using MoreMountains.Feedbacks;
+using Steamworks;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -18,7 +19,7 @@ public class BossManager : StaticInstance<BossManager> {
 
     private PlayerHealth playerHealth;
 
-    private bool FightingDealer => GameSceneManager.Instance.Level == 3;
+    private bool FightingDealer => GameSceneManager.Instance.Level % 3 == 0;
 
     protected override void Awake() {
         base.Awake();
@@ -112,6 +113,9 @@ public class BossManager : StaticInstance<BossManager> {
 
         OnBossKilled?.Invoke();
         OnBossKilled_Boss?.Invoke(bossObject);
+
+        SteamUserStats.SetAchievement("BossSlayer");
+        SteamUserStats.StoreStats();
     }
 
     private void OnPlayerDefeated() {

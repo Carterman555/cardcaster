@@ -1,18 +1,26 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
-public class SpawnBlankMemoryCards : MonoBehaviour {
+public class ObjectSpawner : MonoBehaviour {
 
-    [SerializeField] private BlankMemoryCardDrop blankMemoryCardPrefab;
+    [SerializeField] private Transform prefab;
 
     [SerializeField] private RandomFloat spawnCooldown;
-    [SerializeField] private int amountToSpawn;
+
+    [SerializeField] private bool spawnInfinite;
+    [SerializeField, ConditionalHideReversed("spawnInfinite")] private int amountToSpawn;
 
     private void Start() {
-        StartCoroutine(SpawnCards());
+        StartCoroutine(SpawnObjects());
     }
 
-    private IEnumerator SpawnCards() {
+    private IEnumerator SpawnObjects() {
+
+        if (spawnInfinite) {
+            amountToSpawn = int.MaxValue;
+        }
+
         for (int i = 0; i < amountToSpawn; i++) {
             yield return new WaitForSeconds(spawnCooldown.Randomize());
 
@@ -22,7 +30,7 @@ public class SpawnBlankMemoryCards : MonoBehaviour {
                 entranceAvoidDistance: 3f
             );
 
-            blankMemoryCardPrefab.Spawn(cardPosition, Containers.Instance.Drops);
+            prefab.Spawn(cardPosition, Containers.Instance.Drops);
         }
     }
 

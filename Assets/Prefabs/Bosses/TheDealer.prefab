@@ -14862,6 +14862,7 @@ GameObject:
   - component: {fileID: 3268686136608364858}
   - component: {fileID: 4289147054109515426}
   - component: {fileID: 4618278523374216532}
+  - component: {fileID: 5228495373230613984}
   - component: {fileID: 7842081825320602579}
   - component: {fileID: 3351410608047035514}
   - component: {fileID: 1767139438961328018}
@@ -14999,7 +15000,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1338195640233062225}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 87e7ea2f80ba1f142a7a52c588be3481, type: 3}
   m_Name: 
@@ -15138,7 +15139,7 @@ MonoBehaviour:
   centerTransform: {fileID: 2512676828727106287}
   delayBetweenStates: 2
   debugState: 0
-  stateToDebug: 4
+  stateToDebug: 3
   debugStartSecondStage: 0
   invincibilityEffect: {fileID: 5732803463431064132}
   invincibilityDuration: 8
@@ -15152,7 +15153,8 @@ MonoBehaviour:
   boomerangDelayBeforeShoot:
     MinValue: 2
     MaxValue: 3
-  boomerangShootCooldown: 6
+  boomerangShortShootCooldown: 4
+  boomerangLongShootCooldown: 10
   boomerangStartingSpeed: 30
   boomerangAcceleration: 40
   boomerangCombinations:
@@ -15291,11 +15293,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 95d76e504c4f22a449f627371acbc28e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  blankMemoryCardPrefab: {fileID: 617059064214003595, guid: 9a747fdf3408dea429e9a3a6489e8f10, type: 3}
+  prefab: {fileID: 4795253549214366797, guid: 9a747fdf3408dea429e9a3a6489e8f10, type: 3}
   spawnCooldown:
-    MinValue: 10
-    MaxValue: 15
-  amountToSpawn: 20
+    MinValue: 12
+    MaxValue: 14
+  spawnInfinite: 0
+  amountToSpawn: 12
+--- !u!114 &5228495373230613984
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1338195640233062225}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 95d76e504c4f22a449f627371acbc28e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefab: {fileID: 7431523793239819509, guid: 4fc0ec20b3f2f83449f12f912b3be8fa, type: 3}
+  spawnCooldown:
+    MinValue: 8
+    MaxValue: 12
+  spawnInfinite: 1
+  amountToSpawn: 0
 --- !u!114 &7842081825320602579
 MonoBehaviour:
   m_ObjectHideFlags: 0

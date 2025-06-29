@@ -1,3 +1,4 @@
+using Steamworks;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -93,14 +94,22 @@ public class AbilityManager : StaticInstance<AbilityManager> {
     }
 
     public void ApplyModifiers(ScriptableAbilityCardBase abilityCard) {
+
+        int compatibleModifierCount = 0;
         foreach (var modifierCard in activeModifiers) {
             if (abilityCard.IsCompatibleWithModifier(modifierCard)) {
                 abilityCard.ApplyModifier(modifierCard);
+                compatibleModifierCount++;
             }
         }
         activeModifiers.Clear();
 
         OnApplyModifiers?.Invoke();
+
+        if (compatibleModifierCount >= 10) {
+            SteamUserStats.SetAchievement("OverclockedAbility");
+            SteamUserStats.StoreStats();
+        }
     }
 
     #endregion

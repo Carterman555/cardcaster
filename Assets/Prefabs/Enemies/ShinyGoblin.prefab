@@ -255,8 +255,8 @@ MonoBehaviour:
   playerTracker: {fileID: 8469260667080230261}
   anim: {fileID: 8693357842044784570}
   fleeDelay:
-    MinValue: 7
-    MaxValue: 12
+    MinValue: 4
+    MaxValue: 6
   enchantmentOrbPrefab: {fileID: 1061520781153137347, guid: 0b1c7ceb1b42d964894840d8f4de771e, type: 3}
   quietTeleportSfx:
     Clips:

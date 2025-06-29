@@ -79,8 +79,10 @@ public class DealerBoomerangSword : MonoBehaviour {
     private void OnDisable() {
         boomerangMovement.OnReturn -= ReturnThis;
 
-        ParticleSystem newDestroyParticles = destroyParticles.Spawn(transform.position, transform.rotation, Containers.Instance.Effects);
-        newDestroyParticles.Play();
+        if (!Helpers.GameStopping()) {
+            ParticleSystem newDestroyParticles = destroyParticles.Spawn(transform.position, transform.rotation, Containers.Instance.Effects);
+            newDestroyParticles.Play();
+        }
 
         swingAudioSource.ReturnToPool();
     }

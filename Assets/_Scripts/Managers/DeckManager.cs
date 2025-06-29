@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Steamworks;
 
 public class DeckManager : Singleton<DeckManager> {
 
@@ -235,6 +236,12 @@ public class DeckManager : Singleton<DeckManager> {
                 RemoveHandGaps();
             }
             OnTrashCardInHand?.Invoke(usingCard);
+        }
+
+        bool noCards = cardsInHand.All(c => c == null);
+        if (noCards) {
+            SteamUserStats.SetAchievement("NothingUpMySleeve");
+            SteamUserStats.StoreStats();
         }
     }
 

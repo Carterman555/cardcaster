@@ -1,4 +1,5 @@
 using QFSW.QC;
+using Steamworks;
 using System;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -28,9 +29,6 @@ public class DebugManager : StaticInstance<DebugManager> {
     }
 
     private void OnStartGame() {
-
-        //print("DealerDefeatedAmount: " + ES3.Load("DealerDefeatedAmount", ES3EncryptionMigration.GetES3Settings()));
-
         GiveStartingCards();
         ApplyPlayerStatModifiers();
         ApplyStartingEnchantments();
@@ -199,5 +197,24 @@ public class DebugManager : StaticInstance<DebugManager> {
     [Command]
     public void SpawnOrb(Vector2 pos) {
         enchantmentOrbPrefab.Spawn(pos, Containers.Instance.Drops);
+    }
+
+    [Command, ContextMenu("ResetAchievements")]
+    private void ResetAchievements() {
+
+        string[] achievementIDs = new string[] {
+            "BossSlayer",
+            "ThatHurtABit",
+            "FinalDeal",
+            "NothingUpMySleeve",
+            "OverclockedAbility",
+        };
+
+        foreach (string achievementID in achievementIDs) {
+            SteamUserStats.ClearAchievement(achievementID);
+            Debug.Log($"Cleared achievement: {achievementID}");
+        }
+
+        SteamUserStats.StoreStats();
     }
 }

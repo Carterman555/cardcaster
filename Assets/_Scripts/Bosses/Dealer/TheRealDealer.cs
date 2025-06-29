@@ -1,5 +1,6 @@
 using DG.Tweening;
 using MoreMountains.Tools;
+using Steamworks;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -46,7 +47,7 @@ public class TheRealDealer : MonoBehaviour, IHasEnemyStats, IBoss {
     [SerializeField] private Animator anim;
     private EnemyHealth health;
     private NavMeshAgent agent;
-    private SpawnBlankMemoryCards spawnBlankMemoryCards;
+    private ObjectSpawner[] objectSpawners;
 
     [SerializeField] private Transform centerTransform;
 
@@ -63,7 +64,7 @@ public class TheRealDealer : MonoBehaviour, IHasEnemyStats, IBoss {
     private void Awake() {
         health = GetComponent<EnemyHealth>();
         agent = GetComponent<NavMeshAgent>();
-        spawnBlankMemoryCards = GetComponent<SpawnBlankMemoryCards>();
+        objectSpawners = GetComponents<ObjectSpawner>();
     }
 
     private void OnEnable() {
@@ -96,7 +97,7 @@ public class TheRealDealer : MonoBehaviour, IHasEnemyStats, IBoss {
             float delayToStart = 2f;
             DOVirtual.DelayedCall(delayToStart, () => {
                 ChangeState(RealDealerState.BetweenStates);
-                spawnBlankMemoryCards.enabled = true;
+                foreach (var objectSpawner in objectSpawners) objectSpawner.enabled = true;
             });
         }
         else {
@@ -109,7 +110,7 @@ public class TheRealDealer : MonoBehaviour, IHasEnemyStats, IBoss {
 
         BecomeInvincible();
 
-        spawnBlankMemoryCards.enabled = false;
+        foreach (var objectSpawner in objectSpawners) objectSpawner.enabled = false;
 
         defeated = false;
 
@@ -234,7 +235,7 @@ public class TheRealDealer : MonoBehaviour, IHasEnemyStats, IBoss {
         ES3.Save("DealerDefeatedAmount", defeatedAmount, ES3EncryptionMigration.GetES3Settings());
 
         ChangeState(RealDealerState.BetweenStates);
-        spawnBlankMemoryCards.enabled = false;
+        foreach (var objectSpawner in objectSpawners) objectSpawner.enabled = false;
 
         yield return new WaitForSeconds(1f);
 
@@ -262,6 +263,9 @@ public class TheRealDealer : MonoBehaviour, IHasEnemyStats, IBoss {
         gameObject.ReturnToPool();
 
         TrashBlankMemoryCards();
+
+        SteamUserStats.SetAchievement("FinalDeal");
+        SteamUserStats.StoreStats();
     }
 
     private void TrashBlankMemoryCards() {
@@ -377,7 +381,8 @@ public class TheRealDealer : MonoBehaviour, IHasEnemyStats, IBoss {
     [SerializeField] private DealerBoomerangSword boomerangSwordPrefab;
 
     [SerializeField] private RandomFloat boomerangDelayBeforeShoot;
-    [SerializeField] private float boomerangShootCooldown;
+    [SerializeField] private float boomerangShortShootCooldown;
+    [SerializeField] private float boomerangLongShootCooldown;
     [SerializeField] private float boomerangStartingSpeed;
     [SerializeField] private float boomerangAcceleration;
 
@@ -440,7 +445,16 @@ public class TheRealDealer : MonoBehaviour, IHasEnemyStats, IBoss {
 
         boomerangSwordRepetitions.Randomize();
         for (int i = 0; i < boomerangSwordRepetitions.Value; i++) {
-            yield return new WaitForSeconds(boomerangShootCooldown);
+
+            bool thirdShot = i != 0 && i % 3 == 0;
+            print($"{thirdShot}, {i}");
+
+            if (thirdShot) {
+                yield return new WaitForSeconds(boomerangLongShootCooldown);
+            }
+            else {
+                yield return new WaitForSeconds(boomerangShortShootCooldown);
+            }
 
             BoomerangCombination boomerangCombination = boomerangCombinations.RandomItem();
 
@@ -661,7 +675,7 @@ public class TheRealDealer : MonoBehaviour, IHasEnemyStats, IBoss {
                 BossManager.Instance.ResumeEnterBossPlayer();
 
                 ChangeState(RealDealerState.BetweenStates);
-                spawnBlankMemoryCards.enabled = true;
+                foreach (var objectSpawner in objectSpawners) objectSpawner.enabled = true;
             }
         }
         else if (currentState == RealDealerState.DefeatedDialog) {

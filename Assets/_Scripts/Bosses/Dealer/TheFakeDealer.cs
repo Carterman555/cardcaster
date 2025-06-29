@@ -1,5 +1,6 @@
 using DG.Tweening;
 using QFSW.QC;
+using Steamworks;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -92,8 +93,9 @@ public class TheFakeDealer : MonoBehaviour, IHasEnemyStats, IBoss {
         //... more bloody the more times he's been defeated
         anim.SetInteger("defeatedAmount", defeatedAmount);
 
-        //... only spawn blank memory cards when fighting real dealer
-        GetComponent<SpawnBlankMemoryCards>().enabled = false;
+        // only spawn blank memory cards and essence orbs when fighting real dealer
+        ObjectSpawner[] objectSpawners = GetComponents<ObjectSpawner>();
+        foreach (var objectSpawner in objectSpawners) objectSpawner.enabled = false;
     }
 
     private void OnDisable() {
@@ -410,6 +412,9 @@ public class TheFakeDealer : MonoBehaviour, IHasEnemyStats, IBoss {
         fleeParticlesInstance.gameObject.SetActive(true);
 
         gameObject.ReturnToPool();
+
+        SteamUserStats.SetAchievement("ThatHurtABit");
+        SteamUserStats.StoreStats();
     }
 
     [ContextMenu("ResetDefeatedAmount")]

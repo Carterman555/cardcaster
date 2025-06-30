@@ -2796,11 +2796,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6406168845811474983, guid: 4723c0ded694bfb4b9bd66f2d1dae76b, type: 3}
       propertyPath: m_LocalBounds.m_Extent.x
-      value: 11.50045
+      value: 11.25045
       objectReference: {fileID: 0}
     - target: {fileID: 6406168845811474983, guid: 4723c0ded694bfb4b9bd66f2d1dae76b, type: 3}
       propertyPath: m_LocalBounds.m_Extent.y
-      value: 14.00065
+      value: 13.75065
       objectReference: {fileID: 0}
     - target: {fileID: 6406168845811474983, guid: 4723c0ded694bfb4b9bd66f2d1dae76b, type: 3}
       propertyPath: m_ShapePath.Array.data[0].x
@@ -14707,7 +14707,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5074703438593019134, guid: a063a5caef563404f99042e3934f0445, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -13.635624
+      value: -11.42
       objectReference: {fileID: 0}
     - target: {fileID: 5074703438593019134, guid: a063a5caef563404f99042e3934f0445, type: 3}
       propertyPath: m_LocalPosition.z

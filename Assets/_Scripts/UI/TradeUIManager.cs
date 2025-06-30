@@ -1,4 +1,5 @@
 using DG.Tweening;
+using System;
 using UnityEngine;
 using UnityEngine.Localization;
 using UnityEngine.UI;
@@ -18,6 +19,7 @@ public class TradeUIManager : StaticInstance<TradeUIManager>, IInitializable {
     private int currentCardIndex;
 
     [SerializeField] private Button tradeButton;
+    [SerializeField] private Button cancelButton;
 
     private ScriptableCardBase newCard;
     private ShopCard shopItem;
@@ -44,13 +46,14 @@ public class TradeUIManager : StaticInstance<TradeUIManager>, IInitializable {
         InputManager.OnControlSchemeChanged += TrySelectButton;
 
         tradeButton.onClick.AddListener(OnTradeButtonClicked);
+        cancelButton.onClick.AddListener(OnCancelButtonClicked);
 
         this.shopItem = shopItem;
         this.newCard = newCard;
 
         newCardIcon.sprite = newCard.Sprite;
 
-        GameSceneManager.Instance.StartCoroutine(AllCardsPanel.Instance.MakeCardSelectable(newCard.Rarity));
+        GameSceneManager.Instance.StartCoroutine(AllCardsPanel.Instance.MakeCardsSelectable(newCard.Rarity));
     }
 
     public void Deactivate() {
@@ -61,6 +64,7 @@ public class TradeUIManager : StaticInstance<TradeUIManager>, IInitializable {
         InputManager.OnControlSchemeChanged -= TrySelectButton;
 
         tradeButton.onClick.RemoveListener(OnTradeButtonClicked);
+        cancelButton.onClick.RemoveListener(OnCancelButtonClicked);
 
         panelCardToTrade = null;
     }
@@ -71,7 +75,7 @@ public class TradeUIManager : StaticInstance<TradeUIManager>, IInitializable {
 
     private void TrySelectButton() {
         if (InputManager.Instance.GetControlScheme() == ControlSchemeType.Controller) {
-            GameSceneManager.Instance.StartCoroutine(AllCardsPanel.Instance.MakeCardSelectable(newCard.Rarity));
+            GameSceneManager.Instance.StartCoroutine(AllCardsPanel.Instance.MakeCardsSelectable(newCard.Rarity));
         }
     }
 
@@ -126,6 +130,10 @@ public class TradeUIManager : StaticInstance<TradeUIManager>, IInitializable {
             // replace the player's card with shop item card
             DeckManager.Instance.ReplaceCard(currentCardLocation, currentCardIndex, newCard);
         });
+    }
+
+    private void OnCancelButtonClicked() {
+        GameSceneManager.Instance.StartCoroutine(AllCardsPanel.Instance.MakeCardsSelectable(newCard.Rarity));
     }
 
     private Tween SwapIcons() {

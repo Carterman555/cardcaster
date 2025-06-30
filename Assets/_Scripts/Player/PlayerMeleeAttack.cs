@@ -8,7 +8,7 @@ using UnityEngine.Rendering;
 public class PlayerMeleeAttack : StaticInstance<PlayerMeleeAttack>, ITargetAttacker {
 
     public event Action OnAttack;
-    public event Action OnBasicAttack;
+    public static event Action OnBasicAttack;
     public event Action<GameObject> OnDamage_Target;
 
     [SerializeField] private InputActionReference attackInput;

@@ -107,7 +107,7 @@ public class Knockback : MonoBehaviour {
     }
 
     private void SetVelocity(Vector2 velocity) {
-        if (agent != null) {
+        if (agent != null && agent.enabled) {
             agent.velocity = velocity;
         }
         else if (rb != null) {

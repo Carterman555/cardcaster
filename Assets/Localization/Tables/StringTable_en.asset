@@ -140,7 +140,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 727228553367552
-    m_Localized: Creates a shockwave on hit
+    m_Localized: Creates a shockwave on hit for 10 seconds.
     m_Metadata:
       m_Items: []
   - m_Id: 727259897401344

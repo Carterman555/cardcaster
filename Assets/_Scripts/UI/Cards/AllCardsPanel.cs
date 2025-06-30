@@ -56,7 +56,7 @@ public class AllCardsPanel : StaticInstance<AllCardsPanel> {
     #region Controller Input
 
     // played by trash and trade manager, so can select cards when they are active
-    public IEnumerator MakeCardSelectable() {
+    public IEnumerator MakeCardsSelectable() {
 
         int framesToWait = 60;
         int frameCounter = 0;
@@ -81,7 +81,7 @@ public class AllCardsPanel : StaticInstance<AllCardsPanel> {
         }
     }
 
-    public IEnumerator MakeCardSelectable(Rarity minRarity) {
+    public IEnumerator MakeCardsSelectable(Rarity minRarity) {
 
         int framesToWait = 60;
         int frameCounter = 0;

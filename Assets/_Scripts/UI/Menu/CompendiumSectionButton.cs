@@ -45,6 +45,11 @@ public class CompendiumSectionButton : GameButton, IPointerEnterHandler, IPointe
     }
 
     public void OnPointerEnter(PointerEventData eventData) {
+
+        if (InputManager.Instance.GetControlScheme() != ControlSchemeType.Keyboard) {
+            return;
+        }
+
         menuButtonInteractVisual.ShowUnderline();
     }
 
@@ -53,6 +58,11 @@ public class CompendiumSectionButton : GameButton, IPointerEnterHandler, IPointe
     }
 
     public void OnPointerExit(PointerEventData eventData) {
+
+        if (InputManager.Instance.GetControlScheme() != ControlSchemeType.Keyboard) {
+            return;
+        }
+
         if (!Selected) {
             menuButtonInteractVisual.HideUnderline();
         }

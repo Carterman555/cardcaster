@@ -24,7 +24,7 @@ public class TrashCardManager : StaticInstance<TrashCardManager> {
         InputManager.OnControlSchemeChanged += TrySelectButton;
 
         //... can select cards if trashing card
-        GameSceneManager.Instance.StartCoroutine(AllCardsPanel.Instance.MakeCardSelectable());
+        GameSceneManager.Instance.StartCoroutine(AllCardsPanel.Instance.MakeCardsSelectable());
     }
 
     public void Deactivate() {
@@ -75,7 +75,7 @@ public class TrashCardManager : StaticInstance<TrashCardManager> {
 
     private void TrySelectButton() {
         if (InputManager.Instance.GetControlScheme() == ControlSchemeType.Controller) {
-            GameSceneManager.Instance.StartCoroutine(AllCardsPanel.Instance.MakeCardSelectable());
+            GameSceneManager.Instance.StartCoroutine(AllCardsPanel.Instance.MakeCardsSelectable());
         }
     }
 }

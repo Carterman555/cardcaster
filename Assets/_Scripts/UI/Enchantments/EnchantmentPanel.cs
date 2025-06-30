@@ -37,5 +37,14 @@ public class EnchantmentPanel : MonoBehaviour {
             enchantmentImage.gameObject.ReturnToPool();
         }
         enchantmentImages.Clear();
+
+        // so when close close out of enchantments on death panel, selects restart button
+        StartSelected startSelected = FindAnyObjectByType<StartSelected>();
+        if (startSelected != null) {
+            EventSystem.current.SetSelectedGameObject(startSelected.gameObject);
+        }
+        else {
+            EventSystem.current.SetSelectedGameObject(null);
+        }
     }
 }

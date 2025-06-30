@@ -9,6 +9,11 @@ public class CancelCardPanel : MonoBehaviour, IPointerEnterHandler, IPointerExit
     public static event Action OnSetToPlay;
 
     public void OnPointerEnter(PointerEventData eventData) {
+
+        if (InputManager.Instance.GetControlScheme() != ControlSchemeType.Keyboard) {
+            return;
+        }
+
         OnSetToCancel?.Invoke();
 
         transform.DOKill();
@@ -18,6 +23,11 @@ public class CancelCardPanel : MonoBehaviour, IPointerEnterHandler, IPointerExit
     }
 
     public void OnPointerExit(PointerEventData eventData) {
+
+        if (InputManager.Instance.GetControlScheme() != ControlSchemeType.Keyboard) {
+            return;
+        }
+
         OnSetToPlay?.Invoke();
 
         transform.DOKill();

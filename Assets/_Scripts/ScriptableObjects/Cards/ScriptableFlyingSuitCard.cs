@@ -18,13 +18,13 @@ public class ScriptableFlyingSuitCard : ScriptablePersistentHandCard {
     public override void OnInstanceCreated() {
         base.OnInstanceCreated();
 
-        PlayerMeleeAttack.Instance.OnBasicAttack += OnBasicAttack;
+        PlayerMeleeAttack.OnBasicAttack += OnBasicAttack;
     }
 
     public override void OnRemoved() {
         base.OnRemoved();
 
-        PlayerMeleeAttack.Instance.OnBasicAttack -= OnBasicAttack;
+        PlayerMeleeAttack.OnBasicAttack -= OnBasicAttack;
     }
 
     private void OnBasicAttack() {

@@ -42,6 +42,10 @@ public class ButtonAudio : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
 
     public void OnPointerEnter(PointerEventData eventData) {
 
+        if (InputManager.Instance.GetControlScheme() != ControlSchemeType.Keyboard) {
+            return;
+        }
+
         CanvasGroup canvasGroup = GetComponentInParent<CanvasGroup>();
         bool groupInteractable = canvasGroup == null || canvasGroup.interactable;
 

@@ -105,6 +105,7 @@ GameObject:
   - component: {fileID: -4080490040357254744}
   - component: {fileID: 3590918457497778308}
   - component: {fileID: 946293228287324947}
+  - component: {fileID: -684011218071289938}
   - component: {fileID: 357451342900074160}
   - component: {fileID: 1304013747714631756}
   m_Layer: 7
@@ -245,6 +246,27 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   overrideKnockback: 0
   overrideKnockbackResistance: 100
+--- !u!114 &-684011218071289938
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 520499752767023456}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38e9c250821dd684880f7914de8d26bb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  essencePrefab: {fileID: 3327677883894410736, guid: 12e28bcb234b1b548ae2d9e6745360a6, type: 3}
+  dropAmount:
+    MinValue: 1
+    MaxValue: 1
+  dropChancePerDmg: 0.03
+  yOffset: 3
+  yVariation: 2
+  hasMax: 0
+  maxDropAmount: 0
 --- !u!114 &357451342900074160
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -277,6 +299,8 @@ MonoBehaviour:
   bounceVariation: 0
   twoWayFacing: 1
   facingAngleOffset: 0
+  hasFacingTarget: 0
+  facingTarget: {fileID: 0}
   hasMoveSFX: 0
   moveSFX:
     Clips: []

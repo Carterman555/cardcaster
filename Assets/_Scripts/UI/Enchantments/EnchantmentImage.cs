@@ -29,11 +29,21 @@ public class EnchantmentImage : Selectable {
 
     public override void OnPointerEnter(PointerEventData eventData) {
         base.OnPointerEnter(eventData);
+
+        if (InputManager.Instance.GetControlScheme() != ControlSchemeType.Keyboard) {
+            return;
+        }
+
         EnchantmentInfoManager.Instance.ShowEnchantmentInfo(enchantmentType, transform.position);
     }
 
     public override void OnPointerExit(PointerEventData eventData) {
         base.OnPointerExit(eventData);
+
+        if (InputManager.Instance.GetControlScheme() != ControlSchemeType.Keyboard) {
+            return;
+        }
+
         EnchantmentInfoManager.Instance.HideEnchantmentInfo();
     }
 

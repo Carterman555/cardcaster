@@ -10,11 +10,21 @@ public class MenuButtonInteractVisual : MonoBehaviour, IPointerEnterHandler, IPo
     [SerializeField] private bool underlineOnHover = true;
 
     public void OnPointerEnter(PointerEventData eventData) {
+
+        if (InputManager.Instance.GetControlScheme() != ControlSchemeType.Keyboard) {
+            return;
+        }
+
         if (underlineOnHover) {
             ShowUnderline();
         }
     }
     public void OnPointerExit(PointerEventData eventData) {
+
+        if (InputManager.Instance.GetControlScheme() != ControlSchemeType.Keyboard) {
+            return;
+        }
+
         if (underlineOnHover) {
             HideUnderline();
         }

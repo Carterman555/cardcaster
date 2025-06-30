@@ -14,10 +14,20 @@ public class MaterialOnHover : MonoBehaviour, IPointerEnterHandler, IPointerExit
     }
 
     public void OnPointerEnter(PointerEventData eventData) {
+
+        if (InputManager.Instance.GetControlScheme() != ControlSchemeType.Keyboard) {
+            return;
+        }
+
         image.material = hoverMaterial;
     }
 
     public void OnPointerExit(PointerEventData eventData) {
+
+        if (InputManager.Instance.GetControlScheme() != ControlSchemeType.Keyboard) {
+            return;
+        }
+
         image.material = originalMaterial;
     }
 }

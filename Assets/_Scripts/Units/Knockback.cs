@@ -65,17 +65,7 @@ public class Knockback : MonoBehaviour {
         float knockbackFactor = 10f;
         float knockbackForce = strength / GetKnockbackResistance();
         knockbackVelocity = knockbackForce * knockbackFactor * direction.normalized;
-
-        if (agent != null) {
-            agent.velocity = knockbackVelocity;
-        }
-        else if (rb != null) {
-            rb.velocity = knockbackVelocity;
-        }
-        else {
-            Debug.LogError($"Trying to apply knockback to {name}, but doesn't have agent or rb!");
-            return;
-        }
+        SetVelocity(knockbackVelocity);
     }
 
     public void FixedUpdate() {
@@ -84,16 +74,19 @@ public class Knockback : MonoBehaviour {
             float knockbackDeacceleration = 100f;
 
             knockbackVelocity = Vector2.MoveTowards(knockbackVelocity, Vector2.zero, knockbackDeacceleration * Time.fixedDeltaTime);
-            if (agent != null) {
-                agent.velocity = knockbackVelocity;
-            }
-            else if (rb != null) {
-                rb.velocity = knockbackVelocity;
-            }
-            else {
-                Debug.LogError($"Trying to apply knockback to {name}, but doesn't have agent or rb!");
-                return;
-            }
+            SetVelocity(knockbackVelocity);
+        }
+    }
+
+    private void SetVelocity(Vector2 velocity) {
+        if (agent != null && agent.enabled) {
+            agent.velocity = velocity;
+        }
+        else if (rb != null) {
+            rb.velocity = velocity;
+        }
+        else {
+            Debug.LogError($"Trying to apply knockback to {name}, but doesn't have agent or rb!");
         }
     }
 }

@@ -211,6 +211,10 @@ public class HandCard : MonoBehaviour {
             if (persistentCard.CurrentLevel == persistentCard.MaxLevel) {
                 maxPersistentCardPlayer.PlayFeedbacks();
                 trashingCard = true; // trashes the card in OnUsedCard
+
+                //... apply cost only here because cost is applied when in DiscardHandCard and StackHandCard which don't get
+                //... played when trashing card
+                DeckManager.Instance.ChangeEssenceAmount(-card.Cost);
             }
             else {
                 usePersistentCardPlayer.PlayFeedbacks();
@@ -223,13 +227,13 @@ public class HandCard : MonoBehaviour {
         if (!trashingCard) {
             if (card is ScriptableModifierCardBase modifierCard) {
 
-            bool wontApply = modifierCard.StackType == StackType.NotStackable && modifierAlreadyActive;
-            if (wontApply) {
-                DeckManager.Instance.DiscardHandCard(cardIndex);
-            }
-            else {
-                DeckManager.Instance.StackHandCard(cardIndex);
-            }
+                bool wontApply = modifierCard.StackType == StackType.NotStackable && modifierAlreadyActive;
+                if (wontApply) {
+                    DeckManager.Instance.DiscardHandCard(cardIndex);
+                }
+                else {
+                    DeckManager.Instance.StackHandCard(cardIndex);
+                }
 
                 if (modifierCard.StackType == StackType.Stackable || !modifierAlreadyActive) {
                     ModifierImage modifierImage = modifierImagePrefab.Spawn(transform.position, Containers.Instance.HUD);
@@ -329,7 +333,7 @@ public class HandCard : MonoBehaviour {
 
     #region Handle Cancelling
 
-    
+
 
     public void CancelCard() {
 

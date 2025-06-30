@@ -429,7 +429,7 @@ MonoBehaviour:
     MinValue: 1
     MaxValue: 1
   dropChancePerDmg: 0.03
-  yOffset: 0
+  yOffset: 3
   yVariation: 2
   hasMax: 0
   maxDropAmount: 0

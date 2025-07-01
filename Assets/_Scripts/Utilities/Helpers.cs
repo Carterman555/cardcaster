@@ -33,6 +33,14 @@ public static class Helpers {
         return false;
     }
 
+    public static Vector3 GetAveragePos(this Vector3[] positions) {
+        Vector3 sum = Vector3.zero;
+        foreach (var pos in positions) {
+            sum += pos;
+        }
+        return sum / positions.Length;
+    }
+
     public static void Fade(this SpriteRenderer spriteRenderer, float value) {
         Color color = spriteRenderer.color;
         color.a = value;

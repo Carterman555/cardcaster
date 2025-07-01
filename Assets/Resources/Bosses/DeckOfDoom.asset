@@ -25,7 +25,7 @@ MonoBehaviour:
   <Stats>k__BackingField:
     MaxHealth: 600
     KnockbackResistance: 100
-    MoveSpeed: 4
+    MoveSpeed: 7
     Damage: 0
     AttackSpeed: 5
     KnockbackStrength: 1

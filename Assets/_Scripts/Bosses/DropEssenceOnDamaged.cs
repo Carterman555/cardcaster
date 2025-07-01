@@ -31,6 +31,10 @@ public class DropEssenceOnDamaged : MonoBehaviour {
 
     private void TryDropEssence(float damage, bool shared, bool crit) {
 
+        if (shared) {
+            return;
+        }
+
         if (hasMax && dropCount >= maxDropAmount) {
             return;
         }

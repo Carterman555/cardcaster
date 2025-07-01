@@ -176,7 +176,7 @@ MonoBehaviour:
       MaxValue: 12
   anim: {fileID: 4039351960834069205}
   centerPoint: {fileID: 2512676828727106287}
-  debugState: 1
+  debugState: 0
   stateToDebug: 2
   visual: {fileID: 1823223821966942030}
   electricFieldParticles: {fileID: 6796057639315721125}

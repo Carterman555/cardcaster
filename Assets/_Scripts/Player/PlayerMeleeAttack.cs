@@ -10,6 +10,7 @@ public class PlayerMeleeAttack : StaticInstance<PlayerMeleeAttack>, ITargetAttac
     public event Action OnAttack;
     public static event Action OnBasicAttack;
     public event Action<GameObject> OnDamage_Target;
+    public event Action<GameObject[]> OnAttack_Targets;
 
     [SerializeField] private InputActionReference attackInput;
     [SerializeField] private SlashingWeapon weapon;
@@ -18,7 +19,6 @@ public class PlayerMeleeAttack : StaticInstance<PlayerMeleeAttack>, ITargetAttac
 
     [SerializeField] private float inputBufferTime;
     private bool attackBuffered;
-    private float timeOfInput;
 
     private PlayerDashAttack playerDashAttack;
 
@@ -98,6 +98,8 @@ public class PlayerMeleeAttack : StaticInstance<PlayerMeleeAttack>, ITargetAttac
             targetCols = DamageDealer.DealCircleDamage(GameLayers.PlayerTargetLayerMask, PlayerMovement.Instance.CenterPos, attackCenter, GetAttackRadius(), Stats.BasicAttackDamage, Stats.KnockbackStrength, canCrit: true);
 
             slashPrefab.Spawn(PlayerMovement.Instance.CenterPos, GetAttackDirection().DirectionToRotation(), Containers.Instance.Effects);
+
+            OnBasicAttack?.Invoke();
         }
 
         AudioManager.Instance.PlaySound(AudioManager.Instance.AudioClips.Swing);
@@ -106,7 +108,6 @@ public class PlayerMeleeAttack : StaticInstance<PlayerMeleeAttack>, ITargetAttac
 
         // invoke events
         OnAttack?.Invoke();
-        OnBasicAttack?.Invoke();
 
         // turn the targetCol array into health array
         EnemyHealth[] targetHealths = targetCols
@@ -117,6 +118,8 @@ public class PlayerMeleeAttack : StaticInstance<PlayerMeleeAttack>, ITargetAttac
         foreach (EnemyHealth health in targetHealths) {
             OnDamage_Target?.Invoke(health.gameObject);
         }
+
+        OnAttack_Targets?.Invoke(targetCols.Select(h => h.gameObject).ToArray());
     }
 
     public void ExternalAttack(GameObject target, Vector2 attackCenter, float damageMult = 1f, float knockbackStrengthMult = 1f) {

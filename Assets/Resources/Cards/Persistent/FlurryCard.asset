@@ -62,7 +62,7 @@ MonoBehaviour:
   statModifiersPerLevel:
   - PlayerStatType: 4
     ModifyType: 0
-    Value: 0.15
+    Value: 0.1
   references:
     version: 2
     RefIds: []

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -10,7 +11,13 @@ public class ScriptablePersistentHandCard : ScriptablePersistentCard {
     public override void OnInstanceCreated() {
         base.OnInstanceCreated();
 
-        updateCor = AbilityManager.Instance.StartCoroutine(UpdateCor());
+        updateCor = GameSceneManager.Instance.StartCoroutine(UpdateCor());
+    }
+
+    public override void OnRemoved() {
+        base.OnRemoved();
+
+        GameSceneManager.Instance.StopCoroutine(updateCor);
     }
 
     private IEnumerator UpdateCor() {
@@ -22,12 +29,6 @@ public class ScriptablePersistentHandCard : ScriptablePersistentCard {
 
             yield return null;
         }
-    }
-
-    public override void OnRemoved() {
-        base.OnRemoved();
-
-        AbilityManager.Instance.StopCoroutine(updateCor);
     }
 
     protected virtual void InHandUpdate() {

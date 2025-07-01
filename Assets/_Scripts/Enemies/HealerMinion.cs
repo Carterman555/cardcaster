@@ -4,7 +4,6 @@ using UnityEngine;
 public class HealerMinion : Enemy {
 
     private BounceMoveBehaviour bounceMoveBehaviour;
-    private Rigidbody2D rb;
 
     [SerializeField] private float jumpPower;
     [SerializeField] private float jumpDuration;
@@ -15,7 +14,6 @@ public class HealerMinion : Enemy {
         base.Awake();
 
         bounceMoveBehaviour = GetComponent<BounceMoveBehaviour>();
-        rb = GetComponent<Rigidbody2D>();
     }
 
     protected override void OnEnable() {
@@ -25,6 +23,12 @@ public class HealerMinion : Enemy {
         bounceMoveBehaviour.enabled = true;
 
         GetComponentInChildren<SpriteRenderer>().sortingOrder = 0;
+    }
+
+    protected override void OnDisable() {
+        base.OnDisable();
+
+        transform.DOKill();
     }
 
     private void OnTriggerEnter2D(Collider2D collision) {

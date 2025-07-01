@@ -59,9 +59,9 @@ MonoBehaviour:
     m_LocalVariables: []
   abilityAttributes: 7
   baseStats:
-    BaseDamage: 0.5
+    BaseDamage: 2
     KnockbackStrength: 10
-    AreaSize: 1
+    AreaSize: 2
     Duration: 10
     ProjectileSpeed: 0
     Cooldown: 0
@@ -69,6 +69,7 @@ MonoBehaviour:
   <IsPositional>k__BackingField: 0
   <IsModifiable>k__BackingField: 1
   incompatibleAbilities: 
+  trashAfterUse: 0
   shockwavePrefab: {fileID: -5963227168189626075, guid: 6b0bda39ed8ba824faf96be71532084b, type: 3}
   references:
     version: 2

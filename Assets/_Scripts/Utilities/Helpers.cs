@@ -33,6 +33,30 @@ public static class Helpers {
         return false;
     }
 
+    public static Vector3 GetCenterPos(this Vector3[] positions) {
+        float minX = positions.Min(pos => pos.x);
+        float minY = positions.Min(pos => pos.y);
+        float minZ = positions.Min(pos => pos.z);
+
+        float maxX = positions.Max(pos => pos.x);
+        float maxY = positions.Max(pos => pos.y);
+        float maxZ = positions.Max(pos => pos.z);
+
+        float centerX = (minX + maxX) / 2;
+        float centerY = (minY + maxY) / 2;
+        float centerZ = (minZ + maxZ) / 2;
+
+        return new Vector3(centerX, centerY, centerZ);
+    }
+
+    public static Vector3 GetAveragePos(this Vector3[] positions) {
+        Vector3 sum = Vector3.zero;
+        foreach (Vector3 pos in positions) {
+            sum += pos;
+        }
+        return sum / positions.Length;
+    }
+
     public static void Fade(this SpriteRenderer spriteRenderer, float value) {
         Color color = spriteRenderer.color;
         color.a = value;

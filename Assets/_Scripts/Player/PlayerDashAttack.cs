@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class PlayerDashAttack : MonoBehaviour {
@@ -43,7 +44,6 @@ public class PlayerDashAttack : MonoBehaviour {
         Vector2 pos = (Vector2)playerMovement.CenterPos + (playerMeleeAttack.GetAttackDirection() * attackSize.x * 0.5f);
 
         Collider2D[] cols = Physics2D.OverlapCapsuleAll(pos, attackSize, CapsuleDirection2D.Horizontal, angle, GameLayers.PlayerTargetLayerMask);
-
         foreach (Collider2D col in cols) {
             if (col.TryGetComponent(out DropEssenceOnDeath dropEssenceOnDeath)) {
                 dropEssenceOnDeath.DropMult = ScriptableEssenceHarvestCard.TotalDropMult;

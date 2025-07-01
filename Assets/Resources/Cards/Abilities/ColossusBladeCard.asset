@@ -69,6 +69,7 @@ MonoBehaviour:
   <IsPositional>k__BackingField: 0
   <IsModifiable>k__BackingField: 1
   incompatibleAbilities: 
+  trashAfterUse: 0
   statModifiers:
   - PlayerStatType: 6
     ModifyType: 0
@@ -81,7 +82,7 @@ MonoBehaviour:
     Value: 10
   - PlayerStatType: 2
     ModifyType: 1
-    Value: 0.2
+    Value: 0.5
   bigSwordSprite: {fileID: 21300000, guid: b2149264fa5b3c34aa0bd7ace452b311, type: 3}
   normalSwordSprite: {fileID: -7548330956807559887, guid: 5c535993996dd1841aaedb9eb6cd812f, type: 3}
   references:

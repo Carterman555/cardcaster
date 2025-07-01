@@ -215,19 +215,11 @@ public class ThunderGolem : MonoBehaviour, IHasEnemyStats, IBoss {
     }
 
     private IEnumerator ShootProjectiles() {
+
+        yield return new WaitForSeconds(GetEnemyStats().AttackCooldown);
         while (currentState == GolemState.Chase) {
-
-            float glowDuration = 0f;
-
-            if (glowDuration > GetEnemyStats().AttackCooldown) {
-                Debug.LogWarning("glowDuration should not be greater than GetStats().AttackCooldown!");
-                glowDuration = GetEnemyStats().AttackCooldown;
-            }
-
-            // minus glowDuration so glowing effect doesn't add to shoot cooldown
-            yield return new WaitForSeconds(GetEnemyStats().AttackCooldown - glowDuration);
-
             shootBehavior.ShootProjectile();
+            yield return new WaitForSeconds(GetEnemyStats().AttackCooldown);
         }
     }
 

@@ -182,9 +182,23 @@ public class DrChonk : MonoBehaviour, IHasEnemyStats, IBoss {
         health.Heal(healAmount);
         AudioManager.Instance.PlaySound(AudioManager.Instance.AudioClips.DrChonkHeal);
 
-        //... to correct rotation when boss has different rotation due to BounceMoveBehaviour
-        healEffect.transform.rotation = Quaternion.identity;
+        StartCoroutine(HealEffectCor());
+        
+    }
+    private IEnumerator HealEffectCor() {
+
         healEffect.Play();
+
+        float effectRemainingDuration = 1f;
+        while (effectRemainingDuration > 0) {
+            effectRemainingDuration -= Time.deltaTime;
+
+            //... to correct rotation when boss bounces
+            healEffect.transform.position = transform.position + new Vector3(0f, -0.67f);
+            healEffect.transform.rotation = Quaternion.identity;
+
+            yield return null;
+        }
     }
 
     #region Smash

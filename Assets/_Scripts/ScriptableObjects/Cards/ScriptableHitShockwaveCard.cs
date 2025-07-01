@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "ShockwaveCard", menuName = "Cards/Shockwave Card")]
@@ -9,7 +10,7 @@ public class ScriptableHitShockwave : ScriptableAbilityCardBase {
     protected override void Play(Vector2 position) {
         base.Play(position);
 
-        PlayerMeleeAttack.Instance.OnDamage_Target += CreateShockwave;
+        PlayerMeleeAttack.Instance.OnAttack_Targets += TryCreateShockwave;
     }
 
     public override void Stop() {
@@ -17,11 +18,17 @@ public class ScriptableHitShockwave : ScriptableAbilityCardBase {
 
         effectModifiers.Clear();
 
-        PlayerMeleeAttack.Instance.OnDamage_Target -= CreateShockwave;
+        PlayerMeleeAttack.Instance.OnAttack_Targets -= TryCreateShockwave;
     }
 
-    private void CreateShockwave(GameObject target) {
-        CircleDamageAttacker circleDamage = shockwavePrefab.Spawn(target.transform.position, Containers.Instance.Effects);
+    private void TryCreateShockwave(GameObject[] targets) {
+
+        if (targets.Length == 0) {
+            return;
+        }
+
+        Vector2 pos = targets.Select(t => t.transform.position).ToArray().GetAveragePos();
+        CircleDamageAttacker circleDamage = shockwavePrefab.Spawn(pos, Containers.Instance.Projectiles);
 
         ApplyEffects(circleDamage.transform);
 

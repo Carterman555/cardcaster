@@ -33,7 +33,7 @@ public class CameraLookInfluence : MonoBehaviour {
     }
 
     void Update() {
-        
+
         if (InputManager.Instance.GetControlScheme() == ControlSchemeType.Keyboard) {
             desiredOffset = GetMouseOffset();
         }
@@ -45,14 +45,13 @@ public class CameraLookInfluence : MonoBehaviour {
             Debug.LogWarning($"ControlSchemeType not found {InputManager.Instance.GetControlScheme()}!");
         }
 
-        Vector3 offset = frozenCameraLook ? frozenOffset : desiredOffset;
+        Vector3 offset = frozenCameraLook ? Vector3.zero : desiredOffset;
         framingTransposer.m_TrackedObjectOffset = new Vector3(Mathf.Abs(offset.x), offset.y, 0f);
     }
 
     private void TryFreezeCameraLook(Transform cardTransform) {
         if (InputManager.Instance.GetControlScheme() == ControlSchemeType.Controller) {
             frozenCameraLook = true;
-            frozenOffset = desiredOffset;
         }
     }
 

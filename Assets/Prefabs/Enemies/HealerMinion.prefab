@@ -422,8 +422,8 @@ MonoBehaviour:
   scriptableEnemy: {fileID: 11400000, guid: eec324ac9eafb674eb8929d0f27e8fbb, type: 2}
   playerTracker: {fileID: 7008075748960684286}
   anim: {fileID: 7812749826847277617}
-  jumpPower: 2
-  jumpDuration: 0.75
+  jumpPower: 1
+  jumpDuration: 0.3
 --- !u!114 &-7541718081894400129
 MonoBehaviour:
   m_ObjectHideFlags: 0

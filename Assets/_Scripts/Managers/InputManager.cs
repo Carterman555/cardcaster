@@ -67,10 +67,10 @@ public class InputManager : Singleton<InputManager> {
     private void InvokeControlSchemeChangedEvent(PlayerInput playerInput) {
         if (GetControlScheme() == ControlSchemeType.Keyboard) {
             EventSystem.current.SetSelectedGameObject(null);
-            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.None;
         }
         else if (GetControlScheme() == ControlSchemeType.Controller) {
-            Cursor.visible = false;
+            Cursor.lockState = CursorLockMode.Locked;
         }
 
         if (GetControlScheme() != currentControlScheme) {

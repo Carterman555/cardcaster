@@ -9,6 +9,7 @@ public class PlayerMeleeAttack : StaticInstance<PlayerMeleeAttack>, ITargetAttac
 
     public event Action OnAttack;
     public event Action<GameObject> OnDamage_Target;
+    public event Action<GameObject[]> OnAttack_Targets;
 
     [SerializeField] private InputActionReference attackInput;
     [SerializeField] private SlashingWeapon weapon;
@@ -115,6 +116,8 @@ public class PlayerMeleeAttack : StaticInstance<PlayerMeleeAttack>, ITargetAttac
         foreach (EnemyHealth health in targetHealths) {
             OnDamage_Target?.Invoke(health.gameObject);
         }
+
+        OnAttack_Targets?.Invoke(targetCols.Select(col => col.gameObject).ToArray());
     }
 
     public void ExternalAttack(GameObject target, Vector2 attackCenter, float damageMult = 1f, float knockbackStrengthMult = 1f) {

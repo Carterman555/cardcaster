@@ -50,15 +50,17 @@ MonoBehaviour:
   memoryCard: 0
   abilityAttributes: 1
   abilityStatsModifierPercentage:
-    BaseDamage: 25
+    BaseDamage: 40
     KnockbackStrength: 0
     AreaSize: 0
     Duration: 0
     ProjectileSpeed: 0
     Cooldown: 0
-  modifierImagePrefab: {fileID: -2071319084836149, guid: c6d28b118b972a744a66d705262b19cd, type: 3}
   appliesEffect: 0
-  effectPrefab: {fileID: 0}
+  effectModifier:
+    EffectLogicPrefab: {fileID: 0}
+    HasVisual: 0
+    EffectVisualPrefab: {fileID: 0}
   references:
     version: 2
     RefIds: []
